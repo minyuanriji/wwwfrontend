@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "购物车",
+  "navigationStyle": "custom",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "com-modal": "/components/com/com-modal/com-modal",
+    "commodity": "/components/commodity/commodity",
+    "main-tabbar": "/components/main/tabbar/tabbar",
+    "main-loading": "/components/main/loading/loading",
+    "placeholder": "/components/placeholder/placeholder"
+  }
+}

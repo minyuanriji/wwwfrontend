@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "swiper-dot": "/components/swiper-dot/swiper-dot"
+  }
+}

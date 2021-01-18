@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "有效券详情",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "main-nomore": "/components/main/nomore/nomore",
+    "main-loadmore": "/components/main/loadmore/loadmore",
+    "main-loading": "/components/main/loading/loading"
+  }
+}

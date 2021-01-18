@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "收益提现",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "com-upload": "/components/com/com-upload/com-upload",
+    "com-modal": "/components/com/com-modal/com-modal",
+    "com-payment-password": "/components/com/com-payment-password/com-payment-password",
+    "main-loading": "/components/main/loading/loading"
+  }
+}

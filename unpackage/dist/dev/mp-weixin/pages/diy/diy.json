@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "com-nav-bar": "/components/com/com-nav-bar/com-nav-bar",
+    "diy-container": "/components/diy/diy-container"
+  }
+}

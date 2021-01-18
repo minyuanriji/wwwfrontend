@@ -1,0 +1,15 @@
+{
+  "navigationBarTitleText": "分销分红",
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50,
+  "usingComponents": {
+    "com-nav-bar": "/components/com/com-nav-bar/com-nav-bar",
+    "main-nomore": "/components/main/nomore/nomore",
+    "com-modal": "/components/com/com-modal/com-modal",
+    "main-loadmore": "/components/main/loadmore/loadmore",
+    "main-loading": "/components/main/loading/loading"
+  }
+}

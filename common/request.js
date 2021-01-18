@@ -1,0 +1,257 @@
+//公共js,以及基本方法封装 nvue里使用
+import {
+	isWeChat
+} from '@/utils/util.js';
+import {user} from './api.js';
+
+const fetch = {
+	toast: function(tips) {
+		uni.showToast({
+			title: tips || "出错啦~",
+			icon: 'none',
+			duration: 2000
+		})
+	},
+	setToken: function(token) {
+		uni.setStorageSync("token", token)
+	},
+	getToken() {
+		return uni.getStorageSync("token")
+	},
+	isLogin: function() {
+		return uni.getStorageSync("token") ? true : false
+	},
+	logout: function() {
+		uni.removeStorageSync("token");
+		uni.removeStorageSync('userInfo');
+		fetch.toast('登出成功')
+		uni.reLaunch({
+			url: '/pages/index/index'
+		})
+	},
+	// 获取当前环境
+	getPlatform() {
+		let platform = 'h5';
+		// #ifdef H5
+		platform = isWeChat() ? 'wechat' : 'h5';
+		// #endif
+		// #ifdef MP-WEIXIN
+		platform = 'mp-wx'
+		// #endif
+		// #ifdef MP-ALIPAY	
+		platform = 'mp-ali'
+		// #endif
+		// #ifdef MP-BAIDU
+		platform = 'mp-bd'
+		// #endif
+		// #ifdef MP-TOUTIAO
+		platform = 'mp-tt'
+		// #endif
+		// #ifdef APP-PLUS
+		platform = 'app'
+		// #endif
+		return platform;
+	},
+	getUrlParam: function(name, pageObj) {
+
+		var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+		// let url = window.location.href.split('#')[0]
+		let url = window.location.href;
+		let search = url.split('?')[1]
+		if (search) {
+			var r = search.substr(0).match(reg)
+			if (r !== null) {
+				return unescape(r[2])
+			}
+			return null
+		} else {
+			return null
+		}
+	},
+	request: function(requestData) {
+		let currPage;
+		let pages = getCurrentPages();
+		// #ifdef MP-WEIXIN || APP-PLUS
+		if(pages.length > 0){
+			currPage = pages[pages.length - 1].$vm; // 当前页路由
+		}
+		// #endif
+		// #ifdef H5
+		let prevPage = pages[pages.length - 1]; // 上一级路由
+		currPage = pages[pages.length - 1]; // 当前页路由
+		// #endif
+
+		let platform = fetch.getPlatform();
+		let url = requestData.url,
+			postData = requestData.data,
+			method = requestData.method,
+			showLoading = requestData.showLoading;
+		//接口请求
+		method = (method === 'post' || method === 'POST') ? 'POST' : 'GET';
+		if (showLoading) {
+			uni.showLoading({
+				mask: true,
+				title: '请稍候...'
+			})
+		}
+
+		const access_token = fetch.getToken() || "";
+		return new Promise((resolve, reject) => {
+			uni.request({
+				url: url,
+				data: postData,
+				header: {
+					'content-type': 'application/json',
+					// 'x-mall-id': uni.getStorageSync("mall_id") || 4,
+					'x-mall-id': uni.getStorageSync("mall_id") || 5,
+					'x-access-token': access_token,
+					// 'x-access-token': 'amkzkqVxm7OS5EQEwtTXN6-gUKhC7Wi4',
+					'x-parent-id': uni.getStorageSync('pid') || -1,
+					'x-source': uni.getStorageSync('source') || 0,
+					'x-app-platform': platform
+				},
+				method: method,
+				dataType: 'json',
+				success: (res) => {
+					if (res.statusCode === 500) {
+						fetch.toast("服务错误~")
+						reject(res)
+					}
+					showLoading && uni.hideLoading()
+					if (res.data.code == -1) {
+						// #ifdef H5
+						let preUrl = prevPage.$route.fullPath;
+						uni.setStorageSync("_login_pre_url", preUrl);
+						// #endif
+						uni.removeStorageSync("token")
+						uni.removeStorageSync("initMenus")
+						
+						//console.log(uni.getStorageSync('userInfo'),'userInfouserInfo');
+						if(uni.getStorageSync('userInfo')){
+							uni.removeStorageSync('userInfo');
+						}
+						
+						uni.showModal({
+							title: "提示",
+							content: "您还未登录，去登录吧~",
+							confirmText: "去登录",
+							cancelText: "再逛会",
+							success: (res) => {
+								if (res.confirm) {
+									uni.navigateTo({
+										url: '/pages/public/login'
+									});
+								}else{
+									let _currRoute = ''
+									// #ifdef H5
+									_currRoute = currPage.route;
+									// #endif
+									// #ifdef MP-WEIXIN || APP-PLUS
+									_currRoute = currPage.__route__;
+									// #endif
+									if(_currRoute.indexOf("cart") == -1 && _currRoute.indexOf("goods") == -1){
+										uni.navigateBack();
+									}
+								}
+							}
+						});
+					} else if (res.data.code == 2) {
+						console.log("未绑定手机号");
+						uni.navigateTo({
+							url: `/pages/public/bind`
+						})
+					} else if( res.data.code == 6 ){						
+						// #ifdef H5
+						let preUrl = prevPage.$route.fullPath;
+						uni.setStorageSync("_login_pre_url", preUrl);
+						// #endif
+						
+						uni.navigateTo({
+							url: '/pages/public/bindParent'
+						});
+					}
+					resolve(res.data)
+				},
+				fail: (res) => {
+					fetch.toast("网络不给力，请稍后再试~")
+					reject(res)
+				}
+			})
+		})
+	},
+	// 上传头像
+	uploadFile: function(requestData) {
+		let {
+			serverUrl,
+			file,
+			fileKeyName
+		} = requestData;
+		let platform = fetch.getPlatform();
+		const access_token = fetch.getToken() || "";
+
+		return new Promise((resolve, reject) => {
+		
+			uni.uploadFile({
+				url: serverUrl,
+				name: fileKeyName,
+				header: {
+					'x-mall-id': uni.getStorageSync("mall_id") || 5,
+					// 'x-access-token': '_HyYN8d_1Q-TH2ItV7ct28oMSjmXcYmM',
+					'x-access-token': access_token,
+					'x-parent-id': uni.getStorageSync('parentId') || -1,
+					'x-app-platform': platform
+				},
+				formData: {},
+				filePath: file,
+				success: function(res) {
+					if (res.statusCode === 500) {
+						fetch.toast("服务错误~")
+						reject(res)
+					}
+					resolve(JSON.parse(res.data))
+				},
+				fail: function(err) {
+					fetch.toast("网络不给力，请稍后再试~")
+					reject(err)
+				}
+			})
+
+		})
+
+	},
+	setUserInfo: function(bool) {
+		// this.loading = bool;
+		fetch.request({
+				url: user.userInfo,
+				method: 'POST'
+			})
+			.then(res => {
+				// this.loading = false;
+				if (res.code == 0) {
+					this.userInfo = res.data;
+					let recommend_id = res.data.parent_id||0;
+					uni.setStorageSync('userInfo', JSON.stringify(res.data));
+					uni.setStorageSync('recommend_id', recommend_id);
+					if(!recommend_id){
+						uni.navigateTo({
+							url:'/pages/public/bindParent'
+						})
+					}
+				} else {
+					uni.removeStorageSync('userInfo');
+				}
+			});
+	}
+}
+
+module.exports = {
+	request: fetch.request,
+	uploadFile: fetch.uploadFile,
+	toast: fetch.toast,
+	isLogin: fetch.isLogin,
+	setToken: fetch.setToken,
+	getUrlParam: fetch.getUrlParam,
+	logout: fetch.logout,
+	setUserInfo: fetch.setUserInfo,
+	getPlatform: fetch.getPlatform
+}

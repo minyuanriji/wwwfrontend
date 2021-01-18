@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "申请退款",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "com-upload": "/components/com/com-upload/com-upload",
+    "com-bottom-popup": "/components/com/com-bottom-popup/com-bottom-popup",
+    "main-loading": "/components/main/loading/loading"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "我的收益",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "com-nav-bar": "/components/com/com-nav-bar/com-nav-bar",
+    "main-nomore": "/components/main/nomore/nomore",
+    "main-loading": "/components/main/loading/loading"
+  }
+}

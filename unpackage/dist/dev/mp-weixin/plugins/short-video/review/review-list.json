@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "审核列表",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "com-tabs": "/components/com/com-tabs/com-tabs"
+  }
+}

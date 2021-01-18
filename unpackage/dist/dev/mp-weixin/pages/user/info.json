@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "个人资料",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "com-upload": "/components/com/com-upload/com-upload",
+    "main-datetime": "/components/main/datetime/datetime",
+    "main-loading": "/components/main/loading/loading"
+  }
+}

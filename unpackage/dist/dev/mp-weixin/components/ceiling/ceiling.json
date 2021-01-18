@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "commodity": "/components/commodity/commodity",
+    "main-loadmore": "/components/main/loadmore/loadmore",
+    "main-nomore": "/components/main/nomore/nomore"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "component": true,
+  "usingComponents": {
+    "search": "/components/search/search",
+    "notice": "/components/notice/notice",
+    "commodity": "/components/commodity/commodity",
+    "diy-video": "/components/diy/diy-video",
+    "placeholder": "/components/placeholder/placeholder",
+    "diy-appointing": "/components/diy/diy-appointing",
+    "diy-link": "/components/diy/diy-link",
+    "banners": "/components/banners/banners",
+    "diy-copyright": "/components/diy/diy-copyright",
+    "diy-image-text": "/components/diy/diy-image-text",
+    "diy-map": "/components/diy/diy-map",
+    "thematic": "/components/thematic/thematic",
+    "rubik": "/components/rubik/rubik",
+    "diy-modal": "/components/diy/diy-modal"
+  }
+}

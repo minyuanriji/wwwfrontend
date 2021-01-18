@@ -1,0 +1,50 @@
+
+.modal-root.data-v-43308ece{
+	background: rgba(0,0,0,0.2);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 999999;
+}
+.model-box.data-v-43308ece{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	        transform: translate(-50%,-50%);
+	width: 100%;
+}
+.swiper-box.data-v-43308ece{
+	width: 560rpx;
+	height: 650rpx;
+	margin: auto;
+	border-radius: 10rpx;
+	overflow: hidden;
+}
+.swiper-item.data-v-43308ece{
+	height: 100%;
+	background-size: cover !important;
+	background-position: center !important;
+}
+.moadl-close-box.data-v-43308ece{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+.moadl-close.data-v-43308ece{
+	text-align: center;
+	border: 2rpx solid #FFFFFF;
+	color: #FFFFFF;
+	display: inline-block;
+	border-radius: 50%;
+	width: 56rpx;
+	height: 56rpx;
+	line-height: 56rpx;
+	margin: 30rpx auto;
+}
+

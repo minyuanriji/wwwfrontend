@@ -1,0 +1,94 @@
+
+.topic-box.data-v-edb52fb8{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	padding: 0 10rpx;
+}
+.left-img.data-v-edb52fb8{
+	width: 104rpx;
+	height: 32rpx;
+	margin-right: 20rpx;
+}
+.left-img2.data-v-edb52fb8{
+	height: 50rpx;
+}
+.right-content.data-v-edb52fb8{
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+}
+.right-content-item.data-v-edb52fb8{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.right-content-item-icon.data-v-edb52fb8{
+	width: 54rpx;
+	height: 28rpx;
+	margin-right: 10rpx;
+}
+.right-content-item-text.data-v-edb52fb8{
+	width: 500rpx;
+	font-size: 11pt;
+	color: #000000;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.layout1.data-v-edb52fb8{
+	padding: 10rpx 20rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	background: #FFFFFF;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	margin-bottom: 12rpx;
+	border-radius: 10rpx;
+}
+.layout1-left.data-v-edb52fb8{
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+}
+.layout1-img.data-v-edb52fb8{
+	width: 268rpx;
+	height: 202rpx;
+	margin-bottom: 20rpx;
+}
+.read-count.data-v-edb52fb8{
+	color: #888;
+	font-size: 10pt;
+}
+.layout2.data-v-edb52fb8{
+	padding: 24rpx;
+	background: #FFFFFF;
+	margin-bottom: 12rpx;
+	border-radius: 10rpx;
+}
+.layout2-img.data-v-edb52fb8{
+	width: 100%;
+	height: 350rpx;
+}
+

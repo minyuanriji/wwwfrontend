@@ -1,0 +1,116 @@
+
+page.data-v-558812ba {
+	background: #FFFFFF !important;
+}
+.avatar.data-v-558812ba {
+	text-align: center;
+	padding: 100rpx 0 57rpx;
+}
+.avatar-img.data-v-558812ba {
+	width: 168rpx;
+	height: 168rpx;
+}
+.login-content.data-v-558812ba {
+	padding: 0 30rpx;
+	box-sizing: border-box;
+}
+.common.data-v-558812ba {
+	height: 90rpx;
+	border: 2rpx solid #F3F3F3;
+	border-radius: 45rpx;
+	padding: 0rpx 42rpx;
+	box-sizing: border-box;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	margin-bottom: 50rpx;
+}
+.iconCss.data-v-558812ba {
+	font-size: 16pt;
+	color: #797979;
+	margin-right: 18rpx;
+}
+.com-inp.data-v-558812ba {
+	font-size: 10pt;
+	letter-spacing: 2rpx;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+}
+.login-btn.data-v-558812ba {
+	background: #BC0100;
+	border: 0;
+	color: #FFFFFF;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	font-size: 10pt;
+	letter-spacing: 4rpx;
+	margin-bottom: 28rpx;
+}
+.otherSelect.data-v-558812ba {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	font-size: 9pt;
+	color: #8A8A8A;
+	padding: 0 30rpx;
+	box-sizing: border-box;
+}
+.agreement.data-v-558812ba {
+	color: #BC0100;
+}
+.code.data-v-558812ba {
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+}
+.code-left.data-v-558812ba {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.code-right.data-v-558812ba {
+	font-size: 10pt;
+	color: #8A8A8A;
+	letter-spacing: 2rpx;
+}
+.agreement-box.data-v-558812ba {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.agreement-btn.data-v-558812ba {
+	border: 2rpx solid #F3F3F3;
+	width: 26rpx;
+	height: 26rpx;
+	border-radius: 50%;
+	margin-right: 16rpx;
+	position: relative;
+}
+.agreement-icon.data-v-558812ba {
+	position: absolute;
+	top: 14rpx;
+	left: -2rpx;
+	line-height: 0;
+	color: #BC0100;
+}
+.show.data-v-558812ba {
+	display: block;
+}
+.hide.data-v-558812ba {
+	display: none;
+}
+

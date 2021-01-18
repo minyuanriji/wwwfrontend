@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "拼团详情",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "tui-countdown": "/components/tui-countdown/tui-countdown",
+    "commodity": "/components/commodity/commodity",
+    "com-bottom-popup": "/components/com/com-bottom-popup/com-bottom-popup",
+    "tui-numberbox": "/components/numberbox/numberbox"
+  }
+}

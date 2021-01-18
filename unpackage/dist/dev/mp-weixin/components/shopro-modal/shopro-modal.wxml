@@ -1,0 +1,1 @@
+<view class="{{['cu-modal',[(showModal)?'show':''],modalType]}}" cathctouchmove="{{true}}" data-event-opts="{{[['tap',[['hideModal',['$event']]]]]}}" bindtap="__e"><view data-event-opts="{{[['tap',[['',['$event']]]]]}}" class="cu-dialog" style="background:none;overflow:visible;" catchtap="__e"><slot name="modalContent"></slot></view></view>

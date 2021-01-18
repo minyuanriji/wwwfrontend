@@ -1,0 +1,28 @@
+
+.scroll-view.data-v-0d6e9740{
+	white-space: nowrap;
+}
+.scroll-item.data-v-0d6e9740{
+	display: inline-block;
+	padding: 0 20rpx 16rpx;
+}
+.scroll-item-active.data-v-0d6e9740{
+	color: #BC0100;
+	font-weight: 600;
+}
+.scroll-line.data-v-0d6e9740{
+	position: absolute;
+	width: 50rpx;
+	border-bottom: 4rpx solid #BC0100;
+	bottom: 0;
+	left: 0;
+	-webkit-transition: all 0.3s;
+	transition: all 0.3s;
+}
+/* 隐藏滚动条 */
+scroll-view.data-v-0d6e9740 ::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+	background-color: transparent;
+}
+

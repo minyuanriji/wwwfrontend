@@ -1,0 +1,47 @@
+// 正式服
+// let domainUrl = "http://www.mingyuanriji.cn";
+let domainUrl = "http://dev.mingyuanriji.cn";
+let baseUrl = "";
+let socketUrl = "";
+if (process.env.NODE_ENV === 'development') {
+	// 开发环境
+	baseUrl = "http://localhost/";
+	// baseUrl = "http://dev.mingyuanriji.cn/";
+	// socketUrl = "ws://8.129.186.35:6001/";
+} else if (process.env.NODE_ENV === 'production') {
+	// 生产环境
+	// baseUrl = "https://jx.shuzixiangdao.com/web/index.php/";
+	// baseUrl = "https://dev.mingyuanriji.cn/web/index.php/";
+	baseUrl = "https://www.mingyuanriji.cn/web/index.php/";
+	// socketUrl = "ws://8.129.186.35:6001/";
+}
+const courtConfig = {
+	//微信公众号APPID
+	//publicAppId: "wxaead1c4fbee8a907",
+	publicAppId: "wxd7ac6d41d564256c", //名媛日记appid
+	//域名地址
+	domainUrl:domainUrl,
+	//请求接口
+	baseUrl: baseUrl,
+	//webSocket地址
+	socketUrl: socketUrl,
+	//平台名称
+	platformName: "名媛日记",
+	//项目logo
+	logoUrl: "http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20201216/15262b999e48acc5891864e3f2463cb0.jpg",
+	//页面分享配置
+	share: {
+		title: '名媛日记',
+		// #ifdef MP-WEIXIN
+		path: '/pages/home/home', //小程序分享路径
+		// #endif
+		// #ifdef H5 || APP-PLUS
+		//公众号||APP分享
+		desc: "名媛日记", // 分享描述
+		link: "http://www.mingyuanriji.cn/h5/", // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+		imgUrl: "http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20201216/15262b999e48acc5891864e3f2463cb0.jpg", // 分享图标
+		// #endif
+	}
+};
+
+export default Object.assign({}, courtConfig);

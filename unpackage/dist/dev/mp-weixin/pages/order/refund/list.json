@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "退款/售后",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50,
+  "usingComponents": {
+    "main-nomore": "/components/main/nomore/nomore",
+    "main-loadmore": "/components/main/loadmore/loadmore",
+    "main-loading": "/components/main/loading/loading",
+    "jx-list-cell": "/components/list-cell/list-cell",
+    "jx-button": "/components/extend/button/button"
+  }
+}

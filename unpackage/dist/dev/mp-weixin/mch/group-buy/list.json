@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "拼团商品",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "com-tabs": "/components/com/com-tabs/com-tabs",
+    "main-nomore": "/components/main/nomore/nomore"
+  }
+}

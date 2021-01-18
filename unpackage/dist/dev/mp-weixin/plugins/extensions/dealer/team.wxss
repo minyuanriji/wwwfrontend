@@ -1,0 +1,291 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 商城主题色 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.app.data-v-27bc73f5 {
+  min-height: 100%;
+  background-color: #f7f7f7;
+  padding-bottom: 10px;
+}
+.app .container .content-head.data-v-27bc73f5 {
+  width: 100%;
+  position: relative;
+  padding-top: 30rpx;
+}
+.app .container .content-head .jx-bg.data-v-27bc73f5 {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 414rpx;
+}
+.app .container .content-head .super.data-v-27bc73f5 {
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 8rpx;
+  margin: 0 30rpx;
+  padding: 30rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.app .container .content-head .super .acatar.data-v-27bc73f5 {
+  width: 122rpx;
+  height: 122rpx;
+  border-radius: 50%;
+  margin-right: 30rpx;
+}
+.app .container .content-head .super .userinfo .username.data-v-27bc73f5,
+.app .container .content-head .super .userinfo .desc.data-v-27bc73f5,
+.app .container .content-head .super .userinfo .tel.data-v-27bc73f5 {
+  line-height: 48rpx;
+}
+.app .container .content-head .super .userinfo .username.data-v-27bc73f5 {
+  color: #000000;
+  font-weight: bold;
+  font-size: 36rpx;
+}
+.app .container .content-head .super .userinfo .desc.data-v-27bc73f5,
+.app .container .content-head .super .userinfo .tel.data-v-27bc73f5 {
+  color: #bc0100;
+  font-size: 9pt;
+}
+.app .container .content-head .super .userinfo .iconfont.data-v-27bc73f5 {
+  font-size: 10pt;
+  margin-right: 8rpx;
+}
+.app .container .content-bottom.data-v-27bc73f5 {
+  position: relative;
+  padding: 0 30rpx;
+}
+.app .container .content-bottom .card.data-v-27bc73f5,
+.app .container .content-bottom .order.data-v-27bc73f5 {
+  margin-top: 20rpx;
+  border-radius: 15rpx;
+  background-color: #ffffff;
+  color: #333333;
+}
+.app .container .content-bottom .card .title.data-v-27bc73f5 {
+  padding: 0 30rpx;
+  line-height: 90rpx;
+  font-size: 12pt;
+  border-bottom: 1rpx solid #f3f3f3;
+}
+.app .container .content-bottom .card .bill.data-v-27bc73f5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.app .container .content-bottom .card .bill .icon-text.data-v-27bc73f5 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  padding: 30rpx 0;
+}
+.app .container .content-bottom .card .bill .icon-text .logo-img.data-v-27bc73f5 {
+  width: 50rpx;
+  height: 50rpx;
+}
+.app .container .content-bottom .card .bill .icon-text .name.data-v-27bc73f5 {
+  font-size: 10pt;
+}
+.app .container .content-bottom .card .bill .icon-text .sum.data-v-27bc73f5 {
+  font-weight: bold;
+  color: #bc0100;
+  font-size: 11pt;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 180rpx;
+}
+.app .container .content-bottom .order.data-v-27bc73f5 {
+  font-size: 11pt;
+}
+.app .container .content-bottom .order .tabs.data-v-27bc73f5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  border-bottom: 1rpx solid #f3f3f3;
+}
+.app .container .content-bottom .order .tabs .tab.data-v-27bc73f5 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  text-align: center;
+  line-height: 90rpx;
+  border-right: 1rpx solid #f2f2f2;
+}
+.app .container .content-bottom .order .tabs .tab .name.data-v-27bc73f5 {
+  position: relative;
+}
+.app .container .content-bottom .order .tabs .tab.active.data-v-27bc73f5 {
+  color: #bc0100;
+}
+.app .container .content-bottom .order .tabs .tab.active .name.data-v-27bc73f5::before {
+  content: '';
+  position: absolute;
+  bottom: -12rpx;
+  height: 4rpx;
+  width: 100%;
+  background-color: #bc0100;
+}
+.app .container .content-bottom .order .tabs .tab.data-v-27bc73f5:last-child {
+  border-right: 0;
+}
+.app .container .content-bottom .order .status.data-v-27bc73f5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  padding: 36rpx 30rpx;
+  line-height: 60rpx;
+}
+.app .container .content-bottom .order .status .name.data-v-27bc73f5 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  text-align: center;
+  margin: 0 36rpx;
+}
+.app .container .content-bottom .order .status .name.active.data-v-27bc73f5 {
+  border-bottom: 4rpx solid #bc0100;
+}
+.app .container .content-bottom .order .order-items.data-v-27bc73f5 {
+  border-top: 1rpx solid #f3f3f3;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+}
+.app .container .content-bottom .order .order-items .item.data-v-27bc73f5 {
+  padding: 20rpx;
+  border-bottom: 1rpx solid #f3f3f3;
+}
+.app .container .content-bottom .order .order-items .item .user-status.data-v-27bc73f5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  position: relative;
+  margin-bottom: 16rpx;
+}
+.app .container .content-bottom .order .order-items .item .user-status .acatar.data-v-27bc73f5 {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin-right: 16rpx;
+}
+.app .container .content-bottom .order .order-items .item .user-status .name-datetime .name.data-v-27bc73f5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  line-height: 37rpx;
+}
+.app .container .content-bottom .order .order-items .item .user-status .name-datetime .name .name-text.data-v-27bc73f5 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 154rpx;
+}
+.app .container .content-bottom .order .order-items .item .user-status .name-datetime .name .id.data-v-27bc73f5 {
+  margin-left: 12rpx;
+  color: #bc0100;
+  padding: 0 10rpx;
+  font-size: 9pt;
+  -webkit-transform: scale(0.8);
+          transform: scale(0.8);
+  line-height: 32rpx;
+  border: 1rpx solid #bc0100;
+  border-radius: 14rpx;
+}
+.app .container .content-bottom .order .order-items .item .user-status .name-datetime .tel.data-v-27bc73f5,
+.app .container .content-bottom .order .order-items .item .user-status .name-datetime .datetime.data-v-27bc73f5 {
+  font-size: 9pt;
+  color: #808080;
+}
+.app .container .content-bottom .order .order-items .item .user-status .name-datetime .tel .iconfont.data-v-27bc73f5,
+.app .container .content-bottom .order .order-items .item .user-status .name-datetime .datetime .iconfont.data-v-27bc73f5 {
+  color: #bc0100;
+  line-height: 16px;
+  font-size: 10pt;
+}
+.app .container .content-bottom .order .order-items .item .user-status .status-text.data-v-27bc73f5 {
+  position: absolute;
+  width: 88rpx;
+  height: 36rpx;
+  top: 0;
+  right: 0;
+  padding: 0 10rpx;
+  background-color: #bc0100;
+  border: 1rpx solid #bc0100;
+  border-radius: 18rpx;
+  color: #ffffff;
+  font-size: 9pt;
+  -webkit-transform: scale(0.8);
+          transform: scale(0.8);
+  text-align: center;
+  line-height: 32rpx;
+}
+.app .container .content-bottom .order .order-items .item .info.data-v-27bc73f5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  font-size: 9pt;
+}
+.app .container .content-bottom .order .order-items .item .info .mark.data-v-27bc73f5 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+}
+.app .container .content-bottom .order .order-items .item .info .mark .goods-name.data-v-27bc73f5,
+.app .container .content-bottom .order .order-items .item .info .mark .order-id.data-v-27bc73f5 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 420rpx;
+}
+.app .container .content-bottom .order .order-items .item .info .money .commission.data-v-27bc73f5 {
+  color: #bc0100;
+}
+.flex-column-x-center.data-v-27bc73f5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+

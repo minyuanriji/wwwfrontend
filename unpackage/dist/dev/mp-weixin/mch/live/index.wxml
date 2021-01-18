@@ -1,0 +1,1 @@
+<view class="content"><button data-event-opts="{{[['tap',[['tui',['$event']]]]]}}" bindtap="__e">推流</button><button data-event-opts="{{[['tap',[['la',['$event']]]]]}}" bindtap="__e">拉流</button><main-tabbar vue-id="b3c85aa8-1" bind:__l="__l"></main-tabbar></view>

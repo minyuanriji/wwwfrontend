@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "新增自提点",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "com-nav-bar": "/components/com/com-nav-bar/com-nav-bar",
+    "com-icons": "/components/com/com-icons/com-icons"
+  }
+}

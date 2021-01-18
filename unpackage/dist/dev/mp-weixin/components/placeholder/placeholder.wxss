@@ -1,0 +1,6 @@
+
+.placeholderBox{
+	width: 100%;
+	background: #bc0100;
+}
+

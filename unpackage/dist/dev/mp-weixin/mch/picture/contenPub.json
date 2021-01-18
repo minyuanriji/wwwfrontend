@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "内容发布",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "com-upload": "/components/com/com-upload/com-upload"
+  }
+}

@@ -1,0 +1,1 @@
+<block wx:if="{{visible}}"><view class="jx-nomore-class jx-loadmore-none data-v-3343ee54"><view class="{{['data-v-3343ee54',isDot?'jx-nomore-dot':'jx-nomore']}}"><view class="{{['data-v-3343ee54',isDot?'jx-dot-text':'jx-nomore-text']}}" style="{{'background:'+(bgcolor)+';'}}">{{isDot?dotText:text}}</view></view></view></block>

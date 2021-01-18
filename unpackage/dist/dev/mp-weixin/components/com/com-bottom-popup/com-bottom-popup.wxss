@@ -1,0 +1,40 @@
+
+.jx-bottom-popup {
+	width: 100%;
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	/* z-index: 999; */
+	visibility: hidden;
+	-webkit-transform: translate3d(0, 100%, 0);
+	        transform: translate3d(0, 100%, 0);
+	-webkit-transform-origin: center;
+	        transform-origin: center;
+	-webkit-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+	min-height: 20rpx;
+}
+.jx-popup-show {
+	-webkit-transform: translate3d(0, 0, 0);
+	        transform: translate3d(0, 0, 0);
+	visibility: visible;
+}
+.jx-popup-mask {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.6);
+	/* z-index: 998; */
+	-webkit-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+	opacity: 0;
+	visibility: hidden;
+}
+.jx-mask-show {
+	opacity: 1;
+	visibility: visible;
+}
+

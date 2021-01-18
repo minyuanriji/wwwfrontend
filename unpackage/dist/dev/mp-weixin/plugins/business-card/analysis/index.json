@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "BOSS雷达",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "com-modal": "/components/com/com-modal/com-modal"
+  }
+}

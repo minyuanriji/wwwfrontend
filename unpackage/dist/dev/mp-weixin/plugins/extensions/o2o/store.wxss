@@ -1,0 +1,430 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 商城主题色 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.app.data-v-ac83aec0 {
+  min-height: 100%;
+  background-color: #f7f7f7;
+}
+.container.data-v-ac83aec0 {
+  color: #ffffff;
+  position: relative;
+}
+.container .jx-bg.data-v-ac83aec0 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 304rpx;
+  opacity: 0.5;
+}
+.content.data-v-ac83aec0 {
+  position: relative;
+  color: #000000;
+}
+.content .content-head.data-v-ac83aec0 {
+  padding: 0 20rpx;
+}
+.content .content-head .store-info.data-v-ac83aec0 {
+  position: relative;
+  margin-top: 108rpx;
+  background-color: #ffffff;
+  padding: 28rpx 24rpx;
+  border-radius: 25rpx;
+  margin-bottom: 30rpx;
+}
+.content .content-head .store-info .store-name.data-v-ac83aec0 {
+  font-size: 36rpx;
+  font-weight: 500;
+  line-height: 60rpx;
+}
+.content .content-head .store-info .store-delivery-time.data-v-ac83aec0,
+.content .content-head .store-info .store-delivery-time .iconfont.data-v-ac83aec0 {
+  font-size: 9pt;
+}
+.content .content-head .store-info .store-notice.data-v-ac83aec0 {
+  color: #828282;
+  font-size: 9pt;
+  margin-bottom: 26rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.content .content-head .store-info .store-coupons.data-v-ac83aec0 {
+  color: #ffffff;
+  margin-bottom: 10rpx;
+}
+.content .content-head .store-info .store-coupons .coupon.data-v-ac83aec0 {
+  width: 136rpx;
+  height: 42rpx;
+  margin-right: 30rpx;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIgAAAAwCAYAAADKIzJKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3FpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQyIDc5LjE2MDkyNCwgMjAxNy8wNy8xMy0wMTowNjozOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpmYjI2ZWIxOS1lMjQ2LThlNDctOGQwNC0zMjY2NDc5N2YxZGEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjYxOUI4RkJDNUE5MTFFQUI2NzFEMjIyRjRBNkM5N0IiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjYxOUI4RkFDNUE5MTFFQUI2NzFEMjIyRjRBNkM5N0IiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjlhYzMxYmEzLWFiMTUtNDQ0OS1hOTI2LTE2OGZmNDkwMDQzOSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpmYjI2ZWIxOS1lMjQ2LThlNDctOGQwNC0zMjY2NDc5N2YxZGEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7KEr33AAAB2ElEQVR42uycv0rDUBSHb5X+sVpwKi4VnLMWQZwsgg7aB3AQQUFHH0Lnjjr4Fq2TpUhaEdTR0cknMG3VIpR4bk0liJHalsZevw9+JGmme+/HSXIKN+K6roLf02q1uqfzkjPJkuRasid5TCQSRowzgiADC3IhWfXdupSsGCNIOcJi98Pyy2v3tCGZ8d16k8SvklNGjHPCd74pqXgDdsnPEQE6eapU/HIox7Zj+vcxHVfDc2CjO57J7Y8KciQ5kSxIYtSH3qlXqyppWSqaTqt6raYeDvZV23HGdTgxz4EtSVTLoh8x2pYiSw3fkNcV5NSzBuArc/odJMs8DPWl1SSyWpAUywsBpCaYA+j1MxcAQQBBYIjoPgh/xgAVBBAkVAztgyAIIAggCCAIIAj8PeiDABUEECR06IMAFQQAQQBBAEFgRNAHASoIIEjo0AcBKggAggCCAILAiKAPAlQQQJDQMbkP0mB5IYCmFuSOeYAAbrUgBeYBAihoQfQOh8fMRX/EMxllFUuq3Wx2jvraELQTRf9Oy3nJoWRRMs3S94ZVOlezudzntWPb6n59bVyH8yy58Z4qna1R2Yp78K8Wo7fiZjP/Pvkvm/nTBxmcXUnZK8/6uGPS4N4FGABD0uawnwTTXgAAAABJRU5ErkJggg==);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  font-size: 9pt;
+}
+.content .content-head .store-info .store-coupons .coupon .money.data-v-ac83aec0 {
+  font-weight: bold;
+  margin-right: 12rpx;
+}
+.content .content-head .store-info .store-coupons .coupon .text.data-v-ac83aec0 {
+  margin-left: 20rpx;
+  -webkit-transform: scale(0.8);
+          transform: scale(0.8);
+}
+.content .content-head .store-info .store-discount.data-v-ac83aec0 {
+  font-size: 9pt;
+  color: #bc0100;
+}
+.content .content-head .store-info .store-discount .discount.data-v-ac83aec0 {
+  height: 27rpx;
+  padding: 0 8rpx;
+  border-radius: 5rpx;
+  border: 1rpx solid #bc0100;
+  margin-right: 9rpx;
+  line-height: 27rpx;
+}
+.content .content-head .store-info .store-avatar.data-v-ac83aec0 {
+  position: absolute;
+  top: -50rpx;
+  right: 20rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: #ffffff 100% no-repeat;
+}
+.content .menu.data-v-ac83aec0 {
+  padding: 0 30rpx;
+  border-bottom: 2rpx solid #e6e6e6;
+}
+.content .menu .menu-item.data-v-ac83aec0 {
+  width: 150rpx;
+  line-height: 43rpx;
+}
+.content .menu .menu-item.active .menu-title.data-v-ac83aec0 {
+  color: #bc0100;
+}
+.content .menu .menu-item.active .menu-title.data-v-ac83aec0::before {
+  position: absolute;
+  bottom: 0;
+  left: 10rpx;
+  content: '';
+  width: 37rpx;
+  height: 4rpx;
+  background: #bc0100;
+}
+.content .menu .menu-title.data-v-ac83aec0 {
+  color: #3e3e3e;
+  font-size: 11pt;
+  padding: 10rpx 0;
+  position: relative;
+}
+.content .ads.data-v-ac83aec0 {
+  padding: 20rpx 30rpx;
+}
+.content .ads .box.data-v-ac83aec0 {
+  height: 250rpx;
+  border-radius: 20rpx;
+}
+.content .ads .ads-img.data-v-ac83aec0 {
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.fixed.data-v-ac83aec0 {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 112rpx;
+  background-color: #ffffff;
+}
+.fixed .box.data-v-ac83aec0 {
+  height: 100%;
+  padding: 0 16rpx;
+}
+.fixed .box .text.data-v-ac83aec0 {
+  font-size: 12pt;
+  color: #999999;
+}
+.fixed .box .text .sum.data-v-ac83aec0 {
+  margin-left: 10rpx;
+  font-size: 44rpx;
+  color: #bc0100;
+  font-weight: bold;
+}
+.fixed .box .btn.data-v-ac83aec0 {
+  font-size: 11pt;
+  color: #ffffff;
+  width: 208rpx;
+  height: 80rpx;
+  border-radius: 40px;
+}
+.fixed .box .btn.submit.data-v-ac83aec0 {
+  background: -webkit-linear-gradient(120deg, #d6100d, #f14822);
+  background: linear-gradient(-30deg, #d6100d, #f14822);
+}
+.fixed .box .btn.ban.data-v-ac83aec0 {
+  background: #999999;
+}
+.page-body.data-v-ac83aec0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  overflow: hidden;
+  margin-bottom: 120rpx;
+}
+.page-body .nav.data-v-ac83aec0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+}
+.page-body .nav-left.data-v-ac83aec0 {
+  width: 190rpx;
+  background: #ffffff;
+}
+.page-body .nav-left-item.data-v-ac83aec0 {
+  height: 100rpx;
+  font-size: 25rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  padding: 0 20rpx;
+}
+.page-body .nav-left-item.active.data-v-ac83aec0 {
+  color: #ffffff;
+}
+.page-body .nav-left-item.active .name.data-v-ac83aec0 {
+  width: 146rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  background: -webkit-linear-gradient(right, #b92a20, #de593f);
+  background: linear-gradient(-90deg, #b92a20, #de593f);
+  border-radius: 25rpx;
+}
+.page-body .nav-left-item.data-v-ac83aec0:last-child {
+  border-bottom: none;
+}
+.page-body .nav-right.data-v-ac83aec0 {
+  margin-left: 10rpx;
+  background: #ffffff;
+}
+.page-body .box.data-v-ac83aec0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  overflow: hidden;
+  border-bottom: 20rpx solid #f3f3f3;
+  /* min-height: 100vh; */
+  /*若您的子分类过少想使得每个子分类占满屏请放开上边注释 */
+}
+.page-body .box.data-v-ac83aec0:last-child {
+  border: none;
+  min-height: 100vh;
+}
+.page-body .nav-right-item.data-v-ac83aec0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  font-size: 28rpx;
+  background: #ffffff;
+  padding: 40rpx 0;
+  margin-left: 10rpx;
+  border-bottom: 1rpx solid #f2f2f2;
+  height: 246rpx;
+}
+.page-body .nav-right-item .item-info.data-v-ac83aec0 {
+  position: relative;
+  margin-right: 30rpx;
+}
+.page-body .nav-right-item .item-info .abs-btn.data-v-ac83aec0 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 20px;
+  line-height: 20px;
+}
+.page-body .nav-right-item .item-info .abs-btn .declined.data-v-ac83aec0 {
+  color: #cdcdcd;
+}
+.page-body .nav-right-item .item-info .abs-btn .add.data-v-ac83aec0 {
+  color: #bc0100;
+}
+.page-body .nav-right-item .item-info .abs-btn .sum.data-v-ac83aec0 {
+  margin: 0 12rpx;
+}
+.page-body .nav-right-item .item-info .abs-btn .iconfont.data-v-ac83aec0 {
+  font-size: 20px;
+}
+.page-body .nav-right-item .name.data-v-ac83aec0 {
+  font-size: 11pt;
+  width: 331rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-height: 20px;
+}
+.page-body .nav-right-item .size.data-v-ac83aec0 {
+  font-size: 9pt;
+  color: #999999;
+  padding: 6rpx 0;
+}
+.page-body .nav-right-item .amount.data-v-ac83aec0 {
+  color: #bc0100;
+  font-size: 13pt;
+  line-height: 41rpx;
+}
+.page-body .nav-right-item .amount .dot.data-v-ac83aec0 {
+  font-size: 9pt;
+}
+.page-body .nav-right-item image.data-v-ac83aec0 {
+  width: 167rpx;
+  height: 167rpx;
+  border-radius: 10rpx;
+  margin-right: 10rpx;
+}
+.popup-model.data-v-ac83aec0 {
+  color: #000000;
+}
+.popup-model .summary.data-v-ac83aec0 {
+  padding: 30rpx 29rpx;
+  border-bottom: 2rpx solid #F7F7F7;
+}
+.popup-model .summary .summary-img.data-v-ac83aec0 {
+  width: 220rpx;
+  height: 220rpx;
+  border-radius: 5rpx;
+  margin-right: 40rpx;
+}
+.popup-model .summary .amount.data-v-ac83aec0 {
+  color: #bc0100;
+  font-size: 14pt;
+}
+.popup-model .summary .amount .dot.data-v-ac83aec0 {
+  font-size: 11pt;
+  margin-right: 8rpx;
+}
+.popup-model .summary .stock.data-v-ac83aec0 {
+  font-size: 11pt;
+}
+.popup-model .summary .norm.data-v-ac83aec0 {
+  font-size: 9pt;
+}
+.popup-model .popup-box.data-v-ac83aec0 {
+  padding: 0 56rpx;
+  font-size: 10pt;
+  margin-bottom: 48rpx;
+}
+.popup-model .popup-box .attr-box.data-v-ac83aec0 {
+  padding: 20rpx 0;
+}
+.popup-model .popup-box .attr-item.data-v-ac83aec0 {
+  max-width: 100%;
+  min-width: 148rpx;
+  height: 65rpx;
+  display: -webkit-inline-flex;
+  display: -webkit-inline-box;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  background: #f7f7f7;
+  padding: 0 26rpx;
+  border-radius: 10rpx;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+  font-size: 9.5pt;
+}
+.popup-model .popup-box .attr-active.data-v-ac83aec0 {
+  background: #fcedea !important;
+  color: #e41f19;
+  font-weight: bold;
+  position: relative;
+  border-radius: 10rpx;
+}
+.popup-model .popup-box .attr-active.data-v-ac83aec0::after {
+  content: "";
+  position: absolute;
+  border: 1rpx solid #e41f19;
+  width: 100%;
+  height: 100%;
+  border-radius: 10rpx;
+  left: 0;
+  top: 0;
+}
+.popup-model .number-box.data-v-ac83aec0 {
+  padding: 20rpx 0 30rpx 0;
+}
+.popup-model .attr-title.data-v-ac83aec0 {
+  padding: 10rpx 0;
+  color: #000000;
+}
+.popup-model .popup-btn.data-v-ac83aec0 {
+  font-size: 9pt;
+  color: #ffffff;
+  padding: 0 29rpx;
+  margin-bottom: 81rpx;
+}
+.popup-model .popup-btn .sure-btn.data-v-ac83aec0 {
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  background-color: #bc0100;
+  border-radius: 45rpx;
+}
+.gray.data-v-ac83aec0 {
+  color: #808080;
+}
+.bold.data-v-ac83aec0 {
+  font-weight: bold;
+}
+.data-v-ac83aec0::-webkit-scrollbar {
+  /*取消小程序的默认导航条样式*/
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+

@@ -1,0 +1,9 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "com-upload": "/components/com/com-upload/com-upload",
+    "com-tabs": "/components/com/com-tabs/com-tabs",
+    "com-bottom-popup": "/components/com/com-bottom-popup/com-bottom-popup",
+    "short-video": "/components/shortVideo/short_video"
+  }
+}

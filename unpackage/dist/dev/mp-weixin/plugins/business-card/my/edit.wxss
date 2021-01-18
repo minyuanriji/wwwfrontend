@@ -1,0 +1,160 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 商城主题色 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.public-header.data-v-7ea33bae {
+  color: #808080;
+  font-size: 30rpx;
+  padding: 34rpx;
+}
+.basis-box.data-v-7ea33bae {
+  background: #FFFFFF;
+  padding: 0 30rpx;
+  color: #000000;
+  font-size: 30rpx;
+}
+.basis-box .avatar-box.data-v-7ea33bae {
+  padding: 16rpx 0;
+  border-bottom: 1px solid #E0E0E0;
+}
+.basis-box .avatar-box .avatar-img.data-v-7ea33bae {
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 50%;
+  display: block;
+}
+.basis-box .avatar-box .common-icon.data-v-7ea33bae {
+  font-size: 50rpx;
+  margin-left: 20rpx;
+  color: #A9A9A9;
+  line-height: 54rpx;
+}
+.basis-box .common.data-v-7ea33bae {
+  padding: 46rpx 0;
+  border-bottom: 1px solid #E0E0E0;
+}
+.basis-box .common .common-inp.data-v-7ea33bae {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+}
+.basis-box .common .company_img.data-v-7ea33bae {
+  border-radius: 10rpx;
+  width: 300rpx;
+  height: 300rpx;
+  margin-left: 20rpx;
+}
+.label.data-v-7ea33bae {
+  padding: 50rpx 30rpx;
+  background: #FFFFFF;
+}
+.label .label-list.data-v-7ea33bae {
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+}
+.label .label-list .label-item.data-v-7ea33bae {
+  padding: 4rpx 14rpx;
+  background: #E49999;
+  font-size: 30rpx;
+  color: #FFFFFF;
+  margin-right: 20rpx;
+  margin-bottom: 10rpx;
+  position: relative;
+}
+.label .label-list .label-item .label-delete.data-v-7ea33bae {
+  position: absolute;
+  top: -12rpx;
+  right: -10rpx;
+  background: #EB0909;
+  border-radius: 50%;
+  width: 28rpx;
+  height: 28rpx;
+}
+.submit-btn.data-v-7ea33bae {
+  background: #BC0100;
+  border-radius: 50rpx;
+  height: 90rpx;
+  text-align: center;
+  line-height: 90rpx;
+  color: #FFFFFF;
+  margin: 88rpx 30rpx;
+  overflow: hidden;
+}
+.label-pop.data-v-7ea33bae {
+  color: #000000;
+}
+.label-pop .title.data-v-7ea33bae {
+  font-size: 38rpx;
+  font-weight: 600;
+}
+.label-pop .label-inp.data-v-7ea33bae {
+  border-bottom: 1px solid #000;
+  padding-bottom: 6rpx;
+  margin: 40rpx 0 10rpx;
+}
+.label-pop .label-tips.data-v-7ea33bae {
+  font-size: 24rpx;
+  color: #BC0100;
+  letter-spacing: 1px;
+}
+.label-pop .label-btn.data-v-7ea33bae {
+  font-size: 32rpx;
+  color: #BC0100;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+          justify-content: flex-end;
+  margin-top: 30rpx;
+}
+.addVideo-box.data-v-7ea33bae {
+  border: 1px solid #E6E6E6;
+  border-radius: 14rpx;
+  width: 120rpx;
+  height: 120rpx;
+}
+.video-box.data-v-7ea33bae {
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+}
+.video-box .video-delete.data-v-7ea33bae {
+  position: absolute;
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  background: #EB0909;
+  color: #FFFFFF;
+  top: -10rpx;
+  right: -10rpx;
+  z-index: 99;
+}
+.video-box .video-delete .delete-icon.data-v-7ea33bae {
+  font-size: 26rpx;
+}
+

@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "选择其他自提点",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "com-status-bar": "/components/com/com-status-bar/com-status-bar",
+    "com-icons": "/components/com/com-icons/com-icons"
+  }
+}

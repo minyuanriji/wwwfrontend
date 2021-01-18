@@ -1,0 +1,1 @@
+<view class="dot-box data-v-e5053978"><block wx:for="{{length}}" wx:for-item="item" wx:for-index="index" wx:key="index"><view class="{{['dot-item data-v-e5053978',(swiperCurrent==index)?'dot-item-active':'']}}" style="{{'width:'+(width+'rpx')+';'+('height:'+(height+'rpx')+';')+('border-radius:'+(radius)+';')}}"></view></block></view>

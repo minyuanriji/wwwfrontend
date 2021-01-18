@@ -1,0 +1,57 @@
+
+.root {
+	background: #f7f7f7;
+}
+.content {
+	/* padding: 0 20rpx; */
+}
+.limited {
+	background: #ffffff;
+	box-sizing: border-box;
+}
+.status_bar {
+	height: 25px;
+	width: 100%;
+	position: fixed;
+	top: 0px;
+	z-index: 99;
+	background-color: #ffffff;
+}
+.search_box {
+	/* position: fixed; */
+	top: 25px;
+	width: 100%;
+	z-index: 99;
+}
+.navIcon_style {
+	/* padding: 30rpx 0px; */
+}
+.adBoxs {
+	overflow: hidden;
+}
+.ad1 {
+	font-weight: 700;
+	text-align: center;
+	padding: 20rpx 0px;
+}
+.rubikBox {
+	width: 92%;
+	margin: auto;
+	border-radius: 20rpx;
+	overflow: hidden;
+}
+.thematicBox {
+	padding: 20rpx 0rpx 20rpx;
+	border-radius: 10rpx;
+	/* background: #FFFFFF; */
+}
+.bannersBox {
+	position: relative;
+}
+.order {
+	position: absolute;
+	top: 20px;
+	left: 20rpx;
+	z-index: 9;
+}
+

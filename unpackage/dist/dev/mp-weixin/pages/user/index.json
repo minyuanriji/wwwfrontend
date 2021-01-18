@@ -1,0 +1,19 @@
+{
+  "navigationBarTitleText": "我的",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "main-tabbar": "/components/main/tabbar/tabbar",
+    "toolbar": "/components/toolbar/toolbar",
+    "placeholder": "/components/placeholder/placeholder",
+    "com-modal": "/components/com/com-modal/com-modal",
+    "main-loading": "/components/main/loading/loading",
+    "jx-icon": "/components/icon/icon",
+    "jx-button": "/components/extend/button/button",
+    "jx-list-cell": "/components/list-cell/list-cell",
+    "jx-tips": "/components/tips/tips"
+  }
+}

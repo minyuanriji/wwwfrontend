@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "补贴奖励",
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50,
+  "usingComponents": {
+    "com-nav-bar": "/components/com/com-nav-bar/com-nav-bar",
+    "main-loadmore": "/components/main/loadmore/loadmore",
+    "main-nomore": "/components/main/nomore/nomore",
+    "main-loading": "/components/main/loading/loading"
+  }
+}

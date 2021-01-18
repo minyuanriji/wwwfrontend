@@ -1,0 +1,1 @@
+<view class="diy-image-text data-v-9a7d31e4"><block wx:if="{{data.content}}"><view class="data-v-9a7d31e4"><rich-text nodes="{{data.content}}"></rich-text></view></block><block wx:else><view style="line-height:500rpx;color:rgb(173, 177, 184);" flex="main:center" class="data-v-9a7d31e4">图文详情</view></block></view>

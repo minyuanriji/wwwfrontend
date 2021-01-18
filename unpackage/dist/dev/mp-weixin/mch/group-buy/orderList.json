@@ -1,0 +1,16 @@
+{
+  "navigationBarTitleText": "拼团订单",
+  "navigationBarBackgroundColor": "#FFF",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50,
+  "usingComponents": {
+    "com-tabs": "/components/com/com-tabs/com-tabs",
+    "main-loadmore": "/components/main/loadmore/loadmore",
+    "main-nomore": "/components/main/nomore/nomore",
+    "main-loading": "/components/main/loading/loading",
+    "main-tabbar": "/components/main/tabbar/tabbar",
+    "tui-button": "/components/extend/button/button",
+    "tui-list-cell": "/components/list-cell/list-cell"
+  }
+}

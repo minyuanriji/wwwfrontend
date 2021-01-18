@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "专题详情",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
+  "backgroundColorTop": "#fcfcfc",
+  "backgroundColorBottom": "#fcfcfc",
+  "disableScroll": true,
+  "usingComponents": {
+    "jyf-parser": "/components/jyf-parser/jyf-parser",
+    "rubik": "/components/rubik/rubik"
+  }
+}

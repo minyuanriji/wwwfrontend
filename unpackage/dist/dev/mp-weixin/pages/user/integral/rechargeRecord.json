@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "充值记录",
+  "navigationBarBackgroundColor": "#F7F7F7",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "main-nomore": "/components/main/nomore/nomore"
+  }
+}

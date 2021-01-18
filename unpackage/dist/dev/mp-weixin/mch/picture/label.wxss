@@ -1,0 +1,119 @@
+
+.cover-pic.data-v-678e6648{
+	width: 100%;
+	display: block;
+}
+.la-content.data-v-678e6648{
+	background: #FFFFFF;
+	padding: 0 30rpx;
+}
+.la-content-item.data-v-678e6648{
+	padding: 30rpx 0;
+	border-bottom: 2rpx solid #F2F2F2;
+}
+.la-content-item-left.data-v-678e6648{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	font-weight: 700;
+	color: #000000;
+}
+.up.data-v-678e6648{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+}
+.left-icon.data-v-678e6648{
+	width: 58rpx;
+	height: 58rpx;
+	background: #BC0100;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 62rpx;
+	color: #FFFFFF;
+	margin-right: 10rpx;
+	font-weight: 500;
+}
+.pro-icon.data-v-678e6648{
+	font-size: 30rpx;
+}
+.la-content-item-right.data-v-678e6648{
+	font-size: 50rpx;
+	line-height: 50rpx;
+	color: #AAAAAA;
+}
+.nextStep.data-v-678e6648{
+	background: #BC0100;
+	padding: 20rpx 0;
+	width: 690rpx;
+	border-radius: 60rpx;
+	margin: 65rpx 0;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 11pt;
+}
+.label.data-v-678e6648{
+	display: inline-block;
+	position: relative;
+	margin-right: 16rpx;
+}
+.label-child.data-v-678e6648{
+	background: #F2F2F2;
+	border-radius: 25rpx;
+	color: #5795E2;
+	font-size: 11pt;
+	padding: 4rpx 20rpx;
+	margin-top: 20rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	letter-spacing: 2rpx;
+	max-width: 690rpx;
+}
+.label-icon-box.data-v-678e6648{
+	border-radius: 50%;
+	width: 30rpx;
+	height: 30rpx;
+	background: #5795E2;
+	text-align: center;
+	line-height: 32rpx;
+	margin-right: 6rpx;
+	position: relative;
+}
+.label-icon.data-v-678e6648{
+	font-size: 20rpx;
+	color: #FFFFFF;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%,-50%) scale(0.85);
+	        transform: translate(-50%,-50%) scale(0.85);
+}
+.label-text.data-v-678e6648{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	max-width: 620rpx;
+}
+.close-icon.data-v-678e6648{
+	font-size: 30rpx;
+	text-align: center;
+	line-height: 32rpx;
+	color: #CCCCCC;
+	position: absolute;
+	top: 4rpx;
+	right: -14rpx;
+}
+

@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "专题列表",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
+  "backgroundColorTop": "#fcfcfc",
+  "backgroundColorBottom": "#fcfcfc",
+  "disableScroll": true,
+  "usingComponents": {
+    "thematic": "/components/thematic/thematic",
+    "main-loading": "/components/main/loading/loading",
+    "sliding": "/components/slidingCate/slidingCate"
+  }
+}

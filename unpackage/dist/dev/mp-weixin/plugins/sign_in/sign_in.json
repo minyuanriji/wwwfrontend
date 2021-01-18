@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "每日签到",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "jyf-parser": "/components/jyf-parser/jyf-parser",
+    "commodity": "/components/commodity/commodity",
+    "shopro-modal": "/components/shopro-modal/shopro-modal"
+  }
+}

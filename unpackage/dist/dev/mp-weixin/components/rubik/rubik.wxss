@@ -1,0 +1,39 @@
+
+.rubik-root{
+	position: relative;
+}
+.type1 {
+	width: 100%;
+}
+.type1 .img {
+	width: 100%;
+	display: block;
+}
+.type3 {
+	width: 100%;
+	height: 360rpx;
+	position: relative;
+}
+.type5 {
+	height: 240rpx;
+	position: relative;
+}
+.type7 {
+	height: 188rpx;
+	position: relative;
+}
+.type8 {
+	height: 372rpx;
+	position: relative;
+}
+.backgroundSize {
+	background-size: cover !important;
+	background-position: center center !important;
+	background-repeat: no-repeat !important;
+	position: absolute;
+}
+.hotspot{
+	position: absolute;
+	z-index: 2;
+}
+

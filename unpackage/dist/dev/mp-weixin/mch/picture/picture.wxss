@@ -1,0 +1,214 @@
+
+.status-bar.data-v-a6171f5c{
+	height: 25px;
+}
+
+/* header */
+.header.data-v-a6171f5c{
+	position: relative;
+}
+.header-bg.data-v-a6171f5c{
+	width: 100%;
+	position: absolute;
+	top: 0;
+}
+.header-nav-box.data-v-a6171f5c{
+	width: 100%;
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	background: #FFFFFF;
+	padding-bottom: 14rpx;
+}
+.header-nav.data-v-a6171f5c{
+	width: 100%;
+	height: 94rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-justify-content: space-around;
+	        justify-content: space-around;
+	padding: 20rpx 170rpx;
+	font-size: 13pt;
+	color: #999999;
+	position: relative;
+}
+.header-active.data-v-a6171f5c{
+	color: #000000;
+	border-bottom: 1pt solid #BC0100;
+}
+.header-icon.data-v-a6171f5c{
+	width: 44rpx;
+	height: 44rpx;
+	position: absolute;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	        transform: translateY(-50%);
+	left: 30rpx;
+}
+.header-search.data-v-a6171f5c{
+	background: #F5F5F5;
+	border-radius: 60rpx;
+	width: 690rpx;
+	height: 64rpx;
+	margin: auto;
+	color: #999999;
+	padding: 10rpx 0;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	font-size: 11pt;
+}
+.header-search-icon.data-v-a6171f5c{
+	margin-right: 10rpx;
+	font-size: 30rpx;
+}
+.header-swiper.data-v-a6171f5c{
+	margin-top: 32rpx;
+}
+.swiper-box.data-v-a6171f5c{
+	width: 690rpx;
+	height: 300rpx;
+	margin: auto;
+	border-radius: 25rpx;
+	overflow: hidden;
+}
+.swiper-img.data-v-a6171f5c{
+	width: 100%;
+	height: 300rpx;
+}
+
+/* 分类导航 */
+.category.data-v-a6171f5c{
+	padding: 30rpx 0;
+}
+.scroll-box.data-v-a6171f5c{
+	white-space: nowrap;
+}
+.scroll-item.data-v-a6171f5c{
+	display: inline-block;
+	margin-right: 10rpx;
+	padding: 16rpx 22rpx;
+	color: #4D4D4D;
+	font-size: 10pt;
+	border:2rpx solid rgba(230,230,230,1);
+	border-radius:10rpx;
+	letter-spacing: 2rpx;
+}
+.scroll-item.data-v-a6171f5c:first-child{
+	margin-left: 10rpx;
+}
+.scroll-item-active.data-v-a6171f5c{
+	background: #BC0100;
+	color: #FFFFFF;
+}
+
+/* 内容 */
+.content.data-v-a6171f5c{
+	width: 690rpx;
+	margin: auto;
+	-webkit-column-count: 2;
+	        column-count: 2;
+	overflow: hidden;
+	-webkit-column-gap: 8rpx;
+	        column-gap: 8rpx;
+}
+.content-item.data-v-a6171f5c{
+	width: 340rpx;
+	border-radius: 10rpx;
+	overflow: hidden;
+	background: #FFFFFF;
+	margin-bottom: 14rpx;
+	-webkit-column-break-inside: avoid;
+	        break-inside: avoid;
+}
+.content-item-img.data-v-a6171f5c{
+	width: 100%;
+	display: block;
+}
+.content-bottom.data-v-a6171f5c{
+	padding: 18rpx;
+}
+.content-name.data-v-a6171f5c{
+	font-size: 10pt;
+	font-weight: 700;
+	color: #282828;
+	margin-bottom: 20rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+.content-operat.data-v-a6171f5c{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.content-common.data-v-a6171f5c{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	font-size: 8pt;
+	color: #000000;
+}
+.avatar.data-v-a6171f5c{
+	width: 36rpx;
+	height: 36rpx;
+	border-radius: 50%;
+	margin-right: 8rpx;
+}
+.like-icon.data-v-a6171f5c{
+	margin-right: 6rpx;
+	font-size: 30rpx;
+	line-height: 30rpx;
+}
+.like-icon-avtive.data-v-a6171f5c{
+	color: #BC0100;
+	font-size: 34rpx;
+}
+.like-num.data-v-a6171f5c{
+	font-size: 9pt;
+	letter-spacing: 2rpx;
+}
+
+/* 打开相册悬浮按钮 */
+.open-album.data-v-a6171f5c{
+	position: fixed;
+	top: 80%;
+	right: 20rpx;
+	background: #BC0100;
+	border-radius: 50%;
+	width: 78rpx;
+	height: 78rpx;
+	z-index: 999;
+	color: #FFFFFF;
+	text-align: center;
+	line-height: 82rpx;
+}
+.open-icon.data-v-a6171f5c{
+	font-size: 50rpx;
+}
+
+/* 隐藏滚动条 */
+scroll-view.data-v-a6171f5c ::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+	background-color: transparent;
+}
+
