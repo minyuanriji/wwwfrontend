@@ -224,7 +224,16 @@
 				}).then(res => {
 					this.$http.toast(res.msg);
 					if (res.code === 0) {
-						this.getDateList('refresh', this.status)
+						this.getDateList('refresh', this.status);
+						this.$http.request({
+							url: this.$api.order.ordersales,
+							method: 'POST',
+							data: {
+								order_id: id
+							}
+						}).then(res => {
+							
+						})
 					}
 				})
 			},

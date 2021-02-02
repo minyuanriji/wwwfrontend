@@ -447,12 +447,15 @@
 				productData: [],
 				displayStyle: 1, //1为常规 2为边框 3为居中显示 4为边框居中
 				listStyle: 2, //1为大图 2为一行一个 3为一行两个 4一行三个 5为左右滑动
+				wx_nav_id:'',
 			}
 		},
 		onLoad(options) {
 			this.textColor = this.globalSet('textCol');
 			this.couponImg = this.globalSet('couponImg');
-			
+			// #ifdef MP-WEIXIN
+			this.wx_nav_id = options;
+			// #endif
 			this.server_img = JSON.parse(uni.getStorageSync('mall_config')).mall_setting.setting.web_service_pic;
 
 			let {
@@ -741,6 +744,13 @@
 					} else {
 						url = '/pages/order/submit';
 					}
+					// #ifdef H5
+					url = url + '?nav_id=' + this.$route.query.proId;
+					// #endif
+					
+					// #ifdef MP-WEIXIN
+					url = url + '?nav_id=' + this.wx_nav_id.proId;
+					// #endif
 					uni.navigateTo({
 						url
 					})

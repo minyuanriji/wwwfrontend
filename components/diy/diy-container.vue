@@ -1,58 +1,45 @@
 <template>
 	<view class="diy-box">
-		<search v-if="temp.key == 'search'" :frameColor="temp.background" :textColor="temp.textColor"
-		 :borderRadius="temp.radius" :innerFrameColor="temp.color"></search>
-		 
-		<nav-icon v-if="temp.key == 'nav'" 
-		:list="temp.navs" :background="temp.background" :listNums="temp.navs.length" :rowNums="temp.rows" :textColor="temp.color"
-		></nav-icon>
-		
+		<search v-if="temp.key == 'search'" :frameColor="temp.background" :textColor="temp.textColor" :borderRadius="temp.radius"
+		 :innerFrameColor="temp.color"></search>
+
+		<nav-icon v-if="temp.key == 'nav'" :list="temp.navs" :background="temp.background" :listNums="temp.navs.length"
+		 :rowNums="temp.rows" :textColor="temp.color"></nav-icon>
+
 		<!-- <rubik v-if="temp.key == 'rubik'" :imageData='temp.list' :types="temp.style" :space="temp.space"></rubik> -->
-		
+
 		<notice v-if="temp.key == 'notice'" :value="temp"></notice>
-		
-		<commodity v-if="temp.key == 'goods'" 
-			:productData="temp.list" 
-			:listStyle="temp.listStyle" 
-			:displayStyle="temp.goodsStyle" 
-			:buyBtnStyle="temp.buyBtnStyle" 
-			:buyBtnText="temp.buyBtnText" 
-			:buyBtnColor="temp.buttonColor" 
-			:buyBtnBool="temp.showBuyBtn" 
-			:productNameBool="temp.showGoodsName" 
-			:priceBool="temp.showGoodsPrice" 
-			:showGoodsLevelPrice="temp.showGoodsLevelPrice" 
-			:showGoodsOriginalPrice="temp.showGoodsOriginalPrice" 
-			:originalPriceLabel="temp.originalPriceLabel" 
-			:priceLabel="temp.priceLabel" 
-			:levelPriceLabel="temp.levelPriceLabel" 
-			:subscriptBool="temp.showGoodsTag" 
-			:subscriptIcon="temp.goodsTagPicUrl"></commodity>
-		
+
+		<commodity v-if="temp.key == 'goods'" :productData="temp.list" :listStyle="temp.listStyle" :displayStyle="temp.goodsStyle"
+		 :buyBtnStyle="temp.buyBtnStyle" :buyBtnText="temp.buyBtnText" :buyBtnColor="temp.buttonColor" :buyBtnBool="temp.showBuyBtn"
+		 :productNameBool="temp.showGoodsName" :priceBool="temp.showGoodsPrice" :showGoodsLevelPrice="temp.showGoodsLevelPrice"
+		 :showGoodsOriginalPrice="temp.showGoodsOriginalPrice" :originalPriceLabel="temp.originalPriceLabel" :priceLabel="temp.priceLabel"
+		 :levelPriceLabel="temp.levelPriceLabel" :subscriptBool="temp.showGoodsTag" :subscriptIcon="temp.goodsTagPicUrl"></commodity>
+
 		<diy-video v-if="temp.key == 'video'" :value="temp"></diy-video>
-		
+
 		<placeholder v-if="temp.key == 'empty'" :placeholderBackground="temp.background" :placeholderHeight="temp.height"></placeholder>
-		
+
 		<diy-appointing v-if="temp.key == 'appointing'" :value="temp"></diy-appointing>
-		
+
 		<diy-link v-if="temp.key == 'link'" :value="temp"></diy-link>
-		
+
 		<banners v-if="temp.key == 'banner'" :bannerData='temp' @change='change'></banners>
-		
+
 		<diy-copyright v-if="temp.key == 'copyright'" :value="temp"></diy-copyright>
-		
+
 		<diy-image-text v-if="temp.key == 'image-text'" :value="temp"></diy-image-text>
-		
+
 		<diy-map v-if="temp.key == 'map'" :value="temp"></diy-map>
-		
+
 		<thematic v-if="temp.key == 'topic'" :thematicData='temp'></thematic>
-		
+
 		<!-- 图片魔方 -->
 		<view class="adBoxs" v-if="temp.key == 'rubik'">
 			<rubik :types="temp.style" :image-data="temp.list" :hotspotData="temp.hotspot"></rubik>
 		</view>
 		<!-- 图片魔方 -->
-		
+
 		<!-- 广告弹窗 -->
 		<diy-modal v-if="temp.key == 'modal'" :modalData="temp"></diy-modal>
 
@@ -62,20 +49,44 @@
 <script>
 	export default {
 		components: {
-			banners: resolve => {require(['@/components/banners/banners.vue'],resolve)},
-			search: resolve => {require(['@/components/search/search.vue'],resolve)},
-			rubik: resolve => {require(['@/components/rubik/rubik.vue'],resolve)},
-			thematic: resolve => {require(['@/components/thematic/thematic.vue'],resolve)},
-			navIcon: resolve => {require(['@/components/navIcon/navIcon.vue'],resolve)},
-			notice: resolve => {require(['@/components/notice/notice.vue'],resolve)},
-			placeholder: resolve => {require(['@/components/placeholder/placeholder.vue'],resolve)},
-			commodity: resolve => {require(['@/components/commodity/commodity.vue'],resolve)},
-			
-			
-			diyImageText: resolve => {require(['@/components/diy/diy-image-text.vue'],resolve)},
-			diyCopyright: resolve => {require(['@/components/diy/diy-copyright.vue'],resolve)},
-			diyMap: resolve => {require(['@/components/diy/diy-map.vue'],resolve)},
-			diyModal: resolve => {require(['@/components/diy/diy-modal.vue'],resolve)},
+			banners: resolve => {
+				require(['@/components/banners/banners.vue'], resolve)
+			},
+			search: resolve => {
+				require(['@/components/search/search.vue'], resolve)
+			},
+			rubik: resolve => {
+				require(['@/components/rubik/rubik.vue'], resolve)
+			},
+			thematic: resolve => {
+				require(['@/components/thematic/thematic.vue'], resolve)
+			},
+			navIcon: resolve => {
+				require(['@/components/navIcon/navIcon.vue'], resolve)
+			},
+			notice: resolve => {
+				require(['@/components/notice/notice.vue'], resolve)
+			},
+			placeholder: resolve => {
+				require(['@/components/placeholder/placeholder.vue'], resolve)
+			},
+			commodity: resolve => {
+				require(['@/components/commodity/commodity.vue'], resolve)
+			},
+
+
+			diyImageText: resolve => {
+				require(['@/components/diy/diy-image-text.vue'], resolve)
+			},
+			diyCopyright: resolve => {
+				require(['@/components/diy/diy-copyright.vue'], resolve)
+			},
+			diyMap: resolve => {
+				require(['@/components/diy/diy-map.vue'], resolve)
+			},
+			diyModal: resolve => {
+				require(['@/components/diy/diy-modal.vue'], resolve)
+			},
 		},
 		props: {
 			dataList: {
@@ -90,8 +101,8 @@
 		data() {
 			return {
 				temp: {},
-				bargainKeys: ['appointing','seckill'],
-				current:0
+				bargainKeys: ['appointing', 'seckill'],
+				current: 0
 			};
 		},
 		watch: {
@@ -101,16 +112,16 @@
 						...this.diyData.data,
 						key: this.diyData.id
 					};
-					this.$set(this,"temp",temp)
+					this.$set(this, "temp", temp)
 					//console.log(this.temp, temp.key);
 				},
 				immediate: true,
 				deep: true
 			}
 		},
-		methods:{
-			change(e){
-				if(this.temp.style == 1 && this.temp.fill == 1){
+		methods: {
+			change(e) {
+				if (this.temp.style == 1 && this.temp.fill == 1) {
 					this.current = e;
 				}
 			},

@@ -93,9 +93,10 @@
 					// code 不存在进入此判断
 					let _baseUrl = window.location.href;
 					_baseUrl = encodeURIComponent(_baseUrl);
-					// let url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx86f618c6549663d9&redirect_uri=${_baseUrl}&response_type=code&scope=snsapi_userinfo&state=111#wechat_redirect`;
-					let url =
-						`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${base.publicAppId}&redirect_uri=${_baseUrl}&response_type=code&scope=snsapi_userinfo#wechat_redirect`;
+					// console.log(_baseUrl);
+	let url =
+		`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${base.publicAppId}&redirect_uri=${_baseUrl}&response_type=code&scope=snsapi_userinfo#wechat_redirect`;
+
 					// window.location.href = url;
 					window.location.replace(url);
 				} else {

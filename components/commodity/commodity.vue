@@ -248,9 +248,17 @@
 				this.textColor = this.globalSet('textCol');
 			}
 		},
+		onLoad(options) {
+			console.log(this.$route.query);
+		},
 		methods: {
 			//页面跳转
 			navTo(id) {
+				//获取传递过来的参数
+				//#ifdef H5
+				var nav_id = this.$route.query;
+				//#endif
+				
 				uni.navigateTo({
 					url: `/pages/goods/detail?proId=${id}`
 				})
@@ -278,6 +286,7 @@
 			px(num) {
 				return uni.upx2px(num) + 'px';
 			},
+
 		}
 	}
 </script>

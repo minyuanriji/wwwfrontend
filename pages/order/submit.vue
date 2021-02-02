@@ -95,17 +95,20 @@
 				</tui-list-cell>
 			</view>
 
-			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1">
-				<view>使用积分 <view class="xieti">拥有积分：{{user_score}}  <text class="text" v-if="is_checked">-{{total_score_use}}</text></view></view>
+			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1 && scoreswitc == 1 || scoreswitc == 0">
+				<view>使用积分 <view class="xieti">拥有积分：{{user_score}}  <text class="text" v-if="is_checked">-{{total_score_use}}</text>
+				</view>
+				</view>
 				<switch :checked="is_checked" @change="use" :color='textColor' class="points-switch" />
 			</view>
+			
 			<!-- 使用抵扣券 -->
-			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1">
+			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1 && scoreswitc == 2 || scoreswitc == 0">
 				<view>使用抵扣券 <view class="xieti">拥有抵扣券金额：{{user_integral}} <text class="text" v-if="is_integral">-{{total_integral_use}}</text></view></view>
 				<switch :checked="is_integral" @change="useIntegral" :color='textColor' class="points-switch" />
 			</view>
-			
 		</view>
+		
 
 		<!--优惠券底部选择层-->
 		<com-bottom-popup :show="popupShow2" @close="hidePopup">
@@ -221,7 +224,9 @@
 				couponImg:'',
 				province:'',
 				flag:true,
-				ExpressPrice:''
+				ExpressPrice:'',
+				scoreswitc:'',
+				wx_order_id:''
 			}
 		},
 		onLoad(options) {
@@ -238,7 +243,10 @@
 
 			this.sendData = uni.getStorageSync('orderData');
 			this.getData();
-			
+			//#ifdef MP-WEIXIN
+			this.wx_order_id = options.nav_id;
+			//#endif
+			this.getscoreswitc();
 		},
 		onShow(){
 			this.switcExpressPrice();
@@ -261,6 +269,27 @@
 			back(){
 				this.navBack();
 			},
+			getscoreswitc(){
+				//#ifdef H5
+				var order_id = this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0;
+				//#endif
+				//#ifdef MP-WEIXIN
+				var order_id = this.wx_order_id;
+				//#endif
+				
+				this.$http.request({
+					url: this.$api.order.getscore,
+					method: 'post',
+					showLoading: true,
+					data: {
+						nav_id: order_id
+					}
+				}).then(res => {
+					this.scoreswitc = res;
+					console.log(this.scoreswitc);
+				}).catch(err => {})
+				console.log(err);
+			},
 			//切换地址获取运费
 			switcExpressPrice(){
 				if(this.province == this.user_address.province){
@@ -274,6 +303,7 @@
 						showLoading: true,
 						data: {
 							data: this.user_address.province,
+							order_id: this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0
 						}
 					}).then((res) => {
 						if(Number(res) > Number(this.list[0].express_price)){

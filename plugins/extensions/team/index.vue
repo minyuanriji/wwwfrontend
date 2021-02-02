@@ -18,8 +18,9 @@
 								{{ parent.parent_level_name }}
 							</view>
 							<view class="tel" :style="{color:textColor}" v-if="parent.mobile != ''">
-								<span class="iconfont icon-dianhua3"></span>
-								{{ parent.mobile }}
+								<!-- 暂时取消 -->
+								<!-- <span class="iconfont icon-dianhua3"></span> -->
+								<!-- {{ parent.mobile }} -->
 							</view>
 						</view>
 					</view>

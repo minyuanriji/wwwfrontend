@@ -28,6 +28,7 @@
 				switchIndex: 0,
 				pageId: 0,
 				templateId: 0,
+				nav_id:11
 			}
 		},
 		onLoad(options) {
@@ -40,11 +41,11 @@
 		},
 		methods: {
 			switchNav(index, id) {
-				//console.log(id, 'id');
 				this.switchIndex = index;
 				uni.redirectTo({
 					url: `/pages/index/diy-demo?switchIndex=${this.switchIndex}`
-				})
+				});
+				
 			},
 			getData(index) {
 				this.$http.request({

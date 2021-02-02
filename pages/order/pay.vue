@@ -130,6 +130,7 @@
 			
 			// 3.1 点击支付的方法(拼团支付/直接支付)
 			toConfirmPay(){
+				
 				this.is_index==1?this.detailByOrder(this.payData.orderNo):this.confirmPay();
 			},
 			
@@ -167,7 +168,6 @@
 			
 			// 请求支付接口，如果是余额支付
 			confirmPay(flag){
-				
 				let self = this; 
 				let flagStatus = flag;
 				// 这个是拼团跳转页面		
@@ -223,6 +223,7 @@
 
 						// #ifdef MP-WEIXIN || APP-PLUS
 						setPay(res.data, (result) => {
+							console.log(12312);
 							let _url = '/pages/order/list?status=1'
 							if (result.success) {
 								self.$http.toast("支付成功")

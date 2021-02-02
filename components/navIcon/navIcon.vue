@@ -1,5 +1,6 @@
 <template>
 	<view class="navIconBox" :style="{'background':background,'color':textColor}">
+		
 		<view class="flex list" v-if="listNums == 3">
 			<view v-for="(item,index) in list" :key='index' class="tui-col-4 listBox">
 				<view class="listBox_nav flex flex-col flex-y-center flex-x-center" @tap="navTo(item.url)">
