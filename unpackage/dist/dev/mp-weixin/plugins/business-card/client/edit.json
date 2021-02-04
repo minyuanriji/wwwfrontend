@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "客户信息",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "main-loading": "/components/main/loading/loading"
-  }
-}

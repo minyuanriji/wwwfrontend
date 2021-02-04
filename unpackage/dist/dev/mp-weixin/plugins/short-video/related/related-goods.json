@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "添加商品",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "search": "/components/search/search"
-  }
-}

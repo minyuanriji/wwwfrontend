@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "编辑资料",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "com-upload": "/components/com/com-upload/com-upload"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "关联商品",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "sliding": "/components/slidingCate/slidingCate"
-  }
-}

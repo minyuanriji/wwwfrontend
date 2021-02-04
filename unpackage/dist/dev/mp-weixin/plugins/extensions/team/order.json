@@ -1,9 +1,0 @@
-{
-  "usingComponents": {
-    "com-tabs": "/components/com/com-tabs/com-tabs",
-    "main-loadmore": "/components/main/loadmore/loadmore",
-    "main-nomore": "/components/main/nomore/nomore",
-    "main-loading": "/components/main/loading/loading",
-    "main-tabbar": "/components/main/tabbar/tabbar"
-  }
-}

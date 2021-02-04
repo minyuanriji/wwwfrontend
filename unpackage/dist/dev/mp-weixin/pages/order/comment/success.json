@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "评价成功",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "commodity": "/components/commodity/commodity"
-  }
-}

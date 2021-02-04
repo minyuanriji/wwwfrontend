@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "积分明细",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "tabs": "/components/tabs/tabs",
-    "main-nomore": "/components/main/nomore/nomore"
-  }
-}

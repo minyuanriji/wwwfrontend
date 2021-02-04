@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "选择自提门店",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "com-icons": "/components/com/com-icons/com-icons",
-    "com-modal": "/components/com/com-modal/com-modal"
-  }
-}

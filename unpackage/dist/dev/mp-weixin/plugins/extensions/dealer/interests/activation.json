@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "我要激活",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTextStyle": "black",
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "com-nav-bar": "/components/com/com-nav-bar/com-nav-bar"
-  }
-}

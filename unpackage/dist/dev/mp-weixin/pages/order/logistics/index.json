@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "物流详情",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "list-cell": "/components/list-cell/list-cell"
-  }
-}

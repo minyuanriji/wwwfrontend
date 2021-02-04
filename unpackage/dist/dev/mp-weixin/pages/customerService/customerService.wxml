@@ -1,1 +1,0 @@
-<view><web-view src="{{service_url}}"></web-view></view>

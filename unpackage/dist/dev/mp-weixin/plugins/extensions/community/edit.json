@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "编辑",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "com-modal": "/components/com/com-modal/com-modal",
-    "com-upload": "/components/com/com-upload/com-upload"
-  }
-}

@@ -1,1 +1,0 @@
-<block wx:if="{{visible}}"><view class="jx-loadmore data-v-3c49d734"><view class="{{['data-v-3c49d734','jx-loading-'+index,index==3&&type?'jx-loading-'+type:'']}}"></view><view class="jx-loadmore-tips data-v-3c49d734">{{text}}</view></view></block>

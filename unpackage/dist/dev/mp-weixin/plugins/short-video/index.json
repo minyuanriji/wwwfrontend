@@ -1,9 +1,0 @@
-{
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "com-modal": "/components/com/com-modal/com-modal",
-    "com-bottom-popup": "/components/com/com-bottom-popup/com-bottom-popup",
-    "main-tabbar": "/components/main/tabbar/tabbar",
-    "short-video": "/components/shortVideo/short_video"
-  }
-}

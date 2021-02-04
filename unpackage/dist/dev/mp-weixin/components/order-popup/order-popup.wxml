@@ -1,1 +1,0 @@
-<view><block wx:if="{{orderShow}}"><view class="orderBox flex flex-y-center"><view><image class="avatar" src="{{rendering.pic_url}}" mode></image></view><view class="msg">{{''+rendering.name+" "+rendering.time+'分钟前拼单成功!'}}</view></view></block></view>

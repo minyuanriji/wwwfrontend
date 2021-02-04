@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "发放计划",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "main-nomore": "/components/main/nomore/nomore"
-  }
-}

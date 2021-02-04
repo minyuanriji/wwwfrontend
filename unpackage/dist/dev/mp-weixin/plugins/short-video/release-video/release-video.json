@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "发布短视频",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "main-loading": "/components/main/loading/loading",
-    "short-video": "/components/shortVideo/short_video"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "充值",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "main-loading": "/components/main/loading/loading"
-  }
-}

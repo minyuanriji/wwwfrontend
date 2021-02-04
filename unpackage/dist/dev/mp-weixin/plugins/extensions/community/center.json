@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "团长中心",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "main-loading": "/components/main/loading/loading",
-    "jx-list-cell": "/components/list-cell/list-cell"
-  }
-}

@@ -1,6 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "tui-button": "/components/button/button"
-  }
-}

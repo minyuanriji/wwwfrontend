@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "雷达",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "main-tabbar": "/components/main/tabbar/tabbar",
-    "main-loading": "/components/main/loading/loading"
-  }
-}

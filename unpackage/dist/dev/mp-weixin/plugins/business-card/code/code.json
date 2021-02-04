@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "二维码",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "main-loading": "/components/main/loading/loading"
-  }
-}

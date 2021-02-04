@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "发布评价",
-  "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "com-upload": "/components/com/com-upload/com-upload",
-    "jx-rate": "/components/rate/rate"
-  }
-}
