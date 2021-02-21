@@ -534,7 +534,25 @@
 			}
 
 		}
-	],
+        ,{
+            "path" : "pages/live_list/live_list",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "直播专区",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		{
+		    "path" : "pages/webview/webview",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+    ],
 	"subPackages": [{
 		"root": "plugins",
 		"pages": [{
