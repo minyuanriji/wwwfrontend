@@ -95,7 +95,7 @@
 				</tui-list-cell>
 			</view>
 
-			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1 && scoreswitc == 1 || scoreswitc == 0">
+			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1 && scoreswitc == 1">
 				<view>使用积分 <view class="xieti">拥有积分：{{user_score}}  <text class="text" v-if="is_checked">-{{total_score_use}}</text>
 				</view>
 				</view>
@@ -103,7 +103,8 @@
 			</view>
 			
 			<!-- 使用抵扣券 -->
-			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1 && scoreswitc == 2 || scoreswitc == 0">
+			<!-- integral_enable -->
+			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1 && scoreswitc == 2">
 				<view>使用抵扣券 <view class="xieti">拥有抵扣券金额：{{user_integral}} <text class="text" v-if="is_integral">-{{total_integral_use}}</text></view></view>
 				<switch :checked="is_integral" @change="useIntegral" :color='textColor' class="points-switch" />
 			</view>
@@ -230,6 +231,7 @@
 			}
 		},
 		onLoad(options) {
+			console.log(options);
 			if (uni.getStorageSync('mall_config')) {
 				this.textColor = this.globalSet('textCol');
 				this.couponImg = this.globalSet('couponImg');
@@ -287,8 +289,11 @@
 				}).then(res => {
 					this.scoreswitc = res;
 					console.log(this.scoreswitc);
-				}).catch(err => {})
-				console.log(err);
+					console.log(this.score_enable);
+					console.log(this.integral_enable);
+				}).catch(err => {
+					console.log(err);
+				})
 			},
 			//切换地址获取运费
 			switcExpressPrice(){
@@ -303,7 +308,12 @@
 						showLoading: true,
 						data: {
 							data: this.user_address.province,
-							order_id: this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0
+							//#ifdef H5
+							order_id: this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0,
+							//#endif
+							//#ifdef MP-WEIXIN
+							order_id: this.wx_order_id !== undefined ? this.wx_order_id : 0,
+							//#endif
 						}
 					}).then((res) => {
 						if(Number(res) > Number(this.list[0].express_price)){
@@ -315,8 +325,13 @@
 							this.ExpressPrice = res;
 						}else{
 							var price = Number(this.list[0].express_price) - Number(res);
-							this.total_price = Number(this.total_price) - price;
-							this.ExpressPrice = res;
+							if(price == this.list[0].express_price){
+								this.total_price = this.list[0].total_price - price;
+								this.ExpressPrice = res;
+							}else{
+								this.total_price = Number(this.total_price) - price;
+								this.ExpressPrice = res;
+							}
 						}
 						this.total_price = String(this.total_price).indexOf('.',0) !== -1 ? this.total_price : this.total_price + '.00';
 						this.ExpressPrice = String(this.ExpressPrice).indexOf('.',0) !== -1 ? this.ExpressPrice : this.ExpressPrice + '.00';
