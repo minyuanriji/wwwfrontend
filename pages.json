@@ -552,6 +552,15 @@
 		    }
 		    
 		}
+        ,{
+            "path" : "pages/link/index",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "分享红包",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",
