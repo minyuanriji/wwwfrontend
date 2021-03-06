@@ -73,6 +73,8 @@
 							</view>
 						</block>
 					</view>
+					<!--店铺信息-->
+					<info :params="params.mch" v-if="params.is_mch==1"></info>
 					<view class="jx-order-info jx-radius">
 						<view class="jx-info-flex jx-size24">
 							<view class="jx-info-text">订单编号</view>
@@ -194,10 +196,12 @@
 <script>
 	import tuiButton from "@/components/extend/button/button";
 	import commodity from '@/components/commodity/commodity';
+	import info from '@/components/shop/info'
 	export default {
 		components: {
 			tuiButton,
-			commodity
+			commodity,
+			info
 		},
 		data() {
 			return {
@@ -233,6 +237,7 @@
 				displayStyle: 1, //1为常规 2为边框 3为居中显示 4为边框居中
 				productData: [],
 				title_text:'',
+				params:{}
 			}
 		},
 		onLoad: function(options) {
@@ -409,6 +414,7 @@
 					this.loading = false
 					if (res.code === 0) {
 						this.detail = res.data.detail;
+						this.params=res.data
 						this.is_show = this.detail.order_goods_list.some(v => v.diy_refund_status == 0);
 						switch(this.detail.status){
 							case 0:

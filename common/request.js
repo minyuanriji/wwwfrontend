@@ -85,9 +85,11 @@ const fetch = {
 		let url = requestData.url,
 			postData = requestData.data,
 			method = requestData.method,
-			showLoading = requestData.showLoading;
+			showLoading = requestData.showLoading,
+			isformData=requestData.isformData?'multipart/form-data; boundary=XXX':'application/json'
 		//接口请求
 		method = (method === 'post' || method === 'POST') ? 'POST' : 'GET';
+		if(!url) return false;
 		if (showLoading) {
 			uni.showLoading({
 				mask: true,
@@ -96,20 +98,24 @@ const fetch = {
 		}
 
 		const access_token = fetch.getToken() || "";
+		var city=uni.getStorageSync('x-city-name') || "广州"
+		var header={
+			'content-type': isformData,
+			// 'x-mall-id': uni.getStorageSync("mall_id") || 4,
+			'x-mall-id': uni.getStorageSync("mall_id") || 5,
+			'x-access-token': access_token,
+			// 'x-access-token': 'amkzkqVxm7OS5EQEwtTXN6-gUKhC7Wi4',
+			'x-parent-id': uni.getStorageSync('pid') || -1,
+			'x-source': uni.getStorageSync('source') || 0,
+			'x-app-platform': platform,
+			'x-city-id':uni.getStorageSync('x-city-id') || -1,
+			'x-city-name':encodeURIComponent(city)
+		}
 		return new Promise((resolve, reject) => {
 			uni.request({
 				url: url,
 				data: postData,
-				header: {
-					'content-type': 'application/json',
-					// 'x-mall-id': uni.getStorageSync("mall_id") || 4,
-					'x-mall-id': uni.getStorageSync("mall_id") || 5,
-					'x-access-token': access_token,
-					// 'x-access-token': 'amkzkqVxm7OS5EQEwtTXN6-gUKhC7Wi4',
-					'x-parent-id': uni.getStorageSync('pid') || -1,
-					'x-source': uni.getStorageSync('source') || 0,
-					'x-app-platform': platform
-				},
+				header: header,
 				method: method,
 				dataType: 'json',
 				success: (res) => {
@@ -173,6 +179,7 @@ const fetch = {
 					resolve(res.data)
 				},
 				fail: (res) => {
+					console.log(url)
 					fetch.toast("网络不给力，请稍后再试~")
 					reject(res)
 				}
@@ -181,6 +188,7 @@ const fetch = {
 	},
 	// 上传头像
 	uploadFile: function(requestData) {
+		console.log(requestData)
 		let {
 			serverUrl,
 			file,

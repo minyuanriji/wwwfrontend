@@ -5,7 +5,7 @@
 		<!-- commonList -->
 		<view class="commonList">
 			<view class="tab-list">
-				<span v-for="its in commentCount" @click="countState(its.index)">{{its.name}}({{its.count}})</span>
+				<span v-for="its in commentCount" @click="countState(its.index)" :class="its.index==tIndex?'active_tap':''">{{its.name}}({{its.count}})</span>
 			</view>
 			<view class="list">
 				<view v-for="(its,index) in commentsData" class="list-items">
@@ -100,6 +100,7 @@
 				moreData : true,	//假设有更多评论列表数据
 				status : 0,		//默认获取全部数据
 				page : 1,		//默认请求第一列数据
+				tIndex:0//索引
 			}
 		},
 		onLoad: function(options) {
@@ -225,6 +226,7 @@
 					return false;
 				}
 				// 状态赋值，其他初始化
+				this.tIndex=status
 				this.status = status;
 				this.moreData = true;
 				this.page = 1;
@@ -375,14 +377,14 @@
 	}
 	/* 这里写评论页面 */
 	.commonList {
-		padding-top: 88rpx;
+		padding-top: 20rpx;
 		.tab-list{
 			position: fixed;
 			z-index: 100;
-			top: 45px;
+			top: 0px;
 			box-sizing: border-box;
-			width: 750rpx;
-			padding: 0 30rpx;
+			width: 100%;
+			padding: 30rpx;
 			height: 88rpx;
 			display: flex;
 			align-items: center;
@@ -510,5 +512,8 @@
 			letter-spacing: 1px;
 			margin-bottom: 18rpx;
 		}
+	}
+	.active_tap{
+		color: #fff;
 	}
 </style>

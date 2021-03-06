@@ -33,6 +33,17 @@
 			}
 		},
 		{
+			"path": "pages/shop/cat/cat",
+			"style": {
+				"navigationBarTitleText": "店铺分类",
+				"navigationBarBackgroundColor": "#fff",
+				"navigationBarTextStyle": "black",
+				"app-plus": {
+					"bounce": "none"
+				}
+			}
+		},
+		{
 			"path": "pages/goods/detail",
 			"style": {
 				"navigationBarBackgroundColor": "#fff",
@@ -534,24 +545,66 @@
 			}
 
 		}
+	    ,{
+            "path" : "pages/enter/enter",
+            "style" : {
+				"navigationBarTitleText": "商家申请入驻",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+        }
         ,{
-            "path" : "pages/live_list/live_list",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "直播专区",
-                "enablePullDownRefresh": false
-            }
-            
+            "path" : "pages/shop/shop",
+            "style" : {
+				"navigationBarBackgroundColor": "#fff",
+				"navigationBarTextStyle": "black",
+				"backgroundColorTop": "#F7F7F7",
+				"backgroundColorBottom": "#F7F7F7",
+				"navigationBarTitleText": "门店列表",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false,
+					"pullToRefresh": {
+						"style": "circle",
+						"color": "#2BD009"
+					}
+				}
+			}
         },
 		{
-		    "path" : "pages/webview/webview",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
+		    "path" : "pages/shop/goods/list",
+		    "style" : {
+				"navigationBarBackgroundColor": "#fff",
+				"navigationBarTextStyle": "black",
+				"backgroundColorTop": "#F7F7F7",
+				"backgroundColorBottom": "#F7F7F7",
+				"navigationBarTitleText": "商品列表",
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 50,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+		    "path" : "pages/shop/list/list",
+		    "style" : {
+				"navigationBarBackgroundColor": "#fff",
+				"navigationBarTextStyle": "black",
+				"backgroundColorTop": "#F7F7F7",
+				"backgroundColorBottom": "#F7F7F7",
+				"navigationBarTitleText": "商品列表",
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 50
+			}
+		},
+		{
+            "path" : "pages/shop/home/home",
+            "style" : {
+				
+				"navigationBarTitleText": "门店主页",
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 50
+			}
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",

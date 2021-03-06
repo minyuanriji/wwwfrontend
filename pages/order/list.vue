@@ -5,19 +5,20 @@
 		<!--选项卡逻辑自己实现即可，此处未做处理-->
 		<view :class="{'tui-order-list':scrollTop>=0}" v-if="dataList && dataList.length">
 			<view class="tui-order-item" v-for="(model,orderIndex) in data_list" :key="orderIndex">
-				<view @click="detail(model.id)">
+				<view>
 					<tui-list-cell :hover="false" :lineLeft="false" padding="26rpx 20rpx">
 						<view class="tui-goods-title">
-							<view class="logo">
+							<view class="logo" @tap="toShop(model.mch_id)">
 								<!-- <span :style="`background-image:url(${})`"></span> -->
-								<image class="img" lazy-load="true" src="http://jxmall.sinbel.cn/web/statics/img/admin/user.png" mode="aspectFill"></image>
-								<span class="name">名媛日记</span>
+								<image class="img" lazy-load="true" :src="url+'/images/shop/shoplogo.png'" mode="aspectFill"></image>
+								<span class="name">{{model.mch_info.name?model.mch_info.name:'名媛日记官方商城'}}</span>
+								<view class="toright"></view>
 							</view>
 							<view class="tui-order-status" :style="{color:textColor}">{{model.status_text}}</view>
 						</view>
 					</tui-list-cell>
 					<block v-for="(item,index) in model.detail" :key="index">
-						<tui-list-cell padding="0">
+						<tui-list-cell padding="0"  @click="detail(model.id)">
 							<view class="tui-goods-item">
 								<image :src="item.goods_info.pic_url" lazy-load="true" class="tui-goods-img"></image>
 								<view class="tui-goods-center">
@@ -98,6 +99,7 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
+				url:this.$api.test_url,
 				textColor:'#bc0100',
 				tabBar: null,
 				tabs: [{
@@ -166,6 +168,17 @@
 			}
 		},
 		methods: {
+			toShop(id){
+				if(id){
+					uni.navigateTo({
+						url:"/pages/shop/home/home?mch_id="+id
+					})
+				}else{
+					uni.navigateTo({
+						url:"pages/shop/shop"
+					})
+				}
+			},
 			toPage(orderId,oddNum){
 				uni.navigateTo({
 					url: `./logistics/index?orderId=${orderId}&odd=${oddNum}`
@@ -348,7 +361,14 @@
 	page {
 		background-color: #F7F7F7;
 	}
-
+    .toright{
+		width: 8px;
+		height: 8px;
+		border-top: 1px #999 solid;
+		border-right: 1px #999 solid;
+		transform: rotate(45deg);
+		margin-left: 5px;
+	}
 	.container {
 		padding-bottom: env(safe-area-inset-bottom);
 		background-color: #F7F7F7;
@@ -375,7 +395,7 @@
 
 		.logo {
 			display: flex;
-
+            align-items: center;
 			.img {
 				width: 40rpx;
 				height: 40rpx;

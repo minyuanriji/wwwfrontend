@@ -26,6 +26,16 @@
 			<!-- 0.1 循环出商家 -->
 			<view class="tui-top tui-goods-info" v-for="(item,index) in list" :key='index'>
 				<!-- 0.2 循环出商品 -->
+				<tui-list-cell :hover="false" :lineLeft="false" padding="26rpx 20rpx">
+					<view class="tui-goods-title">
+						<view class="logo" @tap="toShop(item.mch.id)">
+							<!-- <span :style="`background-image:url(${})`"></span> -->
+							<image class="img" lazy-load="true" :src="url+'/images/shop/shoplogo.png'" mode="aspectFill"></image>
+							<span class="name">{{item.mch.name?item.mch.name:"名媛日记官方商城"}}</span>
+							<view class="toright"></view>
+						</view>
+					</view>
+				</tui-list-cell>
 				<view v-for="(its,ids) in item.same_goods_list" class="item-goods">
 					<!-- 0.3 循环出规格 -->
 					<view v-for="(gItem,gIndex) in its.goods_list"> 
@@ -95,7 +105,7 @@
 				</tui-list-cell>
 			</view>
 
-			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1 && scoreswitc == 1">
+			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1 && scoreswitc == 1 || scoreswitc == 0">
 				<view>使用积分 <view class="xieti">拥有积分：{{user_score}}  <text class="text" v-if="is_checked">-{{total_score_use}}</text>
 				</view>
 				</view>
@@ -103,8 +113,7 @@
 			</view>
 			
 			<!-- 使用抵扣券 -->
-			<!-- integral_enable -->
-			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1 && scoreswitc == 2">
+			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1 && scoreswitc == 2 || scoreswitc == 0">
 				<view>使用抵扣券 <view class="xieti">拥有抵扣券金额：{{user_integral}} <text class="text" v-if="is_integral">-{{total_integral_use}}</text></view></view>
 				<switch :checked="is_integral" @change="useIntegral" :color='textColor' class="points-switch" />
 			</view>
@@ -184,6 +193,7 @@
 		},
 		data() {
 			return {
+				url:this.$api.test_url,
 				img_url: this.$api.img_url,
 				hasCoupon: true,
 				insufficient: false,
@@ -227,11 +237,13 @@
 				flag:true,
 				ExpressPrice:'',
 				scoreswitc:'',
-				wx_order_id:''
+				wx_order_id:'',
+				mch_id:"",//店铺ID
+				params:{},//请求数据
+				integral_enable:""
 			}
 		},
 		onLoad(options) {
-			console.log(options);
 			if (uni.getStorageSync('mall_config')) {
 				this.textColor = this.globalSet('textCol');
 				this.couponImg = this.globalSet('couponImg');
@@ -242,7 +254,7 @@
 			} else {
 				this.addressId = 0;
 			}
-
+            this.mch_id=options.mch_id
 			this.sendData = uni.getStorageSync('orderData');
 			this.getData();
 			//#ifdef MP-WEIXIN
@@ -268,6 +280,17 @@
 			}
 		},
 		methods: {
+			toShop(id){
+				if(id){
+					uni.navigateTo({
+						url:"/pages/shop/home/home?mch_id="+id
+					})
+				}else{
+					uni.navigateTo({
+						url:"pages/shop/shop"
+					})
+				}
+			},
 			back(){
 				this.navBack();
 			},
@@ -289,11 +312,7 @@
 				}).then(res => {
 					this.scoreswitc = res;
 					console.log(this.scoreswitc);
-					console.log(this.score_enable);
-					console.log(this.integral_enable);
-				}).catch(err => {
-					console.log(err);
-				})
+				}).catch()
 			},
 			//切换地址获取运费
 			switcExpressPrice(){
@@ -308,12 +327,7 @@
 						showLoading: true,
 						data: {
 							data: this.user_address.province,
-							//#ifdef H5
-							order_id: this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0,
-							//#endif
-							//#ifdef MP-WEIXIN
-							order_id: this.wx_order_id !== undefined ? this.wx_order_id : 0,
-							//#endif
+							order_id: this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0
 						}
 					}).then((res) => {
 						if(Number(res) > Number(this.list[0].express_price)){
@@ -325,13 +339,8 @@
 							this.ExpressPrice = res;
 						}else{
 							var price = Number(this.list[0].express_price) - Number(res);
-							if(price == this.list[0].express_price){
-								this.total_price = this.list[0].total_price - price;
-								this.ExpressPrice = res;
-							}else{
-								this.total_price = Number(this.total_price) - price;
-								this.ExpressPrice = res;
-							}
+							this.total_price = Number(this.total_price) - price;
+							this.ExpressPrice = res;
 						}
 						this.total_price = String(this.total_price).indexOf('.',0) !== -1 ? this.total_price : this.total_price + '.00';
 						this.ExpressPrice = String(this.ExpressPrice).indexOf('.',0) !== -1 ? this.ExpressPrice : this.ExpressPrice + '.00';
@@ -371,23 +380,59 @@
 				})
 				this.total_integral = (this.total_price - this.total_integral_use).toFixed(2); */
 			},
-			
+			//去重
+			unique(arr){
+				 for (var i = 0, len = arr.length; i < len; i++) {
+					for (var j = i + 1, len = arr.length; j < len; j++) {
+						if (arr[i] === arr[j]) {
+							arr.splice(j, 1);
+							j--;        // 每删除一个数j的值就减1
+							len--;      // j值减小时len也要相应减1（减少循环次数，节省性能）   
+							// console.log(j,len)
+
+						}
+					}
+				}
+				return arr;
+			},
 			// 0.1 获取订单页面数据
 			getData() { 
+				var sendData=this.sendData
+				var list=[]
+				var mch_id_arr=[]
+				for(var i=0;i<sendData.length;i++){
+					var mch_id=sendData[i]['mch_id']
+					mch_id_arr.push(mch_id)
+				}
+				//获取门店IDS
+				var mch_id_arr_unique=this.unique(mch_id_arr)
+				var data={
+					user_address_id: this.addressId,
+					use_score: this.use_score,	//是否使用积分
+					use_integral: this.use_integral,	//是否使用抵扣券
+				}
+				for(var j=0;j<mch_id_arr_unique.length;j++){
+					var slist=[]
+					for(var z=0;z<sendData.length;z++){
+						if(mch_id_arr_unique[j]==sendData[z]['mch_id']){
+							slist.push(sendData[z])
+						}
+					}
+					list.push({
+						mch_id:mch_id_arr_unique[j],
+						goods_list:slist,
+						use_coupon_list:this.use_coupon_list	//已使用优惠券列表
+					})
+				}
+				data['list']=list;
+				this.params=data//请求数据
+				//获取
+				console.log(data)
 				this.$http.request({
 					url: this.$api.order.submit,
 					method: 'post',
 					showLoading: true,
-					data: {
-						list: [{
-							mch_id: 0,
-							goods_list: this.sendData,
-							use_coupon_list:this.use_coupon_list	//已使用优惠券列表
-						}],
-						user_address_id: this.addressId,
-						use_score: this.use_score,	//是否使用积分
-						use_integral: this.use_integral,	//是否使用抵扣券
-					}
+					data: data
 				}).then((res) => {
 					if (res.code == 0) {
 						let resList = res.data.list
@@ -662,28 +707,20 @@
 					this.$http.toast('请添加收货地址!')
 					return;
 				}
-				
-
+				//请求数据
+				var params=this.params
+				var list=params['list']
+				for(var i=0;i<list.length;i++){
+					list[i]['remark']= this.remark
+					list[i]['delivery']= [{send_type: 'express'}]
+					list[i]['use_coupon_list']=this.use_coupon_list
+				}
+                params['list']=list
+				console.log(params)
 				this.$http.request({
 					url: this.$api.order.doSubmitOrder,
 					method: 'post',
-					data: {
-						list: [{
-							mch_id: 0,
-							goods_list: this.subSendData,
-							remark: this.remark,
-							// user_coupon_id: 0,
-							// use_score: 0,
-							// order_form: {},
-							delivery: [{
-								send_type: 'express'
-							}],
-							use_coupon_list: this.use_coupon_list
-						}],
-						user_address_id: this.addressId ? this.addressId : this.user_address.id,
-						use_score: this.is_checked ? 1 : 0,
-						use_integral: this.is_integral ? 1 : 0,
-					}
+					data: params
 				}).then((res) => {
 					this.is_request = false;	//防抖(重复请求)
 					if (res.code == 0) {
@@ -709,7 +746,9 @@
 		padding: 20rpx 20rpx 118rpx;
 		box-sizing: border-box;
 	}
-
+    .tui-goods-info{
+		border: 1px #eee solid;
+	}
 	.tui-address {
 		min-height: 80rpx;
 		padding: 10rpx 0;
@@ -723,7 +762,6 @@
 		line-height: 30rpx;
 		padding-bottom: 12rpx;
 	}
-
 	.tui-name {
 		padding-right: 40rpx;
 	}
@@ -769,7 +807,29 @@
 		display: flex;
 		align-items: center;
 	}
-
+    .logo {
+    	display: flex;
+        align-items: center;
+    	
+    }
+	.img {
+		width: 40rpx;
+		height: 40rpx;
+		margin-right: 20rpx;
+		border-radius: 10rpx;
+	}
+	.toright{
+		width: 8px;
+		height: 8px;
+		border-top: 1px #999 solid;
+		border-right: 1px #999 solid;
+		transform: rotate(45deg);
+		margin-left: 5px;
+	}
+	.name {
+		color: #1E1E1E;
+		font-size: 11pt;
+	}
 	.tui-padding {
 		box-sizing: border-box;
 	}

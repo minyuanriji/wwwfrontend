@@ -97,7 +97,8 @@
 					</view>
 				</view>
 			</view>
-
+            <!--店铺信息-->
+			<info :params="mch" v-if="is_mch==1"></info>
 			<view class="assess-content tui-mtop" v-if="commentsData && commentsData.length">
 				<view class="tui-list-cell last tui-between">
 					<view class="tui-bold user-assess-title">用户评价({{commentsData.length}})</view>
@@ -368,6 +369,7 @@
 	import tuiTopDropdown from "@/components/top-dropdown/top-dropdown"
 	import tuiNumberbox from "@/components/numberbox/numberbox"
 	import jyfParser from "@/components/jyf-parser/jyf-parser";
+	import info from '@/components/shop/info'
 	export default {
 		components: {
 			tuiIcon,
@@ -377,7 +379,8 @@
 			tuiTopDropdown,
 			tuiNumberbox,
 			jyfParser,
-			jxRate
+			jxRate,
+			info
 		},
 		data() {
 			return {
@@ -448,6 +451,8 @@
 				displayStyle: 1, //1为常规 2为边框 3为居中显示 4为边框居中
 				listStyle: 2, //1为大图 2为一行一个 3为一行两个 4一行三个 5为左右滑动
 				wx_nav_id:'',
+				mch:{},//店铺信息
+				is_mch:0//是否有店铺 1有
 			}
 		},
 		onLoad(options) {
@@ -725,14 +730,20 @@
 				} else if (this.is_index == 2) { //立即购买
 					this.popupShow = false;
 					var goods_attr_id = this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id;
-
+					var mch_id=0
+					var is_mch=this.is_mch
+					if(is_mch==1){
+						var mch=this.mch
+						var mch_id=mch['mch_id']
+					}
 					uni.setStorage({
 						key: 'orderData',
 						data: [{
 							num: this.value,
 							goods_attr_id: goods_attr_id,
 							id: this.proId,
-							cart_id: 0
+							cart_id: 0,
+							mch_id:mch_id
 						}],
 						fail() {
 							console.log('存入本地失败');
@@ -740,16 +751,16 @@
 					});
 					var url = '';
 					if (this.sign == 'short_video') {
-						url = `/pages/order/submit?sign=${this.sign}&related_user_id=${this.related_user_id}`;
+						url = `/pages/order/submit?sign=${this.sign}&related_user_id=${this.related_user_id}&mch_id=${mch_id}`;
 					} else {
 						url = '/pages/order/submit';
 					}
 					// #ifdef H5
-					url = url + '?nav_id=' + this.$route.query.proId;
+					url = url + '?nav_id=' + this.$route.query.proId+'&mch_id='+mch_id;
 					// #endif
 					
 					// #ifdef MP-WEIXIN
-					url = url + '?nav_id=' + this.wx_nav_id.proId;
+					url = url + '?nav_id=' + this.wx_nav_id.proId+'&mch_id='+mch_id;
 					// #endif
 					uni.navigateTo({
 						url
@@ -867,6 +878,8 @@
 						})
 						this.strName = arr.join('， ');
 						this.skuCommon();
+						this.mch=res.data.mch
+						this.is_mch=res.data.is_mch
 					} else {
 						uni.showModal({
 							content: res.msg,
