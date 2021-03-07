@@ -253,7 +253,7 @@
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
-		}, 
+		},
 		{
 			"path": "pages/user/shopping/shopping",
 			"style": {
@@ -261,7 +261,7 @@
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
-		}, 
+		},
 		{
 			"path": "pages/user/shopping/rechargeCard",
 			"style": {
@@ -269,7 +269,7 @@
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
-		}, 
+		},
 		{
 			"path": "pages/user/shopping/sendPlan",
 			"style": {
@@ -277,8 +277,8 @@
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
-		}, 
-		
+		},
+
 		{
 			"path": "pages/user/shopping/detailed",
 			"style": {
@@ -286,7 +286,7 @@
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
-		}, 
+		},
 		{
 			"path": "pages/user/shopping/rechargeRecord",
 			"style": {
@@ -302,7 +302,7 @@
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
-		}, 
+		},
 		{
 			"path": "pages/user/integral/integral",
 			"style": {
@@ -310,7 +310,7 @@
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
-		}, 
+		},
 		{
 			"path": "pages/user/integral/rechargeCard",
 			"style": {
@@ -318,7 +318,7 @@
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
-		}, 
+		},
 		{
 			"path": "pages/user/integral/sendPlan",
 			"style": {
@@ -326,8 +326,8 @@
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
-		}, 
-		
+		},
+
 		{
 			"path": "pages/user/integral/detailed",
 			"style": {
@@ -335,7 +335,7 @@
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
-		}, 
+		},
 		{
 			"path": "pages/user/integral/rechargeRecord",
 			"style": {
@@ -343,7 +343,7 @@
 				"navigationBarBackgroundColor": "#F7F7F7",
 				"navigationBarTextStyle": "black"
 			}
-		}, 
+		},
 		{
 			"path": "pages/public/forget",
 			"style": {
@@ -544,18 +544,16 @@
 				"navigationBarTextStyle": "black"
 			}
 
-		}
-	    ,{
-            "path" : "pages/enter/enter",
-            "style" : {
+		}, {
+			"path": "pages/enter/enter",
+			"style": {
 				"navigationBarTitleText": "商家申请入驻",
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
-        }
-        ,{
-            "path" : "pages/shop/shop",
-            "style" : {
+		}, {
+			"path": "pages/shop/shop",
+			"style": {
 				"navigationBarBackgroundColor": "#fff",
 				"navigationBarTextStyle": "black",
 				"backgroundColorTop": "#F7F7F7",
@@ -570,10 +568,10 @@
 					}
 				}
 			}
-        },
+		},
 		{
-		    "path" : "pages/shop/goods/list",
-		    "style" : {
+			"path": "pages/shop/goods/list",
+			"style": {
 				"navigationBarBackgroundColor": "#fff",
 				"navigationBarTextStyle": "black",
 				"backgroundColorTop": "#F7F7F7",
@@ -585,8 +583,8 @@
 			}
 		},
 		{
-		    "path" : "pages/shop/list/list",
-		    "style" : {
+			"path": "pages/shop/list/list",
+			"style": {
 				"navigationBarBackgroundColor": "#fff",
 				"navigationBarTextStyle": "black",
 				"backgroundColorTop": "#F7F7F7",
@@ -597,15 +595,42 @@
 			}
 		},
 		{
-            "path" : "pages/shop/home/home",
-            "style" : {
-				
+			"path": "pages/shop/home/home",
+			"style": {
+
 				"navigationBarTitleText": "门店主页",
 				"enablePullDownRefresh": true,
 				"onReachBottomDistance": 50
 			}
-        }
-    ],
+		}, {
+			"path": "pages/webview/webview",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/link/index",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/link/welfare",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/live/live",
+			"style": {
+				"navigationBarTitleText": "直播",
+				"navigationBarBackgroundColor": "#fff"
+			}
+		}
+	],
 	"subPackages": [{
 		"root": "plugins",
 		"pages": [{

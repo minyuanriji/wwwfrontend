@@ -474,6 +474,31 @@ export default {
 				url: '/pages/topic/list'
 			});
 		},
+		// 判断微信版本是否 兼容小程序更新机制API的使用
+		checkUpdateVersion() {
+		    if (uni.canIUse('getUpdateManager')) {
+		        const updateManager = wx.getUpdateManager();
+		        updateManager.onCheckForUpdate(function(res) {
+		          console.log(res.hasUpdate)
+		        if (res.hasUpdate) {
+		            updateManager.onUpdateReady(function() {
+		            updateManager.applyUpdate();
+		          })
+		            updateManager.onUpdateFailed(function() {
+		            uni.showModal({
+		                title: '已经有新版本喽~',
+		                content: '请您删除当前小程序，到微信 “发现-小程序” 页，重新搜索打开哦~',
+		            })
+		            })
+		        }
+		        })
+		    } else {
+		        uni.showModal({
+		        title: '溫馨提示',
+		        content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+		        })
+		    }
+		    },
 		ceilingSwitch() {
 			//吸顶组件点击事件
 			this.t_page = 1;
@@ -626,31 +651,6 @@ export default {
 			this.styleBool = true;
 		}
 	},
-	 // 判断微信版本是否 兼容小程序更新机制API的使用
-	checkUpdateVersion() {
-	    if (uni.canIUse('getUpdateManager')) {
-	        const updateManager = wx.getUpdateManager();
-	        updateManager.onCheckForUpdate(function(res) {
-	          console.log(res.hasUpdate)
-	        if (res.hasUpdate) {
-	            updateManager.onUpdateReady(function() {
-	            updateManager.applyUpdate();
-	          })
-	            updateManager.onUpdateFailed(function() {
-	            uni.showModal({
-	                title: '已经有新版本喽~',
-	                content: '请您删除当前小程序，到微信 “发现-小程序” 页，重新搜索打开哦~',
-	            })
-	            })
-	        }
-	        })
-	    } else {
-	        uni.showModal({
-	        title: '溫馨提示',
-	        content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
-	        })
-	    }
-	    },
 };
 </script>
 

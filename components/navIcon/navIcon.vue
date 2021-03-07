@@ -3,7 +3,7 @@
 		
 		<view class="flex list" v-if="listNums == 3">
 			<view v-for="(item,index) in list" :key='index' class="tui-col-4 listBox">
-				<view class="listBox_nav flex flex-col flex-y-center flex-x-center" @tap="navTo(item.url)">
+				<view class="listBox_nav flex flex-col flex-y-center flex-x-center" @tap="navTo(item.url,item.name)">
 					<image class="listImg" :src="item.icon" mode=""></image>
 					<view class="navName" :style="{color: textColor}">{{item.name}}</view>
 				</view>
@@ -11,7 +11,7 @@
 		</view>
 		<view class="flex list" v-if="listNums == 4">
 			<view v-for="(item,index) in list" :key='index' class="tui-col-3 listBox">
-				<view class="listBox_nav flex flex-col flex-y-center flex-x-center" @tap="navTo(item.url)">
+				<view class="listBox_nav flex flex-col flex-y-center flex-x-center" @tap="navTo(item.url,item.name)">
 					<image class="listImg" :src="item.icon" mode=""></image>
 					<view class="navName" :style="{color: textColor}">{{item.name}}</view>
 				</view>
@@ -19,7 +19,7 @@
 		</view>
 		<view class="flex list" v-if="listNums == 5">
 			<view v-for="(item,index) in list" :key='index' class="listBox listBox5">
-				<view class="listBox_nav flex flex-col flex-y-center flex-x-center" @tap="navTo(item.url)">
+				<view class="listBox_nav flex flex-col flex-y-center flex-x-center" @tap="navTo(item.url,item.name)">
 					<image class="listImg" :src="item.icon" mode=""></image>
 					<view class="navName" :style="{color: textColor}">{{item.name}}</view>
 				</view>
@@ -58,10 +58,26 @@
 			},
 		},
 		methods:{
-			navTo(url){
+			navTo(url,title){
+				if(title == '直播专区'){
+					console.log(url);
+					uni.navigateTo({
+						url:'/pages/live/live'
+					})
+					return false;
+				}
 				if (url) {
 					if (url.split('=')[0] == '/pages/web/web?url') {
+						//#ifdef H5
 						window.location.href = decodeURIComponent(url.split('=')[1]);
+						//#endif
+						
+						//#ifdef MP-WEIXIN
+							uni.navigateTo({
+								url:'/pages/webview/webview?url=' + url.split('=')[1]
+							})
+						//#endif
+						
 					}else if(url.split('=')[0] == 'tel?tel'){
 						uni.makePhoneCall({
 						    phoneNumber: url.split('=')[1], 
