@@ -468,7 +468,6 @@
 		line-height: 30rpx;
 		padding-top: 20rpx;
 	}
-
 	.tui-color-red {
 		color: #E41F19;
 		padding-right: 30rpx;

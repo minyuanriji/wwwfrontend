@@ -36,6 +36,9 @@
 						<view class="user-id">账号ID: {{ userInfo.user_id }}</view>
 					</view>
 				</view>
+				<view class="user_shop" @click="shopInto">
+					商户
+				</view>
 
 				<!-- 社区团购 -->
 				<view class="withdraw flex" v-if="0 == 1">
@@ -378,6 +381,11 @@ export default {
 		// 隐藏取件码
 		codeHide() {
 			this.take_a_code = '';
+		},
+		shopInto(){ //点击进入商户页面
+			uni.navigateTo({
+				url:'../personalCentre/personalCentre'
+			})
 		}
 	},
 	onPageScroll(e) {
@@ -446,7 +454,16 @@ export default {
 .btns {
 	display: flex;
 }
-
+.user_shop{
+	position: absolute;
+	right: 100upx;
+	color:#fff ;
+	min-width: 100upx;
+	text-align: center;
+	background:blue;
+	border-radius: 20upx;
+	font-size:30upx ;
+}
 .member {
 	height: 80rpx;
 	margin: 20rpx 0;

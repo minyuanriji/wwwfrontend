@@ -71,6 +71,14 @@
 									</view>
 								</view>
 							</view>
+							<view class="personalCenter-item">
+								<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href">
+									<view class="jx-cell-header">
+										<view class="jx-cell-title" style="font-weight: 500;">到店消费商品查看</view>
+										<view class="jx-cell-sub">使用</view>
+									</view>
+								</jx-list-cell>
+							</view>
 						</block>
 					</view>
 					<!--店铺信息-->
@@ -196,12 +204,14 @@
 <script>
 	import tuiButton from "@/components/extend/button/button";
 	import commodity from '@/components/commodity/commodity';
-	import info from '@/components/shop/info'
+	import info from '@/components/shop/info';
+	import jxListCell from '@/components/list-cell/list-cell';
 	export default {
 		components: {
 			tuiButton,
 			commodity,
-			info
+			info,
+			jxListCell
 		},
 		data() {
 			return {
@@ -470,6 +480,11 @@
 			},
 			getReason: function(status) {
 				return ["剩余时间", "等待卖家发货", "还剩X天XX小时自动确认", "", "超时未付款，订单自动取消"][status - 1]
+			},
+			href(){ //进入核销页面
+				uni.navigateTo({
+					url:'./verification/verification'
+				})
 			}
 		},
 	}
@@ -479,7 +494,31 @@
 	.container {
 		// padding-bottom: 118rpx;
 	}
-
+	.personalCenter-item{width: 100%;overflow: hidden;margin: 20upx 0;border-top: 1rpx solid #f3f3f3;}
+	.jx-cell-header {
+		width: 100%;
+		height: 100rpx;
+		padding: 0 40rpx;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		border-bottom: 1rpx solid #f3f3f3;
+	}
+	.jx-cell-title {
+		font-size: 11pt;
+		line-height: 30rpx;
+		font-weight: 400;
+		color: #333;
+		font-weight: 600;
+		letter-spacing: 1px;
+	}
+	.jx-cell-sub {
+		font-size: 9pt;
+		font-weight: 400;
+		color: #999;
+		padding-right: 10rpx;
+	}
 	.jx-mybg-box {
 		width: 100%;
 		position: relative;

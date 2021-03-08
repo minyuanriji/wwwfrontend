@@ -630,7 +630,77 @@
 				"navigationBarBackgroundColor": "#fff"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/personalCentre/personalCentre",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商户中心",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/personalCentre/personalCentreSET/personalCentreSET",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "设置",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/personalCentre/personalCentreSETPhone/personalCentreSETPhone",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "修改电话",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/personalCentre/personalCentreSETPassWorde/personalCentreSETPassWorde",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "修改密码",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/personalCentre/accountingOrder/accountingOrder",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "核销订单",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/personalCentre/ercode/ercode",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "二维码收款",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/order/verification/verification",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "到店消费",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"subPackages": [{
 		"root": "plugins",
 		"pages": [{
