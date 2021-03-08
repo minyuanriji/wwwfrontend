@@ -113,7 +113,7 @@
 			</view>
 			
 			<!-- 使用抵扣券 -->
-			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1 && scoreswitc == 2 || scoreswitc == 0">
+			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1 && scoreswitc == 2 || scoreswitc == 0||scoreswitc == 3">
 				<view>使用抵扣券 <view class="xieti">拥有抵扣券金额：{{user_integral}} <text class="text" v-if="is_integral">-{{total_integral_use}}</text></view></view>
 				<switch :checked="is_integral" @change="useIntegral" :color='textColor' class="points-switch" />
 			</view>
