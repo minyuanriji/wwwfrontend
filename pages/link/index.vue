@@ -1,6 +1,7 @@
 <template>
 	<view>
 		分享红包：<button type="warn" @click="getData()">点击生成二维码</button>
+		<image style="width: 100%; height: 400px;" :src="poster_url"></image>
 	</view>
 </template>
 
@@ -8,7 +9,8 @@
 	export default {
 		data() {
 			return {
-				loading: false
+				loading: false,
+				poster_url:''
 			}
 		},
 		methods: {
@@ -18,8 +20,8 @@
 					url: this.$api.plugin.extensions.LinkPoster,
 					method: 'POST'
 				}).then(res => {
-					if (res.code == 0) {
-						this.poster_url = res.data.pic_url;
+					if (res.status == 1) {
+						this.poster_url = res.img;
 						setTimeout(() => {
 							this.loading = false;
 						}, 1000)
