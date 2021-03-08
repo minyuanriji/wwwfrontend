@@ -261,8 +261,9 @@
 								this.navBack();
 							}
 						}, 1000)
-					} else {
+					} else {						
 						this.$http.toast(res.msg);
+						this.is_shake = false;
 					}
 				})
 			},

@@ -705,6 +705,7 @@
 
 				if (!(this.addressId || this.user_address.id)) {
 					this.$http.toast('请添加收货地址!')
+					this.is_request = false
 					return;
 				}
 				//请求数据

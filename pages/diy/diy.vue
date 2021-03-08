@@ -1,6 +1,6 @@
 <template>
 	<view class="app" v-if="diy && diy.id">
-		<com-nav-bar left-icon="back" :title="diy.name" @onClickLeft="back"></com-nav-bar>
+		<com-nav-bar left-icon="back" :title="diy.name" @clickLeft="back"></com-nav-bar>
 		
 		<diy-container :diy-data="item" v-for="(item,i) in diy.template.data" :key="i"></diy-container>
 
