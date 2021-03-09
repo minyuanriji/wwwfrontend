@@ -67,6 +67,7 @@
 				is_show_code: true,
 				countdown: 60,
 				logo_img:'',
+				user_id:''
 			};
 		},
 		onLoad(options) {
@@ -74,6 +75,10 @@
 				this.textColor = this.globalSet('textCol');
 				this.logo_img=JSON.parse(uni.getStorageSync('mall_config')).mall_setting.setting.logo;
 			}
+			//#ifdef H5
+			this.user_id = this.$route.query.user_id !== undefined ? this.$route.query.user_id : 0; 
+			//#endif
+			console.log(this.user_id);
 
 			if (this.$http.isLogin()) {
 				this.$http.toast('您已登录，请勿重新登录');
@@ -168,7 +173,7 @@
 							if (!access_token.length && config.all_network_enable == 1) {
 								// 开启了全网通 并且 access_token 跳转到 绑定手机号的页面
 								uni.redirectTo({
-									url: `/pages/public/bind?key=${key}`
+									url: `/pages/public/bind?key=${key}&user_id=` + this.user_id
 								});
 								return;
 							}
@@ -225,11 +230,13 @@
 									data: {
 										code: loginRes.code,
 										encryptedData: encryptedData,
-										iv: iv
+										iv: iv,
+										parent_user_id:uni.getStorageSync('parent_user_id')
 									}
 								}).then(res => {
 									this.$http.toast(res.msg);
 									if (res.code == 0) {
+										uni.setStorageSync('new_user',1);
 										this.$http.setToken(res.data.access_token);
 										if (res.data.close_auth_bind == '0' && !res.data.mobile) {
 											uni.redirectTo({

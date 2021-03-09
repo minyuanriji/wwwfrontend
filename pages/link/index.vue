@@ -17,11 +17,24 @@
 			getData() {
 				this.loading = true;
 				this.$http.request({
+					//#ifdef H5
 					url: this.$api.plugin.extensions.LinkPoster,
+					// #endif
+					
+					//#ifdef MP-WEIXIN
+					url: this.$api.plugin.extensions.LinkPoster2,
+					//#endif
+					
+					
 					method: 'POST'
 				}).then(res => {
 					if (res.status == 1) {
 						this.poster_url = res.img;
+						uni.showToast({
+						    title: res.msg,
+						    duration: 2000,
+							icon:'none'
+						});
 						setTimeout(() => {
 							this.loading = false;
 						}, 1000)
