@@ -48,9 +48,13 @@
 				countDown: '',
 				key: '',
 				textColor:'',
+				user_id:''
 			}
 		},
 		onLoad(options) {
+			//#ifdef H5
+			this.user_id = this.$route.query.user_id !== undefined ? this.$route.query.user_id : 0; 
+			//#endif
 			if(options.key){
 				this.key = options.key
 			}
@@ -81,7 +85,8 @@
 						key,
 						recommend_id,
 						mobile,
-						captcha
+						captcha,
+						'user_id':this.user_id
 					},
 					method: 'POST',
 					showLoading: true
@@ -95,6 +100,7 @@
 						}
 						_self.$http.setToken(res.data.access_token);
 						let url = uni.getStorageSync("_login_pre_url") ? uni.getStorageSync("_login_pre_url") : '/pages/user/index';
+						uni.setStorageSync('new_user',1);
 						uni.removeStorageSync("_login_pre_url");
 						setTimeout(() => {
 							uni.redirectTo({

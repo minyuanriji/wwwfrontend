@@ -229,6 +229,11 @@ export default {
 		};
 	},
 	onLoad: function(options) {
+		//#ifdef MP-WEIXIN
+		if(options.user_id){
+			uni.setStorageSync('parent_user_id',options.user_id);
+		}
+		//#endif
 		this.textColor = this.globalSet('textCol');
 		let obj = {};
 		// #ifdef MP-WEIXIN
@@ -240,6 +245,22 @@ export default {
 		// #ifdef MP-ALIPAY
 		my.hideAddToDesktopMenu();
 		// #endif
+		
+		if(uni.getStorageSync('new_user')){
+				uni.showModal({
+						    title: '提示',
+						    content: '新人领取红包',
+						    success: function (res) {
+						        if (res.confirm) {
+						            uni.navigateTo({
+						            	url: '/pages/link/welfare'
+						            });
+						        } else if (res.cancel) {
+						            console.log('用户点击取消');
+						        }
+						    }
+						});
+		}
 
 		uni.getSystemInfo({
 			success: res => {
