@@ -25,7 +25,7 @@
 						</view> -->
 					</view>
 				</view>
-				<view class="jx-order-user jx-radius">
+				<view class="jx-order-user jx-radius" v-if="messageShow">
 					<view class="jx-address view">
 						<view class="jx-flex-box">
 							<view class="jx-icon-img iconfont icon-shouhuodizhi"></view>
@@ -71,8 +71,9 @@
 									</view>
 								</view>
 							</view>
-							<view class="personalCenter-item">
-								<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href">
+							<view class="personalCenter-item" v-if="item.shopExpress">
+								<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(item.orderGoodsConsumeVerification.id
+)">
 									<view class="jx-cell-header">
 										<view class="jx-cell-title" style="font-weight: 500;">到店消费商品查看</view>
 										<view class="jx-cell-sub">使用</view>
@@ -142,7 +143,7 @@
 							<view>红包</view>
 							<view class="jx-price">¥0.00</view>
 						</view>
-						<view class="jx-price-flex  jx-size24">
+						<view class="jx-price-flex  jx-size24" v-if="messageShow">
 							<view>运费</view>
 							<view class="jx-price">+ ¥{{detail.express_price}}</view>
 						</view>
@@ -247,7 +248,8 @@
 				displayStyle: 1, //1为常规 2为边框 3为居中显示 4为边框居中
 				productData: [],
 				title_text:'',
-				params:{}
+				params:{},
+				messageShow:true,//地址，订单号显示
 			}
 		},
 		onLoad: function(options) {
@@ -423,6 +425,10 @@
 				}).then(res => {
 					this.loading = false
 					if (res.code === 0) {
+						console.log(res.data)
+						if(res.data.is_need_address==0){
+							this.messageShow=false
+						}
 						this.detail = res.data.detail;
 						this.params=res.data
 						this.is_show = this.detail.order_goods_list.some(v => v.diy_refund_status == 0);
@@ -439,6 +445,12 @@
 							case 3:
 								this.title_text = '待评价';
 								break;
+						}
+						for(let i=0;i<this.detail.order_goods_list.length;i++){
+							this.detail.order_goods_list[i].shopExpress=false
+							if(this.detail.order_goods_list[i].is_on_site_consumption==1&&this.detail.is_pay==1){
+								this.detail.order_goods_list[i].shopExpress=true
+							}
 						}
 					}
 				})
@@ -481,9 +493,9 @@
 			getReason: function(status) {
 				return ["剩余时间", "等待卖家发货", "还剩X天XX小时自动确认", "", "超时未付款，订单自动取消"][status - 1]
 			},
-			href(){ //进入核销页面
+			href(id){ //进入核销页面
 				uni.navigateTo({
-					url:'./verification/verification'
+					url:'./verification/verification?id='+id
 				})
 			}
 		},

@@ -7,6 +7,22 @@
 				<view class="personal_id">ID:123456</view>
 			</view>
 		</view>
+		<view class="jx-content-box">
+			<view class="jx-header-btm">
+				<view class="jx-btm-item">
+					<view class="jx-btm-num">1</view>
+					<view class="jx-btm-text">余额</view>
+				</view>
+				<view class="jx-btm-item">
+					<view class="jx-btm-num">2</view>
+					<view class="jx-btm-text">订单</view>
+				</view>
+				<view class="jx-btm-item last">
+					<view class="jx-btm-num">3</view>
+					<view class="jx-btm-text">商品</view>
+				</view>
+			</view>
+		</view>
 		<view class="personalCenter-item">
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false"  @click="href(1)">
 				<view class="jx-cell-header">
@@ -102,6 +118,62 @@
 	.personal_nicken_ID{float: left;margin-left: 30rpx;}
 	.personal_nicken{margin: 10upx 0;}
 	.personalCenter-item{width: 100%;overflow: hidden;margin: 20upx 0;}
+	.jx-content-box {
+		width: 100%;
+		padding: 0 30rpx;
+		box-sizing: border-box;
+		margin-top: 20rpx;
+	}
+	.jx-header-btm {
+		border-radius: 12rpx;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		color: #000;
+		background: #ffffff;
+		margin-bottom: 20rpx;
+		// box-shadow: 1rpx 1rpx 5rpx #888;
+	}
+	
+	.jx-btm-item {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 40rpx;
+		position: relative;
+	
+		&::after {
+			content: '';
+			border-right: 1rpx solid #b3b3b3;
+			width: 1px;
+			height: 100rpx;
+			position: absolute;
+			right: 0;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+	
+		&:last-child {
+			&::after {
+				display: none;
+			}
+		}
+	}
+	
+	.jx-btm-num {
+		font-size: 12pt;
+		font-weight: 600;
+		position: relative;
+	}
+	
+	.jx-btm-text {
+		font-size: 9pt;
+		opacity: 0.85;
+		padding-top: 4rpx;
+	}
 	.jx-cell-header {
 		width: 100%;
 		height: 100rpx;
