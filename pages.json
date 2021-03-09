@@ -619,7 +619,7 @@
 		}, {
 			"path": "pages/link/welfare",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "新人福利",
 				"enablePullDownRefresh": false
 			}
 		},

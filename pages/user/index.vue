@@ -250,6 +250,7 @@ export default {
 				uni.showModal({
 						    title: '提示',
 						    content: '新人领取红包',
+							showCancel:false,
 						    success: function (res) {
 						        if (res.confirm) {
 						            uni.navigateTo({

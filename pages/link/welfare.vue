@@ -14,6 +14,10 @@
 
 			}
 		},
+		mounted() {
+			var a = document.getElementsByClassName('uni-page-head-hd')[0]
+			a.style.display = 'none';	
+		},
 		methods: {
 			get_integral() {
 				var user = uni.getStorageSync('userInfo');
@@ -32,6 +36,11 @@
 							icon:'none'
 						});
 						uni.removeStorageSync('new_user');
+						setTimeout(function () {
+							uni.redirectTo({
+								url:'/pages/index/index'
+							});
+						},2800);
 					} else {
 						this.$http.toast(res.msg);
 						uni.redirectTo();

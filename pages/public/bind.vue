@@ -65,6 +65,10 @@
 				this.textColor = this.globalSet('textCol');
 			}
 		},
+		mounted() {
+				var a = document.getElementsByClassName('uni-page-head-hd')[0];
+				a.style.display = 'none';	
+		},
 		methods: {
 			submit() {
 				let _self = this;
