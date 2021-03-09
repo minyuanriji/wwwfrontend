@@ -3,7 +3,7 @@
 		<com-nav-bar @clickLeft="back" left-icon="back" title="提交订单" :status-bar="true" background-color="#ffffff" :border="false" color="#000000"></com-nav-bar>
 		<view class="tui-box">
 			<!-- 收货地址 -->
-			<tui-list-cell :arrow="true" :last="true" :radius="true" @click="chooseAddr" v-if="messageShow">
+			<tui-list-cell :arrow="true" :last="true" :radius="true" @click="chooseAddr">
 				<view class="tui-address">
 					<view v-if="user_address.length != 0">
 						<view class="tui-userinfo">
@@ -64,13 +64,13 @@
 					</view>
 					
 				</view>
-				<tui-list-cell :hover="false" v-if="messageShow">
+				<tui-list-cell :hover="false">
 					<view class="tui-padding tui-flex">
 						<view>配送方式</view>
 						<view v-if="item.delivery.send_type == 'express'">快递配送</view>
 					</view>
 				</tui-list-cell>
-				<tui-list-cell :hover="false" v-if="messageShow">
+				<tui-list-cell :hover="false">
 					<view class="tui-padding tui-flex" v-if="flag">
 						<view>配送费</view>
 						<view v-if="list" :style="{color: textColor}">+&yen;{{item.express_price}}</view>
@@ -241,17 +241,17 @@
 				mch_id:"",//店铺ID
 				params:{},//请求数据
 				integral_enable:"",
-				messageShow:true,//地址显示，配送方式，配送费显示
+				price:0,
+				express_price:0
 			}
 		},
 		onLoad(options) {
-			console.log(options)
 			if (uni.getStorageSync('mall_config')) {
 				this.textColor = this.globalSet('textCol');
 				this.couponImg = this.globalSet('couponImg');
 			}
-			if (uni.getStorageSync('addressID')) { //如果有地址id在请求地址接口，如果没有则用默认的地址
-				this.addressId =uni.getStorageSync('addressID');
+			if (options.addressId) { //如果有地址id在请求地址接口，如果没有则用默认的地址
+				this.addressId = options.addressId;
 				this.getAddress();
 			} else {
 				this.addressId = 0;
@@ -332,19 +332,16 @@
 							order_id: this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0
 						}
 					}).then((res) => {
-						console.log(res);
-						if(Number(res) > Number(this.list[0].express_price)){
-							var price = Number(res) - Number(this.list[0].express_price);
-							this.total_price = Number(this.total_price) + price;
-							this.ExpressPrice = res;
-						}else if(Number(res) == Number(this.list[0].express_price)){
-							this.total_price = this.list[0].total_price;
-							this.ExpressPrice = res;
-						}else{
-							var price = Number(this.list[0].express_price) - Number(res);
-							this.total_price = Number(this.total_price) - price;
-							this.ExpressPrice = res;
+						if(this.express_price == 0){
+							this.express_price = this.list[0].express_price;
 						}
+						if(this.price == 0){
+							this.price = this.total_price;
+						}
+						this.total_price = (Number(this.price - this.express_price)) + Number(res.price);
+						this.ExpressPrice = Number(res.price);
+						this.list[0].express_price = Number(res.price);
+						this.list[0].total_price = (Number(this.price - this.express_price)) + Number(res.price);
 						this.total_price = String(this.total_price).indexOf('.',0) !== -1 ? this.total_price : this.total_price + '.00';
 						this.ExpressPrice = String(this.ExpressPrice).indexOf('.',0) !== -1 ? this.ExpressPrice : this.ExpressPrice + '.00';
 						this.flag = false;
@@ -355,6 +352,7 @@
 			
 			// 使用积分
 			use(e) {
+				this.price = 0;
 				this.is_checked = e.detail.value;
 				this.is_checked?this.use_score=1:this.use_score=0;	//是否使用积分(请求用)
 				this.getData();	//重新获取订单详情
@@ -370,6 +368,7 @@
 			},
 			// 使用抵扣券
 			useIntegral(e){
+				this.price = 0;
 				this.is_integral = e.detail.value;
 				this.is_integral?this.use_integral=1:this.use_integral=0;	//是否使用抵扣券(请求用)
 				//console.log(this.is_integral);
@@ -430,6 +429,7 @@
 				data['list']=list;
 				this.params=data//请求数据
 				//获取
+				console.log(data)
 				this.$http.request({
 					url: this.$api.order.submit,
 					method: 'post',
@@ -438,10 +438,6 @@
 				}).then((res) => {
 					if (res.code == 0) {
 						let resList = res.data.list
-						console.log(res.data)
-						if(res.data.is_need_address==0){ //1显示  0不限
-							this.messageShow=false
-						}
 						resList.forEach((item) => {
 							let that = this;
 							// 0.0.1 先初始化所有选中的优惠券
