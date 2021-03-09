@@ -309,7 +309,7 @@ padding-left: 15px;
 .index1_content_list_block_t_r{margin-left: 15px;flex: 1;}
 .index1_content_list_block_t_r_name{font-size: 18px;}
 .index1_content_list_block_t_r_block{display: flex;align-items: center;margin-top: 15px;}
-.r_block_label{padding: 0px 4px;background-color: #fa7f5e;font-size: 11px;color: #000000;border-radius: 10px;}
+.r_block_label{padding: 0px 4rpx;background-color: #fa7f5e;font-size: 11px;color: #000000;border-radius: 10px;}
 .r_block_now_price{font-size: 20px;color: #dc3c63;margin-left: 3px;}
 .r_block_old_price{color: #b4b3b3;font-size: 13px;margin-left: 10px;text-decoration: line-through;}
 .index1_content_list_block_t_r_bottom{color: #555;font-size: 13px;}

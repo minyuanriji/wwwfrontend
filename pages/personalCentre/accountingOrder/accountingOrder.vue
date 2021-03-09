@@ -35,6 +35,6 @@
 	.accountingOrder-code{width: 100%;overflow: hidden;display: flex;height: 100rpx;line-height: 100rpx;padding: 0rpx 20rpx;box-sizing: border-box;background: #fff;margin: 20rpx 0;}
 	.accountingOrder-title{width: 25%;}
 	.input-btn{height: 100rpx;background: rgb(245, 245, 245);width: 70%;padding-left: 10rpx;}
-	.ercode{width: 100%;overflow: hidden;}
+	.ercode{width: 100%;overflow: hidden;margin-top: 50rpx;}
 	.ercode_btn{width: 100%;outline: none;border: none;background: #007AFF;color: #fff;}
 </style>

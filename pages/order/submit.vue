@@ -3,7 +3,7 @@
 		<com-nav-bar @clickLeft="back" left-icon="back" title="提交订单" :status-bar="true" background-color="#ffffff" :border="false" color="#000000"></com-nav-bar>
 		<view class="tui-box">
 			<!-- 收货地址 -->
-			<tui-list-cell :arrow="true" :last="true" :radius="true" @click="chooseAddr">
+			<tui-list-cell :arrow="true" :last="true" :radius="true" @click="chooseAddr" v-if="messageShow">
 				<view class="tui-address">
 					<view v-if="user_address.length != 0">
 						<view class="tui-userinfo">
@@ -64,13 +64,13 @@
 					</view>
 					
 				</view>
-				<tui-list-cell :hover="false">
+				<tui-list-cell :hover="false" v-if="messageShow">
 					<view class="tui-padding tui-flex">
 						<view>配送方式</view>
 						<view v-if="item.delivery.send_type == 'express'">快递配送</view>
 					</view>
 				</tui-list-cell>
-				<tui-list-cell :hover="false">
+				<tui-list-cell :hover="false" v-if="messageShow">
 					<view class="tui-padding tui-flex" v-if="flag">
 						<view>配送费</view>
 						<view v-if="list" :style="{color: textColor}">+&yen;{{item.express_price}}</view>
@@ -240,16 +240,18 @@
 				wx_order_id:'',
 				mch_id:"",//店铺ID
 				params:{},//请求数据
-				integral_enable:""
+				integral_enable:"",
+				messageShow:true,//地址显示，配送方式，配送费显示
 			}
 		},
 		onLoad(options) {
+			console.log(options)
 			if (uni.getStorageSync('mall_config')) {
 				this.textColor = this.globalSet('textCol');
 				this.couponImg = this.globalSet('couponImg');
 			}
-			if (options.addressId) { //如果有地址id在请求地址接口，如果没有则用默认的地址
-				this.addressId = options.addressId;
+			if (uni.getStorageSync('addressID')) { //如果有地址id在请求地址接口，如果没有则用默认的地址
+				this.addressId =uni.getStorageSync('addressID');
 				this.getAddress();
 			} else {
 				this.addressId = 0;
@@ -427,7 +429,6 @@
 				data['list']=list;
 				this.params=data//请求数据
 				//获取
-				console.log(data)
 				this.$http.request({
 					url: this.$api.order.submit,
 					method: 'post',
@@ -436,6 +437,10 @@
 				}).then((res) => {
 					if (res.code == 0) {
 						let resList = res.data.list
+						console.log(res.data)
+						if(res.data.is_need_address==0){ //1显示  0不限
+							this.messageShow=false
+						}
 						resList.forEach((item) => {
 							let that = this;
 							// 0.0.1 先初始化所有选中的优惠券

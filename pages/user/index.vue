@@ -36,9 +36,9 @@
 						<view class="user-id">账号ID: {{ userInfo.user_id }}</view>
 					</view>
 				</view>
-				<view class="user_shop" @click="shopInto">
+			<!-- 	<view class="user_shop" @click="shopInto">
 					商户
-				</view>
+				</view> -->
 
 				<!-- 社区团购 -->
 				<view class="withdraw flex" v-if="0 == 1">
@@ -457,10 +457,10 @@ export default {
 .user_shop{
 	position: absolute;
 	right: 100upx;
-	color:#fff ;
+	color:#000;
 	min-width: 100upx;
 	text-align: center;
-	background:blue;
+	background:#fff;
 	border-radius: 20upx;
 	font-size:30upx ;
 }

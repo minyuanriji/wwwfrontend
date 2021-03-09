@@ -28,6 +28,14 @@
 								{{item.name}}
 							</view>
 						</view>
+						<view class="aboutUs-item-box flex flex-y-center" :class="flex == 1 ? 'left' : 'flex-col'" @click="shopInto" v-if="shopShow">
+							<view>
+								<image class="aboutUs-item-icon" :src="shopURL"></image>
+							</view>
+							<view class="aboutUs-item-name">
+								商户
+							</view>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -50,7 +58,7 @@
 			flex: {
 				type: String,
 				default: '2'
-			}
+			},
 		},
 		data() {
 			return {
@@ -58,6 +66,8 @@
 				toolbarData2: [], // 需要展示的数据
 				toolbarData3:[], //超过4个得数据
 				is_show:false,//是否显示更多
+				shopURL:require('../../plugins/images/extensions/community/shopUSER.png'),
+				shopShow:false,//
 			}
 		},
 		created() {
@@ -72,6 +82,10 @@
 				this.rawData = this.toolbarData2;
 			} else {
 				this.toolbarData2 = this.toolbarData;
+			}
+			let message=JSON.parse(uni.getStorageSync('userInfo'))
+			if(message&&message.is_mch==0){
+				this.shopShow=true
 			}
 		},
 		methods: {
@@ -92,6 +106,11 @@
 				}
 				uni.navigateTo({
 					url
+				})
+			},
+			shopInto(){//点击进入商户页面
+				uni.navigateTo({
+					url:'../../pages/personalCentre/personalCentre'
 				})
 			}
 		}

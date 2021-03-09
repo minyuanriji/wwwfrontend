@@ -58,7 +58,9 @@
 		},
 		methods: {
 			navTo(item) {
+				console.log(item)
 				let pages = getCurrentPages(),currPage,prevPage;
+				uni.setStorageSync('addressID',item.id)
 				// #ifdef MP || APP-PLUS
 				if(pages.length > 0){
 					currPage = pages[pages.length - 1].$vm;
