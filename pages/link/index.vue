@@ -30,6 +30,11 @@
 				}).then(res => {
 					if (res.status == 1) {
 						this.poster_url = res.img;
+						uni.showToast({
+						    title: res.msg,
+						    duration: 2000,
+							icon:'none'
+						});
 						setTimeout(() => {
 							this.loading = false;
 						}, 1000)
