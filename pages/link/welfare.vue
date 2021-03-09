@@ -15,8 +15,10 @@
 			}
 		},
 		mounted() {
+			//#ifdef H5
 			var a = document.getElementsByClassName('uni-page-head-hd')[0]
 			a.style.display = 'none';	
+			//#endif
 		},
 		methods: {
 			get_integral() {

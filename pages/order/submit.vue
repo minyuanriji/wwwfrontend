@@ -330,6 +330,7 @@
 							order_id: this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0
 						}
 					}).then((res) => {
+						console.log(res);
 						if(Number(res) > Number(this.list[0].express_price)){
 							var price = Number(res) - Number(this.list[0].express_price);
 							this.total_price = Number(this.total_price) + price;

@@ -66,8 +66,10 @@
 			}
 		},
 		mounted() {
+			//#ifdef H5
 				var a = document.getElementsByClassName('uni-page-head-hd')[0];
 				a.style.display = 'none';	
+			//#endif
 		},
 		methods: {
 			submit() {
@@ -104,7 +106,9 @@
 						}
 						_self.$http.setToken(res.data.access_token);
 						let url = uni.getStorageSync("_login_pre_url") ? uni.getStorageSync("_login_pre_url") : '/pages/user/index';
-						uni.setStorageSync('new_user',1);
+						if(this.$route.query.user_id !== undefined){
+							uni.setStorageSync('new_user',1);
+						}
 						uni.removeStorageSync("_login_pre_url");
 						setTimeout(() => {
 							uni.redirectTo({

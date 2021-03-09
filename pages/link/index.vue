@@ -23,9 +23,7 @@
 					
 					//#ifdef MP-WEIXIN
 					url: this.$api.plugin.extensions.LinkPoster2,
-					//#endif
-					
-					
+					//#endif	
 					method: 'POST'
 				}).then(res => {
 					if (res.status == 1) {
