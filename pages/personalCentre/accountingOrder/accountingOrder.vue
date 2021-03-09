@@ -19,12 +19,12 @@
 		},
 		methods: {
 			ercodeBtn(){
-				uni.scanCode({
-					success: (res) => {
-						console.log("条码类型",res.scanType)
-						console.log("条码类容",res.result)
-					}
-				})
+				// wx.scanCode({
+				// 	onlyFromCamera: true,
+				// 	  success (res) {
+				// 	    console.log(res)
+				// 	}
+				// })
 			}
 		}
 	}

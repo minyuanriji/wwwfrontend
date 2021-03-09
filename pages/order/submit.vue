@@ -250,8 +250,8 @@
 				this.textColor = this.globalSet('textCol');
 				this.couponImg = this.globalSet('couponImg');
 			}
-			if (options.addressId) { //如果有地址id在请求地址接口，如果没有则用默认的地址
-				this.addressId = options.addressId;
+			if (uni.getStorageSync("addressID")) { //如果有地址id在请求地址接口，如果没有则用默认的地址
+				this.addressId =uni.getStorageSync("addressID");
 				this.getAddress();
 			} else {
 				this.addressId = 0;
