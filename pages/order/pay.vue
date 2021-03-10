@@ -121,6 +121,7 @@
 					}
 				}).then((res) => {
 					if (res.code == 0) {
+						console.log(res.data)
 						this.payData = res.data;
 						//拿到拼单详情id--拼团的时候才发请求
 						// this.is_index==1?this.detailByOrder(res.data.orderNo):'';

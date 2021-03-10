@@ -388,11 +388,18 @@
 			settlement() { //去结算
 				if (this.selectArr == 0) return;
 				this.changeData('id', 'goods_attr_id');
-				this.selectArr = [];
-
+				// this.selectArr = [];
+				console.log(this.selectArr)
+				let lo=[]
 				uni.setStorageSync('orderData', this.finallyObj);
+				for(let i=0;i<this.selectArr.length;i++){
+					if(lo.indexOf(this.selectArr[i].goods_id)==-1){
+						lo.push(this.selectArr[i].goods_id)
+					}
+				}
+				let local=lo.join()
 				uni.navigateTo({
-					url: '/pages/order/submit'
+					url: '/pages/order/submit?nav_id='+local
 				})
 			},
 			deleteCart() { //购物车删除
@@ -505,6 +512,7 @@
 				if (!this.isAllSelect) {
 					this.selectArr = [];
 				}
+				console.log(this.selectArr)
 			},
 			failureEmpty() { //清空失效商品
 				this.modal2 = true;
