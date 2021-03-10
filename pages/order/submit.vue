@@ -193,7 +193,7 @@
 			
 			
 
-			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1 && scoreswitc == 1 || scoreswitc == 0">
+			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1">
 				<view>使用积分 <view class="xieti">拥有积分：{{user_score}}  <text class="text" v-if="is_checked">-{{total_score_use}}</text>
 				</view>
 				</view>
@@ -201,7 +201,7 @@
 			</view>
 			
 			<!-- 使用抵扣券 -->
-			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1 && scoreswitc == 2 || scoreswitc == 0||scoreswitc == 3">
+			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1">
 				<view>使用抵扣券 <view class="xieti">拥有抵扣券金额：{{user_integral}} <text class="text" v-if="is_integral">-{{total_integral_use}}</text></view></view>
 				<switch :checked="is_integral" @change="useIntegral" :color='textColor' class="points-switch" />
 			</view>
@@ -356,6 +356,12 @@
 		},
 		onShow(){
 			this.switcExpressPrice();
+			if (uni.getStorageSync("addressID")) { //如果有地址id在请求地址接口，如果没有则用默认的地址
+				this.addressId =uni.getStorageSync("addressID");
+				this.getAddress();
+			} else {
+				this.addressId = 0;
+			}
 		},
 		onBackPress(e) {
 			uni.removeStorageSync('orderData');
@@ -403,8 +409,9 @@
 					}
 				}).then(res => {
 					this.scoreswitc = res;
-					// console.log(this.scoreswitc);
+					
 				}).catch()
+				
 			},
 			//切换地址获取运费
 			switcExpressPrice(){
@@ -449,7 +456,6 @@
 				this.is_checked?this.use_score=1:this.use_score=0;	//是否使用积分(请求用)
 				this.getData();	//重新获取订单详情
 				
-				
 				/* this.total_score_use = 0;	//总共可使用的积分
 				this.list.forEach((item) => {
 					console.log('score',item);
@@ -465,7 +471,6 @@
 				this.is_integral?this.use_integral=1:this.use_integral=0;	//是否使用抵扣券(请求用)
 				//console.log(this.is_integral);
 				this.getData();	//重新获取订单详情
-				
 				
 				/* this.total_integral_use = 0;	//总共可使用的积分
 				this.list.forEach((item) => {
