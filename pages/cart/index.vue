@@ -398,7 +398,6 @@
 					}
 				}
 				let local=lo.join()
-				console.log(local)
 				uni.navigateTo({
 					url: '/pages/order/submit?nav_id='+local
 				})
