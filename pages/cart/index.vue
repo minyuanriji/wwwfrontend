@@ -391,7 +391,6 @@
 				this.selectArr = [];
 
 				uni.setStorageSync('orderData', this.finallyObj);
-
 				uni.navigateTo({
 					url: '/pages/order/submit'
 				})
