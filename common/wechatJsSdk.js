@@ -24,7 +24,7 @@ export default {
 	//初始化sdk配置  
 	initJssdk: function(callback, url) {
 		// 这是我这边封装的 request 请求工具，实际就是 uni.request 方法。
-
+		console.log(url);
 		// let root_url = encodeURIComponent(window.location.href.split('#')[0]);
 		let root_url = window.location.href.split('#')[0];
 		request({
@@ -34,7 +34,6 @@ export default {
 			}
 		}).then((res) => {
 			if (res.code == 0) {
-
 				let sdk = res.data.config;
 				jweixin.config({
 					debug: sdk.debug,
@@ -45,7 +44,6 @@ export default {
 					jsApiList: sdk.jsApiList
 				});
 				//配置完成后，再执行分享等功能  
-
 				if (callback) {
 					callback(sdk);
 				}

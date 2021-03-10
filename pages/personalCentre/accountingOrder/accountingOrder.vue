@@ -17,6 +17,11 @@
 				code:'',//核销code
 			}
 		},
+		// onLoad() {
+		// 	this.$wechatSdk.initJssdk(function(signData){
+		// 		console.log(signData)
+		// 	});
+		// },
 		methods: {
 			ercodeBtn(){
 				// wx.scanCode({
@@ -26,6 +31,7 @@
 				// 	}
 				// })
 			}
+			
 		}
 	}
 </script>
