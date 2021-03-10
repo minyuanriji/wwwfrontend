@@ -266,6 +266,12 @@
 		},
 		onShow(){
 			this.switcExpressPrice();
+			if (uni.getStorageSync("addressID")) { //如果有地址id在请求地址接口，如果没有则用默认的地址
+				this.addressId =uni.getStorageSync("addressID");
+				this.getAddress();
+			} else {
+				this.addressId = 0;
+			}
 		},
 		onBackPress(e) {
 			uni.removeStorageSync('orderData');
@@ -313,7 +319,6 @@
 					}
 				}).then(res => {
 					this.scoreswitc = res;
-					console.log(this.scoreswitc);
 				}).catch()
 			},
 			//切换地址获取运费
@@ -356,12 +361,6 @@
 				this.is_checked = e.detail.value;
 				this.is_checked?this.use_score=1:this.use_score=0;	//是否使用积分(请求用)
 				this.getData();	//重新获取订单详情
-				if (uni.getStorageSync("addressID")) { //如果有地址id在请求地址接口，如果没有则用默认的地址
-					this.addressId =uni.getStorageSync("addressID");
-					this.getAddress();
-				} else {
-					this.addressId = 0;
-				}
 				
 				/* this.total_score_use = 0;	//总共可使用的积分
 				this.list.forEach((item) => {
@@ -378,12 +377,6 @@
 				this.is_integral?this.use_integral=1:this.use_integral=0;	//是否使用抵扣券(请求用)
 				//console.log(this.is_integral);
 				this.getData();	//重新获取订单详情
-				if (uni.getStorageSync("addressID")) { //如果有地址id在请求地址接口，如果没有则用默认的地址
-								this.addressId =uni.getStorageSync("addressID");
-								this.getAddress();
-							} else {
-								this.addressId = 0;
-							}
 				
 				/* this.total_integral_use = 0;	//总共可使用的积分
 				this.list.forEach((item) => {
