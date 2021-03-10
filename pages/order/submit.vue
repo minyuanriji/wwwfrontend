@@ -38,7 +38,7 @@
 				</tui-list-cell>
 				<view v-for="(its,ids) in item.same_goods_list" class="item-goods">
 					<!-- 0.3 循环出规格 -->
-					<view v-for="(gItem,gIndex) in its.goods_list" v-if="gItem.is_on_site_consumption==0"> 
+					<view v-for="(gItem,gIndex) in its.goods_list"> 
 						<tui-list-cell :hover="false" padding="0">
 							<view class="tui-goods-item">
 								<image v-if="" :src="gItem.goods_attr.pic_url?gItem.goods_attr.pic_url:gItem.goods_attr.cover_pic" class="tui-goods-img"></image>
@@ -81,12 +81,12 @@
 					</view>
 					
 				</tui-list-cell>
-				<!-- <tui-list-cell :hover="false" v-if="item.total_full_relief_price != 0">
+				<tui-list-cell :hover="false" v-if="item.total_full_relief_price != 0">
 					<view class="tui-padding tui-flex">
 						<view>满额减免</view>
 						<view v-if="list" :style="{color: textColor}">-&yen;{{item.total_full_relief_price || 0}}</view>
 					</view>
-				</tui-list-cell> -->
+				</tui-list-cell>
 				<tui-list-cell :hover="false" :lineLeft="false" padding="0">
 					<view class="tui-remark-box tui-padding tui-flex">
 						<view>订单备注</view>
@@ -98,102 +98,14 @@
 						<view class="tui-flex-end tui-color-red" :style="{color:textColor}">
 							<view class="tui-black">小计： </view>
 							<view class="tui-size-26">￥</view>
-							<view v-if="flag&&!item.type" class="tui-price-large">{{item.total_price}}</view>
-							<view v-else-if="flag&&item.type" class="tui-price-large">{{(item.total_price-shoptotal_price).toFixed(2)}}</view>
+							<view v-if="flag" class="tui-price-large">{{item.total_price}}</view>
 							<view v-else class="tui-price-large">{{total_price}}</view>
 						</view>
 					</view>
 				</tui-list-cell>
 			</view>
-			
-			
-			
-			
-			
-		
-<!-- 开始                                                            -->		
-			<view class="tui-top tui-goods-info" v-for="(item,index) in list" :key='index' v-if="item.type">
-				<!-- 0.2 循环出商品 -->
-				<tui-list-cell :hover="false" :lineLeft="false" padding="26rpx 20rpx">
-					<view class="tui-goods-title">
-						<view class="logo" @tap="toShop(item.mch.id)">
-							<!-- <span :style="`background-image:url(${})`"></span> -->
-							<image class="img" lazy-load="true" :src="url+'/images/shop/shoplogo.png'" mode="aspectFill"></image>
-							<span class="name">{{item.mch.name?item.mch.name:"名媛日记官方商城"}}</span>
-							<view class="toright"></view>
-						</view>
-					</view>
-				</tui-list-cell>
-				<view v-for="(its,ids) in item.same_goods_list" class="item-goods">
-					<!-- 0.3 循环出规格 -->
-					<view v-for="(gItem,gIndex) in its.goods_list" v-if="gItem.is_on_site_consumption==1"> 
-						<tui-list-cell :hover="false" padding="0">
-							<view class="tui-goods-item">
-								<image v-if="" :src="gItem.goods_attr.pic_url?gItem.goods_attr.pic_url:gItem.goods_attr.cover_pic" class="tui-goods-img"></image>
-								<view class="tui-goods-center">
-									<view class="tui-goods-name">{{gItem.name}}</view>
-									<view class="tui-goods-attr">{{groupName(gItem.attr_list)}}</view>
-								</view>
-								<view class="tui-price-right">
-									<view>￥{{gItem.unit_price}}</view>
-									<view>x{{gItem.num}}</view>
-								</view>
-							</view>
-						</tui-list-cell>
-					</view>
-					<!-- 0.2.1 该商品对应的优惠券 -->
-					<view style="border-bottom: 2rpx solid #e8e8e8;" v-if="its.coupon_list.length != 0" @tap="showPopup(its.coupon_list,index,ids,its.goods_id)">
-						<tui-list-cell :arrow="hasCoupon" :hover="hasCoupon">
-							<view class="tui-padding tui-flex">
-								<view>优惠券</view>
-								<view :class="{'tui-color-red':hasCoupon}" :style="{color:hasCoupon ? textColor :''}">{{its.coupon_name}}</view>
-							</view>
-						</tui-list-cell>
-					</view>
-					
-				</view>
-				<!-- <tui-list-cell :hover="false" v-if="item.total_full_relief_price != 0">
-					<view class="tui-padding tui-flex">
-						<view>满额减免</view>
-						<view v-if="list" :style="{color: textColor}">-&yen;{{item.total_full_relief_price || 0}}</view>
-					</view>
-				</tui-list-cell> -->
-				<tui-list-cell :hover="false" :lineLeft="false" padding="0">
-					<view class="tui-remark-box tui-padding tui-flex">
-						<view>订单备注</view>
-						<input type="text" class="tui-remark" placeholder="选填: 请先和商家协商一致" placeholder-class="tui-phcolor" v-model="remark"></input>
-					</view>
-				</tui-list-cell>
-				<tui-list-cell :hover="false" :last="true">
-					<view class="tui-padding tui-flex tui-total-flex">
-						<view class="tui-flex-end tui-color-red" :style="{color:textColor}">
-							<view class="tui-black">小计：</view>
-							<view class="tui-size-26">￥</view>
-						<!-- 	<view v-if="flag" class="tui-price-large">{{item.total_price}}</view>
-							<view v-else class="tui-price-large">{{total_price}}</view> -->
-							<view class="tui-price-large">{{shoptotal_price}}</view>
-						</view>
-					</view>
-				</tui-list-cell>
-			</view>
-<!-- 结束                                                                -->			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 
-			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1">
+			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1 && scoreswitc == 1 || scoreswitc == 0">
 				<view>使用积分 <view class="xieti">拥有积分：{{user_score}}  <text class="text" v-if="is_checked">-{{total_score_use}}</text>
 				</view>
 				</view>
@@ -201,7 +113,7 @@
 			</view>
 			
 			<!-- 使用抵扣券 -->
-			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1">
+			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1 && scoreswitc == 2 || scoreswitc == 0||scoreswitc == 3">
 				<view>使用抵扣券 <view class="xieti">拥有抵扣券金额：{{user_integral}} <text class="text" v-if="is_integral">-{{total_integral_use}}</text></view></view>
 				<switch :checked="is_integral" @change="useIntegral" :color='textColor' class="points-switch" />
 			</view>
@@ -331,8 +243,7 @@
 				integral_enable:"",
 				price:0,
 				express_price:0,
-				shoptotal_price:0,//到店消费价格
-				type:false,
+				express:0,
 			}
 		},
 		onLoad(options) {
@@ -357,11 +268,11 @@
 		onShow(){
 			this.switcExpressPrice();
 			if (uni.getStorageSync("addressID")) { //如果有地址id在请求地址接口，如果没有则用默认的地址
-				this.addressId =uni.getStorageSync("addressID");
-				this.getAddress();
-			} else {
-				this.addressId = 0;
-			}
+							this.addressId =uni.getStorageSync("addressID");
+							this.getAddress();
+						} else {
+							this.addressId = 0;
+				}
 		},
 		onBackPress(e) {
 			uni.removeStorageSync('orderData');
@@ -409,12 +320,12 @@
 					}
 				}).then(res => {
 					this.scoreswitc = res;
-					
+					console.log(this.scoreswitc);
 				}).catch()
-				
 			},
 			//切换地址获取运费
 			switcExpressPrice(){
+				
 				if(this.province == this.user_address.province){
 					return false;
 				}
@@ -430,24 +341,32 @@
 							order_id: this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0
 						}
 					}).then((res) => {
-						console.log(res,this.list[0].express_price)
-						if(this.express_price == 0){
-							this.express_price = this.list[0].express_price;
-						}
-						if(this.price == 0){
-							this.price = this.total_price;
-						}
-						this.total_price = (Number(this.price - this.express_price)) + Number(res.price);
-						this.ExpressPrice = Number(res.price);
-						this.list[0].express_price = Number(res.price);
-						this.list[0].total_price = (Number(this.price - this.express_price)) + Number(res.price);
-						this.total_price = String(this.total_price).indexOf('.',0) !== -1 ? this.total_price : this.total_price + '.00';
-						this.ExpressPrice = String(this.ExpressPrice).indexOf('.',0) !== -1 ? this.ExpressPrice : this.ExpressPrice + '.00';
-						this.flag = false;
+						console.log(res)
+						var result=Object.keys(res)
+						this.list.forEach((item)=>{
+							if(item.mch.id==0){
+								item.goods_list.forEach((ites)=>{
+									if(result.indexOf(String(ites.id))!=-1){
+										this.express+=Number(res[ites.id])
+									}
+								})
+								item.express_price=this.express
+							}
+							item.total_price=Number(item.total_price)+Number(item.express_price)
+							
+						})
+						this.getData()
+						console.log(this.list)
+						
+						// this.ExpressPrice = Number(res.price);
+						// this.list[0].express_price = Number(res.price);
+						// this.list[0].total_price = (Number(this.price - this.express_price)) + Number(res.price);
+						// this.total_price = String(this.total_price).indexOf('.',0) !== -1 ? this.total_price : this.total_price + '.00';
+						// this.ExpressPrice = String(this.ExpressPrice).indexOf('.',0) !== -1 ? this.ExpressPrice : this.ExpressPrice + '.00';
+						// this.flag = false;
 					})
 				}
 			},
-			
 			
 			// 使用积分
 			use(e) {
@@ -455,6 +374,7 @@
 				this.is_checked = e.detail.value;
 				this.is_checked?this.use_score=1:this.use_score=0;	//是否使用积分(请求用)
 				this.getData();	//重新获取订单详情
+				
 				
 				/* this.total_score_use = 0;	//总共可使用的积分
 				this.list.forEach((item) => {
@@ -471,6 +391,7 @@
 				this.is_integral?this.use_integral=1:this.use_integral=0;	//是否使用抵扣券(请求用)
 				//console.log(this.is_integral);
 				this.getData();	//重新获取订单详情
+				
 				
 				/* this.total_integral_use = 0;	//总共可使用的积分
 				this.list.forEach((item) => {
@@ -526,6 +447,7 @@
 				data['list']=list;
 				this.params=data//请求数据
 				//获取
+				console.log(data)
 				this.$http.request({
 					url: this.$api.order.submit,
 					method: 'post',
@@ -533,20 +455,14 @@
 					data: data
 				}).then((res) => {
 					if (res.code == 0) {
-						let resList = res.data.list						
+						let resList = res.data.list
 						resList.forEach((item) => {
 							let that = this;
 							// 0.0.1 先初始化所有选中的优惠券
 							that.use_coupon_list = [];
+							
 							if(item.same_goods_list&&item.same_goods_list.length>0){
 								item.same_goods_list.forEach((its,ids) => {
-									
-									
-									if(its.goods_list[0].is_on_site_consumption==1){
-										that.shoptotal_price=its.goods_list[0].total_price
-										item.type=true
-										that.type=true
-									}
 									its['coupon_name'] = '请选择优惠券';
 									// gItem['sale_price'] = gItem.total_price * 1;
 									its.coupon_list.forEach((couponItem,couponIndex) => {
@@ -577,7 +493,6 @@
 											its.coupon_name = its.coupon.coupon_error;
 										}
 									})
-
 								})
 							}
 							
