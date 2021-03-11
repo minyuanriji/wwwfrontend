@@ -328,12 +328,14 @@
 			},
 			//切换地址获取运费
 			switcExpressPrice() {
-					this.express=0;
+					this.express = 0;
 				if (this.province == this.user_address.province) {
 					return false;
 				}
+				if(this.user_address.province === undefined){
+					this.user_address = uni.getStorageSync('user_address_cache');
+				}
 				this.province = this.user_address.province;
-				console.log(this.$route.query.nav_id)
 				if (this.user_address.province) {
 					this.list = [];
 					this.getData(function() {
@@ -346,9 +348,8 @@
 								order_id: this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0
 							}
 						}).then((res) => {
-							console.log(res)
+							console.log(res);
 							var result = Object.keys(res)
-
 							this.list.forEach((item) => {
 								if (item.mch.id == 0) {
 									item.goods_list.forEach((ites) => {
@@ -576,6 +577,8 @@
 				}).then((res) => {
 					if (res.code == 0) {
 						this.user_address = res.data;
+						console.log(res.data);
+						uni.setStorageSync('user_address_cache',res.data);
 					}
 				})
 			},
