@@ -332,47 +332,14 @@
 				if (this.province == this.user_address.province) {
 					return false;
 				}
+
 				if(this.user_address.province === undefined){
 					this.user_address = uni.getStorageSync('user_address_cache');
 				}
 				this.province = this.user_address.province;
 				if (this.user_address.province) {
 					this.list = [];
-					this.getData(function() {
-						this.$http.request({
-							url: this.$api.order.express_price,
-							method: 'post',
-							showLoading: true,
-							data: {
-								data: this.user_address.province,
-								order_id: this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0
-							}
-						}).then((res) => {
-							console.log(res);
-							var result = Object.keys(res)
-							this.list.forEach((item) => {
-								if (item.mch.id == 0) {
-									item.goods_list.forEach((ites) => {
-										if (result.indexOf(String(ites.id)) != -1) {
-											this.express += Number(res[ites.id])
-										}
-									})
-									item.express_price = this.express
-
-								}
-								item.total_price = Number(item.total_price) + Number(item.express_price)
-
-							})
-						});
-						// 
-						// console.log();
-						// this.ExpressPrice = Number(res.price);
-						// this.list[0].express_price = Number(res.price);
-						// this.list[0].total_price = (Number(this.price - this.express_price)) + Number(res.price);
-						// this.total_price = String(this.total_price).indexOf('.',0) !== -1 ? this.total_price : this.total_price + '.00';
-						// this.ExpressPrice = String(this.ExpressPrice).indexOf('.',0) !== -1 ? this.ExpressPrice : this.ExpressPrice + '.00';
-						// this.flag = false;
-					})
+					
 				}
 			},
 
@@ -382,7 +349,7 @@
 				this.is_checked = e.detail.value;
 				this.is_checked ? this.use_score = 1 : this.use_score = 0; //是否使用积分(请求用)
 				this.getData(); //重新获取订单详情
-
+				// this.switcExpressPrice()
 
 				/* this.total_score_use = 0;	//总共可使用的积分
 				this.list.forEach((item) => {
