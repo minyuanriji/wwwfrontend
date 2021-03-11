@@ -277,6 +277,7 @@
 				this.addressId = 0;
 			}
 		},
+		
 		onBackPress(e) {
 			uni.removeStorageSync('orderData');
 		},
@@ -323,7 +324,6 @@
 					}
 				}).then(res => {
 					this.scoreswitc = res;
-					console.log(this.scoreswitc);
 				}).catch()
 			},
 			//切换地址获取运费
@@ -331,8 +331,9 @@
 				if(this.province == this.user_address.province){
 					return false;
 				}
+				this.express=0
+				this.getData()
 				this.province = this.user_address.province;
-				console.log(this.$route.query.nav_id)
 				if(this.user_address.province){
 					this.$http.request({
 						url: this.$api.order.express_price,
@@ -347,7 +348,7 @@
 						var result=Object.keys(res)
 						console.log(result)
 						this.list.forEach((item)=>{
-							if(item.mch.id==0){
+							if(item.mch.id<=0){
 								item.goods_list.forEach((ites)=>{
 									if(result.indexOf(String(ites.id))!=-1){
 										console.log(res[ites.id])
@@ -356,13 +357,10 @@
 								})
 								console.log(this.express)
 								item.express_price=this.express
-								console.log(item.express_price)
 								item.total_price=Number(item.total_price)+Number(item.express_price)
-								console.log(item.total_price)
 							}							
 						})
 						this.getData()
-						console.log(this.list)
 					})
 				}
 			},
@@ -415,7 +413,7 @@
 				return arr;
 			},
 			// 0.1 获取订单页面数据
-			getData(fn) {
+			getData() {
 				var sendData = this.sendData
 				var list = []
 				var mch_id_arr = []
@@ -548,9 +546,9 @@
 						// 这里后台返回了总价
 						this.total_price = res.data.total_price;
 
-						if(typeof fn  == "function"){
-							fn.call(this);
-						}
+						// if(typeof fn  == "function"){
+						// 	fn.call(this);
+						// }
 					} else {
 						this.$http.toast(res.msg);
 						setTimeout(() => {
@@ -568,7 +566,6 @@
 				}).then((res) => {
 					if (res.code == 0) {
 						this.user_address = res.data;
-						console.log(res.data);
 						uni.setStorageSync('user_address_cache',res.data);
 					}
 				})
