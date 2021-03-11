@@ -37,7 +37,7 @@
 					method: 'POST',
 					data: {
 						order_price: this.code,
-						route:'#'
+						route:'/h5/#/pages/personalCentre/invoicingMessage/invoicingMessage'
 					},
 					showLoading: true
 				}).then(res => {

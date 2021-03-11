@@ -709,6 +709,16 @@
 		    }
 		    
 		}
+        ,{
+            "path" : "pages/personalCentre/invoicingMessage/invoicingMessage",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "账单详情",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",
