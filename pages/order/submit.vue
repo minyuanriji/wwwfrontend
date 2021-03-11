@@ -328,50 +328,41 @@
 			},
 			//切换地址获取运费
 			switcExpressPrice() {
-					this.express = 0;
-				if (this.province == this.user_address.province) {
+				if(this.province == this.user_address.province){
 					return false;
 				}
-				if(this.user_address.province === undefined){
-					this.user_address = uni.getStorageSync('user_address_cache');
-				}
 				this.province = this.user_address.province;
-				if (this.user_address.province) {
-					this.list = [];
-					this.getData(function() {
-						this.$http.request({
-							url: this.$api.order.express_price,
-							method: 'post',
-							showLoading: true,
-							data: {
-								data: this.user_address.province,
-								order_id: this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0
-							}
-						}).then((res) => {
-							console.log(res);
-							var result = Object.keys(res)
-							this.list.forEach((item) => {
-								if (item.mch.id == 0) {
-									item.goods_list.forEach((ites) => {
-										if (result.indexOf(String(ites.id)) != -1) {
-											this.express += Number(res[ites.id])
-										}
-									})
-									item.express_price = this.express
-
-								}
-								item.total_price = Number(item.total_price) + Number(item.express_price)
-
-							})
-						});
-						// 
-						// console.log();
-						// this.ExpressPrice = Number(res.price);
-						// this.list[0].express_price = Number(res.price);
-						// this.list[0].total_price = (Number(this.price - this.express_price)) + Number(res.price);
-						// this.total_price = String(this.total_price).indexOf('.',0) !== -1 ? this.total_price : this.total_price + '.00';
-						// this.ExpressPrice = String(this.ExpressPrice).indexOf('.',0) !== -1 ? this.ExpressPrice : this.ExpressPrice + '.00';
-						// this.flag = false;
+				console.log(this.$route.query.nav_id)
+				if(this.user_address.province){
+					this.$http.request({
+						url: this.$api.order.express_price,
+						method: 'post',
+						showLoading: true,
+						data: {
+							data: this.user_address.province,
+							order_id: this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0
+						}
+					}).then((res) => {
+						console.log(res)
+						var result=Object.keys(res)
+						console.log(result)
+						this.list.forEach((item)=>{
+							if(item.mch.id==0){
+								item.goods_list.forEach((ites)=>{
+									if(result.indexOf(String(ites.id))!=-1){
+										console.log(res[ites.id])
+										this.express+=Number(res[ites.id])
+									}
+								})
+								console.log(this.express)
+								item.express_price=this.express
+								console.log(item.express_price)
+								item.total_price=Number(item.total_price)+Number(item.express_price)
+								console.log(item.total_price)
+							}							
+						})
+						this.getData()
+						console.log(this.list)
 					})
 				}
 			},
@@ -455,7 +446,6 @@
 				data['list'] = list;
 				this.params = data //请求数据
 				//获取
-				console.log(data)
 				this.$http.request({
 					url: this.$api.order.submit,
 					method: 'post',
@@ -508,6 +498,7 @@
 						})
 
 						this.list = resList;
+						console.log(this.list)
 						this.score_enable = res.data.score_enable;
 						this.user_score = this.list[0].score.user_score; //用户拥有积分
 						this.total_score_use = this.list[0].score.use_num; //可抵扣

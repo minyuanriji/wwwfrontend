@@ -41,7 +41,7 @@ export default {
 					timestamp: sdk.timestamp,
 					nonceStr: sdk.nonceStr,
 					signature: sdk.signature,
-					jsApiList: sdk.jsApiList
+					jsApiList: sdk.jsApiList,
 				});
 				//配置完成后，再执行分享等功能  
 				if (callback) {
@@ -248,5 +248,5 @@ export default {
 				});
 			});
 		});
-	},
+	},	
 }

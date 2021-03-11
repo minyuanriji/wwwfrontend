@@ -35,7 +35,7 @@
 				method: 'POST',
 				data: {
 					id: options.id,
-					route:'#'
+					route:'pages/more-shop/more-shop'
 				},
 				showLoading: true
 			}).then(res => {
