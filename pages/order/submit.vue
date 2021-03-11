@@ -277,7 +277,6 @@
 				this.addressId = 0;
 			}
 		},
-		
 		onBackPress(e) {
 			uni.removeStorageSync('orderData');
 		},
@@ -324,6 +323,7 @@
 					}
 				}).then(res => {
 					this.scoreswitc = res;
+					console.log(this.scoreswitc);
 				}).catch()
 			},
 			//切换地址获取运费
@@ -331,8 +331,14 @@
 				if(this.province == this.user_address.province){
 					return false;
 				}
-				this.express=0
-				this.getData()
+				if(this.user_address.province === undefined){
+					this.user_address = uni.getStorageSync('user_address_cache');
+				}
+				this.province = this.user_address.province;
+				if (this.user_address.province) {
+					this.list = [];
+					
+				}
 				this.province = this.user_address.province;
 				if(this.user_address.province){
 					this.$http.request({
@@ -344,23 +350,20 @@
 							order_id: this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0
 						}
 					}).then((res) => {
-						console.log(res)
 						var result=Object.keys(res)
-						console.log(result)
 						this.list.forEach((item)=>{
-							if(item.mch.id<=0){
+							if(item.mch.id==0){
 								item.goods_list.forEach((ites)=>{
 									if(result.indexOf(String(ites.id))!=-1){
-										console.log(res[ites.id])
 										this.express+=Number(res[ites.id])
 									}
 								})
-								console.log(this.express)
-								item.express_price=this.express
-								item.total_price=Number(item.total_price)+Number(item.express_price)
+								console.log(this.express);
+								item.express_price=this.express;
+								item.total_price=Number(item.total_price)+Number(item.express_price);
 							}							
 						})
-						this.getData()
+						this.getData();
 					})
 				}
 			},
@@ -371,7 +374,7 @@
 				this.is_checked = e.detail.value;
 				this.is_checked ? this.use_score = 1 : this.use_score = 0; //是否使用积分(请求用)
 				this.getData(); //重新获取订单详情
-
+				// this.switcExpressPrice()
 
 				/* this.total_score_use = 0;	//总共可使用的积分
 				this.list.forEach((item) => {
@@ -413,7 +416,7 @@
 				return arr;
 			},
 			// 0.1 获取订单页面数据
-			getData() {
+			getData(fn) {
 				var sendData = this.sendData
 				var list = []
 				var mch_id_arr = []
@@ -450,13 +453,13 @@
 					showLoading: true,
 					data: data
 				}).then((res) => {
+					console.log(res);
 					if (res.code == 0) {
 						let resList = res.data.list
 						resList.forEach((item) => {
 							let that = this;
 							// 0.0.1 先初始化所有选中的优惠券
 							that.use_coupon_list = [];
-
 							if (item.same_goods_list && item.same_goods_list.length > 0) {
 								item.same_goods_list.forEach((its, ids) => {
 									its['coupon_name'] = '请选择优惠券';
@@ -546,13 +549,13 @@
 						// 这里后台返回了总价
 						this.total_price = res.data.total_price;
 
-						// if(typeof fn  == "function"){
-						// 	fn.call(this);
-						// }
+						if(typeof fn  == "function"){
+							fn.call(this);
+						}
 					} else {
 						this.$http.toast(res.msg);
 						setTimeout(() => {
-							uni.navigateBack()
+							// uni.navigateBack()
 						}, 1500)
 					}
 				})
@@ -566,6 +569,7 @@
 				}).then((res) => {
 					if (res.code == 0) {
 						this.user_address = res.data;
+						console.log(res.data);
 						uni.setStorageSync('user_address_cache',res.data);
 					}
 				})
