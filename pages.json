@@ -698,18 +698,18 @@
 				"navigationBarBackgroundColor": "#fff",
                 "enablePullDownRefresh": false
             }
-            
-        }
-        ,{
-            "path" : "pages/more-shop/more-shop",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "核销详情",
+           
+        },
+		{
+		    "path" : "pages/more-shop/more-shop",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "核销订单详情",
 				"navigationBarBackgroundColor": "#fff",
-                "enablePullDownRefresh": false
-            }
-            
-        }
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
     ],
 	"subPackages": [{
 		"root": "plugins",

@@ -84,7 +84,7 @@
 				this.toolbarData2 = this.toolbarData;
 			}
 			let message=JSON.parse(uni.getStorageSync('userInfo'))
-			if(message&&message.is_mch==0){
+			if(message&&message.is_mch==1){
 				this.shopShow=true
 			}
 		},
