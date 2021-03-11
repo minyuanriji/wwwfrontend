@@ -1,6 +1,7 @@
 <template>
 	<view class="container">
-		<com-nav-bar @clickLeft="back" left-icon="back" title="提交订单" :status-bar="true" background-color="#ffffff" :border="false" color="#000000"></com-nav-bar>
+		<com-nav-bar @clickLeft="back" left-icon="back" title="提交订单" :status-bar="true" background-color="#ffffff" :border="false"
+		 color="#000000"></com-nav-bar>
 		<view class="tui-box">
 			<!-- 收货地址 -->
 			<tui-list-cell :arrow="true" :last="true" :radius="true" @click="chooseAddr">
@@ -38,7 +39,7 @@
 				</tui-list-cell>
 				<view v-for="(its,ids) in item.same_goods_list" class="item-goods">
 					<!-- 0.3 循环出规格 -->
-					<view v-for="(gItem,gIndex) in its.goods_list"> 
+					<view v-for="(gItem,gIndex) in its.goods_list">
 						<tui-list-cell :hover="false" padding="0">
 							<view class="tui-goods-item">
 								<image v-if="" :src="gItem.goods_attr.pic_url?gItem.goods_attr.pic_url:gItem.goods_attr.cover_pic" class="tui-goods-img"></image>
@@ -62,7 +63,7 @@
 							</view>
 						</tui-list-cell>
 					</view>
-					
+
 				</view>
 				<tui-list-cell :hover="false">
 					<view class="tui-padding tui-flex">
@@ -79,7 +80,7 @@
 						<view>配送费</view>
 						<view v-if="list" :style="{color: textColor}">+&yen;{{ExpressPrice}}</view>
 					</view>
-					
+
 				</tui-list-cell>
 				<tui-list-cell :hover="false" v-if="item.total_full_relief_price != 0">
 					<view class="tui-padding tui-flex">
@@ -106,19 +107,20 @@
 			</view>
 
 			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1 && scoreswitc == 1 || scoreswitc == 0">
-				<view>使用积分 <view class="xieti">拥有积分：{{user_score}}  <text class="text" v-if="is_checked">-{{total_score_use}}</text>
-				</view>
+				<view>使用积分 <view class="xieti">拥有积分：{{user_score}} <text class="text" v-if="is_checked">-{{total_score_use}}</text>
+					</view>
 				</view>
 				<switch :checked="is_checked" @change="use" :color='textColor' class="points-switch" />
 			</view>
-			
+
 			<!-- 使用抵扣券 -->
 			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1 && scoreswitc == 2 || scoreswitc == 0||scoreswitc == 3">
-				<view>使用抵扣券 <view class="xieti">拥有抵扣券金额：{{user_integral}} <text class="text" v-if="is_integral">-{{total_integral_use}}</text></view></view>
+				<view>使用抵扣券 <view class="xieti">拥有抵扣券金额：{{user_integral}} <text class="text" v-if="is_integral">-{{total_integral_use}}</text></view>
+				</view>
 				<switch :checked="is_integral" @change="useIntegral" :color='textColor' class="points-switch" />
 			</view>
 		</view>
-		
+
 
 		<!--优惠券底部选择层-->
 		<com-bottom-popup :show="popupShow2" @close="hidePopup">
@@ -154,7 +156,8 @@
 									<view v-if="cItem.coupon_data.expire_type == 1">领取{{cItem.coupon_data.expire_day}}天后过期</view>
 									<view v-else>{{cItem.coupon_data.begin_at}}~{{cItem.coupon_data.end_at}}</view>
 									<view class="receive" :style="{background:textColor}" @tap="useCoupon('use',cIndex,cItem.id)" v-if="cItem.is_use == 0">使用</view>
-									<view class="receive receive-col" @tap="useCoupon('notUse',cIndex,cItem.id)" :style="{border:'1px solid'+textColor,color:textColor}" v-else>不使用</view>
+									<view class="receive receive-col" @tap="useCoupon('notUse',cIndex,cItem.id)" :style="{border:'1px solid'+textColor,color:textColor}"
+									 v-else>不使用</view>
 								</view>
 								<!-- <view class="received iconfont icon-yilingqu"></view> -->
 							</view>
@@ -193,7 +196,7 @@
 		},
 		data() {
 			return {
-				url:this.$api.test_url,
+				url: this.$api.test_url,
 				img_url: this.$api.img_url,
 				hasCoupon: true,
 				insufficient: false,
@@ -211,39 +214,39 @@
 				remark: '', //订单备注
 				sendData: '', //本地缓存读取的商品数据
 				subSendData: '', //发给后台的数据
-				use_coupon_list : [],//已使用优惠券列表
-				coupon_goods_id:'',//当前弹窗是否使用优惠券的商品id
+				use_coupon_list: [], //已使用优惠券列表
+				coupon_goods_id: '', //当前弹窗是否使用优惠券的商品id
 				total_price: 0, //合计的总价格
 				score_enable: 0, //是否显示使用积分
 				is_checked: false, //是否打开使用积分
-				use_score : 0,	//是否使用积分(请求用)
-				is_integral : false,	//抵扣券
-				use_integral : 0,
-				
+				use_score: 0, //是否使用积分(请求用)
+				is_integral: false, //抵扣券
+				use_integral: 0,
+
 				total_score: 0, //使用了的积分抵扣的钱
 				total_score_use: 0, //总共可使用的积分
-				user_score:0,//用户拥有积分
-				user_remaining_score:0,//剩余积分
-				
+				user_score: 0, //用户拥有积分
+				user_remaining_score: 0, //剩余积分
+
 				total_integral: 0, //使用了的抵扣券的钱
 				total_integral_use: 0, //总共可使用的抵扣券
-				user_integral:0,//用户拥有抵扣券
-				user_remaining_integral:0,//剩余抵扣券
+				user_integral: 0, //用户拥有抵扣券
+				user_remaining_integral: 0, //剩余抵扣券
 
 				is_request: false,
-				textColor:'#bc0100',
-				couponImg:'',
-				province:'',
-				flag:true,
-				ExpressPrice:'',
-				scoreswitc:'',
-				wx_order_id:'',
-				mch_id:"",//店铺ID
-				params:{},//请求数据
-				integral_enable:"",
-				price:0,
-				express_price:0,
-				express:0,
+				textColor: '#bc0100',
+				couponImg: '',
+				province: '',
+				flag: true,
+				ExpressPrice: '',
+				scoreswitc: '',
+				wx_order_id: '',
+				mch_id: "", //店铺ID
+				params: {}, //请求数据
+				integral_enable: "",
+				price: 0,
+				express_price: 0,
+				express: 0,
 			}
 		},
 		onLoad(options) {
@@ -252,12 +255,12 @@
 				this.couponImg = this.globalSet('couponImg');
 			}
 			if (uni.getStorageSync("addressID")) { //如果有地址id在请求地址接口，如果没有则用默认的地址
-				this.addressId =uni.getStorageSync("addressID");
+				this.addressId = uni.getStorageSync("addressID");
 				this.getAddress();
 			} else {
 				this.addressId = 0;
 			}
-            this.mch_id=options.mch_id
+			this.mch_id = options.mch_id
 			this.sendData = uni.getStorageSync('orderData');
 			this.getData();
 			//#ifdef MP-WEIXIN
@@ -265,14 +268,14 @@
 			//#endif
 			this.getscoreswitc();
 		},
-		onShow(){
+		onShow() {
 			this.switcExpressPrice();
 			if (uni.getStorageSync("addressID")) { //如果有地址id在请求地址接口，如果没有则用默认的地址
-							this.addressId =uni.getStorageSync("addressID");
-							this.getAddress();
-						} else {
-							this.addressId = 0;
-				}
+				this.addressId = uni.getStorageSync("addressID");
+				this.getAddress();
+			} else {
+				this.addressId = 0;
+			}
 		},
 		onBackPress(e) {
 			uni.removeStorageSync('orderData');
@@ -289,28 +292,28 @@
 			}
 		},
 		methods: {
-			toShop(id){
-				if(id){
+			toShop(id) {
+				if (id) {
 					uni.navigateTo({
-						url:"/pages/shop/home/home?mch_id="+id
+						url: "/pages/shop/home/home?mch_id=" + id
 					})
-				}else{
+				} else {
 					uni.navigateTo({
-						url:"pages/shop/shop"
+						url: "pages/shop/shop"
 					})
 				}
 			},
-			back(){
+			back() {
 				this.navBack();
 			},
-			getscoreswitc(){
+			getscoreswitc() {
 				//#ifdef H5
 				var order_id = this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0;
 				//#endif
 				//#ifdef MP-WEIXIN
 				var order_id = this.wx_order_id;
 				//#endif
-				
+
 				this.$http.request({
 					url: this.$api.order.getscore,
 					method: 'post',
@@ -324,40 +327,44 @@
 				}).catch()
 			},
 			//切换地址获取运费
-			switcExpressPrice(){
-				
-				if(this.province == this.user_address.province){
+			switcExpressPrice() {
+					this.express=0;
+				if (this.province == this.user_address.province) {
 					return false;
 				}
 				this.province = this.user_address.province;
 				console.log(this.$route.query.nav_id)
-				if(this.user_address.province){
-					this.$http.request({
-						url: this.$api.order.express_price,
-						method: 'post',
-						showLoading: true,
-						data: {
-							data: this.user_address.province,
-							order_id: this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0
-						}
-					}).then((res) => {
-						console.log(res)
-						var result=Object.keys(res)
-						this.list.forEach((item)=>{
-							if(item.mch.id==0){
-								item.goods_list.forEach((ites)=>{
-									if(result.indexOf(String(ites.id))!=-1){
-										this.express+=Number(res[ites.id])
-									}
-								})
-								item.express_price=this.express
+				if (this.user_address.province) {
+					this.list = [];
+					this.getData(function() {
+						this.$http.request({
+							url: this.$api.order.express_price,
+							method: 'post',
+							showLoading: true,
+							data: {
+								data: this.user_address.province,
+								order_id: this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0
 							}
-							item.total_price=Number(item.total_price)+Number(item.express_price)
-							
-						})
-						this.getData()
-						console.log(this.list)
-						
+						}).then((res) => {
+							console.log(res)
+							var result = Object.keys(res)
+
+							this.list.forEach((item) => {
+								if (item.mch.id == 0) {
+									item.goods_list.forEach((ites) => {
+										if (result.indexOf(String(ites.id)) != -1) {
+											this.express += Number(res[ites.id])
+										}
+									})
+									item.express_price = this.express
+
+								}
+								item.total_price = Number(item.total_price) + Number(item.express_price)
+
+							})
+						});
+						// 
+						// console.log();
 						// this.ExpressPrice = Number(res.price);
 						// this.list[0].express_price = Number(res.price);
 						// this.list[0].total_price = (Number(this.price - this.express_price)) + Number(res.price);
@@ -367,15 +374,15 @@
 					})
 				}
 			},
-			
+
 			// 使用积分
 			use(e) {
 				this.price = 0;
 				this.is_checked = e.detail.value;
-				this.is_checked?this.use_score=1:this.use_score=0;	//是否使用积分(请求用)
-				this.getData();	//重新获取订单详情
-				
-				
+				this.is_checked ? this.use_score = 1 : this.use_score = 0; //是否使用积分(请求用)
+				this.getData(); //重新获取订单详情
+
+
 				/* this.total_score_use = 0;	//总共可使用的积分
 				this.list.forEach((item) => {
 					console.log('score',item);
@@ -385,14 +392,14 @@
 				// this.is_checked = e.detail.value;
 			},
 			// 使用抵扣券
-			useIntegral(e){
+			useIntegral(e) {
 				this.price = 0;
 				this.is_integral = e.detail.value;
-				this.is_integral?this.use_integral=1:this.use_integral=0;	//是否使用抵扣券(请求用)
+				this.is_integral ? this.use_integral = 1 : this.use_integral = 0; //是否使用抵扣券(请求用)
 				//console.log(this.is_integral);
-				this.getData();	//重新获取订单详情
-				
-				
+				this.getData(); //重新获取订单详情
+
+
 				/* this.total_integral_use = 0;	//总共可使用的积分
 				this.list.forEach((item) => {
 					console.log('integral',item);
@@ -401,13 +408,13 @@
 				this.total_integral = (this.total_price - this.total_integral_use).toFixed(2); */
 			},
 			//去重
-			unique(arr){
-				 for (var i = 0, len = arr.length; i < len; i++) {
+			unique(arr) {
+				for (var i = 0, len = arr.length; i < len; i++) {
 					for (var j = i + 1, len = arr.length; j < len; j++) {
 						if (arr[i] === arr[j]) {
 							arr.splice(j, 1);
-							j--;        // 每删除一个数j的值就减1
-							len--;      // j值减小时len也要相应减1（减少循环次数，节省性能）   
+							j--; // 每删除一个数j的值就减1
+							len--; // j值减小时len也要相应减1（减少循环次数，节省性能）   
 							// console.log(j,len)
 
 						}
@@ -416,36 +423,36 @@
 				return arr;
 			},
 			// 0.1 获取订单页面数据
-			getData() { 
-				var sendData=this.sendData
-				var list=[]
-				var mch_id_arr=[]
-				for(var i=0;i<sendData.length;i++){
-					var mch_id=sendData[i]['mch_id']
+			getData(fn) {
+				var sendData = this.sendData
+				var list = []
+				var mch_id_arr = []
+				for (var i = 0; i < sendData.length; i++) {
+					var mch_id = sendData[i]['mch_id']
 					mch_id_arr.push(mch_id)
 				}
 				//获取门店IDS
-				var mch_id_arr_unique=this.unique(mch_id_arr)
-				var data={
+				var mch_id_arr_unique = this.unique(mch_id_arr)
+				var data = {
 					user_address_id: this.addressId,
-					use_score: this.use_score,	//是否使用积分
-					use_integral: this.use_integral,	//是否使用抵扣券
+					use_score: this.use_score, //是否使用积分
+					use_integral: this.use_integral, //是否使用抵扣券
 				}
-				for(var j=0;j<mch_id_arr_unique.length;j++){
-					var slist=[]
-					for(var z=0;z<sendData.length;z++){
-						if(mch_id_arr_unique[j]==sendData[z]['mch_id']){
+				for (var j = 0; j < mch_id_arr_unique.length; j++) {
+					var slist = []
+					for (var z = 0; z < sendData.length; z++) {
+						if (mch_id_arr_unique[j] == sendData[z]['mch_id']) {
 							slist.push(sendData[z])
 						}
 					}
 					list.push({
-						mch_id:mch_id_arr_unique[j],
-						goods_list:slist,
-						use_coupon_list:this.use_coupon_list	//已使用优惠券列表
+						mch_id: mch_id_arr_unique[j],
+						goods_list: slist,
+						use_coupon_list: this.use_coupon_list //已使用优惠券列表
 					})
 				}
-				data['list']=list;
-				this.params=data//请求数据
+				data['list'] = list;
+				this.params = data //请求数据
 				//获取
 				console.log(data)
 				this.$http.request({
@@ -460,14 +467,14 @@
 							let that = this;
 							// 0.0.1 先初始化所有选中的优惠券
 							that.use_coupon_list = [];
-							
-							if(item.same_goods_list&&item.same_goods_list.length>0){
-								item.same_goods_list.forEach((its,ids) => {
+
+							if (item.same_goods_list && item.same_goods_list.length > 0) {
+								item.same_goods_list.forEach((its, ids) => {
 									its['coupon_name'] = '请选择优惠券';
 									// gItem['sale_price'] = gItem.total_price * 1;
-									its.coupon_list.forEach((couponItem,couponIndex) => {
+									its.coupon_list.forEach((couponItem, couponIndex) => {
 										// 0.0.2应该是要先初始化当前商品对应的优惠券数据-先移除再添加
-										couponItem.is_use = 0;	
+										couponItem.is_use = 0;
 										// if(that.coupon_goods_id ==its.goods_id){
 										// 	that.use_coupon_list.forEach((item,listIndex) => {
 										// 		if(item.user_coupon_id==couponItem.id){
@@ -477,40 +484,41 @@
 										// 	})
 										// 	// its.coupon_name = '不使用优惠券';
 										// }
-										
-										if(its.usable_user_coupon_id&&its.usable_user_coupon_id!=0&&its.usable_user_coupon_id==couponItem.id){	//如果这里使用了优惠券
+
+										if (its.usable_user_coupon_id && its.usable_user_coupon_id != 0 && its.usable_user_coupon_id ==
+											couponItem.id) { //如果这里使用了优惠券
 											// 0.0.3被选中的优惠券切换状态，同时追加到所有使用的优惠券列表中
 											let couponObj = {};
 											couponObj['goods_id'] = its.goods_id;
 											couponObj['user_coupon_id'] = couponItem.id;
-											couponItem.is_use = 1;	//切换对应优惠券列表中对应优惠券的is_use状态
+											couponItem.is_use = 1; //切换对应优惠券列表中对应优惠券的is_use状态
 											that.use_coupon_list.push(couponObj);
 											its.coupon_name = couponItem.coupon_data.name;
 											///console.log(that.use_coupon_list);
 										}
 										// 重复或不能使用优惠券的提示语
-										if(its.coupon.coupon_error!=''){
+										if (its.coupon.coupon_error != '') {
 											its.coupon_name = its.coupon.coupon_error;
 										}
 									})
 								})
 							}
-							
+
 						})
-						
+
 						this.list = resList;
 						this.score_enable = res.data.score_enable;
 						this.user_score = this.list[0].score.user_score; //用户拥有积分
 						this.total_score_use = this.list[0].score.use_num; //可抵扣
 						this.user_remaining_score = this.list[0].score.user_remaining_score; //剩余积分
-						if(this.list[0].score.use){
+						if (this.list[0].score.use) {
 							this.is_checked = true; //是否打开使用积分
-							this.use_score = 1;	//是否使用积分(请求用)
+							this.use_score = 1; //是否使用积分(请求用)
 							// this.is_integral = true; 
 							// this.use_integral = 1;	
-						}else{
+						} else {
 							this.is_checked = false; //是否打开使用积分
-							this.use_score = 0;	//是否使用积分(请求用)
+							this.use_score = 0; //是否使用积分(请求用)
 							// this.is_integral = false; 
 							// this.use_integral = 0;	
 						}
@@ -518,14 +526,14 @@
 						this.user_integral = this.list[0].integral.user_integral; //用户拥有抵扣券
 						this.total_integral_use = this.list[0].integral.use_num; //可抵扣
 						this.user_remaining_integral = this.list[0].integral.user_remaining_integral; //剩余抵扣券
-						if(this.list[0].integral.use){
+						if (this.list[0].integral.use) {
 							this.is_integral = true; //是否打开使用抵扣券
-							this.use_integral = 1;	//是否使用抵扣券(请求用)
+							this.use_integral = 1; //是否使用抵扣券(请求用)
 							// this.is_integral = true; 
 							// this.use_integral = 1;	
-						}else{
+						} else {
 							this.is_integral = false; //是否打开使用抵扣券
-							this.use_integral = 0;	//是否使用抵扣券(请求用)
+							this.use_integral = 0; //是否使用抵扣券(请求用)
 							// this.is_integral = false; 
 							// this.use_integral = 0;	
 						}
@@ -533,21 +541,24 @@
 						// this.sendData.forEach((item) => { //给发往后台的数据添加优惠券id字段
 						// 	item.user_coupon_id = 0;
 						// })
-						
+
 						// 这里是提交订单需要的数据
 						this.subSendData = JSON.parse(JSON.stringify(this.sendData));
 						this.user_coupon = res.data.user_coupon[0];
-						
+
 
 						if (!this.addressId) {
 							this.user_address = res.data.user_address;
 						}
 
 						this.calcTotalPrice();
-						
+
 						// 这里后台返回了总价
 						this.total_price = res.data.total_price;
-						
+
+						if(typeof fn  == "function"){
+							fn.call(this);
+						}
 					} else {
 						this.$http.toast(res.msg);
 						setTimeout(() => {
@@ -568,11 +579,11 @@
 					}
 				})
 			},
-			showPopup(val, index, gIndex,goods_id) { //显示商品优惠券弹窗
+			showPopup(val, index, gIndex, goods_id) { //显示商品优惠券弹窗
 				//index是店铺索引，gIndex是商品索引
 				this.shop_index = index;
 				this.goods_index = gIndex;
-				this.coupon_goods_id = goods_id;	//定位是哪个商品想要使用优惠券
+				this.coupon_goods_id = goods_id; //定位是哪个商品想要使用优惠券
 
 				this.coupon_list = val;
 				this.popupShow2 = true;
@@ -589,35 +600,35 @@
 				if (name == 'notUse') { //判断是否使用优惠券
 					goods_list.sale_price = goods_list.total_price * 1;
 					// this.subSendData[this.goods_index].user_coupon_id = 0;
-					
+
 					let that = this;
-					that.use_coupon_list.forEach((item,listIndex) => {
-						if(item.user_coupon_id==user_coupon_id){
+					that.use_coupon_list.forEach((item, listIndex) => {
+						if (item.user_coupon_id == user_coupon_id) {
 							// 移除原先被选中的优惠券
-							that.use_coupon_list.splice(listIndex,1);
+							that.use_coupon_list.splice(listIndex, 1);
 							//console.log('取消的优惠券id:'+user_coupon_id);
 							//console.log(that.use_coupon_list);
 						}
 					})
 					goods_list.coupon_name = '不使用优惠券';
-					
-					that.coupon_list.forEach((its,ids) => {
-						if(its.id==user_coupon_id){
-							its.is_use ='0';	
+
+					that.coupon_list.forEach((its, ids) => {
+						if (its.id == user_coupon_id) {
+							its.is_use = '0';
 							that.$set(that.coupon_list[ids], 'is_use', '0');
 						}
 					})
-					
+
 					// 重新获取订单详情
-					that.getData();	//重新获取订单详情
-					
+					that.getData(); //重新获取订单详情
+
 					// for (var key in that.user_coupon) { //判断是否使用相同的优惠券
 					// 	if (that.user_coupon[key].id == coupon_detail.id) {
 					// 		that.user_coupon[key].is_use = '0';
 					// 		coupon_detail.is_use = '0';
 					// 	}
 					// }
-				} else {	//使用优惠券的情况
+				} else { //使用优惠券的情况
 					let self = this;
 					let isInClude = false;
 					//往发送给后台数据添加优惠券id
@@ -626,41 +637,41 @@
 					couponObj['goods_id'] = self.coupon_goods_id;
 					couponObj['user_coupon_id'] = user_coupon_id;
 					// 循环当前优惠券列表
-					self.coupon_list.forEach((its,ids) => {
-						if(self.use_coupon_list.length>0){	//判断已使用的优惠券列表中是否已经存在
-							self.use_coupon_list.forEach((item,listIndex) => {
-								if(item.user_coupon_id==user_coupon_id){	//存在于已使用的优惠券列表中
+					self.coupon_list.forEach((its, ids) => {
+						if (self.use_coupon_list.length > 0) { //判断已使用的优惠券列表中是否已经存在
+							self.use_coupon_list.forEach((item, listIndex) => {
+								if (item.user_coupon_id == user_coupon_id) { //存在于已使用的优惠券列表中
 									self.$http.toast('不能选择相同的优惠券');
 									isInClude = true;
 									return false;
 								}
 							})
 						}
-						if(its.is_use ==1){	//如果之前有被选中的，初始化
-							if(self.use_coupon_list.length>0){	
-								self.use_coupon_list.forEach((item,listIndex) => {
-									if(item.user_coupon_id==its.id){
+						if (its.is_use == 1) { //如果之前有被选中的，初始化
+							if (self.use_coupon_list.length > 0) {
+								self.use_coupon_list.forEach((item, listIndex) => {
+									if (item.user_coupon_id == its.id) {
 										// 移除原先被选中的优惠券
-										self.use_coupon_list.splice(listIndex,1);
+										self.use_coupon_list.splice(listIndex, 1);
 										//console.log(self.use_coupon_list);
 										//console.log(its.id);
 									}
 								})
 							}
-							its.is_use ='0';	//先全部置0
+							its.is_use = '0'; //先全部置0
 							self.$set(self.coupon_list[ids], 'is_use', '0');
 							// 在设置选中状态
 						}
 					})
-					if(!isInClude){
+					if (!isInClude) {
 						// 现在被选中的切换状态，追加到已使用的优惠券列表中
 						self.coupon_list[index].is_use = '1';
 						self.$set(self.coupon_list[index], 'is_use', '1');
 						self.use_coupon_list.push(couponObj);
-						
+
 						goods_list.coupon_name = coupon_detail.coupon_data.name; //获取优惠券名
-						
-						
+
+
 					}
 
 					// total_price当前商品的价格
@@ -672,10 +683,10 @@
 						goods_list.sale_price = (((goods_list.total_price * 1) - (coupon_detail.coupon_data.sub_price * 1)).toFixed(2)) *
 							1;
 					}
-					
+
 					// 重新获取订单详情
-					self.getData();	//重新获取订单详情
-					
+					self.getData(); //重新获取订单详情
+
 				}
 
 				list.goods_list.forEach((item) => { //计算小计
@@ -687,7 +698,7 @@
 				this.calcTotalPrice();
 				this.hidePopup();
 			},
-			
+
 			calcTotalPrice() { //计算总价
 				this.total_price = 0;
 				this.list.forEach((item) => {
@@ -701,7 +712,7 @@
 				})
 				// console.log(1231);
 			},
-			getAddressqh(){
+			getAddressqh() {
 				console.log('我给触发了');
 			},
 			// 2.2 订单提交
@@ -729,21 +740,23 @@
 					return;
 				}
 				//请求数据
-				var params=this.params
-				var list=params['list']
-				for(var i=0;i<list.length;i++){
-					list[i]['remark']= this.remark
-					list[i]['delivery']= [{send_type: 'express'}]
-					list[i]['use_coupon_list']=this.use_coupon_list
+				var params = this.params
+				var list = params['list']
+				for (var i = 0; i < list.length; i++) {
+					list[i]['remark'] = this.remark
+					list[i]['delivery'] = [{
+						send_type: 'express'
+					}]
+					list[i]['use_coupon_list'] = this.use_coupon_list
 				}
-                params['list']=list
+				params['list'] = list
 				console.log(params)
 				this.$http.request({
 					url: this.$api.order.doSubmitOrder,
 					method: 'post',
 					data: params
 				}).then((res) => {
-					this.is_request = false;	//防抖(重复请求)
+					this.is_request = false; //防抖(重复请求)
 					if (res.code == 0) {
 						uni.removeStorageSync('orderData');
 						uni.redirectTo({
@@ -767,9 +780,11 @@
 		padding: 20rpx 20rpx 118rpx;
 		box-sizing: border-box;
 	}
-    .tui-goods-info{
+
+	.tui-goods-info {
 		border: 1px #eee solid;
 	}
+
 	.tui-address {
 		min-height: 80rpx;
 		padding: 10rpx 0;
@@ -783,6 +798,7 @@
 		line-height: 30rpx;
 		padding-bottom: 12rpx;
 	}
+
 	.tui-name {
 		padding-right: 40rpx;
 	}
@@ -828,18 +844,21 @@
 		display: flex;
 		align-items: center;
 	}
-    .logo {
-    	display: flex;
-        align-items: center;
-    	
-    }
+
+	.logo {
+		display: flex;
+		align-items: center;
+
+	}
+
 	.img {
 		width: 40rpx;
 		height: 40rpx;
 		margin-right: 20rpx;
 		border-radius: 10rpx;
 	}
-	.toright{
+
+	.toright {
 		width: 8px;
 		height: 8px;
 		border-top: 1px #999 solid;
@@ -847,10 +866,12 @@
 		transform: rotate(45deg);
 		margin-left: 5px;
 	}
+
 	.name {
 		color: #1E1E1E;
 		font-size: 11pt;
 	}
+
 	.tui-padding {
 		box-sizing: border-box;
 	}
@@ -1191,12 +1212,14 @@
 		font-size: 26rpx;
 		color: #000000;
 	}
-	.use-points .xieti{
+
+	.use-points .xieti {
 		font-size: 18rpx;
 		color: #666;
 		overflow: hidden;
 	}
-	.use-points .xieti .text{
+
+	.use-points .xieti .text {
 		font-style: oblique;
 		color: #F53939;
 		margin-left: 20rpx;
@@ -1206,9 +1229,9 @@
 	.points-switch {
 		transform: scale(0.7);
 	}
-	
+
 	/* 0.2 商品列表样式 */
-	.item-goods{
+	.item-goods {
 		border-radius: 20rpx;
 		margin-bottom: 20rpx;
 	}

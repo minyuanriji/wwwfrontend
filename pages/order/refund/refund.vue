@@ -36,10 +36,14 @@
 			<view class="refund-info">
 				<view class="price">
 					<view>退款金额:</view>
-					<view class="red" :style="{'--textColor':textColor}">¥{{ dataForm.refund_price }}</view>
+					<view class="red" :style="{'--textColor':textColor}">¥{{ dataForm.refund_total_price }}</view>
+				</view>
+				<view class="price">
+					<view>退款购物/积分卷:</view>
+					<view class="red" :style="{'--textColor':textColor}">¥{{ dataForm.integral_score_price }}</view>
 				</view>
 				<view class="desc">
-					<span>不可修改,最多¥{{ dataForm.refund_price }}</span>
+					<span>不可修改,最多¥{{ dataForm.refund_total_price }}</span>
 				</view>
 				<view class="explain" v-if="dataForm.type == 0">
 					<view>退款说明:</view>
@@ -132,7 +136,9 @@ export default {
 				refund_type: -1,
 				remark: '',
 				pic_list: [],
-				textColor:''
+				textColor:'',
+				integral_score_price:'',
+				refund_total_price:''
 			},
 			loading: false
 		};
@@ -151,6 +157,7 @@ export default {
 			temp.refund_type = temp.refund_type < 0 ? 0 : temp.refund_type;
 			// temp.reason 修改数字为 退款原因数组对应数据
 			temp.reason = this.reasonStatus[temp.reason].value;
+			console.log(temp);
 			this.$http
 				.request({
 					url: this.$api.order.refundSubmit,
@@ -183,9 +190,13 @@ export default {
 					this.loading = false;
 					if (res.code === 0) {
 						let { detail } = res.data;
+						console.log(detail.use_score);
 						this.data = detail;
 						this.dataForm.order_detail_id = detail.order_detail_id;
 						this.dataForm.refund_price = detail.refund_price;
+						this.dataForm.integral_score_price = detail.use_score > 0 ? detail.use_score : detail.integral_deduction_price;
+						this.dataForm.refund_total_price = detail.refund_total_price;
+						this.dataForm.integral_score_price = this.dataForm.integral_score_price.lastIndexOf('.') > 0 ? this.dataForm.integral_score_price : (this.dataForm.integral_score_price + '.00');
 					}
 				});
 		},
