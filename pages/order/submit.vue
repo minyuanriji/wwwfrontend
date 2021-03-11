@@ -328,11 +328,9 @@
 			},
 			//切换地址获取运费
 			switcExpressPrice() {
-					this.express = 0;
-				if (this.province == this.user_address.province) {
+				if(this.province == this.user_address.province){
 					return false;
 				}
-
 				if(this.user_address.province === undefined){
 					this.user_address = uni.getStorageSync('user_address_cache');
 				}
@@ -340,6 +338,33 @@
 				if (this.user_address.province) {
 					this.list = [];
 					
+				}
+				this.province = this.user_address.province;
+				if(this.user_address.province){
+					this.$http.request({
+						url: this.$api.order.express_price,
+						method: 'post',
+						showLoading: true,
+						data: {
+							data: this.user_address.province,
+							order_id: this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0
+						}
+					}).then((res) => {
+						var result=Object.keys(res)
+						this.list.forEach((item)=>{
+							if(item.mch.id==0){
+								item.goods_list.forEach((ites)=>{
+									if(result.indexOf(String(ites.id))!=-1){
+										this.express+=Number(res[ites.id])
+									}
+								})
+								console.log(this.express);
+								item.express_price=this.express;
+								item.total_price=Number(item.total_price)+Number(item.express_price);
+							}							
+						})
+						this.getData();
+					})
 				}
 			},
 
@@ -422,20 +447,19 @@
 				data['list'] = list;
 				this.params = data //请求数据
 				//获取
-				console.log(data)
 				this.$http.request({
 					url: this.$api.order.submit,
 					method: 'post',
 					showLoading: true,
 					data: data
 				}).then((res) => {
+					console.log(res);
 					if (res.code == 0) {
 						let resList = res.data.list
 						resList.forEach((item) => {
 							let that = this;
 							// 0.0.1 先初始化所有选中的优惠券
 							that.use_coupon_list = [];
-
 							if (item.same_goods_list && item.same_goods_list.length > 0) {
 								item.same_goods_list.forEach((its, ids) => {
 									its['coupon_name'] = '请选择优惠券';
@@ -475,6 +499,7 @@
 						})
 
 						this.list = resList;
+						console.log(this.list)
 						this.score_enable = res.data.score_enable;
 						this.user_score = this.list[0].score.user_score; //用户拥有积分
 						this.total_score_use = this.list[0].score.use_num; //可抵扣
@@ -530,7 +555,7 @@
 					} else {
 						this.$http.toast(res.msg);
 						setTimeout(() => {
-							uni.navigateBack()
+							// uni.navigateBack()
 						}, 1500)
 					}
 				})
