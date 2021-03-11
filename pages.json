@@ -700,6 +700,16 @@
             }
             
         }
+        ,{
+            "path" : "pages/more-shop/more-shop",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "核销详情",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",
