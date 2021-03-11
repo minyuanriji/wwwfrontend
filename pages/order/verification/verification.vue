@@ -26,10 +26,12 @@
 		data() {
 			return {
 				verificationMessage:{},//核销信息
+				id:'',
 			}
 		},
 		onLoad(options) {			
 			console.log(options)
+			this.id=options.id
 			this.$http.request({
 				url: this.$api.moreShop.getexpenseMessage,
 				method: 'POST',
@@ -43,9 +45,22 @@
 					this.verificationMessage=res.data
 				}
 			})
+			this.getResult()
 		},
 		methods: {
-			
+			getResult(){
+				this.$http.request({
+					url: this.$api.moreShop.verificationinfo,
+					method: 'POST',
+					data: {
+						id: this.id,
+					},
+				}).then(res => {
+					if(res.code==0){
+						console.log(res)
+					}
+				})
+			}
 		}
 	}
 </script>
