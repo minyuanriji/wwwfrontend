@@ -28,7 +28,7 @@
 		methods: {
 			btnPay(){ //点击生成收款码
 				if(this.code.length<=0){
-					alert(11)
+					this.$http.toast("输入不能为空")
 					return
 				}
 				this.show=true
