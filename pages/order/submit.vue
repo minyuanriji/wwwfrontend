@@ -265,6 +265,11 @@
 			this.getData();
 			//#ifdef MP-WEIXIN
 			this.wx_order_id = options.nav_id;
+			console.log(this.wx_order_id);
+			//#endif
+			
+			//#ifdef H5
+			this.wx_order_id = this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0;
 			//#endif
 			this.getscoreswitc();
 		},
@@ -335,11 +340,6 @@
 					this.user_address = uni.getStorageSync('user_address_cache');
 				}
 				this.province = this.user_address.province;
-				if (this.user_address.province) {
-					this.list = [];
-					
-				}
-				this.province = this.user_address.province;
 				if(this.user_address.province){
 					this.$http.request({
 						url: this.$api.order.express_price,
@@ -347,7 +347,7 @@
 						showLoading: true,
 						data: {
 							data: this.user_address.province,
-							order_id: this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0
+							order_id: this.wx_order_id
 						}
 					}).then((res) => {
 						var result=Object.keys(res)

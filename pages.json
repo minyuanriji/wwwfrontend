@@ -697,7 +697,7 @@
 				"navigationBarBackgroundColor": "#fff",
                 "enablePullDownRefresh": false
             }
-            
+           
         },
 		{
 		    "path" : "pages/more-shop/more-shop",
