@@ -53,7 +53,11 @@
 		},
 		onLoad(options) {
 			//#ifdef H5
-			this.user_id = this.$route.query.user_id !== undefined ? this.$route.query.user_id : 0; 
+			if(uni.getStorageSync('user_id1')){
+				this.user_id = uni.getStorageSync('user_id');
+			}else{
+				this.user_id = uni.getStorageSync('pid') ? uni.getStorageSync('pid') : 0;
+			}
 			//#endif
 			if(options.key){
 				this.key = options.key

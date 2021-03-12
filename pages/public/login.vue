@@ -76,9 +76,9 @@
 				this.logo_img=JSON.parse(uni.getStorageSync('mall_config')).mall_setting.setting.logo;
 			}
 			//#ifdef H5
-			this.user_id = this.$route.query.user_id !== undefined ? this.$route.query.user_id : 0; 
+			this.user_id = this.$route.query.user_id !== undefined ? this.$route.query.user_id : 0;
+			uni.setStorageSync('user_id',this.user_id);
 			//#endif
-			console.log(this.user_id);
 
 			if (this.$http.isLogin()) {
 				this.$http.toast('您已登录，请勿重新登录');
