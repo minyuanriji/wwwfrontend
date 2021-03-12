@@ -1,6 +1,6 @@
 // 正式服
 // let domainUrl = "http://www.mingyuanriji.cn";
-let domainUrl = "http://dev.mingyuanriji.cn";
+let domainUrl = "http://8.129.63.124";
 let baseUrl = "";
 let socketUrl = "";
 if (process.env.NODE_ENV === 'development') {

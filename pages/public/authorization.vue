@@ -49,6 +49,7 @@ export default {
 			this.textColor = this.globalSet('textCol');
 			this.logo_img=JSON.parse(uni.getStorageSync('mall_config')).mall_setting.setting.logo;
 		}
+		uni.removeStorageSync('parent_source');
 	},
 	methods: {
 		getCode(){
@@ -102,6 +103,7 @@ export default {
 				}
 			}).then(res =>{
 				if(res.code == 0){
+					uni.setStorageSync('new_user',1);
 					this.$http.toast('绑定成功!');
 					if(this.form == 'login'){
 						uni.navigateBack();

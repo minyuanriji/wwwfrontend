@@ -53,7 +53,7 @@
 		},
 		onLoad(options) {
 			//#ifdef H5
-			if(uni.getStorageSync('user_id1')){
+			if(uni.getStorageSync('user_id')){
 				this.user_id = uni.getStorageSync('user_id');
 			}else{
 				this.user_id = uni.getStorageSync('pid') ? uni.getStorageSync('pid') : 0;

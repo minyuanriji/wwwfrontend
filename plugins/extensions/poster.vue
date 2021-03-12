@@ -125,16 +125,17 @@
 				});
 			},
 			getData() {
-				this.loading = true;
+				// this.loading = true;
 				this.$http.request({
 					url: this.$api.plugin.extensions.poster,
-					method: 'POST'
+					method: 'POST',
+					showLoading: true,
 				}).then(res => {
 					if (res.code == 0) {
 						this.poster_url = res.data.pic_url;
-						setTimeout(() => {
-							this.loading = false;
-						}, 1000)
+						// setTimeout(() => {
+						// 	this.loading = false;
+						// }, 1000)
 					}else{
 						this.$http.toast(res.msg);
 						uni.redirectTo();

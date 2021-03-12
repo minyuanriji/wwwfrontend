@@ -447,8 +447,8 @@ export default {
 		if (options.pid) {
 			uni.setStorageSync('pid', options.pid);
 		}
-		if(options.source){
-			uni.setStorageSync('source',options.source);
+		if(options.scene){
+			uni.setStorageSync('parent_source',options.scene);
 		}
 		if(uni.getStorageSync('mall_config')){
 			this.copyright = JSON.parse(uni.getStorageSync('mall_config')).copyright;

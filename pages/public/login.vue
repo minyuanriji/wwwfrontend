@@ -211,6 +211,7 @@
 				});
 
 				// #ifdef MP-WEIXIN
+				var source = uni.getStorageSync('parent_source') ? uni.getStorageSync('parent_source') : 0;
 				uni.login({
 					provider: _login_key,
 					scopes: 'auth_user',
@@ -231,7 +232,8 @@
 										code: loginRes.code,
 										encryptedData: encryptedData,
 										iv: iv,
-										parent_user_id:uni.getStorageSync('parent_user_id')
+										parent_user_id:uni.getStorageSync('parent_user_id'),
+										parent_source:source
 									}
 								}).then(res => {
 									this.$http.toast(res.msg);
