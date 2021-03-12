@@ -53,6 +53,13 @@
 				</view>
 			</jx-list-cell>
 		</view> -->
+		<view class="personalCenter-item">
+			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(5)">
+				<view class="jx-cell-header">
+					<view class="jx-cell-title" style="font-weight: 700;">资金明细</view>
+				</view>
+			</jx-list-cell>
+		</view>
 	</view>
 </template>
 
@@ -106,6 +113,11 @@
 				if(page==4){
 					uni.navigateTo({
 						url:'./personalCentreSET/personalCentreSET'
+					})
+				}
+				if(page==5){
+					uni.navigateTo({
+						url:'./mongeyDetail/mongeyDetail'
 					})
 				}
 			},

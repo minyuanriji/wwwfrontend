@@ -54,14 +54,13 @@
 						that.flag=true
 						that.message=res.data.detail
 						that.goodinfo=res.data.detail.goods_info.goods_attr
-						console.log(that.message)
 					}else{
 						that.$http.toast(res.msg)
-						// setTimeout(function(){
-						// 	uni.redirectTo({
-						// 		url:'../personalCentre/accountingOrder/accountingOrder'
-						// 	})
-						// },2000)
+						setTimeout(function(){
+							uni.redirectTo({
+								url:'../personalCentre/accountingOrder/accountingOrder'
+							})
+						},2000)
 					}
 				})		
 			}, 2000);
