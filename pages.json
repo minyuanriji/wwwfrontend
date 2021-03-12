@@ -719,6 +719,16 @@
             }
             
         }
+		,{
+		    "path" : "pages/personalCentre/invoicingMessage/pay",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "账单支付",
+				"navigationBarBackgroundColor": "#fff",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
     ],
 	"subPackages": [{
 		"root": "plugins",
