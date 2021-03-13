@@ -77,7 +77,9 @@
 			}
 			//#ifdef H5
 			this.user_id = this.$route.query.user_id !== undefined ? this.$route.query.user_id : 0;
-			uni.setStorageSync('user_id',this.user_id);
+			if(this.$route.query.user_id !== undefined){
+				uni.setStorageSync('user_id',this.user_id);
+			}
 			//#endif
 
 			if (this.$http.isLogin()) {

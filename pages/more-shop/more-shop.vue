@@ -1,17 +1,17 @@
 <template>
 	<view class="more-shop">
-		<view class="more-shop-account-title">
-			{{success}}
+		<view class="more-shop-account-title" v-if="flag">
+				核销成功
 		</view>
 		<view class="more-shop-account-detail">		
 			<view class="jx-goods-item">
-				<image :src="message.detail.goods_info.goods_attr.cover_pic" lazy-load="true" class="jx-goods-img"></image>
+				<image :src="goodinfo.cover_pic" lazy-load="true" class="jx-goods-img"></image>
 				<view class="jx-goods-center">
-					<view class="jx-goods-name">{{message.detail.goods_info.goods_attr.name}}</view>
+					<view class="jx-goods-name">{{goodinfo.name}}</view>
 				</view>
 				<view class="jx-price-right">
-					<view class="price">￥{{message.detail.total_original_price}}</view>
-					<view class="num">x{{message.detail.num}}</view>
+					<view class="price">￥{{message.total_original_price}}</view>
+					<view class="num">x{{message.num}}</view>
 				</view>
 			</view>
 		</view>
@@ -25,9 +25,11 @@
 	export default {
 		data() {
 			return {
-				code:"xxxxxxxxxxxxxxx",
+				code:"",
 				message:{},
-				success:''
+				success:'',
+				goodinfo:{},
+				flag:false
 			}
 		},
 		onLoad(options) {
@@ -49,8 +51,9 @@
 				}).then(res => {
 					if(res.code==0){
 						that.$http.toast(res.msg)
-						this.message=res.data
-						this.success="核销成功"
+						that.flag=true
+						that.message=res.data.detail
+						that.goodinfo=res.data.detail.goods_info.goods_attr
 					}else{
 						that.$http.toast(res.msg)
 						setTimeout(function(){

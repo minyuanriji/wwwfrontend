@@ -369,7 +369,9 @@
 	import tuiTopDropdown from "@/components/top-dropdown/top-dropdown"
 	import tuiNumberbox from "@/components/numberbox/numberbox"
 	import jyfParser from "@/components/jyf-parser/jyf-parser";
-	import info from '@/components/shop/info'
+	import info from '@/components/shop/info';
+	import weixinModule from '@/common/wechatJsSdk.js';
+	var jweixin = require('jweixin-module');
 	export default {
 		components: {
 			tuiIcon,
@@ -509,6 +511,17 @@
 					}
 				})
 			}, 50)
+			//#ifdef H5
+			var user_id = this.$route.query.pid2 !== undefined ? this.$route.query.pid2 : 0;
+			if(Array.isArray(user_id)){
+				user_id = user_id[0];
+			}else{
+				user_id = this.$route.query.pid2 !== undefined ? this.$route.query.pid2 : 0;
+			}
+			if(this.$route.query.pid2 !== undefined){
+				uni.setStorageSync('user_id',user_id);
+			}
+			//#endif
 		},
 		onShow() {
 			this.getCartList();

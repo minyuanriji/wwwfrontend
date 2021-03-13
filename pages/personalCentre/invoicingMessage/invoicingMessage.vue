@@ -4,8 +4,8 @@
 			订单号:{{orderMessage.order_info.order_no}}
 		</view>
 		<view class="shop-detail">
-			<!-- <image :src="orderMessage.mch_info.cover_url" mode="" class="shop-logo"></image> -->
-			<image src="" mode="" class="shop-logo"></image>
+			<image :src="orderMessage.mch_info.cover_url" mode="" class="shop-logo"></image>
+			<!-- <image src="" mode="" class="shop-logo"></image> -->
 			<view class="shop-name">
 				<text>店铺名:{{orderMessage.mch_info.name}}</text>
 				<text>ID:{{orderMessage.mch_info.mch_id}}</text>
@@ -32,19 +32,19 @@
 		data() {
 			return {
 				orderMessage:{
-					"order_info":{
-						"id":1,
-						 "mch_id": 31,
-						 "order_no": "MS202103110906011010910457",
-						 "order_price": "100.00",
-					},
-					"mch_info":{
-						"mch_id": 31,
-						"name": "维也纳国际酒店(深圳草埔百鸽笼地铁站店)",
-						"cover_url": "http://",
-					},
-					"user_integral_num": 99999,
-					"integral_max_deduction": 100
+					// "order_info":{
+					// 	"id":1,
+					// 	 "mch_id": 31,
+					// 	 "order_no": "MS202103110906011010910457",
+					// 	 "order_price": "100.00",
+					// },
+					// "mch_info":{
+					// 	"mch_id": 31,
+					// 	"name": "维也纳国际酒店(深圳草埔百鸽笼地铁站店)",
+					// 	"cover_url": "http://",
+					// },
+					// "user_integral_num": 99999,
+					// "integral_max_deduction": 100
 				},//结账单信息
 				textColor: '#bc0100',
 				is_integral:false,

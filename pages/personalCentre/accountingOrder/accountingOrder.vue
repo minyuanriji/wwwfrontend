@@ -14,7 +14,7 @@
 </template>
 
 <script>
-	var jweixin = require('jweixin-module');
+	// var jweixin = require('jweixin-module');
 	export default {
 		data() {
 			return {
@@ -22,12 +22,15 @@
 			}
 		},
 		onLoad() {
+		//#ifdef H5
 			this.$wechatSdk.initJssdk(function(signData){
 				console.log(signData)
 			});
+			//#endif
 		},
 		methods: {
 			ercodeBtn(){
+				//#ifdef H5
 				jweixin.scanQRCode({
 				  needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
 				  scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
@@ -35,7 +38,9 @@
 				    var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
 				  }
 				});
+				//#endif
 			},
+			
 			btn(){ //点击确认核销码
 				if(this.code.length<=0){
 					this.$http.toast("核销码不能为空")
