@@ -370,8 +370,6 @@
 	import tuiNumberbox from "@/components/numberbox/numberbox"
 	import jyfParser from "@/components/jyf-parser/jyf-parser";
 	import info from '@/components/shop/info';
-	import weixinModule from '@/common/wechatJsSdk.js';
-	var jweixin = require('jweixin-module');
 	export default {
 		components: {
 			tuiIcon,
