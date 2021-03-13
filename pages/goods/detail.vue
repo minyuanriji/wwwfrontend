@@ -767,7 +767,9 @@
 						url = '/pages/order/submit';
 					}
 					// #ifdef H5
-					url = url + '?nav_id=' + this.$route.query.proId+'&mch_id='+mch_id;
+					// url = url + '?nav_id=' + this.$route.query.proId+'&mch_id='+mch_id
+					url = url + '?nav_id=' + JSON.stringify([{id:this.$route.query.proId,num:this.value}])+'&mch_id='+mch_id
+					// {id:this.selectArr[i].goods_id,num:this.selectArr[i].num}       
 					// #endif
 					
 					// #ifdef MP-WEIXIN
