@@ -16,7 +16,8 @@
 		</view>
 		<view class="use-points flex flex-y-center flex-x-between">
 			<view>
-				使用抵扣券 :{{orderMessage.integral_max_deduction}}
+				<!-- 使用抵扣券 :{{orderMessage.integral_max_deduction}} -->
+				使用抵扣券 :{{num}} 
 				<view class="xieti">拥有抵扣券金额:{{orderMessage.user_integral_num}}</view>
 			</view>
 			<switch :checked="is_integral" @change="useIntegral" :color='textColor' class="points-switch" />
@@ -32,23 +33,23 @@
 		data() {
 			return {
 				orderMessage:{
-					// "order_info":{
-					// 	"id":1,
-					// 	 "mch_id": 31,
-					// 	 "order_no": "MS202103110906011010910457",
-					// 	 "order_price": "100.00",
-					// },
-					// "mch_info":{
-					// 	"mch_id": 31,
-					// 	"name": "维也纳国际酒店(深圳草埔百鸽笼地铁站店)",
-					// 	"cover_url": "http://",
-					// },
-					// "user_integral_num": 99999,
-					// "integral_max_deduction": 100
+					"order_info":{
+						"id":1,
+						 "mch_id": 31,
+						 "order_no": "MS202103110906011010910457",
+						 "order_price": "100.00",
+					},
+					"mch_info":{
+						"mch_id": 31,
+						"name": "维也纳国际酒店(深圳草埔百鸽笼地铁站店)",
+						"cover_url": "http://",
+					},
+					"user_integral_num": 99999,
+					"integral_max_deduction": 100
 				},//结账单信息
-				textColor: '#bc0100',
+				textColor: '#00dd00',
 				is_integral:false,
-				
+				num:0
 			};
 		},
 		onLoad() {   //通过扫二维码进入此页面会带有一个id
@@ -62,6 +63,7 @@
 					this.orderMessage.order_info.order_price=this.orderMessage.order_info.order_price
 				}else{
 					this.orderMessage.order_info.order_price=Number(this.orderMessage.order_info.order_price)-Number(this.orderMessage.integral_max_deduction)
+					this.num=this.orderMessage.integral_max_deduction
 					this.getmessage()
 				}
 				// this.is_integral ? this.use_integral = 1 : this.use_integral = 0; //是否使用抵扣券(请求用)
