@@ -37,15 +37,15 @@
 						"id":1,
 						 "mch_id": 31,
 						 "order_no": "MS202103110906011010910457",
-						 "order_price": "100.00",
+						 "order_price": "0.01",
 					},
 					"mch_info":{
 						"mch_id": 31,
 						"name": "维也纳国际酒店(深圳草埔百鸽笼地铁站店)",
 						"cover_url": "http://",
 					},
-					"user_integral_num": 99999,
-					"integral_max_deduction": 100
+					"user_integral_num": 1,
+					"integral_max_deduction": 0.01
 				},//结账单信息
 				textColor: '#00dd00',
 				is_integral:false,
@@ -61,12 +61,12 @@
 				this.is_integral = e.detail.value;
 				if(this.is_integral=false){
 					this.orderMessage.order_info.order_price=this.orderMessage.order_info.order_price
+					this.num=0
 				}else{
 					this.orderMessage.order_info.order_price=Number(this.orderMessage.order_info.order_price)-Number(this.orderMessage.integral_max_deduction)
 					this.num=this.orderMessage.integral_max_deduction
 					this.getmessage()
 				}
-				// this.is_integral ? this.use_integral = 1 : this.use_integral = 0; //是否使用抵扣券(请求用)
 			},
 			getmessage(){
 				let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
@@ -88,7 +88,7 @@
 			},
 			pay(){ //点击去支付
 				uni.navigateTo({
-					url:'../invoicingMessage/pay?id='+this.orderMessage.order_info.id+"&use_integral="+this.orderMessage.integral_max_deduction
+					url:'../invoicingMessage/pay?id='+this.orderMessage.order_info.id+"&use_integral="+this.num
 				})
 			}
 		}

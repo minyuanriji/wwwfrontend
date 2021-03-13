@@ -73,6 +73,7 @@
 			}
 		},
 		onLoad(options) {
+			console.log(options)
 			this.textColor = this.globalSet('textCol');
 			this.bg_url = this.globalSet('imgUrl');
 			this.navBg = this.globalSet('navBg');
@@ -100,7 +101,6 @@
 					showLoading: true,
 				}).then((res) => {
 					if (res.code == 0) {
-						console.log(res.data)
 						this.payData = res.data;
 						if(res.data.detail.is_pay==1){
 							uni.showModal({

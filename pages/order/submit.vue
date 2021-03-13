@@ -350,6 +350,7 @@
 							order_id: this.wx_order_id
 						}
 					}).then((res) => {
+						console.log(res)
 						var result=Object.keys(res)
 						this.list.forEach((item)=>{
 							if(item.mch.id==0){
