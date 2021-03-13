@@ -64,7 +64,34 @@ export default {
 		// #endif
 	},
 
-	onShow: function() {
+	onShow: function(options) {
+		//#ifdef MP-WEIXIN
+		let livePlayer = requirePlugin('live-player-plugin');
+		// 分享卡片/订阅消息/扫码二维码/广告/朋友圈等场景才能调用getShareParams接口获取以下参数
+		        const sceneList = [1007, 1008, 1014, 1044, 1045, 1046, 1047, 1048, 1049, 1073, 1154, 1155];
+				console.log(options);
+				// console.log(options.query.custom_params);
+				if(options.query.custom_params){
+					uni.setStorageSync('parent_user_id',options.query.custom_params);
+				}
+		        if (sceneList.includes(options.scene)) {
+		            livePlayer.getShareParams()
+		                .then(res => {
+		                    // 房间号
+		                    console.log('get room id', res.room_id) 
+		                    // 用户openid
+		                    console.log('get openid', res.openid) 
+		                    // 分享者openid，分享卡片进入场景才有
+		                    console.log('get share openid', res.share_openid) 
+		                    // 开发者在跳转进入直播间页面时，页面路径上携带的自定义参数，这里传回给开发者
+							uni.setStorageSync('parent_user_id',res.custom_params);
+		                    console.log('get custom params', res.custom_params) 
+		                }).catch(err => {
+		                    console.log('get share params', err)
+		                })
+		        }
+		//#endif
+		
 		//console.log('App Show');
 		// #ifdef MP-WEIXIN
 		//小程序更新

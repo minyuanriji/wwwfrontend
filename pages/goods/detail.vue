@@ -470,6 +470,7 @@
 			} = options;
 			if (pid) {
 				uni.setStorageSync("pid", pid);
+				uni.setStorageSync("user_id", pid);
 			}
 			if (source) {
 				uni.setStorageSync("source", source);

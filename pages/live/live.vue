@@ -28,6 +28,9 @@
 		onLoad() {
 			this.getLive();
 		},
+		onShow() {
+		 let livePlayer = requirePlugin('live-player-plugin');
+		},
 		methods: {
 			//获取直播数据
 			getLive(){
@@ -52,8 +55,10 @@
 					})
 			},
 			goLive(roomid){
+				var user_id = uni.getStorageSync('userInfo') ?  JSON.parse(uni.getStorageSync('userInfo')).user_id : '';
 				uni.navigateTo({
-					url: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${roomid}`
+					// url: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${roomid}`
+					url: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${roomid}&custom_params=` + user_id
 				});
 			}
 		}
