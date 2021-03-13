@@ -425,7 +425,6 @@
 				}).then(res => {
 					this.loading = false
 					if (res.code === 0) {
-						console.log(res.data)
 						if(res.data.is_need_address==0){
 							this.messageShow=false
 						}

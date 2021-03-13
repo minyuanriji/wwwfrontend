@@ -7,7 +7,7 @@
 			<view class="item" v-for="(item, i) in dataList" :key="i">
 				<view class="item-left">
 					<view class="desc margin-bottom text-12-pt">{{ item.desc }}</view>
-					<view class="date-time text-10-pt">{{ item.created_at }}</view>
+					<view class="date-time text-10-pt">{{ item.format_date }}</view>
 				</view>
 				<view class="item-right">
 					<view class="update margin-bottom text-12-pt" :style="{color:item.type == 1 ?textColor:''}">{{ updateStatus(item.type, item.money) }}</view>

@@ -4,7 +4,7 @@
 		 color="#000000"></com-nav-bar>
 		<view class="tui-box">
 			<!-- 收货地址 -->
-			<tui-list-cell :arrow="true" :last="true" :radius="true" @click="chooseAddr">
+			<tui-list-cell :arrow="true" :last="true" :radius="true" @click="chooseAddr" v-if="addressShpw">
 				<view class="tui-address">
 					<view v-if="user_address.length != 0">
 						<view class="tui-userinfo">
@@ -247,6 +247,7 @@
 				price: 0,
 				express_price: 0,
 				express: 0,
+				addressShpw:true,
 			}
 		},
 		onLoad(options) {
@@ -366,6 +367,7 @@
 							}							
 						})
 						this.getData();
+						console.log(this.list)
 					})
 				}
 			},
@@ -456,6 +458,10 @@
 					data: data
 				}).then((res) => {
 					if (res.code == 0) {
+						console.log(res)
+						if(res.data.is_need_address==0){
+							this.addressShpw=false
+						}
 						let resList = res.data.list
 						resList.forEach((item) => {
 							let that = this;
