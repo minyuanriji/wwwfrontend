@@ -725,7 +725,8 @@
 		    {
 		        "navigationBarTitleText": "账单支付",
 				"navigationBarBackgroundColor": "#fff",
-		        "enablePullDownRefresh": false
+		        "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
 		    }
 		    
 		}
