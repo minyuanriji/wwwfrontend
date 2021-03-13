@@ -9,9 +9,9 @@
 		</view>
 		<view class="jx-content-box">
 			<view class="jx-header-btm">
-				<view class="jx-btm-item">
+				<view class="jx-btm-item" @click="href(5)">
 					<view class="jx-btm-num">{{userMessage.stat.account_money}}</view>
-					<view class="jx-btm-text">余额</view>
+					<view class="jx-btm-text">账户</view>
 				</view>
 				<view class="jx-btm-item">
 					<view class="jx-btm-num">{{userMessage.stat.order_num}}</view>
@@ -53,13 +53,13 @@
 				</view>
 			</jx-list-cell>
 		</view> -->
-		<view class="personalCenter-item">
+		<!-- <view class="personalCenter-item">
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(5)">
 				<view class="jx-cell-header">
 					<view class="jx-cell-title" style="font-weight: 700;">资金明细</view>
 				</view>
 			</jx-list-cell>
-		</view>
+		</view> -->
 	</view>
 </template>
 

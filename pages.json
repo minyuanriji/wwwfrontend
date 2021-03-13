@@ -731,13 +731,14 @@
 		}
         ,{
             "path" : "pages/personalCentre/mongeyDetail/mongeyDetail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "资金明细",
-				"navigationBarBackgroundColor": "#fff",
-                "enablePullDownRefresh": false
-            }
-            
+           "style": {
+           	"navigationBarTitleText": "资金明细",
+           	"navigationBarBackgroundColor": "#FFFFFF",
+           	"navigationBarTextStyle": "black",
+           	"enablePullDownRefresh": true,
+           	"onReachBottomDistance": 50,
+           	"navigationStyle": "custom"
+           }
         }
     ],
 	"subPackages": [{
