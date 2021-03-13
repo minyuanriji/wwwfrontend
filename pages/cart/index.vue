@@ -394,12 +394,13 @@
 				uni.setStorageSync('orderData', this.finallyObj);
 				for(let i=0;i<this.selectArr.length;i++){
 					if(lo.indexOf(this.selectArr[i].goods_id)==-1){
-						lo.push(this.selectArr[i].goods_id)
+						// lo.push(this.selectArr[i].goods_id)
+						lo.push({id:this.selectArr[i].goods_id,num:this.selectArr[i].num})
 					}
 				}
-				let local=lo.join()
+				// let local=lo.join()			
 				uni.navigateTo({
-					url: '/pages/order/submit?nav_id='+local
+					url: '/pages/order/submit?nav_id='+JSON.stringify(lo)
 				})
 			},
 			deleteCart() { //购物车删除

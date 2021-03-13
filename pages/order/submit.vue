@@ -264,11 +264,12 @@
 			this.sendData = uni.getStorageSync('orderData');
 			this.getData();
 			//#ifdef MP-WEIXIN
-			this.wx_order_id = options.nav_id;
+			this.wx_order_id =options.nav_id;
 			console.log(this.wx_order_id);
 			//#endif
 			
 			//#ifdef H5
+			// this.wx_order_id = this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0;
 			this.wx_order_id = this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0;
 			//#endif
 			this.getscoreswitc();
@@ -340,6 +341,7 @@
 					this.user_address = uni.getStorageSync('user_address_cache');
 				}
 				this.province = this.user_address.province;
+				this.express=0
 				if(this.user_address.province){
 					this.$http.request({
 						url: this.$api.order.express_price,
@@ -347,19 +349,18 @@
 						showLoading: true,
 						data: {
 							data: this.user_address.province,
-							order_id: this.wx_order_id
+							order_id: JSON.parse(this.wx_order_id)
 						}
 					}).then((res) => {
-						console.log(res)
 						var result=Object.keys(res)
 						this.list.forEach((item)=>{
 							if(item.mch.id==0){
 								item.goods_list.forEach((ites)=>{
+									console.log(ites)
 									if(result.indexOf(String(ites.id))!=-1){
 										this.express+=Number(res[ites.id])
 									}
 								})
-								console.log(this.express);
 								item.express_price=this.express;
 								item.total_price=Number(item.total_price)+Number(item.express_price);
 							}							
@@ -454,7 +455,6 @@
 					showLoading: true,
 					data: data
 				}).then((res) => {
-					console.log(res);
 					if (res.code == 0) {
 						let resList = res.data.list
 						resList.forEach((item) => {
@@ -549,7 +549,6 @@
 
 						// 这里后台返回了总价
 						this.total_price = res.data.total_price;
-
 						if(typeof fn  == "function"){
 							fn.call(this);
 						}
@@ -570,7 +569,6 @@
 				}).then((res) => {
 					if (res.code == 0) {
 						this.user_address = res.data;
-						console.log(res.data);
 						uni.setStorageSync('user_address_cache',res.data);
 					}
 				})
