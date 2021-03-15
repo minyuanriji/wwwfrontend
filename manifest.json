@@ -179,13 +179,13 @@
             "port" : 80
         },
         // "domain" : "https://www.mingyuanriji.cn/h5/",
-		"domain" : "http://dev.mingyuanriji.cn/h5/",
+        "domain" : "http://dev.mingyuanriji.cn/h5/",
         "title" : "名媛日记",
         "template" : "template.h5.html",
         "sdkConfigs" : {
             "maps" : {
                 "qqmap" : {
-                    "key" : "KNUBZ-QBD3P-M2CDU-L7GRW-GWQ4Q-JHFTS"
+                    "key" : "O3DBZ-IFH3W-KKIRN-RZPNQ-AOSH3-EGB5N"
                 }
             }
         }

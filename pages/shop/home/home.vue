@@ -28,7 +28,7 @@
 				  	 </view>
 				  </view>
 				  <!-- 产品 -->
-				  <view class="shop-my-products" style="margin-top: 20rpx;">
+				<!--  <view class="shop-my-products" style="margin-top: 20rpx;">
 				  		爆品区
 				  </view>
 						<view class="simulate-product">
@@ -45,7 +45,7 @@
 								</view>
 							</view>
 						</view>
-				  
+				  -->
 				   <!-- 产品 -->
 				  <!--商品列表-->
 				  <view class="shop-my-products">
