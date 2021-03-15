@@ -343,7 +343,7 @@
 		font-size: 28rpx;
 	}
 	.select1_original_price{
-		font-size:32rpx;
+		font-size:28rpx;
 		color: #c0c0c0;
 	}
 	.select1_level_price {

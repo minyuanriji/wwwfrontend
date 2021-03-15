@@ -6,6 +6,12 @@
 				<view class="personal_nicken">{{userMessage.store.name}}</view>
 				<view class="personal_id">ID:{{userMessage.store.mch_id}}</view>
 			</view>
+			<view class="share-shop">
+				<view class="tui-collection tui-size"  @click.stop="poster()">
+					<view class="tui-icon-collection iconfont icon-qrcode"></view>
+					<view class="tui-scale">分享</view>
+				</view>
+			</view>
 		</view>
 		<view class="jx-content-box">
 			<view class="jx-header-btm">
@@ -60,6 +66,42 @@
 				</view>
 			</jx-list-cell>
 		</view> -->
+		
+		<view class="goods-qrcode-modal" v-if="showPoster">
+			<view class="goods-qrcode-body flex-col">
+				<!-- 整一个图片包括二维码都是后台给的图片 -->
+				<view class="goods-qrcode2 flex flex-y-center flex-x-center">
+					<view class="codeImg_box">
+						<!-- #ifdef H5 -->
+						<view class="goods-qrcode-box">
+							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
+						</view>
+						<!-- #endif -->
+						
+						<!-- #ifdef MP-WEIXIN -->
+						<view class="goods-qrcode-box" @longpress="saveImage(poster_url)">
+							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
+						</view>
+						<!-- #endif -->
+						
+						<!-- #ifdef APP-PLUS -->
+						<view class="goods-qrcode-box" @longpress="appSaveImg(poster_url)">
+							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
+						</view>
+						<!-- #endif -->
+					</view>
+					<view class="saveCode-btn">长按图片保存至本地</view>
+				</view>
+				
+				<view class="goods-qrcode-close" @click="poster(-1)">
+					<view style="width: 50rpx;height: 50rpx;text-align: center;background-color: #ADADAD;color: #FFFFFF;border-radius: 50%;line-height: 50rpx;"
+					 class="iconfont icon-guanbi"></view>
+				</view>
+			</view>
+		</view>
+		
+		
+		
 	</view>
 </template>
 
@@ -71,7 +113,10 @@
 		},
 		data() {
 			return {
-				userMessage:{}
+				userMessage:{},
+				showPoster: false,
+				loading: false,
+				poster_url:"",
 			}
 		},
 		onLoad() {
@@ -121,6 +166,122 @@
 					})
 				}
 			},
+			poster(key) {
+				if (key == -1) {
+					this.showPoster = false;
+					return;
+				}
+				this.loading = true;
+				this.showPoster = true;
+				if (this.poster_url) {
+					setTimeout(() => {
+						this.loading = false;
+					}, 1000)
+					return;
+				}
+				this.$http.request({
+					url: this.$api.goods.poster,
+					method: 'POST',
+					data: {
+						// goods_id: this.proId,
+						goods_id: 1158,
+						source: 2
+					}
+				}).then(res => {
+					if (res.code == 0) {
+						this.poster_url = res.data.pic_url;
+						setTimeout(() => {
+							this.loading = false;
+						}, 1000)
+					}
+				})
+			},
+			appSaveImg(url){ //app保存图片到本地
+				let that = this;
+				/* 保存图片到相册 */
+				uni.saveImageToPhotosAlbum({
+					filePath: url,
+					success: function() {
+						that.$http.toast('保存成功');
+					},
+					fail(res){
+						that.$http.toast('保存失败,请稍后重试');
+					}
+				});
+			},
+			saveImg(url) {
+				var that = this;
+				/* 获取图片信息 */
+				uni.getImageInfo({
+					src: url,
+					success: function(image) {
+						/* 保存图片到相册 */
+						uni.saveImageToPhotosAlbum({
+							filePath: image.path,
+							success: function() {
+								that.$http.toast('保存成功');
+							},
+							fail(res){
+								that.$http.toast('保存失败,请稍后重试');
+							}
+						});
+					}
+				});
+			},
+			opensit() {
+				uni.showModal({
+					content: '由于您还没有允许保存图片到您相册里,请点击确定去允许授权',
+					success: function(res) {
+						if (res.confirm) {
+							/* 这个就是打开设置的API*/
+							uni.openSetting({
+								success(res) {
+									console.log(res.authSetting);
+								}
+							});
+						} else if (res.cancel) {
+							uni.showModal({
+								cancelText: '依然取消',
+								confirmText: '重新授权',
+								content: '很遗憾你点击了取消，请慎重考虑',
+								success: function(res) {
+									if (res.confirm) {
+										uni.openSetting({
+											success(res) {
+												console.log(res.authSetting);
+											}
+										});
+									} else if (res.cancel) {
+										console.log('用户不授权');
+									}
+								}
+							});
+						}
+					}
+				});
+			},
+			saveImage(url) { //保存图片
+				var that = this;
+				uni.authorize({
+					/* 这个就是保存相册的 */
+					scope: 'scope.writePhotosAlbum',
+					success() {
+						/* 保存图片方法 */
+						that.saveImg(url);
+					},
+					complete(res) {
+						/* 这里判断一下如果没有授权重新打开设置选项 */
+						uni.getSetting({
+							success(res) {
+								if (!res.authSetting['scope.writePhotosAlbum']) {
+									/* 打开设置的方法 */
+									that.opensit();
+								}
+							}
+						});
+					}
+				});
+			},
 		}
 	}
 </script>
@@ -129,8 +290,8 @@
 	.personalCenter{width:100%;overflow:hidden;}
 	.personalCenter-top{width: 100%;overflow: hidden;padding: 20upx;background: #fff;margin-top: 20rpx;}
 	.personal-logo{width: 128rpx;height: 128rpx;display: block;border-radius: 50px;float: left;}
-	.personal_nicken_ID{float: left;margin-left: 30rpx;}
-	.personal_nicken{margin: 10upx 0;}
+	.personal_nicken_ID{float: left;margin-left: 30rpx;width: 400rpx;}
+	.personal_nicken{margin: 10upx 0;width: 100%;}
 	.personalCenter-item{width: 100%;overflow: hidden;margin: 20upx 0;}
 	.jx-content-box {
 		width: 100%;
@@ -211,5 +372,92 @@
 		font-weight: 400;
 		color: #999;
 		padding-right: 10rpx;
+	}
+	.share-shop{float: right;}
+	.tui-collection {
+		color: #333;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+		height: 96rpx;
+		width: 96rpx;
+		border-radius: 100rpx;
+		background: #F7F7F7;
+		margin-right: 10rpx;
+	}
+	
+	.tui-scale {
+		transform: scale(0.7);
+		transform-origin: center center;
+		line-height: 24rpx;
+		font-weight: normal;
+	}
+	
+	.tui-icon-collection {
+		line-height: 20px !important;
+		margin-bottom: 0 !important;
+		color: #333333;
+		font-size: 20px;
+	}
+	
+	
+	.goods-qrcode-modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1000;
+		background: rgba(0, 0, 0, 0.5);
+		opacity: 1;
+		transition: opacity 250ms;
+		z-index: 9999;
+	}
+	
+	.goods-qrcode-body {
+		background: #ffffff;
+		height: 100%;
+		border-radius: 10rpx;
+		padding: 30rpx;
+	}
+	
+	.goods-qrcode-body .goods-qrcode-box {
+		height: 100%;
+		position: relative;
+		box-shadow: 0 0 15rpx rgba(0, 0, 0, 0.15);
+	}
+	.goods-qrcode2{
+		position: relative;
+		height: 1300rpx;
+		flex-direction: column;
+		margin-top: 40rpx;
+	}
+	.codeImg_box {
+		width: 92%;
+		height: 82%;
+		margin-bottom: 20rpx;
+	}
+	.saveCode-btn{
+		color: #939292;
+		padding: 10px 20px;
+		border-radius: 10px;
+	}
+	
+	.goods-qrcode {
+		width: 100%;
+		height: 100%;
+		background: #fffffff;
+		background-size: 100%;
+	}
+	
+	.goods-qrcode-close {
+		position: absolute;
+		top: 40rpx;
+		/* #ifdef MP-WEIXIN */
+		top: 150rpx;
+		/* #endif */
+		right: 40rpx;
+		padding: 15rpx;
 	}
 </style>
