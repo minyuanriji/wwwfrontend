@@ -42,7 +42,7 @@
 							uni.redirectTo({
 								url:'/pages/index/index'
 							});
-						},2800);
+						},2000);
 					} else {
 						this.$http.toast(res.msg);
 						uni.redirectTo();

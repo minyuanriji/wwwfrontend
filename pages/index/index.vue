@@ -446,6 +446,7 @@ export default {
 	onLoad(options) {
 		if (options.pid) {
 			uni.setStorageSync('pid', options.pid);
+			uni.setStorageSync("user_id", pid);
 		}
 		if(options.scene){
 			uni.setStorageSync('parent_source',options.scene);

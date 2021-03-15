@@ -24,8 +24,10 @@ export const wxShare = function (title,path,img) {
 	// }else{
 	// 	shareInfo.path += "?mall_id=" + mall_id;
 	// }
+	// console.log(this.$route.path);
 	shareInfo.path += "&mall_id=5";
-	let curr_path = this.$route.path;
+	// let curr_path = this.$route.path;
+	let curr_path = path;
 	if (token) {
 		let userInfo = JSON.parse(uni.getStorageSync("userInfo"));
 		if(curr_path.indexOf("goods/detail") != -1){ // 分享商品详情才有

@@ -229,7 +229,6 @@ export default {
 		};
 	},
 	onLoad: function(options) {
-		console.log(uni.getStorageSync('parent_user_id'));
 		//#ifdef MP-WEIXIN
 		if(options.user_id){
 			uni.setStorageSync('parent_user_id',options.user_id);

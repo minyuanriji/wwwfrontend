@@ -112,6 +112,8 @@ export default {
 							url:'/pages/order/submit'
 						})
 					}
+					uni.removeStorageSync("pid");
+					uni.removeStorageSync("user_id");
 				}else{
 					this.$http.toast(res.msg);
 				}
