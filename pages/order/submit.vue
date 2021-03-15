@@ -65,19 +65,19 @@
 					</view>
 
 				</view>
-				<tui-list-cell :hover="false">
+				<!-- <tui-list-cell :hover="false">
 					<view class="tui-padding tui-flex">
-						<view>配送方式</view>
-						<view v-if="item.delivery.send_type == 'express'">快递配送</view>
+						<view>快递方式</view>
+						<view v-if="item.delivery.send_type == 'express'">快递</view>
 					</view>
-				</tui-list-cell>
+				</tui-list-cell> -->
 				<tui-list-cell :hover="false">
 					<view class="tui-padding tui-flex" v-if="flag">
-						<view>配送费</view>
+						<view>运营费</view>
 						<view v-if="list" :style="{color: textColor}">+&yen;{{item.express_price}}</view>
 					</view>
 					<view class="tui-padding tui-flex" v-else>
-						<view>配送费</view>
+						<view>运营费</view>
 						<view v-if="list" :style="{color: textColor}">+&yen;{{ExpressPrice}}</view>
 					</view>
 
