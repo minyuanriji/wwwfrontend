@@ -41,6 +41,14 @@
 					  }
 					});
 				//#endif
+				// #ifdef MP-WEIXIN || APP-PLUS
+						uni.scanCode({
+							onlyFromCamera: true,
+						    success: function (res) {
+						      
+						    }
+						});
+				// #endif
 			},
 			
 			btn(){ //点击确认核销码

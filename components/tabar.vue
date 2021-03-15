@@ -23,7 +23,8 @@
 			return {
 				list:[
 					{"name":"首页","path":"/pages/shop/home/home","icon":"iconfont iconshouye"},
-					{"name":"分类","path":"/pages/shop/cat/cat","icon":"iconfont iconleimupinleifenleileibie"},
+					// {"name":"分类","path":"/pages/shop/cat/cat","icon":"iconfont iconleimupinleifenleileibie"},					
+					{"name":"分类","path":"/pages/cat/cat","icon":"iconfont iconleimupinleifenleileibie"},	
 					{"name":"购物车","path":"/pages/cart/index","icon":"iconfont icongouwuche"},
 					{"name":"我的","path":"/pages/user/index","icon":"iconfont iconwode"},
 				]

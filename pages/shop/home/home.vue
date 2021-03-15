@@ -21,13 +21,36 @@
                   	<input type="text" placeholder="搜索你想要的商品" class="index1_content_top_r_input" v-model="keyword" @confirm="search"></input>
                   </view>
 				  <!--分类-->
-				  <view class="index1_content_sort">
+				<!--  <view class="index1_content_sort">
 				  	 <view class="index1_content_sort_block" v-for="item in params['sort']" @tap="toList(item.id)">
 				  		 <image :src="item.pic_url?item.pic_url:host+'/images/shop/noneimg.png'" class="index1_content_sort_block_icon" mode="widthFix"></image>
 				  		 <view class="index1_content_sort_block_txt">{{item.name}}</view>
 				  	 </view>
+				  </view> -->
+				  <!-- 产品 -->
+				  <view class="shop-my-products" style="margin-top: 20rpx;">
+				  		爆品区
 				  </view>
+						<view class="simulate-product">
+							<view class="product-item" v-for="item in 3">
+								<image src="http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20210301/cf25b1aa6ad93a149ee217e36e7f6473.jpg" mode="widthFix" class="product-item-logo"></image>
+								<view class="product-item-name">雷盛豪迈系列430法国干红葡萄酒 750ml*6支</view>
+								<view class="product-item-money-buy">
+									<view class="product-item-money">
+										￥36
+									</view>
+									<view class="product-item-buy">
+										<image src="http://www.mingyuanriji.cn/web/statics/img/mall/goods/cart_active.png" mode="" class="select1_buyBtn1"></image>
+									</view>
+								</view>
+							</view>
+						</view>
+				  
+				   <!-- 产品 -->
 				  <!--商品列表-->
+				  <view class="shop-my-products">
+				  		 店铺商品
+				  </view>
 				  <view class="index1_content_list">
 					  <view class="index1_content_list_block" v-for="item in list" @tap="toDetail(item.id)">
 						  <view class="index1_content_list_block_t">
@@ -94,13 +117,13 @@
 			}
 		},
 		methods: {
-			toList(id){
-				var mch_id=this.mch_id
-				var cat_id=id
-				uni.navigateTo({
-					url:"/pages/shop/goods/list?cat_id="+cat_id+"&mch_id="+mch_id
-				})
-			},
+			// toList(id){
+			// 	var mch_id=this.mch_id
+			// 	var cat_id=id
+			// 	uni.navigateTo({
+			// 		url:"/pages/shop/goods/list?cat_id="+cat_id+"&mch_id="+mch_id
+			// 	})
+			// },
 			toDetail(proId){
 				uni.navigateTo({
 					url:"/pages/goods/detail?proId="+proId
@@ -309,7 +332,7 @@ padding-left: 15px;
 .index1_content_list_block_t_r{margin-left: 15px;flex: 1;}
 .index1_content_list_block_t_r_name{font-size: 18px;}
 .index1_content_list_block_t_r_block{display: flex;align-items: center;margin-top: 15px;}
-.r_block_label{padding: 0px 4rpx;background-color: #fa7f5e;font-size: 11px;color: #000000;border-radius: 10px;}
+.r_block_label{padding: 0px 4rpx;background-color: #fa7f5e;font-size: 11px;color: #000000;border-radius: 10px;text-align: center;}
 .r_block_now_price{font-size: 20px;color: #dc3c63;margin-left: 3px;}
 .r_block_old_price{color: #b4b3b3;font-size: 13px;margin-left: 10px;text-decoration: line-through;}
 .index1_content_list_block_t_r_bottom{color: #555;font-size: 13px;}
@@ -319,4 +342,23 @@ padding-left: 15px;
 .index1_content_list_block_b_l_l image{width: 20px;height: 20px;border-radius: 50%;margin-left: -10px;}
 .index1_content_list_block_b_l_r{font-size: 13px;color: #b4b3b3;}
 .index1_content_list_block_b_r{padding: 5px 25px;background-color: #DC3C63;color: #ffffff;border-radius: 15px;font-size: 14px;font-weight: bold;}
+
+
+
+
+
+.simulate-product{width: 95%;overflow: hidden;margin: 0 auto 50rpx;display: flex;justify-content: space-between;flex-wrap: wrap;}
+.product-item{width: 48%;overflow: hidden;}
+.product-item-logo{width: 100%;}
+.product-item-name{width: 100%;
+overflow: hidden;
+-webkit-line-clamp: 2;
+display: -webkit-box;
+-webkit-box-orient: vertical;
+text-overflow: ellipsis;
+font-size: 28rpx;margin-bottom: 24rpx;}
+.product-item-money-buy{width: 100%;overflow: hidden;display: flex;justify-content: space-between;}
+.product-item-money{color: rgb(7, 190, 180);font-size: 28rpx;}
+.select1_buyBtn1 {width: 44rpx;height: 44rpx;display: block;}
+.shop-my-products{width: 100%;text-align: center;background-color: rgb(83, 222, 219);height: 80rpx;line-height: 80rpx;color: #fff;}
 </style>
