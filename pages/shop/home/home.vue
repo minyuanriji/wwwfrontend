@@ -21,12 +21,12 @@
                   	<input type="text" placeholder="搜索你想要的商品" class="index1_content_top_r_input" v-model="keyword" @confirm="search"></input>
                   </view>
 				  <!--分类-->
-				<!--  <view class="index1_content_sort">
+				 <view class="index1_content_sort">
 				  	 <view class="index1_content_sort_block" v-for="item in params['sort']" @tap="toList(item.id)">
 				  		 <image :src="item.pic_url?item.pic_url:host+'/images/shop/noneimg.png'" class="index1_content_sort_block_icon" mode="widthFix"></image>
 				  		 <view class="index1_content_sort_block_txt">{{item.name}}</view>
 				  	 </view>
-				  </view> -->
+				  </view>
 				  <!-- 产品 -->
 				  <view class="shop-my-products" style="margin-top: 20rpx;">
 				  		爆品区

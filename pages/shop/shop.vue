@@ -71,6 +71,9 @@
 				</view>
 			</view>
 		</scroll-view>
+		<!-- 导航栏 -->
+		<!-- <main-tabbar></main-tabbar> -->
+		<!-- 导航栏 -->
 	</view>
 </template>
 
@@ -230,7 +233,7 @@
 				if (this.selectList.length > 0) {
 					this.provice = this.selectList[value[0]].name; //获取省
 					this.city = this.selectList[value[0]].children[value[1]].name; //获取市
-					uni.setStorageSync('x-city-name',this.city)
+					// uni.setStorageSync('x-city-name',this.city)
 					this.district = this.selectList[value[0]].children[value[1]].children[value[2]].name; //获取区
 					this.text = this.provice + " " + this.city + " " + this.district;
 					this.proviceId = this.selectList[value[0]].id; //获取省id
@@ -380,8 +383,8 @@
 		onLoad(){
 			var that=this
 			this.host=this.$api.test_url
-			var city=uni.getStorageSync('x-city-name')
-			this.city=city?city:"广州"
+			// var city=uni.getStorageSync('x-city-name')
+			// this.city=city?city:"广州"
 			this.getCity();
 			//#ifdef H5
 			   if(this.$http.getPlatform()=='wechat'){
