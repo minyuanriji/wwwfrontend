@@ -741,6 +741,17 @@
            	"navigationStyle": "custom"
            }
         }
+        ,{
+            "path" : "pages/personalCentre/ercode/payPages/payPages",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "结账单",
+				"navigationBarBackgroundColor": "#fff",
+				"navigationBarTextStyle": "black",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",

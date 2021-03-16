@@ -421,6 +421,8 @@
 			},
 			// 0.1 获取订单页面数据
 			getData(fn) {
+				this.total_integral_use=0
+				this.total_score_use=0
 				var sendData = this.sendData
 				var list = []
 				var mch_id_arr = []
@@ -509,7 +511,7 @@
 						console.log(this.list)
 						this.score_enable = res.data.score_enable;
 						this.user_score = this.list[0].score.user_score; //用户拥有积分
-						this.total_score_use = this.list[0].score.use_num; //可抵扣
+						// this.total_score_use = this.list[0].score.use_num; //可抵扣
 						this.user_remaining_score = this.list[0].score.user_remaining_score; //剩余积分
 						if (this.list[0].score.use) {
 							this.is_checked = true; //是否打开使用积分
@@ -524,7 +526,19 @@
 						}
 						this.integral_enable = res.data.integral_enable;
 						this.user_integral = this.list[0].integral.user_integral; //用户拥有抵扣券
-						this.total_integral_use = this.list[0].integral.use_num; //可抵扣
+						
+						
+						
+						console.log(this.list)
+						for(let i=0;i<this.list.length;i++){
+							this.total_integral_use+=Number(this.list[i].integral.use_num)
+							this.total_score_use+=Number(this.list[i].score.use_num)
+						}
+						console.log(this.total_integral_use)
+						// this.total_integral_use = this.list[0].integral.use_num; //可抵扣
+						
+	
+	
 						this.user_remaining_integral = this.list[0].integral.user_remaining_integral; //剩余抵扣券
 						if (this.list[0].integral.use) {
 							this.is_integral = true; //是否打开使用抵扣券
@@ -621,7 +635,7 @@
 
 					// 重新获取订单详情
 					that.getData(); //重新获取订单详情
-
+					
 					// for (var key in that.user_coupon) { //判断是否使用相同的优惠券
 					// 	if (that.user_coupon[key].id == coupon_detail.id) {
 					// 		that.user_coupon[key].is_use = '0';

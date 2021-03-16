@@ -17,7 +17,7 @@
 		<scroll-view scroll-y="true" class="index1_content_body" :style="'height:'+height+'px;'" @scrolltolower="scrolltolower">
 			<!--导航菜单-->
 			<view class="index1_content_sort">
-				 <view class="index1_content_sort_block" v-for="item in sortList" @tap="toList(item.id,item.name)">
+				 <view class="index1_content_sort_block" v-for="(item,index) in sortList" @tap="toList(item.id,item.name)" :key='index'>
 					 <image :src="item.pic_url?item.pic_url:host+'/images/shop/noneimg.png'" class="index1_content_sort_block_icon" mode="widthFix"></image>
 					 <view class="index1_content_sort_block_txt">{{item.name}}</view>
 				 </view>
@@ -30,23 +30,23 @@
 						<image :src="item.img" class="index1_content_ms_img" mode="widthFix"></image>
 					</swiper-item>
 				</block>
-			</swiper> -->
+			</swiper> --> 
 			<!--筛选条件-->
 			<view class="index1_content_xs">
-				<view class="index1_content_xs_block" v-for="(item,index) in dhList" :class="index==dhIndex?'xs_block_active':''" @tap="sliderBtn(index)">
+				<view class="index1_content_xs_block" v-for="(item,index) in dhList" :class="index==dhIndex?'xs_block_active':''" @tap="sliderBtn(index)" :key='index'>
 					<view class="index1_content_xs_block_name">{{item}}</view>
 					<view class="index1_content_xs_block_r"></view>
 				</view>
 			</view>
 			<!--店铺列表-->
 			<view class="index1_content_shop">
-				<view class="index1_content_shop_block" v-for="item in shop_list" @tap="toDetail(item.id)">
+				<view class="index1_content_shop_block" v-for="(item,index) in shop_list" @tap="toDetail(item.id)" :key='index'>
 					 <image :src="item.store.cover_url" class="index1_content_shop_block_img"></image>
 					 <view class="index1_content_shop_block_r">
 						 <view class="index1_content_shop_block_r_name">{{item.store.name}}</view>
 						 <view class="index1_content_shop_block_r_m">
 							 <view class="index1_content_shop_block_r_m_star">
-								  <view class="iconfont iconwujiaoxing" v-for="i in (Number(item.store.score))" style="color: #FFA600;"></view>
+								  <view class="iconfont iconwujiaoxing" v-for="(i,index) in (Number(item.store.score))" style="color: #FFA600;" :key='index'></view>
 								  <view class="point">{{item.store.score}}分</view>
 							 </view>
 							 <view class="index1_content_shop_block_r_m_aver" v-if="item.store.average_spend">{{item.store.average_spend}}/人</view>
@@ -71,6 +71,9 @@
 				</view>
 			</view>
 		</scroll-view>
+		<!-- 导航栏 -->
+		<!-- <main-tabbar></main-tabbar> -->
+		<!-- 导航栏 -->
 	</view>
 </template>
 
@@ -112,7 +115,7 @@
 				value:[0,0,0],
 				selectList:[],
 				provice: "",
-				city: "广州",
+				city: "",
 				district: "",
 				proviceId: "",
 				cityId: "",
@@ -203,17 +206,18 @@
 						 url:this.$api.moreShop.getmchs,
 						 data:params,
 						 method:'post',
-						showLoading:true
+						 showLoading:true
 						 }).
 						then(function(res){
+							console.log(res)
 							if(res.list.length==0) return false;
 							that.isScorll=true
 							var alist=res.list
+							that.city=res.city_data.city
 							for(var i=0;i<alist.length;i++){
 								var latitude=alist[i]['store']['latitude']
 								var longitude=alist[i]['store']['longitude']
 								var km=that.getKm(latitude,longitude,lat,lnt)
-								console.log(km)
 								var km1=Number(km)>=1?km.toFixed(1)+'km':Math.round(Number(km)*1000)+'m'
 								alist[i]['store']['distance']=km1
 							}
@@ -230,11 +234,12 @@
 				if (this.selectList.length > 0) {
 					this.provice = this.selectList[value[0]].name; //获取省
 					this.city = this.selectList[value[0]].children[value[1]].name; //获取市
-					uni.setStorageSync('x-city-name',this.city)
+					// uni.setStorageSync('x-city-name',this.city)
 					this.district = this.selectList[value[0]].children[value[1]].children[value[2]].name; //获取区
 					this.text = this.provice + " " + this.city + " " + this.district;
 					this.proviceId = this.selectList[value[0]].id; //获取省id
 					this.cityId = this.selectList[value[0]].children[value[1]].id; //获取市id
+					console.log(this.cityId)
 					uni.setStorageSync('x-city-id',this.cityId)
 					this.districtId = this.selectList[value[0]].children[value[1]].children[value[2]].id; //获取区id
 				}
@@ -359,9 +364,11 @@
 						var latitude=res.latitude
 						that.lat=latitude
 						that.lnt=longitude
+						uni.setStorageSync('x-longitude',res.longitude)
+						uni.setStorageSync('x-latitude',res.latitude)
 						that.getData()
 					},
-					fail(){
+					fail(erro){
 						that.getData()
 					}
 				})
@@ -380,17 +387,19 @@
 		onLoad(){
 			var that=this
 			this.host=this.$api.test_url
-			var city=uni.getStorageSync('x-city-name')
-			this.city=city?city:"广州"
+			// var city=uni.getStorageSync('x-city-name')
+			// this.city=city?city:"广州"
 			this.getCity();
 			//#ifdef H5
 			   if(this.$http.getPlatform()=='wechat'){
 				   this.$wechatSdk.location(function(res){
-				   				   var longitude=res.longitude
-				   				   var latitude=res.latitude
-				   				   that.lat=latitude
-				   				   that.lnt=longitude
-				   				   that.getData()
+				   		var longitude=res.longitude
+				   		var latitude=res.latitude
+				   		that.lat=latitude
+				   		that.lnt=longitude
+						uni.setStorageSync('x-longitude',res.longitude)
+						uni.setStorageSync('x-latitude',res.latitude)
+				   		that.getData()
 				   })
 			   }else{
 				    this.getLocationData()
@@ -398,7 +407,7 @@
 			   
 			// #endif
 			// #ifndef H5
-			   this.getLocationData()	  
+				this.getLocationData()	  
 			// #endif
 			this.getCat()
 		},

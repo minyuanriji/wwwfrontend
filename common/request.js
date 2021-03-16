@@ -96,7 +96,6 @@ const fetch = {
 				title: '请稍候...'
 			})
 		}
-
 		const access_token = fetch.getToken() || "";
 		var city=uni.getStorageSync('x-city-name') || "广州"
 		var header={
@@ -109,7 +108,9 @@ const fetch = {
 			'x-source': uni.getStorageSync('source') || 0,
 			'x-app-platform': platform,
 			'x-city-id':uni.getStorageSync('x-city-id') || -1,
-			'x-city-name':encodeURIComponent(city)
+			// 'x-city-name':encodeURIComponent(city),
+			'x-longitude':uni.getStorageSync("x-longitude"),
+			'x-latitude':uni.getStorageSync('x-latitude'),
 		}
 		return new Promise((resolve, reject) => {
 			uni.request({

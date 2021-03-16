@@ -33,19 +33,19 @@
 		data() {
 			return {
 				orderMessage:{
-					"order_info":{
-						"id":1,
-						 "mch_id": 31,
-						 "order_no": "MS202103110906011010910457",
-						 "order_price": "0.01",
-					},
-					"mch_info":{
-						"mch_id": 31,
-						"name": "维也纳国际酒店(深圳草埔百鸽笼地铁站店)",
-						"cover_url": "http://",
-					},
-					"user_integral_num": 1,
-					"integral_max_deduction": 0.01
+					// "order_info":{
+					// 	"id":1,
+					// 	 "mch_id": 31,
+					// 	 "order_no": "MS202103110906011010910457",
+					// 	 "order_price": "0.01",
+					// },
+					// "mch_info":{
+					// 	"mch_id": 31,
+					// 	"name": "维也纳国际酒店(深圳草埔百鸽笼地铁站店)",
+					// 	"cover_url": "http://",
+					// },
+					// "user_integral_num": 1,
+					// "integral_max_deduction": 0.01
 				},//结账单信息
 				textColor: '#00dd00',
 				is_integral:false,
