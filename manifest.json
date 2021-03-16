@@ -168,7 +168,7 @@
             "proxy" : {
                 "/api" : {
                     // "target" : "https://www.mingyuanriji.cn/h5/web/index.php",
-                    "target" : "http://dev.mingyuanriji.cn/h5/web/index.php",
+					 "target" : "http://dev.mingyuanriji.cn/h5/web/index.php",
                     "changeOrigin" : true,
                     "secure" : false,
                     "pathRewrite" : {

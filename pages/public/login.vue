@@ -103,7 +103,6 @@
 					// console.log(_baseUrl);
 	let url =
 		`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${base.publicAppId}&redirect_uri=${_baseUrl}&response_type=code&scope=snsapi_userinfo#wechat_redirect`;
-
 					// window.location.href = url;
 					window.location.replace(url);
 				} else {
