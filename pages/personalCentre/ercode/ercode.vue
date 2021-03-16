@@ -1,6 +1,6 @@
 <template>
 	<view class="ercode">
-		<view class="ercode-code">
+		<!-- <view class="ercode-code">
 			<view class="accountingOrder-title">输入收款金额:</view>
 			<input type="number" value="" placeholder="请输入收款金额" class="input-btn" v-model.trim="code"/>
 		</view>
@@ -12,6 +12,11 @@
 				<image :src="message.qrcode" mode="" class="code"></image>
 				<text>金额:￥{{code}}</text>
 			</view>
+		</view> -->
+		<view class="pay-code">
+			<view class="code-detail">
+				<image :src="ercodeLogo.qrcode" mode="" class="code"></image>
+			</view>
 		</view>
 	</view>
 </template>
@@ -20,32 +25,48 @@
 	export default {
 		data() {
 			return {
-				code:'',
-				show:false,
-				message:{},
+				// code:'',
+				// show:false,
+				// message:{},
+				ercodeLogo:{},
 			}
 		},
-		methods: {
-			btnPay(){ //点击生成收款码
-				if(this.code.length<=0){
-					this.$http.toast("输入不能为空")
-					return
-				}
-				this.show=true
+		onLoad() {
 				this.$http.request({
-					url: this.$api.moreShop.getpayCode,
+					url: this.$api.moreShop.checkOrder,
 					method: 'POST',
 					data: {
-						order_price: this.code,
-						route:'/h5/#/pages/personalCentre/invoicingMessage/invoicingMessage'
+						route:'/h5/#/pages/personalCentre/ercode/payPages/payPages'
 					},
 					showLoading: true
 				}).then(res => {
 					if(res.code==0){
-						this.message=res.data
+						console.log(res)
+						this.ercodeLogo=res.data
 					}
 				})
-			}
+		},
+		methods: {
+			// btnPay(){ //点击生成收款码
+			// 	if(this.code.length<=0){
+			// 		this.$http.toast("输入不能为空")
+			// 		return
+			// 	}
+			// 	this.show=true
+			// 	this.$http.request({
+			// 		url: this.$api.moreShop.getpayCode,
+			// 		method: 'POST',
+			// 		data: {
+			// 			order_price: this.code,
+			// 			route:'/h5/#/pages/personalCentre/invoicingMessage/invoicingMessage'
+			// 		},
+			// 		showLoading: true
+			// 	}).then(res => {
+			// 		if(res.code==0){
+			// 			this.message=res.data
+			// 		}
+			// 	})
+			// }
 		}
 	}
 </script>
