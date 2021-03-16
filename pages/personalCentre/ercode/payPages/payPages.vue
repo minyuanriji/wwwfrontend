@@ -23,6 +23,10 @@
 		},
 		methods:{
 			sure(){
+				if(this.num.length<=0){
+					this.$http.toast("金额不能为空")
+					return
+				}
 				this.$http.request({
 							url: this.$api.moreShop.creatCheckOrder,
 							method: 'POST',
@@ -33,6 +37,9 @@
 							showLoading: true
 						}).then(res => {
 							if(res.code==0){
+								uni.navigateTo({
+									url:'../../invoicingMessage/invoicingMessage?id='+res.data.id
+								})
 							}
 						})
 				

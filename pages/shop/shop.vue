@@ -209,9 +209,11 @@
 						 showLoading:true
 						 }).
 						then(function(res){
+							console.log(res)
 							if(res.list.length==0) return false;
 							that.isScorll=true
 							var alist=res.list
+							that.city=res.city_data.city
 							for(var i=0;i<alist.length;i++){
 								var latitude=alist[i]['store']['latitude']
 								var longitude=alist[i]['store']['longitude']
@@ -232,11 +234,12 @@
 				if (this.selectList.length > 0) {
 					this.provice = this.selectList[value[0]].name; //获取省
 					this.city = this.selectList[value[0]].children[value[1]].name; //获取市
-					uni.setStorageSync('x-city-name',this.city)
+					// uni.setStorageSync('x-city-name',this.city)
 					this.district = this.selectList[value[0]].children[value[1]].children[value[2]].name; //获取区
 					this.text = this.provice + " " + this.city + " " + this.district;
 					this.proviceId = this.selectList[value[0]].id; //获取省id
 					this.cityId = this.selectList[value[0]].children[value[1]].id; //获取市id
+					console.log(this.cityId)
 					uni.setStorageSync('x-city-id',this.cityId)
 					this.districtId = this.selectList[value[0]].children[value[1]].children[value[2]].id; //获取区id
 				}
