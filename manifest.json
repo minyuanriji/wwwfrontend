@@ -166,7 +166,7 @@
             "https" : false,
             "disableHostCheck" : true,
             "proxy" : {
-                "/api" : {
+                "/api" : {				
                     // "target" : "https://www.mingyuanriji.cn/h5/web/index.php",
                     "target" : "https://dev.mingyuanriji.cn/h5/web/index.php",
                     "changeOrigin" : true,
