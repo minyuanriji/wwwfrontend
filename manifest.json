@@ -178,7 +178,6 @@
             },
             "port" : 80
         },
-        // "domain" : "https://www.mingyuanriji.cn/h5/",
         "domain" : "https://dev.mingyuanriji.cn/h5/",
         "title" : "名媛日记",
         "template" : "template.h5.html",
