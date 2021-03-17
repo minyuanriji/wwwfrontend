@@ -223,6 +223,9 @@
 		},
 		onLoad(e){
 			var mch_id=e.mch_id?e.mch_id:uni.getStorageSync('mch_id')
+			if(e.pid){
+				uni.setStorageSync('user_id',e.pid)
+			}
 			this.mch_id=mch_id
 			uni.setStorageSync('mch_id',mch_id)
 			this.host=this.$api.test_url

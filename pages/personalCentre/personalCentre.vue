@@ -67,8 +67,7 @@
 					<view class="jx-cell-title" style="font-weight: 700;">资金明细</view>
 				</view>
 			</jx-list-cell>
-		</view> -->
-		
+		</view> -->		
 		<view class="goods-qrcode-modal" v-if="showPoster">
 			<view class="goods-qrcode-body flex-col">
 				<!-- 整一个图片包括二维码都是后台给的图片 -->
@@ -129,7 +128,6 @@
 					showLoading: true
 				})
 				.then(res => {
-					console.log(res.data.mch_info)
 					this.userMessage=res.data.mch_info
 				});
 		},
@@ -182,15 +180,15 @@
 					return;
 				}
 				this.$http.request({
-					url: this.$api.goods.poster,
+					url: this.$api.moreShop.sharePoster,
 					method: 'POST',
+					showLoading:true,
 					data: {
-						// goods_id: this.proId,
-						goods_id: 1158,
-						source: 2
+						route:'pages/shop/home/home',
 					}
 				}).then(res => {
 					if (res.code == 0) {
+						console.log(res)
 						this.poster_url = res.data.pic_url;
 						setTimeout(() => {
 							this.loading = false;

@@ -218,6 +218,7 @@
 								var latitude=alist[i]['store']['latitude']
 								var longitude=alist[i]['store']['longitude']
 								var km=that.getKm(latitude,longitude,lat,lnt)
+								console.log(km)
 								var km1=Number(km)>=1?km.toFixed(1)+'km':Math.round(Number(km)*1000)+'m'
 								alist[i]['store']['distance']=km1
 							}
