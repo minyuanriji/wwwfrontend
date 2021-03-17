@@ -443,7 +443,8 @@ export default {
 		//下拉刷新
 		this.getData();
 	},
-	onLoad(options) {
+	onLoad(options) { 
+		//
 		if (options.pid) {
 			uni.setStorageSync('pid', options.pid);
 			uni.setStorageSync("user_id", options.pid);
