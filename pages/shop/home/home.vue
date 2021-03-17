@@ -21,6 +21,22 @@
                   	<input type="text" placeholder="搜索你想要的商品" class="index1_content_top_r_input" v-model="keyword" @confirm="search"></input>
                   </view>
 				  <!--分类-->
+				  <view class="hot-googds">
+					  <view class="hot-Logo">
+						  <image src="../../../plugins/images/hot-logo.jpg" mode="widthFix"></image>
+					  </view>
+					  <view :class="'hotitem'+index" v-for="(item,index) in 3" :key='index'>
+						  <view class="hot-goods-logo">
+							  <image src="http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20210313/cc2a4f8322a428d49ac9e49d0beea8e2.jpg" mode=""></image>
+							  <view class="hot-goods-name">法国干红葡萄酒</view>
+							  <view class="hot-goods-num-price">
+								  <text>￥4999.00</text>
+								  <text>已售1000件</text>
+							  </view>
+						  </view>
+					  </view>
+					  
+				  </view>  
 				 <view class="index1_content_sort">
 				  	 <view class="index1_content_sort_block" v-for="item in params['sort']" @tap="toList(item.id)">
 				  		 <image :src="item.pic_url?item.pic_url:host+'/images/shop/noneimg.png'" class="index1_content_sort_block_icon" mode="widthFix"></image>
@@ -47,10 +63,11 @@
 						</view>
 				  -->
 				   <!-- 产品 -->
+				   
+				   
+				   
+				   
 				  <!--商品列表-->
-				  <view class="shop-my-products">
-				  		 店铺商品
-				  </view>
 				  <view class="index1_content_list">
 					  <view class="index1_content_list_block" v-for="item in list" @tap="toDetail(item.id)">
 						  <view class="index1_content_list_block_t">
@@ -113,7 +130,7 @@
 				page_count:"",//页面总数
 				isScorll:true,//是否可以滚动
 				host:"",
-				store:{}
+				store:{},
 			}
 		},
 		methods: {
@@ -206,6 +223,9 @@
 		},
 		onLoad(e){
 			var mch_id=e.mch_id?e.mch_id:uni.getStorageSync('mch_id')
+			if(e.pid){
+				uni.setStorageSync('user_id',e.pid)
+			}
 			this.mch_id=mch_id
 			uni.setStorageSync('mch_id',mch_id)
 			this.host=this.$api.test_url
@@ -361,4 +381,29 @@ font-size: 28rpx;margin-bottom: 24rpx;}
 .product-item-money{color: rgb(7, 190, 180);font-size: 28rpx;}
 .select1_buyBtn1 {width: 44rpx;height: 44rpx;display: block;}
 .shop-my-products{width: 100%;text-align: center;background-color: rgb(83, 222, 219);height: 80rpx;line-height: 80rpx;color: #fff;}
+
+
+.hot-googds{width: 100%;overflow: hidden;margin: 20rpx 0 0 0;}
+.hot-Logo{width: 100%;}
+.hot-Logo image{width: 100%;}
+.hotitem0{width: 100%;margin-bottom: 20rpx;}
+.hotitem1{width: 45%;float: left;}
+.hotitem2{width: 45%;float: right;}
+.hotitem0 image{width: 100%;margin-bottom: 20rpx;height: 690rpx;}
+.hotitem1 image{width: 100%;height: 310rpx;}
+.hotitem2 image{width: 100%;height: 310rpx;}
+
+
+
+.hot-goods-logo{width: 100%;background: #FFFFFF;}
+
+.hot-goods-name{font-size: 28rpx;color: #000000;width: 100%;overflow: hidden;
+text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+}
+.hot-goods-num-price{width: 100%;display: flex;justify-content: space-between;margin: 10rpx 0}
+.hot-goods-num-price text{display: block;font-size: 20rpx;color:#dc3c63;}
 </style>

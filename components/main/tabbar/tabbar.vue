@@ -147,6 +147,11 @@
 					this.is_show_tabbar = true;
 				}
 			})
+	//----------------------------------------------店铺的下面显示tabbar		
+			if(pageUrl == 'pages/shop/shop'){
+				this.is_show_tabbar = true;
+			}
+	//-------------------------------------------------------------------
 			this.tabBarItems = navs;
 			// #ifdef H5
 			let mall_id = this.$http.getUrlParam("mall_id");
