@@ -107,7 +107,7 @@ const fetch = {
 			'x-parent-id': uni.getStorageSync('pid') || -1,
 			'x-source': uni.getStorageSync('source') || 0,
 			'x-app-platform': platform,
-			'x-city-id':uni.getStorageSync('x-city-id') || -1,
+			'x-city-id':uni.getStorageSync('x-city-id')||-1,
 			// 'x-city-name':encodeURIComponent(city),
 			'x-longitude':uni.getStorageSync("x-longitude"),
 			'x-latitude':uni.getStorageSync('x-latitude'),

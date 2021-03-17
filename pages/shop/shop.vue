@@ -213,7 +213,7 @@
 							if(res.list.length==0) return false;
 							that.isScorll=true
 							var alist=res.list
-							that.city=res.city_data.city
+							that.city=res.city_data.sel_city
 							for(var i=0;i<alist.length;i++){
 								var latitude=alist[i]['store']['latitude']
 								var longitude=alist[i]['store']['longitude']
@@ -233,7 +233,8 @@
 				let value = e.detail.value;
 				if (this.selectList.length > 0) {
 					this.provice = this.selectList[value[0]].name; //获取省
-					this.city = this.selectList[value[0]].children[value[1]].name; //获取市
+					// this.city = this.selectList[value[0]].children[value[1]].name; //获取市
+					console.log(this.city)
 					// uni.setStorageSync('x-city-name',this.city)
 					this.district = this.selectList[value[0]].children[value[1]].children[value[2]].name; //获取区
 					this.text = this.provice + " " + this.city + " " + this.district;
@@ -245,7 +246,7 @@
 				}
 				this.shop_list=[]
 				this.page=1
-			    this.getData()
+			    this.getData();
 			},
 			columnPicker(e) {
 				//第几列 下标从0开始
@@ -369,7 +370,7 @@
 						that.getData()
 					},
 					fail(erro){
-						that.getData()
+						// that.getData()
 					}
 				})
 			}
@@ -384,7 +385,7 @@
 				 that.height=view_height
 			}).exec()
 		},
-		onLoad(){
+		onShow() {
 			var that=this
 			this.host=this.$api.test_url
 			// var city=uni.getStorageSync('x-city-name')
