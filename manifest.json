@@ -157,7 +157,7 @@
     },
     "h5" : {
         // "publicPath" : "https://www.mingyuanriji.cn/h5/",
-        "publicPath" : "https://dev.mingyuanriji.cn/h5/",
+        "publicPath" : "http://dev.mingyuanriji.cn/h5/",
         "router" : {
             "mode" : "hash",
             "base" : "/h5/"
@@ -168,7 +168,7 @@
             "proxy" : {
                 "/api" : {
                     // "target" : "https://www.mingyuanriji.cn/h5/web/index.php",
-                    "target" : "https://dev.mingyuanriji.cn/h5/web/index.php",
+					 "target" : "http://dev.mingyuanriji.cn/h5/web/index.php",
                     "changeOrigin" : true,
                     "secure" : false,
                     "pathRewrite" : {
@@ -179,13 +179,13 @@
             "port" : 80
         },
         // "domain" : "https://www.mingyuanriji.cn/h5/",
-        "domain" : "https://dev.mingyuanriji.cn/h5/",
+		"domain" : "http://dev.mingyuanriji.cn/h5/",
         "title" : "名媛日记",
         "template" : "template.h5.html",
         "sdkConfigs" : {
             "maps" : {
                 "qqmap" : {
-                    "key" : "O3DBZ-IFH3W-KKIRN-RZPNQ-AOSH3-EGB5N"
+                    "key" : "KNUBZ-QBD3P-M2CDU-L7GRW-GWQ4Q-JHFTS"
                 }
             }
         }
