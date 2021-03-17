@@ -7,12 +7,12 @@
 				<view class="personal_id">ID:{{userMessage.store.mch_id}}</view>
 			</view>
 			<!-- 分享的店铺  -->
-			<!-- <view class="share-shop">
+			<view class="share-shop">
 				<view class="tui-collection tui-size"  @click.stop="poster()">
 					<view class="tui-icon-collection iconfont icon-qrcode"></view>
 					<view class="tui-scale">分享</view>
 				</view>
-			</view> -->
+			</view>
 			<!-- 分享店铺  -->
 		</view>
 		<view class="jx-content-box">

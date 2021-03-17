@@ -72,7 +72,7 @@
 			</view>
 		</scroll-view>
 		<!-- 导航栏 -->
-		<!-- <main-tabbar></main-tabbar> -->
+		<main-tabbar></main-tabbar>
 		<!-- 导航栏 -->
 	</view>
 </template>
@@ -210,10 +210,10 @@
 						 }).
 						then(function(res){
 							console.log(res)
+							that.city=res.city_data.sel_city
 							if(res.list.length==0) return false;
 							that.isScorll=true
 							var alist=res.list
-							that.city=res.city_data.sel_city
 							for(var i=0;i<alist.length;i++){
 								var latitude=alist[i]['store']['latitude']
 								var longitude=alist[i]['store']['longitude']
@@ -389,6 +389,9 @@
 			var that=this
 			this.host=this.$api.test_url
 			// var city=uni.getStorageSync('x-city-name')
+			if(uni.getStorageSync('x-city-id')){
+				uni.removeStorageSync("x-city-id")
+			}
 			// this.city=city?city:"广州"
 			this.getCity();
 			//#ifdef H5
