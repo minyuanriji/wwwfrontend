@@ -67,7 +67,6 @@
 		},
 
 		onShow: function(options) {
-			alert(1122)
 			//#ifdef MP-WEIXIN
 			let livePlayer = requirePlugin('live-player-plugin');
 			const sceneList = [1007, 1008, 1014, 1044, 1045, 1046, 1047, 1048, 1049, 1073, 1154, 1155];
