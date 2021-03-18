@@ -18,7 +18,7 @@
 			<view>
 				<!-- 使用抵扣券 :{{orderMessage.integral_max_deduction}} -->
 				使用抵扣券 :{{num}} 
-				<view class="xieti">拥有抵扣券金额:{{orderMessage.user_integral_num}}</view>
+				<view class="xieti">拥有抵扣券金额:{{orderMessage.user_integral_num}} <text style="font-size: 26rpx;color: #C90A0C;" v-if="is_integral">-{{num}}</text></view>
 			</view>
 			<switch :checked="is_integral" @change="useIntegral" :color='textColor' class="points-switch" />
 		</view>
@@ -57,15 +57,15 @@
 		},
 		methods:{
 			useIntegral(e) {
-				console.log(e)
 				this.is_integral = e.detail.value;
-				if(this.is_integral=false){
+				console.log(this.is_integral)
+				if(this.is_integral==false){
 					this.orderMessage.order_info.order_price=this.orderMessage.order_info.order_price
 					this.num=0
+					this.getmessage()
 				}else{
 					this.orderMessage.order_info.order_price=Number(this.orderMessage.order_info.order_price)-Number(this.orderMessage.integral_max_deduction)
 					this.num=this.orderMessage.integral_max_deduction
-					this.getmessage()
 				}
 			},
 			getmessage(){

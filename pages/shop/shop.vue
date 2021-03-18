@@ -189,6 +189,7 @@
 					 url:this.$api.moreShop.getmchscats,
 					 data:{},
 					 method:'post',
+					 showLoading: true,
 					 }).
 					then(function(res){
 						that.sortList=res.data.list
@@ -273,6 +274,7 @@
 			getDistrict() { //获取乡镇数据
 				this.$http.request({
 					url: this.$api.district.town_list,
+					showLoading: true,
 					data: {
 						district_id: this.districtId
 					}
@@ -287,6 +289,7 @@
 				this.$http.request({
 					url: this.$api.user.addressInfo,
 					method: 'post',
+					showLoading: true,
 				}).then((res) => {
 					// 处理数据
 					var provinceArr = [];
@@ -436,7 +439,7 @@ page{background-color: #fff;}
 	left: 0px;
 	right: 0px;
 }
-.index1_content_top{width: 100%;display: flex;align-items: center;padding: 33px 15px 10px 15px;}
+.index1_content_top{width: 100%;display: flex;align-items: center;padding: 15px 15px 10px 15px;}
 .index1_content_top_l{display: flex;
 font-size: 13px;
 font-weight: bold;
