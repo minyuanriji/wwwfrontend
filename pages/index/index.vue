@@ -460,10 +460,7 @@ export default {
 		this.btnList = [...this.suspendedList];
 		//#ifdef MP-WEIXIN
 		this.checkUpdateVersion();
-		//#endif
-		console.log(this.$api.default.gz);
-		console.log(JSON.parse(uni.getStorageSync('userInfo')).user_id);
-		
+		//#endif	
 	},
 	//用户点击分享
 	onShareAppMessage(e) {
