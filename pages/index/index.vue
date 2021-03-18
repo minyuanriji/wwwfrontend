@@ -461,6 +461,26 @@ export default {
 		//#ifdef MP-WEIXIN
 		this.checkUpdateVersion();
 		//#endif
+		console.log(this.$api.default.gz);
+		this.$http.request({
+			url:this.$api.default.gz,
+			// showLoading:true,
+			data:{
+				
+			}
+		}).then((res)=>{
+			console.log(res);
+			// if(res.code == 0){
+			// 	this.productList = this.productList.concat(res.data.list);
+			// 	this.page_count = res.data.page_count;
+			// 	this.loadding = false;
+			// 	if(this.page >= res.data.page_count){
+			// 		this.pullUpOn = true;
+			// 	}
+			// }
+		})
+		
+		
 	},
 	//用户点击分享
 	onShareAppMessage(e) {
