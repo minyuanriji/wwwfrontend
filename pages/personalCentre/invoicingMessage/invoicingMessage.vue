@@ -18,7 +18,7 @@
 			<view>
 				<!-- 使用抵扣券 :{{orderMessage.integral_max_deduction}} -->
 				使用抵扣券 :{{num}} 
-				<view class="xieti">拥有抵扣券金额:{{orderMessage.user_integral_num}}</view>
+				<view class="xieti">拥有抵扣券金额:{{orderMessage.user_integral_num}} <text style="font-size: 15rpx;color: #C90A0C;" v-if="is_integral">-{{num}}</text></view>
 			</view>
 			<switch :checked="is_integral" @change="useIntegral" :color='textColor' class="points-switch" />
 		</view>
@@ -33,19 +33,19 @@
 		data() {
 			return {
 				orderMessage:{
-					// "order_info":{
-					// 	"id":1,
-					// 	 "mch_id": 31,
-					// 	 "order_no": "MS202103110906011010910457",
-					// 	 "order_price": "0.01",
-					// },
-					// "mch_info":{
-					// 	"mch_id": 31,
-					// 	"name": "维也纳国际酒店(深圳草埔百鸽笼地铁站店)",
-					// 	"cover_url": "http://",
-					// },
-					// "user_integral_num": 1,
-					// "integral_max_deduction": 0.01
+					"order_info":{
+						"id":1,
+						 "mch_id": 31,
+						 "order_no": "MS202103110906011010910457",
+						 "order_price": "0.01",
+					},
+					"mch_info":{
+						"mch_id": 31,
+						"name": "维也纳国际酒店(深圳草埔百鸽笼地铁站店)",
+						"cover_url": "http://",
+					},
+					"user_integral_num": 1,
+					"integral_max_deduction": 0.01
 				},//结账单信息
 				textColor: '#00dd00',
 				is_integral:false,
@@ -57,15 +57,17 @@
 		},
 		methods:{
 			useIntegral(e) {
-				console.log(e)
 				this.is_integral = e.detail.value;
-				if(this.is_integral=false){
+				console.log(this.is_integral)
+				if(this.is_integral==false){
 					this.orderMessage.order_info.order_price=this.orderMessage.order_info.order_price
 					this.num=0
+					this.getmessage()
 				}else{
+					this.getmessage()
 					this.orderMessage.order_info.order_price=Number(this.orderMessage.order_info.order_price)-Number(this.orderMessage.integral_max_deduction)
 					this.num=this.orderMessage.integral_max_deduction
-					this.getmessage()
+
 				}
 			},
 			getmessage(){

@@ -436,7 +436,7 @@ page{background-color: #fff;}
 	left: 0px;
 	right: 0px;
 }
-.index1_content_top{width: 100%;display: flex;align-items: center;padding: 33px 15px 10px 15px;}
+.index1_content_top{width: 100%;display: flex;align-items: center;padding: 15px 15px 10px 15px;}
 .index1_content_top_l{display: flex;
 font-size: 13px;
 font-weight: bold;
