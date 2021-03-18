@@ -50,7 +50,7 @@
 								  <view class="point">{{item.store.score}}分</view>
 							 </view>
 							 <view class="index1_content_shop_block_r_m_aver" v-if="item.store.average_spend">{{item.store.average_spend}}/人</view>
-							 <view class="index1_content_shop_block_r_m_dist" v-if="item.store.distance">{{item.store.distance}}</view>
+							 <view class="index1_content_shop_block_r_m_dist" v-if="item.distance_format">{{item.distance_format}}</view>
 						 </view>
 						 <view class="index1_content_shop_block_r_m1">
 						 	  <view class="index1_content_shop_block_r_m1_l" v-if="item.store.main_product">{{item.store.main_product}}</view>
@@ -210,7 +210,6 @@
 						 showLoading:true
 						 }).
 						then(function(res){
-							console.log(res)
 							that.city=res.city_data.sel_city
 							if(res.list.length==0) return false;
 							that.isScorll=true
@@ -218,17 +217,17 @@
 							for(var i=0;i<alist.length;i++){
 								var latitude=alist[i]['store']['latitude']
 								var longitude=alist[i]['store']['longitude']
-								var km=that.getKm(latitude,longitude,lat,lnt)
-								console.log(km)
-								var km1=Number(km)>=1?km.toFixed(1)+'km':Math.round(Number(km)*1000)+'m'
-								alist[i]['store']['distance']=km1
+								// var km=that.getKm(latitude,longitude,lat,lnt)
+								// console.log(km)
+								// var km1=Number(km)>=1?km.toFixed(1)+'km':Math.round(Number(km)*1000)+'m'
+								// alist[i]['store']['distance']=km1
 							}
 							var new_data=alist
-							console.log(that.shop_list)
 							var shop_list=that.shop_list.concat(new_data)
 							that.shop_list=shop_list
 							that.page_count=res.pagination.page_count
-							that.page=res.pagination.current_page
+							// that.page=res.pagination.current_page
+							console.log(that.page)
 				   })
 			},
 			picker(e) {
@@ -236,13 +235,11 @@
 				if (this.selectList.length > 0) {
 					this.provice = this.selectList[value[0]].name; //获取省
 					// this.city = this.selectList[value[0]].children[value[1]].name; //获取市
-					console.log(this.city)
 					// uni.setStorageSync('x-city-name',this.city)
 					this.district = this.selectList[value[0]].children[value[1]].children[value[2]].name; //获取区
 					this.text = this.provice + " " + this.city + " " + this.district;
 					this.proviceId = this.selectList[value[0]].id; //获取省id
 					this.cityId = this.selectList[value[0]].children[value[1]].id; //获取市id
-					console.log(this.cityId)
 					uni.setStorageSync('x-city-id',this.cityId)
 					this.districtId = this.selectList[value[0]].children[value[1]].children[value[2]].id; //获取区id
 				}
@@ -287,11 +284,13 @@
 			},
 			getCity() { //请求省市区数据
 				this.$http.request({
-					url: this.$api.user.addressInfo,
+					url: this.$api.moreShop.getCity,
+					// url: this.$api.user.addressInfo,
 					method: 'post',
 					showLoading: true,
 				}).then((res) => {
 					// 处理数据
+					console.log(res)
 					var provinceArr = [];
 					var cityArr = [];
 					var districtArr = [];
@@ -377,7 +376,7 @@
 						// that.getData()
 					}
 				})
-			}
+			},
 		},	
 		onReady(){
 			var info=uni.getSystemInfoSync()
@@ -418,6 +417,7 @@
 				this.getLocationData()	  
 			// #endif
 			this.getCat()
+			
 		},
 		onShareAppMessage() {
 			return{
