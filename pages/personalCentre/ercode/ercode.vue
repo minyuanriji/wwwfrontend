@@ -23,11 +23,11 @@
 		</view>
 		<view class="ercode_background">
 			<view class="shop_logo">
-				<image src="https://thirdwx.qlogo.cn/mmopen/vi_32/OUCO4yHsnBoibopxichHiaHFZicKmShUY5BrsvVdhmyxo8chuKo2pAlumI6T1bztDiafDydguiblxVChfQtiaaL7zTJBA/132" mode=""></image>
+				<image :src="message.store.cover_url" mode=""></image>
 			</view>
 			<view class="shop_name_id">
-				<text>小周周的店铺</text>
-				<text style="color: #8ad8d0;">ID:2047</text>
+				<text>{{message.store.name}}</text>
+				<text style="color: #8ad8d0;">ID:{{message.store.mch_id}}</text>
 			</view>
 			<view class="sao_sao">
 				扫描下面的二维码付款
@@ -47,6 +47,7 @@
 				// show:false,
 				// message:{},
 				ercodeLogo:{},
+				message:{}
 			}
 		},
 		onLoad() {
@@ -63,6 +64,9 @@
 						this.ercodeLogo=res.data
 					}
 				})
+				if(uni.getStorageSync('mchMessage')){
+					this.message=uni.getStorageSync('mchMessage')
+				}
 		},
 		methods: {
 			// btnPay(){ //点击生成收款码

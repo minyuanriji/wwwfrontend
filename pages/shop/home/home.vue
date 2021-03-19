@@ -492,6 +492,7 @@
 	.product-item {
 		width: 48%;
 		overflow: hidden;
+		box-shadow: 0px 0px 10px #eee;
 	}
 
 	.product-item-logo {

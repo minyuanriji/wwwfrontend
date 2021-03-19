@@ -746,9 +746,9 @@
             "path" : "pages/personalCentre/ercode/payPages/payPages",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "结账单",
-				"navigationBarBackgroundColor": "#fff",
-				"navigationBarTextStyle": "black",
+                "navigationBarTitleText": "付款",
+				"navigationBarBackgroundColor": "#81d8d0",
+				"navigationBarTextStyle": "white",
                 "enablePullDownRefresh": false
             }
             

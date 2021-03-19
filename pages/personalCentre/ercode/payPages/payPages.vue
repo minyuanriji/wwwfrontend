@@ -1,12 +1,26 @@
 <template>
 	<view class="payPages-app">
-		<view class="ercode-code">
-			<view class="accountingOrder-title">输入金额:</view>
-			<input type="number" value="" placeholder="请输入金额" class="input-btn" v-model.trim="num"/>
+		<view class="payPages_shop">
+			<view class="payPages_shop_left">
+				<view>付款给商家:</view>
+				<view>{{message.store.name}}</view>
+			</view>
+			<view class="payPages_shop_right">
+				<image :src="message.store.cover_url" mode=""></image>
+			</view>
+		</view>
+		<view class="payPages_num">
+			<view class="payPages_num_title">
+				金额
+			</view>
+			<view class="int">
+				<text>￥</text>
+				<input type="number" value="" v-model.trim="num"/>
+			</view>
 		</view>
 		<view class="sure-code">
 			<button type="default" @click='sure'>确认</button>
-		</view>
+		</view>		
 	</view>
 </template>
 
@@ -15,11 +29,15 @@
 		data() {
 			return {
 				num:'',
-				id:''
+				id:'',
+				message:{},
 			};
 		},
 		onLoad(options) {
 			this.id=options.id
+			if(uni.getStorageSync('mchMessage')){
+				this.message=uni.getStorageSync('mchMessage')
+			}
 		},
 		methods:{
 			sure(){
@@ -49,11 +67,18 @@
 </script>
 
 <style lang="less" scoped>
-	.payPages-app{width: 100%;overflow: hidden;}
-	.ercode{width:100%;height: 100%;position: relative;}
-	.ercode-code{width: 100%;overflow: hidden;display: flex;height: 100rpx;line-height: 100rpx;padding: 0rpx 20rpx;box-sizing: border-box;background: #fff;margin: 40rpx 0;}
-	.accountingOrder-title{width: 30%;color: #000;}
+	.payPages-app{width: 100%;height: 100%;background: url(../../../../static/img/userInputmoney.jpg)no-repeat;background-size: 100%;}
 	.input-btn{height: 100rpx;background: rgb(245, 245, 245);width: 65%;padding-left: 10rpx;}
 	.sure-code{width: 100%;overflow: hidden;}
-	.sure-code button{width: 100%;margin: 0 auto;background: #007AFF;color: #fff;}
+	.sure-code button{width: 100%;margin: 100rpx auto;background: rgb(129, 216, 208);color: #fff;}		
+	.payPages_shop{width: 100%;overflow: hidden;display: flex;justify-content: space-between;padding: 40rpx 20rpx 0 20rpx;}
+	.payPages_shop_left {max-width: 500rpx;}
+	.payPages_shop_left view{margin: 10rpx 0;color: #000;}
+	.payPages_shop_left view:nth-of-type(2){margin-left: 30rpx;}
+	.payPages_shop_right image{width: 150rpx;height: 150rpx;border-radius: 50%;margin-top: 10rpx;}
+	.payPages_num{width: 100%;height: 300rpx;background: #fff;border-radius: 30rpx;padding: 50rpx 20rpx;}
+	.payPages_num_title{color: #000;font-weight: 600;}
+	.int{width: 100%;overflow: hidden;}
+	.int text{display: block;float: left;margin-top: 40rpx ;margin-left: 30rpx;color: #000;font-weight: 600;font-size: 35rpx;}
+	.int input{width: 80%;border-bottom: 2rpx solid #000000;margin: 38rpx auto 0;float: left;padding-left: 10rpx;font-size: 45rpx;color: #000;font-weight: bold;}
 </style>

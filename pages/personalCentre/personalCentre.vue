@@ -129,6 +129,7 @@
 				})
 				.then(res => {
 					this.userMessage=res.data.mch_info
+					uni.setStorageSync("mchMessage",res.data.mch_info)
 				});
 		},
 		methods:{
