@@ -153,7 +153,6 @@
 							uni.showModal({
 								title: '提示',
 								content: '请先关注公众号',
-								showCancel:false,
 								success: function(res) {
 									if (res.confirm) {
 										window.location.href = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=Mzg4OTQzMDkxNw==&scene=110#wechat_redirect';
