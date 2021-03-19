@@ -235,18 +235,29 @@
 						order_id: id
 					}
 				}).then(res => {
-					this.$http.toast(res.msg);
+					// this.$http.toast(res.msg);
 					if (res.code === 0) {
 						this.getDateList('refresh', this.status);
-						this.$http.request({
-							url: this.$api.order.ordersales,
-							method: 'POST',
-							data: {
-								order_id: id
-							}
-						}).then(res => {
+						uni.showToast({
+						    title: '确认收货成功',
+						    duration: 2000,
+							icon:'none'
+						});
+						setTimeout(() => {
+							uni.navigateTo({
+								url:"/pages/order/list?status=3"
+							})
+						},1500);
+						// this.$http.request({
+						// 	url: this.$api.order.ordersales,
+						// 	method: 'POST',
+						// 	data: {
+						// 		order_id: id
+						// 	}
+						// }).then(res => {
 							
-						})
+						// })
+						
 					}
 				})
 			},

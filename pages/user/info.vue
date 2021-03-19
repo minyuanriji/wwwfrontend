@@ -55,7 +55,7 @@
 
 				</view>
 			</view>
-			<view class="box user-alipay">
+		<!-- 	<view class="box user-alipay">
 				<view class="title">交易设置</view>
 				<view class="content">
 					<view class="item password">
@@ -70,7 +70,7 @@
 						</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			
 			<!-- <view class="box user-alipay">
 				<view class="title">支付宝账号信息</view>
