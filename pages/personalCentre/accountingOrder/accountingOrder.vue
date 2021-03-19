@@ -1,23 +1,35 @@
 <template>
 	<view class="accountingOrder_app">
-		<view class="accountingOrder-code">
-			<view class="accountingOrder-title">输入核销码:</view>
-			<input type="text" value="" placeholder="请输入核销码" class="input-btn" v-model.trim="code"/>
+		<view class="accountingOrder_title">
+			手动输入核销码或扫码进行核销
 		</view>
-		<view class="sure-code">
-			<button type="default" @click='btn'>确认</button>
+		<view class="accountingOrder_int">
+			<input type="text" value="" v-model.trim="code"/>
+			<button type="default" @click='btn'>确定</button>
 		</view>
-		<view class="ercode">
-			<button type="default" class="ercode_btn" @click='ercodeBtn'>点击扫描二维码</button>
+		<view class="accountingOrder_scan" @click='ercodeBtn'>
+			<image src="../../../static/img/shop-scan.png" mode=""></image>
+		</view>
+		<view class="personalCenter-item">
+			<jx-list-cell :arrow="true" padding="0" :lineLeft="false"  @click="link">
+				<view class="jx-cell-header">
+					<view class="jx-cell-title">最近核销记录</view>
+					<view class="jx-cell-sub">查看全部订单</view>
+				</view>
+			</jx-list-cell>
 		</view>
 	</view>
 </template>
 
 <script>
+	import jxListCell from '@/components/list-cell/list-cell';
 	//#ifdef H5
 		var jweixin = require('jweixin-module');
 	//#endif
 	export default {
+		components: {
+			jxListCell
+		},
 		data() {
 			return {
 				code:'',//核销code
@@ -59,18 +71,89 @@
 				uni.navigateTo({
 					url:'../../more-shop/more-shop?code='+this.code
 				})	
+			},
+			link(){ //跳到核销记录页面
+				
 			}
 		}
 	}
 </script>
 
 <style scoped>
-	.accountingOrder_app{width:100%;height: 100%;}
-	.accountingOrder-code{width: 100%;overflow: hidden;display: flex;height: 100rpx;line-height: 100rpx;padding: 0rpx 20rpx;box-sizing: border-box;background: #fff;margin: 40rpx 0;}
-	.accountingOrder-title{width: 25%;}
-	.input-btn{height: 100rpx;background: rgb(245, 245, 245);width: 70%;padding-left: 10rpx;}
-	.ercode{width: 100%;overflow: hidden;margin-top: 50rpx;position: absolute;bottom: 150rpx;left: 0;}
-	.sure-code{width: 100%;overflow: hidden;}
-	.sure-code button{width: 100%;margin: 0 auto;background: #007AFF;color: #fff;}
-	.ercode_btn{width: 100%;outline: none;border: none;background: #007AFF;color: #fff;}
+	.accountingOrder_app{width:100%;height: 100%;background: url(../../../static/img/shop_verification.jpg)no-repeat;background-size: 100%;}
+	.accountingOrder_title{padding: 30rpx 30rpx 0 30rpx;font-size: 30rpx;width: 100%;}
+	.accountingOrder_int{width: 100%;overflow: hidden;padding: 0 30rpx;margin-top: 20rpx;}
+	.accountingOrder_int input{width: 75%;height: 80rpx;background: #fff;border-radius: 20rpx;padding-left: 15rpx;float: left;}
+	.accountingOrder_int button{height: 80rpx;outline: none;border: none;width: 20%;text-align: center;line-height: 80rpx;
+	font-size: 30rpx;font-weight: bold;color: #000;}
+	.accountingOrder_scan{width: 200rpx;height: 200rpx;margin: 100rpx auto;}
+	.accountingOrder_scan image{width: 200rpx;height:200rpx;margin: 0 auto;}
+	.personalCenter-item{width: 100%;overflow: hidden;margin: 20upx 0;}
+	.jx-content-box {
+		width: 100%;
+		padding: 0 30rpx;
+		box-sizing: border-box;
+		margin-top: 20rpx;
+	}
+	.jx-header-btm {
+		border-radius: 12rpx;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		color: #000;
+		background: #ffffff;
+		margin-bottom: 20rpx;
+		// box-shadow: 1rpx 1rpx 5rpx #888;
+	}
+	
+	.jx-btm-item {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 40rpx;
+		position: relative;
+	
+		&::after {
+			content: '';
+			border-right: 1rpx solid #b3b3b3;
+			width: 1px;
+			height: 100rpx;
+			position: absolute;
+			right: 0;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+	
+		&:last-child {
+			&::after {
+				display: none;
+			}
+		}
+	}
+	.jx-cell-header {
+		width: 100%;
+		height: 100rpx;
+		padding: 0 40rpx;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		border-bottom: 1rpx solid #f3f3f3;
+	}
+	.jx-cell-title {
+		font-size: 9pt;
+		line-height: 30rpx;
+		color: #333;
+		font-weight: 600;
+		letter-spacing: 1px;
+	}
+	.jx-cell-sub {
+		font-size: 9pt;
+		font-weight: 400;
+		color: #999;
+		padding-right: 10rpx;
+	}
 </style>

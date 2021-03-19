@@ -58,7 +58,12 @@
 						</view>
 					</view>
 				</view>
-
+				<view class="shop-my-products" style="margin-top: 20rpx;">
+					<image src="../../../plugins/images/shop_logo_hot.png" mode=""></image>
+					<text class="shop-my-products_title">
+						分类
+					</text>
+				</view>
 				<!-- 产品 -->
 				<view class="index1_content_sort">
 					<view class="index1_content_sort_block" v-for="item in params['sort']" @tap="toList(item.id)">
@@ -68,6 +73,12 @@
 					</view>
 				</view>
 				<!--商品列表-->
+				<view class="shop-my-products" style="margin-top: 20rpx;">
+					<image src="../../../plugins/images/shop_logo_hot.png" mode=""></image>
+					<text class="shop-my-products_title">
+						店铺推荐商品
+					</text>
+				</view>
 				<view class="index1_content_list">
 					<view class="index1_content_list_block" v-for="item in list" @tap="toDetail(item.id)">
 						<view class="index1_content_list_block_t">
