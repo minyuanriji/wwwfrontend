@@ -67,7 +67,6 @@
 		},
 
 		onShow: function(options) {
-			console.log(222222);
 			//#ifdef MP-WEIXIN
 			let livePlayer = requirePlugin('live-player-plugin');
 			const sceneList = [1007, 1008, 1014, 1044, 1045, 1046, 1047, 1048, 1049, 1073, 1154, 1155];
@@ -143,7 +142,7 @@
 			if (!uni.getStorageSync('subscribe')) {
 				if(uni.getStorageSync("userInfo")){
 					this.$http.request({
-						url: this.$api.default.subscribe,
+						url: this.$api.default.gz,
 						data: {
 							user_id: uni.getStorageSync("userInfo") ? JSON.parse(uni.getStorageSync('userInfo'))
 								.user_id : 0
