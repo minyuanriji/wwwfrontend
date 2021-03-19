@@ -43,7 +43,7 @@
 					爆品区
 				</view>
 				<view class="simulate-product">
-					<view class="product-item" v-for="item in 2">
+					<view class="product-item" v-for="item in 4">
 						<image src="http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20210301/cf25b1aa6ad93a149ee217e36e7f6473.jpg"
 						 mode="widthFix" class="product-item-logo"></image>
 						<view class="product-item-name">雷盛豪迈系列430法国干红葡萄酒 750ml*6支</view>

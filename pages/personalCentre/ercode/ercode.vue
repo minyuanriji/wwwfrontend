@@ -115,10 +115,10 @@
 		
 		
 		.ercode_title{width: 100%;overflow: hidden;text-align: center;color: #fff;padding-top: 30rpx;font-size: 40rpx;}
-		.ercode_background{width: 90%;height: 850rpx;background: #fff;border-radius: 20rpx;margin: 100rpx auto 0;position: relative;}
+		.ercode_background{width: 90%;height: 850rpx;background: #fff;border-radius: 20rpx;margin: 70rpx auto 0;position: relative;}
 		.shop_logo{width: 200rpx;height: 200rpx;border-radius: 50%;margin:0 auto;}
 		.shop_logo image{width: 200rpx;height: 200rpx;border-radius: 50%;margin-top: -70rpx;}
-		.shop_name_id{width: 100%;overflow: hidden;display: flex;flex-wrap: wrap;margin-top: -40rpx;}
+		.shop_name_id{width: 100%;overflow: hidden;display: flex;flex-wrap: wrap;margin-top: -50rpx;}
 		.shop_name_id text{display: block;width: 100%;overflow: hidden;color: #000;text-align: center;margin-bottom: 10rpx;font-size: 35rpx;}
 		.sao_sao{width: 100%;overflow: hidden;text-align: center;font-size: 25rpx;margin-top: 10rpx;color: #B8B8B8;}
 		.ercode_code{width: 100%;overflow: hidden;}

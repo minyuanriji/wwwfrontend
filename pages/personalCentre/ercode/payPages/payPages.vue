@@ -3,10 +3,10 @@
 		<view class="payPages_shop">
 			<view class="payPages_shop_left">
 				<view>付款给商家:</view>
-				<view>{{message.store.name}}</view>
+				<view>{{message.name}}</view>
 			</view>
 			<view class="payPages_shop_right">
-				<image :src="message.store.cover_url" mode=""></image>
+				<image :src="message.logo" mode=""></image>
 			</view>
 		</view>
 		<view class="payPages_num">
@@ -35,9 +35,18 @@
 		},
 		onLoad(options) {
 			this.id=options.id
-			if(uni.getStorageSync('mchMessage')){
-				this.message=uni.getStorageSync('mchMessage')
-			}
+			this.$http.request({
+						url: this.$api.moreShop.getmchstore,
+						method: 'POST',
+						data: {
+							mch_id:this.id,
+						},
+						showLoading: true
+					}).then(res => {
+						if(res.code==0){
+							this.message=res.data.store
+						}
+			})
 		},
 		methods:{
 			sure(){
