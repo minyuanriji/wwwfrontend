@@ -13,9 +13,27 @@
 				<text>金额:￥{{code}}</text>
 			</view>
 		</view> -->
-		<view class="pay-code">
+		<!-- <view class="pay-code">
 			<view class="code-detail">
 				<image :src="ercodeLogo.qrcode" mode="" class="code"></image>
+			</view>
+		</view> -->
+		<view class="ercode_title">
+			扫码支付
+		</view>
+		<view class="ercode_background">
+			<view class="shop_logo">
+				<image src="https://thirdwx.qlogo.cn/mmopen/vi_32/OUCO4yHsnBoibopxichHiaHFZicKmShUY5BrsvVdhmyxo8chuKo2pAlumI6T1bztDiafDydguiblxVChfQtiaaL7zTJBA/132" mode=""></image>
+			</view>
+			<view class="shop_name_id">
+				<text>小周周的店铺</text>
+				<text style="color: #8ad8d0;">ID:2047</text>
+			</view>
+			<view class="sao_sao">
+				扫描下面的二维码付款
+			</view>
+			<view class="ercode_code">
+				<image :src="ercodeLogo.qrcode" mode="" class="ercode_code_logo"></image>
 			</view>
 		</view>
 	</view>
@@ -72,7 +90,10 @@
 </script>
 
 <style scoped>
-		.ercode{width:100%;height: 100%;position: relative;}
+		.ercode{width:100%;height: 100%;position: relative;
+		background:url('https://dev.mingyuanriji.cn/web/static/mch/ollectionQRCode.jpg')no-repeat ;
+		background-size: 100%
+		}
 		.ercode-code{width: 100%;overflow: hidden;display: flex;height: 100rpx;line-height: 100rpx;padding: 0rpx 20rpx;box-sizing: border-box;background: #fff;margin: 40rpx 0;}
 		.accountingOrder-title{width: 30%;color: #000;}
 		.input-btn{height: 100rpx;background: rgb(245, 245, 245);width: 65%;padding-left: 10rpx;}
@@ -84,4 +105,18 @@
 		.code{width: 450rpx;height: 450rpx;display: block;}
 		.code-detail text{display: block;width: 100%;height: 100rpx;
 		line-height: 100rpx;text-align: center;background: #52DCAE;color: #fff;font-size: 40rpx;}
+		
+		
+		
+		
+		
+		.ercode_title{width: 100%;overflow: hidden;text-align: center;color: #fff;padding-top: 30rpx;font-size: 40rpx;}
+		.ercode_background{width: 90%;height: 850rpx;background: #fff;border-radius: 20rpx;margin: 100rpx auto 0;position: relative;}
+		.shop_logo{width: 200rpx;height: 200rpx;border-radius: 50%;margin:0 auto;}
+		.shop_logo image{width: 200rpx;height: 200rpx;border-radius: 50%;margin-top: -70rpx;}
+		.shop_name_id{width: 100%;overflow: hidden;display: flex;flex-wrap: wrap;margin-top: -40rpx;}
+		.shop_name_id text{display: block;width: 100%;overflow: hidden;color: #000;text-align: center;margin-bottom: 10rpx;font-size: 35rpx;}
+		.sao_sao{width: 100%;overflow: hidden;text-align: center;font-size: 25rpx;margin-top: 10rpx;color: #B8B8B8;}
+		.ercode_code{width: 100%;overflow: hidden;}
+		.ercode_code_logo{width: 450rpx;height: 450rpx;display: block;margin: 0 auto;}
 </style>
