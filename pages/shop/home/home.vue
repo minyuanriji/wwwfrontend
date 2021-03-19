@@ -40,7 +40,10 @@
 				  </view>  -->
 				<!-- 产品 -->
 				<view class="shop-my-products" style="margin-top: 20rpx;">
-					爆品区
+					<image src="../../../plugins/images/shop_logo_hot.png" mode=""></image>
+					<text class="shop-my-products_title">
+						店铺热销爆品
+					</text>
 				</view>
 				<view class="simulate-product">
 					<view class="product-item" v-for="item in 4">
@@ -322,7 +325,7 @@
 	}
 
 	.home_content_content {
-		background-color: #fff;
+		background-color:#fff;
 		border-radius: 21px;
 		padding: 8px 15px;
 	}
@@ -483,7 +486,7 @@
 	.simulate-product {
 		width: 95%;
 		overflow: hidden;
-		margin: 0 auto 50rpx;
+		margin: 30rpx auto 50rpx;
 		display: flex;
 		justify-content: space-between;
 		flex-wrap: wrap;
@@ -492,6 +495,8 @@
 	.product-item {
 		width: 48%;
 		overflow: hidden;
+		margin: 10rpx 0;
+		border-radius: 10rpx;
 		box-shadow: 0px 0px 10px #eee;
 	}
 
@@ -508,11 +513,13 @@
 		text-overflow: ellipsis;
 		font-size: 28rpx;
 		margin-bottom: 24rpx;
+		color: #000000;
 	}
 
 	.product-item-money-buy {
 		width: 100%;
 		overflow: hidden;
+		margin-bottom: 15rpx;
 	}
 
 	.product-item-money {
@@ -530,14 +537,21 @@
 
 	.shop-my-products {
 		width: 100%;
-		text-align: center;
-		background-color: rgb(83, 222, 219);
-		height: 80rpx;
-		line-height: 80rpx;
-		color: #fff;
+		position: relative;
 	}
-
-
+	.shop-my-products  image{
+		width: 100%;
+		height: 80rpx;
+	}
+	.shop-my-products_title{
+		position: absolute;
+		top: 10rpx;
+		left: 20rpx;
+		color: #000;
+		display: block;
+		font-size: 30rpx;
+		font-weight: bold;
+	}
 	.hot-googds {
 		width: 100%;
 		overflow: hidden;
