@@ -542,6 +542,7 @@ width: 58px;
 height: 58px;
 background: #C4C4C4;
 border-radius: 2px;
+border: 1px solid rgb(239, 239, 239);
 }
 .index1_content_shop_block_r{flex: 1;margin-left: 13px;}
 .index1_content_shop_block_r_name{

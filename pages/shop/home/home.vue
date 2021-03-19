@@ -509,6 +509,7 @@
 		margin: 10rpx 0;
 		border-radius: 10rpx;
 		box-shadow: 0px 0px 10px #eee;
+		border: 1px solid rgb(239, 239, 239);
 	}
 
 	.product-item-logo {
@@ -524,6 +525,7 @@
 		text-overflow: ellipsis;
 		font-size: 28rpx;
 		margin-bottom: 24rpx;
+		padding: 0 5rpx;
 		color: #000000;
 	}
 
@@ -531,6 +533,7 @@
 		width: 100%;
 		overflow: hidden;
 		margin-bottom: 15rpx;
+		padding: 0 5rpx;
 	}
 
 	.product-item-money {
