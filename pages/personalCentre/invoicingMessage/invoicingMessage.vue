@@ -5,7 +5,6 @@
 		</view>
 		<view class="shop-detail">
 			<image :src="orderMessage.mch_info.cover_url" mode="" class="shop-logo"></image>
-			<!-- <image src="" mode="" class="shop-logo"></image> -->
 			<view class="shop-name">
 				<text>店铺名:{{orderMessage.mch_info.name}}</text>
 				<text>ID:{{orderMessage.mch_info.mch_id}}</text>
@@ -33,7 +32,17 @@
 		data() {
 			return {
 				orderMessage:{
-					
+					// order_info:{
+					// 	"order_no": "MS202103110906011010910457",
+					// 	"order_price":100,
+					// },
+					// mch_info:{
+					// 	"cover_url":'https://thirdwx.qlogo.cn/mmopen/vi_32/OUCO4yHsnBoibopxichHiaHFZicKmShUY5BrsvVdhmyxo8chuKo2pAlumI6T1bztDiafDydguiblxVChfQtiaaL7zTJBA/132',
+					// 	"name":"小周周的店",
+					// 	"mch_id":54,
+					// },
+					// "user_integral_num": 99999,
+					// "integral_max_deduction": 100
 				},//结账单信息
 				textColor: '#00dd00',
 				is_integral:false,
@@ -85,17 +94,17 @@
 </script>
 
 <style lang="less" scoped>
-	.invoicingMessage-app{width: 100%;overflow: hidden;}
-	.order-code{width: 100%;height: 100rpx;background: #fff;margin: 30rpx 0 0 0;line-height: 100rpx;
+	.invoicingMessage-app{width: 100%;height: 100%;background: url(../../../static/img/confirm_order.jpg)no-repeat;background-size: 100%;padding-top: 30rpx;}
+	.order-code{width: 100%;height: 100rpx;background: #b0f0ea;line-height: 100rpx;
 	font-weight: 600;padding: 0rpx 20rpx;color: #000;}
-	.shop-detail{width: 100%;overflow: hidden;background: #fff;margin-top: 20rpx;display: flex;padding: 0rpx 20rpx;}
+	.shop-detail{width: 100%;overflow: hidden;background: #b0f0ea;margin-top: 20rpx;display: flex;padding: 0rpx 20rpx;}
 	.shop-logo{width: 158rpx;height: 158rpx;}
-	.shop-name{margin-left: 20rpx;width: 500rpx;}
+	.shop-name{margin-left: 20rpx;width: 500rpx;color: #000;}
 	.shop-name text{display: block;}
 	.shop-name text:nth-of-type(1){margin-top:25rpx ;}
-	.product-price{width: 100%;height: 100rpx;background: #fff;margin: 30rpx 0 0 0;line-height: 100rpx;
+	.product-price{width: 100%;height: 100rpx;background: #b0f0ea;margin: 30rpx 0 0 0;line-height: 100rpx;
 	font-weight: 600;padding: 0rpx 20rpx;color: #000;}
-	.use-points{background: #fff;margin-top: 40rpx;}
+	.use-points{background: #b0f0ea;margin-top: 40rpx;color: #000;}
 	.go-pay{width: 100%;height: 100rpx;margin-top: 100rpx;}
-	.go-pay button{width: 100%;outline: none;border: none;background: #19BE6B;color: #fff;}
+	.go-pay button{width: 100%;outline: none;border: none;background: #00675d;color: #fff;}
 </style>
