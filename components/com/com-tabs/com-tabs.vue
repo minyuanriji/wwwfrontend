@@ -1,10 +1,15 @@
 <template>
-	<view class="jx-tabs-view" :class="[isFixed?'jx-tabs-fixed':'jx-tabs-relative',unlined?'jx-unlined':'']" :style="{height:height+'rpx',padding:`0 ${padding}rpx`,background:bgColor,top:isFixed?top+'px':'auto'}">
-		<view v-for="(item,index) in tabs" :key="index" class="jx-tabs-item" :style="{width:itemWidth}" @tap.stop="swichTabs(index)">
-			<view class="jx-tabs-title" :class="{'jx-tabs-active':currentTab==index,'jx-tabs-disabled':item.disabled}" :style="{color:currentTab==index?selectedColor:color,fontSize:size+'rpx',lineHeight:size+'rpx',fontWeight:bold && currentTab==index?'bold':'normal'}">{{item.name}}</view>
+	<view class="jx-tabs-view" :class="[isFixed?'jx-tabs-fixed':'jx-tabs-relative',unlined?'jx-unlined':'']"
+		:style="{height:height+'rpx',padding:`0 ${padding}rpx`,background:bgColor,top:isFixed?top+'px':'auto'}">
+		<view v-for="(item,index) in tabs" :key="index" class="jx-tabs-item" :style="{width:itemWidth}"
+			@tap.stop="swichTabs(index)">
+			<view class="jx-tabs-title" :class="{'jx-tabs-active':currentTab==index,'jx-tabs-disabled':item.disabled}"
+				:style="{color:currentTab==index?selectedColor:color,fontSize:size+'rpx',lineHeight:size+'rpx',fontWeight:bold && currentTab==index?'bold':'normal'}">{{item.name}}</view>
 		</view>
-		<view class="jx-tabs-slider" :style="{transform:'translateX('+scrollLeft+'px)',width:sliderWidth+'rpx',height:
-	sliderHeight+'rpx',borderRadius:sliderRadius,bottom:bottom,background:sliderBgColor,marginBottom:bottom=='50%'?('-'+sliderHeight/2+'rpx'):0}"></view>
+		<view class="jx-tabs-slider"
+			:style="{transform:'translateX('+scrollLeft+'px)',width:sliderWidth+'rpx',height:
+	sliderHeight+'rpx',borderRadius:sliderRadius,bottom:bottom,background:sliderBgColor,marginBottom:bottom=='50%'?('-'+sliderHeight/2+'rpx'):0}">
+		</view>
 	</view>
 </template>
 
@@ -76,7 +81,7 @@
 				type: String,
 				default: "#bc0100"
 			},
-			sliderRadius:{
+			sliderRadius: {
 				type: String,
 				default: "50rpx"
 			},
@@ -117,7 +122,7 @@
 			}
 		},
 		created() {
-			
+
 			setTimeout(() => {
 				/* uni.createSelectorQuery().in(this).select('.jx-tabs-view').boundingClientRect(res => {
 					this.jxWidth = res.width
@@ -129,12 +134,12 @@
 						this.checkCor()
 					}
 				});
-				
+
 			}, 50);
 		},
 		data() {
 			return {
-				jxWidth:750,
+				jxWidth: 750,
 				winWidth: 0,
 				scrollLeft: 0
 			};
@@ -148,9 +153,10 @@
 				let scrollLeft = left
 				if (this.currentTab > 0) {
 					scrollLeft = scrollLeft + (width / tabsNum) * this.currentTab
-				}/* else{
-					scrollLeft = scrollLeft + ((this.winWidth - this.jxWidth)/2)+ padding
-				} */
+				}
+				/* else{
+									scrollLeft = scrollLeft + ((this.winWidth - this.jxWidth)/2)+ padding
+								} */
 				this.scrollLeft = scrollLeft
 			},
 			// 点击标题切换当前页时改变样式
