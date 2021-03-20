@@ -1,4 +1,4 @@
-{
+{	
 	"pages": [{
 			"path": "pages/index/index",
 			"style": {
@@ -749,6 +749,16 @@
                 "navigationBarTitleText": "付款",
 				"navigationBarBackgroundColor": "#81d8d0",
 				"navigationBarTextStyle": "white",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/supplement/supplement",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商家入驻补充",
+				"navigationBarTextStyle": "black",
                 "enablePullDownRefresh": false
             }
             

@@ -2,7 +2,6 @@ import Vue from 'vue'
 import App from './App'
 import request from '@/common/request.js';
 import api from '@/common/api.js';
-
 // #ifdef H5
 import wechatSdk from '@/common/wechatJsSdk.js';
 import VueClipboard from 'vue-clipboard2'

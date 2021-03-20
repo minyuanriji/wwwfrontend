@@ -279,6 +279,7 @@
 			},
 			uploadImg(e) { //上传图片
 				var id = e.currentTarget.dataset.id
+				console.log(id)
 				var that = this
 				var params = this.params
 				uni.chooseImage({

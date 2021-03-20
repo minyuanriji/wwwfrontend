@@ -80,7 +80,7 @@
 </script>
 
 <style scoped>
-	.accountingOrder_app{width:100%;height: 100%;background: url(../../../static/img/shop_verification.jpg)no-repeat;background-size: 100%;}
+	.accountingOrder_app{width:100%;height: 100%;background: url(../../../static/img/shop_verification.jpg)no-repeat;background-size: cover;}
 	.accountingOrder_title{padding: 30rpx 30rpx 0 30rpx;font-size: 30rpx;width: 100%;}
 	.accountingOrder_int{width: 100%;overflow: hidden;padding: 0 30rpx;margin-top: 20rpx;}
 	.accountingOrder_int input{width: 75%;height: 80rpx;background: #fff;border-radius: 20rpx;padding-left: 15rpx;float: left;}

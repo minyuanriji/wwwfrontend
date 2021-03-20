@@ -47,7 +47,7 @@
 				// show:false,
 				// message:{},
 				ercodeLogo:{},
-				message:{}
+				message:{},
 			}
 		},
 		onLoad() {
@@ -96,7 +96,7 @@
 <style scoped>
 		.ercode{width:100%;height: 100%;position: relative;
 		background:url('https://dev.mingyuanriji.cn/web/static/mch/ollectionQRCode.jpg')no-repeat ;
-		background-size: 100%
+		background-size: cover
 		}
 		.ercode-code{width: 100%;overflow: hidden;display: flex;height: 100rpx;line-height: 100rpx;padding: 0rpx 20rpx;box-sizing: border-box;background: #fff;margin: 40rpx 0;}
 		.accountingOrder-title{width: 30%;color: #000;}

@@ -201,6 +201,7 @@
 </script>
 
 <style>
+
 	/*每个页面公共css */
 	@import './common/app.css';
 	@import './static/font-icon/iconfont.css';

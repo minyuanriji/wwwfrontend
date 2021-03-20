@@ -151,12 +151,12 @@
 	.success_logo{width: 200rpx;height: 200rpx;margin: 0 auto;}
 	.success_logo image{width: 200rpx;height: 200rpx;display: block;margin-top: 50rpx;}
 	.success_message_title{width: 100%;overflow: hidden;font-size: 42rpx;color: #000;font-weight: bold;text-align: center;}
-	.success_message{width: 100%;height: 100%;background: url(../../static/img/success_back.jpg)no-repeat;background-size: 100%;}
+	.success_message{width: 100%;height: 100%;background: url(../../static/img/success_back.jpg)no-repeat;background-size: cover;}
 	.sure_btn{width: 60%;height: 80rpx;margin: 30rpx auto;text-align: center;background: #81d8d0;
 	border-radius: 15rpx;outline: none;border: none;line-height: 80rpx;color: #fff;font-weight: bold;}
 	
 	.zhanwei{width: 100%;height: 100rpx;}
-	.faile_message{width: 100%;height: 100%;background: url(../../static/img/faile_back.jpg)no-repeat;background-size: 100%;position: relative;}
+	.faile_message{width: 100%;height: 100%;background: url(../../static/img/faile_back.jpg)no-repeat;background-size: cover;position: relative;}
 	.faile_message_title{position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;width: 100%;
 	height: 80rpx;text-align: center;color: #000;font-size: 42rpx;font-weight: bold;}
 
