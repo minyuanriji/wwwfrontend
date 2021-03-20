@@ -1,22 +1,34 @@
 <template>
-	<view class="more-shop">
-		<view class="more-shop-account-title" v-if="flag">
-				核销成功
-		</view>
-		<view class="more-shop-account-detail">		
-			<view class="jx-goods-item">
-				<image :src="goodinfo.cover_pic" lazy-load="true" class="jx-goods-img"></image>
-				<view class="jx-goods-center">
-					<view class="jx-goods-name">{{goodinfo.name}}</view>
+	<view class="more-shop" v-if="show">
+		<view class="success_message" v-if="flag">
+			<view class="zhanwei"></view>
+			<view class="success_message_goods">
+				<image :src="goodinfo.cover_pic" lazy-load="true" class="success_message_goods-img"></image>
+				<view class="success_message_goods-center">
+					<view class="success_message_goods-name">{{goodinfo.name}}</view>
 				</view>
-				<view class="jx-price-right">
+				<view class="success_message_goods-price-right">
 					<view class="price">￥{{message.total_original_price}}</view>
 					<view class="num">x{{message.num}}</view>
 				</view>
 			</view>
+			<view class="success_logo">
+				<image src="../../static/img/success_logo.png" mode=""></image>				
+			</view>
+			<view class="success_message_title">
+				核销成功
+			</view>
+			<view class="account-code">
+				核销码：{{code}}
+			</view>
+			<view class="sure_btn">
+				完成
+			</view>
 		</view>
-		<view class="account-code">
-			核销码：{{code}}
+		<view class="faile_message" v-if="!flag">
+			<view class="faile_message_title">
+				核销失败
+			</view>
 		</view>
 	</view>
 </template>
@@ -29,7 +41,8 @@
 				message:{},
 				success:'',
 				goodinfo:{},
-				flag:false
+				flag:true,
+				show:false
 			}
 		},
 		onLoad(options) {
@@ -52,10 +65,13 @@
 					if(res.code==0){
 						that.$http.toast(res.msg)
 						that.flag=true
+						that.show=true
 						that.message=res.data.detail
 						that.goodinfo=res.data.detail.goods_info.goods_attr
 					}else{
 						that.$http.toast(res.msg)
+						that.flag=false
+						that.show=true
 						setTimeout(function(){
 							uni.redirectTo({
 								url:'../personalCentre/accountingOrder/accountingOrder'
@@ -72,30 +88,28 @@
 </script>
 
 <style scoped lang="less">
-	.more-shop{width: 100%;overflow: hidden;}
-	.more-shop-account-title{width: 100%;height: 200rpx;text-align: center;line-height: 200rpx;font-size: 55rpx;font-weight: 600;color: #000;}
-	.more-shop-account-detail{margin-top: 20rpx;width: 100%;overflow: hidden;}
-	.jx-goods-item {
+	.more-shop{width: 100%;height: 100%;}
+	.success_message_goods {
 		width: 100%;
 		padding: 20rpx 30rpx;
 		box-sizing: border-box;
 		display: flex;
 		justify-content: space-between;
-	
-		.jx-goods-img {
+		background: #81d8d0;
+		.success_message_goods-img {
 			width: 180rpx;
 			height: 180rpx;
 			display: block;
 			flex-shrink: 0;
 		}
 	
-		.jx-goods-center {
+		.success_message_goods-center {
 			flex: 1;
 			padding: 20rpx;
 			box-sizing: border-box;
 		}
 	}	
-	.jx-goods-name {
+	.success_message_goods-name {
 		max-width: 310rpx;
 		word-break: break-all;
 		overflow: hidden;
@@ -118,7 +132,7 @@
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 2;
 	}	
-	.jx-price-right {
+	.success_message_goods-price-right {
 		text-align: right;
 		font-size: 9pt;
 		color: #999999;
@@ -133,5 +147,20 @@
 			color: #000;
 		}
 	}
-		.account-code{width: 100%;height: 100rpx;line-height: 100rpx;text-align: center;}
+	.account-code{width: 100%;height: 100rpx;line-height: 100rpx;text-align: center;color: #000;}
+	.success_logo{width: 200rpx;height: 200rpx;margin: 0 auto;}
+	.success_logo image{width: 200rpx;height: 200rpx;display: block;margin-top: 50rpx;}
+	.success_message_title{width: 100%;overflow: hidden;font-size: 42rpx;color: #000;font-weight: bold;text-align: center;}
+	.success_message{width: 100%;height: 100%;background: url(../../static/img/success_back.jpg)no-repeat;background-size: 100%;}
+	.sure_btn{width: 60%;height: 80rpx;margin: 30rpx auto;text-align: center;background: #81d8d0;
+	border-radius: 15rpx;outline: none;border: none;line-height: 80rpx;color: #fff;font-weight: bold;}
+	
+	.zhanwei{width: 100%;height: 100rpx;}
+	.faile_message{width: 100%;height: 100%;background: url(../../static/img/faile_back.jpg)no-repeat;background-size: 100%;position: relative;}
+	.faile_message_title{position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;width: 100%;
+	height: 80rpx;text-align: center;color: #000;font-size: 42rpx;font-weight: bold;}
+
+
+
+
 </style>

@@ -704,7 +704,7 @@
 		    "path" : "pages/more-shop/more-shop",
 		    "style" :                                                                                    
 		    {
-		        "navigationBarTitleText": "核销订单详情",
+		        "navigationBarTitleText": "核销进度",
 				"navigationBarBackgroundColor": "#fff",
 		        "enablePullDownRefresh": false
 		    }
