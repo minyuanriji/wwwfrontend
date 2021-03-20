@@ -189,7 +189,6 @@
 					 url:this.$api.moreShop.getmchscats,
 					 data:{},
 					 method:'post',
-					 showLoading: true,
 					 }).
 					then(function(res){
 						that.sortList=res.data.list
@@ -271,7 +270,6 @@
 			getDistrict() { //获取乡镇数据
 				this.$http.request({
 					url: this.$api.district.town_list,
-					showLoading: true,
 					data: {
 						district_id: this.districtId
 					}
@@ -287,7 +285,6 @@
 					url: this.$api.moreShop.getCity,
 					// url: this.$api.user.addressInfo,
 					method: 'post',
-					showLoading: true,
 				}).then((res) => {
 					// 处理数据
 					console.log(res)
