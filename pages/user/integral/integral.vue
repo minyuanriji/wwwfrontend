@@ -2,17 +2,17 @@
 	<view class="shopping-coupon">
 		<view class="shopping-main">
 			<view class="shopping-coupon-group">
-				<view class="shopping-coupon-item">
+				<!-- <view class="shopping-coupon-item">
 					<text class="coupon-item-num">{{current_integral}}</text>
 					<text class="coupon-item-title">总积分</text>
-				</view>
+				</view> -->
 				<view class="shopping-coupon-item">
 					<text class="coupon-item-num">{{get_static_integral}}</text>
 					<text class="coupon-item-title">永久积分券</text>
 				</view>
 				<view class="shopping-coupon-item">
 					<text class="coupon-item-num">{{get_dynamic_integral}}</text>
-					<text class="coupon-item-title">有效积分券</text>
+					<text class="coupon-item-title">限时积分券</text>
 				</view>
 			</view>
 			<view class="shopping-tools">
@@ -30,7 +30,7 @@
 					<i class="iconfont icon-xiala i-icon"></i>
 				</view>
 				<view class="shopping-tools-item" @click="toScoreDetails">
-					<text>积分明细</text>
+					<text>积分劵明细</text>
 					<i class="iconfont icon-xiala i-icon"></i>
 				</view>
 			</view>
@@ -73,7 +73,7 @@
 				tabs: [{
 					name: "永久积分券"
 				}, {
-					name: "有效积分券"
+					name: "限时积分券"
 				}],
 				
 				tab_list:['固定积分券','动态积分券'],
