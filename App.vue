@@ -138,11 +138,11 @@
 					}
 				}
 			} */
-
+				
 			if (!uni.getStorageSync('subscribe')) {
 				if(uni.getStorageSync("userInfo")){
 					this.$http.request({
-						url: this.$api.default.gz,
+						url: this.$api.default.subscribe,
 						data: {
 							user_id: uni.getStorageSync("userInfo") ? JSON.parse(uni.getStorageSync('userInfo'))
 								.user_id : 0

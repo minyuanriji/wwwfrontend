@@ -129,6 +129,7 @@
 			logout() {
 				uni.removeStorageSync("token");
 				uni.removeStorageSync('userInfo');
+				uni.clearStorageSync();
 				this.$http.toast('登出成功')
 				uni.reLaunch({
 					url: '/pages/index/index'
