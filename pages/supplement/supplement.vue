@@ -11,8 +11,8 @@
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>商户类型</text>
 				</view>
-				<input type="text" v-model="userType" placeholder="请选择" @click="popupShow=true" />
-				<image src="../../static/img/sanjia.png" mode="" class="logo"></image>
+				<input type="text" v-model="userType" placeholder="请选择" @click="popupShow=true" disabled/>
+				<!-- <image src="../../static/img/sanjia.png" mode="" class="logo"></image> -->
 			</view>
 			<view class="item" v-if="flag">
 				<view class="item_title" style="line-height: 120rpx;">
@@ -135,8 +135,8 @@
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>结算账户类型</text>
 				</view>
-				<input type="text"  placeholder="请选择" @click="bankShow=true" v-model="userbanktype"/>
-				<image src="../../static/img/sanjia.png" mode="" class="logo"></image>
+				<input type="text"  placeholder="请选择" @click="bankShow=true" v-model="userbanktype" disabled/>
+			<!-- 	<image src="../../static/img/sanjia.png" mode="" class="logo"></image> -->
 			</view>
 			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">

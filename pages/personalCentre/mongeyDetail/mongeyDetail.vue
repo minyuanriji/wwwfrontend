@@ -3,6 +3,10 @@
 		<!--header-->
 		<view class="app-header-box"><com-nav-bar @clickLeft="back" left-icon="back" title="账户明细" :status-bar="true"></com-nav-bar></view>
 		<!--header-->
+		<view class="tabble">
+			<text @click="tabbleCheck(1)">收入</text>
+			<text @click="tabbleCheck(2)">支出</text>
+		</view>
 		<view class="items" v-if="dataList && dataList.length">
 			<view class="item" v-for="(item, i) in dataList" :key="i">
 				<view class="item-left">
@@ -18,35 +22,32 @@
 
 		<!--加载loadding-->
 		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
+		<!-- 没有更多了-->
 		<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
-		<main-loading :visible="loading"></main-loading>
+		<!-- 正在加载 -->
+	<!-- 	<main-loading :visible="loading"></main-loading> -->
 		<!--加载loadding-->
 	</view>
 </template>
 
 <script>
-const _status = 'refresh';
+// const _status = 'refresh';
 export default {
 	data() {
 		return {
-			loadding: false,
 			pullUpOn: true,
-			loading: false,
+			loadding: false,
 			dataList: [],
-			pages: {
-				total_count: 1,
-				page_count: 1,
-				pageSize: 20,
-				current_page: 1
-			},
+			page:1,
 			textColor:'#bc0100',
+			page_count:''
 		};
 	},
 	onLoad() {
 		if(uni.getStorageSync('mall_config')){
 			this.textColor = this.globalSet('textCol');
 		}
-		this.getDateList(_status, true);
+		this.getDateList();
 	},
 	methods: {
 		back() {
@@ -55,57 +56,73 @@ export default {
 		updateStatus(type, data) {
 			return type == 1 ? `+${data}` : `-${data}`;
 		},
-		getDateList(status, bool) {
-			this.loading = bool ? true : false;
-			if (status == 'refresh') {
-				this.pages = {
-					current_page: 1,
-					pageSize: 20,
-					page_count: 1,
-					total_count: 0
-				};
-			}
-			let { current_page, pageSize } = this.pages;
-
+		getDateList() {	
+			this.loadding=true
 			this.$http
 				.request({
 					url: this.$api.moreShop.getaccountList,
 					method: 'POST',
 					data: {
-						page: current_page,
-						limit: pageSize
+						page:this.page,
 					}
 				})
 				.then(res => {
-					this.loading = false;
 					if (res.code === 0) {
-						let { list, pagination } = res.data;
-						this.dataList = status != 'refresh' ? this.dataList.concat(list) : list;
-						this.pages = pagination;
+						if(res.data.list.length==0) return false
+						let list= res.data.list;
+						var arr=this.dataList.concat(list)
+						this.dataList =arr
+						this.page_count= res.data.pagination.page_count;
 						this.pullUpOn = true;
 					}
 				});
+		},
+		tabbleCheck(index){
+			if(index==1){
+				this.loadding=false,
+				this.pullUpOn=true,
+				this.loading=false,
+				this.dataList=[],
+				this.pages={
+					total_count: 1,
+					page_count: 1,
+					pageSize: 20,
+					current_page: 1
+				},
+				this.getDateList(_status, true);
+			}
+			if(index==2){
+				this.loadding=false,
+				this.pullUpOn=true,
+				this.loading=false,
+				this.dataList=[],
+				this.pages={
+					total_count: 1,
+					page_count: 1,
+					pageSize: 20,
+					current_page: 1
+				},
+				this.getDateList(_status, true);
+			}
 		}
 	},
 	onPullDownRefresh() {
 		setTimeout(() => {
 			uni.stopPullDownRefresh();
-			this.getDateList(_status);
+			this.getDateList();
 		}, 1000);
 	},
 	onReachBottom() {
 		this.loadding = true;
 		this.pullUpOn = true;
-		let { current_page, page_count } = this.pages;
-		setTimeout(() => {
-			this.loadding = false;
-			if (current_page >= page_count) {
-				this.pullUpOn = false;
-				return;
-			}
-			this.pages.current_page++;
-			this.getDateList();
-		}, 1000);
+		console.log(this.page,this.page_count)
+		if(this.page==this.page_count){
+			this.loadding=false
+			this.pullUpOn = false;
+			return false;
+		} 		
+		this.page=this.page+1
+		this.getDateList();
 	}
 };
 </script>
@@ -130,16 +147,20 @@ export default {
 		display: flex;
 		font-size: 9pt;
 		padding: 30rpx 0;
-		border-bottom: 1rpx solid #ececec;
+		border-bottom: 1rpx solid #b0f0ea;
 
 		.item-left {
 			flex: 1;
-			max-width: 50%;
+			max-width: 70%;
 
 			.desc {
-				overflow: hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
+				overflow:hidden;  
+				text-overflow:ellipsis;  
+				white-space: normal;  
+				display:-webkit-box;  
+				-webkit-box-orient:vertical;  
+				-webkit-line-clamp:3;/*规定最多显示两行*/ 
+				font-size: 10pt;
 			}
 			.date-time {
 				color: #bdbdbd;
@@ -170,5 +191,7 @@ export default {
 .text-12-pt {
 	font-size: 12pt;
 }
+.tabble{width: 100%;height: 80rpx;display: flex;justify-content: space-evenly;}
+.tabble text{display: block;height:80rpx;line-height: 80rpx;width: 200rpx;text-align: center;color: #000;font-weight: bold;}
 </style>
 
