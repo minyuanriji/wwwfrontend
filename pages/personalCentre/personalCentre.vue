@@ -131,6 +131,34 @@
 					this.userMessage=res.data.mch_info
 					uni.setStorageSync("mchMessage",res.data.mch_info)
 				});
+			this.$http
+				.request({
+					url: this.$api.moreShop.progress,
+					method: 'POST',
+					showLoading: true
+				})
+				.then(res => {
+					if(res.code==0){
+						if(res.data.status==0){
+							uni.showModal({
+							    title: '提示',
+							    content: '请补充入驻资料',
+								showCancel:false,
+							    success: function (res) {
+							        if (res.confirm) {
+							            uni.redirectTo({
+							            	url:'../supplement/supplement'
+							            })
+							        } 
+							    }
+							});
+						}else if(res.data.status==1){
+							uni.navigateTo({
+								url:'../supplement/supplement?status='+res.data.detail.status
+							})
+						}						
+					}
+				});	
 		},
 		methods:{
 			href(page) {

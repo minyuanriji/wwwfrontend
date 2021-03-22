@@ -59,6 +59,10 @@
 				type: String,
 				default: '2'
 			},
+			ismch: {
+				type: Number,
+				required: true
+			},
 		},
 		data() {
 			return {
@@ -83,8 +87,11 @@
 			} else {
 				this.toolbarData2 = this.toolbarData;
 			}
-			let message=JSON.parse(uni.getStorageSync('userInfo'))
-			if(message&&message.is_mch==1){
+			// let message=JSON.parse(uni.getStorageSync('userInfo'))
+			// if(message&&message.is_mch==1){
+			// 	this.shopShow=true
+			// }
+			if(this.ismch==1){
 				this.shopShow=true
 			}
 		},

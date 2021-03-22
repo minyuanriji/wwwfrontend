@@ -156,6 +156,7 @@
 					:toolbarTitle="configData.user_center.menu_title"
 					:flex="configData.user_center.menu_style"
 					:toolbarData="configData.user_center.menus"
+					:ismch="userInfo.is_mch"
 				></toolbar>
 			</view>
 		</view>
@@ -225,7 +226,6 @@ export default {
 			take_a_code: '',
 			loading: false,
 			textColor:'#bc0100',
-			
 		};
 	},
 	onLoad: function(options) {
