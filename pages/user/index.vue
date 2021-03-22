@@ -283,10 +283,10 @@ export default {
 			this.configData = JSON.parse(uni.getStorageSync('initMenus'));
 		}
 		this.initData(false);
+		this.$http.isLogin() && this.getUser(false);
 	},
 	onShow() {
-		console.log(this.$http.isLogin(),'this.$http.isLogin()');
-		this.$http.isLogin() && this.getUser(false);
+		// this.$http.isLogin() && this.getUser(false);
 		this.getCartList();
 	},
 	methods: {
@@ -330,7 +330,8 @@ export default {
 			this.$http
 				.request({
 					url: this.$api.user.userInfo,
-					method: 'POST'
+					method: 'POST',
+					showLoading: true
 				})
 				.then(res => {
 					this.loading = false;

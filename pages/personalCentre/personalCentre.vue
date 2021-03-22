@@ -153,9 +153,9 @@
 							    }
 							});
 						}else if(res.data.status==1){
-							uni.navigateTo({
-								url:'../supplement/supplement?status='+res.data.detail.status
-							})
+								uni.redirectTo({
+									url:'../supplement/supplement?status='+res.data.detail.status
+								})
 						}						
 					}
 				});	
