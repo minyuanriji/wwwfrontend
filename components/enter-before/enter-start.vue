@@ -75,10 +75,17 @@
 			<view class="content_footer_top">
 				<view class="iconfont iconxuanzhong" :style="{color:status==1?background:''}" @tap="agreeBtn"></view>
 				<view class="content_footer_top_m">我已阅读并同意</view>
-				<view class="content_footer_top_r" :style="{color: background}">《名媛日记商城开店说明》</view>
+				<view class="content_footer_top_r" :style="{color: background}" @click="popupShow">《名媛日记商城开店说明》</view>
 			</view>
 			<button class="sumbit" :style="{background:background}" @tap="sumbit">我准备好了</button>
 		</view>
+		<uni-popup ref="popup" type="center">
+			<scroll-view scroll-y="true"  class="scroll-Ys">
+				<view class="html" v-html="agreement">
+					<rich-text :nodes="agreement"></rich-text>
+				</view>
+			</scroll-view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -88,7 +95,7 @@
 			background: {
 				type: String,
 				default: true
-			}
+			},
 		},
 		data() {
 			return {
@@ -101,8 +108,24 @@
 				cats: [], //分类列表
 				cats_arr1: [], //分类列表
 				catsIndex: 0,
-				district: []
+				district: [],
+				agreement:''
 			}
+		},
+		created() {
+			let that=this
+			that.$http.request({
+				 url:that.$api.moreShop.getTExt,
+				 data:{},
+				 method:'post',
+				 }).
+				then(function(res){
+					if(res.code==0){
+						var str = res.data.agreement.replace(/[\n]/, "<br/>");
+						str = str.replace("[\s]", "&nbsp;");
+						that.agreement=str;
+					}
+				})
 		},
 		methods: {
 			alert(txt) {
@@ -333,18 +356,24 @@
 					}
 					that.changeCart(data) //默认第一个
 				})
+			},
+			popupShow(){
+				this.$refs.popup.open()
 			}
 		},
 		mounted() {
 			this.getCat()
 			this.getAddress()
-		}
+		},
+
 	}
 </script>
 
 <style>
 	@import url("../../static/font-icon/iconfont1.css");
-
+	.scroll-Ys{width: 80%;overflow: hidden;margin: 0 auto;background: #fff;border-radius: 20rpx;}
+	.html{width: 100%;height: 500rpx;margin: 0 auto;border-radius: 20rpx;font-size: 30rpx;text-align: center;
+	line-height: 60rpx;padding: 20rpx;}
 	.content_body {
 		width: 98%;
 		margin: 5px auto;

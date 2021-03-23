@@ -16,8 +16,9 @@
 		<view class="use-points flex flex-y-center flex-x-between">
 			<view>
 				<!-- 使用抵扣券 :{{orderMessage.integral_max_deduction}} -->
-				使用抵扣券
-				<view class="xieti">拥有抵扣券金额:{{orderMessage.user_integral_num}} <text style="font-size: 26rpx;color: #C90A0C;" v-if="is_integral">-{{num}}</text></view>
+				<view class="xieti">抵扣券总额:{{orderMessage.user_integral_num}}券</view>
+				<view>使用抵扣券:{{num}}券</view>
+				<view>额外服务费:{{orderMessage.integral_service_fee}}劵</view>
 			</view>
 			<switch :checked="is_integral" @change="useIntegral" :color='textColor' class="points-switch" />
 		</view>

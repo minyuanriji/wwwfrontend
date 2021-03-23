@@ -27,7 +27,7 @@
 				  <enter_before :background="background" @returnStatus="getStatus"></enter_before>
 			  </view>
 			  <view class="enter_before" v-if="status==1">
-			  	 <enter_start :background="background" @returnStatus="getStatus"></enter_start>
+			  	 <enter_start :background='background' @returnStatus="getStatus"></enter_start>
 			  </view>
 		 </view>
 		 
@@ -45,7 +45,8 @@
 		data() {
 			return {
 				background:"#53DEDB",
-				status:0//1:提交资料,2 审核签约 ,3 开门营业
+				status:0,//1:提交资料,2 审核签约 ,3 开门营业
+				agreement:''
 			}
 		},
 		methods: {

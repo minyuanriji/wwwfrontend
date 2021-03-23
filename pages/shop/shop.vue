@@ -388,9 +388,9 @@
 		onShow() {
 			var that=this
 			this.host=this.$api.test_url
-			// if(uni.getStorageSync('x-city-id')){
-			// 	uni.removeStorageSync("x-city-id")
-			// }
+			if(uni.getStorageSync('x-city-id')){
+				uni.removeStorageSync("x-city-id")
+			}
 			this.getCity();
 			//#ifdef H5
 			   if(this.$http.getPlatform()=='wechat'){
