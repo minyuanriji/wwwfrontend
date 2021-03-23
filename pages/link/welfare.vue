@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="integral_text">300积分，每月返</view>
+		<view class="integral_text">300积分，每月返。</view>
 		<view>
 			<button type="warn" @tap="get_integral">立即获取</button>
 		</view>
