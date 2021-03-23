@@ -316,10 +316,10 @@
 </script>
 
 <style lang="scss" scoped>
-	.personalCenter{width:100%;overflow:hidden;}
-	.personalCenter-top{width: 100%;overflow: hidden;padding: 20upx;background: #fff;margin-top: 20rpx;}
-	.personal-logo{width: 128rpx;height: 128rpx;display: block;border-radius: 50px;float: left;}
-	.personal_nicken_ID{float: left;margin-left: 30rpx;width: 400rpx;}
+	.personalCenter{width:100%;height: 100%;background: url(../../static/img/personalCenter_logo.jpg)no-repeat;background-size: cover;padding-top: 60rpx;}
+	.personalCenter-top{width: 100%;overflow: hidden;padding: 20upx;}
+	.personal-logo{width: 128rpx;height: 128rpx;display: block;border-radius: 50%;float: left;border: 1rpx solid #D9D9D9;}
+	.personal_nicken_ID{float: left;margin-left: 30rpx;width: 400rpx;color: #000;}
 	.personal_nicken{margin: 10upx 0;width: 100%;}
 	.personalCenter-item{width: 100%;overflow: hidden;margin: 20upx 0;}
 	.jx-content-box {
@@ -402,7 +402,7 @@
 		color: #999;
 		padding-right: 10rpx;
 	}
-	.share-shop{float: right;}
+	.share-shop{float: right;padding-top: 20rpx;}
 	.tui-collection {
 		color: #333;
 		display: flex;

@@ -2,7 +2,7 @@
 	<view class="verification-app">
 		<block>
 			<view class="jx-goods-item">
-				<!-- <image src="../../../plugins/images/extensions/o2o/shuiguotu.png" lazy-load="true" class="jx-goods-img"></image> -->
+				<image :src="verificationMessage.detail.goods_info.goods_attr.cover_pic" lazy-load="true" class="jx-goods-img"></image>
 				<view class="jx-goods-center">
 					<view class="jx-goods-name">{{verificationMessage.detail.goods_info.goods_attr.name}}</view>
 				</view>
@@ -13,12 +13,17 @@
 			</view>
 		</block>
 		<view class="verification-code">
-			<view class="poup" v-if="poup">
-				已经核销
+			<view class="ercode">
+				<view class="mask" v-if="show">
+					<image src="../../../static/img/gou.png" mode=""></image>
+				</view>
+				<image :src="verificationMessage.url" mode="" class="ercode-img"></image>
 			</view>
-			<image :src="verificationMessage.url" mode="" class="ercode"></image>
 			<view class="verification-edite-code">
 				核销码：{{verificationMessage.code?verificationMessage.code:"xxxxxxxxxx"}}
+			</view>
+			<view class="user_unuser">
+				<text>{{poup}}</text>
 			</view>
 		</view>
 	</view>
@@ -30,11 +35,12 @@
 			return {
 				verificationMessage: {}, //核销信息
 				id: '',
-				poup: false
+				poup:"",
+				timer:'',
+				show:false,//遮罩显示
 			}
 		},
 		onLoad(options) {
-			console.log(options)
 			this.id = options.id
 			this.$http.request({
 				url: this.$api.moreShop.getexpenseMessage,
@@ -49,11 +55,14 @@
 					this.verificationMessage = res.data
 				}
 			})
-			this.getResult()
+			this.timer=setInterval(() => {
+				this.getResult()
+			},2500);
 		},
+		
 		methods: {
-			
 			getResult() {
+				if(	this.poup=="已核销")return false
 				this.$http.request({
 					url: this.$api.moreShop.verificationinfo,
 					method: 'POST',
@@ -62,16 +71,23 @@
 					},
 				}).then(res => {
 					if (res.code == 0) {
-						console.log(res)
 						let reult = res.data
 						if (reult.is_used && reult.is_used == 1) {
-							this.poup=true
+							this.poup="已核销"
+							this.show=true
 						}else{
-							this.poup=false
+							this.poup="待核销"
+							this.show=false
 						}
 					}
 				})
 			}
+		},
+		onUnload() {
+			if(this.timer!=null) {  
+			    clearInterval(this.timer);  
+			    this.timer = null;  
+			}  
 		}
 	}
 </script>
@@ -79,7 +95,10 @@
 <style scoped lang="scss">
 	.verification-app {
 		width: 100%;
-		overflow: hidden;
+		height: 100%;
+		background: url(../../../static/img/verification_back.jpg)no-repeat;
+		background-size: cover;
+		padding-top: 30rpx;
 	}
 
 	.jx-goods-item {
@@ -88,7 +107,7 @@
 		box-sizing: border-box;
 		display: flex;
 		justify-content: space-between;
-
+		border: 1rpx solid #999;
 		.jx-goods-img {
 			width: 180rpx;
 			height: 180rpx;
@@ -150,35 +169,48 @@
 		width: 100%;
 		overflow: hidden;
 		margin: 20rpx 0;
-		background: #fff;
 		position: relative;
 	}
 
 	.ercode {
 		width: 300rpx;
 		height: 300rpx;
-		margin: 20rpx auto 0;
+		margin: 50rpx auto 0;
+		position: relative;
+	}
+	.mask{
+		width: 300rpx;
+		height: 300rpx;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 999;
+		background: rgba(0,0,0,0.4);
+	}
+	.mask image{
+		width: 150rpx;
+		height: 150rpx;
+		display: block;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		
+	}
+	.ercode-img{
+		width: 300rpx;
+		height: 300rpx;
 		display: block;
 	}
-
 	.verification-edite-code {
 		width: 100%;
 		margin: 40rpx 0;
 		height: 80rpx;
 		text-align: center;
 		line-height: 80rpx;
+		color:#00675d ;
 	}
-	.poup{
-		width: 100%;
-		height: 480rpx;
-		position: absolute;
-		z-index: 999;
-		top: 0;
-		right: 0;
-		background:rgba(0, 0, 0, 0.9);
-		color: #fff;
-		text-align: center;
-		line-height: 480rpx;
-		font-size: 50rpx;
-	}
+	.user_unuser{width: 100%;overflow: hidden;text-align: center;font-size: 42rpx;color: #000;font-weight: bold;}
 </style>

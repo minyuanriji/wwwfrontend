@@ -21,7 +21,7 @@
 			<view class="account-code">
 				核销码：{{code}}
 			</view>
-			<view class="sure_btn">
+			<view class="sure_btn" @click="gointo">
 				完成
 			</view>
 		</view>
@@ -82,7 +82,11 @@
 			}, 2000);
 		},
 		methods: {
-			
+			gointo(){
+				uni.navigateBack({
+					delta:1
+				})
+			}
 		}
 	}
 </script>
