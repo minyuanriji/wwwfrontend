@@ -421,6 +421,9 @@
 				title:"名媛日记官方商城",
 				path:"/pages/shop/shop"
 			}
+		},
+		onUnload() {
+			uni.removeStorageSync('x-city-id')
 		}
 	}
 </script>

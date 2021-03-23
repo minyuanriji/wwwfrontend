@@ -11,12 +11,12 @@
 			</view>
 		</view>
 		<view class="product-price">
-			价格:￥{{orderMessage.order_info.order_price}}
+			价格:￥{{orderMessage.order_info.order_price}}+{{num}}抵扣卷  
 		</view>
 		<view class="use-points flex flex-y-center flex-x-between">
 			<view>
 				<!-- 使用抵扣券 :{{orderMessage.integral_max_deduction}} -->
-				使用抵扣券 :{{num}} 
+				使用抵扣券
 				<view class="xieti">拥有抵扣券金额:{{orderMessage.user_integral_num}} <text style="font-size: 26rpx;color: #C90A0C;" v-if="is_integral">-{{num}}</text></view>
 			</view>
 			<switch :checked="is_integral" @change="useIntegral" :color='textColor' class="points-switch" />
@@ -106,5 +106,5 @@
 	font-weight: 600;padding: 0rpx 20rpx;color: #000;}
 	.use-points{background: #b0f0ea;margin-top: 40rpx;color: #000;}
 	.go-pay{width: 100%;height: 100rpx;margin-top: 100rpx;}
-	.go-pay button{width: 100%;outline: none;border: none;background: #00675d;color: #fff;}
+	.go-pay button{width: 100%;outline: none;border: none;background: #19BE6B;color: #fff;}
 </style>
