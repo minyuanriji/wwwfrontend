@@ -379,6 +379,7 @@
 	.index1_content_sort_block_icon {
 		width: 100%;
 		margin: 0px auto;
+		border: 1px solid rgb(239, 239, 239);
 	}
 
 	.index1_content_sort_block_txt {
@@ -408,6 +409,7 @@
 	.block_t_head {
 		height: 120px;
 		width: 120px;
+		border: 1px solid rgb(239, 239, 239);
 	}
 
 	.index1_content_list_block_t_r {

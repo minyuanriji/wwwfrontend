@@ -369,7 +369,7 @@
 </script>
 
 <style lang="scss" scoped>
-	.personalCenter{width:100%;height: 100%;background: url(../../static/img/personalCenter_logo.jpg)no-repeat;background-size: cover;padding-top: 40rpx;}
+	.personalCenter{width:100%;overflow: hidden;background: url(../../static/img/personalCenter_logo.jpg)no-repeat;background-size: cover;padding-top: 40rpx;}
 	.personalCenter-top{width: 100%;overflow: hidden;padding: 20upx;}
 	.personal-logo{width: 128rpx;height: 128rpx;display: block;border-radius: 50px;float: left;}
 	.personal_nicken_ID{float: left;margin-left: 30rpx;width: 400rpx;}
@@ -390,7 +390,6 @@
 		color: #000;
 		background: #ffffff;
 		margin-bottom: 20rpx;
-		// box-shadow: 1rpx 1rpx 5rpx #888;
 	}
 	
 	.jx-btm-item {
