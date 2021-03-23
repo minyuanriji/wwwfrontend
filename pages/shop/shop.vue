@@ -388,11 +388,9 @@
 		onShow() {
 			var that=this
 			this.host=this.$api.test_url
-			// var city=uni.getStorageSync('x-city-name')
-			if(uni.getStorageSync('x-city-id')){
-				uni.removeStorageSync("x-city-id")
-			}
-			// this.city=city?city:"广州"
+			// if(uni.getStorageSync('x-city-id')){
+			// 	uni.removeStorageSync("x-city-id")
+			// }
 			this.getCity();
 			//#ifdef H5
 			   if(this.$http.getPlatform()=='wechat'){
@@ -421,9 +419,6 @@
 				title:"名媛日记官方商城",
 				path:"/pages/shop/shop"
 			}
-		},
-		onUnload() {
-			uni.removeStorageSync('x-city-id')
 		}
 	}
 </script>

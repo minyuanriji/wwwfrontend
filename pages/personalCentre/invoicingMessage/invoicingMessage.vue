@@ -11,7 +11,7 @@
 			</view>
 		</view>
 		<view class="product-price">
-			价格:￥{{orderMessage.order_info.order_price}}+{{num}}抵扣卷  
+			价格:{{orderMessage.order_info.order_price}}元+{{num}}劵
 		</view>
 		<view class="use-points flex flex-y-center flex-x-between">
 			<view>
