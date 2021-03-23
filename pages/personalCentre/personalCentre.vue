@@ -37,6 +37,7 @@
 					{{userMessage.stat.account_money}}元
 				</view>
 				<view class="jx-btm-item last">
+					<text style="background: #16AB60;width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;margin-bottom: 20rpx;" @click="href(5)">明细</text>
 					<text style="background: #16AB60;width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;">提现</text>
 				</view>
 			</view>
@@ -74,7 +75,7 @@
 				</view>
 			</jx-list-cell>
 		</view>
-		<view class="personalCenter-item">
+		<view class="personalCenter-item" style="margin-bottom: 100rpx;">
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(3)">
 				<view class="jx-cell-header" style="height: 100rpx;">
 					<view class="jx-cell-title" style="font-weight: 700;">核销订单</view>
