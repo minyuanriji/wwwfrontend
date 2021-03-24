@@ -57,38 +57,7 @@
 			}
 		},
 		onShow(){
-			// #ifdef H5
-			if (!uni.getStorageSync('subscribe')) {
-				if(uni.getStorageSync("userInfo")){
-					this.$http.request({
-						url: this.$api.default.subscribe,
-						data: {
-							user_id: uni.getStorageSync("userInfo") ? JSON.parse(uni.getStorageSync('userInfo'))
-								.user_id : 0
-						}
-					}).then((res) => {
-						if (res.status == 1 && res.subscribe == 0) {
-							uni.showModal({
-								title: '提示',
-								content: '请先关注公众号',
-								success: function(res) {
-									if (res.confirm) {
-										window.location.href = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=Mzg4OTQzMDkxNw==&scene=110#wechat_redirect';
-										// uni.reLaunch({
-										//     url: 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=Mzg4OTQzMDkxNw==&scene=110#wechat_redirect'
-										// });
-									} else if (res.cancel) {
-										console.log('用户点击取消');
-									}
-								}
-							});
-						} else if (res.status == 1 && res.subscribe == 1) {
-							uni.setStorageSync('subscribe', res.subscribe);
-						}
-					})
-				}
-			}
-			// #endif
+			
 		},
 		onReachBottom:function(e){
 			

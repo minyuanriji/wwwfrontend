@@ -21,6 +21,9 @@
 			//#endif
 		},
 		methods: {
+			/*
+			先简单实现功能，项目进度安排到这，再详细创建数据表，和编写页面
+			*/
 			get_integral() {
 				var user = uni.getStorageSync('userInfo');
 				var user_id = JSON.parse(user).user_id;
