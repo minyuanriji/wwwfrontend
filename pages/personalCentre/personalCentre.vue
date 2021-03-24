@@ -24,7 +24,7 @@
 					{{userMessage.stat.goods_num}}件
 				</view>
 				<view class="jx-btm-item last">
-					<text style="background: #16AB60;width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;">查看商品</text>
+					<text style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;">查看商品</text>
 				</view>
 			</view>
 		</view>
@@ -37,8 +37,8 @@
 					{{userMessage.stat.account_money}}元
 				</view>
 				<view class="jx-btm-item last">
-					<text style="background: #16AB60;width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;margin-bottom: 20rpx;" @click="href(5)">明细</text>
-					<text style="background: #16AB60;width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;">提现</text>
+					<text style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;margin-bottom: 20rpx;" @click="href(5)">明细</text>
+					<text style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;">提现</text>
 				</view>
 			</view>
 		</view>		

@@ -79,7 +79,7 @@
 	.payPages-app{width: 100%;height: 100%;background: url(../../../../static/img/userInputmoney.jpg)no-repeat;background-size: cover;}
 	.input-btn{height: 100rpx;background: rgb(245, 245, 245);width: 65%;padding-left: 10rpx;}
 	.sure-code{width: 100%;overflow: hidden;}
-	.sure-code button{width: 100%;margin: 100rpx auto;background: #19BE6B;color: #fff;}		
+	.sure-code button{width: 100%;margin: 100rpx auto;background: rgb(7, 190, 180);color: #fff;}		
 	.payPages_shop{width: 100%;overflow: hidden;display: flex;justify-content: space-between;padding: 40rpx 20rpx 0 20rpx;}
 	.payPages_shop_left {max-width: 500rpx;}
 	.payPages_shop_left view{margin: 10rpx 0;color: #000;}
