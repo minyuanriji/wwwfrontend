@@ -119,7 +119,8 @@
 				district: "",
 				proviceId: "",
 				cityId: "",
-				districtId: ""
+				districtId: "",
+				ifOnShow:false,
 			}
 		},
 		methods: {
@@ -189,6 +190,7 @@
 					 url:this.$api.moreShop.getmchscats,
 					 data:{},
 					 method:'post',
+					 showLoading:true,
 					 }).
 					then(function(res){
 						that.sortList=res.data.list
@@ -216,10 +218,6 @@
 							for(var i=0;i<alist.length;i++){
 								var latitude=alist[i]['store']['latitude']
 								var longitude=alist[i]['store']['longitude']
-								// var km=that.getKm(latitude,longitude,lat,lnt)
-								// console.log(km)
-								// var km1=Number(km)>=1?km.toFixed(1)+'km':Math.round(Number(km)*1000)+'m'
-								// alist[i]['store']['distance']=km1
 							}
 							var new_data=alist
 							var shop_list=that.shop_list.concat(new_data)
@@ -272,7 +270,8 @@
 					url: this.$api.district.town_list,
 					data: {
 						district_id: this.districtId
-					}
+					},
+					 showLoading:true,
 				}).then(res => {
 					if (res.code == 0) {
 						this.town_data = res.list;
@@ -284,6 +283,7 @@
 				this.$http.request({
 					url: this.$api.moreShop.getCity,
 					method: 'post',
+					 showLoading:true,
 				}).then((res) => {
 					// 处理数据
 					console.log(res)
@@ -370,8 +370,8 @@
 					}
 				})
 			},
-		},	
-		onReady(){
+		},		
+		onReady(){	
 			var info=uni.getSystemInfoSync()
 			var window_height=info.windowHeight
 			var query=uni.createSelectorQuery()
@@ -382,6 +382,9 @@
 			}).exec()
 		},
 		onShow() {
+			if(this.ifOnShow){
+				window.location.reload()
+			}
 			var that=this
 			this.host=this.$api.test_url
 			if(uni.getStorageSync('x-city-id')){
@@ -408,7 +411,6 @@
 				that.getLocationData()	  
 			// #endif
 			that.getCat()
-			
 		},
 		onShareAppMessage() {
 			return{
@@ -416,12 +418,12 @@
 				path:"/pages/shop/shop"
 			}
 		},
-		onUnload() {
-			this.shop_list=[]
-			this.page=1
-		}
+		onHide(){
+		    console.log('this.ifOnShow=true')
+			this.ifOnShow=true
+		},
 	}
-</script>
+</script>	
 
 <style>
 @import url("../../static/font-icon/iconfont1.css");
