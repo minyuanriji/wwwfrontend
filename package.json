@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "async-validator": "^3.2.4",
+    "html2canvas": "^1.0.0-rc.7",
     "jweixin-module": "^1.6.0",
     "moment": "^2.24.0",
     "vue-clipboard2": "^0.3.1",
