@@ -119,7 +119,8 @@
 				district: "",
 				proviceId: "",
 				cityId: "",
-				districtId: ""
+				districtId: "",
+				ifOnShow:false,
 			}
 		},
 		methods: {
@@ -189,6 +190,7 @@
 					 url:this.$api.moreShop.getmchscats,
 					 data:{},
 					 method:'post',
+					 showLoading:true,
 					 }).
 					then(function(res){
 						that.sortList=res.data.list
@@ -216,10 +218,6 @@
 							for(var i=0;i<alist.length;i++){
 								var latitude=alist[i]['store']['latitude']
 								var longitude=alist[i]['store']['longitude']
-								// var km=that.getKm(latitude,longitude,lat,lnt)
-								// console.log(km)
-								// var km1=Number(km)>=1?km.toFixed(1)+'km':Math.round(Number(km)*1000)+'m'
-								// alist[i]['store']['distance']=km1
 							}
 							var new_data=alist
 							var shop_list=that.shop_list.concat(new_data)
@@ -272,7 +270,8 @@
 					url: this.$api.district.town_list,
 					data: {
 						district_id: this.districtId
-					}
+					},
+					 showLoading:true,
 				}).then(res => {
 					if (res.code == 0) {
 						this.town_data = res.list;
@@ -283,8 +282,8 @@
 			getCity() { //请求省市区数据
 				this.$http.request({
 					url: this.$api.moreShop.getCity,
-					// url: this.$api.user.addressInfo,
 					method: 'post',
+					 showLoading:true,
 				}).then((res) => {
 					// 处理数据
 					console.log(res)
@@ -368,14 +367,11 @@
 						uni.setStorageSync('x-longitude',res.longitude)
 						uni.setStorageSync('x-latitude',res.latitude)
 						that.getData()
-					},
-					fail(erro){
-						// that.getData()
 					}
 				})
 			},
-		},	
-		onReady(){
+		},		
+		onReady(){	
 			var info=uni.getSystemInfoSync()
 			var window_height=info.windowHeight
 			var query=uni.createSelectorQuery()
@@ -386,13 +382,14 @@
 			}).exec()
 		},
 		onShow() {
+			if(this.ifOnShow){
+				window.location.reload()
+			}
 			var that=this
 			this.host=this.$api.test_url
-			// var city=uni.getStorageSync('x-city-name')
 			if(uni.getStorageSync('x-city-id')){
 				uni.removeStorageSync("x-city-id")
 			}
-			// this.city=city?city:"广州"
 			this.getCity();
 			//#ifdef H5
 			   if(this.$http.getPlatform()=='wechat'){
@@ -406,24 +403,27 @@
 				   		that.getData()
 				   })
 			   }else{
-				    this.getLocationData()
+				    that.getLocationData()
 			   }
 			   
 			// #endif
 			// #ifndef H5
-				this.getLocationData()	  
+				that.getLocationData()	  
 			// #endif
-			this.getCat()
-			
+			that.getCat()
 		},
 		onShareAppMessage() {
 			return{
 				title:"名媛日记官方商城",
 				path:"/pages/shop/shop"
 			}
-		}
+		},
+		onHide(){
+		    console.log('this.ifOnShow=true')
+			this.ifOnShow=true
+		},
 	}
-</script>
+</script>	
 
 <style>
 @import url("../../static/font-icon/iconfont1.css");

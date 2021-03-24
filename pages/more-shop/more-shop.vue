@@ -83,8 +83,8 @@
 		},
 		methods: {
 			gointo(){
-				uni.navigateBack({
-					delta:1
+				uni.navigateTo({
+					url:'../personalCentre/accountingOrder/accountingOrder'
 				})
 			}
 		}

@@ -249,17 +249,17 @@
 			this.getmchstore()
 			this.getGoodsCats()
 			this.getMchGoods()
-			uni.setNavigationBarColor({
-				frontColor: "#ffffff",
-				backgroundColor: this.background,
-				animation: {
-					duration: 400,
-					timingFunc: 'easeIn'
-				}
-			})
-			uni.setNavigationBarTitle({
-				title: "名媛日记"
-			})
+			// uni.setNavigationBarColor({
+			// 	frontColor: "#ffffff",
+			// 	backgroundColor: this.background,
+			// 	animation: {
+			// 		duration: 400,
+			// 		timingFunc: 'easeIn'
+			// 	}
+			// })
+			// uni.setNavigationBarTitle({
+			// 	title: "名媛日记"
+			// })
 		},
 		onShareAppMessage() {
 			return {
@@ -292,7 +292,7 @@
 		width: 100%;
 		display: flex;
 		align-items: center;
-		padding: 33px 15px 10px 15px;
+		padding: 15px 15px 10px 15px;
 	}
 
 	.home_content_logo {
@@ -379,6 +379,7 @@
 	.index1_content_sort_block_icon {
 		width: 100%;
 		margin: 0px auto;
+		border: 1px solid rgb(239, 239, 239);
 	}
 
 	.index1_content_sort_block_txt {
@@ -408,6 +409,7 @@
 	.block_t_head {
 		height: 120px;
 		width: 120px;
+		border: 1px solid rgb(239, 239, 239);
 	}
 
 	.index1_content_list_block_t_r {

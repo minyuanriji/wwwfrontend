@@ -15,7 +15,75 @@
 			</view>
 			<!-- 分享店铺  -->
 		</view>
+		<view class="jx-content-box" style="margin-top: 20rpx;">
+			<view class="jx-header-btm">
+				<view class="jx-btm-item">
+					当前商品
+				</view>
+				<view class="jx-btm-item">
+					{{userMessage.stat.goods_num}}件
+				</view>
+				<view class="jx-btm-item last">
+					<text style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;">查看商品</text>
+				</view>
+			</view>
+		</view>
+		<view class="jx-content-box" style="margin-top: 20rpx;">
+			<view class="jx-header-btm">
+				<view class="jx-btm-item">
+					当前余额
+				</view>
+				<view class="jx-btm-item">
+					{{userMessage.stat.account_money}}元
+				</view>
+				<view class="jx-btm-item last">
+					<text style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;margin-bottom: 20rpx;" @click="href(5)">明细</text>
+					<text style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;">提现</text>
+				</view>
+			</view>
+		</view>		
+		<view class="personalCenter-item">
+			<jx-list-cell :arrow="true" padding="0" :lineLeft="false">
+				<view class="jx-cell-header">
+					<view class="jx-cell-title" style="font-weight: 700;">我的订单</view>
+				</view>
+			</jx-list-cell>
+		</view>
 		<view class="jx-content-box">
+			<view class="jx-header-btm">
+				<view class="jx-btm-item">
+					<view class="jx-btm-num">0笔</view>
+					<view class="jx-btm-text">今日订单</view>
+				</view>
+				<view class="jx-btm-item">
+					<view class="jx-btm-num">{{userMessage.stat.order_num}}笔</view>
+					<view class="jx-btm-text">历史订单</view>
+				</view>
+			</view>
+		</view>
+		<view class="personalCenter-item">
+			<jx-list-cell :arrow="true" padding="0" :lineLeft="false"  @click="href(1)">
+				<view class="jx-cell-header" style="height: 100rpx;">
+					<view class="jx-cell-title" style="font-weight: 700;">我的首页</view>
+				</view>
+			</jx-list-cell>
+		</view>
+		<view class="personalCenter-item">
+			<jx-list-cell :arrow="true" padding="0" :lineLeft="false"  @click="href(2)">
+				<view class="jx-cell-header" style="height: 100rpx;">
+					<view class="jx-cell-title" style="font-weight: 700;">二维码收款</view>
+				</view>
+			</jx-list-cell>
+		</view>
+		<view class="personalCenter-item" style="margin-bottom: 100rpx;">
+			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(3)">
+				<view class="jx-cell-header" style="height: 100rpx;">
+					<view class="jx-cell-title" style="font-weight: 700;">核销订单</view>
+				</view>
+			</jx-list-cell>
+		</view>
+		
+		<!-- <view class="jx-content-box">
 			<view class="jx-header-btm">
 				<view class="jx-btm-item" @click="href(5)">
 					<view class="jx-btm-num">{{userMessage.stat.account_money}}</view>
@@ -35,7 +103,6 @@
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false"  @click="href(1)">
 				<view class="jx-cell-header">
 					<view class="jx-cell-title" style="font-weight: 700;">我的首页</view>
-					<!-- <view class="jx-cell-sub">查看全部订单</view> -->
 				</view>
 			</jx-list-cell>
 		</view>
@@ -43,7 +110,6 @@
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false"  @click="href(2)">
 				<view class="jx-cell-header">
 					<view class="jx-cell-title" style="font-weight: 700;">二维码收款</view>
-					<!-- <view class="jx-cell-sub">查看全部订单</view> -->
 				</view>
 			</jx-list-cell>
 		</view>
@@ -54,19 +120,6 @@
 				</view>
 			</jx-list-cell>
 		</view>
-	<!-- 	<view class="personalCenter-item">
-			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(4)">
-				<view class="jx-cell-header">
-					<view class="jx-cell-title" style="font-weight: 700;">我的设置</view>
-				</view>
-			</jx-list-cell>
-		</view> -->
-		<!-- <view class="personalCenter-item">
-			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(5)">
-				<view class="jx-cell-header">
-					<view class="jx-cell-title" style="font-weight: 700;">资金明细</view>
-				</view>
-			</jx-list-cell>
 		</view> -->		
 		<view class="goods-qrcode-modal" v-if="showPoster">
 			<view class="goods-qrcode-body flex-col">
@@ -316,17 +369,17 @@
 </script>
 
 <style lang="scss" scoped>
-	.personalCenter{width:100%;height: 100%;background: url(../../static/img/personalCenter_logo.jpg)no-repeat;background-size: cover;padding-top: 60rpx;}
+	.personalCenter{width:100%;overflow: hidden;background: url(../../static/img/personalCenter_logo.jpg)no-repeat;background-size: cover;padding-top: 40rpx;}
 	.personalCenter-top{width: 100%;overflow: hidden;padding: 20upx;}
-	.personal-logo{width: 128rpx;height: 128rpx;display: block;border-radius: 50%;float: left;border: 1rpx solid #D9D9D9;}
-	.personal_nicken_ID{float: left;margin-left: 30rpx;width: 400rpx;color: #000;}
+	.personal-logo{width: 128rpx;height: 128rpx;display: block;border-radius: 50px;float: left;}
+	.personal_nicken_ID{float: left;margin-left: 30rpx;width: 400rpx;}
 	.personal_nicken{margin: 10upx 0;width: 100%;}
-	.personalCenter-item{width: 100%;overflow: hidden;margin: 20upx 0;}
+	.personalCenter-item{width: 100%;overflow: hidden;margin: 20upx 0 0 0;padding: 0 30rpx;}
 	.jx-content-box {
 		width: 100%;
 		padding: 0 30rpx;
 		box-sizing: border-box;
-		margin-top: 20rpx;
+		// margin-top: 20rpx;
 	}
 	.jx-header-btm {
 		border-radius: 12rpx;
@@ -337,7 +390,6 @@
 		color: #000;
 		background: #ffffff;
 		margin-bottom: 20rpx;
-		// box-shadow: 1rpx 1rpx 5rpx #888;
 	}
 	
 	.jx-btm-item {
@@ -351,7 +403,7 @@
 	
 		&::after {
 			content: '';
-			border-right: 1rpx solid #b3b3b3;
+			// border-right: 1rpx solid #b3b3b3;
 			width: 1px;
 			height: 100rpx;
 			position: absolute;
@@ -380,7 +432,8 @@
 	}
 	.jx-cell-header {
 		width: 100%;
-		height: 100rpx;
+		// height: 100rpx;
+		height: 70rpx;
 		padding: 0 40rpx;
 		box-sizing: border-box;
 		display: flex;

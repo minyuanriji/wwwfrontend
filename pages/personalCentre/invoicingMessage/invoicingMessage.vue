@@ -11,13 +11,14 @@
 			</view>
 		</view>
 		<view class="product-price">
-			价格:￥{{orderMessage.order_info.order_price}}
+			价格:{{orderMessage.order_info.order_price}}元+{{num+count}}劵
 		</view>
 		<view class="use-points flex flex-y-center flex-x-between">
 			<view>
 				<!-- 使用抵扣券 :{{orderMessage.integral_max_deduction}} -->
-				使用抵扣券 :{{num}} 
-				<view class="xieti">拥有抵扣券金额:{{orderMessage.user_integral_num}} <text style="font-size: 26rpx;color: #C90A0C;" v-if="is_integral">-{{num}}</text></view>
+				<view class="xieti">抵扣券总额:{{orderMessage.user_integral_num}}券</view>
+				<view>使用抵扣券:{{num}}券</view>
+				<view>额外服务费:{{is_integral?orderMessage.integral_service_fee:0}}劵</view>
 			</view>
 			<switch :checked="is_integral" @change="useIntegral" :color='textColor' class="points-switch" />
 		</view>
@@ -42,11 +43,14 @@
 					// 	"mch_id":54,
 					// },
 					// "user_integral_num": 99999,
-					// "integral_max_deduction": 100
+					// "integral_max_deduction": 100,
+					// "integral_service_fee":20
 				},//结账单信息
 				textColor: '#00dd00',
 				is_integral:false,
-				num:0
+				num:0,
+				count:0,
+				totle:0
 			};
 		},
 		onLoad() {   //通过扫二维码进入此页面会带有一个id
@@ -59,10 +63,14 @@
 				if(this.is_integral==false){
 					this.orderMessage.order_info.order_price=this.orderMessage.order_info.order_price
 					this.num=0
+					this.count=0
+					this.totle=0
 					this.getmessage()
 				}else{
 					this.orderMessage.order_info.order_price=Number(this.orderMessage.order_info.order_price)-Number(this.orderMessage.integral_max_deduction)
 					this.num=this.orderMessage.integral_max_deduction
+					this.count=this.orderMessage.integral_service_fee
+					this.totle=this.num+this.count
 				}
 			},
 			getmessage(){
@@ -84,9 +92,8 @@
 				})
 			},
 			pay(){ //点击去支付
-				console.log(this.num)
 				uni.navigateTo({
-					url:'../invoicingMessage/pay?id='+this.orderMessage.order_info.id+"&use_integral="+this.num
+					url:'../invoicingMessage/pay?id='+this.orderMessage.order_info.id+"&use_integral="+this.totle
 				})
 			}
 		}
@@ -106,5 +113,5 @@
 	font-weight: 600;padding: 0rpx 20rpx;color: #000;}
 	.use-points{background: #b0f0ea;margin-top: 40rpx;color: #000;}
 	.go-pay{width: 100%;height: 100rpx;margin-top: 100rpx;}
-	.go-pay button{width: 100%;outline: none;border: none;background: #00675d;color: #fff;}
+	.go-pay button{width: 100%;outline: none;border: none;background: rgb(7, 190, 180);color: #fff;}
 </style>

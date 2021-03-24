@@ -596,8 +596,10 @@
 		{
 			"path": "pages/shop/home/home",
 			"style": {
-
+				
 				"navigationBarTitleText": "门店主页",
+				"navigationBarBackgroundColor": "#53DEDB",
+				"navigationBarTextStyle": "white",
 				"enablePullDownRefresh": true,
 				"onReachBottomDistance": 50
 			}
