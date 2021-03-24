@@ -283,7 +283,6 @@
 			getCity() { //请求省市区数据
 				this.$http.request({
 					url: this.$api.moreShop.getCity,
-					// url: this.$api.user.addressInfo,
 					method: 'post',
 				}).then((res) => {
 					// 处理数据
@@ -368,9 +367,6 @@
 						uni.setStorageSync('x-longitude',res.longitude)
 						uni.setStorageSync('x-latitude',res.latitude)
 						that.getData()
-					},
-					fail(erro){
-						// that.getData()
 					}
 				})
 			},
@@ -404,14 +400,14 @@
 				   		that.getData()
 				   })
 			   }else{
-				    this.getLocationData()
+				    that.getLocationData()
 			   }
 			   
 			// #endif
 			// #ifndef H5
-				this.getLocationData()	  
+				that.getLocationData()	  
 			// #endif
-			this.getCat()
+			that.getCat()
 			
 		},
 		onShareAppMessage() {
@@ -419,6 +415,10 @@
 				title:"名媛日记官方商城",
 				path:"/pages/shop/shop"
 			}
+		},
+		onUnload() {
+			this.shop_list=[]
+			this.page=1
 		}
 	}
 </script>
