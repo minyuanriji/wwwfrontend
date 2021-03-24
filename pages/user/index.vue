@@ -155,8 +155,7 @@
 					v-if="configData.user_center.is_menu_status != 0"
 					:toolbarTitle="configData.user_center.menu_title"
 					:flex="configData.user_center.menu_style"
-					:toolbarData="configData.user_center.menus"
-					:ismch="userInfo.is_mch"
+					:toolbarData="userMessage.user_center.menus"
 				></toolbar>
 			</view>
 		</view>
@@ -226,6 +225,7 @@ export default {
 			take_a_code: '',
 			loading: false,
 			textColor:'#bc0100',
+			userMessage:{}
 		};
 	},
 	onLoad: function(options) {
@@ -314,6 +314,7 @@ export default {
 					if (res.code === 0) {
 						uni.setStorageSync('initMenus', JSON.stringify(res.data.config));
 						this.configData = res.data.config;
+						this.userMessage=res.data.config
 					}
 				});
 		},

@@ -58,8 +58,6 @@
 				toolbarData2: [], // 需要展示的数据
 				toolbarData3:[], //超过4个得数据
 				is_show:false,//是否显示更多
-				shopURL:require('../../plugins/images/extensions/community/shopUSER.png'),
-				shopShow:false,//
 			}
 		},
 		created() {
