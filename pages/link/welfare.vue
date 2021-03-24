@@ -1,10 +1,10 @@
 <template>
 	<view>
-		<view class="integral_text">300积分，每月返</view>
+		<view class="integral_text">300积分，赠送一个月</view>
 		<view>
 			<button type="warn" @tap="get_integral">立即获取</button>
 		</view>
-	</view>
+	</view>  
 </template>
 
 <script>
@@ -21,6 +21,9 @@
 			//#endif
 		},
 		methods: {
+			/*
+			先简单实现功能，项目进度安排到这，再详细创建数据表，和编写页面
+			*/
 			get_integral() {
 				var user = uni.getStorageSync('userInfo');
 				var user_id = JSON.parse(user).user_id;
