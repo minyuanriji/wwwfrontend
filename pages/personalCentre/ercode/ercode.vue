@@ -189,7 +189,7 @@
 <style scoped lang="less">
 	.ercode {
 		width: 100%;
-		height: 100%;
+		overflow: hidden;
 		position: relative;
 		background: url(../../../static/img/erqode-img.jpg)no-repeat;
 		background-size: 100% 100%;
@@ -287,7 +287,7 @@
 		text-align: center;
 		color: #fff;
 		line-height: 70rpx;
-		margin: 60rpx auto 80rpx;
+		margin: 100rpx auto 200rpx;
 	}
 	.goods-qrcode-modal {
 		position: fixed;

@@ -449,9 +449,6 @@ export default {
 			uni.setStorageSync('pid', options.pid);
 			uni.setStorageSync("user_id", options.pid);
 		}
-		if(options.scene){
-			uni.setStorageSync('parent_source',options.scene);
-		}
 		if(uni.getStorageSync('mall_config')){
 			this.copyright = JSON.parse(uni.getStorageSync('mall_config')).copyright;
 		}

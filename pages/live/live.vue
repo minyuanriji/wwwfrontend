@@ -55,7 +55,6 @@
 					})
 			},
 			goLive(roomid){
-				var user_id = uni.getStorageSync('userInfo') ?  JSON.parse(uni.getStorageSync('userInfo')).user_id : '';
 				uni.navigateTo({
 					url: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${roomid}`
 				});
