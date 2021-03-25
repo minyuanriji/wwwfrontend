@@ -81,28 +81,16 @@ export default {
 			if(index==1){
 				this.loadding=false,
 				this.pullUpOn=true,
-				this.loading=false,
 				this.dataList=[],
-				this.pages={
-					total_count: 1,
-					page_count: 1,
-					pageSize: 20,
-					current_page: 1
-				},
-				this.getDateList(_status, true);
+				this.pages=1
+				this.getDateList();
 			}
 			if(index==2){
 				this.loadding=false,
 				this.pullUpOn=true,
-				this.loading=false,
 				this.dataList=[],
-				this.pages={
-					total_count: 1,
-					page_count: 1,
-					pageSize: 20,
-					current_page: 1
-				},
-				this.getDateList(_status, true);
+				this.pages=1
+				this.getDateList();
 			}
 		}
 	},
