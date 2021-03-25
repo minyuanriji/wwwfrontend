@@ -22,6 +22,7 @@
 					<view class="item-left">
 						<image class="item-img" :src="img_url+'images/pay/'+item+'.png'" mode=""></image>
 						<text v-if="item == 'wechat'">微信支付</text>
+						<text v-if="item == 'alipay'">支付宝支付</text>
 						<text v-if="item == 'balance'">余额支付</text>
 					</view>
 					<view class="item-right-box" @tap="switchIcon(index)">
@@ -124,59 +125,129 @@
 			},
 			confirmPay() { // 请求支付接口，如果是余额支付
 				let that = this
-				that.$http.request({
-					url: that.$api.payment.doPay,
-					method: 'post',
-					showLoading: true,
-					data: {
-						union_id: that.payData.union_id,
-						pay_type: that.payData.amount > 0 ? that.payData.supportPayTypes[that.switchIndex] : 'balance' //self.payData.supportPayTypes[self.switchIndex]
-					}
-				}).then(res => {
-					if (res.code == 0) {
-						console.log(res)
-						var priceflag = that.payData.amount > 0 ? that.payData.supportPayTypes[that.switchIndex] : 'balance';
-						if (priceflag == 'balance') {
-							that.$http.toast('支付成功!');
-							uni.showModal({
-							    title: '恭喜你！',
-							    content: '支付成功',
-								showCancel:false,
-							    success: function (resSure) {
-							        if (resSure.confirm) {
-							           	uni.redirectTo({
-							           		url: '../../index/index'
-							           	})
-							        } 
-							    }
-							});
-							return;
+				if(that.payData.supportPayTypes[that.switchIndex]=='alipay'){
+					that.$http.request({
+						url: that.$api.moreShop.alipay,
+						showLoading: true,
+						method: 'post',
+						data: {
+							union_id: that.payData.union_id,
 						}
-						// #ifdef H5						
-							that.$wechatSdk.pay(res.data, '/pages/index/index');
-						// #endif
-						// // #ifdef MP-WEIXIN || APP-PLUS
-							setPay(res.data, (result) => {
-								console.log(12312);
-								let _url = '/pages/user/index'
-								if (result.success) {
-									that.$http.toast("支付成功")
-								} else {
-									that.$http.toast("未支付")
-									_url = '/pages/user/index'
-								}
-								etTimeout(() => {
-									uni.redirectTo({
-										url: _url
-										})
-								},2000)						
-							});
-						// #endif
-					}else{
-						that.$http.toast(res.msg);
-						return
-					}
-				})
+					}).then(res=>{
+						if(res.code==0){
+							let url=res.data.codeUrl
+							location.href=url
+						}else{
+							that.$http.toast(res.msg)
+						}
+					})	
+				}else{
+					that.$http.request({
+						url: that.$api.payment.doPay,
+						method: 'post',
+						showLoading: true,
+						data: {
+							union_id: that.payData.union_id,
+							pay_type: that.payData.amount > 0 ? that.payData.supportPayTypes[that.switchIndex] : 'balance' //self.payData.supportPayTypes[self.switchIndex]
+						}
+					}).then(res => {
+						if (res.code == 0) {
+							console.log(res)
+							var priceflag = that.payData.amount > 0 ? that.payData.supportPayTypes[that.switchIndex] : 'balance';
+							if (priceflag == 'balance') {
+								that.$http.toast('支付成功!');
+								uni.showModal({
+								    title: '恭喜你！',
+								    content: '支付成功',
+									showCancel:false,
+								    success: function (resSure) {
+								        if (resSure.confirm) {
+								           	uni.redirectTo({
+								           		url: '../../index/index'
+								           	})
+								        } 
+								    }
+								});
+								return;
+							}
+							// #ifdef H5						
+								that.$wechatSdk.pay(res.data, '/pages/index/index');
+							// #endif
+							// // #ifdef MP-WEIXIN || APP-PLUS
+								setPay(res.data, (result) => {
+									let _url = '/pages/user/index'
+									if (result.success) {
+										that.$http.toast("支付成功")
+									} else {
+										that.$http.toast("未支付")
+										_url = '/pages/user/index'
+									}
+									etTimeout(() => {
+										uni.redirectTo({
+											url: _url
+											})
+									},2000)						
+								});
+							// #endif
+						}else{
+							that.$http.toast(res.msg);
+							return
+						}
+					})
+				}				
+				// that.$http.request({
+				// 	url: that.$api.payment.doPay,
+				// 	method: 'post',
+				// 	showLoading: true,
+				// 	data: {
+				// 		union_id: that.payData.union_id,
+				// 		pay_type: that.payData.amount > 0 ? that.payData.supportPayTypes[that.switchIndex] : 'balance' //self.payData.supportPayTypes[self.switchIndex]
+				// 	}
+				// }).then(res => {
+				// 	if (res.code == 0) {
+				// 		console.log(res)
+				// 		var priceflag = that.payData.amount > 0 ? that.payData.supportPayTypes[that.switchIndex] : 'balance';
+				// 		if (priceflag == 'balance') {
+				// 			that.$http.toast('支付成功!');
+				// 			uni.showModal({
+				// 			    title: '恭喜你！',
+				// 			    content: '支付成功',
+				// 				showCancel:false,
+				// 			    success: function (resSure) {
+				// 			        if (resSure.confirm) {
+				// 			           	uni.redirectTo({
+				// 			           		url: '../../index/index'
+				// 			           	})
+				// 			        } 
+				// 			    }
+				// 			});
+				// 			return;
+				// 		}
+				// 		// #ifdef H5						
+				// 			that.$wechatSdk.pay(res.data, '/pages/index/index');
+				// 		// #endif
+				// 		// // #ifdef MP-WEIXIN || APP-PLUS
+				// 			setPay(res.data, (result) => {
+				// 				console.log(12312);
+				// 				let _url = '/pages/user/index'
+				// 				if (result.success) {
+				// 					that.$http.toast("支付成功")
+				// 				} else {
+				// 					that.$http.toast("未支付")
+				// 					_url = '/pages/user/index'
+				// 				}
+				// 				etTimeout(() => {
+				// 					uni.redirectTo({
+				// 						url: _url
+				// 						})
+				// 				},2000)						
+				// 			});
+				// 		// #endif
+				// 	}else{
+				// 		that.$http.toast(res.msg);
+				// 		return
+				// 	}
+				// })
 			}
 		},
 	}
