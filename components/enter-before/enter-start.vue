@@ -35,7 +35,7 @@
 				</view>
 				<input class="content_body_block_input" v-model="params.mobile"></input>
 			</view>
-			<view class="content_body_block">
+			<!-- <view class="content_body_block">
 				<view class="content_body_block_t">5、申请人身份证</view>
 				<view class="content_body_block_bb1">
 					<view class="content_body_block_bb_l" @tap="uploadImg" data-id="0">
@@ -59,9 +59,9 @@
 						<view>营业执照（有经营类目的面）</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			<view class="content_body_block">
-				<view class="content_body_block_t">7、店铺消费类型</view>
+				<view class="content_body_block_t">5、店铺消费类型</view>
 				<view class="content_body_block_desc">
 					选择你的店铺的消费类型，以方便消费者快速搜索到你的店铺。
 				</view>
@@ -101,9 +101,9 @@
 			return {
 				status: 0, //0 未同意,1 同意
 				params: {
-					pic_id_card_front: this.$api.test_url + "/images/shop/sfz_zm.png",
-					pic_id_card_back: this.$api.test_url + "/images/shop/sfz_fm.png",
-					pic_business_license: this.$api.test_url + "/images/shop/yyzz2.png"
+					// pic_id_card_front: this.$api.test_url + "/images/shop/sfz_zm.png",
+					// pic_id_card_back: this.$api.test_url + "/images/shop/sfz_fm.png",
+					// pic_business_license: this.$api.test_url + "/images/shop/yyzz2.png"
 				},
 				cats: [], //分类列表
 				cats_arr1: [], //分类列表
@@ -141,9 +141,9 @@
 				if (!params['realname']) return this.alert('请填写您的真实姓名')
 				if (!params['mobile']) return this.alert('请填写您的手机号')
 				if (!params['mobile'].match(/1\d{10}/)) return this.alert('手机号错误')
-				if (params['pic_id_card_front'].match(/sfz_zm.png/)) return this.alert('请上传身份证正面照片')
-				if (params['pic_id_card_back'].match(/sfz_fm.png/)) return this.alert('请上传身份证反面照片')
-				if (params['pic_business_license'].match(/yyzz2.png/)) return this.alert('请上传营业执照')
+				// if (params['pic_id_card_front'].match(/sfz_zm.png/)) return this.alert('请上传身份证正面照片')
+				// if (params['pic_id_card_back'].match(/sfz_fm.png/)) return this.alert('请上传身份证反面照片')
+				// if (params['pic_business_license'].match(/yyzz2.png/)) return this.alert('请上传营业执照')
 				if (!params['cat_id']) return this.alert('请选择店铺消费类型')
 				if (this.status == 0) return this.alert('请同意名媛日记商城开店说明')
 				var that = this
@@ -165,18 +165,18 @@
 					'\r\nContent-Disposition: form-data; name="name"' +
 					'\r\n' +
 					'\r\n'+params['name']+
-					'\r\n--XXX' +
-					'\r\nContent-Disposition: form-data; name="pic_id_card_front"' +
-					'\r\n' +
-					'\r\n'+params['pic_id_card_front']+
-					'\r\n--XXX' +
-					'\r\nContent-Disposition: form-data; name="pic_id_card_back"' +
-					'\r\n' +
-					'\r\n'+params['pic_id_card_back']+
-					'\r\n--XXX' +
-					'\r\nContent-Disposition: form-data; name="pic_business_license"' +
-					'\r\n' +
-					'\r\n'+params['pic_business_license']+
+					// '\r\n--XXX' +
+					// '\r\nContent-Disposition: form-data; name="pic_id_card_front"' +
+					// '\r\n' +
+					// '\r\n'+params['pic_id_card_front']+
+					// '\r\n--XXX' +
+					// '\r\nContent-Disposition: form-data; name="pic_id_card_back"' +
+					// '\r\n' +
+					// '\r\n'+params['pic_id_card_back']+
+					// '\r\n--XXX' +
+					// '\r\nContent-Disposition: form-data; name="pic_business_license"' +
+					// '\r\n' +
+					// '\r\n'+params['pic_business_license']+
 					'\r\n--XXX' +
 					'\r\nContent-Disposition: form-data; name="province_id"' +
 					'\r\n' +

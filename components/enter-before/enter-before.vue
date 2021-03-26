@@ -50,7 +50,7 @@
 							  <view class="content_body_block_r_b">手机号码共11位数字。其他为无效输入.</view>
 						 </view>
 					 </view>
-					 <view class="content_body_block">
+					 <!-- <view class="content_body_block">
 						 <view class="content_body_block_l">
 							 <view class="content_body_block_l_t1">
 								 <view class="content_body_block_l_t" :style="{background:background}">实例</view>
@@ -63,8 +63,8 @@
 							  <view class="content_body_block_r_t">5、申请人身份证</view>
 							  <view class="content_body_block_r_b">需提供营业执照法人的身份证正反面照片</view>
 						 </view>
-					 </view>
-					 <view class="content_body_block">
+					 </view> -->
+					 <!-- <view class="content_body_block">
 							 <view class="content_body_block_l">
 								 <view class="content_body_block_l_t1">
 									 <view class="content_body_block_l_t" :style="{background:background}">实例</view>
@@ -77,13 +77,13 @@
 								  <view class="content_body_block_r_t">6、营业执照</view>
 								  <view class="content_body_block_r_b">需提供有效的营业执照，或其他监部门认可的具有与营业执照同等法律效力的证件</view>
 							 </view>
-					 </view>
+					 </view> -->
 					 <view class="content_body_block">
 							 <view class="content_body_block_l">
 								 
 							 </view>
 							 <view class="content_body_block_r">
-								  <view class="content_body_block_r_t">7、店铺消费类型</view>
+								  <view class="content_body_block_r_t">5、店铺消费类型</view>
 								  <view class="content_body_block_r_b">选择你的店铺的消费类型，以方便消费者快速搜索到你的店铺</view>
 							 </view>
 					 </view>
