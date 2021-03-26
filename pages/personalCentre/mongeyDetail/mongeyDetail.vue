@@ -4,8 +4,8 @@
 		<view class="app-header-box"><com-nav-bar @clickLeft="back" left-icon="back" title="账户明细" :status-bar="true"></com-nav-bar></view>
 		<!--header-->
 		<view class="tabble">
-			<text @click="tabbleCheck(1)">收入</text>
-			<text @click="tabbleCheck(2)">支出</text>
+			<text @click="tabbleCheck(1)" :class="switchIndex==1?'active':''">收入</text>
+			<text @click="tabbleCheck(2)" :class="switchIndex==2?'active':''">支出</text>
 		</view>
 		<view class="items" v-if="dataList && dataList.length">
 			<view class="item" v-for="(item, i) in dataList" :key="i">
@@ -40,7 +40,8 @@ export default {
 			dataList: [],
 			page:1,
 			textColor:'#bc0100',
-			page_count:''
+			page_count:'',
+			switchIndex:1,
 		};
 	},
 	onLoad() {
@@ -78,6 +79,7 @@ export default {
 				});
 		},
 		tabbleCheck(index){
+			this.switchIndex=index
 			if(index==1){
 				this.loadding=false,
 				this.pullUpOn=true,
@@ -180,6 +182,7 @@ export default {
 	font-size: 12pt;
 }
 .tabble{width: 100%;height: 80rpx;display: flex;justify-content: space-evenly;}
-.tabble text{display: block;height:80rpx;line-height: 80rpx;width: 200rpx;text-align: center;color: #000;font-weight: bold;}
+.tabble text{display: block;height:80rpx;line-height: 80rpx;width: 50%;text-align: center;font-weight: bold;}
+.active{background: rgb(7, 190, 180);color: #fff;}
 </style>
 
