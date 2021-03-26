@@ -115,7 +115,7 @@
 
 			<!-- 使用抵扣券 -->
 			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1 && scoreswitc == 2 || scoreswitc == 0||scoreswitc == 3">
-				<view>使用抵扣券 <view class="xieti">拥有抵扣券金额：{{user_integral}} <text class="text" v-if="is_integral">-{{total_integral_use}}</text></view>
+				<view>使用购物券 <view class="xieti">拥有购物券：{{user_integral}} <text class="text" v-if="is_integral">-{{total_integral_use}}</text></view>
 				</view>
 				<switch :checked="is_integral" @change="useIntegral" :color='textColor' class="points-switch" />
 			</view>
@@ -127,7 +127,7 @@
 			<scroll-view scroll-y="true" style="max-height: 1000rpx;">
 				<view class="coupon-box">
 					<view class="coupon-title2">
-						优惠券
+						购物券
 						<view class="coupon-icon iconfont icon-guanbi" @tap="hidePopup"></view>
 					</view>
 					<view style="height: 120rpx"></view>

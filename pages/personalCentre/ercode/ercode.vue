@@ -193,7 +193,7 @@
 		position: relative;
 		background: url(../../../static/img/erqode-img.jpg)no-repeat;
 		background-size: 100% 100%;
-		padding-top: 150rpx;
+		padding-top: 110rpx;
 	}
 
 	.main {
@@ -217,7 +217,7 @@
 		height: 200rpx;
 		display: block;
 		position: absolute;
-		top: -100rpx;
+		top: -90rpx;
 	}
 
 	.main-title {
