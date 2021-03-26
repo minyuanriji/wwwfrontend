@@ -44,24 +44,7 @@
 		data() {
 			return {
 				tab_list:['收入','支出'],
-				list:[
-					// {
-					// 	created_at: "2020-10-20 16:28:40",
-					// 	deleted_at: "0",
-					// 	desc: "收入收入收入收入收入收入收入",
-					// 	flag: "1",
-					// 	from: "1",
-					// 	id: "46",
-					// 	income: "670.00",
-					// 	is_delete: "0",
-					// 	mall_id: "5",
-					// 	money: "20.00",
-					// 	order_detail_id: "22",
-					// 	type: "1",
-					// 	updated_at: "1603182815",
-					// 	user_id: "66",
-					// },
-				],
+				list:[],
 				status:0,
 				page:1,
 				is_no_more:false,
@@ -75,6 +58,12 @@
 			this.getList();
 		},
 		onReachBottom:function(e){
+			  this.is_no_more=false
+			  if(this.page==this.page_count){
+				   this.is_no_more=true
+				   return
+			  }
+			 this.page=this.page+1
 			  this.getList();
 		},
 		methods:{
@@ -83,8 +72,8 @@
 				this.status=index
 				this.is_no_more=false;	
 				this.page=1;
-				  this.list=[];
-				  this.getList();
+				this.list=[];
+				this.getList();
 			},
 			// 封装请求数据
 			getList(){
@@ -109,14 +98,21 @@
 					console.log(res);
 					uni.hideLoading();
 					if(res.code == 0){
-						this.list = res.data.list;
+						if(res.data.list.length==0)return false
+							let list=res.data.list
+							var arr=this.list.concat(list)
+							this.list=arr
+							this.page_count=res.data.pagination.page_count
+							
+							// this.list = res.data.list;
 						// 判断 页面数据是否大于当前页面
-						if(res.data.pagination.page_count>this.page){
-						// 如果大于当前页面 页面++
-						  this.page++;
-						}else{
-							this.is_no_more=true;
-						}
+		
+						// if(res.data.pagination.page_count>this.page){
+						// // 如果大于当前页面 页面++
+						//   this.page++;
+						// }else{
+						// 	this.is_no_more=true;
+						// }
 					}else{
 						uni.showToast({
 							title:res.msg
