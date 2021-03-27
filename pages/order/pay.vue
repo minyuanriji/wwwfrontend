@@ -46,12 +46,11 @@
 					</view>
 					<view class="item-right-box">
 						<view class="item-icon iconfont icon-dagou1" :style="{color:textColor}"></view>
-						<!-- <view v-else class="item-right"></view> -->
 					</view>
 				</view>
 			</view>
 
-			<view class="confirmPay" @tap="toConfirmPay" :style="{background:textColor}">确认支付</view>
+			<view class="confirmPay" @tap="confirmPay" :style="{background:textColor}">确认支付</view>
 		</view>
 	</view>
 </template>
@@ -123,273 +122,103 @@
 					if (res.code == 0) {
 						console.log(res.data)
 						this.payData = res.data;
-						//拿到拼单详情id--拼团的时候才发请求
-						// this.is_index==1?this.detailByOrder(res.data.orderNo):'';
 					}
 				})
 			},
-			
-			// 3.1 点击支付的方法(拼团支付/直接支付)
-			toConfirmPay(){
-				
-				this.is_index==1?this.detailByOrder(this.payData.orderNo):this.confirmPay();
-			},
-			
-			// 2.0 拿到拼单详情id
-			detailByOrder(order_no){
-				this.$http.request({
-					url: this.$api.plugin.group.detail_by_order,
-					method:'post',
-					data:{
-						order_no : order_no
-					}
-				}).then((res)=>{
-					if(res.code == 0){
-						if(res.data){
-							if(res.data.active_id){
-								this.active_id = res.data.active_id;
-								// console.log(this.active_id);
-								// 这里再走拼团支付流程 
-								this.confirmPay(true);
-								
-							}else{
-								// 这里跳转拼团订单页面
-								// uni.redirectTo({
-								// 	url: '/mch/group-buy/orderList?goods_id='+this.goods_id
-								// })
-								this.confirmPay(false);
-							}
-						}else{
-							this.confirmPay(false);
-						}
-						
-					}
-				})
-			},
-			
 			// 请求支付接口，如果是余额支付
-			confirmPay(flag){
-				let self = this; 
-				let flagStatus = flag;
-				// 这个是拼团跳转页面		
-				let groupUrl = '/mch/group-buy/detail?goods_id='+self.goods_id+'&detailId='+self.active_id;
-				let orderListUrl = '/mch/group-buy/orderList?goods_id='+self.goods_id;
-				if(self.payData.supportPayTypes[self.switchIndex]=='alipay'){
-						self.$http.request({
-							url: self.$api.moreShop.alipay,
+			confirmPay(){
+				let that = this; 
+				if(that.payData.supportPayTypes[that.switchIndex]=='alipay'){
+						that.$http.request({
+							url: that.$api.moreShop.alipay,
 							showLoading: true,
 							method: 'post',
 							data: {
-								union_id: self.payData.union_id,
+								union_id: that.payData.union_id,
 							}
 						}).then(res=>{
 							if(res.code==0){
 								let url=res.data.codeUrl
 								location.href=url
 							}else{
-								self.$http.toast(res.msg)
+								that.$http.toast(res.msg)
 							}
 						})
-				}else{
-					self.$http.request({
-						url: self.$api.payment.doPay,
+				}
+				if(that.payData.supportPayTypes[that.switchIndex]=='wechat'){
+					// #ifdef H5
+							that.$http.request({
+								url: that.$api.moreShop.wechatpay,
+								showLoading: true,
+								method: 'post',
+								data: {
+									union_id: that.payData.union_id,
+								}
+							}).then(res=>{
+								if(res.code==0){
+									that.$wechatSdk.pay(res.data,'/pages/order/list?status=1');
+								}else{
+									that.$http.toast(res.msg);	
+								}
+							})
+					// #endif
+					// #ifdef MP-WEIXIN || APP-PLUS
+							that.$http.request({
+								url: that.$api.moreShop.wechatpay,
+								showLoading: true,
+								method: 'post',
+								data: {
+									union_id: that.payData.union_id,
+								}
+							}).then(res=>{
+								if(res.code==0){
+									setPay(res.data, (result) => {
+										let _url = '/pages/order/list?status=1'
+										if (result.success) {
+											that.$http.toast("支付成功")
+										} else {
+											that.$http.toast("未支付")
+											_url = '/pages/order/list?status=0'
+										}															
+										setTimeout(() => {
+											uni.redirectTo({
+												url: _url
+											})
+										},1000)
+															
+									});
+								}else{
+									that.$http.toast(res.msg);	
+								}
+							})
+					// #endif			
+				}
+				if(that.payData.supportPayTypes[that.switchIndex]=='balance'){
+					that.$http.request({
+						url: that.$api.moreShop.balancepay,
 						showLoading: true,
 						method: 'post',
 						data: {
-							union_id: self.payData.union_id,
-							pay_type: self.payData.amount > 0 ? self.payData.supportPayTypes[self.switchIndex] : 'balance'    //self.payData.supportPayTypes[self.switchIndex]
+							union_id: that.payData.union_id,
 						}
-					}).then(res => {
-						if (res.code == 0) {
-							var priceflag = self.payData.amount > 0 ? self.payData.supportPayTypes[self.switchIndex] : 'balance';
-							// self.payData.supportPayTypes[self.switchIndex]
-							if (priceflag == 'balance') {
-								self.$http.toast('支付成功!');
-								setTimeout(() => {
-									if(self.is_index==1){	//如果是拼团支付
-										if(flagStatus){
-											uni.redirectTo({
-												url: groupUrl
-											})
-										}else{
-											uni.redirectTo({
-												url: orderListUrl
-											})
-										}
-									}else{
-										uni.redirectTo({
-											url: '/pages/order/list?status=1'
-										})
-									}
-								},500)
-								return;
-							}
-							
-							// #ifdef H5
-							if(self.is_index==1){	//如果是拼团支付
-							
-								if(flagStatus){
-									self.$wechatSdk.pay(res.data,groupUrl);
-								}else{
-									self.$wechatSdk.pay(res.data,orderListUrl);
-								}	
-							}else{
-								self.$wechatSdk.pay(res.data,'/pages/order/list?status=1');	
-							}
-							// #endif
-					
-							// #ifdef MP-WEIXIN || APP-PLUS
-							setPay(res.data, (result) => {
-								console.log(12312);
-								let _url = '/pages/order/list?status=1'
-								if (result.success) {
-									self.$http.toast("支付成功")
-								} else {
-									self.$http.toast("未支付")
-									_url = '/pages/order/list?status=0'
-								}
-					
-								setTimeout(() => {
-									if(self.is_index==1){	//如果是拼团支付
-										if(flagStatus){
-											uni.redirectTo({
-												url: groupUrl
-											})
-										}else{
-											uni.redirectTo({
-												url: orderListUrl
-											})
-										}
-									}else{
-										uni.redirectTo({
-											url: _url
-										})
-									}
-								},1000)
-					
-							});
-							// #endif
-						} else {
-							self.$http.toast(res.msg);
-							return
+					}).then(res=>{
+						if(res.code==0){
+							that.$http.toast('支付成功!');
 							setTimeout(() => {
-								if(self.is_index==1){	//如果是拼团支付--跳转拼团订单列表
-									uni.redirectTo({
-										url: orderListUrl
-									})
-								}else{
-									uni.redirectTo({
-										url: '/pages/order/list?status=0'
-									})
-								}
-							},1000)
+								uni.redirectTo({
+									url: '/pages/order/list?status=1'
+								})
+							},500)
+							return;
+						}else{
+							that.$http.toast(res.msg)
 						}
 					})
 				}
-				// self.$http.request({
-				// 	url: self.$api.payment.doPay,
-				// 	showLoading: true,
-				// 	method: 'post',
-				// 	data: {
-				// 		union_id: self.payData.union_id,
-				// 		pay_type: self.payData.amount > 0 ? self.payData.supportPayTypes[self.switchIndex] : 'balance'    //self.payData.supportPayTypes[self.switchIndex]
-				// 	}
-				// }).then(res => {
-				// 	if (res.code == 0) {
-				// 		var priceflag = self.payData.amount > 0 ? self.payData.supportPayTypes[self.switchIndex] : 'balance';
-				// 		// self.payData.supportPayTypes[self.switchIndex]
-				// 		if (priceflag == 'balance') {
-				// 			self.$http.toast('支付成功!');
-				// 			setTimeout(() => {
-				// 				if(self.is_index==1){	//如果是拼团支付
-				// 					if(flagStatus){
-				// 						uni.redirectTo({
-				// 							url: groupUrl
-				// 						})
-				// 					}else{
-				// 						uni.redirectTo({
-				// 							url: orderListUrl
-				// 						})
-				// 					}
-				// 				}else{
-				// 					uni.redirectTo({
-				// 						url: '/pages/order/list?status=1'
-				// 					})
-				// 				}
-				// 			},500)
-				// 			return;
-				// 		}
-						
-				// 		// #ifdef H5
-				// 		if(self.is_index==1){	//如果是拼团支付
-						
-				// 			if(flagStatus){
-				// 				self.$wechatSdk.pay(res.data,groupUrl);
-				// 			}else{
-				// 				self.$wechatSdk.pay(res.data,orderListUrl);
-				// 			}	
-				// 		}else{
-				// 			self.$wechatSdk.pay(res.data,'/pages/order/list?status=1');	
-				// 		}
-				// 		// #endif
-
-				// 		// #ifdef MP-WEIXIN || APP-PLUS
-				// 		setPay(res.data, (result) => {
-				// 			console.log(12312);
-				// 			let _url = '/pages/order/list?status=1'
-				// 			if (result.success) {
-				// 				self.$http.toast("支付成功")
-				// 			} else {
-				// 				self.$http.toast("未支付")
-				// 				_url = '/pages/order/list?status=0'
-				// 			}
-
-				// 			setTimeout(() => {
-				// 				if(self.is_index==1){	//如果是拼团支付
-				// 					if(flagStatus){
-				// 						uni.redirectTo({
-				// 							url: groupUrl
-				// 						})
-				// 					}else{
-				// 						uni.redirectTo({
-				// 							url: orderListUrl
-				// 						})
-				// 					}
-				// 				}else{
-				// 					uni.redirectTo({
-				// 						url: _url
-				// 					})
-				// 				}
-				// 			},1000)
-
-				// 		});
-				// 		// #endif
-				// 	} else {
-				// 		self.$http.toast(res.msg);
-				// 		return
-				// 		setTimeout(() => {
-				// 			if(self.is_index==1){	//如果是拼团支付--跳转拼团订单列表
-				// 				uni.redirectTo({
-				// 					url: orderListUrl
-				// 				})
-				// 			}else{
-				// 				uni.redirectTo({
-				// 					url: '/pages/order/list?status=0'
-				// 				})
-				// 			}
-				// 		},1000)
-				// 	}
-				// })
-			},
-			
-			
+			},						
 			switchIcon(index) {
 				this.switchIndex = index;
 			},
-			
-			/* 看能不能把逻辑判断的封装起来 */
-			
-			
 		},
 	}
 </script>
