@@ -1,16 +1,8 @@
 <template>
 	<view class="cart-root">
-		<!-- <view class="status_bar" style="background: #bc0100;"></view>
-		<view :class="['status_bar2',showBool?'show':'hide']" :style="{'opacity':opacity,'background':'#ffffff'}"></view> -->
 		<com-nav-bar @clickLeft="back" left-icon="back" title="提交订单" :status-bar="true" :background-color="navBg" :border="false" :color="navCol"></com-nav-bar>
 		<!-- 背景图，可自定义 -->
 		<view class="cart-bg" :style="{background:'url('+bg_url+')'}"></view>
-
-		<!-- <view class="cart-title" style="background: #bc0100;">
-			确认支付
-			<view class="iconfont icon-fanhui back" @tap="back"></view>
-		</view> -->
-
 		<view class="mainContent">
 			<view class="up">
 				<view class="balance">
@@ -125,7 +117,7 @@
 					}
 				})
 			},
-			// 请求支付接口，如果是余额支付
+			// 请求支付接口
 			confirmPay(){
 				let that = this; 
 				if(that.payData.supportPayTypes[that.switchIndex]=='alipay'){
