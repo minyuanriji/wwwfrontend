@@ -86,7 +86,7 @@
 							<view class="index1_content_list_block_t_r">
 								<view class="index1_content_list_block_t_r_name">{{item.name}}</view>
 								<view class="index1_content_list_block_t_r_block">
-									<view class="r_block_label">促销价</view>
+									<view class="r_block_label">全额抵扣</view>
 									<view class="r_block_now_price">¥{{item.price}}</view>
 									<view class="r_block_old_price">¥{{item.original_price}}</view>
 								</view>
