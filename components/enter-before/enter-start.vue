@@ -208,15 +208,14 @@
 				}).
 				then(function(res) {
 					if (res.code == 0) {
-						that.alert(res.msg)
+						that.$http.toast(res.msg)
 						setTimeout(function() {
 							uni.reLaunch({
 								url: "/pages/index/index"
 							})
 						}, 2000)
-
 					} else {
-						that.alert(res.msg)
+						that.$http.toast(res.msg)
 					}
 				})
 			},
