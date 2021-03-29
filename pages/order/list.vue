@@ -10,7 +10,9 @@
 						<view class="tui-goods-title">
 							<view class="logo" @tap="toShop(model.mch_id)">
 								<!-- <span :style="`background-image:url(${})`"></span> -->
-								<image class="img" lazy-load="true" :src="url+'/images/shop/shoplogo.png'" mode="aspectFill"></image>
+								<image class="img" lazy-load="true" 
+								:src="model.mch_info.cover_url?model.mch_info.cover_url:url+'/shoplogo.png'" 
+								mode="aspectFill"></image>
 								<span class="name">{{model.mch_info.name?model.mch_info.name:'名媛日记官方商城'}}</span>
 								<view class="toright"></view>
 							</view>
@@ -99,7 +101,7 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
-				url:this.$api.test_url,
+				url:this.$api.img_url,
 				textColor:'#bc0100',
 				tabBar: null,
 				tabs: [{
@@ -142,6 +144,7 @@
 			}
 		},
 		onLoad(options) {
+			console.log(this.url)
 			if(uni.getStorageSync('mall_config')){
 				this.textColor = this.globalSet('textCol');
 			}
@@ -311,6 +314,7 @@
 						} = res.data;
 						
 						this.dataList = key != 'refresh' ? this.dataList.concat(list) : list; // key != refresh 则是加载下一页数据
+						console.log(this.dataList)
 						this.pages = pagination;
 						this.pullUpOn = true;
 					}
