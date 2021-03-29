@@ -708,7 +708,8 @@
 		    {
 		        "navigationBarTitleText": "核销进度",
 				"navigationBarBackgroundColor": "#fff",
-		        "enablePullDownRefresh": false
+		        "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
 		    }
 		    
 		}

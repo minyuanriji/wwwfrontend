@@ -1,5 +1,6 @@
 <template>
 	<view class="more-shop" v-if="show">
+		<com-nav-bar left-icon="back" :title="title" @clickLeft="back"></com-nav-bar>
 		<view class="success_message" v-if="flag">
 			<view class="zhanwei"></view>
 			<view class="success_message_goods">
@@ -42,7 +43,8 @@
 				success:'',
 				goodinfo:{},
 				flag:true,
-				show:false
+				show:false,
+				title:'核销进度'
 			}
 		},
 		onLoad(options) {
@@ -73,8 +75,11 @@
 						that.flag=false
 						that.show=true
 						setTimeout(function(){
-							uni.redirectTo({
-								url:'../personalCentre/accountingOrder/accountingOrder'
+							// uni.redirectTo({
+							// 	url:'../personalCentre/accountingOrder/accountingOrder'
+							// })
+							uni.navigateBack({
+								delta:1
 							})
 						},2000)
 					}
@@ -85,6 +90,11 @@
 			gointo(){
 				uni.navigateTo({
 					url:'../personalCentre/accountingOrder/accountingOrder'
+				})
+			},
+			back(){
+				uni.navigateBack({
+					delta:1
 				})
 			}
 		}
