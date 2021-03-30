@@ -10,7 +10,7 @@
 				</view>
 				<input class="content_body_block_input" v-model="params.name"></input>
 			</view>
-			<view class="content_body_block">
+			<!-- <view class="content_body_block">
 				<view class="content_body_block_t">2、店铺地址</view>
 				<view class="content_body_block_desc" @tap="chooseAddress">
 					打开<text :style="{color: background}">GPS,点击此处</text>
@@ -20,16 +20,16 @@
 					<view class="iconfont icondingwei" :style="{color: background}"></view>
 					<view class="content_body_block_b_input">{{params.address}}</view>
 				</view>
-			</view>
+			</view> -->
 			<view class="content_body_block">
-				<view class="content_body_block_t">3、申请人姓名</view>
+				<view class="content_body_block_t">2、申请人姓名</view>
 				<view class="content_body_block_desc">
 					请填写你的<text :style="{color: background}">真实姓名</text>
 				</view>
 				<input class="content_body_block_input" v-model="params.realname"></input>
 			</view>
 			<view class="content_body_block">
-				<view class="content_body_block_t">4、申请人手机号</view>
+				<view class="content_body_block_t">3、申请人手机号</view>
 				<view class="content_body_block_desc">
 					手机号码共<text :style="{color: background}">11</text>位<text :style="{color: background}">数字</text>。其他为无效输入
 				</view>
@@ -61,7 +61,7 @@
 				</view>
 			</view> -->
 			<view class="content_body_block">
-				<view class="content_body_block_t">5、店铺消费类型</view>
+				<view class="content_body_block_t">4、店铺消费类型</view>
 				<view class="content_body_block_desc">
 					选择你的店铺的消费类型，以方便消费者快速搜索到你的店铺。
 				</view>
@@ -137,7 +137,7 @@
 			sumbit: function() {
 				var params = this.params
 				if (!params['name']) return this.alert('请输入店铺名称')
-				if (!params['address']) return this.alert('请选择店铺地址')
+				// if (!params['address']) return this.alert('请选择店铺地址')
 				if (!params['realname']) return this.alert('请填写您的真实姓名')
 				if (!params['mobile']) return this.alert('请填写您的手机号')
 				if (!params['mobile'].match(/1\d{10}/)) return this.alert('手机号错误')
@@ -153,10 +153,10 @@
 					'\r\nContent-Disposition: form-data; name="mobile"' +
 					'\r\n' +
 					'\r\n'+params['mobile']+
-					'\r\n--XXX' +
-					'\r\nContent-Disposition: form-data; name="address"' +
-					'\r\n' +
-					'\r\n'+params['address']+
+					// '\r\n--XXX' +
+					// '\r\nContent-Disposition: form-data; name="address"' +
+					// '\r\n' +
+					// '\r\n'+params['address']+
 					'\r\n--XXX' +
 					'\r\nContent-Disposition: form-data; name="realname"' +
 					'\r\n' +
@@ -177,26 +177,26 @@
 					// '\r\nContent-Disposition: form-data; name="pic_business_license"' +
 					// '\r\n' +
 					// '\r\n'+params['pic_business_license']+
-					'\r\n--XXX' +
-					'\r\nContent-Disposition: form-data; name="province_id"' +
-					'\r\n' +
-					'\r\n'+params['province_id']+
-					'\r\n--XXX' +
-					'\r\nContent-Disposition: form-data; name="city_id"' +
-					'\r\n' +
-					'\r\n'+params['city_id']+
-					'\r\n--XXX' +
-					'\r\nContent-Disposition: form-data; name="district_id"' +
-					'\r\n' +
-					'\r\n'+params['district_id']+
-					'\r\n--XXX' +
-					'\r\nContent-Disposition: form-data; name="longitude"' +
-					'\r\n' +
-					'\r\n'+params['longitude']+
-					'\r\n--XXX' +
-					'\r\nContent-Disposition: form-data; name="latitude"' +
-					'\r\n' +
-					'\r\n'+params['latitude']+
+					// '\r\n--XXX' +
+					// '\r\nContent-Disposition: form-data; name="province_id"' +
+					// '\r\n' +
+					// '\r\n'+params['province_id']+
+					// '\r\n--XXX' +
+					// '\r\nContent-Disposition: form-data; name="city_id"' +
+					// '\r\n' +
+					// '\r\n'+params['city_id']+
+					// '\r\n--XXX' +
+					// '\r\nContent-Disposition: form-data; name="district_id"' +
+					// '\r\n' +
+					// '\r\n'+params['district_id']+
+					// '\r\n--XXX' +
+					// '\r\nContent-Disposition: form-data; name="longitude"' +
+					// '\r\n' +
+					// '\r\n'+params['longitude']+
+					// '\r\n--XXX' +
+					// '\r\nContent-Disposition: form-data; name="latitude"' +
+					// '\r\n' +
+					// '\r\n'+params['latitude']+
 					'\r\n--XXX' +
 					'\r\nContent-Disposition: form-data; name="cat_id"' +
 					'\r\n' +

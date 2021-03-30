@@ -14,7 +14,7 @@
 							  <view class="content_body_block_r_b">请输入您线下店铺的名称</view>
 						 </view>
 					 </view>
-					 <view class="content_body_block">
+					<!-- <view class="content_body_block">
 						 <view class="content_body_block_l">
 							 <view class="content_body_block_l_t1">
 								 <view class="content_body_block_l_t" :style="{background:background}">实例</view>
@@ -25,7 +25,7 @@
 							  <view class="content_body_block_r_t">2、店铺地址</view>
 							  <view class="content_body_block_r_b">打开GPS,获取你的店铺地理位置</view>
 						 </view>
-					 </view>
+					 </view> -->
 					 <view class="content_body_block">
 						 <view class="content_body_block_l">
 							 <view class="content_body_block_l_t1">
@@ -34,7 +34,7 @@
 							 <view class="content_body_block_l_b">张富贵</view>
 						 </view>
 						 <view class="content_body_block_r">
-							  <view class="content_body_block_r_t">3、申请人姓名</view>
+							  <view class="content_body_block_r_t">2、申请人姓名</view>
 							  <view class="content_body_block_r_b">请填写你的真实姓名</view>
 						 </view>
 					 </view>
@@ -46,7 +46,7 @@
 							 <view class="content_body_block_l_b">130608XXXXX888</view>
 						 </view>
 						 <view class="content_body_block_r">
-							  <view class="content_body_block_r_t">4、申请人手机号</view>
+							  <view class="content_body_block_r_t">3、申请人手机号</view>
 							  <view class="content_body_block_r_b">手机号码共11位数字。其他为无效输入.</view>
 						 </view>
 					 </view>
@@ -83,7 +83,7 @@
 								 
 							 </view>
 							 <view class="content_body_block_r">
-								  <view class="content_body_block_r_t">5、店铺消费类型</view>
+								  <view class="content_body_block_r_t">4、店铺消费类型</view>
 								  <view class="content_body_block_r_b">选择你的店铺的消费类型，以方便消费者快速搜索到你的店铺</view>
 							 </view>
 					 </view>
