@@ -17,14 +17,13 @@
 		
 		<view class="order-num" v-if="orderData.express_no">物流单号：{{orderData.express_no}}</view>
 		</block>
-		<block v-if="orderData.express_no">
+		<!-- <block v-if="orderData.express_no"> -->
+		<block>
 			<view class="logistics-overview">
 				<view class="center">
-					<view class="circle-box flex flex-y-center flex-x-center" v-for="(itemS,indexS) in status_list" :style="{left:distance(indexS)}">
-						<view class="circle" :class="{'col':indexS == logistics_data.State}" :style="{'--textColor':indexS == logistics_data.State?textColor:'red'}"></view>
-						<view class="status" :class="{'text-col':indexS == logistics_data.State}" :style="{'--textColor':indexS == logistics_data.State?textColor:'red'}">{{itemS}}</view>
-						<!-- <view class='city' v-if="indexS == 0">广州市</view>
-						<view class='city' v-if="indexS == 3">杭州市</view> -->
+					<view class="circle-box flex flex-y-center flex-x-center"   v-for="(itemS,indexS) in status_list" :style="{left:distance(indexS)}">
+						<view class="circle" :class="indexS==logistics_data?'active':'actove'"></view>
+						<view class="status" :class="indexS==logistics_data?'activestatus':'actovestatus'">{{itemS}}</view>
 					</view>
 				</view>
 			</view>
@@ -49,7 +48,7 @@
 			</block>
 		</block>
 		
-		<view class="nomore" v-else>暂无物流信息</view>
+		<!-- <view class="nomore" v-else>暂无物流信息</view> -->
 		
 	</view>
 </template>
@@ -63,17 +62,17 @@
 		data() {
 			return {
 				orderData: '',
-				status_list:['待发货','已收件','在途中','已签收'],
+				status_list:['待发货','已下单给品牌方','已揽件','运输中','已签收'],
 				status_index:2,
 				logistics_data:'',
 				logistics_order:'',
-				textColor:''
+				textColor:'',
 			}
 		},
 		computed:{
 			distance(){
 				return function(index){
-					var left = 174 * index;
+					var left = 154 * index;
 					return left + 'rpx';
 				}
 			},
@@ -108,6 +107,7 @@
 					if (res.code === 0) {
 						this.orderData = res.data.detail;
 						this.orderData.express_no == '' || this.getlogistics(res.data.detail);
+						this.logistics_data=1
 					}
 				})
 			},
@@ -186,10 +186,10 @@
 	
 	
 	.logistics-overview{
-		padding: 82rpx 70rpx;
+		padding: 82rpx 55rpx;
 		
 		.center{
-			margin: 26rpx 30rpx;
+			margin: 26rpx 0rpx;
 			height: 6rpx;
 			background: #999;
 			position: relative;
@@ -209,13 +209,47 @@
 					border-radius: 50%;
 					background: #999;
 				}
+				.active{
+					width: 20rpx;
+					height: 20rpx;
+					border-radius: 50%;
+					background: #16AB60;
+				}
+				.actove{
+					width: 20rpx;
+					height: 20rpx;
+					border-radius: 50%;
+					background: #999;
+				}
+				
+				
+				
 				.status{
-					width: 86rpx;
+					width: 120rpx;
 					letter-spacing: 2rpx;
 					font-size: 26rpx;
 					color: #999;
 					position: absolute;
-					top: -50rpx;
+					top: -80rpx;
+					text-align: center;
+				}
+				.activestatus{
+					width: 120rpx;
+					letter-spacing: 2rpx;
+					font-size: 26rpx;
+					color: #16AB60;
+					position: absolute;
+					top: -80rpx;
+					text-align: center;
+				}
+				.actovestatus{
+					width: 120rpx;
+					letter-spacing: 2rpx;
+					font-size: 26rpx;
+					color: #999;
+					position: absolute;
+					top: -80rpx;
+					text-align: center;
 				}
 				.col{
 					background: var(--textColor);
@@ -226,7 +260,7 @@
 					color: #FFFFFF;
 					font-size: 28rpx;
 					border-radius: 30rpx;
-					width: 130rpx;
+					width: 100rpx;
 					text-align: center;
 					height: 50rpx;
 					line-height: 50rpx;
@@ -256,7 +290,7 @@
 				}
 			}
 		}
-	}
+	}	
 	
 	.logistics-msg{
 		padding: 30rpx 38rpx;
@@ -305,7 +339,7 @@
 	}
 	
 	.order-num{
-		padding: 20rpx 30rpx 10rpx;
+		padding: 20rpx 30rpx 30rpx;
 		font-size: 30rpx;
 	}
 	
@@ -316,5 +350,8 @@
 	.logisticsOrder{
 		text-align: center;
 		letter-spacing: 1px;
+	}
+	.acive{
+		background: #16AB60;
 	}
 </style>
