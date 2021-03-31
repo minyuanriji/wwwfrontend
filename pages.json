@@ -777,6 +777,39 @@
             }
             
         }
+        ,{
+            "path" : "pages/personalCentre/installCenter/installCenter",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商户设置中心",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/personalCentre/installCenter/accountSetting/accountSetting",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "帐号设置",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/personalCentre/shopSetting/shopSetting",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "店铺设置",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",

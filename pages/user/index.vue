@@ -2,16 +2,16 @@
 	<view class="app">
 		<main-tabbar></main-tabbar>
 		<!--header-->
-		<view class="jx-header-box" v-if="opcity > 0" :style="{ height: height + 'px', background: 'rgba(255,255,255,' + opcity + ')' }">
+		<!-- <view class="jx-header-box" v-if="opcity > 0" :style="{ height: height + 'px', background: 'rgba(255,255,255,' + opcity + ')' }">
 			<view class="jx-header" :style="{ paddingTop: top + 'px', opacity: opcity }">我的</view>
-			<!-- #ifndef MP -->
-			<!-- <view class="jx-header-icon" :style="{ marginTop: top + 'px' }">
+			#ifndef MP
+			<view class="jx-header-icon" :style="{ marginTop: top + 'px' }">
 				<view class="jx-icon-box" @tap="href(2)">
 					<view class="icon iconfont icon-shezhi" :style="{ color: opcity > 0.02 ? `rgba(85,85,85,${opcity})` : '#fff' }"></view>
 				</view>
-			</view> -->
-			<!-- #endif -->
-		</view>
+			</view> 
+			 #endif 
+		</view> -->
 		
 		<!--header-->
 		<view class="jx-mybg-box">

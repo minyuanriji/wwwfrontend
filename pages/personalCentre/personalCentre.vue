@@ -75,14 +75,20 @@
 				</view>
 			</jx-list-cell>
 		</view>
-		<view class="personalCenter-item" style="margin-bottom: 100rpx;">
+		<view class="personalCenter-item">
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(3)">
 				<view class="jx-cell-header" style="height: 100rpx;">
 					<view class="jx-cell-title" style="font-weight: 700;">核销订单</view>
 				</view>
 			</jx-list-cell>
 		</view>
-		
+		<view class="personalCenter-item" style="margin-bottom: 100rpx;">
+			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(4)">
+				<view class="jx-cell-header" style="height: 100rpx;">
+					<view class="jx-cell-title" style="font-weight: 700;">商户设置</view>
+				</view>
+			</jx-list-cell>
+		</view>
 		<!-- <view class="jx-content-box">
 			<view class="jx-header-btm">
 				<view class="jx-btm-item" @click="href(5)">
@@ -239,19 +245,19 @@
 				}
 				if(page==4){
 					uni.navigateTo({
-						url:'./personalCentreSET/personalCentreSET'
+						url:'./installCenter/installCenter'
 					})
 				}
-				if(page==5){
-					uni.navigateTo({
-						url:'./mongeyDetail/mongeyDetail'
-					})
-				}
-				if(page==6){
-					uni.navigateTo({
-						url:'./withdrawal/withdrawal'
-					})
-				}
+				// if(page==5){
+				// 	uni.navigateTo({
+				// 		url:'./mongeyDetail/mongeyDetail'
+				// 	})
+				// }
+				// if(page==6){
+				// 	uni.navigateTo({
+				// 		url:'./withdrawal/withdrawal'
+				// 	})
+				// }
 			},
 			poster(key) {
 				if (key == -1) {
