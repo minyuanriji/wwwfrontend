@@ -21,7 +21,7 @@
 		<view class="items" v-else><main-nomore text="暂无记录" :visible="true" bgcolor="transparent"></main-nomore></view>
 
 		<!--加载loadding-->
-		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
+	<!-- 	<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore> -->
 		<!-- 没有更多了-->
 		<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
 		<!-- 正在加载 -->
@@ -58,18 +58,19 @@ export default {
 			return type == 1 ? `+${data}` : `-${data}`;
 		},
 		getDateList() {	
-			this.loadding=true
+			// this.loadding=true
 			this.$http
 				.request({
 					url: this.$api.moreShop.getaccountList,
 					method: 'POST',
 					data: {
 						page:this.page,
-					}
+					},
+					showLoading: true,
 				})
 				.then(res => {
 					if (res.code === 0) {
-						if(res.data.list.length==0) return false
+						if(res.data.list.length==0)return false
 						let list= res.data.list;
 						var arr=this.dataList.concat(list)
 						this.dataList =arr
@@ -81,14 +82,14 @@ export default {
 		tabbleCheck(index){
 			this.switchIndex=index
 			if(index==1){
-				this.loadding=false,
+				// this.loadding=false,
 				this.pullUpOn=true,
 				this.dataList=[],
 				this.pages=1
 				this.getDateList();
 			}
 			if(index==2){
-				this.loadding=false,
+				// this.loadding=false,
 				this.pullUpOn=true,
 				this.dataList=[],
 				this.pages=1

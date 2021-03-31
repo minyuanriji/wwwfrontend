@@ -38,7 +38,7 @@
 				</view>
 				<view class="jx-btm-item last">
 					<text style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;margin-bottom: 20rpx;" @click="href(5)">明细</text>
-					<text style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;">提现</text>
+					<text style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;" @click="href(6)">提现</text>
 				</view>
 			</view>
 		</view>		
@@ -245,6 +245,11 @@
 				if(page==5){
 					uni.navigateTo({
 						url:'./mongeyDetail/mongeyDetail'
+					})
+				}
+				if(page==6){
+					uni.navigateTo({
+						url:'./withdrawal/withdrawal'
 					})
 				}
 			},
