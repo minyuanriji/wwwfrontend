@@ -11,22 +11,22 @@
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>商户类型</text>
 				</view>
-				<input type="text" v-model="userType" placeholder="请选择" @click="popupShow=true" disabled/>
+				<input type="text" v-model="userType" placeholder="请选择" @click="popupShow=true" disabled />
 				<!-- <image src="../../static/img/sanjia.png" mode="" class="logo"></image> -->
 			</view>
-			<view class="item" v-if="flag">
+			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>营业执照号</text>
 				</view>
 				<input type="text" v-model="form.paper_businessLicenseCode" placeholder="请填写" />
 			</view>
-			<view class="item" v-if="flag">
+			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>商户经营名称</text>
 				</view>
 				<input type="text" v-model="form.paper_businessLicenseName" placeholder="请填写" />
 			</view>
-			<view class="item" v-if="flag">
+			<view class="item">
 				<view class="item_title">
 					<text style="margin-top: 10rpx;">营业执照有效日期</text>
 					<text>(截止)</text>
@@ -36,7 +36,7 @@
 				</picker>
 				<!-- <input type="text" v-model="time" placeholder="请填写"/> -->
 			</view>
-			<view class="content_body_block" v-if="flag"> 
+			<view class="content_body_block">
 				<view class="content_body_block_desc">
 					需提供有效的营业执照，或其他监部门认可的具有与营业执照同等法律效力的证件。
 				</view>
@@ -53,25 +53,25 @@
 				</view>
 				<input type="text" v-model="form.paper_shortName" placeholder="请填写" />
 			</view>
-			<view class="item" v-if="flag">
+			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>营业执照类型</text>
 				</view>
-				<input type="text" value="" placeholder="三证合一" />
+				<input type="text" value="" placeholder="三证合一" disabled />
 			</view>
-			<view class="item" v-if="flag">
+			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>法人姓名</text>
 				</view>
 				<input type="text" v-model="form.paper_lawyerName" placeholder="请填写" />
 			</view>
-			<view class="item" v-if="flag">
+			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>经营范围</text>
 				</view>
 				<input type="text" v-model="form.paper_businessScope" placeholder="请填写" />
 			</view>
-			<view class="item" v-if="flag">
+			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>注册地址</text>
 				</view>
@@ -86,19 +86,19 @@
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>证件类型</text>
 				</view>
-				<input type="text" placeholder="身份证" disabled/>			
+				<input type="text" placeholder="身份证" disabled />
 			</view>
 			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>证件号码</text>
 				</view>
-				<input type="text"  v-model="datatwo.paper_lawyerCertNo" placeholder="请填写"/>			
+				<input type="text" v-model="datatwo.paper_lawyerCertNo" placeholder="请填写" />
 			</view>
 			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>证件人姓名</text>
 				</view>
-				<input type="text" placeholder="请填写" v-model="datatwo.paper_certificateName"/>			
+				<input type="text" placeholder="请填写" v-model="datatwo.paper_certificateName" />
 			</view>
 			<view class="item">
 				<view class="item_title">
@@ -135,20 +135,20 @@
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>结算账户类型</text>
 				</view>
-				<input type="text"  placeholder="请选择" @click="bankShow=true" v-model="userbanktype" disabled/>
-			<!-- 	<image src="../../static/img/sanjia.png" mode="" class="logo"></image> -->
+				<input type="text" placeholder="请选择" @click="bankShow=true" v-model="userbanktype" disabled />
+				<!-- 	<image src="../../static/img/sanjia.png" mode="" class="logo"></image> -->
 			</view>
 			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>结算账户号</text>
 				</view>
-				<input type="text"  placeholder="请填写" v-model="datathree.paper_settleAccountNo"/>
+				<input type="text" placeholder="请填写" v-model="datathree.paper_settleAccountNo" />
 			</view>
 			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>结算账户名</text>
 				</view>
-				<input type="text"  placeholder="请填写" v-model="datathree.paper_settleAccount"/>
+				<input type="text" placeholder="请填写" v-model="datathree.paper_settleAccount" />
 			</view>
 			<!-- <view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
@@ -161,21 +161,21 @@
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>开户银行</text>
 				</view>
-				<input type="text"  placeholder="请填写" v-model="datathree.paper_openBank"/>
+				<input type="text" placeholder="请填写" v-model="datathree.paper_openBank" />
 			</view>
 			<view class="item" v-if="flags">
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>开户支行</text>
 				</view>
-				<input type="text"  placeholder="请填写" v-model="datathree.paper_openSubBank"/>
+				<input type="text" placeholder="请填写" v-model="datathree.paper_openSubBank" />
 			</view>
 			<view class="item" v-if="flags">
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>开户行联行号</text>
 				</view>
-				<input type="text"  placeholder="请填写" v-model="datathree.paper_openBankCode"/>
+				<input type="text" placeholder="请填写" v-model="datathree.paper_openBankCode" />
 			</view>
-			<view class="content_body_block" v-if="enclosure">
+			<!-- <view class="content_body_block">
 				<view class="content_body_block_t">结算账户附件</view>
 				<view class="content_body_block_bb1">
 					<view class="content_body_block_bb_l2">
@@ -183,7 +183,7 @@
 						<view>附件照片</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			<view class="type-one-Up-down">
 				<text @click="goBack(2)">上一页</text>
 				<text style="background: #19BE6B;color: white;" @click="savethree">提交</text>
@@ -213,23 +213,23 @@
 </template>
 
 <script>
-	import {isEmpty}  from '../../common/validate.js'
+	import {
+		isEmpty
+	} from '../../common/validate.js'
 	export default {
 		data() {
 			const currentDate = this.getDate({
 				format: true
 			})
 			return {
-				typeone:true,//步骤一
-				typetwo:false,//步骤二
-				typethree:false,//步骤三	
-				typefourth:false,//步骤四						
-				popupShow: false,//商户类型弹窗
-				bankShow:false,//结算账户类型弹窗
-				flag: true, //选择个人后控制显示影藏
+				typeone: true, //步骤一
+				typetwo: false, //步骤二
+				typethree: false, //步骤三	
+				typefourth: false, //步骤四						
+				popupShow: false, //商户类型弹窗
+				bankShow: false, //结算账户类型弹窗
 				flags: true, //选择对公账户后控制显示影藏
-				enclosure:false,//结算账户附件
-				shoptype: [{  //商户类型
+				shoptype: [{ //商户类型
 						name: '个体',
 						num: 1
 					},
@@ -237,27 +237,19 @@
 						name: '企业',
 						num: 2
 					},
-					{
-						name: '个人',
-						num: 3
-					},
+					// {
+					// 	name: '个人',
+					// 	num: 3
+					// },
 				],
-				banktype: [{  //结算账户类型
+				banktype: [{ //结算账户类型
 						name: '对公账户',
 						num: 1
 					},
 					{
-						name: '法人',
+						name: '对私账户',
 						num: 2
 					},
-					{
-						name: '授权对公',
-						num: 3
-					},
-					{
-						name: '授权对私',
-						num: 4
-					}
 				],
 				params: { //图片上传回显
 					pic_id_card_front: this.$api.test_url + "/images/shop/sfz_zm.png",
@@ -265,9 +257,9 @@
 					pic_business_license: this.$api.test_url + "/images/shop/yyzz2.png",
 					pic_settlement: this.$api.test_url + "/images/shop/settlement.png"
 				},
-				userType: '',//选择类型
-				userbanktype:'',//选择的结算账户类型
-				time: '',//时间
+				userType: '', //选择类型
+				userbanktype: '', //选择的结算账户类型
+				time: '', //时间
 				form: { //商户类型参数
 					paper_merchantType: '',
 					paper_shortName: '',
@@ -279,24 +271,24 @@
 					paper_businessScope: '',
 					paper_registerAddress: '',
 				},
-				date: currentDate,//营业执照有效期
-				dateTwo:currentDate,//身份证有效期
-				datatwo:{ //实名认证参数
-					paper_lawyerCertNo:'',
-					paper_lawyerCertPhotoFront:'',
-					paper_lawyerCertPhotoBack:'',
-					paper_certificateName:'',
-					paper_certificateTo:currentDate,
+				date: currentDate, //营业执照有效期
+				dateTwo: currentDate, //身份证有效期
+				datatwo: { //实名认证参数
+					paper_lawyerCertNo: '',
+					paper_lawyerCertPhotoFront: '',
+					paper_lawyerCertPhotoBack: '',
+					paper_certificateName: '',
+					paper_certificateTo: currentDate,
 				},
-				datathree:{ //结算类型参数
-					paper_settleAccountType:'',
-					paper_settleAccountNo:'',
-					paper_settleAccount:'',
-					paper_openBank:'',
-					paper_openSubBank:'',
-					paper_openBankCode:'',
-					paper_settleAttachment:''
-				},				
+				datathree: { //结算类型参数
+					paper_settleAccountType: '',
+					paper_settleAccountNo: '',
+					paper_settleAccount: '',
+					paper_openBank: '',
+					paper_openSubBank: '',
+					paper_openBankCode: '',
+					paper_settleAttachment: ''
+				},
 			}
 		},
 		computed: {
@@ -308,11 +300,11 @@
 			}
 		},
 		onLoad(options) {
-			if(options&&options.status==1){
-				this.typeone=false//步骤一
-				this.typetwo=false//步骤二
-				this.typethree=false//步骤三	
-				this.typefourth=true//步骤四	
+			if (options && options.status == 1) {
+				this.typeone = false //步骤一
+				this.typetwo = false //步骤二
+				this.typethree = false //步骤三	
+				this.typefourth = true //步骤四	
 			}
 			this.$http
 				.request({
@@ -321,62 +313,58 @@
 					showLoading: true
 				})
 				.then(res => {
-					if(res.code==0){
-						var totalMessage=res.data.detail
-						this.form.paper_merchantType=totalMessage.paper_merchantType
-						if(totalMessage.paper_merchantType==3){
-							this.flag=false
-						}
-						for(let i=0;i<this.shoptype.length;i++){
-							if(this.shoptype[i].num==totalMessage.paper_merchantType){
-								this.userType = this.shoptype[i].name							
+					if (res.code == 0) {
+						var totalMessage = res.data.detail
+						this.form.paper_merchantType = totalMessage.paper_merchantType
+						for (let i = 0; i < this.shoptype.length; i++) {
+							if (this.shoptype[i].num == totalMessage.paper_merchantType) {
+								this.userType = this.shoptype[i].name
 							}
 						}
-						this.form.paper_shortName=totalMessage.paper_shortName
-						this.form.paper_businessLicenseCode=totalMessage.paper_businessLicenseCode
-						this.form.paper_businessLicenseName=totalMessage.paper_businessLicenseName
-						this.form.paper_businessLicensePhoto=totalMessage.paper_businessLicensePhoto
-						this.params.pic_business_license =totalMessage.paper_businessLicensePhoto
-						this.form.paper_businessLicenseTo=totalMessage.paper_businessLicenseTo.split(' ')[0]
-						this.form.paper_lawyerName=totalMessage.paper_lawyerName
-						this.form.paper_businessScope=totalMessage.paper_businessScope
-						this.form.paper_registerAddress=totalMessage.paper_registerAddress
+						this.form.paper_shortName = totalMessage.paper_shortName
+						this.form.paper_businessLicenseCode = totalMessage.paper_businessLicenseCode
+						this.form.paper_businessLicenseName = totalMessage.paper_businessLicenseName
+						this.form.paper_businessLicensePhoto = totalMessage.paper_businessLicensePhoto
+						this.params.pic_business_license = totalMessage.paper_businessLicensePhoto
+						this.form.paper_businessLicenseTo = totalMessage.paper_businessLicenseTo.split(' ')[0]
+						this.form.paper_lawyerName = totalMessage.paper_lawyerName
+						this.form.paper_businessScope = totalMessage.paper_businessScope
+						this.form.paper_registerAddress = totalMessage.paper_registerAddress
 						//-------------------------------------上面是商户类型参数
-						this.datatwo.paper_lawyerCertNo=totalMessage.paper_lawyerCertNo
-						this.datatwo.paper_certificateName=totalMessage.paper_certificateName
-						this.datatwo.paper_lawyerCertPhotoFront=totalMessage.paper_lawyerCertPhotoFront
-						this.params.pic_id_card_front =totalMessage.paper_lawyerCertPhotoFront
-						this.datatwo.paper_lawyerCertPhotoBack=totalMessage.paper_lawyerCertPhotoBack
-						this.params.pic_id_card_back =totalMessage.paper_lawyerCertPhotoBack
-						this.datatwo.paper_certificateTo=totalMessage.paper_certificateTo.split(' ')[0]
+						this.datatwo.paper_lawyerCertNo = totalMessage.paper_lawyerCertNo
+						this.datatwo.paper_certificateName = totalMessage.paper_certificateName
+						this.datatwo.paper_lawyerCertPhotoFront = totalMessage.paper_lawyerCertPhotoFront
+						this.params.pic_id_card_front = totalMessage.paper_lawyerCertPhotoFront
+						this.datatwo.paper_lawyerCertPhotoBack = totalMessage.paper_lawyerCertPhotoBack
+						this.params.pic_id_card_back = totalMessage.paper_lawyerCertPhotoBack
+						this.datatwo.paper_certificateTo = totalMessage.paper_certificateTo.split(' ')[0]
 						//-------------------------------------上面是实名认证参数
-						this.datathree.paper_settleAccountType=totalMessage.paper_settleAccountType
-						if(totalMessage.paper_settleAccountType==3||totalMessage.paper_settleAccountType==4){
-							this.flags=false
-							this.enclosure=true
+						this.datathree.paper_settleAccountType = totalMessage.paper_settleAccountType
+						if (totalMessage.paper_settleAccountType == 2) {
+							this.flags = false
 						}
-						for(let i=0;i<this.banktype.length;i++){
-							if(this.banktype[i].num==totalMessage.paper_settleAccountType){
-								this.userbanktype = this.banktype[i].name							
+						for (let i = 0; i < this.banktype.length; i++) {
+							if (this.banktype[i].num == totalMessage.paper_settleAccountType) {
+								this.userbanktype = this.banktype[i].name
 							}
 						}
-						this.datathree.paper_settleAccountNo=totalMessage.paper_settleAccountNo
-						this.datathree.paper_settleAccount=totalMessage.paper_settleAccount
-						this.datathree.paper_openBank=totalMessage.paper_openBank
-						this.datathree.paper_openSubBank=totalMessage.paper_openSubBank
-						this.datathree.paper_openBankCode=totalMessage.paper_openBankCode
-						this.datathree.paper_settleAttachment=totalMessage.paper_settleAttachment
-						this.params.pic_settlement =totalMessage.paper_settleAttachment
+						this.datathree.paper_settleAccountNo = totalMessage.paper_settleAccountNo
+						this.datathree.paper_settleAccount = totalMessage.paper_settleAccount
+						this.datathree.paper_openBank = totalMessage.paper_openBank
+						this.datathree.paper_openSubBank = totalMessage.paper_openSubBank
+						this.datathree.paper_openBankCode = totalMessage.paper_openBankCode
+						this.datathree.paper_settleAttachment = totalMessage.paper_settleAttachment
+						this.params.pic_settlement = totalMessage.paper_settleAttachment
 						//---------------------------------------上面是结算类型参数
 					}
-				});	
+				});
 		},
 		methods: {
 			hidePopup(index) { //底部弹窗显示隐藏
-				if(index==1){ //商户类型
+				if (index == 1) { //商户类型
 					this.popupShow = false
 				}
-				if(index==2){ //结算账户类型
+				if (index == 2) { //结算账户类型
 					this.bankShow = false
 				}
 			},
@@ -384,29 +372,19 @@
 				this.userType = name
 				this.form.paper_merchantType = index
 				this.popupShow = false
-				if (index == 3) {
-					this.flag = false
-				} else {
-					this.flag = true
-				}
 			},
 			choosebank(index, name) { //选择结算账户类型
 				this.userbanktype = name
-				this.datathree.paper_settleAccountType=index
+				this.datathree.paper_settleAccountType = index
 				this.bankShow = false
-				if(index==1){
-					this.flags=true
-				}else{
-					this.flags=false
+				if (index == 1) {
+					this.flags = true
+				} else {
+					this.flags = false
 				}
-				if(index==3||index==4){
-					this.enclosure=true
-				}else{
-					this.enclosure=false
-				}
-			},						
+			},
 			saveone() { // 保存第一步
-				if (isEmpty(this.form.paper_merchantType)){
+				if (isEmpty(this.form.paper_merchantType)) {
 					uni.showToast({
 						title: '请选择商户类型',
 						icon: 'none'
@@ -416,89 +394,76 @@
 					}, 2000);
 					return
 				}
-				if (this.form.paper_merchantType == 1 || this.form.paper_merchantType == 2) {
-					if (isEmpty(this.form.paper_businessLicenseCode)) {
-						uni.showToast({
-							title: '请填写营业执照号',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (isEmpty(this.form.paper_businessLicenseName)) {
-						uni.showToast({
-							title: '请填写商户经营名称',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (isEmpty(this.form.paper_businessLicensePhoto)) {
-						uni.showToast({
-							title: '请上传营业执照',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (isEmpty(this.form.paper_shortName)) {
-						uni.showToast({
-							title: '请填写商户简称',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (isEmpty(this.form.paper_lawyerName)) {
-						uni.showToast({
-							title: '请填写法人姓名',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (isEmpty(this.form.paper_businessScope)) {
-						uni.showToast({
-							title: '请填写经营范围',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (isEmpty(this.form.paper_registerAddress)) {
-						uni.showToast({
-							title: '请填写注册地址',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
+
+				if (isEmpty(this.form.paper_businessLicenseCode)) {
+					uni.showToast({
+						title: '请填写营业执照号',
+						icon: 'none'
+					});
+					setTimeout(function() {
+						uni.hideToast();
+					}, 2000);
+					return
 				}
-				if (this.form.paper_merchantType == 3) {
-					if (isEmpty(this.form.paper_shortName)) {
-						uni.showToast({
-							title: '请填写商户简称',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
+				if (isEmpty(this.form.paper_businessLicenseName)) {
+					uni.showToast({
+						title: '请填写商户经营名称',
+						icon: 'none'
+					});
+					setTimeout(function() {
+						uni.hideToast();
+					}, 2000);
+					return
+				}
+				if (isEmpty(this.form.paper_businessLicensePhoto)) {
+					uni.showToast({
+						title: '请上传营业执照',
+						icon: 'none'
+					});
+					setTimeout(function() {
+						uni.hideToast();
+					}, 2000);
+					return
+				}
+				if (isEmpty(this.form.paper_shortName)) {
+					uni.showToast({
+						title: '请填写商户简称',
+						icon: 'none'
+					});
+					setTimeout(function() {
+						uni.hideToast();
+					}, 2000);
+					return
+				}
+				if (isEmpty(this.form.paper_lawyerName)) {
+					uni.showToast({
+						title: '请填写法人姓名',
+						icon: 'none'
+					});
+					setTimeout(function() {
+						uni.hideToast();
+					}, 2000);
+					return
+				}
+				if (isEmpty(this.form.paper_businessScope)) {
+					uni.showToast({
+						title: '请填写经营范围',
+						icon: 'none'
+					});
+					setTimeout(function() {
+						uni.hideToast();
+					}, 2000);
+					return
+				}
+				if (isEmpty(this.form.paper_registerAddress)) {
+					uni.showToast({
+						title: '请填写注册地址',
+						icon: 'none'
+					});
+					setTimeout(function() {
+						uni.hideToast();
+					}, 2000);
+					return
 				}
 				this.$http
 					.request({
@@ -508,10 +473,10 @@
 						showLoading: true
 					})
 					.then(res => {
-						if(res.code==0){
-							this.typeone=false
-							this.typetwo=true
-						}else{
+						if (res.code == 0) {
+							this.typeone = false
+							this.typetwo = true
+						} else {
 							this.$http.toast(res.msg);
 						}
 					});
@@ -534,7 +499,7 @@
 				this.date = e.target.value
 				this.form.paper_businessLicenseTo = e.target.value
 			},
-			bindDateChangetwo:function(e){ //选择证件有效期
+			bindDateChangetwo: function(e) { //选择证件有效期
 				this.dateTwo = e.target.value
 				this.datatwo.paper_certificateTo = e.target.value
 			},
@@ -561,13 +526,13 @@
 							if (id == 0) {
 								params.pic_business_license = url
 								that.form.paper_businessLicensePhoto = url
-							}else if(id==1){
+							} else if (id == 1) {
 								params.pic_id_card_front = url
 								that.datatwo.paper_lawyerCertPhotoFront = url
-							}else if(id==2){
+							} else if (id == 2) {
 								params.pic_id_card_back = url
 								that.datatwo.paper_lawyerCertPhotoBack = url
-							}else if(id==3){
+							} else if (id == 3) {
 								params.pic_settlement = url
 								that.datathree.paper_settleAttachment = url
 							}
@@ -578,8 +543,8 @@
 				})
 
 			},
-			savetwo(){ //保存第二部
-				if(this.datatwo.paper_lawyerCertNo.length!=18){
+			savetwo() { //保存第二部
+				if (this.datatwo.paper_lawyerCertNo.length != 18) {
 					uni.showToast({
 						title: '请输入正确的身份证号',
 						icon: 'none'
@@ -589,7 +554,7 @@
 					}, 2000);
 					return
 				}
-				if(isEmpty(this.datatwo.paper_certificateName)){
+				if (isEmpty(this.datatwo.paper_certificateName)) {
 					uni.showToast({
 						title: '请输入证件人姓名',
 						icon: 'none'
@@ -599,7 +564,7 @@
 					}, 2000);
 					return
 				}
-				if(isEmpty(this.datatwo.paper_lawyerCertPhotoFront)){
+				if (isEmpty(this.datatwo.paper_lawyerCertPhotoFront)) {
 					uni.showToast({
 						title: '请上传身份证正面照',
 						icon: 'none'
@@ -609,7 +574,7 @@
 					}, 2000);
 					return
 				}
-				if(isEmpty(this.datatwo.paper_lawyerCertPhotoBack)){
+				if (isEmpty(this.datatwo.paper_lawyerCertPhotoBack)) {
 					uni.showToast({
 						title: '请上传身份证背面照',
 						icon: 'none'
@@ -627,17 +592,17 @@
 						showLoading: true
 					})
 					.then(res => {
-						if(res.code==0){
-							this.typeone=false
-							this.typetwo=false
-							this.typethree=true
-						}else{
+						if (res.code == 0) {
+							this.typeone = false
+							this.typetwo = false
+							this.typethree = true
+						} else {
 							this.$http.toast(res.msg);
 						}
 					});
 			},
-			savethree(){//保存第三部
-				if (isEmpty( this.datathree.paper_settleAccountType)) {
+			savethree() { //保存第三部
+				if (isEmpty(this.datathree.paper_settleAccountType)) {
 					uni.showToast({
 						title: '请选择结算账户类型',
 						icon: 'none'
@@ -647,90 +612,8 @@
 					}, 2000);
 					return
 				}
-				if(this.datathree.paper_settleAccountType==1){
+				if (this.datathree.paper_settleAccountType == 1) {
 					if (isEmpty(this.datathree.paper_settleAccountNo)) {
-						uni.showToast({
-							title: '请填写正确的结算账户号',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (isEmpty(this.datathree.paper_settleAccount)) {
-						uni.showToast({
-							title: '请填写结算账户名',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (isEmpty( this.datathree.paper_openBank)) {
-						uni.showToast({
-							title: '请填写开户银行',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (isEmpty(this.datathree.paper_openSubBank)) {
-						uni.showToast({
-							title: '请填写开户支行',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (isEmpty(this.datathree.paper_openBankCode)) {
-						uni.showToast({
-							title: '请填写正确的开户行联行号',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-				}else if(this.datathree.paper_settleAccountType==2){
-					if (isEmpty(this.datathree.paper_settleAccountNo)) {
-						uni.showToast({
-							title: '请填写正确的结算账户号',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (isEmpty( this.datathree.paper_settleAccount)) {
-						uni.showToast({
-							title: '请填写结算账户名',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (isEmpty( this.datathree.paper_openBank)) {
-						uni.showToast({
-							title: '请填写开户银行',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-				}else if(this.datathree.paper_settleAccountType==3||this.datathree.paper_settleAccountType==4){
-					if (isEmpty( this.datathree.paper_settleAccountNo)) {
 						uni.showToast({
 							title: '请填写正确的结算账户号',
 							icon: 'none'
@@ -760,9 +643,9 @@
 						}, 2000);
 						return
 					}
-					if (isEmpty(this.datathree.paper_settleAttachment)){
+					if (isEmpty(this.datathree.paper_openSubBank)) {
 						uni.showToast({
-							title: '请上传结算账户附件照片',
+							title: '请填写开户支行',
 							icon: 'none'
 						});
 						setTimeout(function() {
@@ -770,7 +653,48 @@
 						}, 2000);
 						return
 					}
-				}
+					if (isEmpty(this.datathree.paper_openBankCode)) {
+						uni.showToast({
+							title: '请填写正确的开户行联行号',
+							icon: 'none'
+						});
+						setTimeout(function() {
+							uni.hideToast();
+						}, 2000);
+						return
+					}
+				} else if (this.datathree.paper_settleAccountType == 2) {
+					if (isEmpty(this.datathree.paper_settleAccountNo)) {
+						uni.showToast({
+							title: '请填写正确的结算账户号',
+							icon: 'none'
+						});
+						setTimeout(function() {
+							uni.hideToast();
+						}, 2000);
+						return
+					}
+					if (isEmpty(this.datathree.paper_settleAccount)) {
+						uni.showToast({
+							title: '请填写结算账户名',
+							icon: 'none'
+						});
+						setTimeout(function() {
+							uni.hideToast();
+						}, 2000);
+						return
+					}
+					if (isEmpty(this.datathree.paper_openBank)) {
+						uni.showToast({
+							title: '请填写开户银行',
+							icon: 'none'
+						});
+						setTimeout(function() {
+							uni.hideToast();
+						}, 2000);
+						return
+					}
+				}										
 				this.$http
 					.request({
 						url: this.$api.moreShop.merchantsettle,
@@ -779,30 +703,30 @@
 						showLoading: true
 					})
 					.then(res => {
-						if(res.code==0){
-							this.typeone=false
-							this.typetwo=false
-							this.typethree=false
-							this.typefourth=true
-						}else{
+						if (res.code == 0) {
+							this.typeone = false
+							this.typetwo = false
+							this.typethree = false
+							this.typefourth = true
+						} else {
 							this.$http.toast(res.msg);
 						}
 					});
 			},
-			goBack(index){
-				if(index==1){
-					this.typeone=true
-					this.typetwo=false
+			goBack(index) {
+				if (index == 1) {
+					this.typeone = true
+					this.typetwo = false
 				}
-				if(index==2){
-					this.typeone=false
-					this.typethree=false
-					this.typetwo=true
+				if (index == 2) {
+					this.typeone = false
+					this.typethree = false
+					this.typetwo = true
 				}
 			},
-			gocenter(){
+			gocenter() {
 				uni.navigateTo({
-					url:'../user/index'
+					url: '../user/index'
 				})
 			}
 		}
@@ -830,18 +754,22 @@
 		width: 100%;
 		overflow: hidden;
 	}
-	.type-two{
+
+	.type-two {
 		width: 100%;
 		overflow: hidden;
 	}
-	.type-three{
+
+	.type-three {
 		width: 100%;
 		overflow: hidden;
 	}
-	.type-fouth{
+
+	.type-fouth {
 		width: 100%;
 		height: 100%;
 	}
+
 	.item {
 		position: relative;
 		display: flex;
@@ -998,33 +926,39 @@
 		text-align: center;
 		width: 50%;
 	}
-	.type-fouth image{
+
+	.type-fouth image {
 		width: 200rpx;
 		height: 200rpx;
 		margin: 100rpx auto 0;
 		display: block;
 	}
-	.type-fouth-title{
+
+	.type-fouth-title {
 		width: 100%;
 		overflow: hidden;
 	}
-	.type-fouth-title text{
+
+	.type-fouth-title text {
 		display: block;
 		width: 100%;
 		overflow: hidden;
 	}
-	.type-fouth-title text:nth-of-type(1){
+
+	.type-fouth-title text:nth-of-type(1) {
 		font-size: 35rpx;
 		font-weight: bold;
 		text-align: center;
 		color: #16AB60;
 		margin-top: 30rpx;
 	}
-	.type-fouth-title text:nth-of-type(2){
+
+	.type-fouth-title text:nth-of-type(2) {
 		font-size: 30rpx;
 		text-align: center;
 	}
-	.btn_sure{
+
+	.btn_sure {
 		width: 400rpx;
 		height: 80rpx;
 		background: #18B566;

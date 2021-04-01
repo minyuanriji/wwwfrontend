@@ -108,6 +108,19 @@
 				let imgList=uni.getStorageSync('imglist')
 				this.num=imgList.length
 			}
+			if(uni.getStorageSync('shop-MESSAGE')){
+				let shopMESSAGE=uni.getStorageSync('shop-MESSAGE')
+				this.form.name=shopMESSAGE.name
+				this.form.cover_url=shopMESSAGE.cover_url
+				this.params.shop_logo=shopMESSAGE.cover_url
+				this.form.city_id=shopMESSAGE.city_id
+				this.form.province_id=shopMESSAGE.province_id
+				this.form.latitude=shopMESSAGE.latitude
+				this.form.longitude=shopMESSAGE.longitude
+				this.form.address=shopMESSAGE.address
+				this.text=shopMESSAGE.text
+				console.log(shopMESSAGE)
+			}
 		},
 		methods: {
 			toArr(object) {
@@ -290,14 +303,25 @@
 					}, 2000);
 					return
 				}
-				this.$http.request({
-					 url:this.$api.moreShop.setShopmessage,
-					 data:this.form,
+				let that=this
+				that.$http.request({
+					 url:that.$api.moreShop.setShopmessage,
+					 data:that.form,
 					 method:'post',
 					 showLoading: true
 					 }).
 					then(function(res){
 						if(res.code==0){
+							let forms={}
+							forms.name=that.form.name
+							forms.cover_url=that.form.cover_url
+							forms.city_id=that.form.city_id
+							forms.province_id=that.form.province_id
+							forms.latitude=that.form.latitude
+							forms.longitude=that.form.longitude
+							forms.address=that.form.address
+							forms.text=that.text
+							uni.setStorageSync('shop-MESSAGE',forms)
 							uni.navigateTo({
 								url:'../personalCentre'
 							})
