@@ -810,6 +810,17 @@
             }
             
         }
+        ,{
+            "path" : "pages/personalCentre/shopLogoupload/shopLogoupload",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商铺图片",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",

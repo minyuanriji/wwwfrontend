@@ -1,0 +1,111 @@
+<template>
+	<view class="shopLogoupload-app">
+		<view class="main">
+			<view class="img-item" v-for="(item,index) in imgList" :key='index'>
+				<image src="../../../static/img/delete.png" mode="" class="delete" @click="deleted(item)"></image>
+				<image :src="item" mode="" class="img"></image>
+			</view>
+			<view class="upload-logo" @tap="uploadImg">
+				
+			</view>
+		</view>
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				imgList:[],
+			};
+		},
+		onLoad() {
+			uni.showLoading({
+			    title: '正在加载图片'
+			});
+			setTimeout(function(){
+				 uni.hideLoading();
+			},2000)
+			if(uni.getStorageSync('imglist')){
+				this.imgList=uni.getStorageSync('imglist')
+			}
+		},
+		methods:{
+			uploadImg(){
+				var that = this
+				// var params = this.params
+				uni.chooseImage({
+					// count: 1,
+					success: function(res) {
+						var file = res.tempFiles[0].path
+						var requestData = {
+							serverUrl: that.$api.default.upload,
+							fileKeyName: "file",
+							file: file
+						}
+						uni.showLoading({
+							title: "正在上传"
+						})
+						that.$http.uploadFile(requestData).then(function(res) {
+							uni.hideLoading()
+							var url = res.data.url
+							that.$http
+								.request({
+									url: that.$api.moreShop.setShopLogo,
+									method: 'POST',
+									showLoading: true,
+									data:{
+										act:'add',
+										pic_url:url,
+									}
+								})
+								.then(result => {
+									if(result.code==0){
+										// that.imgList=result.data.pic_urls
+										uni.setStorageSync('imglist',result.data.pic_urls)
+										that.imgList=result.data.pic_urls
+									}else{
+										that.$http.toast(result.msg);
+									}
+								});
+							// that.$forceUpdate()
+						})
+					}
+				})
+			},
+			deleted(item){
+				let that=this
+				that.$http
+					.request({
+						url: that.$api.moreShop.setShopLogo,
+						method: 'POST',
+						showLoading: true,
+						data:{
+							act:'sub',
+							pic_url:item,
+						}
+					})
+					.then(result => {
+						if(result.code==0){
+							that.$http.toast('删除成功');
+							uni.setStorageSync('imglist',result.data.pic_urls)	
+							that.imgList=result.data.pic_urls
+						}else{
+							that.$http.toast(result.msg);
+						}
+					});
+			},
+		}
+	}
+</script>
+
+<style lang="less">
+	.shopLogoupload-app{width: 100%;overflow: hidden;}
+	.main{width: 100%;overflow:hidden;padding: 0 30rpx;}
+	.img-item{width: 200rpx;height: 200rpx;position: relative;float: left;margin: 30rpx 30rpx 20rpx 0rpx;}
+	.img{width: 200rpx;height: 200rpx;display: block;}
+	.delete{width: 40rpx;height: 40rpx;display: block;position: absolute;right: -10rpx;top: -20rpx;z-index: 999;}
+	.upload-logo{width: 200rpx;height: 200rpx;margin-top: 30rpx;
+	background: url(../../../static/img/select_pic.png)no-repeat;
+	background-size:cover ;float: left;}
+</style>

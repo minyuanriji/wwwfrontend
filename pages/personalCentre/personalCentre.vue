@@ -248,16 +248,16 @@
 						url:'./installCenter/installCenter'
 					})
 				}
-				// if(page==5){
-				// 	uni.navigateTo({
-				// 		url:'./mongeyDetail/mongeyDetail'
-				// 	})
-				// }
-				// if(page==6){
-				// 	uni.navigateTo({
-				// 		url:'./withdrawal/withdrawal'
-				// 	})
-				// }
+				if(page==5){
+					uni.navigateTo({
+						url:'./mongeyDetail/mongeyDetail'
+					})
+				}
+				if(page==6){
+					uni.navigateTo({
+						url:'./withdrawal/withdrawal'
+					})
+				}
 			},
 			poster(key) {
 				if (key == -1) {

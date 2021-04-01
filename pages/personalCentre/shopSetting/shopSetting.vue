@@ -17,9 +17,9 @@
 				
 			</view>
 		</view>
-		<view class="shopSetting-item">
+		<view class="shopSetting-item" @click="goTo">
 			<view class="shopSetting-title">
-				店铺招牌：
+				店铺图片：
 			</view>
 			<view class="shopSetting-num">
 				<text>{{num}}张</text>
@@ -76,7 +76,7 @@
 				params:{
 					shop_logo:this.$api.test_url + "/images/shop/shop_logo.png",
 				},
-				num:'',
+				num:0,
 				value:[0,0,0],
 				multiArray: [], //picker数据
 				selectList:[],
@@ -101,6 +101,13 @@
 		},
 		onLoad() {
 			this.getCity()
+			
+		},
+		onShow() {
+			if(uni.getStorageSync('imglist')){
+				let imgList=uni.getStorageSync('imglist')
+				this.num=imgList.length
+			}
 		},
 		methods: {
 			toArr(object) {
@@ -300,6 +307,11 @@
 								icon: 'none'
 							});
 						}
+				})
+			},
+			goTo(){
+				uni.navigateTo({
+					url:'../shopLogoupload/shopLogoupload'
 				})
 			}
 		}	
