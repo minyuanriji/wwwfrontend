@@ -510,7 +510,14 @@
 	
 	.goods-qrcode-body {
 		background: #ffffff;
-		height: 100%;
+		width: 100%;
+		height:90%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
 		border-radius: 10rpx;
 		padding: 30rpx;
 	}
@@ -522,14 +529,13 @@
 	}
 	.goods-qrcode2{
 		position: relative;
-		height: 1300rpx;
+		height: 100%;
 		flex-direction: column;
-		margin-top: 40rpx;
 	}
 	.codeImg_box {
-		width: 92%;
-		height: 82%;
-		margin-bottom: 20rpx;
+		width: 100%;
+		height: 95%;
+		// margin-bottom: 20rpx;
 	}
 	.saveCode-btn{
 		color: #939292;

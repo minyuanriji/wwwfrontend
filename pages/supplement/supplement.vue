@@ -169,12 +169,12 @@
 				</view>
 				<input type="text" placeholder="请填写" v-model="datathree.paper_openSubBank" />
 			</view>
-			<view class="item" v-if="flags">
+		<!-- 	<view class="item" v-if="flags">
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>开户行联行号</text>
 				</view>
 				<input type="text" placeholder="请填写" v-model="datathree.paper_openBankCode" />
-			</view>
+			</view> -->
 			<!-- <view class="content_body_block">
 				<view class="content_body_block_t">结算账户附件</view>
 				<view class="content_body_block_bb1">
@@ -286,7 +286,7 @@
 					paper_settleAccount: '',
 					paper_openBank: '',
 					paper_openSubBank: '',
-					paper_openBankCode: '',
+					// paper_openBankCode: '',
 					paper_settleAttachment: ''
 				},
 			}
@@ -352,7 +352,7 @@
 						this.datathree.paper_settleAccount = totalMessage.paper_settleAccount
 						this.datathree.paper_openBank = totalMessage.paper_openBank
 						this.datathree.paper_openSubBank = totalMessage.paper_openSubBank
-						this.datathree.paper_openBankCode = totalMessage.paper_openBankCode
+						// this.datathree.paper_openBankCode = totalMessage.paper_openBankCode
 						this.datathree.paper_settleAttachment = totalMessage.paper_settleAttachment
 						this.params.pic_settlement = totalMessage.paper_settleAttachment
 						//---------------------------------------上面是结算类型参数
@@ -653,16 +653,16 @@
 						}, 2000);
 						return
 					}
-					if (isEmpty(this.datathree.paper_openBankCode)) {
-						uni.showToast({
-							title: '请填写正确的开户行联行号',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
+					// if (isEmpty(this.datathree.paper_openBankCode)) {
+					// 	uni.showToast({
+					// 		title: '请填写正确的开户行联行号',
+					// 		icon: 'none'
+					// 	});
+					// 	setTimeout(function() {
+					// 		uni.hideToast();
+					// 	}, 2000);
+					// 	return
+					// }
 				} else if (this.datathree.paper_settleAccountType == 2) {
 					if (isEmpty(this.datathree.paper_settleAccountNo)) {
 						uni.showToast({
