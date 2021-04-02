@@ -24,7 +24,7 @@
 					{{userMessage.stat.goods_num}}件
 				</view>
 				<view class="jx-btm-item last">
-					<text style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;">查看商品</text>
+					<text style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;" @click="href(7)">查看商品</text>
 				</view>
 			</view>
 		</view>
@@ -256,6 +256,11 @@
 				if(page==6){
 					uni.navigateTo({
 						url:'./withdrawal/withdrawal'
+					})
+				}
+				if(page==7){
+					uni.navigateTo({
+						url:'./productList/productList'
 					})
 				}
 			},

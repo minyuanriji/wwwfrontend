@@ -832,6 +832,17 @@
             }
             
         }
+        ,{
+            "path" : "pages/personalCentre/productList/productList",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "店铺商品",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",
