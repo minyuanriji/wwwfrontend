@@ -326,7 +326,9 @@
 						this.form.paper_businessLicenseName = totalMessage.paper_businessLicenseName
 						this.form.paper_businessLicensePhoto = totalMessage.paper_businessLicensePhoto
 						this.params.pic_business_license = totalMessage.paper_businessLicensePhoto
-						this.form.paper_businessLicenseTo = totalMessage.paper_businessLicenseTo.split(' ')[0]
+						if(totalMessage.paper_businessLicenseTo){
+							this.form.paper_businessLicenseTo = totalMessage.paper_businessLicenseTo.split(' ')[0]
+						}
 						this.form.paper_lawyerName = totalMessage.paper_lawyerName
 						this.form.paper_businessScope = totalMessage.paper_businessScope
 						this.form.paper_registerAddress = totalMessage.paper_registerAddress
@@ -337,7 +339,9 @@
 						this.params.pic_id_card_front = totalMessage.paper_lawyerCertPhotoFront
 						this.datatwo.paper_lawyerCertPhotoBack = totalMessage.paper_lawyerCertPhotoBack
 						this.params.pic_id_card_back = totalMessage.paper_lawyerCertPhotoBack
-						this.datatwo.paper_certificateTo = totalMessage.paper_certificateTo.split(' ')[0]
+						if(totalMessage.paper_certificateTo){
+							this.datatwo.paper_certificateTo = totalMessage.paper_certificateTo.split(' ')[0]
+						}
 						//-------------------------------------上面是实名认证参数
 						this.datathree.paper_settleAccountType = totalMessage.paper_settleAccountType
 						if (totalMessage.paper_settleAccountType == 2) {
