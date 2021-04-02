@@ -22,7 +22,7 @@
 			</view>
 		</view>
 		<view class="withdrawal-sure">
-			<button type="default">确认提现</button>
+			<button type="default" @click='deposit'>确认提现</button>
 		</view>
 		<view class="withdrawal-item">
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false"  @click="link">
@@ -49,6 +49,11 @@
 		methods:{
 			link(){ //跳到流水明细页面
 				
+			},
+			deposit(){
+				uni.navigateTo({
+					url:'../audit/audit'
+				})
 			}
 		}
 	}

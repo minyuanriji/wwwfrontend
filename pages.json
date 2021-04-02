@@ -821,6 +821,17 @@
             }
             
         }
+        ,{
+            "path" : "pages/personalCentre/audit/audit",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "资金审核",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",
