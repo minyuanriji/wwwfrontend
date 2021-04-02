@@ -11,6 +11,11 @@
 				<text>店铺设置</text>
 				<image src="../../../static/img/arrow-right.png" mode=""></image>
 			</view>
+			<view>
+				<image src="../../../static/img/money.png" mode=""></image>
+				<text>结算设置</text>
+				<image src="../../../static/img/arrow-right.png" mode=""></image>
+			</view>
 		</view>
 	</view>
 </template>
