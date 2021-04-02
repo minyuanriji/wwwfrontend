@@ -843,6 +843,17 @@
             }
             
         }
+        ,{
+            "path" : "pages/personalCentre/countSet/countSet",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "结算设置",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",

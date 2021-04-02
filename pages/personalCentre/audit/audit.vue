@@ -5,9 +5,9 @@
 				<image src="../../../static/img/auditicon.png" mode=""></image>
 			</view>
 			<view class="audit-main-title-message">
-				<view>提现申请已提交，等待人工审核</view>
-				<view>2021-11-12 15:11:12</view>
-				<view>预计到账时间:11月13日</view>
+				<view>提现已成功</view>
+				<!-- <view>2021-11-12 15:11:12</view> -->
+				<view>预计到账时间:2小时内</view>
 			</view>
 			<view class="sure">
 				<button type="default" @click='backRouter'>完成</button>
@@ -20,7 +20,6 @@
 	export default {
 		data() {
 			return {
-
 			};
 		},
 		methods:{
@@ -28,7 +27,7 @@
 				uni.navigateBack({
 					delta:1
 				})
-			}
+			},
 		}
 	}
 </script>

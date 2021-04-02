@@ -2,7 +2,7 @@
 	<view class="withdrawal-app">
 		<view class="withdrawal-user-money">
 			<text>可提现金额（元）</text>
-			<text>￥5000.00</text>
+			<text>￥{{information.account_money}}</text>
 		</view>
 		<view class="withdrawal-money-input">
 			<view class="withdrawal-money-input-title">
@@ -11,14 +11,14 @@
 			<view class="withdrawal-money-input-num">
 				<view class="withdrawal-money-icon">￥</view>
 				<view class="withdrawal-money-num">
-					<input type="number" value="" />
+					<input type="number" value="" v-model.trim="money"/>
 				</view>
-				<view class="withdrawal-money-num-all">
+				<view class="withdrawal-money-num-all" @click="checkAll">
 					全部提现
 				</view>
 			</view>
 			<view class="withdrawal-money-notic">
-				手续费每笔2.0元,提现后立即到帐
+				手续费每笔{{information.withdraw_fee}}元,提现后立即到帐
 			</view>
 		</view>
 		<view class="withdrawal-sure">
@@ -32,28 +32,88 @@
 				</view>
 			</jx-list-cell>
 		</view>
+		<passkeyborad :show="show" @close="checkout" :money="money" :count='information.withdraw_fee'></passkeyborad>
 	</view>
 </template>
 
 <script>
+	import {isEmpty} from '../../../common/validate.js'
 	import jxListCell from '@/components/list-cell/list-cell';
+	import passkeyborad from '@/components/yzc-paykeyboard/yzc-paykeyboard.vue'
 	export default {
 		components: {
-			jxListCell
+			jxListCell,
+			passkeyborad
 		},
 		data() {
 			return {
-				
+				information:'',
+				money:'',//金额
+				show:false,//密码输入弹出
 			};
+		},
+		onShow() {
+			this.$http.request({
+				url: this.$api.moreShop.getaccountInfo,
+				method: 'POST',
+				showLoading: true
+			}).then(res => {
+				if (res.code == 0) {
+					console.log(res)
+					this.information=res.data
+				}
+			})
 		},
 		methods:{
 			link(){ //跳到流水明细页面
-				
+				console.log(1122)
 			},
-			deposit(){
-				uni.navigateTo({
-					url:'../audit/audit'
-				})
+			deposit(){ //确认提现
+			   var that=this
+				if(isEmpty(that.money)||that.money<=0){
+					uni.showToast({
+						title: '提现金额不能为空或者小于0',
+						icon: 'none'
+					});
+					setTimeout(function() {
+						uni.hideToast();
+					}, 2000);
+					return
+				}
+				if(that.information.is_pwd_set==0){
+					that.$http.toast('未设置支付密码')
+					setTimeout(function(){
+						if(isEmpty(that.information.mobile)){
+							uni.navigateTo({
+								url:'../personalCentreSETPassWorde/personalCentreSETPassWorde'
+							})
+						}else{
+							uni.navigateTo({
+								url:'../personalCentreSETPassWorde/personalCentreSETPassWorde?phone='+that.information.mobile
+							})
+						}
+						// uni.navigateTo({
+						// 		url:'../personalCentreSETPassWorde/personalCentreSETPassWorde'
+						// })
+					},2000)
+				}else{
+					if(isEmpty(that.information.mobile)){
+						that.$http.toast('未设置结账信息')
+						setTimeout(function(){
+							uni.navigateTo({
+								url:'../countSet/countSet'
+							})
+						},2000)
+					}else{
+						that.show=true
+					}
+				}
+			},
+			checkAll(){ //全部提现
+				this.money=String(this.information.account_money)
+			},
+			checkout(){ //关闭提现输入密码弹窗
+				this.show=false
 			}
 		}
 	}
@@ -95,7 +155,6 @@
 		margin-bottom: 20rpx;
 		// box-shadow: 1rpx 1rpx 5rpx #888;
 	}
-	
 	.jx-btm-item {
 		flex: 1;
 		display: flex;

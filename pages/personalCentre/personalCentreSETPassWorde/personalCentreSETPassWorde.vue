@@ -17,19 +17,18 @@
 			<view class="item">
 				<view class="title">设置密码</view>
 				<view class="input-btn">
-					<input class="input" type="number" v-model="dataForm.password" maxlength="6" placeholder="请输入6位数支付密码" style="-webkit-text-security:disc" />
+					<input class="input" type="number" v-model="dataForm.withdraw_pwd" maxlength="6" placeholder="请输入6位数支付密码" style="-webkit-text-security:disc" />
 				</view>
 			</view>
 			<view class="item">
 				<view class="title">确认密码</view>
 				<view class="input-btn">
-					<input class="input" type="number" v-model="dataForm.confirm_password" maxlength="6" placeholder="请输入6位数支付密码" style="-webkit-text-security:disc"/>
+					<input class="input" type="number" v-model="confirm_password" maxlength="6" placeholder="请输入6位数支付密码" style="-webkit-text-security:disc"/>
 				</view>
 			</view>
 			<view class="item last">
 				<view class="title"></view>
 				<view class="jx-btn" @click="dataSubmit" :style="{background:textCol}">确认提交</view>
-				<!-- <span>*修改支付密码请到个人资料页进行修改</span> -->
 			</view>
 		</view>
 	</view>
@@ -47,51 +46,58 @@
 				dataForm: {
 					mobile: '',
 					captcha: '',
-					password: '',
-					confirm_password: ''
+					withdraw_pwd: '',
 				},
 				countDown: '',
 				textCol:'',
+				confirm_password: ''
 			}
 		},
-		onLoad() {
+		onLoad(options) {
 			this.textCol = this.globalSet('textCol');
-			this.getUserInfo();
+			let urltitle=options.phone
+			if(urltitle){
+				this.dataForm.mobile=options.phone
+			}
 		},
 		methods: {
 			dataSubmit(){
+				if(!isNullOrEmpty(this.dataForm.mobile)){
+					this.$http.toast("手机号必须填哦")
+					return
+				}
 				if(!isNullOrEmpty(this.dataForm.captcha)){
 					this.$http.toast("验证码必须填写哦")
 					return
 				}
-				if(!isNullOrEmpty(this.dataForm.password) || this.dataForm.password.length !== 6){
-					this.$http.toast("请输入6位数字交易密码")
+				if(!isNullOrEmpty(this.dataForm.withdraw_pwd) || this.dataForm.withdraw_pwd.length !== 6){
+					this.$http.toast("请输入6位数字密码")
 					return
 				}
-				if(this.dataForm.confirm_password !== this.dataForm.password){
-					this.$http.toast("请确认和上面的交易密码一致")
+				if(this.confirm_password !== this.dataForm.withdraw_pwd){
+					this.$http.toast("请确认和上面的密码一致")
 					return 
 				}
-				// 可以发送请求了
-				// this.$http.request({
-				// 	url: this.$api.user.transactionPwd,
-				// 	method: 'POST',
-				// 	data: this.dataForm
-				// }).then(res => {
-				// 	if(res.code == 0){
-				// 		this.$http.toast("保存成功");
-				// 		setTimeout(() => {
-				// 			this.navBack();
-				// 		},1000 * 2)
-				// 	}else{
-				// 		this.$http.toast(res.msg);
-				// 	}
-				// })
+				this.dataForm.mobile=String(this.dataForm.mobile)
+				this.$http.request({
+					url: this.$api.moreShop.setwithdrawpwd,
+					method: 'POST',
+					data: this.dataForm
+				}).then(res => {
+					if(res.code == 0){
+						this.$http.toast("保存成功");
+						setTimeout(() => {
+							this.navBack();
+						},1000 * 2)
+					}else{
+						this.$http.toast(res.msg);
+					}
+				})
 				
 			},
 			getCode() {
 				if (!isMobile(this.dataForm.mobile)) {
-					this.showMsg('请输入手机号后在获取验证码');
+					this.$http.toast("请先输入手机号码");
 					return;
 				}
 				let _self = this;
@@ -105,7 +111,7 @@
 				_self.$http.request({
 					url: _self.$api.default.phoneCode,
 					data: {
-						mobile: _self.dataForm.mobile
+						mobile: _self.dataForm.mobile,
 					},
 					method: 'POST'
 				}).then((res) => {
@@ -116,20 +122,6 @@
 					}
 				}).catch(err => {
 					console.log(err);
-				})
-			},
-			getUserInfo() {
-				this.$http.request({
-					url: this.$api.user.userInfo,
-					method: 'POST',
-					showLoading: true
-				}).then(res => {
-					if (res.code == 0) {
-						this.$set(this, "data", res.data);
-						if (res.data.mobile) this.$set(this.dataForm, 'mobile', res.data.mobile);
-					}
-				}).catch(err => {
-					console.log(err)
 				})
 			},
 		},
