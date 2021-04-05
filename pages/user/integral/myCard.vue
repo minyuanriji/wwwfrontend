@@ -44,7 +44,7 @@
 				tabs: [{
 					name: "永久积分券"
 				}, {
-					name: "有效积分券"
+					name: "限时积分券"
 				}],
 				tabsStatus: [{
 					name: "全部状态"

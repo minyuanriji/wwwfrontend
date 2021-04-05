@@ -3,9 +3,9 @@
 		<view class="aboutUs">
 			<view class="aboutUs-title" style="font-weight: 700;">
 				<view>{{toolbarTitle}}</view>
-				<view class="icon" :class="{'rotate':is_show}">
+				<!-- <view class="icon" :class="{'rotate':is_show}">
 					<span v-if="toolbarData.length > 4" class="iconfont icon-xiala" @click="navTo()"></span>
-				</view>
+				</view> -->
 			</view>
 			<view class="aboutUs-item flex" :class="flex == 1 ? 'flex-col left' : ''">
 				<view class="aboutUs-item-box flex flex-y-center" :class="flex == 1 ? 'left' : 'flex-col'" @tap="navTo(item.link_url)"
@@ -17,7 +17,7 @@
 						{{item.name}}
 					</view>
 				</view>
-				<view class="extra-box" :class="is_show?'show':'hide'">
+				<!-- <view class="extra-box" :class="is_show?'show':'hide'">
 					<view class="extra-box transform-hide" :class="{'flex-col left' : flex == 1,'transform-show':is_show}">
 						<view class="aboutUs-item-box flex flex-y-center" :class="flex == 1 ? 'left' : 'flex-col'" @tap="navTo(item.link_url)"
 						 v-for="(item,index) in toolbarData3" :key='item.name'>
@@ -29,7 +29,7 @@
 							</view>
 						</view>
 					</view>
-				</view>
+				</view> -->
 			</view>
 		</view>
 	</view>
@@ -54,27 +54,30 @@
 		},
 		data() {
 			return {
-				rawData: [], // 储存原始数据
+				// rawData: [], // 储存原始数据
 				toolbarData2: [], // 需要展示的数据
-				toolbarData3:[], //超过4个得数据
+				// toolbarData3:[], //超过4个得数据
 				is_show:false,//是否显示更多
 			}
 		},
 		created() {
-			console.log(this.toolbarData3)
-			if (this.toolbarData.length > 4) {
-				this.toolbarData.forEach((item, index) => {
-					if (index <= 3) {
-						this.toolbarData2.push(item);
-					}else{
+			this.toolbarData.forEach((item,index)=>{
+				this.toolbarData2.push(item)
+			})
+			// console.log(this.toolbarData3)
+			// if (this.toolbarData.length > 4) {
+			// 	this.toolbarData.forEach((item, index) => {
+			// 		if (index <= 3) {
+			// 			this.toolbarData2.push(item);
+			// 		}else{
 						
-						this.toolbarData3.push(item);
-					}
-				})
-				this.rawData = this.toolbarData2;
-			} else {
-				this.toolbarData2 = this.toolbarData;
-			}
+			// 			this.toolbarData3.push(item);
+			// 		}
+			// 	})
+			// 	this.rawData = this.toolbarData2;
+			// } else {
+			// 	this.toolbarData2 = this.toolbarData;
+			// }
 		},
 		methods: {
 			navTo(url) {
