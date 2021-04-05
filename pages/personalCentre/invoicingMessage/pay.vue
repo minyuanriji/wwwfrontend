@@ -106,7 +106,7 @@
 						if(res.data.detail.is_pay==1){
 							uni.showModal({
 							    title: '恭喜你！',
-							    content: '已用折扣卷支付成功',
+							    content: '已用红包支付成功',
 								showCancel:false,
 							    success: function (resSure) {
 							        if (resSure.confirm) {

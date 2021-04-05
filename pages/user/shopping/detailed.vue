@@ -8,7 +8,7 @@
 				<view class="item" >
 					<view class="item-left">
 						<view class="update margin-bottom text-12-pt" :style="{color:item.type == 1 ?textColor:''}">{{item.money}}</view>
-						<view class="sum text-10-pt" :style="{color:textColor}">购物券：{{item.before_money}}</view>
+						<view class="sum text-10-pt" :style="{color:textColor}">红包：{{item.before_money}}</view>
 					</view>
 					<view class="item-right">
 						<view class="date-time text-10-pt">{{ item.created_at|formatDate}}</view>

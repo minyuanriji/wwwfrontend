@@ -11,14 +11,14 @@
 			</view>
 		</view>
 		<view class="product-price">
-			价格:{{orderMessage.order_info.order_price}}元+{{num+count}}劵
+			价格:{{orderMessage.order_info.order_price}}元+{{num+count}}红包
 		</view>
 		<view class="use-points flex flex-y-center flex-x-between">
 			<view>
 				<!-- 使用抵扣券 :{{orderMessage.integral_max_deduction}} -->
-				<view class="xieti">抵扣券总额:{{orderMessage.user_integral_num}}券</view>
-				<view>使用抵扣券:{{num}}券</view>
-				<view>额外服务费:{{is_integral?orderMessage.integral_service_fee:0}}劵</view>
+				<view class="xieti">红包总额:{{orderMessage.user_integral_num}}红包</view>
+				<view>使用红包:{{num}}红包</view>
+				<view>额外服务费:{{is_integral?orderMessage.integral_service_fee:0}}红包</view>
 			</view>
 			<switch :checked="is_integral" @change="useIntegral" :color='textColor' class="points-switch" />
 		</view>

@@ -8,7 +8,7 @@
 				</block>
 				<view class="coupon-item-left">
 					<view class="item-money">¥<text>{{item.integral_num|parseInt}}</text>.00</view>
-					<view class="item-name">购物劵</view>
+					<view class="item-name">红包</view>
 				</view>
 				<view class="coupon-item-right">
 					<view class="item-title">{{item.desc}}</view>

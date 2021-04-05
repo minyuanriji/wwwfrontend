@@ -4,24 +4,24 @@
 			<view class="shopping-coupon-group">
 				<view class="shopping-coupon-item">
 					<text class="coupon-item-num">{{get_static_integral}}</text>
-					<text class="coupon-item-title">永久购物券</text>
+					<text class="coupon-item-title">永久红包</text>
 				</view>
 				<view class="shopping-coupon-item">
 					<text class="coupon-item-num">{{get_dynamic_integral}}</text>
-					<text class="coupon-item-title">有效购物券</text>
+					<text class="coupon-item-title">有效红包</text>
 				</view>
 			</view>
 			<view class="shopping-tools">
 				<view class="shopping-tools-item" @click="toMyCard">
-					<text>我的购物券</text>
+					<text>我的红包</text>
 					<i class="iconfont icon-xiala i-icon"></i>
 				</view>
 				<view class="shopping-tools-item" @click="toSendPlan">
-					<text>购物券发放计划</text>
+					<text>红包发放计划</text>
 					<i class="iconfont icon-xiala i-icon"></i>
 				</view>
 				<view class="shopping-tools-item" @click="toRechargeRecord">	
-					<text>购物券充值明细</text>
+					<text>红包充值明细</text>
 					<i class="iconfont icon-xiala i-icon"></i>
 				</view>
 			</view>
@@ -42,7 +42,7 @@
 							</view>
 							<view class="item-right">
 								<!-- 详情也要相加 -->
-								<view class="item-money">购物券：¥{{item.before_money*1 + item.money*1}}</view>
+								<view class="item-money">红包：¥{{item.before_money*1 + item.money*1}}</view>
 								<view v-if="currentTab==1" class="item-button" @click="todetailed(item.id)">查看详情</view>
 							</view>
 						</view>
@@ -51,7 +51,7 @@
 				<view class="list-empty" v-else><main-nomore text="暂无数据" :visible="true" bgcolor="#fff"></main-nomore></view>
 				
 			</view>
-			<view class="exchange-btn" @click="toRechargeCard">购物券充值</view>
+			<view class="exchange-btn" @click="toRechargeCard">红包充值</view>
 		</view>
 	</view>
 </template>
@@ -62,12 +62,12 @@
 			return {
 				currentTab: 0,
 				tabs: [{
-					name: "永久购物券"
+					name: "永久红包"
 				}, {
-					name: "有效购物券"
+					name: "有效红包"
 				}],
 				
-				tab_list:['固定购物券','动态购物券'],
+				tab_list:['固定红包','动态红包'],
 				static_integral : 0,	//永久券数值
 				dynamic_integral : 0,	//有效券数值
 				list:[],

@@ -42,9 +42,9 @@
 				currentStatus:0,
 				currentTab: 0,
 				tabs: [{
-					name: "永久购物券"
+					name: "永久红包"
 				}, {
-					name: "有效购物券"
+					name: "有效红包"
 				}],
 				tabsStatus: [{
 					name: "全部状态"
@@ -55,7 +55,7 @@
 				}, {
 					name: "已过期"
 				}],
-				tab_list:['固定购物券','动态购物券'],
+				tab_list:['固定红包','动态购红包'],
 				static_integral : 0,	//永久券数值
 				dynamic_integral : 0,	//有效券数值
 				list:[],

@@ -248,7 +248,7 @@
 		{
 			"path": "pages/user/shopping/myCard",
 			"style": {
-				"navigationBarTitleText": "我的购物券",
+				"navigationBarTitleText": "我的红包",
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
@@ -256,7 +256,7 @@
 		{
 			"path": "pages/user/shopping/shopping",
 			"style": {
-				"navigationBarTitleText": "购物券",
+				"navigationBarTitleText": "红包",
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
@@ -264,7 +264,7 @@
 		{
 			"path": "pages/user/shopping/rechargeCard",
 			"style": {
-				"navigationBarTitleText": "购物卡券充值",
+				"navigationBarTitleText": "红包充值",
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
@@ -281,7 +281,7 @@
 		{
 			"path": "pages/user/shopping/detailed",
 			"style": {
-				"navigationBarTitleText": "有效券详情",
+				"navigationBarTitleText": "红包详情",
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
