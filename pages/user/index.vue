@@ -79,7 +79,7 @@
 					<view class="jx-btm-text">余额</view>
 				</view>
 				<view class="jx-btm-item" @click="openUrl(`./integral/integral`)">
-					<view class="jx-btm-num">{{ userInfo.score }}</view>
+					<view class="jx-btm-num">{{ userInfo.total_score }}</view>
 					<view class="jx-btm-text">积分</view>
 				</view>
 				<view class="jx-btm-item last" @click="openUrl(`./shopping/shopping`)">
