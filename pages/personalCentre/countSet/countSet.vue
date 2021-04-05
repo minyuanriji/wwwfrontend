@@ -31,7 +31,7 @@
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>交易密码</text>
 				</view>
-				<input type="number" placeholder="请填写交易密码" maxlength="6"  v-model="form.withdraw_pwd" />
+				<input type="number" placeholder="请填写密码(提现密码)" maxlength="6"  v-model="form.withdraw_pwd" />
 			</view>
 			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
@@ -76,7 +76,7 @@
 						num: 2
 					},
 				],
-				targetType: [{ //结算账户类型
+				targetType: [{ //提现方式
 						name: '自动提现',
 						num: 1
 					},
@@ -94,6 +94,34 @@
 					withdraw_pwd:'',//交易密码
 				}
 			};
+		},
+		onShow(){
+			this.$http
+				.request({
+					url: this.$api.moreShop.progress,
+					method: 'POST',
+					showLoading: true
+				}).then(res=>{
+					if(res.code==0){
+						console.log(res)
+						this.form.paper_settleAccountType=res.data.detail.paper_settleAccountType
+						for(let i=0;i<this.banktype.length;i++){
+							if(this.banktype[i].num==res.data.detail.paper_settleAccountType){
+								this.userbanktype=this.banktype[i].name
+							}
+						}
+						this.form.paper_settleAccountNo=res.data.detail.paper_settleAccountNo
+						this.form.paper_settleAccount=res.data.detail.paper_settleAccount
+						this.form.paper_openBank=res.data.detail.paper_openBank
+						// this.form.withdraw_pwd=
+						this.form.paper_settleTarget=res.data.detail.paper_settleTarget
+						for(let j=0;j<this.targetType.length;j++){
+							if(this.targetType[j].num==res.data.detail.paper_settleAccountType){
+								this.Targettype=this.targetType[j].name
+							}
+						}
+					}
+				})
 		},
 		methods:{
 			hidePopup(index) { //底部弹窗显示隐藏
@@ -192,6 +220,7 @@
 				})
 			}
 		}
+		
 	}
 </script>
 
@@ -201,7 +230,7 @@
 	.item {position: relative;display: flex;flex-wrap: wrap;overflow: hidden;border-bottom: 1rpx solid #80848F;width: 90%;margin: 0 auto;}
 	.item_title {
 		display: flex;
-		width: 250rpx;
+		width: 220rpx;
 		height: 120rpx;
 		flex-wrap: wrap;
 		margin-right: 10rpx;
@@ -217,6 +246,7 @@
 		height: 100%;
 		font-size: 28rpx;
 		height: 120rpx;
+		width: 400rpx;
 	}
 	.shop_type_item {
 		width: 100%;
