@@ -236,9 +236,9 @@
 								}).then(res => {
 									this.$http.toast(res.msg);
 									if (res.code == 0) {
-										if(uni.getStorageSync('parent_user_id')){
-											uni.setStorageSync('new_user',1);
-										}
+										// if(uni.getStorageSync('parent_user_id')){
+										// 	uni.setStorageSync('new_user',1);
+										// }
 										this.$http.setToken(res.data.access_token);
 										if (res.data.close_auth_bind == '0' && !res.data.mobile) {
 											uni.redirectTo({

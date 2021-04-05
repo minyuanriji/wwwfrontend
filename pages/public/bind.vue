@@ -110,7 +110,7 @@
 						}
 						_self.$http.setToken(res.data.access_token);
 						let url = uni.getStorageSync("_login_pre_url") ? uni.getStorageSync("_login_pre_url") : '/pages/user/index';
-						uni.setStorageSync('new_user',1);
+						// uni.setStorageSync('new_user',1);
 						uni.removeStorageSync("pid");
 						uni.removeStorageSync("user_id");
 						uni.removeStorageSync("_login_pre_url");

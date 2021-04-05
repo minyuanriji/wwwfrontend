@@ -103,7 +103,7 @@ export default {
 				}
 			}).then(res =>{
 				if(res.code == 0){
-					uni.setStorageSync('new_user',1);
+					// uni.setStorageSync('new_user',1);
 					this.$http.toast('绑定成功!');
 					if(this.form == 'login'){
 						uni.navigateBack();

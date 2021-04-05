@@ -34,13 +34,12 @@
 						"user_id":user_id
 					}
 				}).then(res => {
-					if (res.status == 1) {
+					if (res.code == 0) {
 						uni.showToast({
 						    title: res.msg,
 						    duration: 2000,
 							icon:'none'
 						});
-						uni.removeStorageSync('new_user');
 						setTimeout(function () {
 							uni.redirectTo({
 								url:'/pages/index/index'
