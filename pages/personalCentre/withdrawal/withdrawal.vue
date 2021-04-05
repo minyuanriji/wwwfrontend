@@ -63,6 +63,7 @@
 					this.information=res.data
 				}
 			})
+			this.show=false
 		},
 		methods:{
 			link(){ //跳到流水明细页面

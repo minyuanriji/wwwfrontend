@@ -176,7 +176,7 @@
 					return
 				}
 				this.$http.request({
-					url: this.$api.moreShop.getaccountInfo,
+					url: this.$api.moreShop.settleMessage,
 					method: 'POST',
 					showLoading: true,
 					data:this.form
@@ -187,7 +187,7 @@
 							this.navBack();
 						},1000 * 2)
 					}else{
-						this.$http.toast(res,msg);
+						this.$http.toast(res.msg);
 					}
 				})
 			}
