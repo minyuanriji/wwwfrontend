@@ -114,78 +114,14 @@
 					if (res.code == 0) {
 						console.log(res.data)
 						this.payData = res.data;
+						console.log(this.payData)
 					}
 				})
 			},
 			// 请求支付接口
 			confirmPay(){
-				let that = this; 
-				if(that.payData.supportPayTypes[that.switchIndex]=='alipay'){
-						that.$http.request({
-							url: that.$api.moreShop.alipay,
-							showLoading: true,
-							method: 'post',
-							data: {
-								union_id: that.payData.union_id,
-							}
-						}).then(res=>{
-							if(res.code==0){
-								let url=res.data.codeUrl
-								location.href=url
-							}else{
-								that.$http.toast(res.msg)
-							}
-						})
-				}
-				if(that.payData.supportPayTypes[that.switchIndex]=='wechat'){
-					// #ifdef H5
-							that.$http.request({
-								url: that.$api.moreShop.wechatpay,
-								showLoading: true,
-								method: 'post',
-								data: {
-									union_id: that.payData.union_id,
-								}
-							}).then(res=>{
-								if(res.code==0){
-									that.$wechatSdk.pay(res.data,'/pages/order/list?status=1');
-								}else{
-									that.$http.toast(res.msg);	
-								}
-							})
-					// #endif
-					// #ifdef MP-WEIXIN || APP-PLUS
-							that.$http.request({
-								url: that.$api.moreShop.wechatpay,
-								showLoading: true,
-								method: 'post',
-								data: {
-									union_id: that.payData.union_id,
-								}
-							}).then(res=>{
-								if(res.code==0){
-									setPay(res.data, (result) => {
-										let _url = '/pages/order/list?status=1'
-										if (result.success) {
-											that.$http.toast("支付成功")
-										} else {
-											that.$http.toast("未支付")
-											_url = '/pages/order/list?status=0'
-										}															
-										setTimeout(() => {
-											uni.redirectTo({
-												url: _url
-											})
-										},1000)
-															
-									});
-								}else{
-									that.$http.toast(res.msg);	
-								}
-							})
-					// #endif			
-				}
-				if(that.payData.supportPayTypes[that.switchIndex]=='balance'){
+				let that = this;
+				if(that.payData.amount==0){
 					that.$http.request({
 						url: that.$api.moreShop.balancepay,
 						showLoading: true,
@@ -206,6 +142,94 @@
 							that.$http.toast(res.msg)
 						}
 					})
+				}else{
+					if(that.payData.supportPayTypes[that.switchIndex]=='alipay'){
+							that.$http.request({
+								url: that.$api.moreShop.alipay,
+								showLoading: true,
+								method: 'post',
+								data: {
+									union_id: that.payData.union_id,
+								}
+							}).then(res=>{
+								if(res.code==0){
+									let url=res.data.codeUrl
+									location.href=url
+								}else{
+									that.$http.toast(res.msg)
+								}
+							})
+					}
+					if(that.payData.supportPayTypes[that.switchIndex]=='wechat'){
+						// #ifdef H5
+								that.$http.request({
+									url: that.$api.moreShop.wechatpay,
+									showLoading: true,
+									method: 'post',
+									data: {
+										union_id: that.payData.union_id,
+									}
+								}).then(res=>{
+									if(res.code==0){
+										that.$wechatSdk.pay(res.data,'/pages/order/list?status=1');
+									}else{
+										that.$http.toast(res.msg);	
+									}
+								})
+						// #endif
+						// #ifdef MP-WEIXIN || APP-PLUS
+								that.$http.request({
+									url: that.$api.moreShop.wechatpay,
+									showLoading: true,
+									method: 'post',
+									data: {
+										union_id: that.payData.union_id,
+									}
+								}).then(res=>{
+									if(res.code==0){
+										setPay(res.data, (result) => {
+											let _url = '/pages/order/list?status=1'
+											if (result.success) {
+												that.$http.toast("支付成功")
+											} else {
+												that.$http.toast("未支付")
+												_url = '/pages/order/list?status=0'
+											}															
+											setTimeout(() => {
+												uni.redirectTo({
+													url: _url
+												})
+											},1000)
+																
+										});
+									}else{
+										that.$http.toast(res.msg);	
+									}
+								})
+						// #endif			
+					}
+					if(that.payData.supportPayTypes[that.switchIndex]=='balance'){
+						that.$http.request({
+							url: that.$api.moreShop.balancepay,
+							showLoading: true,
+							method: 'post',
+							data: {
+								union_id: that.payData.union_id,
+							}
+						}).then(res=>{
+							if(res.code==0){
+								that.$http.toast('支付成功!');
+								setTimeout(() => {
+									uni.redirectTo({
+										url: '/pages/order/list?status=1'
+									})
+								},500)
+								return;
+							}else{
+								that.$http.toast(res.msg)
+							}
+						})
+					}
 				}
 			},						
 			switchIcon(index) {

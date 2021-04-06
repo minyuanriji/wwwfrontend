@@ -43,7 +43,7 @@
 				</view>
 				<view class="content_body_block_bb1">
 					<view class="content_body_block_bb_l2">
-						<image :src="params.pic_business_license" @tap="uploadImg" data-id="0"></image>
+						<image :src="params.pic_business_license?params.pic_business_license:yingye+'/yingye.jpg'" @tap="uploadImg" data-id="0"></image>
 						<view>营业执照（有经营类目的面）</view>
 					</view>
 				</view>
@@ -117,11 +117,11 @@
 				</view>
 				<view class="content_body_block_bb1">
 					<view class="content_body_block_bb_l2">
-						<image :src="params.pic_id_card_front" @tap="uploadImg" data-id="1"></image>
+						<image :src="params.pic_id_card_front?params.pic_id_card_front:shenfen1+'/positive.png'" @tap="uploadImg" data-id="1"></image>
 						<view>身份证照片（正面）</view>
 					</view>
 					<view class="content_body_block_bb_l2">
-						<image :src="params.pic_id_card_back" @tap="uploadImg" data-id="2"></image>
+						<image :src="params.pic_id_card_back?params.pic_id_card_back:shenfen2+'/reverse.png'" @tap="uploadImg" data-id="2"></image>
 						<view>身份证照片（反面）</view>
 					</view>
 				</view>
@@ -224,6 +224,9 @@
 				format: true
 			})
 			return {
+				yingye:this.$api.img_url,
+				shenfen1:this.$api.img_url,
+				shenfen2:this.$api.img_url,
 				typeone: true, //步骤一
 				typetwo: false, //步骤二
 				typethree: false, //步骤三	
@@ -921,7 +924,7 @@
 	}
 
 	.content_body_block_bb_l2 image {
-		width: 50%;
+		width:300rpx ;
 		height: 113px;
 	}
 

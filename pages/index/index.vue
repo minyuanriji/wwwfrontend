@@ -434,6 +434,13 @@ export default {
 	},
 	onShow() {
 		this.getData('show');
+		let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
+		let curRoute = routes[routes.length - 1].route //获取当前页面路由   //   pages/webview/webview
+		let curParam = routes[routes.length - 1].options; //获取路由参数     //   {"userId":"1000007"}
+		if(curParam.pid){			
+			uni.setStorageSync('pid', options.pid);
+			uni.setStorageSync("user_id", options.pid);
+		}
 	},
 	onReachBottom() {
 		//上拉加载
@@ -448,7 +455,6 @@ export default {
 		if (options.pid) {
 			uni.setStorageSync('pid', options.pid);
 			uni.setStorageSync("user_id", options.pid);
-			location.reload()
 		}
 		if(uni.getStorageSync('mall_config')){
 			this.copyright = JSON.parse(uni.getStorageSync('mall_config')).copyright;
@@ -460,6 +466,7 @@ export default {
 		this.checkUpdateVersion();
 		//#endif	
 	},
+	
 	//用户点击分享
 	onShareAppMessage(e) {
 	  return this.wxShare("名媛日记","/pages/index/index?source=1");

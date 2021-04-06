@@ -39,6 +39,7 @@ export default {
 			loadding: false,
 			dataList: [],
 			page:1,
+			type:'in',//in收入，out支出
 			textColor:'#bc0100',
 			page_count:'',
 			switchIndex:1,
@@ -65,6 +66,7 @@ export default {
 					method: 'POST',
 					data: {
 						page:this.page,
+						type:this.type
 					},
 					showLoading: true,
 				})
@@ -86,6 +88,7 @@ export default {
 				this.pullUpOn=true,
 				this.dataList=[],
 				this.pages=1
+				this.type='in'
 				this.getDateList();
 			}
 			if(index==2){
@@ -93,6 +96,7 @@ export default {
 				this.pullUpOn=true,
 				this.dataList=[],
 				this.pages=1
+				this.type='out'
 				this.getDateList();
 			}
 		}
