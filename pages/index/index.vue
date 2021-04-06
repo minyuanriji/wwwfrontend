@@ -466,6 +466,7 @@ export default {
 		this.checkUpdateVersion();
 		//#endif	
 	},
+    
 	
 	//用户点击分享
 	onShareAppMessage(e) {
