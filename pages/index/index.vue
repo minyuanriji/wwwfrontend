@@ -448,6 +448,7 @@ export default {
 		if (options.pid) {
 			uni.setStorageSync('pid', options.pid);
 			uni.setStorageSync("user_id", options.pid);
+			location.reload()
 		}
 		if(uni.getStorageSync('mall_config')){
 			this.copyright = JSON.parse(uni.getStorageSync('mall_config')).copyright;
