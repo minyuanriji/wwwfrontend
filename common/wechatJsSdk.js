@@ -24,7 +24,6 @@ export default {
 	//初始化sdk配置  
 	initJssdk: function(callback, url) {
 		// 这是我这边封装的 request 请求工具，实际就是 uni.request 方法。
-		console.log(url);
 		// let root_url = encodeURIComponent(window.location.href.split('#')[0]);
 		let root_url = window.location.href.split('#')[0];
 		request({
@@ -183,22 +182,22 @@ export default {
 		}
 		let mall_id = uni.getStorageSync("mall_id");
 		let user = uni.getStorageSync("userInfo") ? JSON.parse(uni.getStorageSync("userInfo")) : {};
-		let _url = `${window.location.href.split("#")[0]}#/${this.getUrl()}`;
+		console.log(data,url)
+		// let _url = `${window.location.href.split("#")[0]}#/${this.getUrl()}`;
 		
-		if(this.getUrl().indexOf('?') == -1 && url){
-			_url = `${_url}?${url}`;
-		}else{
-			if(url){
-				_url = `${_url}&${url}`;
-			}
-		}
-		if(_url.indexOf('?') == -1){
-			user.user_id ? _url = _url + '?pid='+user.user_id : '';
-		}else{
-			user.user_id ? _url = _url + '&pid='+user.user_id : '';
-		}
-		
-		this.shareUrl(data,_url);
+		// if(this.getUrl().indexOf('?') == -1 && url){
+		// 	_url = `${_url}?${url}`;
+		// }else{
+		// 	if(url){
+		// 		_url = `${_url}&${url}`;
+		// 	}
+		// }
+		// if(_url.indexOf('?') == -1){
+		// 	user.user_id ? _url = _url + '?pid='+user.user_id : '';
+		// }else{
+		// 	user.user_id ? _url = _url + '&pid='+user.user_id : '';
+		// }				
+		this.shareUrl(data,url);
 	},
 	//在需要自定义分享的页面中调用
 	shareUrl: function(data, url) {
@@ -207,7 +206,7 @@ export default {
 			return;
 		}
 		var pid = uni.getStorageSync("userInfo") ? JSON.parse(uni.getStorageSync("userInfo")).user_id : 0;
-		url = url + '&pid2=' + pid;
+		url = url + '&pid=' + pid;
 		//每次都需要重新初始化配置，才可以进行分享  
 		this.initJssdk(function(signData) {
 			jweixin.ready(function() {
@@ -223,7 +222,18 @@ export default {
 					cancel: function(res) {}
 				};
 				//分享给朋友接口  
-				jweixin.updateAppMessageShareData(shareData);
+				jweixin.updateAppMessageShareData({
+					title: data && data.app_share_title ? data.app_share_title : signData.site_name,
+					desc: data && data.app_share_desc ? data.app_share_desc : signData.site_description,
+					link: url,
+					imgUrl: data && data.app_share_pic ? data.app_share_pic : signData.site_logo,
+					success: function(res) {
+						// alert(data.app_share_title)
+						// alert(data.app_share_desc)
+						// alert(data.app_share_pic)
+						// alert(url)
+					}
+				});
 				//分享到朋友圈接口  
 				jweixin.updateTimelineShareData(shareData);
 			});

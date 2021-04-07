@@ -531,9 +531,6 @@
 			// 		url:'/pages/public/bindParent'
 			// 	})
 			// } */
-			
-			
-			
 		},
 		//用户点击分享
 		onShareAppMessage(e) {
@@ -545,9 +542,9 @@
 			      imageUrl: ""
 			    }
 			//#endif
-			//#ifdef H5
-				return this.wxShare(this.goodsData.name, `/pages/goods/detail?source=3&proId=${this.proId}`);
-			//#endif
+			// //#ifdef H5
+			// 	return this.wxShare(this.goodsData.name, `/pages/goods/detail?source=3&proId=${this.proId}`);
+			// //#endif
 		},
 		computed: {
 			isReceive() {
@@ -847,38 +844,15 @@
 					this.loading = false;
 					if (res.code == 0) {
 						this.goodsData = res.data.goods;
-						// #ifdef H5
-						// var obj = {
-						// 	app_share_title:this.goodsData.app_share_title,
-						// 	app_share_pic:this.goodsData.app_share_pic,
-						// 	app_share_desc:''
-						// }
-						// this.$wechatSdk.initShareUrl(obj);
-								let pages = getCurrentPages();
-								let curPage = pages[pages.length - 1];
-								let link = curPage.$route.fullPath;
-								let id='';
-								console.log(link)
-								if(uni.getStorageSync("userInfo")){
-									id=JSON.parse(uni.getStorageSync("userInfo")).user_id
-								}else{
-									id=0
-								}
-								var jweixin = require('jweixin-module');
-								console.log(this.goodsData)
-								jweixin.updateAppMessageShareData({
-								        title:this.goodsData.name , // 分享标题
-								        desc:'', // 分享描述
-								        link:link+"&pid="+id, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-								        imgUrl:this.goodsData.app_share_pic, // 分享图标
-								        type: "", // 分享类型,music、video或link，不填默认为link
-								        dataUrl: "", // 如果type是music或video，则要提供数据链接，默认为空
-								        success: function(res) {
-											
-								        }
-								      });												
-						// #endif
-						
+						//#ifdef H5
+						let link=window.location.href
+							var obj = {}
+								obj.app_share_title=res.data.goods.name,
+								obj.app_share_pic=res.data.goods.app_share_pic,
+								obj.app_share_desc=''
+								console.log(obj)
+							this.$wechatSdk.initShareUrl(obj,link);								
+						//#endif
 						if(this.goodsData.video_url){
 							this.bannerLength = this.goodsData.pic_list.length + 1;
 						}else{
