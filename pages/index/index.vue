@@ -111,7 +111,7 @@
 				<!-- 图片魔方 -->
 
 				<!-- 商品 -->
-				<view v-if="item.id == 'goods'" style="background: #FFFFFF;padding: 0rpx 20rpx 0;border-radius: 10rpx;">
+				<view v-if="item.id == 'goods'" style="background: #FFFFFF;border-radius: 10rpx;">
 					<commodity
 						:listStyle="item.data.listStyle"
 						:showGoodsName="item.data.showGoodsName"
