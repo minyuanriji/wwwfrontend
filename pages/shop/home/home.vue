@@ -395,7 +395,7 @@
 
 	.index1_content_list_block {
 		display: block;
-		padding: 15px;
+		padding: 10px 0;
 		border-bottom: 1px #eee solid;
 		box-shadow: 0px 0px 10px #eee;
 		margin-bottom: 10px;
@@ -430,22 +430,23 @@
 	.r_block_label {
 		padding: 0px 4rpx;
 		background-color: #fa7f5e;
-		font-size: 11px;
+		font-size: 20rpx;
 		color: #000000;
 		border-radius: 10px;
 		text-align: center;
 	}
 
 	.r_block_now_price {
-		font-size: 20px;
+		font-size: 18px;
 		color: #dc3c63;
-		margin-left: 3px;
+		margin: 0 10rpx;
+		
 	}
 
 	.r_block_old_price {
 		color: #b4b3b3;
 		font-size: 13px;
-		margin-left: 10px;
+		/* margin-left: 10px; */
 		text-decoration: line-through;
 	}
 
