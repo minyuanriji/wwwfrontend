@@ -437,6 +437,7 @@
 		color: #000000;
 		border-radius: 10px;
 		text-align: center;
+		line-height: 50rpx;
 		margin-bottom: 10rpx;
 	}
 

@@ -178,7 +178,7 @@
                     }
                 }
             },
-            "port" : 80
+            "port" : 80  
         },
 		// "domain" : "https://www.mingyuanriji.cn/h5/",
         "domain" : "https://dev.mingyuanriji.cn/h5/",
