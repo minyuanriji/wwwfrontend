@@ -2,7 +2,7 @@
 	<view class="shopProductItem" @tap.stop="navTo(item.id)">
 		<view class="shop-img">
 			<image :src="item.cover_pic"
-			 mode="widthFix"></image>
+			 mode=""></image>
 		</view>
 		<view class="shop-title">
 			{{item.name}}
@@ -60,6 +60,7 @@
 	.shop-img image {
 		width: 100%;
 		display: block;
+		height: 325rpx;
 	}
 
 	.shop-title {
@@ -73,7 +74,7 @@
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 2;
 		/*规定最多显示两行*/
-		margin: 5rpx 0;
+		margin: 10rpx 0;
 	}
 
 	.shop-money {

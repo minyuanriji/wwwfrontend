@@ -422,24 +422,29 @@
 	}
 
 	.index1_content_list_block_t_r_block {
-		display: flex;
-		align-items: center;
-		margin-top: 15px;
+		/* display: flex;
+		align-items: center; */
+		margin-top: 10px;
 	}
 
 	.r_block_label {
+		width: 35%;
+		height: 50rpx;
+		display: block;
 		padding: 0px 4rpx;
 		background-color: #fa7f5e;
-		font-size: 20rpx;
+		font-size: 30rpx;
 		color: #000000;
 		border-radius: 10px;
 		text-align: center;
+		margin-bottom: 10rpx;
 	}
 
 	.r_block_now_price {
 		font-size: 18px;
 		color: #dc3c63;
 		margin: 0 10rpx;
+		float: left;
 		
 	}
 
@@ -448,6 +453,8 @@
 		font-size: 13px;
 		/* margin-left: 10px; */
 		text-decoration: line-through;
+		float: left;
+		margin-top: 10rpx;
 	}
 
 	.index1_content_list_block_t_r_bottom {
