@@ -40,6 +40,9 @@
 						    duration: 2000,
 							icon:'none'
 						});
+						var local=JSON.parse(user)
+						local.new_user_is_get_score=1
+						uni.setStorageSync("userInfo",local)
 						setTimeout(function () {
 							uni.redirectTo({
 								url:'/pages/index/index'

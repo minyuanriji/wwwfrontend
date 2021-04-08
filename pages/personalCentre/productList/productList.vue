@@ -12,21 +12,42 @@
 		},
 		data() {
 			return {
-				list:[
-					{
-						img:'',
-						title:"复合物哦热换个蓉儿光和热哦哦热火个哦不大对仍认为",
-						price:205,
-						num:1000
-					},
-					{
-						img:'',
-						title:"复合物哦热换个蓉儿光和热哦哦热火个哦不大对仍认为",
-						price:205,
-						num:1000
-					}
-				]
+				list:[],
+				form:{
+					mch_id:'',
+					cat_id:'',
+					keyword:'',
+					label:'',
+					page:'',
+					limit:''
+				}
 			};
+		},
+		onLoad() {
+			this.getGoodsList()
+		},
+		methods:{
+			getGoodsList(){ //获取商户商品
+				let routes = getCurrentPages(); // 获取当前打开过的页面路由数组			
+				let curRoute = routes[routes.length - 1].route //获取当前页面路由				
+				let curParam = routes[routes.length - 1].options; //获取路由参数
+				this.form.mch_id=curParam.mch_id
+				this.$http
+					.request({
+						url: this.$api.moreShop.getmchgods,
+						method: 'POST',
+						showLoading: true,
+						data:this.form
+					})
+					.then(res => {
+						if(res.code==0){
+							console.log(res)
+							this.list=res.data.list
+						}else{
+							this.$http.toast(res.msg);
+						}
+					});
+			}
 		}
 	}
 </script>

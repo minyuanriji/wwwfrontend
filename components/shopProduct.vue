@@ -1,19 +1,19 @@
 <template>
-	<view class="shopProductItem">
+	<view class="shopProductItem" @tap.stop="navTo(item.id)">
 		<view class="shop-img">
-			<image src="https://img.alicdn.com/imgextra/i3/1709365317/O1CN01KJERwK1p9ERkXoHLJ_!!1709365317-0-daren.jpg_180x180xzq90.jpg_.webp"
+			<image :src="item.cover_pic"
 			 mode="widthFix"></image>
 		</view>
 		<view class="shop-title">
-			奇偶荣割肉割个哦我破房间我劫贫济富我旁边防空炮热哦哦几个人平股票仍将二批
+			{{item.name}}
 		</view>
 		<view class="shop-money">
 			<view>
 				<text>￥</text>
-				<text>140.00</text>
+				<text>{{item.price}}</text>
 			</view>
 			<view>
-				已售:502件
+				{{item.sales}}
 			</view>
 		</view>
 	</view>
@@ -21,10 +21,23 @@
 
 <script>
 	export default {
+		props:{
+			item:{
+				type: Object,
+				default: false 
+			}
+		},
 		data() {
 			return {
 
 			};
+		},
+		methods:{
+			navTo(id){
+				uni.navigateTo({
+					url: `/pages/goods/detail?proId=${id}`
+				})
+			}
 		}
 	}
 </script>

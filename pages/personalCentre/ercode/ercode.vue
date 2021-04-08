@@ -189,11 +189,11 @@
 <style scoped lang="less">
 	.ercode {
 		width: 100%;
-		overflow: hidden;
+		height: 100%;
 		position: relative;
 		background: url(../../../static/img/erqode-img.jpg)no-repeat;
 		background-size: 100% 100%;
-		padding-top: 110rpx;
+		padding-top: 80rpx;
 	}
 
 	.main {
@@ -206,18 +206,18 @@
 	}
 
 	.logo {
-		width: 200rpx;
-		height: 200rpx;
+		width: 180rpx;
+		height: 150rpx;
 		margin: 0rpx auto;
 		position: relative;
 	}
 
 	.logo image {
-		width: 200rpx;
-		height: 200rpx;
+		width: 180rpx;
+		height: 150rpx;
 		display: block;
 		position: absolute;
-		top: -90rpx;
+		top: -60rpx;
 	}
 
 	.main-title {
@@ -287,7 +287,7 @@
 		text-align: center;
 		color: #fff;
 		line-height: 70rpx;
-		margin: 100rpx auto 200rpx;
+		margin: 50rpx auto 0rpx;
 	}
 	.goods-qrcode-modal {
 		position: fixed;
