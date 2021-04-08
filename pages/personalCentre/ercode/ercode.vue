@@ -22,8 +22,7 @@
 		</view>
 		<view class="btn" @click="capture">
 			点击生成图片
-		</view>
-		
+		</view>		
 		<view class="goods-qrcode-modal" v-if="showPoster">
 			<view class="goods-qrcode-body flex-col">
 				<!-- 整一个图片包括二维码都是后台给的图片 -->
@@ -88,23 +87,35 @@
 		},
 		methods: {
 			capture() {
-				let dom = document.querySelector('#poster'); // 获取dom元素
-				let scale=3
-					html2canvas(dom, {
-						width: dom.clientWidth, //dom 原始宽度
-						height: dom.clientHeight,
-						scrollY: 0,// html2canvas默认绘制视图内的页面，需要把scrollY，scrollX设置为0
-						scrollX: 0,
-						useCORS: true,//支持跨域，但好像没什么用
-						scale:scale,
-						dpi:300
-					}).then((canvas) => {
-						//成功后调用返回canvas.toDataURL返回图片的base64，H5不支持下载base64，PC浏览器测试没问题，可以正常下载。
-						this.poster_url = canvas.toDataURL('image/png', 1);
-						if(this.poster_url.length>0){
-							this.showPoster=true
-						}
-					});
+				// // let dom = document.querySelector('#poster'); // 获取dom元素
+				// let scale=3
+				// 	html2canvas(dom, {
+				// 		width: dom.clientWidth, //dom 原始宽度
+				// 		height: dom.clientHeight,
+				// 		scrollY: 0,// html2canvas默认绘制视图内的页面，需要把scrollY，scrollX设置为0
+				// 		scrollX: 0,
+				// 		useCORS: true,//支持跨域，但好像没什么用
+				// 		scale:scale,
+				// 		dpi:300
+				// 	}).then((canvas) => {
+				// 		//成功后调用返回canvas.toDataURL返回图片的base64，H5不支持下载base64，PC浏览器测试没问题，可以正常下载。
+				// 		this.poster_url = canvas.toDataURL('image/png', 1);
+				// 		if(this.poster_url.length>0){
+				// 			this.showPoster=true
+				// 		}
+				// 	});
+							window.pageYoffset = 0;
+					        document.documentElement.scrollTop = 0;
+					        document.body.scrollTop = 0;
+					        html2canvas(
+					            document.getElementById('poster'), 
+					            { scale: 1 }
+					        ).then( canvas => {
+										this.poster_url = canvas.toDataURL('image/png', 1);
+										if(this.poster_url.length>0){
+											this.showPoster=true
+										}
+					        });
 			},			
 			saveImg(url) {
 				var that = this;
@@ -287,7 +298,7 @@
 		text-align: center;
 		color: #fff;
 		line-height: 70rpx;
-		margin: 50rpx auto 0rpx;
+		margin: 50rpx auto 100rpx;
 	}
 	.goods-qrcode-modal {
 		position: fixed;

@@ -1,6 +1,7 @@
 <template>
 	<view class="productList-app">
 		<shopProduct v-for='(item,index) in list' :item='item' :key='index'></shopProduct>
+		<view class="none" v-if="list.length==0" style="text-align: center;color: #999;margin-top: 20px;font-size: 14px;">暂无商品</view>
 	</view>
 </template>
 
@@ -55,4 +56,5 @@
 <style lang="less" scoped>
 	.productList-app{width: 100%;overflow: hidden;display: flex;justify-content: space-between;
 	padding: 0 30rpx;}
+	.none{width: 100%;}
 </style>

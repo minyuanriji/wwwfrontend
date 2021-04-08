@@ -1,6 +1,6 @@
 <template>
 	<view v-if="show" class="post-app">
-		<button type="warn" @click="getData()" v-if="hidden">点击生成二维码</button>
+		<!-- <button type="warn" @click="getData()" v-if="hidden">点击生成二维码</button> -->
 		<view class="goods-qrcode-modal" v-if="!hidden">
 			<view class="goods-qrcode-body flex-col">
 				<view class="flex-grow-1" style="position: relative;">
@@ -55,6 +55,7 @@
 								});
 			}else{
 				this.show=true
+				this.getData()
 			}
 		},
 		methods: {
