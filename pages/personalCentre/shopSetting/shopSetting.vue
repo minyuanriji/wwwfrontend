@@ -23,7 +23,7 @@
 			</view>
 			<view class="shopSetting-num">
 				<text>{{num}}张</text>
-				<image src="../../../static/img/arrow-right.png" mode=""></image>
+				<image :src="img_url+'/arrow-right.png'" mode=""></image>
 			</view>
 		</view>
 		<view class="shopSetting-item">
@@ -37,7 +37,7 @@
 						<view class="index1_content_top_l_name" style="height: 100rpx;line-height: 100rpx;">{{text.length<=0?'请选择':text}}</view>
 					</view>
 				</picker>
-				<image src="../../../static/img/sanjia.png" mode="" class="select_logo"></image>
+				<image :src="img_url+'/sanjia.png'" mode="" class="select_logo"></image>
 			</view>
 		</view>
 		<view class="shopSetting-item">
@@ -51,7 +51,7 @@
 				<text>
 					纬度:{{form.latitude}}
 				</text>
-				<image src="../../../static/img/position_LOGO.png" mode="" class="position_logo" @tap="chooseAddress"></image>
+				<image :src="img_url+'/position_LOGO.png'" mode="" class="position_logo" @tap="chooseAddress"></image>
 			</view>
 		</view>
 		<view class="shopSetting-item">
@@ -73,6 +73,7 @@
 	export default {
 		data() {
 			return {
+				img_url: this.$api.img_url,
 				params:{
 					shop_logo:this.$api.test_url + "/images/shop/shop_logo.png",
 				},
@@ -346,7 +347,7 @@
 	.shopSetting-app {
 		width: 100%;
 		height: 100%;
-		background: url(../../../static/img/shop_setLogo.jpg)no-repeat;
+		background: url(../../../plugins/images/shop_setLogo.jpg)no-repeat;
 		background-size: cover;
 		padding-top: 100rpx;
 	}
@@ -381,7 +382,7 @@
 	}
 
 	.logo{width: 130rpx;height: 130rpx;float: left;display: block;margin-top: 10rpx;}
-	.upload-logo{width: 130rpx;height: 130rpx;margin-top: 10rpx;background: url(../../../static/img/select_pic.png)no-repeat;background-size:cover ;float: right;}
+	.upload-logo{width: 130rpx;height: 130rpx;margin-top: 10rpx;background: url(../../../plugins/images/select_pic.png)no-repeat;background-size:cover ;float: right;}
 	.select_logo{float: right;width: 30rpx;height: 25rpx;display: block;margin-top: 40rpx;}
 	.shopSetting-num{float: right;height: 100rpx;display: flex;justify-content: space-evenly;line-height: 100rpx;}
 	.shopSetting-num image{width: 40rpx;height: 40rpx;margin-top: 30rpx;}

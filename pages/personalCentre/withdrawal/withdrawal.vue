@@ -121,7 +121,7 @@
 </script>
 
 <style lang="less">
-	.withdrawal-app{width: 100%;height: 100%;background: url(../../../static/img/withdrawal-back.jpg)no-repeat;background-size:cover;}
+	.withdrawal-app{width: 100%;height: 100%;background: url(../../../plugins/images/withdrawal-back.jpg)no-repeat;background-size:cover;}
 	.withdrawal-user-money{width: 100%;overflow: hidden;display: flex;flex-wrap: wrap;}
 	.withdrawal-user-money text{display:block;width: 100%;overflow: hidden;text-align: center;color: #fff;}
 	.withdrawal-user-money text:nth-of-type(1){font-size: 35rpx;margin-top: 50rpx;}

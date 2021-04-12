@@ -87,13 +87,13 @@
 </script>
 
 <style lang="less" scoped>
-	.accountSetting-app{width: 100%;height: 100%;background: url(../../../../static/img/account_set_back.jpg)no-repeat;background-size: cover;
+	.accountSetting-app{width: 100%;height: 100%;background: url(../../../../plugins/images/account_set_back.jpg)no-repeat;background-size: cover;
 	padding-top: 180rpx;}
 	.accountSetting-main{width: 90%;background: #fff;height: 700rpx;margin: 0 auto;
 	box-shadow: 0 3rpx 20rpx rgba(183, 183, 183, 0.5);border-radius: 20rpx;box-sizing: border-box;padding: 60rpx 20rpx 0 20rpx;}
 	.accountSetting-main view{display: flex;height: 100rpx;width: 100%;box-sizing: border-box;margin-bottom: 40rpx;}
 	.accountSetting-main view text{width: 160rpx;height: 100rpx;display: block;line-height: 100rpx;color: #000000;}
 	.accountSetting-main view input{border-bottom: 1rpx solid #B0B0B0;height: 100rpx;width: 70%;}
-	.btn{width: 90%;color: #fff;background: #07beb4;border-radius: 45rpx;line-height: 80rpx;}
+	.btn{width: 90%;color: #fff;background: #07beb4;border-radius: 45rpx;line-height: 100rpx;}
 	.accountSetting-main view:nth-of-type(3){margin-bottom: 80rpx;height: 80rpx;}
 </style>

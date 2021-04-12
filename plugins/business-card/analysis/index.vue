@@ -320,7 +320,8 @@
 </template>
 
 <script>
-	import uCharts from '@/components/u-charts/u-charts.js';
+	// import uCharts from '@/components/u-charts/u-charts.js';
+	import uCharts from '@/plugins/u-charts/u-charts.js';
 	var _self;
 	var canvaLineA=null,
 		canvaArea=null,

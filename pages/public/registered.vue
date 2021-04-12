@@ -49,6 +49,13 @@
 				<bf-validate :model="dataForm" :rules="dataRule" ref="validator" />
 			</view>
 		</view>
+		<uni-popup ref="popup" type="center">
+			<scroll-view scroll-y="true"  class="scroll-Ys">
+				<view class="htm" v-html="agreement">
+					<rich-text :nodes="agreement"></rich-text>
+				</view>
+			</scroll-view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -99,7 +106,8 @@
 					},
 				},
 				isShow: false,
-				countDown: ''
+				countDown: '',
+				agreement:''
 			}
 		},
 		onLoad() {
@@ -110,6 +118,8 @@
 			if(uni.getStorageSync('pid')){
 				this.dataForm.recommend_id = uni.getStorageSync('pid')
 			}
+			this.getAgreement()
+			
 		},
 		methods: {
 			getData() {
@@ -189,7 +199,8 @@
 				})
 			},
 			goAgreement() {
-				this.$http.toast('跳转用户协议');
+				// this.$http.toast('跳转用户协议');
+				this.$refs.popup.open()
 			},
 			cutover() {
 				this.isShow = !this.isShow;
@@ -198,6 +209,20 @@
 				uni.showToast({
 					icon: 'none',
 					title: msg
+				})
+			},
+			getAgreement(){
+				this.$http.request({
+					url: this.$api.moreShop.getagreement,
+					method: 'get',
+					data: {
+						mall_id:uni.getStorageSync('mall_id')?uni.getStorageSync('mall_id'):5
+					},
+					showLoading: true
+				}).then(res => {
+					if (res.code == 0) {
+						this.agreement=res.data.content
+					}
 				})
 			}
 		}
@@ -317,4 +342,7 @@
 	.hide {
 		display: none;
 	}
+	.scroll-Ys{width: 80%;overflow: hidden;margin: 0 auto;background: #fff;border-radius: 20rpx;}
+	.htm{width: 100%;height: 500rpx;margin: 0 auto;border-radius: 20rpx;font-size: 30rpx;text-align: center;
+	line-height: 60rpx;padding: 20rpx;}
 </style>

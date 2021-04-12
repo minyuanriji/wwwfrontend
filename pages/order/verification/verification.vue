@@ -15,7 +15,7 @@
 		<view class="verification-code">
 			<view class="ercode">
 				<view class="mask" v-if="show">
-					<image src="../../../static/img/gou.png" mode=""></image>
+					<image :src="img_url+'/gou.png'" mode=""></image>
 				</view>
 				<image :src="verificationMessage.url" mode="" class="ercode-img"></image>
 			</view>
@@ -38,6 +38,7 @@
 				poup:"",
 				timer:'',
 				show:false,//遮罩显示
+				img_url: this.$api.img_url,
 			}
 		},
 		onLoad(options) {
@@ -96,7 +97,7 @@
 	.verification-app {
 		width: 100%;
 		height: 100%;
-		background: url(../../../static/img/verification_back.jpg)no-repeat;
+		background: url(../../../plugins/images/verification_back.jpg)no-repeat;
 		background-size: cover;
 		padding-top: 30rpx;
 	}

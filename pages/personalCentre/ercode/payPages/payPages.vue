@@ -76,7 +76,7 @@
 </script>
 
 <style lang="less" scoped>
-	.payPages-app{width: 100%;height: 100%;background: url(../../../../static/img/userInputmoney.jpg)no-repeat;background-size: cover;}
+	.payPages-app{width: 100%;height: 100%;background: url(../../../../plugins/images/userInputmoney.jpg)no-repeat;background-size: cover;}
 	.input-btn{height: 100rpx;background: rgb(245, 245, 245);width: 65%;padding-left: 10rpx;}
 	.sure-code{width: 100%;overflow: hidden;}
 	.sure-code button{width: 100%;margin: 100rpx auto;background: rgb(7, 190, 180);color: #fff;}		

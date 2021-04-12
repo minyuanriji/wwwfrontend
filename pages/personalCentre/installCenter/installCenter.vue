@@ -2,19 +2,19 @@
 	<view class="installCenter-app">
 		<view class="installCenter-set">
 			<view @click="link(1)">
-				<image src="../../../static/img/accountSettings.png" mode=""></image>
+				<image :src="img_url+'/accountSettings.png'" mode=""></image>
 				<text>帐号设置</text>
-				<image src="../../../static/img/arrow-right.png" mode=""></image>
+				<image :src="img_url+'/arrow-right.png'" mode=""></image>
 			</view>
 			<view @click="link(2)">
-				<image src="../../../static/img/shopSetting.png" mode=""></image>
+				<image :src="img_url+'/shopSetting.png'" mode=""></image>
 				<text>店铺设置</text>
-				<image src="../../../static/img/arrow-right.png" mode=""></image>
+				<image :src="img_url+'/arrow-right.png'" mode=""></image>
 			</view>
 			<view  @click="link(3)">
-				<image src="../../../static/img/money.png" mode=""></image>
+				<image :src="img_url+'/money.png'" mode=""></image>
 				<text>结算设置</text>
-				<image src="../../../static/img/arrow-right.png" mode=""></image>
+				<image :src="img_url+'/arrow-right.png'" mode=""></image>
 			</view>
 		</view>
 	</view>
@@ -24,7 +24,7 @@
 	export default {
 		data() {
 			return {
-				
+				img_url: this.$api.img_url,
 			};
 		},
 		methods:{

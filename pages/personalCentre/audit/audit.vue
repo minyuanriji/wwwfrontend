@@ -2,7 +2,7 @@
 	<view class="audit-app">
 		<view class="audit-main">
 			<view class="audit-main-title-logo">
-				<image src="../../../static/img/auditicon.png" mode=""></image>
+				<image :src="img_url+'/auditicon.png'" mode=""></image>
 			</view>
 			<view class="audit-main-title-message">
 				<view>提现已成功</view>
@@ -20,6 +20,7 @@
 	export default {
 		data() {
 			return {
+				img_url: this.$api.img_url,
 			};
 		},
 		methods:{

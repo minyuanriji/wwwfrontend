@@ -1,10 +1,10 @@
 <template>
 	<view class="supplement_app">
 		<view class="type">
-			<image src="../../static/img/type-one.png" mode="widthFix" v-if="typeone"></image>
-			<image src="../../static/img/type-two.png" mode="widthFix" v-if="typetwo"></image>
-			<image src="../../static/img/type-three.png" mode="widthFix" v-if="typethree"></image>
-			<image src="../../static/img/type-fouth.png" mode="widthFix" v-if="typefourth"></image>
+			<image :src="img_url+'/type-one.png'" mode="widthFix" v-if="typeone"></image>
+			<image :src="img_url+'/type-two.png'" mode="widthFix" v-if="typetwo"></image>
+			<image :src="img_url+'/type-three.png'" mode="widthFix" v-if="typethree"></image>
+			<image :src="img_url+'/type-fouth.png'" mode="widthFix" v-if="typefourth"></image>
 		</view>
 		<view class="type-one" v-if="typeone">
 			<view class="item">
@@ -193,7 +193,7 @@
 		</view>
 		<view class="type-fouth" v-if="typefourth">
 			<view class="type-fouth-title">
-				<image src="../../static/img/audit.png" mode=""></image>
+				<image :src="img_url+'/audit.png'" mode=""></image>
 				<text>管理人员正在审核中</text>
 				<text>24小时内通过审核,请耐心等候</text>
 			</view>
@@ -224,6 +224,7 @@
 				format: true
 			})
 			return {
+				img_url: this.$api.img_url,
 				yingye:this.$api.img_url,
 				shenfen1:this.$api.img_url,
 				shenfen2:this.$api.img_url,

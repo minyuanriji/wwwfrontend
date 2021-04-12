@@ -144,7 +144,10 @@
                 "version" : "1.2.9", // 注意填写该直播组件最新版本号，微信开发者工具调试时可获取最新版本号（复制时请去掉注释）
                 "provider" : "wx2b03c6e691cd7370" // 必须填该直播组件appid，该示例值即为直播组件appid（复制时请去掉注释）
             }
-        }
+        },
+		"optimization":{ 
+		        "subPackages":true
+		   }
     },
     "mp-alipay" : {
         "usingComponents" : true
@@ -169,7 +172,7 @@
             "proxy" : {
                 "/api" : {
                     // "target" : "https://www.mingyuanriji.cn/h5/web/index.php",
-                    "target" : "https://dev.mingyuanriji.cn/h5/web/index.php",
+                    "target" : "https://dev.mingyuanriji.cn/h5/",
 					 // "target" : "http://local.mingyuanriji.cn/h5/web/index.php",
                     "changeOrigin" : true,
                     "secure" : false,
@@ -178,7 +181,7 @@
                     }
                 }
             },
-            "port" : 80  
+            "port" : 80
         },
 		// "domain" : "https://www.mingyuanriji.cn/h5/",
         "domain" : "https://dev.mingyuanriji.cn/h5/",

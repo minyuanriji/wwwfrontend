@@ -2,7 +2,7 @@
 	<view class="shopLogoupload-app">
 		<view class="main">
 			<view class="img-item" v-for="(item,index) in imgList" :key='index'>
-				<image src="../../../static/img/delete.png" mode="" class="delete" @click="deleted(item)"></image>
+				<image :src="img_url+'/delete.png'" mode="" class="delete" @click="deleted(item)"></image>
 				<image :src="item" mode="" class="img"></image>
 			</view>
 			<view class="upload-logo" @tap="uploadImg">
@@ -17,6 +17,7 @@
 		data() {
 			return {
 				imgList:[],
+				img_url: this.$api.img_url,
 			};
 		},
 		onLoad() {
@@ -106,6 +107,6 @@
 	.img{width: 200rpx;height: 200rpx;display: block;}
 	.delete{width: 40rpx;height: 40rpx;display: block;position: absolute;right: -10rpx;top: -20rpx;z-index: 999;}
 	.upload-logo{width: 200rpx;height: 200rpx;margin-top: 30rpx;
-	background: url(../../../static/img/select_pic.png)no-repeat;
+	background: url(../../../plugins/images/select_pic.png)no-repeat;
 	background-size:cover ;float: left;}
 </style>

@@ -141,21 +141,21 @@
 			</block>
 			<!-- 社区团购 -->
 
-			<view v-if="configData.user_center.user_tool_menus && configData.user_center.user_tool_menus.length">
+		<!-- 	<view v-if="configData.user_center.user_tool_menus && configData.user_center.user_tool_menus.length">
 				<toolbar
 					v-if="configData.user_center.is_show_user_tool != 0"
 					:toolbarTitle="configData.user_center.user_tool_menu_title"
 					:toolbarData="configData.user_center.user_tool_menus"
 					:flex="configData.user_center.user_tool_menu_style || '2'"
 				></toolbar>
-			</view>
+			</view> -->
 			
 			<view v-if="configData.user_center.menus && configData.user_center.menus.length">
 				<toolbar
 					v-if="configData.user_center.is_menu_status != 0"
 					:toolbarTitle="configData.user_center.menu_title"
 					:flex="configData.user_center.menu_style"
-					:toolbarData="userMessage.user_center.menus"
+					:toolbarData="configData.user_center.menus"
 				></toolbar>
 			</view>
 		</view>

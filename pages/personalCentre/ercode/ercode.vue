@@ -2,7 +2,7 @@
 	<view class="ercode" id="poster">
 		<view class="main">
 			<view class="logo">
-				<image src="../../../static/img/header-logo.png" mode=""></image>
+				<image :src="img_url+'/header-logo.png'" mode=""></image>
 			</view>
 			<view class="main-title">
 				让天下没有难做的生意
@@ -66,6 +66,7 @@
 				message: {},
 				showPoster: false,
 				poster_url:"",
+				img_url: this.$api.img_url,
 			}
 		},
 		onLoad() {
@@ -202,7 +203,7 @@
 		width: 100%;
 		height: 100%;
 		position: relative;
-		background: url(../../../static/img/erqode-img.jpg)no-repeat;
+		background: url(../../../plugins/images/erqode-img.jpg)no-repeat;
 		background-size: 100% 100%;
 		padding-top: 80rpx;
 	}
@@ -273,7 +274,7 @@
 		width: 450rpx;
 		height: 450rpx;
 		margin: 30rpx auto 0;
-		background: url(../../../static/img/kuang.png)no-repeat;
+		background: url(../../../plugins/images/kuang.png)no-repeat;
 		background-size: 100% 100%;
 		position: relative;
 	}

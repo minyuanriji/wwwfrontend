@@ -8,7 +8,7 @@
 			<button type="default" @click='btn'>确定</button>
 		</view>
 		<view class="accountingOrder_scan" @click='ercodeBtn'>
-			<image src="../../../static/img/shop-scan.png" mode=""></image>
+			<image :src="img_url+'/shop-scan.png'" mode=""></image>
 		</view>
 		<view class="personalCenter-item">
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false"  @click="link">
@@ -33,6 +33,7 @@
 		data() {
 			return {
 				code:'',//核销code
+				img_url: this.$api.img_url,
 			}
 		},
 		onLoad() {
@@ -61,8 +62,7 @@
 						    }
 						});
 				// #endif
-			},
-			
+			},			
 			btn(){ //点击确认核销码
 				if(this.code.length<=0){
 					this.$http.toast("核销码不能为空")
@@ -80,7 +80,7 @@
 </script>
 
 <style scoped>
-	.accountingOrder_app{width:100%;height: 100%;background: url(../../../static/img/shop_verification.jpg)no-repeat;background-size: cover;}
+	.accountingOrder_app{width:100%;height: 100%;background: url(../../../plugins/images/shop_verification.jpg)no-repeat;background-size: cover;}
 	.accountingOrder_title{padding: 30rpx 30rpx 0 30rpx;font-size: 30rpx;width: 100%;}
 	.accountingOrder_int{width: 100%;overflow: hidden;padding: 0 30rpx;margin-top: 20rpx;}
 	.accountingOrder_int input{width: 75%;height: 80rpx;background: #fff;border-radius: 20rpx;padding-left: 15rpx;float: left;}
@@ -104,7 +104,7 @@
 		color: #000;
 		background: #ffffff;
 		margin-bottom: 20rpx;
-		// box-shadow: 1rpx 1rpx 5rpx #888;
+		box-shadow: 1rpx 1rpx 5rpx #888;
 	}
 	
 	.jx-btm-item {
@@ -115,7 +115,7 @@
 		justify-content: center;
 		padding: 40rpx;
 		position: relative;
-	
+	/* 
 		&::after {
 			content: '';
 			border-right: 1rpx solid #b3b3b3;
@@ -131,7 +131,7 @@
 			&::after {
 				display: none;
 			}
-		}
+		} */
 	}
 	.jx-cell-header {
 		width: 100%;

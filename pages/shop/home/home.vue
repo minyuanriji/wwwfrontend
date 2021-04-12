@@ -40,7 +40,7 @@
 				  </view>  -->
 				<!-- 产品 -->
 				<view class="shop-my-products" style="margin-top: 20rpx;">
-					<image src="../../../plugins/images/shop_logo_hot.png" mode=""></image>
+					<image :src="img_url+'/shop_logo_hot.png'" mode=""></image>
 					<text class="shop-my-products_title">
 						店铺热销爆品
 					</text>
@@ -59,7 +59,7 @@
 					</view>
 				</view>
 				<view class="shop-my-products" style="margin-top: 20rpx;">
-					<image src="../../../plugins/images/shop_logo_hot.png" mode=""></image>
+					<image :src="img_url+'/shop_logo_hot.png'" mode=""></image>
 					<text class="shop-my-products_title">
 						分类
 					</text>
@@ -74,7 +74,7 @@
 				</view>
 				<!--商品列表-->
 				<view class="shop-my-products" style="margin-top: 20rpx;">
-					<image src="../../../plugins/images/shop_logo_hot.png" mode=""></image>
+					<image :src="img_url+'/shop_logo_hot.png'" mode=""></image>
 					<text class="shop-my-products_title">
 						店铺推荐商品
 					</text>
@@ -120,6 +120,7 @@
 		},
 		data() {
 			return {
+				img_url: this.$api.img_url,
 				current: 0,
 				background: "#53DEDB",
 				height: "",
@@ -378,6 +379,7 @@
 
 	.index1_content_sort_block_icon {
 		width: 100%;
+		height: 148rpx;
 		margin: 0px auto;
 		border: 1px solid rgb(239, 239, 239);
 	}

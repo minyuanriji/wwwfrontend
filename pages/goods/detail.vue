@@ -54,7 +54,9 @@
 					</view>
 				</view>
 				<view class="tui-pro-titbox">
-					<view class="tui-pro-title">{{goodsData.name}}</view>
+					<view class="tui-pro-title">
+						<text :selectable="true">{{goodsData.name}}</text>
+					</view>
 				</view>
 				<view class="tui-padding">
 					<!-- <view class="tui-sub-title">此商品将于2019-06-28,10点结束闪购特卖，时尚美饰联合专场</view> -->
@@ -1368,8 +1370,16 @@
 	.tui-pro-title {
 		padding-top: 20rpx;
 		color: #272727;
+		width: 100%;
+		overflow: hidden;
 	}
-
+	.tui-pro-title text{
+		display: block;
+		user-select: text;
+		-webkit-user-select: text;
+		width: 100%;
+		overflow: hidden;
+	}
 	.tui-sub-title {
 		padding: 20rpx 0;
 		line-height: 36rpx;

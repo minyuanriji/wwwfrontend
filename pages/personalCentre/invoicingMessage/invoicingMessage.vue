@@ -101,7 +101,7 @@
 </script>
 
 <style lang="less" scoped>
-	.invoicingMessage-app{width: 100%;height: 100%;background: url(../../../static/img/confirm_order.jpg)no-repeat;background-size: 100%;padding-top: 30rpx;}
+	.invoicingMessage-app{width: 100%;height: 100%;background: url(../../../plugins/images/confirm_order.jpg)no-repeat;background-size: 100%;padding-top: 30rpx;}
 	.order-code{width: 100%;height: 100rpx;background: #b0f0ea;line-height: 100rpx;
 	font-weight: 600;padding: 0rpx 20rpx;color: #000;}
 	.shop-detail{width: 100%;overflow: hidden;background: #b0f0ea;margin-top: 20rpx;display: flex;padding: 0rpx 20rpx;}
