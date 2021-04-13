@@ -46,14 +46,14 @@
 					</text>
 				</view>
 				<view class="simulate-product">
-					<view class="product-item" v-for="item in 4">
-						<image src="http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20210301/cf25b1aa6ad93a149ee217e36e7f6473.jpg"
+					<view class="product-item" v-for="(item,index) in hotlist" v-if='index<=3' :key='index' @click="hotlink(item.id)">
+						<image :src="item.cover_pic"
 						 mode="widthFix" class="product-item-logo"></image>
-						<view class="product-item-name">雷盛豪迈系列430法国干红葡萄酒 750ml*6支</view>
+						<view class="product-item-name">{{item.name}}</view>
 						<view class="product-item-money-buy">
 							<view class="product-item-money">
-								<text>￥36</text>
-								<text>已付500件</text>
+								<text style="color: #c0c0c0;font-size: 28rpx;">官方价￥{{item.price}}</text>
+								<text style="color: rgb(7, 190, 180);font-size: 28rpx;">会员价{{item.original_price}}</text>
 							</view>
 						</view>
 					</view>
@@ -143,6 +143,7 @@
 				isScorll: true, //是否可以滚动
 				host: "",
 				store: {},
+				hotlist:[],//爆品商品
 			}
 		},
 		methods: {
@@ -230,6 +231,32 @@
 					that.list = list
 					that.page_count = res.page_count
 				})
+			},
+			getHotgoods(){
+				let that = this
+				var mch_id = that.mch_id
+				let form={
+					mch_id:mch_id,
+					page:'',
+					keyword:'',
+					sort_prop:'',//排序字段： goods_id按商品ID，virtual_sales按销售，goods_stock按库存，sort按排序
+					sort_type:1,//排序方式：0降序，1升序
+				}
+				that.$http.request({
+					url: that.$api.moreShop.gethotgoods,
+					data:form ,
+					method: 'post',
+					showLoading: true
+				}).
+				then(function(res) {
+					console.log(res)
+					that.hotlist=res.data.list
+				})
+			},
+			hotlink(id){//点击跳转详情
+				uni.navigateTo({
+					url:'../../goods/detail?prold='+id
+				})
 			}
 		},
 		onReady() {
@@ -250,6 +277,7 @@
 			this.getmchstore()
 			this.getGoodsCats()
 			this.getMchGoods()
+			this.getHotgoods()
 			// uni.setNavigationBarColor({
 			// 	frontColor: "#ffffff",
 			// 	backgroundColor: this.background,
@@ -531,6 +559,7 @@
 
 	.product-item-name {
 		width: 100%;
+		height: 84rpx;
 		overflow: hidden;
 		-webkit-line-clamp: 2;
 		display: -webkit-box;
@@ -554,6 +583,7 @@
 		font-size: 28rpx;
 		display: flex;
 		justify-content: space-between;
+		flex-wrap: wrap;
 	}
 
 	.select1_buyBtn1 {

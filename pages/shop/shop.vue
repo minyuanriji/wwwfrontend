@@ -97,7 +97,7 @@
 					{"name":"化妆品","img":"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2729596015,2929996475&fm=15&gp=0.jpg","url":""},
 					{"name":"化妆品","img":"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2729596015,2929996475&fm=15&gp=0.jpg","url":""},
 					{"name":"化妆品","img":"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2729596015,2929996475&fm=15&gp=0.jpg","url":""},
-				],//秒杀
+				],//秒杀 
 				dhIndex:0,//导航索引 默认为全部商铺
 				dhList:["全部商铺","附近","智能排序","筛选"],
 				shop_list:[
