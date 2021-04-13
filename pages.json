@@ -854,6 +854,17 @@
             }
             
         }
+        ,{
+            "path" : "pages/personalCentre/agreement/agreement",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "协议",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",

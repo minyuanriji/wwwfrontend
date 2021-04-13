@@ -342,7 +342,7 @@
 	.hide {
 		display: none;
 	}
-	.scroll-Ys{width: 80%;overflow: hidden;margin: 0 auto;background: #fff;border-radius: 20rpx;}
-	.htm{width: 100%;height: 500rpx;margin: 0 auto;border-radius: 20rpx;font-size: 30rpx;text-align: center;
+	.scroll-Ys{width: 60%;overflow: hidden;margin: 0 auto;background: #fff;border-radius: 20rpx;}
+	.htm{width: 85%;height: 500rpx;margin: 0 auto;border-radius: 20rpx;font-size: 30rpx;text-align: center;
 	line-height: 60rpx;padding: 20rpx;}
 </style>

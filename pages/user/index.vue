@@ -155,7 +155,7 @@
 					v-if="configData.user_center.is_menu_status != 0"
 					:toolbarTitle="configData.user_center.menu_title"
 					:flex="configData.user_center.menu_style"
-					:toolbarData="configData.user_center.menus"
+					:toolbarData="userMessage.user_center.menus"
 				></toolbar>
 			</view>
 		</view>
