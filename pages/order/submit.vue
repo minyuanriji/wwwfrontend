@@ -33,6 +33,12 @@
 							<image class="img" lazy-load="true" :src="url+'/images/shop/shoplogo.png'" mode="aspectFill"></image>
 							<span class="name">{{item.mch.name?item.mch.name:"名媛日记官方商城"}}</span>
 							<view class="toright"></view>
+							<view class="icon-logo" style="position: absolute;top: 25rpx;right: 10rpx;">
+								<image :src="img_url+'/hot1.png'" mode="" style="width: 40rpx;height: 40rpx;margin-right: 30rpx;"
+								v-if="item.is_baopin==1"></image>
+								<image :src="img_url+'/Cancel1.png'" mode="" style="width: 40rpx;height: 40rpx;margin-right: 20rpx;"
+								v-if="item.is_offline==1"></image>
+							</view>
 						</view>
 					</view>
 				</tui-list-cell>

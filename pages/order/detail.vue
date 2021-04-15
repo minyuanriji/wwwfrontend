@@ -6,7 +6,7 @@
 		<view class="jx-mybg-box">
 			<image :src="bg_url" class="jx-my-bg"></image>
 			<view class="jx-room" v-if="detail && detail.id">
-				<view class="jx-order-status">
+				<view class="jx-order-status" >
 					<view class="icon iconfont icon-daifukuan3" v-if="detail.status == 0"></view>
 					<view class="icon iconfont icon-fahuo" v-else-if="detail.status == 1"></view>
 					<view class="icon iconfont icon-daifahuo" v-else-if="detail.status == 2"></view>
@@ -83,7 +83,23 @@
 						</block>
 					</view>
 					<!--店铺信息-->
+					<!-- v-if="item.=='offline_normal'" -->
+					<view class="er-code" v-if="detail.order_type=='offline_normal'">
+						<view class="code_logo">
+							<image :src="codeDetail.file_path" mode="" style="border: 1rpx solid #337766;"></image>
+							<text>未核销</text>
+						</view>
+					</view>
 					<info :params="params.mch" v-if="params.is_mch==1"></info>
+					<view class="personalCenter-item" v-if="detail.order_type=='offline_baopin'">
+													<jx-list-cell :arrow="true" padding="0" :lineLeft="false" 
+													@click="offlineTo(detail.id)">
+														<view class="jx-cell-header">
+															<view class="jx-cell-title" style="font-weight: 500;">去使用</view>
+															<view class="jx-cell-sub">使用</view>
+														</view>
+													</jx-list-cell>
+												</view>
 					<view class="jx-order-info jx-radius">
 						<view class="jx-info-flex jx-size24">
 							<view class="jx-info-text">订单编号</view>
@@ -250,6 +266,7 @@
 				title_text:'',
 				params:{},
 				messageShow:true,//地址，订单号显示
+				codeDetail:'',
 			}
 		},
 		onLoad: function(options) {
@@ -260,6 +277,7 @@
 			// 初始化数据
 			if (options.orderId) {
 				this.getDetail(options.orderId,true);
+				this.getCode(options.orderId)
 			}
 			if(options.active_status){
 				this.active_status = options.active_status;
@@ -304,6 +322,24 @@
 			}
 		},
 		methods: {
+			getCode(id){
+				this.$http.request({
+					url: this.$api.moreShop.getOrdercode,
+					data: {
+						id:id
+					}
+				}).then((res) => {
+					if (res.code == 0) {
+						console.log(res)
+						this.codeDetail=res.data
+					}
+				})
+			},
+			offlineTo(id){ //跳转到爆破核销页面
+				uni.navigateTo({
+					url:'../verification/verification?id='+id
+				})
+			},
 			toPage(orderId,oddNum){
 				uni.navigateTo({
 					url: `./logistics/index?orderId=${orderId}&odd=${oddNum}`
@@ -847,4 +883,9 @@
 		color: #000000;
 		padding: 50rpx 0;
 	}
+	
+	.er-code{width: 100%;height: 500rpx;box-shadow: 0 0 1px rgba(242, 242, 242, 0.8);background: #fff;}
+	.code_logo{width: 400rpx;height: 400rpx;margin: 0 auto;}
+	.code_logo image{width: 400rpx;height: 400rpx;display: block;}
+	.code_logo text{display: block;width: 100%;height: 100rpx;text-align: center;line-height: 100rpx;background: #3F536E;color: #fff;}
 </style>

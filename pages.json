@@ -865,6 +865,35 @@
             }
             
         }
+        ,{
+            "path" : "pages/order/beused/beused",
+            "style" :                                                                                    
+            {
+               "navigationBarTitleText": "我的订单",
+               "navigationBarBackgroundColor": "#F7F7F7",
+               "navigationBarTextStyle": "black",
+               "enablePullDownRefresh": true,
+               "onReachBottomDistance": 50,
+               "app-plus": {
+               	"pullToRefresh": {
+               		"style": "circle",
+               		"color": "#2BD009"
+               	}
+               }
+            }
+            
+        }
+        ,{
+            "path" : "pages/verification/verification",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "爆品核销",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",

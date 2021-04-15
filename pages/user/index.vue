@@ -113,7 +113,12 @@
 					</view>
 				</view>
 			</view>
-
+			
+			
+			
+			
+			
+			
 			<!-- 社区团购 -->
 			<block v-if="0 == 1">
 				<view class="address">
@@ -883,7 +888,8 @@ export default {
 	margin-left:10rpx;
 }
 .jx-order-box {
-	height: 300rpx;
+	// height: 300rpx;
+	overflow: hidden;
 }
 
 .jx-cell-header {
@@ -915,19 +921,22 @@ export default {
 
 .jx-order-list {
 	width: 100%;
-	height: 200rpx;
+	height: 280rpx;
 	// padding: 0 30rpx;
 	box-sizing: border-box;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	flex-wrap: wrap;
 }
 
 .jx-order-item {
-	flex: 1;
+	// flex: 1;
+	width: 20%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin: 20rpx 0;
 }
 
 .jx-order-text,
