@@ -426,7 +426,8 @@
 </script>	
 
 <style>
-@import url("../../static/font-icon/iconfont1.css");
+/* @import url("../../static/font-icon/iconfont1.css"); */
+@import url("../../plugins/font-icon/iconfont1.css");
 page{background-color: #fff;}
 .index1_content{
 	padding-bottom: 80px;

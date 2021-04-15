@@ -21,24 +21,6 @@
 					<view class="iconfont iconsousuo"></view>
 					<input type="text" placeholder="搜索你想要的商品" class="index1_content_top_r_input" v-model="keyword" @confirm="search"></input>
 				</view>
-				<!--分类-->
-				<!-- <view class="hot-googds">
-					  <view class="hot-Logo">
-						  <image src="../../../plugins/images/hot-logo.jpg" mode="widthFix"></image>
-					  </view>
-					  <view :class="'hotitem'+index" v-for="(item,index) in 3" :key='index'>
-						  <view class="hot-goods-logo">
-							  <image src="http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20210313/cc2a4f8322a428d49ac9e49d0beea8e2.jpg" mode=""></image>
-							  <view class="hot-goods-name">法国干红葡萄酒</view>
-							  <view class="hot-goods-num-price">
-								  <text>￥4999.00</text>
-								  <text>已售1000件</text>
-							  </view>
-						  </view>
-					  </view>
-					  
-				  </view>  -->
-				<!-- 产品 -->
 				<view class="shop-my-products" style="margin-top: 20rpx;">
 					<image :src="img_url+'/shop_logo_hot.png'" mode=""></image>
 					<text class="shop-my-products_title">
@@ -46,7 +28,7 @@
 					</text>
 				</view>
 				<view class="simulate-product">
-					<view class="product-item" v-for="(item,index) in hotlist" v-if='index<=3' :key='index' @click="hotlink(item.id)">
+					<view class="product-item" v-for="(item,index) in hotlist" v-if='index<=3' :key='index' @click="hotlink(item.goods_id,item.mch_baopin_id)">
 						<image :src="item.cover_pic"
 						 mode="widthFix" class="product-item-logo"></image>
 						<view class="product-item-name">{{item.name}}</view>
@@ -90,17 +72,12 @@
 									<view class="r_block_now_price">¥{{item.price}}</view>
 									<view class="r_block_old_price">¥{{item.original_price}}</view>
 								</view>
-								<!-- <view class="index1_content_list_block_t_r_bottom">截团：{{item.end_time}}</view> -->
+								
 							</view>
 						</view>
 						<view class="index1_content_list_block_b">
 							<view class="index1_content_list_block_b_l">
-								<!--  <view class="index1_content_list_block_b_l_l">
-									  <image :src="t.head" v-for="t in item.userList"></image>
-								  </view>
-								  <view class="index1_content_list_block_b_l_r">
-									  ... 等购买了此商品
-								  </view> -->
+								
 							</view>
 							<view class="index1_content_list_block_b_r">立即抢购</view>
 						</view>
@@ -147,13 +124,6 @@
 			}
 		},
 		methods: {
-			// toList(id){
-			// 	var mch_id=this.mch_id
-			// 	var cat_id=id
-			// 	uni.navigateTo({
-			// 		url:"/pages/shop/goods/list?cat_id="+cat_id+"&mch_id="+mch_id
-			// 	})
-			// },
 			toDetail(proId) {
 				uni.navigateTo({
 					url: "/pages/goods/detail?proId=" + proId
@@ -253,10 +223,11 @@
 					that.hotlist=res.data.list
 				})
 			},
-			hotlink(id){//点击跳转详情
+			hotlink(id,hotid){//点击跳转详情
 				uni.navigateTo({
-					url:'../../goods/detail?prold='+id
+					url:'../../goods/detail?proId='+id+"&mch_baopin_id="+hotid
 				})
+				
 			}
 		},
 		onReady() {
@@ -278,17 +249,6 @@
 			this.getGoodsCats()
 			this.getMchGoods()
 			this.getHotgoods()
-			// uni.setNavigationBarColor({
-			// 	frontColor: "#ffffff",
-			// 	backgroundColor: this.background,
-			// 	animation: {
-			// 		duration: 400,
-			// 		timingFunc: 'easeIn'
-			// 	}
-			// })
-			// uni.setNavigationBarTitle({
-			// 	title: "名媛日记"
-			// })
 		},
 		onShareAppMessage() {
 			return {
@@ -305,8 +265,8 @@
 </script>
 
 <style>
-	@import url("../../../static/font-icon/iconfont1.css");
-
+	/* @import url("../../../static/font-icon/iconfont1.css"); */
+	@import url("../../../plugins/font-icon/iconfont1.css");
 	page {
 		width: 100%;
 		height: 100%;

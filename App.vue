@@ -140,8 +140,8 @@
 
 	/*每个页面公共css */
 	@import './common/app.css';
-	@import './static/font-icon/iconfont.css';
-
+	/* @import './static/font-icon/iconfont.css'; */
+	@import './plugins/font-icon/iconfont.css';
 	/* #ifdef H5 */
 	/* //修复H5底部导航挡住内容bug */
 	/* uni-app {

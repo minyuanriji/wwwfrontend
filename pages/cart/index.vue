@@ -8,15 +8,11 @@
 					<view class="cart-edit-text" @tap="cartEdit" v-if="isEdit">编辑</view>
 					<view class="cart-edit-text" @tap="cartEdit" v-else>完成</view>
 				</block>
-				<!-- <view class="iconfont icon-xiaoxi message" @tap="cartMsg"></view> -->
 			</view>
 		</view>
 
-		<!-- <view class="status_bar"></view> -->
 		<view :class="['status_bar2',showBool?'show':'hide']" :style="{'opacity':opacity,'background':'#ffffff'}"></view>
-		<!-- 背景图，可自定义 -->
 		<view class="cart-bg" :style="{height:cartList.length == 0?'140rpx':'250rpx','background-image':'url('+bg_url+')'}">
-			<!-- <image class="cart-bg-img" :src="bg_url"></image> -->
 		</view>
 		
 			<!-- #ifdef MP-WEIXIN || APP-PLUS -->
@@ -31,21 +27,12 @@
 					<view class="cart-edit-text" @tap="cartEdit" v-if="isEdit">编辑</view>
 					<view class="cart-edit-text" @tap="cartEdit" v-else>完成</view>
 				</block>
-				<!-- <view class="iconfont icon-xiaoxi message" @tap="cartMsg"></view> -->
 			</view>
 		</view>
 
 		<view class="cart-content" v-if="cartList.length != 0">
 			<view class="cart-content-item" v-for="(item,index) in cartList" :key="index">
-				<!-- 店铺 -->
-				<!-- <view class="cart-item-title">
-					<view class="cart-item-title-left">
-						<view class="select-btn" style="color: #BC0100;" @tap="swtichSelect">
-							<view class="icon iconfont icon-dagou1" v-if="isSelect"></view>
-						</view>
-						<view class="storeName">名媛日记</view>
-					</view>
-				</view> -->
+				
 
 				<view class="cart-item-pro">
 					<view class="select-btn-box select-btn2" :style="{color:textColor}" @tap="swtichSelect(index,item.is_not_can_buy,item.not_can_buy_reason)">
@@ -59,14 +46,12 @@
 					</view>
 					<view class="cart-pro-content">
 						<view class="cart-pro-name" @tap="navTo(item.goods_id,item.attr_id)">
-							<!-- <view class="cart-pro-sub">特价</view>
-							<view style="display: inline-block; width: 62rpx;height:30rpx;"></view> -->
-							<!-- 占位 -->
+							
 							{{item.goods.name}}
 						</view>
 						<view class="cart-sku" v-if="item.attrs">
 							<view class="cart-sku-text">{{attrCom(item.attrs)}}</view>
-							<!-- <view class="cart-sku-arrow iconfont icon-xiala"></view> -->
+							
 						</view>
 						<view class="cart-sku" style="background: #FFFFFF;" v-else></view>
 						<view class="cart-pro-price-box">
@@ -106,9 +91,6 @@
 					</view>
 					<view class="cart-pro-content failure-pro-content">
 						<view class="cart-pro-name failure-pro-name">
-							<!-- <view class="cart-pro-sub">特价</view>
-							<view style="display: inline-block; width: 62rpx;height:30rpx;"></view> -->
-							<!-- 占位 -->
 							{{item.goods.name}}
 						</view>
 						<view class="stock-insufficient">
@@ -389,7 +371,6 @@
 				if (this.selectArr == 0) return;
 				this.changeData('id', 'goods_attr_id');
 				// this.selectArr = [];
-				console.log(this.selectArr)
 				let lo=[]
 				uni.setStorageSync('orderData', this.finallyObj);
 				for(let i=0;i<this.selectArr.length;i++){
@@ -398,9 +379,19 @@
 						lo.push({id:this.selectArr[i].goods_id,num:this.selectArr[i].num})
 					}
 				}
-				// let local=lo.join()			
+				let catid=[]
+				for(let i=0;i<this.finallyObj.length;i++){
+					if(catid.indexOf(this.finallyObj[i].cart_id)==-1){
+						// lo.push(this.selectArr[i].goods_id)
+						catid.push(this.finallyObj[i].cart_id)
+					}
+				}
+				// let local=lo.join()
+//--------------------------------------------------------------------------------------				
+//--------------------------------------------------------------------------------------------				
 				uni.navigateTo({
-					url: '/pages/order/submit?nav_id='+JSON.stringify(lo)
+					url: '/pages/order/submit?nav_id='+JSON.stringify(lo)+"&user_address_id=0"+"&use_score=0"+"&use_integral=0"+"&list="+String(catid)
+
 				})
 			},
 			deleteCart() { //购物车删除
@@ -472,8 +463,6 @@
 				this.$http.toast('点击了信息');
 			},
 			swtichSelect(index, is_not_can_buy, msg) { //商品选项框事件
-			console.log(is_not_can_buy,'is_not_can_buy');
-			console.log(this.isEdit,'this.isEdit');
 				if(this.isEdit){
 					if (is_not_can_buy == 1) {
 						this.$http.toast(msg);
@@ -496,6 +485,7 @@
 				} else {
 					this.isAllSelect = false;
 				}
+				
 			},
 			allSelect() { //全选选项框
 				console.log(this.isEdit,'isEdit');

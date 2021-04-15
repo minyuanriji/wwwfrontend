@@ -47,7 +47,8 @@
 </script>
 
 <style>
-@import url("@/static/font-icon/iconfont1.css");
+/* @import url("@/static/font-icon/iconfont1.css"); */
+@import url("@/plugins/font-icon/iconfont1.css");
 .footer{position: fixed;bottom: 0px;background-color: #fff;display: flex;left: 0px;right: 0px;width: 100%;z-index: 99;padding: 4px 0px 8px 0px;
 border-radius: 21px 21px 0px 0px;
 border-top: 1px #eee solid;

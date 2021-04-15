@@ -10,12 +10,10 @@
 				 @tap.stop="back"></view>
 				<view class="tui-icon iconfont icon-gengduo" :style="{color:opcity>=1?'#000':'#fff',background:'rgba(0, 0, 0,'+iconOpcity+')',fontSize:'20px'}"
 				 @tap.stop="openMenu"></view>
-				<!-- <tui-badge type="red" size="small">5</tui-badge> -->
+				
 			</view>
 		</view>
-		<!--header-->
-
-		<!--banner-->
+		
 		<view class="tui-banner-swiper">
 			<swiper :duration="150" :style="{height:scrollH + 'px'}" @change="bannerChange">
 				<swiper-item :data-index="0" v-if="goodsData.video_url">
@@ -59,7 +57,7 @@
 					</view>
 				</view>
 				<view class="tui-padding">
-					<!-- <view class="tui-sub-title">此商品将于2019-06-28,10点结束闪购特卖，时尚美饰联合专场</view> -->
+					
 					<view class="tui-sale-info tui-size tui-gray" style="padding: 16rpx 0;">
 						<!-- <view class="text">快递：0.00</view> -->
 						<view class="text">销量：{{goodsData.sales}}件</view>
@@ -113,7 +111,7 @@
 					<view class="tags">
 						<jx-tag v-for="(item,i) in commentCount" :key="i" class="tag" type="gold" :shape="'circle'">{{item.name}}({{item.count}})</jx-tag>
 					</view>
-					<!-- <scroll-view class="user-assess-list" scroll-x="true" enable-flex="ture"> -->
+				
 					<view class="items">
 						<view class="user-assess-item" v-for="(item,i) in _commentsCopy" :key="i">
 							<view class="user">
@@ -131,9 +129,7 @@
 					<!-- </scroll-view> -->
 				</view>
 			</view>
-			<!-- <view v-else class="assess-content tui-mtop">
-				<main-nomore text="暂无评价" :visible="true" bgcolor="#f7f7f7"></main-nomore>
-			</view> -->
+			
 
 			<view class="nomore-box">
 				<main-nomore text="宝贝详情" :visible="true" bgcolor="#f7f7f7"></main-nomore>
@@ -161,9 +157,7 @@
 				</view>
 				<view class="tui-operation-item" hover-class="opcity" :hover-stay-time="150" @tap='customerService'>
 					<view class="iconfont icon-kefu2"></view>
-					<!-- <view>
-						<image :src="server_img" mode="" style="width: 100rpx;height: 100rpx;"></image>
-					</view> -->
+					
 					<view class="tui-operation-text tui-scale-small">客服</view>
 				</view>
 				<view class="tui-operation-item" hover-class="opcity" @tap="navTo('cart')" :hover-stay-time="150">
@@ -177,7 +171,7 @@
 				 @click="showPopup(1)" v-if="is_show_cart">
 					加入购物车
 				</view>
-				<!-- <view class="jx-btn radius-right submit" style="height: 80%;" @click="submit(1)"> -->
+				
 				<view class="jx-btn radius-right" style="height: 80%;" :style="{background:textColor,'border-radius':is_show_cart?'':'100rpx'}"
 				 @click="showPopup(2)">
 					立即购买
@@ -313,12 +307,7 @@
 				</scroll-view>
 				<view class="tui-operation tui-operation-right tui-right-flex tui-popup-btn">
 					<view class="sure-btn" :style="{background:textColor}" @tap="determine">确定</view>
-					<!-- <view class="tui-flex-1">
-						<tui-button type="red" shape="circle" size="mini" @click="hidePopup(1)">加入购物车</tui-button>
-					</view>
-					<view class="tui-flex-1">
-						<tui-button type="warning" shape="circle" size="mini" @click="submit">立即购买</tui-button>
-					</view> -->
+					
 				</view>
 				<view class="tui-icon tui-icon-close-fill tui-icon-close" style="color: #999;font-size:16pt" @tap="hidePopup"></view>
 			</view>
@@ -423,12 +412,7 @@
 						size: 23,
 						badge: 0
 					},
-					// {
-					// 	icon: "share",
-					// 	text: "分享", 
-					// 	size: 26,
-					// 	badge: 0
-					// },
+					
 				],
 				menuShow: false,
 				popupShow: false,
@@ -454,10 +438,12 @@
 				listStyle: 2, //1为大图 2为一行一个 3为一行两个 4一行三个 5为左右滑动
 				wx_nav_id:'',
 				mch:{},//店铺信息
-				is_mch:0//是否有店铺 1有
+				is_mch:0,//是否有店铺 1有
+				mch_baopin_id:'',//爆品id
 			}
 		},
 		onLoad(options) {
+			console.log(options)
 			this.textColor = this.globalSet('textCol');
 			this.couponImg = this.globalSet('couponImg');
 			// #ifdef MP-WEIXIN
@@ -470,6 +456,8 @@
 				pid,
 				source
 			} = options;
+			
+			
 			if (pid) {
 				uni.setStorageSync("pid", pid);
 				uni.setStorageSync("user_id", pid);
@@ -478,7 +466,7 @@
 				uni.setStorageSync("source", source);
 			}
 
-			this.proId = proId;
+			this.proId =options.proId;
 			if (options.attr_id) {
 				this.c_attr_id = options.attr_id;
 			}
@@ -523,16 +511,15 @@
 				uni.setStorageSync('user_id',user_id);
 			}
 			//#endif
+			if(options.mch_baopin_id){
+				this.mch_baopin_id=options.mch_baopin_id
+			}else{
+				this.mch_baopin_id=0
+			}
 		},
 		onShow() {
 			this.getCartList();
-			/* // let recommend_id = uni.getStorageSync('recommend_id') || 0;
-			// let token = uni.getStorageSync('token') || 0;
-			// if(!recommend_id && token){
-			// 	uni.navigateTo({
-			// 		url:'/pages/public/bindParent'
-			// 	})
-			// } */
+			
 		},
 		//用户点击分享
 		onShareAppMessage(e) {
@@ -741,7 +728,8 @@
 							goods_id: this.proId,
 							attr: this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id,
 							num: this.value,
-							mch_id: 0
+							mch_id: 0,
+							mch_baopin_id:this.mch_baopin_id
 						}
 					}).then((res) => {
 						if (res.code == 0) {
@@ -773,23 +761,42 @@
 							console.log('存入本地失败');
 						}
 					});
-					var url = '';
-					if (this.sign == 'short_video') {
-						url = `/pages/order/submit?sign=${this.sign}&related_user_id=${this.related_user_id}&mch_id=${mch_id}`;
-					} else {
-						url = '/pages/order/submit';
-					}
-					// #ifdef H5
-					// url = url + '?nav_id=' + this.$route.query.proId+'&mch_id='+mch_id
-					url = url + '?nav_id=' + JSON.stringify([{id:this.$route.query.proId,num:this.value}])+'&mch_id='+mch_id
-					// {id:this.selectArr[i].goods_id,num:this.selectArr[i].num}       
-					// #endif
-					
-					// #ifdef MP-WEIXIN
-					url = url + '?nav_id=' + this.wx_nav_id.proId+'&mch_id='+mch_id;
-					// #endif
-					uni.navigateTo({
-						url
+					this.$http.request({
+						url: this.$api.cart.addCart,
+						method: 'post',
+						showLoading: true,
+						data: {
+							goods_id: this.proId,
+							attr: this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id,
+							num: this.value,
+							mch_id: 0,
+							mch_baopin_id:this.mch_baopin_id
+						}
+					}).then((res) => {
+						if (res.code == 0) {
+							
+							var url = '';
+							if (this.sign == 'short_video') {
+								url = `/pages/order/submit?sign=${this.sign}&related_user_id=${this.related_user_id}&mch_id=${mch_id}`;
+							} else {
+								url = '/pages/order/submit';
+							}
+							// #ifdef H5
+							// url = url + '?nav_id=' + this.$route.query.proId+'&mch_id='+mch_id
+							url = url + '?nav_id=' + JSON.stringify([{id:this.$route.query.proId,num:this.value}])+'&mch_id='+mch_id+"&user_address_id=0"+"&use_score=0"+"&use_integral=0"+"&list="+String(res.data.cart_id)
+							// {id:this.selectArr[i].goods_id,num:this.selectArr[i].num}       
+							// #endif
+							
+							// #ifdef MP-WEIXIN
+							url = url + '?nav_id=' + this.wx_nav_id.proId+'&mch_id='+mch_id+"&user_address_id=0"+"&use_score=0"+"&use_integral=0"+"&list="+String(res.data.cart_id)
+							// #endif
+							uni.navigateTo({
+								url
+							})
+							
+						} else {
+							
+						}
 					})
 				}
 			},

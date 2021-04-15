@@ -369,7 +369,8 @@
 </script>
 
 <style>
-	@import url("../../static/font-icon/iconfont1.css");
+	/* @import url("../../static/font-icon/iconfont1.css"); */
+	@import url("../../plugins/font-icon/iconfont1.css");
 	.scroll-Ys{width: 80%;overflow: hidden;margin: 0 auto;background: #fff;border-radius: 20rpx;}
 	.html{width: 100%;height: 500rpx;margin: 0 auto;border-radius: 20rpx;font-size: 30rpx;text-align: center;
 	line-height: 60rpx;padding: 20rpx;}

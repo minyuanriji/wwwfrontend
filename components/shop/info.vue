@@ -55,7 +55,8 @@
 </script>
 
 <style>
-	@import url("@/static/font-icon/iconfont1.css");
+	/* @import url("@/static/font-icon/iconfont1.css"); */
+	@import url("@/plugins/font-icon/iconfont1.css");
 	.info{display: flex;background-color: #fff;margin-top: 8px;margin-bottom: 8px;padding: 10px;}
 	.logo{width: 61px;
 	height: 61px;

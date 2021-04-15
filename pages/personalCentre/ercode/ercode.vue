@@ -58,7 +58,9 @@
 </template>
 
 <script>
+	//#ifdef H5
 	import html2canvas from 'html2canvas'
+	//#endif
 	export default {
 		data() {
 			return {
@@ -87,6 +89,7 @@
 			}
 		},
 		methods: {
+			//#ifdef H5
 			capture() {
 				// // let dom = document.querySelector('#poster'); // 获取dom元素
 				// let scale=3
@@ -117,7 +120,8 @@
 											this.showPoster=true
 										}
 					        });
-			},			
+			},
+			//#endif
 			saveImg(url) {
 				var that = this;
 				/* 获取图片信息 */

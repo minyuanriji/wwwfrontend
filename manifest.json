@@ -145,9 +145,9 @@
                 "provider" : "wx2b03c6e691cd7370" // 必须填该直播组件appid，该示例值即为直播组件appid（复制时请去掉注释）
             }
         },
-		"optimization":{ 
-		        "subPackages":true
-		   }
+		"optimization" : {
+		    "subPackages" : true
+		}      
     },
     "mp-alipay" : {
         "usingComponents" : true
@@ -161,7 +161,7 @@
     "h5" : {
         // "publicPath" : "https://www.mingyuanriji.cn/h5/",
         "publicPath" : "https://dev.mingyuanriji.cn/h5/",
-		 // "publicPath" : "http://local.mingyuanriji.cn/h5/",
+        // "publicPath" : "http://local.mingyuanriji.cn/h5/",
         "router" : {
             "mode" : "hash",
             "base" : "/h5/"
@@ -173,7 +173,7 @@
                 "/api" : {
                     // "target" : "https://www.mingyuanriji.cn/h5/web/index.php",
                     "target" : "https://dev.mingyuanriji.cn/h5/",
-					 // "target" : "http://local.mingyuanriji.cn/h5/web/index.php",
+                    // "target" : "http://local.mingyuanriji.cn/h5/web/index.php",
                     "changeOrigin" : true,
                     "secure" : false,
                     "pathRewrite" : {
@@ -183,9 +183,9 @@
             },
             "port" : 80
         },
-		// "domain" : "https://www.mingyuanriji.cn/h5/",
+        // "domain" : "https://www.mingyuanriji.cn/h5/",
         "domain" : "https://dev.mingyuanriji.cn/h5/",
-		 // "domain" : "http://local.mingyuanriji.cn/h5/",
+        // "domain" : "http://local.mingyuanriji.cn/h5/",
         "title" : "名媛日记",
         "template" : "template.h5.html",
         "sdkConfigs" : {
