@@ -19,7 +19,11 @@
 				<image v-if="configData.user_center.top_style == 3" :src="configData.user_center.style_bg_pic_url" class="jx-my-bg"></image>
 				<image v-else :src="configData.user_center.top_pic_url" class="jx-my-bg"></image>
 			</block>
-
+			
+			<view style="position: absolute;right: 40rpx;z-index: 999;" @click="link">
+				<image :src="img_url+'/CancelTwo.png'" mode="" style="display: block;width: 100rpx;height: 100rpx;"></image>
+			</view>
+			
 			<view v-if="userInfo && userInfo.identity && configData.user_center" class="jx-header-center"
 				:class="configData.user_center.top_style == 3 ? 'right' : configData.user_center.top_style == 2 ? 'top' : ''">
 				<image :src="userInfo.avatar || configData.user_center.member_pic_url" class="jx-avatar" @tap="href(3)"></image>
@@ -279,6 +283,12 @@ export default {
 		this.getCartList();
 	},
 	methods: {
+		link(){
+			
+				uni.navigateTo({
+					url:'../personalCentre/accountingOrder/accountingOrder'
+				})
+		},
 		userLogin() {
 			// #ifdef H5
 			let pages = getCurrentPages();

@@ -1,6 +1,9 @@
 <template>
 	<view class="root">
 		<view class="status_bar"></view>
+		<view class="customer_service">
+			<image src="../../plugins/images/extensions/community/map-location.png" mode=""></image>
+		</view>
 		<block v-for="(item, index) in indexData" :key="index">
 			<view class="header" v-if="item.id == 'search'">
 				<view class="search_box" :style="{ position: is_fixed == 1 ? 'relative' : 'fixed' }">
@@ -670,7 +673,20 @@ export default {
 .content {
 	/* padding: 0 20rpx; */
 }
-
+.customer_service{
+	width: 100rpx;
+	height: 100rpx;
+	position: fixed;
+	z-index: 999;
+	right: 40rpx;
+	bottom: 200rpx;
+	
+}
+.customer_service image{
+	width: 100rpx;
+	height: 100rpx;
+	display: block;
+}
 .limited {
 	background: #ffffff;
 	box-sizing: border-box;

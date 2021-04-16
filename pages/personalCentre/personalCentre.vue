@@ -75,13 +75,13 @@
 				</view>
 			</jx-list-cell>
 		</view>
-		<view class="personalCenter-item">
+		<!-- <view class="personalCenter-item">
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(3)">
 				<view class="jx-cell-header" style="height: 100rpx;">
 					<view class="jx-cell-title" style="font-weight: 700;">核销订单</view>
 				</view>
 			</jx-list-cell>
-		</view>
+		</view> -->
 		<view class="personalCenter-item" style="margin-bottom: 100rpx;">
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(4)">
 				<view class="jx-cell-header" style="height: 100rpx;">
@@ -238,11 +238,11 @@
 						url:'./ercode/ercode'
 					})
 				}
-				if(page==3){
-					uni.navigateTo({
-						url:'./accountingOrder/accountingOrder'
-					})
-				}
+				// if(page==3){
+				// 	uni.navigateTo({
+				// 		url:'./accountingOrder/accountingOrder'
+				// 	})
+				// }
 				if(page==4){
 					uni.navigateTo({
 						url:'./installCenter/installCenter'

@@ -86,8 +86,12 @@
 					<!-- v-if="item.=='offline_normal'" -->
 					<view class="er-code" v-if="detail.order_type=='offline_normal'">
 						<view class="code_logo">
+							<view class="mask" v-if="showCode">
+								<image :src="img_url+'/gou.png'" mode=""></image>
+							</view>
 							<image :src="codeDetail.file_path" mode="" style="border: 1rpx solid #337766;"></image>
-							<text>未核销</text>
+							<text>核销码：{{codeDetail.code}}</text>
+							<text>{{poup}}</text>
 						</view>
 					</view>
 					<info :params="params.mch" v-if="params.is_mch==1"></info>
@@ -267,6 +271,9 @@
 				params:{},
 				messageShow:true,//地址，订单号显示
 				codeDetail:'',
+				poup:'',
+				timer:'',
+				showCode:false,
 			}
 		},
 		onLoad: function(options) {
@@ -278,6 +285,9 @@
 			if (options.orderId) {
 				this.getDetail(options.orderId,true);
 				this.getCode(options.orderId)
+				this.timer=setInterval(() => {
+					this.getResult(options.orderId)
+				},2500);
 			}
 			if(options.active_status){
 				this.active_status = options.active_status;
@@ -332,6 +342,27 @@
 					if (res.code == 0) {
 						console.log(res)
 						this.codeDetail=res.data
+					}
+				})
+			},
+			getResult(id) {
+				if(	this.poup=="已核销")return false
+				this.$http.request({
+					url: this.$api.moreShop.getOrdercodestatus,
+					method: 'POST',
+					data: {
+						id:id,
+					},
+				}).then(res => {
+					if (res.code == 0) {
+						let reult = res.data
+						if (reult.clerk_status && reult.clerk_status == 1) {
+							this.poup="已核销"
+							this.showCode=true
+						}else{
+							this.poup="待核销"
+							this.showCode=false
+						}
 					}
 				})
 			},
@@ -534,6 +565,12 @@
 				})
 			}
 		},
+		onUnload() {
+			if(this.timer!=null) {  
+			    clearInterval(this.timer);  
+			    this.timer = null;  
+			}  
+		}
 	}
 </script>
 
@@ -885,7 +922,28 @@
 	}
 	
 	.er-code{width: 100%;height: 500rpx;box-shadow: 0 0 1px rgba(242, 242, 242, 0.8);background: #fff;}
-	.code_logo{width: 400rpx;height: 400rpx;margin: 0 auto;}
+	.code_logo{width: 400rpx;height: 400rpx;margin: 0 auto;position: relative;}
 	.code_logo image{width: 400rpx;height: 400rpx;display: block;}
-	.code_logo text{display: block;width: 100%;height: 100rpx;text-align: center;line-height: 100rpx;background: #3F536E;color: #fff;}
+	.code_logo text{display: block;width: 100%;height: 50rpx;text-align: center;line-height: 50rpx;background: #3F536E;color: #fff;}
+	.mask{
+		width: 400rpx;
+		height: 400rpx;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 999;
+		background: rgba(0,0,0,0.6);
+	}
+	.mask image{
+		width: 150rpx;
+		height: 150rpx;
+		display: block;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		
+	}
 </style>
