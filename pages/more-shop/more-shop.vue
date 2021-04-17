@@ -46,11 +46,13 @@
 				show:false,
 				title:'核销进度',
 				img_url: this.$api.img_url,
+				id:''
 			}
 		},
 		onLoad(options) {
 			let that=this
 			that.code=options.code
+			that.id=options.id
 			console.log(options)
 			uni.showLoading({
 			    title: '正在核销中'
@@ -58,10 +60,11 @@
 			setTimeout(function () {
 			    uni.hideLoading();
 				that.$http.request({
-					url: that.$api.moreShop.verification,
+					url: that.$api.moreShop.getresults,
 					method: 'POST',
 					data: {
-						code: options.code,
+						id:options.id?options.id:'',
+						clerk_code: options.code?options.code:'',
 					},
 					showLoading: false
 				}).then(res => {

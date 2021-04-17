@@ -18,7 +18,7 @@
 								<span class="name">{{model.mch_info.name?model.mch_info.name:'名媛日记官方商城'}}</span>
 								<view class="toright"></view>
 							</view>
-							<view class="tui-order-status" :style="{color:textColor}">{{model.status_text}}</view>
+							<!-- <view class="tui-order-status" :style="{color:textColor}">{{model.status_text}}</view> -->
 						</view>
 					</tui-list-cell>
 					<block v-for="(item,index) in model.detail" :key="index">
@@ -215,6 +215,11 @@
 					})
 				},
 				detail(id) {
+					uni.navigateTo({
+						url: `/pages/order/detail?orderId=${id}`
+					})
+				},
+				cancel(id){
 					uni.navigateTo({
 						url: `/pages/order/detail?orderId=${id}`
 					})

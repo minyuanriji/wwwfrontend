@@ -20,9 +20,9 @@
 				<image v-else :src="configData.user_center.top_pic_url" class="jx-my-bg"></image>
 			</block>
 			
-			<view style="position: absolute;right: 40rpx;z-index: 999;" @click="link">
+			<!-- <view style="position: absolute;right: 40rpx;z-index: 999;" @click="link">
 				<image :src="img_url+'/CancelTwo.png'" mode="" style="display: block;width: 100rpx;height: 100rpx;"></image>
-			</view>
+			</view> -->
 			
 			<view v-if="userInfo && userInfo.identity && configData.user_center" class="jx-header-center"
 				:class="configData.user_center.top_style == 3 ? 'right' : configData.user_center.top_style == 2 ? 'top' : ''">
@@ -164,7 +164,7 @@
 					v-if="configData.user_center.is_menu_status != 0"
 					:toolbarTitle="configData.user_center.menu_title"
 					:flex="configData.user_center.menu_style"
-					:toolbarData="configData.user_center.menus"
+					:toolbarData="userMessage.user_center.menus"
 				></toolbar>
 			</view>
 		</view>
@@ -313,7 +313,7 @@ export default {
 					if (res.code === 0) {
 						uni.setStorageSync('initMenus', JSON.stringify(res.data.config));
 						this.configData = res.data.config;
-						// this.userMessage=res.data.config
+						this.userMessage=res.data.config
 					}
 				});
 		},
