@@ -15,7 +15,7 @@
 			</view>
 			<view class="pay-way">
 				<view>手续费</view>
-				<view class="pay-img"><image src="../../static/yue.png"/>￥{{count}}</view>
+				<view class="pay-img"><image src="../../plugins/images/yue.png"/>￥{{count}}</view>
 			</view>
 			<view :class="['code', show ? '' : 'visible']">
 				<view class="code-box">

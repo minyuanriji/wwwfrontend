@@ -1,8 +1,8 @@
 <template>
 	<view class="root">
 		<view class="status_bar"></view>
-		<view class="customer_service">
-			<image src="../../plugins/images/extensions/community/map-location.png" mode=""></image>
+		<view class="customer_service" @click="linkService">
+			<image :src="img_url+'/service_logo.png'" mode=""></image>
 		</view>
 		<block v-for="(item, index) in indexData" :key="index">
 			<view class="header" v-if="item.id == 'search'">
@@ -225,6 +225,7 @@ export default {
 	},
 	data() {
 		return {
+			img_url:this.$api.img_url,
 			loading: false,
 
 			left: 0,
@@ -432,7 +433,8 @@ export default {
 				}
 			],
 			copyright: '', //版权数据
-			indexData: ''
+			indexData: '',
+			serviceLink:''
 		};
 	},
 	onShow() {
@@ -467,7 +469,8 @@ export default {
 		this.btnList = [...this.suspendedList];
 		//#ifdef MP-WEIXIN
 		this.checkUpdateVersion();
-		//#endif	
+		//#endif
+		this.getService()
 	},
     
 	
@@ -476,6 +479,23 @@ export default {
 	  return this.wxShare("名媛日记","/pages/index/index?source=1");
 	},
 	methods: {
+		getService(){
+			this.$http
+				.request({
+					url: this.$api.moreShop.getservice,
+					method: 'POST',
+					showLoading: true
+				})
+				.then(res => {
+					if(res.code==0){
+						this.serviceLink=res.data
+					}
+				});
+		},
+		linkService(){
+			console.log(this.serviceLink)
+			location.href=this.serviceLink
+		},
 		topicNavTo(e) {
 			//专题页跳转
 			// uni.navigateTo({
@@ -680,12 +700,13 @@ export default {
 	z-index: 999;
 	right: 40rpx;
 	bottom: 200rpx;
-	
+	border-radius: 50%
 }
 .customer_service image{
 	width: 100rpx;
 	height: 100rpx;
 	display: block;
+	border-radius: 50%;
 }
 .limited {
 	background: #ffffff;

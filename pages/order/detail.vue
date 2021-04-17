@@ -6,7 +6,16 @@
 		<view class="jx-mybg-box">
 			<image :src="bg_url" class="jx-my-bg"></image>
 			<view class="jx-room" v-if="detail && detail.id">
-				<view class="jx-order-status" >
+				<view class="jx-order-status" v-if="detail.order_type=='offline_baopin'||detail.order_type=='offline_normal'">
+					<!-- <view class="icon iconfont icon-daifahuo"></view> -->
+					<view class="text-container">
+						<view class="text" v-if="is_show"></view>
+						<view class="msg" v-if="detail.status != 0"></view>
+						<view class="msg" v-else></view>
+					</view>
+					
+				</view>
+				<view class="jx-order-status" v-if="detail.order_type=='express_baopin'||detail.order_type=='express_normal'">
 					<view class="icon iconfont icon-daifukuan3" v-if="detail.status == 0"></view>
 					<view class="icon iconfont icon-fahuo" v-else-if="detail.status == 1"></view>
 					<view class="icon iconfont icon-daifahuo" v-else-if="detail.status == 2"></view>
@@ -25,6 +34,7 @@
 						</view> -->
 					</view>
 				</view>
+
 				<view class="jx-order-user jx-radius" v-if="messageShow">
 					<view class="jx-address view">
 						<view class="jx-flex-box">
@@ -48,7 +58,7 @@
 								<view class="jx-price-right">
 									<view class="price">¥{{item.goods_info.total_original_price}}</view>
 									<view class="num">x{{item.goods_info.num}}</view>
-									<view class="btn">
+									<view class="btn"  v-if="detail.order_type!='offline_baopin'&&detail.order_type!='offline_normal'">
 										<view v-if="item.refund_status == 0 && !showRefund(detail.status)" @click.stop="goRefund(item.id)">
 											<tui-button type="black" :plain="true" width="80rpx" height="32rpx" :size="24" shape="circle" style="color: #808080 !important;margin-left: 30rpx;">
 												{{detail.status > 1 ? '退换' : item.goods_info.is_refund ? '退款中' : '退款'}}
@@ -177,7 +187,7 @@
 						</view>
 					</view>
 				</view>
-				<block v-if="is_show">
+				<block v-if="is_show&&detail.order_type!='offline_baopin'&&detail.order_type!='offline_normal'">
 					<view class="jx-tabbar tui-order-btn" v-if="detail.status != 8">
 						<view class="jx-btn-mr" v-if="detail.status == 5">
 							<view class="btns" @click="deleteOrderById(detail.id)">删除订单</view>
@@ -274,6 +284,7 @@
 				poup:'',
 				timer:'',
 				showCode:false,
+				begin:false
 			}
 		},
 		onLoad: function(options) {
@@ -287,7 +298,7 @@
 				this.getCode(options.orderId)
 				this.timer=setInterval(() => {
 					this.getResult(options.orderId)
-				},2500);
+				},6000);
 			}
 			if(options.active_status){
 				this.active_status = options.active_status;
@@ -346,6 +357,7 @@
 				})
 			},
 			getResult(id) {
+				if(!this.begin)return false
 				if(	this.poup=="已核销")return false
 				this.$http.request({
 					url: this.$api.moreShop.getOrdercodestatus,
@@ -498,19 +510,26 @@
 						this.detail = res.data.detail;
 						this.params=res.data
 						this.is_show = this.detail.order_goods_list.some(v => v.diy_refund_status == 0);
-						switch(this.detail.status){
-							case 0:
-								this.title_text = '待付款';
-								break;
-							case 1:
-								this.title_text = '待发货';
-								break;
-							case 2:
-								this.title_text = '待收货';
-								break;
-							case 3:
-								this.title_text = '待评价';
-								break;
+						if(this.detail.order_type=='offline_normal'){
+							this.begin=true
+						}
+						if(this.detail.order_type=='offline_baopin'||this.detail.order_type=='offline_normal'){
+							this.title_text = '核销订单';
+						}else{
+							switch(this.detail.status){
+								case 0:
+									this.title_text = '待付款';
+									break;
+								case 1:
+									this.title_text = '待发货';
+									break;
+								case 2:
+									this.title_text = '待收货';
+									break;
+								case 3:
+									this.title_text = '待评价';
+									break;
+							}
 						}
 						for(let i=0;i<this.detail.order_goods_list.length;i++){
 							this.detail.order_goods_list[i].shopExpress=false

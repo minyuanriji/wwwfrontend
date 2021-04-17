@@ -387,13 +387,14 @@
 				this.is_checked = e.detail.value;
 				console.log(this.is_checked)  
 				this.is_checked ? this.form.use_score = 1 : this.form.use_score = 0; //是否使用积分(请求用)
+				this.is_integral ? this.form.use_integral = 1 : this.form.use_integral = 0; //是否使用抵扣券(请求用)
 				this.is_checked ? this.total_score_use =this.total_score_use :this.total_score_use = 0
 				let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
 				let curRoute = routes[routes.length - 1].route //获取当前页面路由
 				let curParam = routes[routes.length - 1].options; //获取路由参数
 				this.form.user_address_id=this.addressId,
 				// this.form.use_score=curParam.use_score
-				this.form.use_integral=curParam.use_integral
+				// this.form.use_integral=curParam.use_integral
 				this.form.list=curParam.list
 				this.getData(); //重新获取订单详情
 			},
@@ -401,14 +402,15 @@
 			useIntegral(e) {
 				this.price = 0;
 				this.is_integral = e.detail.value;
+				this.is_checked ? this.form.use_score = 1 : this.form.use_score = 0; //是否使用积分(请求用)
 				this.is_integral ? this.form.use_integral = 1 : this.form.use_integral = 0; //是否使用抵扣券(请求用)
-				this.is_integral ? this.total_integral_use = this.total_integral_use : this.form.use_integral = 0;
+				this.is_integral ? this.total_integral_use = this.total_integral_use : this.total_integral_use = 0;
 				console.log(this.is_integral); 
 				let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
 				let curRoute = routes[routes.length - 1].route //获取当前页面路由
 				let curParam = routes[routes.length - 1].options; //获取路由参数
 				this.form.user_address_id=this.addressId,
-				this.form.use_score=curParam.use_score
+				// this.form.use_score=curParam.use_score
 				// this.form.use_integral=curParam.use_integral
 				this.form.list=curParam.list
 				this.getData(); //重新获取订单详情
