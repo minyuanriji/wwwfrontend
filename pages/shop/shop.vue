@@ -379,7 +379,7 @@
 				 var view_height=window_height-res.height
 				 that.height=view_height
 			}).exec()
-		},
+		},	
 		onShow() {
 			// if(this.ifOnShow){
 			// 	window.location.reload()
@@ -417,10 +417,13 @@
 				path:"/pages/shop/shop"
 			}
 		},
-		// onHide(){
-		//     console.log('this.ifOnShow=true')
-		// 	this.ifOnShow=true
-		// },
+		onHide(){
+			this.page=1
+			this.lat='',
+			this.lnt='',
+			this.keyword='',
+			this.shop_list=[]
+		},
 	}
 </script>	
 
