@@ -1,7 +1,7 @@
 <template>
 	<view class="root">
 		<view class="status_bar"></view>
-		<view class="customer_service" @click="linkService">
+		<view class="customer_service" @click="linkService">			
 			<image :src="img_url+'/service_logo.png'" mode=""></image>
 		</view>
 		<block v-for="(item, index) in indexData" :key="index">

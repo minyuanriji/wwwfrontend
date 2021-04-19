@@ -894,6 +894,16 @@
             }
             
         }
+        ,{
+            "path" : "pages/shop/hotGoods/hotGoods",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "店铺爆品",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#fff",
+                "enablePullDownRefresh": false
+            }           
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",

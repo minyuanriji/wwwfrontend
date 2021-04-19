@@ -192,14 +192,14 @@
 				})
 			},
 			positionLo(addrress,lat,lot){ //点击导航				
-						uni.openLocation({
-							 latitude:Number(lat),
-							 longitude:Number(lot),
-							 address:addrress,
-							 success: function () {
+						// uni.openLocation({
+						// 	 latitude:Number(lat),
+						// 	 longitude:Number(lot),
+						// 	 address:addrress,
+						// 	 success: function () {
 								
-							}
-						})	
+						// 	}
+						// })	
 			}
 		},
 		onReachBottom() {

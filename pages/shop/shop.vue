@@ -190,7 +190,7 @@
 					 url:this.$api.moreShop.getmchscats,
 					 data:{},
 					 method:'post',
-					 showLoading:true,
+					 // showLoading:true,
 					 }).
 					then(function(res){
 						that.sortList=res.data.list
@@ -223,7 +223,6 @@
 							var shop_list=that.shop_list.concat(new_data)
 							that.shop_list=shop_list
 							that.page_count=res.pagination.page_count
-							// that.page=res.pagination.current_page
 							console.log(that.page)
 				   })
 			},
@@ -271,7 +270,7 @@
 					data: {
 						district_id: this.districtId
 					},
-					 showLoading:true,
+					 // showLoading:true,
 				}).then(res => {
 					if (res.code == 0) {
 						this.town_data = res.list;
@@ -283,7 +282,7 @@
 				this.$http.request({
 					url: this.$api.moreShop.getCity,
 					method: 'post',
-					 showLoading:true,
+					 // showLoading:true,
 				}).then((res) => {
 					// 处理数据
 					console.log(res)
@@ -382,9 +381,9 @@
 			}).exec()
 		},
 		onShow() {
-			if(this.ifOnShow){
-				window.location.reload()
-			}
+			// if(this.ifOnShow){
+			// 	window.location.reload()
+			// }
 			var that=this
 			this.host=this.$api.test_url
 			if(uni.getStorageSync('x-city-id')){
@@ -418,10 +417,10 @@
 				path:"/pages/shop/shop"
 			}
 		},
-		onHide(){
-		    console.log('this.ifOnShow=true')
-			this.ifOnShow=true
-		},
+		// onHide(){
+		//     console.log('this.ifOnShow=true')
+		// 	this.ifOnShow=true
+		// },
 	}
 </script>	
 

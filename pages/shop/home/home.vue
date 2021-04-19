@@ -21,11 +21,12 @@
 					<view class="iconfont iconsousuo"></view>
 					<input type="text" placeholder="搜索你想要的商品" class="index1_content_top_r_input" v-model="keyword" @confirm="search"></input>
 				</view>
-				<view class="shop-my-products" style="margin-top: 20rpx;">
+				<view class="shop-my-products" style="margin-top: 20rpx;" @click="checkmore">
 					<image :src="img_url+'/shop_logo_hot.png'" mode=""></image>
 					<text class="shop-my-products_title">
 						店铺热销爆品
 					</text>
+					<text class="shop-my-products_more">查看更多</text>
 				</view>
 				<view class="simulate-product">
 					<view class="product-item" v-for="(item,index) in hotlist" v-if='index<=3' :key='index' @click="hotlink(item.goods_id,item.mch_baopin_id)">
@@ -34,9 +35,9 @@
 						<view class="product-item-name">{{item.name}}</view>
 						<view class="product-item-money-buy">
 							<view class="product-item-money">
-								<text style="color: #c0c0c0;font-size: 28rpx;">官方价￥{{item.price}}</text>
-								<text style="color: rgb(7, 190, 180);font-size: 28rpx;">会员价{{item.original_price}}</text>
-							</view>
+								<text style="color: #c0c0c0;font-size: 28rpx;">官方价￥{{item.original_price}}</text>
+								<text style="color: rgb(7, 190, 180);font-size: 28rpx;">会员价{{item.price}}</text>
+							</view>                                                   
 						</view>
 					</view>
 				</view>
@@ -228,6 +229,11 @@
 					url:'../../goods/detail?proId='+id+"&mch_baopin_id="+hotid
 				})
 				
+			},
+			checkmore(){ //点击店铺热销爆品查看更多
+				uni.navigateTo({
+					url:'../hotGoods/hotGoods'
+				})
 			}
 		},
 		onReady() {
@@ -562,8 +568,17 @@
 	}
 	.shop-my-products_title{
 		position: absolute;
-		top: 10rpx;
+		top: 15rpx;
 		left: 20rpx;
+		color: #000;
+		display: block;
+		font-size: 30rpx;
+		font-weight: bold;
+	}
+	.shop-my-products_more{
+		position: absolute;
+		top: 15rpx;
+		right: 20rpx;
 		color: #000;
 		display: block;
 		font-size: 30rpx;

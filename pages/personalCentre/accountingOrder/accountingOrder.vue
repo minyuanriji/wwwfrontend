@@ -14,9 +14,21 @@
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false"  @click="link">
 				<view class="jx-cell-header">
 					<view class="jx-cell-title">最近核销记录</view>
-					<view class="jx-cell-sub">查看全部订单</view>
+					<!-- <view class="jx-cell-sub">查看全部订单</view> -->
 				</view>
 			</jx-list-cell>
+			<view class="personalCenter-item-list" v-for="(item,index) in list" :key='index'>
+				<image :src="item.goods_info.goods_attr.cover_pic" mode=""></image>
+				<view class="personalCenter-item-list-message">
+					<view class="personalCenter-item-list-message-title">
+						{{item.goods_info.goods_attr.name}}
+					</view>
+					<view class="personalCenter-item-list-message-time">
+						{{item.format_date}}
+					</view>
+				</view>
+				
+			</view>
 		</view>
 	</view>
 </template>
@@ -34,6 +46,11 @@
 			return {
 				code:'',//核销code
 				img_url: this.$api.img_url,
+				form:{
+					page:1
+				},
+				list:[],
+				page_count:''
 			}
 		},
 		onLoad() {
@@ -42,6 +59,7 @@
 				console.log(signData)
 			});
 		//#endif
+			this.getList()
 		},
 		methods: {
 			ercodeBtn(){
@@ -72,10 +90,34 @@
 					url:'../../more-shop/more-shop?code='+this.code
 				})	
 			},
-			link(){ //跳到核销记录页面
-				
+			getList(){
+				this.$http
+					.request({
+						url: this.$api.moreShop.getclerkList,
+						method: 'POST',
+						data:this.form,
+						showLoading: true,
+					})
+					.then(res => {
+						if(res.code==0){
+							console.log(res.data)
+							if(res.data.list.length==0)return false
+							let arr= res.data.list;
+							this.list=this.list.concat(arr)
+							this.page_count= res.data.pagination.page_count;
+						}else{
+							this.$http.toast(res.msg);
+						}
+					});	
 			}
-		}
+		},
+		onReachBottom() {
+			if(this.form.page==this.page_count){
+				return false;
+			}
+			this.form.page=this.form.page+1
+			this.getList()
+		},
 	}
 </script>
 
@@ -156,4 +198,16 @@
 		color: #999;
 		padding-right: 10rpx;
 	}
+	.personalCenter-item-list{width: 100%;overflow: hidden;display: flex;padding: 0 20rpx;box-sizing: border-box;margin-bottom: 20rpx;
+	border-bottom: 1rpx solid #C0C4CC;}
+	.personalCenter-item-list image{width: 110rpx;height: 110rpx;display: block;margin: 10rpx 10rpx 15rpx 0;}
+	.personalCenter-item-list-message-title{width: 520rpx;height: 80rpx;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  display: -webkit-box;
+	  -webkit-line-clamp: 2;
+	  -webkit-box-orient: vertical;
+	  font-size: 25rpx;
+	}
+	.personalCenter-item-list-message-time{font-size: 25rpx;}
 </style>
