@@ -231,8 +231,11 @@
 				
 			},
 			checkmore(){ //点击店铺热销爆品查看更多
+				// uni.navigateTo({
+				// 	url:'../hotGoods/hotGoods'
+				// })
 				uni.navigateTo({
-					url:'../hotGoods/hotGoods'
+					url:'../../diy/diy?page_id=11'
 				})
 			}
 		},

@@ -1,15 +1,5 @@
 <template>
 	<view class="verification-app">
-		<view class="verification-code">
-			<view class="code-logo">
-				<view class="mask" v-if="showCode">
-					<image :src="img_url+'/gou.png'" mode=""></image>
-				</view>
-				<image :src="codeDetail.file_path" mode=""></image>
-				<text>核销码：{{codeDetail.code}}</text>
-				<text>{{poup}}</text>
-			</view>
-		</view> 
 		<view class="address-list">
 			<view class="address_location">
 				<image :src="img_url+'/ver_location_1.png'" @tap="chooseAddress"></image>
@@ -46,9 +36,6 @@
 			return {
 				img_url: this.$api.img_url,
 				codeDetail:'',
-				poup:'',
-				timer:'',
-				showCode:false,
 				address:"",
 				form:{
 					id:'',
@@ -64,10 +51,6 @@
 			let that=this
 			if(options.id){
 				that.id=options.id
-				that.getCode(options.id)
-				that.timer=setInterval(() => {
-					that.getResult(options.id)
-				},2500);
 				//#ifdef H5
 				   if(this.$http.getPlatform()=='wechat'){
 					   this.$wechatSdk.location(function(res){
@@ -100,41 +83,6 @@
 			}
 		},
 		methods:{
-			getCode(id){ //获取二维码
-				this.$http.request({
-					url: this.$api.moreShop.getOrdercode,
-					data: {
-						id:id
-					}
-				}).then((res) => {
-					if (res.code == 0) {
-						this.codeDetail=res.data
-					}else{
-						// this.$http.toast(res.msg);
-					}
-				})
-			},
-			getResult(id) { //轮询核销结果
-				if(this.poup=="已核销")return false
-				this.$http.request({
-					url: this.$api.moreShop.getOrdercodestatus,
-					method: 'POST',
-					data: {
-						id:id,
-					},
-				}).then(res => {
-					if (res.code == 0) {
-						let reult = res.data
-						if (reult.clerk_status && reult.clerk_status == 1) {
-							this.poup="已核销"
-							this.showCode=true
-						}else{
-							this.poup="待核销"
-							this.showCode=false
-						}
-					}
-				})
-			},
 			chooseAddress(){ //选择定位
 				var that = this
 				that.list=[]
@@ -210,22 +158,11 @@
 			this.form.page=this.form.page+1
 			this.getshopList(this.form)
 		},
-		onUnload() {
-			if(this.timer!=null) {  
-			    clearInterval(this.timer);  
-			    this.timer = null;  
-			}  
-		},
 	}
 </script>
 
 <style lang="less" scoped>
 	.verification-app{width: 100%;}
-	.verification-code{width: 100%;height: 500rpx;position: relative;}
-	.code-logo{width: 400rpx;height: 500rpx;position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;}
-	.code-logo image{width: 400rpx;height: 400rpx;display: block;}
-	.code-logo text{display: block;width: 100%;height: 50rpx;text-align: center;line-height: 50rpx;
-	background: #3F536E;color: #fff;}
 	.address-list{width: 100%;overflow: hidden;margin-top: 10rpx;background: #fff;box-shadow: 0 3rpx 20rpx rgba(183, 183, 183, 0.6);padding: 0 20rpx;box-sizing: border-box;}
 	.address_location{width: 100%;height: 120rpx;border-bottom: 1rpx solid #BFBFBF;}
 	.address_location image:nth-of-type(1){float: left;display: block;width: 50rpx;height: 50rpx;margin-top: 30rpx;}
@@ -249,26 +186,5 @@
 		-webkit-user-select: text;
 		width: 100%;
 		overflow: hidden;
-	}
-	.mask{
-		width: 400rpx;
-		height: 400rpx;
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: 999;
-		background: rgba(0,0,0,0.6);
-	}
-	.mask image{
-		width: 150rpx;
-		height: 150rpx;
-		display: block;
-		position: absolute;
-		left: 0;
-		right: 0;
-		top: 0;
-		bottom: 0;
-		margin: auto;
-		
 	}
 </style>

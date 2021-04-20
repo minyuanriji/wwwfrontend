@@ -380,10 +380,7 @@
 				 that.height=view_height
 			}).exec()
 		},	
-		onShow() {
-			// if(this.ifOnShow){
-			// 	window.location.reload()
-			// }
+		onLoad() {
 			var that=this
 			this.host=this.$api.test_url
 			if(uni.getStorageSync('x-city-id')){
@@ -417,13 +414,13 @@
 				path:"/pages/shop/shop"
 			}
 		},
-		onHide(){
-			this.page=1
-			this.lat='',
-			this.lnt='',
-			this.keyword='',
-			this.shop_list=[]
-		},
+		// onHide(){
+		// 	this.page=1
+		// 	this.lat='',
+		// 	this.lnt='',
+		// 	this.keyword='',
+		// 	this.shop_list=[]
+		// },
 	}
 </script>	
 

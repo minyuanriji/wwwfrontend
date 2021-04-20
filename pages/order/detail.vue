@@ -105,7 +105,7 @@
 						</view>
 					</view>
 					<info :params="params.mch" v-if="params.is_mch==1"></info>
-					<view class="personalCenter-item" v-if="detail.order_type=='offline_baopin'">
+					<!-- <view class="personalCenter-item" v-if="detail.order_type=='offline_baopin'">
 													<jx-list-cell :arrow="true" padding="0" :lineLeft="false" 
 													@click="offlineTo(detail.id)">
 														<view class="jx-cell-header">
@@ -113,7 +113,7 @@
 															<view class="jx-cell-sub">使用</view>
 														</view>
 													</jx-list-cell>
-												</view>
+												</view> -->
 					<view class="jx-order-info jx-radius">
 						<view class="jx-info-flex jx-size24">
 							<view class="jx-info-text">订单编号</view>
@@ -379,8 +379,11 @@
 				})
 			},
 			offlineTo(id){ //跳转到爆破核销页面
+				// uni.navigateTo({
+				// 	url:'../verification/verification?id='+id
+				// })
 				uni.navigateTo({
-					url:'../verification/verification?id='+id
+					url:'../verification/canceldetail/canceldetail?id='+id
 				})
 			},
 			toPage(orderId,oddNum){

@@ -22,7 +22,7 @@
 						</view>
 					</tui-list-cell>
 					<block v-for="(item,index) in model.detail" :key="index">
-						<tui-list-cell padding="0"  @click="detail(model.id)">
+						<tui-list-cell padding="0"  @click="detail(model.id,model.order_type)">
 							<view class="tui-goods-item">
 								<image :src="item.goods_info.pic_url" lazy-load="true" class="tui-goods-img"></image>
 								<view class="tui-goods-center">
@@ -52,10 +52,10 @@
 				</view>
 				<view class="tui-order-btn">
 					<view class="tui-btn-ml" v-if="activeIndex == 0">
-						<view class="btn-style" :style="{color:textColor,border:'1px solid '+textColor}" @click.stop="detail(model.id)">去使用</view>
+						<view class="btn-style" :style="{color:textColor,border:'1px solid '+textColor}" @click.stop="detail(model.id,model.order_type)">去使用</view>
 					</view>
 					<view class="tui-btn-ml" v-if="activeIndex == 1">
-						<view class="btn-style btn-gary" :style="{color:textColor,border:'1px solid '+textColor}"  @click.stop="cancel(model.id)">查看详情</view>
+						<view class="btn-style btn-gary" :style="{color:textColor,border:'1px solid '+textColor}"  @click.stop="cancel(model.id,model.order_type)">查看详情</view>
 					</view>
 				</view>
 			</view>
@@ -214,15 +214,28 @@
 						}
 					})
 				},
-				detail(id) {
-					uni.navigateTo({
-						url: `/pages/order/detail?orderId=${id}`
-					})
+				detail(id,type) {
+					if(type=='offline_baopin'){
+						uni.navigateTo({
+							url: `/pages/verification/canceldetail/canceldetail?id=${id}`
+						})
+					}else{
+						uni.navigateTo({
+							url: `/pages/order/detail?orderId=${id}`
+						})
+					}
+	
 				},
-				cancel(id){
-					uni.navigateTo({
-						url: `/pages/order/detail?orderId=${id}`
-					})
+				cancel(id,type){
+					if(type=='offline_baopin'){
+						uni.navigateTo({
+							url: `/pages/verification/canceldetail/canceldetail?id=${id}`
+						})
+					}else{
+						uni.navigateTo({
+							url: `/pages/order/detail?orderId=${id}`
+						})
+					}
 				}
 			},
 			onPullDownRefresh() {
