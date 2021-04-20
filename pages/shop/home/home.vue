@@ -8,6 +8,7 @@
 				<view class="home_content_top_r">
 					<view class="content_top_r_name">{{store.name}}</view>
 					<view class="content_top_r_desc">{{store.description}}</view>
+					<image :src="img_url+'/iphone.png'" mode="" class="tellPhone" @click="callPhone(store.service_mobile)"></image>
 				</view>
 				<button class="home_content_top_share" open-type="share" v-if="isMiniWechat==1">
 					<view class="iconfont iconfenxiang"></view>
@@ -125,6 +126,21 @@
 			}
 		},
 		methods: {
+			callPhone(phone){ //拨打电话
+				// alert(phone)
+				uni.makePhoneCall({
+				 	// 手机号
+				    phoneNumber: phone, 				
+					// 成功回调
+					success: (res) => {
+						console.log('调用成功!')	
+					},				
+					// 失败回调
+					fail: (res) => {
+						console.log('调用失败!')
+					}					
+				 })
+			},
 			toDetail(proId) {
 				uni.navigateTo({
 					url: "/pages/goods/detail?proId=" + proId
@@ -285,7 +301,12 @@
 		width: 100%;
 		height: 100%;
 	}
-
+	.tellPhone{
+		width: 50rpx;
+		height: 50rpx;
+		display: block;
+		margin-top: 20rpx;
+	}
 	.home_content_top {
 		width: 100%;
 		display: flex;
