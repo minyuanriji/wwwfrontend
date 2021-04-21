@@ -158,7 +158,7 @@
 					:flex="configData.user_center.user_tool_menu_style || '2'"
 				></toolbar>
 			</view> -->
-			
+			<!-- #ifdef H5 -->
 			<view v-if="configData.user_center.menus && configData.user_center.menus.length">
 				<toolbar
 					v-if="configData.user_center.is_menu_status != 0"
@@ -167,6 +167,17 @@
 					:toolbarData="userMessage.user_center.menus"
 				></toolbar>
 			</view>
+			<!--#endif -->
+			<!-- #ifdef MP-WEIXIN -->
+			<view v-if="configData.user_center.menus && configData.user_center.menus.length">
+				<toolbar
+					v-if="configData.user_center.is_menu_status != 0"
+					:toolbarTitle="configData.user_center.menu_title"
+					:flex="configData.user_center.menu_style"
+					:toolbarData="configData.user_center.menus"
+				></toolbar>
+			</view>
+			<!--#endif -->
 		</view>
 		<placeholder :placeholderHeight="placeholderHeight3"></placeholder>
 		<jx-tips ref="toast"></jx-tips>

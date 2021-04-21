@@ -462,7 +462,6 @@
 						phone:userMessage.mobile,
 					}
 				)
-				console.log(this.webapp)
 			}
 		},
 
