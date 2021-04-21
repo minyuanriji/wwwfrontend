@@ -26,7 +26,7 @@
 			});
 			setTimeout(function(){
 				 uni.hideLoading();
-			},2000)
+			},1000)
 			if(uni.getStorageSync('imglist')){
 				this.imgList=uni.getStorageSync('imglist')
 			}
@@ -62,9 +62,16 @@
 								})
 								.then(result => {
 									if(result.code==0){
-										// that.imgList=result.data.pic_urls
-										uni.setStorageSync('imglist',result.data.pic_urls)
-										that.imgList=result.data.pic_urls
+										console.log(result.data.pic_urls)
+										let List=result.data.pic_urls
+										let logoList=[]
+										List.forEach((item)=>{
+											if(typeof(item)!='object'){
+												logoList.push(item)
+											}
+										})										
+										uni.setStorageSync('imglist',logoList)
+										that.imgList=logoList
 									}else{
 										that.$http.toast(result.msg);
 									}
@@ -89,8 +96,15 @@
 					.then(result => {
 						if(result.code==0){
 							that.$http.toast('删除成功');
-							uni.setStorageSync('imglist',result.data.pic_urls)	
-							that.imgList=result.data.pic_urls
+							let List=result.data.pic_urls
+							let logoList=[]
+							List.forEach((item)=>{
+								if(typeof(item)!='object'){
+									logoList.push(item)
+								}
+							})										
+							uni.setStorageSync('imglist',logoList)
+							that.imgList=logoList
 						}else{
 							that.$http.toast(result.msg);
 						}

@@ -98,30 +98,12 @@
 					address:''
 				},
 				text:'',
+				userMessage:''
 			};
 		},
 		onLoad() {
 			this.getCity()
-			
-		},
-		onShow() {
-			if(uni.getStorageSync('imglist')){
-				let imgList=uni.getStorageSync('imglist')
-				this.num=imgList.length
-			}
-			if(uni.getStorageSync('shop-MESSAGE')){
-				let shopMESSAGE=uni.getStorageSync('shop-MESSAGE')
-				this.form.name=shopMESSAGE.name
-				this.form.cover_url=shopMESSAGE.cover_url
-				this.params.shop_logo=shopMESSAGE.cover_url
-				this.form.city_id=shopMESSAGE.city_id
-				this.form.province_id=shopMESSAGE.province_id
-				this.form.latitude=shopMESSAGE.latitude
-				this.form.longitude=shopMESSAGE.longitude
-				this.form.address=shopMESSAGE.address
-				this.text=shopMESSAGE.text
-				console.log(shopMESSAGE)
-			}
+			this.getUser()
 		},
 		methods: {
 			toArr(object) {
@@ -201,7 +183,6 @@
 					showLoading:true,
 				}).then((res) => {
 					// 处理数据
-					console.log(res)
 					var provinceArr = [];
 					var cityArr = [];
 					var districtArr = [];
@@ -220,7 +201,6 @@
 						}
 					}
 					this.multiArray = [provinceArr, cityArr];
-			
 					cityArr.forEach((item, index) => {
 						districtArr.forEach((items, index) => {
 							if (item.id == items.parent_id) {
@@ -237,11 +217,10 @@
 						})
 					})
 					this.selectList = provinceArr;
-			
 					this.multiArray = [
 						this.toArr(this.selectList),
 						this.toArr(this.selectList[0].children),						
-					];		
+					];	
 				})
 			},
 			chooseAddress() { //打开腾讯地图
@@ -338,6 +317,48 @@
 				uni.navigateTo({
 					url:'../shopLogoupload/shopLogoupload'
 				})
+			},
+			getUser(){
+				this.$http
+					.request({
+						url: this.$api.user.userInfo,
+						method: 'POST',
+						showLoading: true
+					})
+					.then(res => {
+						this.userMessage=res.data.mch_info.store
+						this.form.name=this.userMessage.name
+						this.form.cover_url=this.userMessage.cover_url
+						this.params.shop_logo=this.userMessage.cover_url
+						this.form.city_id=this.userMessage.city_id
+						this.form.province_id=this.userMessage.province_id
+						this.form.latitude=this.userMessage.latitude
+						this.form.longitude=this.userMessage.longitude
+						this.form.address=this.userMessage.address
+						let cityList=this.selectList
+						let province=''
+						let city=''
+						cityList.forEach((item, index) => {
+							if(this.userMessage.province_id==item.id){
+								province=item.name
+							}
+							item.children.forEach((items, indexs) => {
+								if(this.userMessage.city_id==items.id){
+									city=items.name
+								}
+							})
+						})
+						this.text=province+' '+city
+						let imgList=JSON.parse(this.userMessage.pic_url)
+						let logoList=[]
+						imgList.forEach((item)=>{
+							if(typeof(item)!='object'){
+								logoList.push(item)
+							}
+						})
+						uni.setStorageSync('imglist',logoList)
+						this.num=logoList.length
+					});
 			}
 		}	
 	}
