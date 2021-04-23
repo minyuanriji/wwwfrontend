@@ -285,7 +285,6 @@
 					 // showLoading:true,
 				}).then((res) => {
 					// 处理数据
-					console.log(res)
 					var provinceArr = [];
 					var cityArr = [];
 					var districtArr = [];

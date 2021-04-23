@@ -25,12 +25,16 @@
 					<diy-header :backgroundCol='receiveColor'></diy-header>
 				</view> -->
 					<!-- 搜索 -->
-					<view class="search" @tap="navTo('/pages/search/search')">
+					<view class="search" @tap="navTo('/pages/search/search')" style="width: 85%;">
 						<search :message="item.data.placeholder" :textAlign="item.data.textPosition" :frameColor="item.data.background"
 						 :innerFrameColor="item.data.color" :textColor="item.data.textColor" :borderRadius="item.data.radius"></search>
 						<!-- :frameColor="scrollTop>0?item.data.background:receiveColor" 用来做渐变 -->
 					</view>
 					<!-- 搜索 -->
+					<view class="checksao" style="width: 15%;background: #fff;" @click="scanSome">
+						<image :src="img_url+'/scan.png'" mode="" style="width: 50rpx;height: 50rpx;display: block;margin: 10rpx auto 0;"></image>
+						 <text style="display: block;font-size: 24rpx;width: 100%;text-align: center;">扫一扫</text>
+					</view>
 				</view>
 			</view>
 			<placeholder v-if="item.id == 'search' && is_fixed == 0" :placeholderHeight="placeholderHeight4"></placeholder>
@@ -171,7 +175,9 @@
 	import diyCopyright from '@/components/diy/diy-copyright.vue';
 	import diyMap from '@/components/diy/diy-map.vue';
 	import diyModal from '@/components/diy/diy-modal.vue';
-
+	//#ifdef H5
+		var jweixin = require('jweixin-module');
+	//#endif
 	export default {
 		components: {
 			search,
@@ -463,6 +469,11 @@
 					}
 				)
 			}
+			//#ifdef H5
+				this.$wechatSdk.initJssdk(function(signData){
+					console.log(signData)
+				});
+			//#endif
 		},
 
 
@@ -501,9 +512,17 @@
 					console.log(this.webapp)
 				}
 			},
-
-
-
+			scanSome(){//扫一扫
+				//#ifdef H5
+					jweixin.scanQRCode({
+					  needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+					  scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+					  success: function (res) {
+						var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+					  }
+					});
+				//#endif
+			},
 			linkService() {
 				console.log(this.serviceLink)
 				location.href = this.serviceLink
@@ -757,6 +776,7 @@
 		top: var(--status-bar-height);
 		width: 100%;
 		z-index: 99;
+		display: flex;
 	}
 
 	.navIcon_style {

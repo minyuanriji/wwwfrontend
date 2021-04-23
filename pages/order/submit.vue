@@ -30,7 +30,7 @@
 					<view class="tui-goods-title">
 						<view class="logo" @tap="toShop(item.mch.id)">
 							<!-- <span :style="`background-image:url(${})`"></span> -->
-							<image class="img" lazy-load="true" :src="url+'/images/shop/shoplogo.png'" mode="aspectFill"></image>
+							<image class="img" lazy-load="true" :src="img_url+'/shoplogo.png'" mode="aspectFill"></image>
 							<span class="name">{{item.mch.name?item.mch.name:"名媛日记官方商城"}}</span>
 							<view class="toright"></view>
 							<view class="icon-logo" style="position: absolute;top: 25rpx;right: 10rpx;">
