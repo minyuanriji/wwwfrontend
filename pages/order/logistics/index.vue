@@ -22,8 +22,8 @@
 			<view class="logistics-overview">
 				<view class="center">
 					<view class="circle-box flex flex-y-center flex-x-center"   v-for="(itemS,indexS) in status_list" :style="{left:distance(indexS)}">
-						<view class="circle" :class="indexS==logistics_data?'active':'actove'"></view>
-						<view class="status" :class="indexS==logistics_data?'activestatus':'actovestatus'">{{itemS}}</view>
+						<view class="circle" :class="indexS==status_index?'active':'actove'"></view>
+						<view class="status" :class="indexS==status_index?'activestatus':'actovestatus'">{{itemS}}</view>
 					</view>
 				</view>
 			</view>
@@ -63,7 +63,7 @@
 			return {
 				orderData: '',
 				status_list:['待发货','已下单给品牌方','已揽件','运输中','已签收'],
-				status_index:2,
+				status_index:null,
 				logistics_data:'',
 				logistics_order:'',
 				textColor:'',
@@ -106,8 +106,10 @@
 				}).then(res => {
 					if (res.code === 0) {
 						this.orderData = res.data.detail;
+						if(this.orderData.express_no.length<=0){
+							this.status_index=0
+						}
 						this.orderData.express_no == '' || this.getlogistics(res.data.detail);
-						this.logistics_data=1
 					}
 				})
 			},
@@ -125,6 +127,18 @@
 					if(res.code == 0){
 						this.logistics_data = res.data.express.list;
 						this.logistics_order = res.data.order;
+						if(this.logistics_order.express_no.length>0){
+							this.status_index=1
+						}
+						if(this.logistics_data.State=='1'){
+							this.status_index=2
+						}
+						if(this.logistics_data.State=='2'){
+							this.status_index=3
+						}
+						if(this.logistics_data.State=='3'){
+							this.status_index=4
+						}
 						this.logistics_data.Traces.reverse();
 					}
 				})
@@ -293,14 +307,14 @@
 	}	
 	
 	.logistics-msg{
-		padding: 30rpx 38rpx;
+		padding: 20rpx 38rpx;
 		
 		.box{
 			&::after{
 				content: '';
 				display: block;
 				background: #ccc;
-				height: 60rpx;
+				height: 80rpx;
 				width: 4rpx;
 				left: 50%;
 				transform: translateX(-50%);
@@ -309,6 +323,7 @@
 			}
 		}
 		.boxs{
+			overflow: hidden;
 			&::after{
 				content: '';
 				height: 0rpx;
@@ -318,21 +333,21 @@
 		
 		.left{
 			text-align: center;
-			margin-right: 40rpx;
-			width: 124rpx;
+			margin-right: 30rpx;
+			width: 140rpx;
 			
 			.time{
-				font-size: 32rpx;
+				font-size: 30rpx;
 				color: #000;
 			}
 			.date{
-				font-size: 22rpx;
+				font-size: 20rpx;
 				color: #999;
 			}
 		}
 		.right{
 			color: #000;
-			font-size: 30rpx;
+			font-size: 25rpx;
 			letter-spacing: 2rpx;
 			flex: 1;
 		}
