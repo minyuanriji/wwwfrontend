@@ -35,10 +35,10 @@
 					<view v-else class="box" :class="{boxs:indexT == logistics_data.Traces.length-1}" v-for="(itemT,indexT) in logistics_data.Traces">
 						<view class="flex flex-y-center" style="height: 170rpx;">
 							<view class="left">
-								<view class="time">{{time(itemT.AcceptTime)}}</view>
-								<view class="date">{{date(itemT.AcceptTime)}}</view>
+								<view :class="indexT==0?'styleColorTime':'time'">{{time(itemT.AcceptTime)}}</view>
+								<view :class="indexT==0?'styleColorDate':'date'">{{date(itemT.AcceptTime)}}</view>
 							</view>
-							<view class="right">{{itemT.AcceptStation}}</view>
+							<view :class="indexT==0?'styleColorRight':'right'">{{itemT.AcceptStation}}</view>
 						</view>
 					</view>
 				</view>
@@ -344,9 +344,23 @@
 				font-size: 20rpx;
 				color: #999;
 			}
+			.styleColorTime{
+				font-size: 30rpx;
+				color:#16AB60;
+			}
+			.styleColorDate{
+				font-size: 20rpx;
+				color: #16AB60;
+			}
 		}
 		.right{
 			color: #000;
+			font-size: 25rpx;
+			letter-spacing: 2rpx;
+			flex: 1;
+		}
+		.styleColorRight{
+			color: #16AB60;
 			font-size: 25rpx;
 			letter-spacing: 2rpx;
 			flex: 1;
