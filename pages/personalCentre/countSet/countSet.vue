@@ -27,12 +27,12 @@
 				</view>
 				<input type="text" placeholder="请填写银行名称" v-model="form.paper_openBank" />
 			</view>
-			<view class="item">
+			<!-- <view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>交易密码</text>
 				</view>
 				<input type="number" placeholder="请填写密码(提现密码)" maxlength="6"  v-model="form.withdraw_pwd" />
-			</view>
+			</view> -->
 			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>提现方式</text>
@@ -55,12 +55,17 @@
 				{{item.name}}
 			</view>
 		</com-bottom-popup>
+		 <payPass ref="verify" @finish="getCode"></payPass>
 	</view>
 </template>
 
 <script>
 	import {isEmpty} from '../../../common/validate.js'
+	import payPass from '../../../components/pay-pass/pay-pass.vue'
 	export default {
+		components:{
+			payPass
+		},
 		data() {
 			return {
 				bankShow:false,
@@ -142,6 +147,24 @@
 				this.form.paper_settleTarget=index
 				this.TargetShow = false
 			},
+			getCode:function(e){
+				this.form.withdraw_pwd=e
+				this.$http.request({
+					url: this.$api.moreShop.settleMessage,
+					method: 'POST',
+					showLoading: true,
+					data:this.form
+				}).then(res => {
+					if (res.code == 0) {
+						this.$http.toast("设置成功");
+						setTimeout(() => {
+							this.navBack();
+						},1000 * 2)
+					}else{
+						this.$http.toast(res.msg);
+					}
+				})
+			},
 			sureBTN(){
 				if (isEmpty(this.form.paper_settleAccountType)) {
 					uni.showToast({
@@ -183,16 +206,16 @@
 					}, 2000);
 					return
 				}
-				if (isEmpty(this.form.withdraw_pwd)) {
-					uni.showToast({
-						title: '请填写交易密码',
-						icon: 'none'
-					});
-					setTimeout(function() {
-						uni.hideToast();
-					}, 2000);
-					return
-				}
+				// if (isEmpty(this.form.withdraw_pwd)) {
+				// 	uni.showToast({
+				// 		title: '请填写交易密码',
+				// 		icon: 'none'
+				// 	});
+				// 	setTimeout(function() {
+				// 		uni.hideToast();
+				// 	}, 2000);
+				// 	return
+				// }
 				if (isEmpty(this.form.paper_settleTarget)) {
 					uni.showToast({
 						title: '请选择提现方式',
@@ -203,21 +226,22 @@
 					}, 2000);
 					return
 				}
-				this.$http.request({
-					url: this.$api.moreShop.settleMessage,
-					method: 'POST',
-					showLoading: true,
-					data:this.form
-				}).then(res => {
-					if (res.code == 0) {
-						this.$http.toast("设置成功");
-						setTimeout(() => {
-							this.navBack();
-						},1000 * 2)
-					}else{
-						this.$http.toast(res.msg);
-					}
-				})
+				 this.$refs.verify.show();
+				// this.$http.request({
+				// 	url: this.$api.moreShop.settleMessage,
+				// 	method: 'POST',
+				// 	showLoading: true,
+				// 	data:this.form
+				// }).then(res => {
+				// 	if (res.code == 0) {
+				// 		this.$http.toast("设置成功");
+				// 		setTimeout(() => {
+				// 			this.navBack();
+				// 		},1000 * 2)
+				// 	}else{
+				// 		this.$http.toast(res.msg);
+				// 	}
+				// })
 			}
 		}
 		

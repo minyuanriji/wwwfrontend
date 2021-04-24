@@ -67,10 +67,23 @@
 				<view class="select1_proDetails">
 					<view class="select2_proName" v-if="showGoodsName == '1'">{{item.name}}</view>
 					<view class="select1_price flex flex-y-center" :class="displayStyle ==3 || displayStyle ==4?'flex-x-center':'flex-x-between'">
-						<view>
+						<view v-if="!styleShow">
 							<view v-if="showGoodsOriginalPrice == '1'" class="select1_original_price">{{originalPriceLabel}} &yen;{{item.original_price}}</view>
 							<view v-if="showGoodsPrice == '1'" :style="{color:textColor}">{{priceLabel}} &yen;{{item.price}}</view>
 							<view v-if="showGoodsLevelPrice == '1'" class="select1_level_price">{{levelPriceLabel}} &yen;{{item.level_price}}</view>
+						</view>
+						<view v-if="styleShow">
+							<view v-if="showGoodsOriginalPrice == '1'" class="select1_original_price">
+							{{originalPriceLabel}} &yen;{{item.original_price}}
+							</view>
+							<view v-if="showGoodsPrice == '1'" :style="{color:textColor}">
+							{{priceLabel}}&nbsp;{{item.price}}
+							<text style="font-size: 25rpx;color: red;transform: scale(0.83);display: inline-block;">红包</text>
+							</view>
+							<view v-if="showGoodsLevelPrice == '1'" class="select1_level_price">
+							{{levelPriceLabel}}&nbsp;{{item.level_price}}
+							<text style="font-size: 25rpx;color: red;margin-left: 10rpx;">红包</text>
+							</view>
 						</view>
 						<view v-if="buyBtns == 'pic'">
 							<image class="select1_buyBtn1" :class="buyBtn()?'':'hide'" :src="buyBtnPic"
@@ -236,11 +249,22 @@
 			buttonColor:{
 				type:String,
 				default:'#bc0100'
+			},
+			styleTitle:{
+				type:String,
 			}
 		},
 		data(){
 			return{
-				textColor:'#bc0100'
+				textColor:'#bc0100',
+				styleShow:false
+			}
+		},
+		created() {
+			if(this.styleTitle.indexOf('购物券区')!=-1 ){
+				this.styleShow=true
+			}else{
+				this.styleShow=false
 			}
 		},
 		mounted() {

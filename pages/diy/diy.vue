@@ -2,7 +2,7 @@
 	<view class="app" v-if="diy && diy.id">
 		<com-nav-bar left-icon="back" :title="diy.name" @clickLeft="back"></com-nav-bar>
 		
-		<diy-container :diy-data="item" v-for="(item,i) in diy.template.data" :key="i"></diy-container>
+		<diy-container :diy-data="item" v-for="(item,i) in diy.template.data" :key="i" :title='title'></diy-container>
 
 		<!-- <view class="navbars" :style="{background:navbarData.background}">
 			<view class="navbars-box">
@@ -28,7 +28,8 @@
 				switchIndex: 0,
 				pageId: 0,
 				templateId: 0,
-				nav_id:11
+				nav_id:11,
+				title:''
 			}
 		},
 		onLoad(options) {
@@ -59,6 +60,7 @@
 					this.$set(this, "diy", res.data.navs[0]);
 					this.navbarData = res.data;
 					this.navbars = res.data.navbars;
+					this.title=res.data.title
 				}).catch(err => {
 					console.log(err);
 				})

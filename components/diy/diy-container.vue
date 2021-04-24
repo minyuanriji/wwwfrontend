@@ -14,7 +14,7 @@
 		 :buyBtnStyle="temp.buyBtnStyle" :buyBtnText="temp.buyBtnText" :buyBtnColor="temp.buttonColor" :buyBtnBool="temp.showBuyBtn"
 		 :productNameBool="temp.showGoodsName" :priceBool="temp.showGoodsPrice" :showGoodsLevelPrice="temp.showGoodsLevelPrice"
 		 :showGoodsOriginalPrice="temp.showGoodsOriginalPrice" :originalPriceLabel="temp.originalPriceLabel" :priceLabel="temp.priceLabel"
-		 :levelPriceLabel="temp.levelPriceLabel" :subscriptBool="temp.showGoodsTag" :subscriptIcon="temp.goodsTagPicUrl"></commodity>
+		 :levelPriceLabel="temp.levelPriceLabel" :subscriptBool="temp.showGoodsTag" :subscriptIcon="temp.goodsTagPicUrl" :styleTitle='title'></commodity>
 
 		<diy-video v-if="temp.key == 'video'" :value="temp"></diy-video>
 
@@ -95,6 +95,10 @@
 			},
 			diyData: {
 				type: Object,
+				default: () => {}
+			},
+			title:{
+				type: String,
 				default: () => {}
 			}
 		},
