@@ -522,6 +522,14 @@
 					  }
 					});
 				//#endif
+				// #ifdef MP-WEIXIN || APP-PLUS
+						uni.scanCode({
+							onlyFromCamera: true,
+						    success: function (res) {
+						      
+						    }
+						});
+				// #endif
 			},
 			linkService() {
 				console.log(this.serviceLink)
