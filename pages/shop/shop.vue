@@ -103,7 +103,7 @@
 				shop_list:[
 					
 				],
-				sort:"",
+				effect:"",
 				keyword:"",
 				page:1,
 				lat:"",//纬度
@@ -143,23 +143,38 @@
 				return s;
 			},
 			toList(e,name){
-				var cat_id=e
+				var cat_id=e				
 				uni.navigateTo({
 					url:"/pages/shop/list/list?cat_id="+cat_id+"&name="+name
 					
 				})
 			},
 			toDetail(mch_id){
-				uni.setStorage({
-					key:'mch_id',
-					data:mch_id,
-					success() {
-						uni.navigateTo({
-							url:"/pages/shop/home/home?mch_id="+mch_id
+				let mall_id=uni.getStorageSync("mall_id")?uni.getStorageSync("mall_id"):5;
+				let user_id=uni.getStorageSync("userInfo")?JSON.parse(uni.getStorageSync("userInfo")).user_id:'';
+				let obj={
+					mall_id:mall_id,
+					user_id:user_id,
+					mch_id:Number(mch_id),
+				}
+				this.$http.request({
+					url: this.$api.moreShop.getclickNum,
+					method: 'POST',
+					showLoading:true,
+					data: obj
+				}).then(res => {
+					if (res.code == 0) {
+						uni.setStorage({
+							key:'mch_id',
+							data:mch_id,
+							success() {
+								uni.navigateTo({
+									url:"/pages/shop/home/home?mch_id="+mch_id
+								})
+							}
 						})
 					}
-				})
-				
+				})				
 			},
 			search(){//搜索
 			    this.shop_list=[]
@@ -173,12 +188,16 @@
 				this.getData()
 			},
 			sliderBtn(e){//筛选切换
-			    if(e==1){
-					this.sort='nearby'
-					
+				console.log(e)
+				if(e==0){
+					this.effect=''
+				}else if(e==1){
+					this.effect='nearby'					
 				}else if(e==2){
-					this.sort='ai'
-				}
+					this.effect='intelligence'
+				}else if(e==3){
+					this.effect='screen'
+				}			    
 				this.shop_list=[]
 				this.page=1
 				this.getData()
@@ -202,8 +221,9 @@
 				var lat=this.lat
 				var lnt=this.lnt
 				var keyword=this.keyword
+				var effect =this.effect
 				var that=this
-				var params={page,lat,lnt,keyword}
+				var params={page,lat,lnt,keyword,effect}
 				this.$http.request({
 						 url:this.$api.moreShop.getmchs,
 						 data:params,
@@ -223,7 +243,6 @@
 							var shop_list=that.shop_list.concat(new_data)
 							that.shop_list=shop_list
 							that.page_count=res.pagination.page_count
-							console.log(that.page)
 				   })
 			},
 			picker(e) {
