@@ -491,21 +491,8 @@
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
-		}, {
-			"path": "pages/article/list",
-			"style": {
-				"navigationBarTitleText": "文章列表",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"navigationBarTextStyle": "black"
-			}
-		}, {
-			"path": "pages/article/detail",
-			"style": {
-				"navigationBarTitleText": "文章详情",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"navigationBarTextStyle": "black"
-			}
-		}, {
+		},
+		{
 			"path": "pages/user/recharge/recharge",
 			"style": {
 				"navigationBarTitleText": "充值",
