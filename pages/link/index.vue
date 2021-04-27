@@ -62,13 +62,7 @@
 			getData() {
 				this.loading = true;
 				this.$http.request({
-					//#ifdef H5
 					url: this.$api.plugin.extensions.LinkPoster,
-					// #endif
-					
-					//#ifdef MP-WEIXIN
-					url: this.$api.plugin.extensions.LinkPoster2,
-					//#endif	
 					method: 'POST'
 				}).then(res => {
 					if (res.status == 1) {

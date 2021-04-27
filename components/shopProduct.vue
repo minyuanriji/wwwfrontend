@@ -44,7 +44,7 @@
 
 <style lang="less">
 	.shopProductItem {
-		width: 48%;
+		width: 325rpx;
 		overflow: hidden;
 		box-shadow: 0 3rpx 20rpx rgba(183, 183, 183, 0.5);
 		margin: 10rpx 0;
@@ -52,8 +52,8 @@
 		padding: 5rpx;
 	}
 
-	.shop-img {
-		width: 100%;
+	.shopProductItem  .shop-img {
+		width: 325rpx;
 		overflow: hidden;
 	}
 

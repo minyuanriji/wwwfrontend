@@ -55,6 +55,6 @@
 
 <style lang="less" scoped>
 	.productList-app{width: 100%;overflow: hidden;display: flex;justify-content: space-between;
-	padding: 0 30rpx;}
+	padding: 0 30rpx;box-sizing: border-box;}
 	.none{width: 100%;}
 </style>

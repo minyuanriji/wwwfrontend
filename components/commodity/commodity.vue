@@ -7,7 +7,7 @@
 					<view class="select1_proName" v-if="showGoodsName == '1'">{{item.name}}</view>
 					<view class="select1_price flex flex-y-center" :class="displayStyle ==3 || displayStyle ==4?'flex-x-center':'flex-x-between'">
 						<view>
-							<view v-if="showGoodsOriginalPrice == '1'" class="select1_original_price">{{originalPriceLabel}} &yen;{{item.original_price}}</view>
+							<view v-if="showGoodsOriginalPrice" class="select1_original_price">{{originalPriceLabel}} &yen;{{item.original_price}}</view>
 							<view v-if="showGoodsPrice == '1'" :style="{color:textColor}">{{priceLabel}} &yen;{{item.price}}</view>
 							<view v-if="showGoodsLevelPrice == '1'" class="select1_level_price">{{levelPriceLabel}} &yen;{{item.level_price}}</view>
 						</view>
@@ -39,7 +39,7 @@
 						<view v-else></view>
 						<view class="select1_price flex flex-y-center" :class="displayStyle ==3 || displayStyle ==4?'flex-x-center':'flex-x-between'">
 							<view>
-								<view v-if="showGoodsOriginalPrice == '1'" class="select1_original_price">{{originalPriceLabel}} &yen;{{item.original_price}}</view>
+								<view v-if="showGoodsOriginalPrice" class="select1_original_price">{{originalPriceLabel}} &yen;{{item.original_price}}</view>
 								<view v-if="showGoodsPrice == '1'" :style="{color:textColor}">{{priceLabel}} &yen;{{item.price}}</view>
 								<view v-if="showGoodsLevelPrice == '1'" class="select1_level_price">{{levelPriceLabel}} &yen;{{item.level_price}}</view>
 							</view>
@@ -68,12 +68,12 @@
 					<view class="select2_proName" v-if="showGoodsName == '1'">{{item.name}}</view>
 					<view class="select1_price flex flex-y-center" :class="displayStyle ==3 || displayStyle ==4?'flex-x-center':'flex-x-between'">
 						<view v-if="!styleShow">
-							<view v-if="showGoodsOriginalPrice == '1'" class="select1_original_price">{{originalPriceLabel}} &yen;{{item.original_price}}</view>
+							<view v-if="showGoodsOriginalPrice" class="select1_original_price">{{originalPriceLabel}} &yen;{{item.original_price}}</view>
 							<view v-if="showGoodsPrice == '1'" :style="{color:textColor}">{{priceLabel}} &yen;{{item.price}}</view>
 							<view v-if="showGoodsLevelPrice == '1'" class="select1_level_price">{{levelPriceLabel}} &yen;{{item.level_price}}</view>
 						</view>
 						<view v-if="styleShow">
-							<view v-if="showGoodsOriginalPrice == '1'" class="select1_original_price">
+							<view v-if="showGoodsOriginalPrice" class="select1_original_price">
 							{{originalPriceLabel}} &yen;{{item.original_price}}
 							</view>
 							<view v-if="showGoodsPrice == '1'" :style="{color:textColor}">
@@ -109,7 +109,7 @@
 					<view class="select2_proName" v-if="showGoodsName == '1'">{{item.name}}</view>
 					<view class="select1_price flex flex-y-center" style="font-size: 28rpx;" :class="displayStyle ==3 || displayStyle ==4?'flex-x-center':'flex-x-between'">
 						<view>
-							<view v-if="showGoodsOriginalPrice == '1'" class="select1_original_price">{{originalPriceLabel}} &yen;{{item.original_price}}</view>
+							<view v-if="showGoodsOriginalPrice" class="select1_original_price">{{originalPriceLabel}} &yen;{{item.original_price}}</view>
 							<view class="pic" v-if="showGoodsPrice == '1'" :style="{color:textColor}">{{priceLabel}} &yen;{{item.price}}</view>
 							<view v-if="showGoodsLevelPrice == '1'" class="select1_level_price">{{levelPriceLabel}} &yen;{{item.level_price}}</view>
 						</view>
@@ -138,7 +138,7 @@
 					<view class="select5_proDetails">
 						<view class="select5_proName" v-if="showGoodsName == '1'">{{item.name}}</view>
 						<view class="select1_price flex flex-y-center" :class="displayStyle ==3 || displayStyle ==4?'flex-x-center':'flex-x-between'">
-							<view v-if="showGoodsOriginalPrice == '1'" class="select1_original_price">{{originalPriceLabel}} &yen;{{item.original_price}}</view>
+							<view v-if="showGoodsOriginalPrice" class="select1_original_price">{{originalPriceLabel}} &yen;{{item.original_price}}</view>
 							<view v-if="showGoodsPrice == '1'" :style="{color:textColor}">{{priceLabel}} &yen;{{item.price}}</view>
 							<view v-if="showGoodsLevelPrice == '1'" class="select1_level_price">{{levelPriceLabel}} &yen;{{item.level_price}}</view>
 						</view>
@@ -181,8 +181,8 @@
 			},
 			// 是否显示商品市场价格，1为显示，0为不显示
 			showGoodsOriginalPrice: {
-				type: String,
-				default: '0'
+				type: Boolean,
+				default: false
 			},
 			// 商品市场价格名称
 			originalPriceLabel: {

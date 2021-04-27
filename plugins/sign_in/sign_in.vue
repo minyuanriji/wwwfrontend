@@ -1,6 +1,6 @@
 <template>
 	<view class="page_box">
-		<view class="header" :style="{'--textColor':textColor}">
+		<view class="header" :style="{'background':'#07BEB4'}">
 			<view class="head-content flex flex-x-between flex-y-center">
 				<view class="flex flex-y-center">
 					<image class="avatar" :src="avatar_url || img_url+'images/my/mine_def_touxiang_3x.png'" mode=""></image>
@@ -10,7 +10,7 @@
 					</view>
 				</view>
 				<view class="integral flex">
-					<view class="integral-icon flex flex-x-center flex-y-center" :style="{'--textColor':textColor}">
+					<view class="integral-icon flex flex-x-center flex-y-center" :style="{'background':'#07BEB4'}">
 						<view class="iconfont icon-xingxing" style="color: #FFFFFF;"></view>
 					</view>
 					{{score}}
@@ -43,7 +43,7 @@
 							<view v-if="item.date == undefined || item.date == null" class="cell"><text :decode="true">&nbsp;&nbsp;</text></view>
 							<view v-else>
 								<!-- 已签到日期 -->
-								<view v-if="item.is_sign" class="cell is-sign" :style="{'--textColor':textColor}">
+								<view v-if="item.is_sign" class="cell is-sign" :style="{'background':'#07BEB4'}">
 									<text>{{ item.day }}</text>
 								</view>
 								<!-- 漏签 -->
@@ -97,7 +97,7 @@
 				<view class="iconfont icon-47guanbi close" @tap='hide'></view>
 			</view>
 		</view>
-	</view>
+	</view> 
 </template>
 
 <script>
@@ -305,7 +305,7 @@
 
 <style lang="scss">
 	.header{
-		background: var(--textColor);
+		background: #07BEB4;
 		height: 380rpx;
 		padding: 52rpx 0 0 48rpx;
 		color: #FFFFFF;
@@ -339,7 +339,7 @@
 			font-weight: 600;
 			
 			.integral-icon{
-				background: var(--textColor);
+				background: #07BEB4;
 				height: 46rpx;
 				width: 46rpx;
 				border-radius: 50%;
@@ -474,9 +474,9 @@
 	.is-sign {
 		width: 44rpx;
 		height: 44rpx;
-		background: var(--textColor);
+		background: #07BEB4;
 		border-radius: 50%;
-		box-shadow: 0 0 4rpx 4rpx var(--textColor);
+		box-shadow: 0 0 4rpx 4rpx #07BEB4;
 		color: #fff;
 	}
 
@@ -492,7 +492,7 @@
 		.sign-btn {
 			width: 96%;
 			height: 90rpx;
-			background: var(--textColor);
+			background: #07BEB4;
 			border-radius: 80rpx;
 			font-size: 36rpx;
 			font-weight: 500;
@@ -599,11 +599,11 @@
 	}
 	.triangle-left {
 		border-width: 10rpx 18rpx 10rpx 0rpx;
-		border-color: transparent var(--textColor) transparent transparent;
+		border-color: transparent #07BEB4 transparent transparent;
 	}
 	.triangle-right {
 		border-width: 10rpx 0rpx 10rpx 18rpx;
-		border-color: transparent transparent transparent var(--textColor);
+		border-color: transparent transparent transparent #07BEB4;
 	}
 	
 	// 活动规则
@@ -650,7 +650,7 @@
 				
 				.success{
 					font-size: 100rpx;
-					color: var(--textColor);
+					color: #07BEB4;
 				}
 			}
 			.tips{
