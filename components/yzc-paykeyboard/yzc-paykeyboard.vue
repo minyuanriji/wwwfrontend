@@ -5,7 +5,7 @@
 		<!-- 金额 -->
 		<view :class="['content', show ? '' : 'contenthide']">
 			<view class="title">
-				<view class="close" @click="close()"><image src="../../static/close.png" /></view>
+				<view class="close" @click="close()"><image src="../../plugins/images/close.png" /></view>
 				<view class="center">请输入支付密码</view>
 				<view class="close"></view>
 			</view>
@@ -33,7 +33,7 @@
 			</block>
 			<view class="keyboard-item hide"></view>
 			<view class="keyboard-item" @tap="key(0)"><text>0</text></view>
-			<view class="keyboard-item delte" @tap="del()"><image class="img" src="../../static/del.png" mode="aspectFill" :lazy-load="true"></image></view>
+			<view class="keyboard-item delte" @tap="del()"><image class="img" src="../../plugins/images/del.png" mode="aspectFill" :lazy-load="true"></image></view>
 		</view>
 		
 	</view>

@@ -535,15 +535,7 @@
 					"titleNView": false
 				}
 			}
-		}, {
-			"path": "pages/about/about",
-			"style": {
-				"navigationBarTitleText": "关于我们",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"navigationBarTextStyle": "black"
-			}
-
-		}, {
+		},{
 			"path": "pages/enter/enter",
 			"style": {
 				"navigationBarTitleText": "商家申请入驻",

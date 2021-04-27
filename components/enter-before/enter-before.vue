@@ -14,18 +14,6 @@
 							  <view class="content_body_block_r_b">请输入您线下店铺的名称</view>
 						 </view>
 					 </view>
-					<!-- <view class="content_body_block">
-						 <view class="content_body_block_l">
-							 <view class="content_body_block_l_t1">
-								 <view class="content_body_block_l_t" :style="{background:background}">实例</view>
-							 </view>
-							 <view class="content_body_block_l_b">广东省广州市白云区三元里大道中17号2楼8号。</view>
-						 </view>
-						 <view class="content_body_block_r">
-							  <view class="content_body_block_r_t">2、店铺地址</view>
-							  <view class="content_body_block_r_b">打开GPS,获取你的店铺地理位置</view>
-						 </view>
-					 </view> -->
 					 <view class="content_body_block">
 						 <view class="content_body_block_l">
 							 <view class="content_body_block_l_t1">
@@ -50,34 +38,6 @@
 							  <view class="content_body_block_r_b">手机号码共11位数字。其他为无效输入.</view>
 						 </view>
 					 </view>
-					 <!-- <view class="content_body_block">
-						 <view class="content_body_block_l">
-							 <view class="content_body_block_l_t1">
-								 <view class="content_body_block_l_t" :style="{background:background}">实例</view>
-							 </view>
-							 <view class="content_body_block_l_b">
-								 <image :src="this.$api.test_url+'/images/shop/sfz.png'"></image>
-							 </view>
-						 </view>
-						 <view class="content_body_block_r">
-							  <view class="content_body_block_r_t">5、申请人身份证</view>
-							  <view class="content_body_block_r_b">需提供营业执照法人的身份证正反面照片</view>
-						 </view>
-					 </view> -->
-					 <!-- <view class="content_body_block">
-							 <view class="content_body_block_l">
-								 <view class="content_body_block_l_t1">
-									 <view class="content_body_block_l_t" :style="{background:background}">实例</view>
-								 </view>
-								 <view class="content_body_block_l_b">
-								 		<image :src="this.$api.test_url+'/images/shop/yyzz.png'"></image>
-								 </view>		 
-							 </view>
-							 <view class="content_body_block_r">
-								  <view class="content_body_block_r_t">6、营业执照</view>
-								  <view class="content_body_block_r_b">需提供有效的营业执照，或其他监部门认可的具有与营业执照同等法律效力的证件</view>
-							 </view>
-					 </view> -->
 					 <view class="content_body_block">
 							 <view class="content_body_block_l">
 								 

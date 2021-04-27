@@ -10,17 +10,6 @@
 				</view>
 				<input class="content_body_block_input" v-model="params.name"></input>
 			</view>
-			<!-- <view class="content_body_block">
-				<view class="content_body_block_t">2、店铺地址</view>
-				<view class="content_body_block_desc" @tap="chooseAddress">
-					打开<text :style="{color: background}">GPS,点击此处</text>
-					获取您的店铺地理位置
-				</view>
-				<view class="content_body_block_b">
-					<view class="iconfont icondingwei" :style="{color: background}"></view>
-					<view class="content_body_block_b_input">{{params.address}}</view>
-				</view>
-			</view> -->
 			<view class="content_body_block">
 				<view class="content_body_block_t">2、申请人姓名</view>
 				<view class="content_body_block_desc">
@@ -35,31 +24,6 @@
 				</view>
 				<input class="content_body_block_input" v-model="params.mobile"></input>
 			</view>
-			<!-- <view class="content_body_block">
-				<view class="content_body_block_t">5、申请人身份证</view>
-				<view class="content_body_block_bb1">
-					<view class="content_body_block_bb_l" @tap="uploadImg" data-id="0">
-						<image :src="params.pic_id_card_front"></image>
-						<view>身份证头面</view>
-					</view>
-					<view class="content_body_block_bb_l" @tap="uploadImg" data-id="1">
-						<image :src="params.pic_id_card_back"></image>
-						<view>身份证国徽面</view>
-					</view>
-				</view>
-			</view>
-			<view class="content_body_block">
-				<view class="content_body_block_t">6、营业执照</view>
-				<view class="content_body_block_desc">
-					需提供有效的营业执照，或其他监部门认可的具有与营业执照同等法律效力的证件。
-				</view>
-				<view class="content_body_block_bb1">
-					<view class="content_body_block_bb_l2">
-						<image :src="params.pic_business_license" @tap="uploadImg" data-id="2"></image>
-						<view>营业执照（有经营类目的面）</view>
-					</view>
-				</view>
-			</view> -->
 			<view class="content_body_block">
 				<view class="content_body_block_t">4、店铺消费类型</view>
 				<view class="content_body_block_desc">
@@ -137,13 +101,9 @@
 			sumbit: function() {
 				var params = this.params
 				if (!params['name']) return this.alert('请输入店铺名称')
-				// if (!params['address']) return this.alert('请选择店铺地址')
 				if (!params['realname']) return this.alert('请填写您的真实姓名')
 				if (!params['mobile']) return this.alert('请填写您的手机号')
 				if (!params['mobile'].match(/1\d{10}/)) return this.alert('手机号错误')
-				// if (params['pic_id_card_front'].match(/sfz_zm.png/)) return this.alert('请上传身份证正面照片')
-				// if (params['pic_id_card_back'].match(/sfz_fm.png/)) return this.alert('请上传身份证反面照片')
-				// if (params['pic_business_license'].match(/yyzz2.png/)) return this.alert('请上传营业执照')
 				if (!params['cat_id']) return this.alert('请选择店铺消费类型')
 				if (this.status == 0) return this.alert('请同意名媛日记商城开店说明')
 				var that = this
@@ -153,10 +113,6 @@
 					'\r\nContent-Disposition: form-data; name="mobile"' +
 					'\r\n' +
 					'\r\n'+params['mobile']+
-					// '\r\n--XXX' +
-					// '\r\nContent-Disposition: form-data; name="address"' +
-					// '\r\n' +
-					// '\r\n'+params['address']+
 					'\r\n--XXX' +
 					'\r\nContent-Disposition: form-data; name="realname"' +
 					'\r\n' +
@@ -165,38 +121,6 @@
 					'\r\nContent-Disposition: form-data; name="name"' +
 					'\r\n' +
 					'\r\n'+params['name']+
-					// '\r\n--XXX' +
-					// '\r\nContent-Disposition: form-data; name="pic_id_card_front"' +
-					// '\r\n' +
-					// '\r\n'+params['pic_id_card_front']+
-					// '\r\n--XXX' +
-					// '\r\nContent-Disposition: form-data; name="pic_id_card_back"' +
-					// '\r\n' +
-					// '\r\n'+params['pic_id_card_back']+
-					// '\r\n--XXX' +
-					// '\r\nContent-Disposition: form-data; name="pic_business_license"' +
-					// '\r\n' +
-					// '\r\n'+params['pic_business_license']+
-					// '\r\n--XXX' +
-					// '\r\nContent-Disposition: form-data; name="province_id"' +
-					// '\r\n' +
-					// '\r\n'+params['province_id']+
-					// '\r\n--XXX' +
-					// '\r\nContent-Disposition: form-data; name="city_id"' +
-					// '\r\n' +
-					// '\r\n'+params['city_id']+
-					// '\r\n--XXX' +
-					// '\r\nContent-Disposition: form-data; name="district_id"' +
-					// '\r\n' +
-					// '\r\n'+params['district_id']+
-					// '\r\n--XXX' +
-					// '\r\nContent-Disposition: form-data; name="longitude"' +
-					// '\r\n' +
-					// '\r\n'+params['longitude']+
-					// '\r\n--XXX' +
-					// '\r\nContent-Disposition: form-data; name="latitude"' +
-					// '\r\n' +
-					// '\r\n'+params['latitude']+
 					'\r\n--XXX' +
 					'\r\nContent-Disposition: form-data; name="cat_id"' +
 					'\r\n' +
@@ -369,7 +293,6 @@
 </script>
 
 <style>
-	/* @import url("../../static/font-icon/iconfont1.css"); */
 	@import url("../../plugins/font-icon/iconfont1.css");
 	.scroll-Ys{width: 80%;overflow: hidden;margin: 0 auto;background: #fff;border-radius: 20rpx;}
 	.html{width: 100%;height: 500rpx;margin: 0 auto;border-radius: 20rpx;font-size: 30rpx;text-align: center;
