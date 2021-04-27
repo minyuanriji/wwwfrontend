@@ -368,7 +368,7 @@
 	.shopSetting-app {
 		width: 100%;
 		height: 100%;
-		background: url(../../../plugins/images/shop_setLogo.jpg)no-repeat;
+		background: url(https://dev.mingyuanriji.cn/web/static/shop_setLogo.jpg)no-repeat;
 		background-size: cover;
 		padding-top: 100rpx;
 	}

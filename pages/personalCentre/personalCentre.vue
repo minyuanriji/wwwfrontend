@@ -1,14 +1,14 @@
 <template>
 	<view class="personalCenter">
 		<view class="personalCenter-top">
-			<image :src="userMessage.store.cover_url"  class="personal-logo"></image>
+			<image :src="userMessage.store.cover_url" class="personal-logo"></image>
 			<view class="personal_nicken_ID">
 				<view class="personal_nicken">{{userMessage.store.name}}</view>
 				<view class="personal_id">ID:{{userMessage.store.mch_id}}</view>
 			</view>
 			<!-- 分享的店铺  -->
 			<view class="share-shop">
-				<view class="tui-collection tui-size"  @click.stop="poster()">
+				<view class="tui-collection tui-size" @click.stop="poster()">
 					<view class="tui-icon-collection iconfont icon-qrcode"></view>
 					<view class="tui-scale">分享</view>
 				</view>
@@ -24,7 +24,9 @@
 					{{userMessage.stat.goods_num}}件
 				</view>
 				<view class="jx-btm-item last">
-					<text style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;" @click="href(7)">查看商品</text>
+					<text
+						style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;"
+						@click="href(7)">查看商品</text>
 				</view>
 			</view>
 		</view>
@@ -37,11 +39,15 @@
 					{{userMessage.stat.account_money}}元
 				</view>
 				<view class="jx-btm-item last">
-					<text style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;margin-bottom: 20rpx;" @click="href(5)">明细</text>
-					<text style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;" @click="href(6)">提现</text>
+					<text
+						style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;margin-bottom: 20rpx;"
+						@click="href(5)">明细</text>
+					<text
+						style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;"
+						@click="href(6)">提现</text>
 				</view>
 			</view>
-		</view>		
+		</view>
 		<view class="personalCenter-item">
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false">
 				<view class="jx-cell-header">
@@ -62,14 +68,14 @@
 			</view>
 		</view>
 		<view class="personalCenter-item">
-			<jx-list-cell :arrow="true" padding="0" :lineLeft="false"  @click="href(1)">
+			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(1)">
 				<view class="jx-cell-header" style="height: 100rpx;">
 					<view class="jx-cell-title" style="font-weight: 700;">我的首页</view>
 				</view>
 			</jx-list-cell>
 		</view>
 		<view class="personalCenter-item">
-			<jx-list-cell :arrow="true" padding="0" :lineLeft="false"  @click="href(2)">
+			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(2)">
 				<view class="jx-cell-header" style="height: 100rpx;">
 					<view class="jx-cell-title" style="font-weight: 700;">二维码收款</view>
 				</view>
@@ -126,7 +132,7 @@
 				</view>
 			</jx-list-cell>
 		</view>
-		</view> -->		
+		</view> -->
 		<view class="goods-qrcode-modal" v-if="showPoster">
 			<view class="goods-qrcode-body flex-col">
 				<!-- 整一个图片包括二维码都是后台给的图片 -->
@@ -137,13 +143,13 @@
 							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
 						</view>
 						<!-- #endif -->
-						
+
 						<!-- #ifdef MP-WEIXIN -->
 						<view class="goods-qrcode-box" @longpress="saveImage(poster_url)">
 							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
 						</view>
 						<!-- #endif -->
-						
+
 						<!-- #ifdef APP-PLUS -->
 						<view class="goods-qrcode-box" @longpress="appSaveImg(poster_url)">
 							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
@@ -152,16 +158,17 @@
 					</view>
 					<view class="saveCode-btn">长按图片保存至本地</view>
 				</view>
-				
+
 				<view class="goods-qrcode-close" @click="poster(-1)">
-					<view style="width: 50rpx;height: 50rpx;text-align: center;background-color: #ADADAD;color: #FFFFFF;border-radius: 50%;line-height: 50rpx;"
-					 class="iconfont icon-guanbi"></view>
+					<view
+						style="width: 50rpx;height: 50rpx;text-align: center;background-color: #ADADAD;color: #FFFFFF;border-radius: 50%;line-height: 50rpx;"
+						class="iconfont icon-guanbi"></view>
 				</view>
 			</view>
 		</view>
-		
-		
-		
+
+
+
 	</view>
 </template>
 
@@ -173,10 +180,10 @@
 		},
 		data() {
 			return {
-				userMessage:{},
+				userMessage: {},
 				showPoster: false,
 				loading: false,
-				poster_url:"",
+				poster_url: "",
 			}
 		},
 		onLoad() {
@@ -187,8 +194,8 @@
 					showLoading: true
 				})
 				.then(res => {
-					this.userMessage=res.data.mch_info
-					uni.setStorageSync("mchMessage",res.data.mch_info)
+					this.userMessage = res.data.mch_info
+					uni.setStorageSync("mchMessage", res.data.mch_info)
 				});
 			this.$http
 				.request({
@@ -197,45 +204,45 @@
 					showLoading: true
 				})
 				.then(res => {
-					if(res.code==0){
-						if(res.data.status==0){
+					if (res.code == 0) {
+						if (res.data.status == 0) {
 							uni.showModal({
-							    title: '提示',
-							    content: '请补充入驻资料',
-								showCancel:false,
-							    success: function (res) {
-							        if (res.confirm) {
-							            uni.redirectTo({
-							            	url:'../supplement/supplement'
-							            })
-							        } 
-							    }
+								title: '提示',
+								content: '请补充入驻资料',
+								showCancel: false,
+								success: function(res) {
+									if (res.confirm) {
+										uni.redirectTo({
+											url: '../supplement/supplement'
+										})
+									}
+								}
 							});
-						}else if(res.data.status==1){
-								uni.redirectTo({
-									url:'../supplement/supplement?status='+res.data.detail.status
-								})
-						}						
+						} else if (res.data.status == 1) {
+							uni.redirectTo({
+								url: '../supplement/supplement?status=' + res.data.detail.status
+							})
+						}
 					}
-				});	
+				});
 		},
-		methods:{
+		methods: {
 			href(page) {
-				if(page==1){
-					let mch_id=this.userMessage.store.mch_id
+				if (page == 1) {
+					let mch_id = this.userMessage.store.mch_id
 					uni.setStorage({
-						key:'mch_id',
-						data:mch_id,
+						key: 'mch_id',
+						data: mch_id,
 						success() {
 							uni.navigateTo({
-								url:"/pages/shop/home/home?mch_id="+mch_id
+								url: "/pages/shop/home/home?mch_id=" + mch_id
 							})
 						}
 					})
 				}
-				if(page==2){
+				if (page == 2) {
 					uni.navigateTo({
-						url:'./ercode/ercode'
+						url: './ercode/ercode'
 					})
 				}
 				// if(page==3){
@@ -243,25 +250,25 @@
 				// 		url:'./accountingOrder/accountingOrder'
 				// 	})
 				// }
-				if(page==4){
+				if (page == 4) {
 					uni.navigateTo({
-						url:'./installCenter/installCenter'
+						url: './installCenter/installCenter'
 					})
 				}
-				if(page==5){
+				if (page == 5) {
 					uni.navigateTo({
-						url:'./mongeyDetail/mongeyDetail'
+						url: './mongeyDetail/mongeyDetail'
 					})
 				}
-				if(page==6){
+				if (page == 6) {
 					uni.navigateTo({
-						url:'./withdrawal/withdrawal'
+						url: './withdrawal/withdrawal'
 					})
 				}
-				if(page==7){
-					let mch_id=this.userMessage.store.mch_id
+				if (page == 7) {
+					let mch_id = this.userMessage.store.mch_id
 					uni.navigateTo({
-						url:'./productList/productList?mch_id='+mch_id
+						url: './productList/productList?mch_id=' + mch_id
 					})
 				}
 			},
@@ -281,9 +288,9 @@
 				this.$http.request({
 					url: this.$api.moreShop.sharePoster,
 					method: 'POST',
-					showLoading:true,
+					showLoading: true,
 					data: {
-						route:'pages/shop/home/home',
+						route: 'pages/shop/home/home',
 					}
 				}).then(res => {
 					if (res.code == 0) {
@@ -295,7 +302,7 @@
 					}
 				})
 			},
-			appSaveImg(url){ //app保存图片到本地
+			appSaveImg(url) { //app保存图片到本地
 				let that = this;
 				/* 保存图片到相册 */
 				uni.saveImageToPhotosAlbum({
@@ -303,7 +310,7 @@
 					success: function() {
 						that.$http.toast('保存成功');
 					},
-					fail(res){
+					fail(res) {
 						that.$http.toast('保存失败,请稍后重试');
 					}
 				});
@@ -320,7 +327,7 @@
 							success: function() {
 								that.$http.toast('保存成功');
 							},
-							fail(res){
+							fail(res) {
 								that.$http.toast('保存失败,请稍后重试');
 							}
 						});
@@ -386,18 +393,53 @@
 </script>
 
 <style lang="scss" scoped>
-	.personalCenter{width:100%;overflow: hidden;background: url(../../plugins/images/personalCenter_logo.jpg)no-repeat;background-size: cover;padding-top: 40rpx;}
-	.personalCenter-top{width: 100%;overflow: hidden;padding: 20upx;}
-	.personal-logo{width: 128rpx;height: 128rpx;display: block;border-radius: 50px;float: left;}
-	.personal_nicken_ID{float: left;margin-left: 30rpx;width: 400rpx;}
-	.personal_nicken{margin: 10upx 0;width: 100%;}
-	.personalCenter-item{width: 100%;overflow: hidden;margin: 20upx 0 0 0;padding: 0 30rpx;}
+	.personalCenter {
+		width: 100%;
+		overflow: hidden;
+		background: url(https://dev.mingyuanriji.cn/web/static/personalCenter_logo.jpg)no-repeat; 
+		background-size: cover;
+		padding-top: 40rpx;
+	}
+
+	.personalCenter-top {
+		width: 100%;
+		overflow: hidden;
+		padding: 20upx;
+	}
+
+	.personal-logo {
+		width: 128rpx;
+		height: 128rpx;
+		display: block;
+		border-radius: 50px;
+		float: left;
+	}
+
+	.personal_nicken_ID {
+		float: left;
+		margin-left: 30rpx;
+		width: 400rpx;
+	}
+
+	.personal_nicken {
+		margin: 10upx 0;
+		width: 100%;
+	}
+
+	.personalCenter-item {
+		width: 100%;
+		overflow: hidden;
+		margin: 20upx 0 0 0;
+		padding: 0 30rpx;
+	}
+
 	.jx-content-box {
 		width: 100%;
 		padding: 0 30rpx;
 		box-sizing: border-box;
 		// margin-top: 20rpx;
 	}
+
 	.jx-header-btm {
 		border-radius: 12rpx;
 		box-sizing: border-box;
@@ -408,7 +450,7 @@
 		background: #ffffff;
 		margin-bottom: 20rpx;
 	}
-	
+
 	.jx-btm-item {
 		flex: 1;
 		display: flex;
@@ -417,7 +459,7 @@
 		justify-content: center;
 		padding: 40rpx;
 		position: relative;
-	
+
 		&::after {
 			content: '';
 			// border-right: 1rpx solid #b3b3b3;
@@ -428,25 +470,26 @@
 			top: 50%;
 			transform: translateY(-50%);
 		}
-	
+
 		&:last-child {
 			&::after {
 				display: none;
 			}
 		}
 	}
-	
+
 	.jx-btm-num {
 		font-size: 12pt;
 		font-weight: 600;
 		position: relative;
 	}
-	
+
 	.jx-btm-text {
 		font-size: 9pt;
 		opacity: 0.85;
 		padding-top: 4rpx;
 	}
+
 	.jx-cell-header {
 		width: 100%;
 		// height: 100rpx;
@@ -458,6 +501,7 @@
 		justify-content: space-between;
 		border-bottom: 1rpx solid #f3f3f3;
 	}
+
 	.jx-cell-title {
 		font-size: 11pt;
 		line-height: 30rpx;
@@ -466,13 +510,19 @@
 		font-weight: 600;
 		letter-spacing: 1px;
 	}
+
 	.jx-cell-sub {
 		font-size: 9pt;
 		font-weight: 400;
 		color: #999;
 		padding-right: 10rpx;
 	}
-	.share-shop{float: right;padding-top: 20rpx;}
+
+	.share-shop {
+		float: right;
+		padding-top: 20rpx;
+	}
+
 	.tui-collection {
 		color: #333;
 		display: flex;
@@ -485,22 +535,22 @@
 		background: #F7F7F7;
 		margin-right: 10rpx;
 	}
-	
+
 	.tui-scale {
 		transform: scale(0.7);
 		transform-origin: center center;
 		line-height: 24rpx;
 		font-weight: normal;
 	}
-	
+
 	.tui-icon-collection {
 		line-height: 20px !important;
 		margin-bottom: 0 !important;
 		color: #333333;
 		font-size: 20px;
 	}
-	
-	
+
+
 	.goods-qrcode-modal {
 		position: fixed;
 		top: 0;
@@ -513,11 +563,11 @@
 		transition: opacity 250ms;
 		z-index: 9999;
 	}
-	
+
 	.goods-qrcode-body {
 		background: #ffffff;
 		width: 100%;
-		height:90%;
+		height: 90%;
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -527,35 +577,38 @@
 		border-radius: 10rpx;
 		padding: 30rpx;
 	}
-	
+
 	.goods-qrcode-body .goods-qrcode-box {
 		height: 100%;
 		position: relative;
 		box-shadow: 0 0 15rpx rgba(0, 0, 0, 0.15);
 	}
-	.goods-qrcode2{
+
+	.goods-qrcode2 {
 		position: relative;
 		height: 100%;
 		flex-direction: column;
 	}
+
 	.codeImg_box {
 		width: 100%;
 		height: 95%;
 		// margin-bottom: 20rpx;
 	}
-	.saveCode-btn{
+
+	.saveCode-btn {
 		color: #939292;
 		padding: 10px 20px;
 		border-radius: 10px;
 	}
-	
+
 	.goods-qrcode {
 		width: 100%;
 		height: 100%;
 		background: #fffffff;
 		background-size: 100%;
 	}
-	
+
 	.goods-qrcode-close {
 		position: absolute;
 		top: 40rpx;

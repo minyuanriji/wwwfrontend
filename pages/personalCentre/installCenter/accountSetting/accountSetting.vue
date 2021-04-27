@@ -3,15 +3,15 @@
 		<view class="accountSetting-main">
 			<view>
 				<text>商户账号：</text>
-				<input type="text" value="" placeholder="请填写" v-model="form.username"/>
+				<input type="text" value="" placeholder="请填写" v-model="form.username" />
 			</view>
 			<view>
 				<text>密码：</text>
-				<input type="password" value="" placeholder="密码" v-model="form.password"/>
+				<input type="password" value="" placeholder="密码" v-model="form.password" />
 			</view>
 			<view>
 				<text>重新输入：</text>
-				<input type="password" value="" placeholder="再次输入" v-model="againpassword"/>
+				<input type="password" value="" placeholder="再次输入" v-model="againpassword" />
 			</view>
 			<view>
 				<button type="default" class="btn" @click="sureBtn">确定</button>
@@ -21,20 +21,22 @@
 </template>
 
 <script>
-	import {isEmpty}  from '../../../../common/validate.js'
+	import {
+		isEmpty
+	} from '../../../../common/validate.js'
 	export default {
 		data() {
 			return {
-				form:{
-					username:'',
-					password:''
+				form: {
+					username: '',
+					password: ''
 				},
-				againpassword:''
+				againpassword: ''
 			};
 		},
-		methods:{
-			sureBtn(){
-				if(isEmpty(this.form.username)){
+		methods: {
+			sureBtn() {
+				if (isEmpty(this.form.username)) {
 					uni.showToast({
 						title: '请填写商户账号',
 						icon: 'none'
@@ -44,7 +46,7 @@
 					}, 2000);
 					return
 				}
-				if(isEmpty(this.form.password)){
+				if (isEmpty(this.form.password)) {
 					uni.showToast({
 						title: '请填写密码',
 						icon: 'none'
@@ -54,7 +56,7 @@
 					}, 2000);
 					return
 				}
-				if(this.againpassword!=this.form.password){
+				if (this.againpassword != this.form.password) {
 					uni.showToast({
 						title: '请再次输入密码或两次输入密码不一致',
 						icon: 'none'
@@ -67,14 +69,14 @@
 				this.$http.request({
 					url: this.$api.moreShop.setShoppsaa,
 					method: 'POST',
-					showLoading:true,
-					data:this.form
+					showLoading: true,
+					data: this.form
 				}).then(res => {
 					if (res.code == 0) {
 						uni.navigateTo({
-							url:'../../personalCentre'
+							url: '../../personalCentre'
 						})
-					}else{
+					} else {
 						uni.showToast({
 							title: res.msg,
 							icon: 'none'
@@ -87,13 +89,57 @@
 </script>
 
 <style lang="less" scoped>
-	.accountSetting-app{width: 100%;height: 100%;background: url(../../../../plugins/images/account_set_back.jpg)no-repeat;background-size: cover;
-	padding-top: 180rpx;}
-	.accountSetting-main{width: 90%;background: #fff;height: 700rpx;margin: 0 auto;
-	box-shadow: 0 3rpx 20rpx rgba(183, 183, 183, 0.5);border-radius: 20rpx;box-sizing: border-box;padding: 60rpx 20rpx 0 20rpx;}
-	.accountSetting-main view{display: flex;height: 100rpx;width: 100%;box-sizing: border-box;margin-bottom: 40rpx;}
-	.accountSetting-main view text{width: 160rpx;height: 100rpx;display: block;line-height: 100rpx;color: #000000;}
-	.accountSetting-main view input{border-bottom: 1rpx solid #B0B0B0;height: 100rpx;width: 70%;}
-	.btn{width: 90%;color: #fff;background: #07beb4;border-radius: 45rpx;line-height: 100rpx;}
-	.accountSetting-main view:nth-of-type(3){margin-bottom: 80rpx;height: 80rpx;}
+	.accountSetting-app {
+		width: 100%;
+		height: 100%;
+		background: url(https://dev.mingyuanriji.cn/web/static/account_set_back.jpg)no-repeat;
+		background-size: cover;
+		padding-top: 180rpx;
+	}
+
+	.accountSetting-main {
+		width: 90%;
+		background: #fff;
+		height: 700rpx;
+		margin: 0 auto;
+		box-shadow: 0 3rpx 20rpx rgba(183, 183, 183, 0.5);
+		border-radius: 20rpx;
+		box-sizing: border-box;
+		padding: 60rpx 20rpx 0 20rpx;
+	}
+
+	.accountSetting-main view {
+		display: flex;
+		height: 100rpx;
+		width: 100%;
+		box-sizing: border-box;
+		margin-bottom: 40rpx;
+	}
+
+	.accountSetting-main view text {
+		width: 160rpx;
+		height: 100rpx;
+		display: block;
+		line-height: 100rpx;
+		color: #000000;
+	}
+
+	.accountSetting-main view input {
+		border-bottom: 1rpx solid #B0B0B0;
+		height: 100rpx;
+		width: 70%;
+	}
+
+	.btn {
+		width: 90%;
+		color: #fff;
+		background: #07beb4;
+		border-radius: 45rpx;
+		line-height: 100rpx;
+	}
+
+	.accountSetting-main view:nth-of-type(3) {
+		margin-bottom: 80rpx;
+		height: 80rpx;
+	}
 </style>

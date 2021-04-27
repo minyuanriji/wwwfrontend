@@ -207,7 +207,7 @@
 		width: 100%;
 		height: 100%;
 		position: relative;
-		background: url(../../../plugins/images/erqode-img.jpg)no-repeat;
+		background: url(https://dev.mingyuanriji.cn/web/static/erqode-img.jpg)no-repeat; 
 		background-size: 100% 100%;
 		padding-top: 80rpx;
 	}
