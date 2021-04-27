@@ -452,9 +452,9 @@
 			}
 		}, {
 			"path": "pages/diy/diy",
-			"style": {
-				"navigationStyle": "custom"
-			}
+			"navigationBarTitleText": "",
+			"navigationBarBackgroundColor": "#FFFFFF",
+			"navigationBarTextStyle": "black"
 		}, {
 			"path": "pages/user/balance/details",
 			"style": {

@@ -1,6 +1,6 @@
 <template>
 	<view class="app" v-if="diy && diy.id">
-		<com-nav-bar left-icon="back" :title="diy.name" @clickLeft="back"></com-nav-bar>
+		<!-- <com-nav-bar left-icon="back" :title="diy.name" @clickLeft="back"></com-nav-bar> -->
 		
 		<diy-container :diy-data="item" v-for="(item,i) in diy.template.data" :key="i" :title='title'></diy-container>
 
@@ -61,6 +61,9 @@
 					this.navbarData = res.data;
 					this.navbars = res.data.navbars;
 					this.title=res.data.title
+					uni.setNavigationBarTitle({
+					    title: res.data.title
+					});
 				}).catch(err => {
 					console.log(err);
 				})
