@@ -32,9 +32,9 @@
 					</view>
 				</jx-list-cell>
 				<view class="jx-order-btn">
-					<!-- <view class="jx-btn-ml">
-						<jx-button type="black" :plain="true" width="148rpx" height="56rpx" :size="26" shape="circle">删除记录</jx-button>
-					</view> -->
+					<view class="jx-btn-ml">
+						<jx-button type="black" :plain="true" width="148rpx" height="56rpx" :size="26" shape="circle" @click="deleted(item.id)">删除记录</jx-button>
+					</view>
 					<view class="jx-btn-ml">
 						<view class="btn-style" :style="{color:textColor,border:'1px solid '+textColor}" @click="toDetail(item.order_detail_id)">查看详情</view>
 					</view>
@@ -85,6 +85,42 @@ export default {
 			uni.navigateTo({
 				url: `./detail?id=${id}`
 			});
+		},
+		deleted(id){
+			let that=this
+			uni.showModal({
+				title:'确定删除记录吗？',
+				 success: function (res) {
+				        if (res.confirm) {
+				           that.$http
+				           	.request({
+				           		url: that.$api.order.refundOrider,
+				           		method: 'POST',
+				           		data: {
+				           			order_refund_id:id
+				           		}
+				           	})
+				           	.then(result => {
+				           		if (result.code == 0) {
+				           			that.$http.toast(result.msg);
+									that.dataList=[]
+									that.pages={
+										current_page: 1,
+										pageSize: 20,
+										page_count: 1,
+										total_count: 0
+									},
+									that.loadding=false,
+									that.pullUpOn=true,
+									that.loading=false,
+									that.getDataList(true)
+				           		}
+				           	}); 
+				        } else if (res.cancel) {
+				           
+				        }
+				    }
+			})
 		},
 		getDataList(bool, status) {
 			this.loading = bool;

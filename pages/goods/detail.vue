@@ -675,7 +675,6 @@
 					return;
 				}
 				this.loading = true;
-				this.showPoster = true;
 				if (this.poster_url) {
 					setTimeout(() => {
 						this.loading = false;
@@ -691,10 +690,13 @@
 					}
 				}).then(res => {
 					if (res.code == 0) {
+						this.showPoster = true;
 						this.poster_url = res.data.pic_url;
 						setTimeout(() => {
 							this.loading = false;
 						}, 1000)
+					}else{
+						this.loading = false;
 					}
 				})
 			},
