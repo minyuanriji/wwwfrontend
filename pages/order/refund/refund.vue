@@ -119,6 +119,9 @@
 </template>
 
 <script>
+	import {
+		isEmpty
+	} from '../../../common/validate.js'
 export default {
 	data() {
 		return {
@@ -156,6 +159,9 @@ export default {
 			// 判断退货方式是否为-1 为-1 则改为0
 			temp.refund_type = temp.refund_type < 0 ? 0 : temp.refund_type;
 			// temp.reason 修改数字为 退款原因数组对应数据
+			if(isEmpty(this.reasonStatus[temp.reason])){
+				return this.$http.toast('未选择退款原因');
+			}
 			temp.reason = this.reasonStatus[temp.reason].value;
 			console.log(temp);
 			this.$http
