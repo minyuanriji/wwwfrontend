@@ -194,6 +194,12 @@
 		border-bottom: 1rpx solid #B0B0B0;
 		height: 70rpx;
 	}
+	.withdrawal-money-num input{
+		width: 100%;
+		line-height: 70rpx;
+		height: 70rpx;
+		display: block;
+	}
 
 	.withdrawal-money-num-all {
 		width: 25%;

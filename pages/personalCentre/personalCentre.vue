@@ -404,7 +404,8 @@
 	.personalCenter-top {
 		width: 100%;
 		overflow: hidden;
-		padding: 20upx;
+		padding: 20rpx;
+		box-sizing: border-box;
 	}
 
 	.personal-logo {
@@ -431,6 +432,7 @@
 		overflow: hidden;
 		margin: 20upx 0 0 0;
 		padding: 0 30rpx;
+		box-sizing: border-box;
 	}
 
 	.jx-content-box {
@@ -576,6 +578,7 @@
 		margin: auto;
 		border-radius: 10rpx;
 		padding: 30rpx;
+		box-sizing: border-box;
 	}
 
 	.goods-qrcode-body .goods-qrcode-box {
@@ -612,9 +615,6 @@
 	.goods-qrcode-close {
 		position: absolute;
 		top: 40rpx;
-		/* #ifdef MP-WEIXIN */
-		top: 150rpx;
-		/* #endif */
 		right: 40rpx;
 		padding: 15rpx;
 	}
