@@ -98,7 +98,7 @@
 				</view>
 			</view>
 
-			<view class="btn-text submit" :style="{'--textColor':textColor}" @click="dataFormSubmit">提交</view>
+			<view class="btn-text submit" :style="{'background':'#07BEB4'}" @click="dataFormSubmit">提交</view>
 		</view>
 
 		<com-bottom-popup :show="bottomPopup" :radius="false" @close="hideModal">
@@ -110,7 +110,7 @@
 						<view class="key"><view class="iconfont" :class="dataForm[items.key] == item.key ? 'icon-dagou1' : 'icon-quanquan'" :style="{'--textColor':textColor}"></view></view>
 					</view>
 				</view>
-				<view class="btn-text close" :style="{'--textColor':textColor}" @click="hideModal">确定</view>
+				<view class="btn-text close" :style="{'background':'#07BEB4'}" @click="hideModal">确定</view>
 			</view>
 		</com-bottom-popup>
 
@@ -471,7 +471,7 @@ export default {
 
 	.btn-text {
 		margin: 80rpx 30rpx;
-		background-color: var(--textColor);
+		background-color: #07BEB4;
 		text-align: center;
 		line-height: 90rpx;
 		border-radius: 45rpx;
