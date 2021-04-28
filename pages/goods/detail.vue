@@ -678,6 +678,7 @@
 				if (this.poster_url) {
 					setTimeout(() => {
 						this.loading = false;
+						this.showPoster = true;
 					}, 1000)
 					return;
 				}

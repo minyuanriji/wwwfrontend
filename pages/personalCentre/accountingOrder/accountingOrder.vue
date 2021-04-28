@@ -122,9 +122,11 @@
 </script>
 
 <style scoped>
-	.accountingOrder_app{width:100%;height: 100%;background: url(../../../plugins/images/shop_verification.jpg)no-repeat;background-size: cover;}
+	.accountingOrder_app{width:100%;height: 100%;
+		background: url(https://dev.mingyuanriji.cn/web/static/shop_verification.jpg)no-repeat; 
+	background-size: cover;}
 	.accountingOrder_title{padding: 30rpx 30rpx 0 30rpx;font-size: 30rpx;width: 100%;}
-	.accountingOrder_int{width: 100%;overflow: hidden;padding: 0 30rpx;margin-top: 20rpx;}
+	.accountingOrder_int{width: 100%;overflow: hidden;padding: 0 30rpx;margin-top: 20rpx;box-sizing: border-box;}
 	.accountingOrder_int input{width: 75%;height: 80rpx;background: #fff;border-radius: 20rpx;padding-left: 15rpx;float: left;}
 	.accountingOrder_int button{height: 80rpx;outline: none;border: none;width: 20%;text-align: center;line-height: 80rpx;
 	font-size: 30rpx;font-weight: bold;color: #000;}
