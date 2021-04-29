@@ -81,7 +81,7 @@
 									</view>
 								</view>
 							</view>
-							<view class="personalCenter-item" v-if="item.shopExpress">
+<!-- 							<view class="personalCenter-item" v-if="item.shopExpress">
 								<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(item.orderGoodsConsumeVerification.id
 )">
 									<view class="jx-cell-header">
@@ -89,7 +89,7 @@
 										<view class="jx-cell-sub">使用</view>
 									</view>
 								</jx-list-cell>
-							</view>
+							</view> -->
 						</block>
 					</view>
 					<!--店铺信息-->
