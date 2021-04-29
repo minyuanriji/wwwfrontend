@@ -158,7 +158,7 @@
     "mp-toutiao" : {
         "usingComponents" : true
     },
-    "h5" : {
+    "h5" : { 
         // "publicPath" : "https://www.mingyuanriji.cn/h5/",
         "publicPath" : "https://dev.mingyuanriji.cn/h5/",
         // "publicPath" : "http://local.mingyuanriji.cn/h5/",
