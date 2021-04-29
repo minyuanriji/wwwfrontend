@@ -25,7 +25,6 @@
 					<i class="iconfont icon-xiala i-icon"></i>
 				</view>
 			</view>
-			
 			<view class="shopping-tools shopping-coupon-list">
 				<view class="tui-mtop">
 					<!-- <com-tabs :tabs="tabs" :currentTab="currentTab" @change="change" :selectedColor="textColor" :sliderBgColor="textColor" itemWidth="50%" bgColor="#fff"></com-tabs> -->
@@ -42,7 +41,8 @@
 							</view>
 							<view class="item-right">
 								<!-- 详情也要相加 -->
-								<view class="item-money">红包：¥{{item.before_money*1 + item.money*1}}</view>
+								<view class="item-money">剩余红包</view>
+								<view class="item-money">¥{{item.before_money*1 + item.money*1}}</view>
 								<view v-if="currentTab==1" class="item-button" @click="todetailed(item.id)">查看详情</view>
 							</view>
 						</view>
@@ -145,7 +145,6 @@
 					url:'/pages/user/shopping/rechargeCard'
 				})
 			},
-			
 			// tab的点击事件
 			change(e) {
 				if(!this.queryFlag){	//上一个请求完成的时候才可以执行
@@ -314,6 +313,9 @@
 								font-weight: 400;
 								color: #999999;
 								line-height: 36rpx;
+							}
+							.item-left{
+								flex: 1;
 							}
 							.item-right{
 								display: flex;
