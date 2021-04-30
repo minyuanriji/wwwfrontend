@@ -24,14 +24,14 @@
 		<view class="withdrawal-sure">
 			<button type="default" @click='deposit'>确认提现</button>
 		</view>
-		<view class="withdrawal-item">
+		<!-- <view class="withdrawal-item">
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="link">
 				<view class="jx-cell-header">
 					<view class="jx-cell-title">流水明细</view>
 					<view class="jx-cell-sub">查看全部</view>
 				</view>
 			</jx-list-cell>
-		</view>
+		</view> -->
 		<passkeyborad :show="show" @close="checkout" :money="money" :count='information.withdraw_fee'></passkeyborad>
 	</view>
 </template>

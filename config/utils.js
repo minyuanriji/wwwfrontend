@@ -63,10 +63,16 @@ export const setPay = function(payInfo, callback) {
 	};
 	if (platform == 'mp-wx') {
 		// 小程序
+		// payData.provider = 'wxpay';
+		// payData.timeStamp = payInfo.timestamp;
+		// payData.nonceStr = payInfo.nonceStr;
+		// payData.package = payInfo.package;
+		// payData.signType = payInfo.signType;
+		// payData.paySign = payInfo.paySign;
 		payData.provider = 'wxpay';
-		payData.timeStamp = payInfo.timestamp;
+		payData.timeStamp = payInfo.timeStamp;
 		payData.nonceStr = payInfo.nonceStr;
-		payData.package = payInfo.package;
+		payData.package = payInfo.wxPackage;
 		payData.signType = payInfo.signType;
 		payData.paySign = payInfo.paySign;
 	} else if (platform == 'wxpay') {
