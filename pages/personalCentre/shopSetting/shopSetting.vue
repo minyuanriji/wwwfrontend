@@ -349,6 +349,7 @@
 							})
 						})
 						this.text=province+' '+city
+						console.log(this.text)
 						let imgList=JSON.parse(this.userMessage.pic_url)
 						let logoList=[]
 						imgList.forEach((item)=>{
