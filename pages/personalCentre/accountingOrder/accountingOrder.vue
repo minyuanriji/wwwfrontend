@@ -20,8 +20,12 @@
 			<view class="personalCenter-item-list" v-for="(item,index) in list" :key='index'>
 				<image :src="item.goods_info.goods_attr.cover_pic" mode=""></image>
 				<view class="personalCenter-item-list-message">
+					<view class="buyName" >
+						购买人：{{item.nickname}}
+					</view>
 					<view class="personalCenter-item-list-message-title">
 						{{item.goods_info.goods_attr.name}}
+						x{{item.goods_info.goods_attr.number}}
 					</view>
 					<view class="personalCenter-item-list-message-time">
 						{{item.format_date}}
@@ -125,6 +129,7 @@
 	.accountingOrder_app{width:100%;height: 100%;
 		background: url(https://dev.mingyuanriji.cn/web/static/shop_verification.jpg)no-repeat; 
 	background-size: cover;}
+	.buyName{font-size: 28rpx;}
 	.accountingOrder_title{padding: 30rpx 30rpx 0 30rpx;font-size: 30rpx;width: 100%;}
 	.accountingOrder_int{width: 100%;overflow: hidden;padding: 0 30rpx;margin-top: 20rpx;box-sizing: border-box;}
 	.accountingOrder_int input{width: 75%;height: 80rpx;background: #fff;border-radius: 20rpx;padding-left: 15rpx;float: left;}
@@ -202,7 +207,7 @@
 	}
 	.personalCenter-item-list{width: 100%;overflow: hidden;display: flex;padding: 0 20rpx;box-sizing: border-box;margin-bottom: 20rpx;
 	border-bottom: 1rpx solid #C0C4CC;}
-	.personalCenter-item-list image{width: 110rpx;height: 110rpx;display: block;margin: 10rpx 10rpx 15rpx 0;}
+	.personalCenter-item-list image{width: 110rpx;height: 110rpx;display: block;margin: 20rpx 10rpx 15rpx 0;}
 	.personalCenter-item-list-message-title{width: 520rpx;height: 80rpx;
 	  overflow: hidden;
 	  text-overflow: ellipsis;
