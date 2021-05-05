@@ -60,11 +60,12 @@
 		{
 			"path": "pages/goods/commentList",
 			"style": {
-				"navigationStyle": "custom",
-				"navigationBarTextStyle": "black",
-				"app-plus": {
-					"titleNView": false
-				}
+				"navigationBarBackgroundColor": "#fff",
+				"navigationBarTitleText": "商品评论",
+				"navigationBarTextStyle": "black"
+				// "app-plus": {
+				// 	"titleNView": false
+				// }
 			}
 		},
 		{

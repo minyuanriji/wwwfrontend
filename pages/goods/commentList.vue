@@ -1,7 +1,7 @@
 <!-- 这个就是评论列表页 -->
 <template>
 	<view class="container">
-		<com-nav-bar @clickLeft="back" left-icon="back" title="商品评论" background-color="#ffffff" color="#000000"></com-nav-bar>
+		<!-- <com-nav-bar @clickLeft="back" left-icon="back" title="商品评论" background-color="#ffffff" color="#000000"></com-nav-bar> -->
 		<!-- commonList -->
 		<view class="commonList">
 			<view class="tab-list">
@@ -381,7 +381,7 @@
 		.tab-list{
 			position: fixed;
 			z-index: 100;
-			top: 0px;
+			top: 44px;
 			box-sizing: border-box;
 			width: 100%;
 			padding: 30rpx;
@@ -417,13 +417,13 @@
 		.list{
 			box-sizing: border-box;
 			width: 750rpx;
+			margin-top: 50rpx;
 			padding: 0 30rpx;
 			// padding-top: 88rpx;
 			.list-items{
 				width: 690rpx;
 				padding-bottom: 38rpx;
-				border-bottom: 1px solid #F6F6F6;
-				
+				border-bottom: 1px solid #F6F6F6;				
 				.item-top{
 					display: flex;
 					align-items: center;
