@@ -15,7 +15,7 @@
 								<image class="img" lazy-load="true" 
 								:src="model.mch_info.cover_url?model.mch_info.cover_url:url+'/shoplogo.png'" 
 								mode="aspectFill"></image>
-								<span class="name">{{model.mch_info.name?model.mch_info.name:'名媛日记官方商城'}}</span>
+								<span class="name">{{model.mch_info.name?model.mch_info.name:'补商汇官方商城'}}</span>
 								<view class="toright"></view>
 							</view>
 							<!-- <view class="tui-order-status" :style="{color:textColor}">{{model.status_text}}</view> -->

@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === 'development') {
 const courtConfig = {
 	//微信公众号APPID
 	//publicAppId: "wxaead1c4fbee8a907",
-	publicAppId: "wxd7ac6d41d564256c", //名媛日记appid
+	publicAppId: "wxd7ac6d41d564256c", //补商汇appid
 	//域名地址
 	domainUrl:domainUrl,
 	//请求接口
@@ -26,18 +26,18 @@ const courtConfig = {
 	//webSocket地址
 	socketUrl: socketUrl,
 	//平台名称
-	platformName: "名媛日记",
+	platformName: "补商汇",
 	//项目logo
 	logoUrl: "http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20201216/15262b999e48acc5891864e3f2463cb0.jpg",
 	//页面分享配置
 	share: {
-		title: '名媛日记',
+		title: '补商汇',
 		// #ifdef MP-WEIXIN
 		path: '/pages/home/home', //小程序分享路径
 		// #endif
 		// #ifdef H5 || APP-PLUS
 		//公众号||APP分享
-		desc: "名媛日记", // 分享描述
+		desc: "补商汇", // 分享描述
 		link: "http://www.mingyuanriji.cn/h5/", // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
 		imgUrl: "http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20201216/15262b999e48acc5891864e3f2463cb0.jpg", // 分享图标
 		// #endif

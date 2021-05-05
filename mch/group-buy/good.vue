@@ -548,7 +548,7 @@
 		},
 		//用户点击分享
 		onShareAppMessage(e) {
-		  return this.wxShare("名媛日记名片","/pages/goods/detail?source=3");
+		  return this.wxShare("补商汇名片","/pages/goods/detail?source=3");
 		},
 		computed: {
 			isReceive() {

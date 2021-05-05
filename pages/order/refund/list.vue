@@ -5,7 +5,7 @@
 				<jx-list-cell :hover="false" :lineLeft="false" padding="26rpx 20rpx">
 					<view class="jx-goods-title">
 						<view class="logo">
-							<span class="name">名媛日记</span>
+							<span class="name">补商汇</span>
 						</view>
 						<view class="jx-order-status" :style="{'color':textColor}">{{ item.status_text }}</view>
 					</view>

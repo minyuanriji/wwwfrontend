@@ -428,7 +428,7 @@
 		},
 		onShareAppMessage() {
 			return{
-				title:"名媛日记官方商城",
+				title:"补商汇官方商城",
 				path:"/pages/shop/shop"
 			}
 		},

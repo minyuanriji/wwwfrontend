@@ -26,7 +26,7 @@
 			</view>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN -->
-			<view class="shop-name">名媛日记</view>
+			<view class="shop-name">补商汇</view>
 			<view class="line"></view>
 			<view class="login-tips">
 				<view>登陆后开发者将会以下权限</view>

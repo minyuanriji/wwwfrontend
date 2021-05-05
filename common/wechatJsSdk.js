@@ -104,12 +104,12 @@ export default {
 		if (!this.isWechat()) {
 			return;
 		}
-		let title = '名媛日记全新上线',
+		let title = '补商汇全新上线',
 			desc = '优惠多多',
 			link = '',
 			imgUrl = 'https://www.dogedoge.com/assets/new_logo.min.png';
 		if (diy) {
-			title = diy.app_share_title || '名媛日记全新上线';
+			title = diy.app_share_title || '补商汇全新上线';
 			desc = diy.app_share_desc || '优惠多多';
 			imgUrl = diy.app_share_pic || 'https://www.dogedoge.com/assets/new_logo.min.png'
 		}

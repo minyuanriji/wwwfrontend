@@ -39,7 +39,7 @@
 			<view class="content_footer_top">
 				<view class="iconfont iconxuanzhong" :style="{color:status==1?background:''}" @tap="agreeBtn"></view>
 				<view class="content_footer_top_m">我已阅读并同意</view>
-				<view class="content_footer_top_r" :style="{color: background}" @click="popupShow">《名媛日记商城开店说明》</view>
+				<view class="content_footer_top_r" :style="{color: background}" @click="popupShow">《补商汇商城开店说明》</view>
 			</view>
 			<button class="sumbit" :style="{background:background}" @tap="sumbit">我准备好了</button>
 		</view>
@@ -105,7 +105,7 @@
 				if (!params['mobile']) return this.alert('请填写您的手机号')
 				if (!params['mobile'].match(/1\d{10}/)) return this.alert('手机号错误')
 				if (!params['cat_id']) return this.alert('请选择店铺消费类型')
-				if (this.status == 0) return this.alert('请同意名媛日记商城开店说明')
+				if (this.status == 0) return this.alert('请同意补商汇商城开店说明')
 				var that = this
 				this.$http.request({
 					url: this.$api.moreShop.apply,

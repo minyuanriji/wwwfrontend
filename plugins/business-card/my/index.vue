@@ -231,7 +231,7 @@
 				    scene: "WXSceneSession",
 				    type: 5,
 				    imageUrl: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/app/share-logo@3.png',
-				    title: '名媛日记名片',
+				    title: '补商汇名片',
 				    miniProgram: {
 				        id: 'gh_27e28292b19d',
 				        path: 'plugins/business-card/my/index?source=7',

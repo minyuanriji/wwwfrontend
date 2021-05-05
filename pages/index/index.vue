@@ -424,8 +424,8 @@
 		onShow() {
 			this.getData('show');
 			let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
-			let curRoute = routes[routes.length - 1].route //获取当前页面路由   //   pages/webview/webview
-			let curParam = routes[routes.length - 1].options; //获取路由参数     //   {"userId":"1000007"}
+			let curRoute = routes[routes.length - 1].route //获取当前页面路由   //   pages/webview/webview
+			let curParam = routes[routes.length - 1].options; //获取路由参数     //   {"userId":"1000007"}
 			if (curParam.pid) {
 				uni.setStorageSync('pid', options.pid);
 				uni.setStorageSync("user_id", options.pid);
@@ -479,7 +479,7 @@
 
 		//用户点击分享
 		onShareAppMessage(e) {
-			return this.wxShare("名媛日记", "/pages/index/index?source=1");
+			return this.wxShare("补商汇", "/pages/index/index?source=1");
 		},
 		methods: {
 			getService() {

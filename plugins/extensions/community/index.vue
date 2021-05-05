@@ -3,7 +3,7 @@
 		<image :src="'http://d.zaix.ru/mJSh.png'" class="jx-bg"></image>
 		<view class="container">
 			<view class="title">
-				<view class="headline">{{'名媛日记社区团购'}}</view>
+				<view class="headline">{{'补商汇社区团购'}}</view>
 				<view class="subhead">{{'一切以为客户创造价值为目的'}}</view>
 			</view>
 			<view class="store flex-y-center">

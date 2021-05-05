@@ -1,7 +1,7 @@
 <template>
 	<view class="header" :style="{'background':backgroundCol}">
 		<view class="conter">
-			<view class="logo">名媛日记</view>
+			<view class="logo">补商汇</view>
 			<view class="bulletin">
 				<view class="icon"></view>
 				<swiper autoplay="true" vertical="true" circular="true" disable-touch="true" class="bulletin-text-swiper">

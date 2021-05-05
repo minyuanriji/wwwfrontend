@@ -282,7 +282,7 @@
 				if(userInfo){
 					pid = userInfo.user_id;	
 				}
-				return this.wxShare("名媛日记名片",`/mch/group-buy/detail?is_share=1&detailId=${this.detailId}&goods_id=${this.goods_id}&pid=${pid}`);
+				return this.wxShare("补商汇名片",`/mch/group-buy/detail?is_share=1&detailId=${this.detailId}&goods_id=${this.goods_id}&pid=${pid}`);
 			} catch (e) {
 			    // error
 			}

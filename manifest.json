@@ -1,5 +1,5 @@
 {
-    "name" : "名媛日记",
+    "name" : "补商汇",
     "appid" : "__UNI__82CA103",
     "description" : "",
     "versionName" : "1.0.0",
@@ -145,9 +145,9 @@
                 "provider" : "wx2b03c6e691cd7370" // 必须填该直播组件appid，该示例值即为直播组件appid（复制时请去掉注释）
             }
         },
-		"optimization" : {
-		    "subPackages" : true
-		}      
+        "optimization" : {
+            "subPackages" : true
+        }
     },
     "mp-alipay" : {
         "usingComponents" : true
@@ -158,7 +158,7 @@
     "mp-toutiao" : {
         "usingComponents" : true
     },
-    "h5" : { 
+    "h5" : {
         // "publicPath" : "https://www.mingyuanriji.cn/h5/",
         "publicPath" : "https://dev.mingyuanriji.cn/h5/",
         // "publicPath" : "http://local.mingyuanriji.cn/h5/",
@@ -172,7 +172,7 @@
             "proxy" : {
                 "/api" : {
                     // "target" : "https://www.mingyuanriji.cn/h5/web/index.php",
-                    "target" : "https://dev.mingyuanriji.cn/h5/",
+                    "target" : "https://dev.mingyuanriji.cn/h5/web/index.php",
                     // "target" : "http://local.mingyuanriji.cn/h5/web/index.php",
                     "changeOrigin" : true,
                     "secure" : false,
@@ -183,10 +183,10 @@
             },
             "port" : 80
         },
-        // "domain" : "https://www.mingyuanriji.cn/h5/",
+        // "domain" : "https://www.mingyuanriji.cn/h5/", 
         "domain" : "https://dev.mingyuanriji.cn/h5/",
         // "domain" : "http://local.mingyuanriji.cn/h5/",
-        "title" : "名媛日记",
+        "title" : "补商汇",
         "template" : "template.h5.html",
         "sdkConfigs" : {
             "maps" : {
