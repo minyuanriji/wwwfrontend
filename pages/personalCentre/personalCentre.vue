@@ -222,6 +222,35 @@
 							uni.redirectTo({
 								url: '../supplement/supplement?status=' + res.data.detail.status
 							})
+						} else if (res.data.status == 3) {
+							let that=this
+							uni.showModal({
+								title: '审核不通过',
+								content: res.data.remark,
+								cancelText:'返回',
+								confirmText:'修改资料',
+								success: function(res) {
+									if (res.confirm) {
+										that.$http
+											.request({
+												url: that.$api.moreShop.changeStatus,
+												method: 'POST',
+												showLoading: true
+											})
+											.then(result => {
+												if(result.code==0){
+													uni.navigateTo({
+														url: '../supplement/supplement'
+													})
+												}
+											});
+									} else if (res.cancel) {
+										uni.navigateBack({
+											delta:1
+										})
+									}
+								}
+							});
 						}
 					}
 				});
