@@ -276,7 +276,6 @@ export default {
 				this.scrollH = res.windowWidth * 0.6;
 			}
 		});
-
 		// 初始化数据
 		// if (uni.getStorageSync('userInfo')) {
 		// 	this.userInfo = JSON.parse(uni.getStorageSync('userInfo'));
@@ -284,6 +283,7 @@ export default {
 		if (uni.getStorageSync('token')) {
 			this.mytoken = uni.getStorageSync('token');
 		}else{
+			this.mytoken=0
 			uni.showModal({
 				title: "提示",
 				content: "您还未登录，去登录吧~",
@@ -295,16 +295,7 @@ export default {
 							url: '/pages/public/login'
 						});
 					}else{
-						let _currRoute = ''
-						// #ifdef H5
-						_currRoute = currPage.route;
-						// #endif
-						// #ifdef MP-WEIXIN || APP-PLUS
-						_currRoute = currPage.__route__;
-						// #endif
-						if(_currRoute.indexOf("cart") == -1 && _currRoute.indexOf("goods") == -1){
-							uni.navigateBack();
-						}
+						
 					}
 				}
 			});

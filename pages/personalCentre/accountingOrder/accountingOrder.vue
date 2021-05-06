@@ -11,7 +11,7 @@
 			<image :src="img_url+'/shop-scan.png'" mode=""></image>
 		</view>
 		<view class="personalCenter-item">
-			<jx-list-cell :arrow="true" padding="0" :lineLeft="false"  @click="link">
+			<jx-list-cell  padding="0" :lineLeft="false">
 				<view class="jx-cell-header">
 					<view class="jx-cell-title">最近核销记录</view>
 					<!-- <view class="jx-cell-sub">查看全部订单</view> -->

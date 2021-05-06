@@ -9,8 +9,8 @@
 					<view class="success_message_goods-name">{{goodinfo.name}}</view>
 				</view>
 				<view class="success_message_goods-price-right">
-					<view class="price">￥{{message.total_original_price}}</view>
-					<view class="num">x{{message.num}}</view>
+					<view class="price">￥{{goodinfo.total_original_price}}</view>
+					<view class="num">x{{goodinfo.num}}</view>
 				</view>
 			</view>
 			<view class="success_logo">
@@ -72,8 +72,7 @@
 						that.$http.toast(res.msg)
 						that.flag=true
 						that.show=true
-						that.message=res.data.detail
-						that.goodinfo=res.data.detail.goods_info.goods_attr
+						that.goodinfo=res.data
 					}else{
 						that.$http.toast(res.msg)
 						that.flag=false
