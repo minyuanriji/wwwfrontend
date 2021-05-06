@@ -53,7 +53,6 @@
 			let that=this
 			that.code=options.code
 			that.id=options.id
-			console.log(options)
 			uni.showLoading({
 			    title: '正在核销中'
 			});
@@ -65,22 +64,17 @@
 					data: {
 						id:options.id?options.id:'',
 						clerk_code: options.code?options.code:'',
-					},
-					showLoading: false
+					}
 				}).then(res => {
 					if(res.code==0){
-						that.$http.toast(res.msg)
 						that.flag=true
 						that.show=true
 						that.goodinfo=res.data
+						that.code=that.goodinfo.offline_qrcode
 					}else{
-						that.$http.toast(res.msg)
 						that.flag=false
 						that.show=true
 						setTimeout(function(){
-							// uni.redirectTo({
-							// 	url:'../personalCentre/accountingOrder/accountingOrder'
-							// })
 							uni.navigateBack({
 								delta:1
 							})
