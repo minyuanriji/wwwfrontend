@@ -61,9 +61,11 @@
 			}
 		},
 		created() {
+			
 			this.toolbarData.forEach((item,index)=>{
 				this.toolbarData2.push(item)
 			})
+			console.log(this.toolbarData2)
 			// console.log(this.toolbarData3)
 			// if (this.toolbarData.length > 4) {
 			// 	this.toolbarData.forEach((item, index) => {
@@ -99,6 +101,18 @@
 					url
 				})
 			},
+		},
+		watch:{
+			toolbarData:{
+				 handler(val, oldVal){
+					 this.toolbarData=val
+					 this.toolbarData2=[]
+					 this.toolbarData.forEach((item,index)=>{
+					 	this.toolbarData2.push(item)
+					 })
+				},
+				 deep:true //true 深度监听
+			}
 		}
 	}
 </script>

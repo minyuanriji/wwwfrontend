@@ -236,6 +236,7 @@ export default {
 				mobile:0,
 				balance: 0,
 				score: 0,
+				total_score:0,
 				coupon: 0,
 				dynamic_integral:0,
 				static_integral:0
@@ -277,21 +278,49 @@ export default {
 		});
 
 		// 初始化数据
-		if (uni.getStorageSync('userInfo')) {
-			this.userInfo = JSON.parse(uni.getStorageSync('userInfo'));
-		}
+		// if (uni.getStorageSync('userInfo')) {
+		// 	this.userInfo = JSON.parse(uni.getStorageSync('userInfo'));
+		// }
 		if (uni.getStorageSync('token')) {
 			this.mytoken = uni.getStorageSync('token');
+		}else{
+			uni.showModal({
+				title: "提示",
+				content: "您还未登录，去登录吧~",
+				confirmText: "去登录",
+				cancelText: "再逛会",
+				success: (res) => {
+					if (res.confirm) {
+						uni.navigateTo({
+							url: '/pages/public/login'
+						});
+					}else{
+						let _currRoute = ''
+						// #ifdef H5
+						_currRoute = currPage.route;
+						// #endif
+						// #ifdef MP-WEIXIN || APP-PLUS
+						_currRoute = currPage.__route__;
+						// #endif
+						if(_currRoute.indexOf("cart") == -1 && _currRoute.indexOf("goods") == -1){
+							uni.navigateBack();
+						}
+					}
+				}
+			});
 		}
-		if (uni.getStorageSync('initMenus')) {
-			this.configData = JSON.parse(uni.getStorageSync('initMenus'));
-		}
+		// if (uni.getStorageSync('initMenus')) {
+		// 	this.configData = JSON.parse(uni.getStorageSync('initMenus'));
+		// }
 		this.initData(false);
 		// this.$http.isLogin() && this.getUser(false);
 	},
 	onShow() {
 		this.$http.isLogin() && this.getUser(false);
-		this.getCartList();
+		if(uni.getStorageSync('token')){
+			this.initData(false);
+		}
+		// this.getCartList();
 	},
 	methods: {
 		link(){
@@ -313,29 +342,27 @@ export default {
 				url: '/pages/public/login'
 			});
 		},
-		initData(bool) {
-			this.loading = bool ? bool : false;
+		initData() {
 			this.$http
 				.request({
 					url: this.$api.index.userConfig
 				})
 				.then(res => {
-					this.loading = false;
 					if (res.code === 0) {
-						uni.setStorageSync('initMenus', JSON.stringify(res.data.config));
 						this.configData = res.data.config;
 						this.userMessage=res.data.config
+						uni.setStorageSync('initMenus', JSON.stringify(res.data.config));
 					}
 				});
 		},
-		getCartList() { //获取购物车列表
-			this.$http.request({
-				url: this.$api.cart.list,
-				method: 'GET'
-			}).then((res) => {
+		// getCartList() { //获取购物车列表
+		// 	this.$http.request({
+		// 		url: this.$api.cart.list,
+		// 		method: 'GET'
+		// 	}).then((res) => {
 				
-			})
-		},
+		// 	})
+		// },
 		getUser(bool) {
 			this.loading = bool;
 			this.$http
@@ -390,12 +417,6 @@ export default {
 				this.$http.toast('功能尚未完善~');
 			}
 		},
-		detail: function() {
-			// 跳转到商品详情
-			// uni.navigateTo({
-			// 	url: '../../productDetail/productDetail'
-			// })
-		},
 		checkSign() {
 			this.modal = true;
 			// let options = {
@@ -437,23 +458,6 @@ export default {
 			this.$http.isLogin() && this.getUser(true);
 		}, 1000);
 	}
-	// onReachBottom: function() {
-	// 	if (!this.pullUpOn) return;
-	// 	this.loadding = true;
-	// 	if (this.pageIndex == 4) {
-	// 		this.loadding = false;
-	// 		this.pullUpOn = false
-	// 	} else {
-	// 		let loadData = JSON.parse(JSON.stringify(this.productList));
-	// 		loadData = loadData.splice(0, 10)
-	// 		if (this.pageIndex == 1) {
-	// 			loadData = loadData.reverse();
-	// 		}
-	// 		this.productList = this.productList.concat(loadData);
-	// 		this.pageIndex = this.pageIndex + 1;
-	// 		this.loadding = false
-	// 	}
-	// }
 };
 </script>
 
