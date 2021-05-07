@@ -16,6 +16,11 @@
 				<text>结算设置</text>
 				<image :src="img_url+'/arrow-right.png'" mode=""></image>
 			</view>
+			<view  @click="link(4)">
+				<image :src="img_url+'/pass_LOGO.png'" mode=""></image>
+				<text>交易密码设置</text>
+				<image :src="img_url+'/arrow-right.png'" mode=""></image>
+			</view>
 		</view>
 	</view>
 </template>
@@ -43,6 +48,17 @@
 					uni.navigateTo({
 						url:'../countSet/countSet'
 					})
+				}
+				if(index==4){
+					if(uni.getStorageSync('userInfo')){
+						uni.navigateTo({
+							url:'../personalCentreSETPassWorde/personalCentreSETPassWorde?phone='+JSON.parse(uni.getStorageSync('userInfo')).mobile
+						})
+					}else{
+						uni.navigateTo({
+							url:'../personalCentreSETPassWorde/personalCentreSETPassWorde'
+						})
+					}
 				}
 			}
 		}

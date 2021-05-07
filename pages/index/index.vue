@@ -25,14 +25,17 @@
 					<diy-header :backgroundCol='receiveColor'></diy-header>
 				</view> -->
 					<!-- 搜索 -->
-					<view class="search" @tap="navTo('/pages/search/search')" style="width: 85%;">
+					<view class="checksao" style="width: 15%;background: #fff;" @click="scanSome">
+						<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 90rpx;display: block;margin: 0 auto ;"></image>
+					</view>
+					<view class="search" @tap="navTo('/pages/search/search')" style="width: 70%;">
 						<search :message="item.data.placeholder" :textAlign="item.data.textPosition" :frameColor="item.data.background"
 						 :innerFrameColor="item.data.color" :textColor="item.data.textColor" :borderRadius="item.data.radius"></search>
 						<!-- :frameColor="scrollTop>0?item.data.background:receiveColor" 用来做渐变 -->
 					</view>
 					<!-- 搜索 -->
 					<view class="checksao" style="width: 15%;background: #fff;" @click="scanSome">
-						<image :src="img_url+'/scan.png'" mode="" style="width: 50rpx;height: 50rpx;display: block;margin: 10rpx auto 0;"></image>
+						<image :src="img_url+'/scan.png'" mode="" style="width: 50rpx;height: 50rpx;display: block;margin:0 auto;"></image>
 						 <text style="display: block;font-size: 24rpx;width: 100%;text-align: center;">扫一扫</text>
 					</view>
 				</view>
