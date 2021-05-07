@@ -35,7 +35,7 @@
 					</view>
 					<!-- 搜索 -->
 					<view class="checksao" style="width: 15%;background: #fff;" @click="scanSome">
-						<image :src="img_url+'/scan.png'" mode="" style="width: 50rpx;height: 50rpx;display: block;margin:0 auto;"></image>
+						<image :src="img_url+'/scan.png'" mode="" style="width: 50rpx;height: 50rpx;display: block;margin: 0 auto ;"></image>
 						 <text style="display: block;font-size: 24rpx;width: 100%;text-align: center;">扫一扫</text>
 					</view>
 				</view>
