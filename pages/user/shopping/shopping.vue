@@ -36,7 +36,7 @@
 						<view class="coupon-list-item-main">
 							<view class="item-left">
 								<view class="item-income">收入：¥{{item.money}}</view>
-								<view :class="[currentTab==0?'item-explain':'item-time']">{{item.desc}}</view>
+								<view :class="[currentTab==0?'item-explain':'item-time']" style="font-size: 30rpx;">{{item.desc}}</view>
 								<view v-if="currentTab==1" class="item-expire-time">过期时间:{{item.expire_time|formatDate}}</view>
 							</view>
 							<view class="item-right">
