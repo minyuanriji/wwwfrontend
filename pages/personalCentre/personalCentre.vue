@@ -49,7 +49,7 @@
 			</view>
 		</view>
 		<view class="personalCenter-item">
-			<jx-list-cell  padding="0" :lineLeft="false">
+			<jx-list-cell :arrow="true" padding="0" :lineLeft="false">
 				<view class="jx-cell-header">
 					<view class="jx-cell-title" style="font-weight: 700;">我的订单</view>
 				</view>
