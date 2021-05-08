@@ -151,9 +151,9 @@
 		<!--底部操作栏-->
 		<view class="tui-operation">
 			<view class="tui-operation-left tui-col-5">
-				<view class="tui-operation-item" hover-class="opcity" :hover-stay-time="150">
+				<view class="tui-operation-item" hover-class="opcity" :hover-stay-time="150" @tap="navTo('index')">
 					<view class="iconfont icon-shouye"></view>
-					<view class="tui-operation-text tui-scale-small" @tap="navTo('index')">首页</view>
+					<view class="tui-operation-text tui-scale-small">首页</view>
 				</view>
 				<view class="tui-operation-item" hover-class="opcity" :hover-stay-time="150" @tap='customerService'>
 					<view class="iconfont icon-kefu2"></view>
@@ -440,10 +440,12 @@
 				mch:{},//店铺信息
 				is_mch:0,//是否有店铺 1有
 				mch_baopin_id:'',//爆品id
+				serviceLink:'',
 			}
 		},
 		onLoad(options) {
 			console.log(options)
+			this.getService()
 			this.textColor = this.globalSet('textCol');
 			this.couponImg = this.globalSet('couponImg');
 			// #ifdef MP-WEIXIN
@@ -557,6 +559,19 @@
 			}
 		},
 		methods: {
+			getService() {
+				this.$http
+					.request({
+						url: this.$api.moreShop.getservice,
+						method: 'POST',
+						showLoading: true
+					})
+					.then(res => {
+						if (res.code == 0) {
+							this.serviceLink = res.data
+						}
+					});
+			},
 			saveImage(url) { //保存图片
 				var that = this;
 				uni.authorize({
@@ -644,14 +659,7 @@
 				});
 			},
 			customerService() { //跳转客服
-				// #ifdef H5
-				window.location.href = JSON.parse(uni.getStorageSync('mall_config')).mall_setting.setting.web_service_url;
-				// #endif
-				// #ifdef MP-WEIXIN || APP-PLUS
-				uni.navigateTo({
-					url: '/pages/customerService/customerService'
-				})
-				// #endif
+				location.href = this.serviceLink
 			},
 			getRecommend() { //获取推荐商品
 				this.loading = true;
