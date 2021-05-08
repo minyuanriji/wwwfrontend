@@ -25,8 +25,8 @@
 					<diy-header :backgroundCol='receiveColor'></diy-header>
 				</view> -->
 					<!-- 搜索 -->
-					<view class="checksao" style="width: 15%;background: #fff;" @click="scanSome">
-						<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 90rpx;display: block;margin: 0 auto ;"></image>
+					<view class="checksao" style="width: 15%;background: #fff;">
+						<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 90rpx;display: block;margin: 5rpx auto 0;"></image>
 					</view>
 					<view class="search" @tap="navTo('/pages/search/search')" style="width: 70%;">
 						<search :message="item.data.placeholder" :textAlign="item.data.textPosition" :frameColor="item.data.background"
@@ -35,7 +35,7 @@
 					</view>
 					<!-- 搜索 -->
 					<view class="checksao" style="width: 15%;background: #fff;" @click="scanSome">
-						<image :src="img_url+'/scan.png'" mode="" style="width: 50rpx;height: 50rpx;display: block;margin: 0 auto ;"></image>
+						<image :src="img_url+'/scan.png'" mode="" style="width: 50rpx;height: 50rpx;display: block;margin: 5rpx auto 0;"></image>
 						 <text style="display: block;font-size: 24rpx;width: 100%;text-align: center;">扫一扫</text>
 					</view>
 				</view>
