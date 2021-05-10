@@ -30,7 +30,7 @@
 					<text class="shop-my-products_more">查看更多</text>
 				</view>
 				<view class="simulate-product">
-					<view class="product-item" v-for="(item,index) in hotlist"  :key='index' @click="hotlink(item.goods_id,item.mch_baopin_id)">
+					<view class="product-item" v-for="(item,index) in hotlist" :key='index' @click="hotlink(item.goods_id,item.mch_baopin_id)">
 						<image :src="item.cover_pic"
 						 mode="widthFix" class="product-item-logo"></image>
 						<view class="product-item-name">{{item.name}}</view>
@@ -216,7 +216,7 @@
 					var new_data = res.data.list
 					var list = that.list.concat(new_data)
 					that.list = list
-					that.page_count = res.page_count
+					that.page_count = res.data.page_count
 				})
 			},
 			getHotgoods(){
