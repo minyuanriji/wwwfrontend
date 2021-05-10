@@ -82,6 +82,7 @@
 							data:data
 						}).then(res => {
 							if (res.code == 0) {
+								this.password=''
 								uni.navigateTo({
 									url:'../audit/audit'
 								})

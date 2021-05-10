@@ -30,7 +30,7 @@
 					<text class="shop-my-products_more">查看更多</text>
 				</view>
 				<view class="simulate-product">
-					<view class="product-item" v-for="(item,index) in hotlist" v-if='index<=3' :key='index' @click="hotlink(item.goods_id,item.mch_baopin_id)">
+					<view class="product-item" v-for="(item,index) in hotlist"  :key='index' @click="hotlink(item.goods_id,item.mch_baopin_id)">
 						<image :src="item.cover_pic"
 						 mode="widthFix" class="product-item-logo"></image>
 						<view class="product-item-name">{{item.name}}</view>
@@ -225,6 +225,7 @@
 				let form={
 					mch_id:mch_id,
 					page:'',
+					limit:4,
 					keyword:'',
 					sort_prop:'',//排序字段： goods_id按商品ID，virtual_sales按销售，goods_stock按库存，sort按排序
 					sort_type:1,//排序方式：0降序，1升序
