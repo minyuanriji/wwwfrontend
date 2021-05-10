@@ -65,7 +65,6 @@
 			this.toolbarData.forEach((item,index)=>{
 				this.toolbarData2.push(item)
 			})
-			console.log(this.toolbarData2)
 			// console.log(this.toolbarData3)
 			// if (this.toolbarData.length > 4) {
 			// 	this.toolbarData.forEach((item, index) => {
