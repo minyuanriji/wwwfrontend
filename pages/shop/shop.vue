@@ -151,36 +151,39 @@
 			},
 			toDetail(mch_id){
 				let mall_id=uni.getStorageSync("mall_id")?uni.getStorageSync("mall_id"):5;
-				if(uni.getStorageSync("userInfo")){
-					let user_id=JSON.parse(uni.getStorageSync("userInfo")).user_id
-					let obj={
-						mall_id:mall_id,
-						user_id:user_id,
-						mch_id:Number(mch_id),
-					}
-					this.$http.request({
-						url: this.$api.moreShop.getclickNum,
-						method: 'POST',
-						showLoading:true,
-						data: obj
-					}).then(res => {
-						if (res.code == 0) {
-							uni.setStorage({
-								key:'mch_id',
-								data:mch_id,
-								success() {
-									uni.navigateTo({
-										url:"/pages/shop/home/home?mch_id="+mch_id
-									})
-								}
-							})
-						}
-					})			
-				}else{
-					uni.navigateTo({
+				uni.navigateTo({
 						url:"/pages/shop/home/home?mch_id="+mch_id
 					})
-				}	
+				// if(uni.getStorageSync("userInfo")){
+				// 	let user_id=JSON.parse(uni.getStorageSync("userInfo")).user_id
+				// 	let obj={
+				// 		mall_id:mall_id,
+				// 		user_id:user_id,
+				// 		mch_id:Number(mch_id),
+				// 	}
+				// 	this.$http.request({
+				// 		url: this.$api.moreShop.getclickNum,
+				// 		method: 'POST',
+				// 		showLoading:true,
+				// 		data: obj
+				// 	}).then(res => {
+				// 		if (res.code == 0) {
+				// 			uni.setStorage({
+				// 				key:'mch_id',
+				// 				data:mch_id,
+				// 				success() {
+				// 					uni.navigateTo({
+				// 						url:"/pages/shop/home/home?mch_id="+mch_id
+				// 					})
+				// 				}
+				// 			})
+				// 		}
+				// 	})			
+				// }else{
+				// 	uni.navigateTo({
+				// 		url:"/pages/shop/home/home?mch_id="+mch_id
+				// 	})
+				// }	
 			},
 			search(){//搜索
 			    this.shop_list=[]
