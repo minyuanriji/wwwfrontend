@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<com-tabs :tabs="tabs" :isFixed="scrollTop>=0" :currentTab="showTab[status]" :selectedColor="textColor" :sliderBgColor="textColor"
+		<com-tabs :tabs="tabs" :isFixed="scrollTop>=0" :currentTab="showTab[status]" selectedColor="#FF7104" sliderBgColor="#FF7104"
 		 :sliderHeight="4" :sliderWidth="50" bgColor="#F7F7F7" @change="change" bottom="10rpx" style="z-index:999;"></com-tabs>
 		<!--选项卡逻辑自己实现即可，此处未做处理-->
 		<view :class="{'tui-order-list':scrollTop>=0}" v-if="dataList && dataList.length">
@@ -16,7 +16,7 @@
 								<span class="name">{{model.mch_info.name?model.mch_info.name:'补商汇官方商城'}}</span>
 								<view class="toright"></view>
 							</view>
-							<view class="tui-order-status" :style="{color:textColor}">{{model.status_text}}</view>
+							<view class="tui-order-status" style="color:#FF7104">{{model.status_text}}</view>
 						</view>
 					</tui-list-cell>
 					<block v-for="(item,index) in model.detail" :key="index">
@@ -50,16 +50,16 @@
 				</view>
 				<view class="tui-order-btn">
 					<view class="tui-btn-ml" v-if="model.status == 5">
-						<view class="btn-style" :style="{color:textColor,border:'1px solid '+textColor}" @click.stop="deleteOrderById(model.id)">删除订单</view>
+						<view class="btn-style" :style="{color:'#FF7104',border:'1px solid '+'#FF7104'}" @click.stop="deleteOrderById(model.id)">删除订单</view>
 					</view>
 					<view class="tui-btn-ml" v-if="model.status == 0">
-						<view class="btn-style btn-gary" :style="{color:textColor,border:'1px solid '+textColor}"  @click.stop="cancel(model.id)">取消订单</view>
+						<view class="btn-style btn-gary" :style="{color:'#FF7104',border:'1px solid '+'#FF7104'}"  @click.stop="cancel(model.id)">取消订单</view>
 					</view>
 					<view class="tui-btn-ml" v-if="model.status == 0">
-						<view class="btn-style" :style="{color:textColor,border:'1px solid '+textColor}"  @click.stop="pay(model.id)">去付款</view>
+						<view class="btn-style" :style="{color:'#FF7104',border:'1px solid '+'#FF7104'}"  @click.stop="pay(model.id)">去付款</view>
 					</view>
 					<view class="tui-btn-ml" v-if="model.status == 1">
-						<view class="btn-style" :style="{color:textColor,border:'1px solid '+textColor}"  @click.stop="remindSendById(model.id)">提醒发货</view>
+						<view class="btn-style" :style="{color:'#FF7104',border:'1px solid '+'#FF7104'}"  @click.stop="remindSendById(model.id)">提醒发货</view>
 					</view>
 					<!-- <view class="tui-btn-ml" v-if="model.status == (2 || 3)">
 						<tui-button type="black" :plain="true" width="148rpx" height="56rpx" :size="26" shape="circle">加入购物车</tui-button>
@@ -68,10 +68,10 @@
 						<view class="btn-style btn-gary" :style="{color:textColor,border:'1px solid '+textColor}" @click.stop="toPage(model.id)">查看物流</view>
 					</view>
 					<view class="tui-btn-ml" v-if="model.status == 2">
-						<view class="btn-style" :style="{color:textColor,border:'1px solid '+textColor}"  @click.stop="confirm(model.id)">确认收货</view>
+						<view class="btn-style" :style="{color:'#FF7104',border:'1px solid '+'#FF7104'}"  @click.stop="confirm(model.id)">确认收货</view>
 					</view>
 					<view class="tui-btn-ml" v-if="model.status == 3">
-						<view class="btn-style" :style="{color:textColor,border:'1px solid '+textColor}"  @click.stop="goComment(model.id)">去评价</view>
+						<view class="btn-style" :style="{color:'#FF7104',border:'1px solid '+'#FF7104'}"  @click.stop="goComment(model.id)">去评价</view>
 					</view>
 				</view>
 			</view>

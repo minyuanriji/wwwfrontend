@@ -52,10 +52,10 @@
 				</view>
 				<view class="tui-order-btn">
 					<view class="tui-btn-ml" v-if="activeIndex == 0">
-						<view class="btn-style" :style="{color:textColor,border:'1px solid '+textColor}" @click.stop="detail(model.id,model.order_type)">去使用</view>
+						<view class="btn-style" :style="{color:'#FF7104',border:'1px solid '+'#FF7104'}" @click.stop="detail(model.id,model.order_type)">去使用</view>
 					</view>
 					<view class="tui-btn-ml" v-if="activeIndex == 1">
-						<view class="btn-style btn-gary" :style="{color:textColor,border:'1px solid '+textColor}"  @click.stop="cancel(model.id,model.order_type)">查看详情</view>
+						<view class="btn-style btn-gary" :style="{color:'#FF7104',border:'1px solid '+'#FF7104'}"  @click.stop="cancel(model.id,model.order_type)">查看详情</view>
 					</view>
 				</view>
 			</view>
@@ -285,7 +285,7 @@
 	background: rgb(247, 247, 247);display: flex;justify-content: space-between;}
 	.becused-table view{height: 88rpx;width: 40%;text-align: center;line-height: 88rpx;}
 	.becused-table view text{display: block;width: 40%;height: 100%;margin: 0 auto ;}
-	.active{color: rgb(7, 190, 180); border-bottom: 5rpx solid  rgb(7, 190, 180);font-weight: bold;}
+	.active{color: #FF7104; border-bottom: 5rpx solid  #FF7104;font-weight: bold;}
 	.toright{
 		width: 8px;
 		height: 8px;
