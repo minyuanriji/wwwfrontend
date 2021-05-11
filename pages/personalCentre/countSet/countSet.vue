@@ -281,11 +281,11 @@
 	}
 	.btn{
 		margin: 80rpx auto 0;
-		background: #07beb4;
+		background: #FF7104;
 		width: 80%;
 	}
 	.btn button{
-		background: #07beb4;
+		background: #FF7104;
 		outline: none;
 		border: none;
 		color: #fff;

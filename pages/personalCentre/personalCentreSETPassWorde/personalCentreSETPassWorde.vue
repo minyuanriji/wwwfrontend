@@ -11,7 +11,7 @@
 				<view class="title">验证码</view>
 				<view class="input-btn">
 					<input class="input" type="number" v-model.number="dataForm.captcha" placeholder="请输入验证码" />
-					<view class="btn" @click="getCode" :style="{color:textCol}">{{countDown || '发送验证码'}}</view>
+					<view class="btn" @click="getCode">{{countDown || '发送验证码'}}</view>
 				</view>
 			</view>
 			<view class="item">
@@ -28,7 +28,7 @@
 			</view>
 			<view class="item last">
 				<view class="title"></view>
-				<view class="jx-btn" @click="dataSubmit" :style="{background:textCol}">确认提交</view>
+				<view class="jx-btn" @click="dataSubmit">确认提交</view>
 			</view>
 		</view>
 	</view>
@@ -172,7 +172,7 @@
 					.btn {
 						flex-basis: 180rpx;
 						position: relative;
-						color: #BC0100;
+						color: #FF7104;
 						font-size: 11pt;
 						text-align: center;
 						&::before {
@@ -188,7 +188,7 @@
 					text-align: center;
 					height: 90rpx;
 					line-height: 90rpx;
-					background-color: #BC0100;
+					background-color: #FF7104;
 					border-radius:45rpx;
 					font-size:9pt;
 					color: #FFFFFF;
