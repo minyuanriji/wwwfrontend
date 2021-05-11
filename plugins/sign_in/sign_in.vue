@@ -154,7 +154,7 @@
 					method: 'POST',
 				}).then(res => {
 					if (res.code == 0) {
-						this.score = res.data.score;
+						this.score = res.data.total_score;
 						this.avatar_url = res.data.avatar;
 					}
 				})
@@ -335,7 +335,7 @@
 			color: #000000;
 			padding: 10rpx 30rpx;
 			box-sizing: border-box;
-			font-size: 36rpx;
+			font-size: 30rpx;
 			font-weight: 600;
 			
 			.integral-icon{
