@@ -130,7 +130,7 @@
 		background: url(https://dev.mingyuanriji.cn/web/static/shop_verification.jpg)no-repeat; 
 	background-size: cover;}
 	.buyName{font-size: 28rpx;}
-	.accountingOrder_title{padding: 30rpx 30rpx 0 30rpx;font-size: 30rpx;width: 100%;}
+	.accountingOrder_title{padding: 30rpx 30rpx 0 30rpx;font-size: 30rpx;width: 100%;color: #fff;}
 	.accountingOrder_int{width: 100%;overflow: hidden;padding: 0 30rpx;margin-top: 20rpx;box-sizing: border-box;}
 	.accountingOrder_int input{width: 75%;height: 80rpx;background: #fff;border-radius: 20rpx;padding-left: 15rpx;float: left;}
 	.accountingOrder_int button{height: 80rpx;outline: none;border: none;width: 20%;text-align: center;line-height: 80rpx;
