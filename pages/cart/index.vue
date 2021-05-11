@@ -55,7 +55,7 @@
 						</view>
 						<view class="cart-sku" style="background: #FFFFFF;" v-else></view>
 						<view class="cart-pro-price-box">
-							<view class="cart-pro-price" :style="{color:textColor}">
+							<view class="cart-pro-price">
 								<view class="symbol">&yen;</view>
 								<view v-if="item.attrs">{{item.attrs.price}}</view>
 								<view v-else>{{item.goods.price}}</view>
@@ -121,8 +121,8 @@
 			</view>
 			<view class="total-right">
 				合计：
-				<view class="total-price" :style="{color:textColor}">&yen;{{totalPrice}}</view>
-				<view class="calculation" @tap="settlement" :style="{background:textColor}">
+				<view class="total-price">&yen;{{totalPrice}}</view>
+				<view class="calculation" @tap="settlement">
 					结算({{selectArr.length}})
 				</view>
 			</view>
@@ -138,7 +138,7 @@
 				<view class="selectAll">全选</view>
 			</view>
 			<view class="total-right">
-				<view class="calculation delete-calculation" :style="{background:textColor}" @tap="deleteCart">
+				<view class="calculation delete-calculation"  @tap="deleteCart">
 					删除
 				</view>
 			</view>
@@ -753,7 +753,7 @@
 	}
 
 	.cart-pro-price {
-		color: #BC0100;
+		color: #FF7104;
 		display: flex;
 		align-items: center;
 	}
@@ -830,19 +830,20 @@
 	}
 
 	.total-price {
-		color: #bc0100;
+		color: #FF7104;
 		font-size: 12pt;
 		margin-right: 10rpx;
 	}
 
 	.calculation {
-		/* background: linear-gradient(to right, #f14d29, #d70d10); */
+		background:#FF7104;
 		color: #FFFFFF;
 		padding: 16rpx 40rpx;
 		border-radius: 50rpx;
 	}
 
 	.delete-calculation {
+		background: #FF7104;
 		padding: 16rpx 50rpx;
 	}
 
