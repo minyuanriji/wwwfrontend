@@ -209,7 +209,7 @@
 		position: relative;
 		background: url(https://dev.mingyuanriji.cn/web/static/erqode-img.jpg)no-repeat; 
 		background-size: 100% 100%;
-		padding-top: 80rpx;
+		padding-top: 70rpx;
 	}
 
 	.main {
@@ -223,17 +223,17 @@
 
 	.logo {
 		width: 180rpx;
-		height: 150rpx;
+		height: 180rpx;
 		margin: 0rpx auto;
 		position: relative;
 	}
 
 	.logo image {
 		width: 180rpx;
-		height: 150rpx;
+		height: 180rpx;
 		display: block;
 		position: absolute;
-		top: -60rpx;
+		top: -70rpx;
 	}
 
 	.main-title {
@@ -241,7 +241,7 @@
 		overflow: hidden;
 		text-align: center;
 		font-size: 30rpx;
-		margin-top: -50rpx;
+		margin-top: -60rpx;
 		color: #395d5a;
 		font-weight: bold;
 	}
@@ -256,9 +256,9 @@
 
 	.shop-name {
 		width: 450rpx;
-		background: #07beb4;
+		background:#FF7104;
 		height: 70rpx;
-		margin: 20rpx auto;
+		margin: 15rpx auto;
 		border-radius: 40rpx;
 		text-align: center;
 		line-height: 70rpx;
@@ -297,7 +297,7 @@
 
 	.btn {
 		width: 450rpx;
-		background: #07beb4;
+		background: #FF7104;
 		height: 70rpx;
 		border-radius: 40rpx;
 		text-align: center;

@@ -14,7 +14,7 @@
 			<scroll-view scroll-y scroll-with-animation class="tab-view" :scroll-top="scrollTop" :style="{height:height+'px',top:top+'px'}">
 				<view v-for="(item,index) in leftTabbar" :key="index" class="tab-bar-item"
 				 :data-current="index" @tap.stop="swichNav(index,item.id)">
-					<text :class="[currentTab==index ? 'active' : '']" :style="{background:currentTab==index ? textColor :''}">{{item.name}}</text>
+					<text :class="[currentTab==index ? 'active' : '']" >{{item.name}}</text>
 				</view>
 				<view style="width: 100%;height: 120rpx;"></view>
 			</scroll-view>
@@ -343,7 +343,7 @@
 
 	.active {
 		color: #FFFFFF;
-		background: linear-gradient(to right,#f24f34,#c90a0c);
+		background: #FF7104;
 		padding: 8rpx 26rpx;
 		border-radius: 50rpx;
 	}

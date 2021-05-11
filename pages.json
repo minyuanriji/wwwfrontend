@@ -665,7 +665,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "二维码收款",
-				"navigationBarBackgroundColor": "#81d8d0",
+				"navigationBarBackgroundColor": "#FE830A",
 				"navigationBarTextStyle": "white",
                 "enablePullDownRefresh": false
             }
