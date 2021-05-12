@@ -133,7 +133,7 @@
 	.btn {
 		width: 90%;
 		color: #fff;
-		background: #07beb4;
+		background: #FF7104;
 		border-radius: 45rpx;
 		line-height: 100rpx;
 	}

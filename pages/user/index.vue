@@ -17,7 +17,7 @@
 		<view class="jx-mybg-box">
 			<block v-if="configData.user_center">
 				<image v-if="configData.user_center.top_style == 3" :src="configData.user_center.style_bg_pic_url" class="jx-my-bg"></image>
-				<image v-else :src="configData.user_center.top_pic_url" class="jx-my-bg"></image>
+				<image v-else :src="img_url+'/userTOP_logo.jpg'" class="jx-my-bg"></image>
 			</block>
 			
 			<!-- <view style="position: absolute;right: 40rpx;z-index: 999;" @click="link">

@@ -369,8 +369,8 @@
 	.shopSetting-app {
 		width: 100%;
 		height: 100%;
-		background: url(https://dev.mingyuanriji.cn/web/static/shop_setLogo.jpg)no-repeat;
-		background-size: cover;
+		// background: url(https://dev.mingyuanriji.cn/web/static/shop_setLogo.jpg)no-repeat;
+		// background-size: cover;
 		padding-top: 100rpx;
 	}
 
@@ -409,6 +409,6 @@
 	.shopSetting-num{float: right;height: 100rpx;display: flex;justify-content: space-evenly;line-height: 100rpx;}
 	.shopSetting-num image{width: 40rpx;height: 40rpx;margin-top: 30rpx;}
 	.position_logo{display: block;width: 40rpx;height: 40rpx;margin: 30rpx 0 0 450rpx;}
-	.sure_btn{width: 85%;height: 80rpx;margin: 90rpx auto 0;background: #07beb4;border-radius: 20rpx;
+	.sure_btn{width: 85%;height: 80rpx;margin: 90rpx auto 0;background: #FF7104;border-radius: 20rpx;
 	text-align: center;line-height: 80rpx;color: #fff;}
 </style>
