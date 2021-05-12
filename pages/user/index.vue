@@ -32,7 +32,7 @@
 						<view class="nickname">{{ userInfo.nickname || '点击头像去设置昵称' }}</view>
 					</view>
 					<view class="flex flex-y-center">
-						<view class="jx-img-vip" :style="{color:textColor}">
+						<view class="jx-img-vip">
 							<image class="vip_url" v-if="userInfo.identity.member_pic_url" :src="userInfo.identity.member_pic_url"></image>
 							<view class="iconfont icon-zuanshi" v-else></view>
 							<view class="text">{{ userInfo.identity.level_name }}</view>
@@ -722,7 +722,7 @@ export default {
 	display: flex;
 	align-items: center;
 	background-color: #ffffff;
-	color: #bc0100;
+	color: #FF7104;
 	padding: 0 10rpx;
 	border-radius: 19rpx;
 	line-height: 18px;
