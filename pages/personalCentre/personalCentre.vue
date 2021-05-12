@@ -25,7 +25,7 @@
 				</view>
 				<view class="jx-btm-item last">
 					<text
-						style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;"
+						style="background:  #FF7104;width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;"
 						@click="href(7)">查看商品</text>
 				</view>
 			</view>
@@ -40,10 +40,10 @@
 				</view>
 				<view class="jx-btm-item last">
 					<text
-						style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;margin-bottom: 20rpx;"
+						style="background: #FF7104;width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;margin-bottom: 20rpx;"
 						@click="href(5)">明细</text>
 					<text
-						style="background: rgb(7, 190, 180);width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;"
+						style="background: #FF7104;width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;"
 						@click="href(6)">提现</text>
 				</view>
 			</view>
@@ -449,6 +449,7 @@
 		float: left;
 		margin-left: 30rpx;
 		width: 400rpx;
+		color: #fff;
 	}
 
 	.personal_nicken {
