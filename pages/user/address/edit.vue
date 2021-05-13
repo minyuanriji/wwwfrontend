@@ -53,12 +53,12 @@
 				</view>
 			</tui-list-cell>
 			<!-- 默认地址 -->
-			<view v-if="id != 0" class="delete-address" :style="{color:textColor}" @tap="deleteAddress">
+			<view v-if="id != 0" class="delete-address" :style="{color:'#FF7104'}" @tap="deleteAddress">
 				删除收货地址
 			</view>
 			<!-- 保存收货地址 -->
 			<view class="tui-addr-save">
-				<view class="save-btn" :style="{background:textColor}" @click="saveAddress()">保存收货地址</view>
+				<view class="save-btn" :style="{background:'#FF7104'}" @click="saveAddress()">保存收货地址</view>
 				<!-- <tui-button type="danger" shape='circle' height="88rpx">保存收货地址</tui-button> -->
 			</view>
 		</form>

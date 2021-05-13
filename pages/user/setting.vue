@@ -28,7 +28,7 @@
 						<view class="tui-list-cell">
 							消息提醒设置
 						</view>
-						<switch :checked="is_open" @change="openMsg" :color="textColor" style="transform: scale(0.7)"/>
+						<switch :checked="is_open" @change="openMsg" color='#FF7104' style="transform: scale(0.7)"/>
 					</view>
 				</tui-list-cell>
 			</view>
@@ -46,7 +46,7 @@
 			</view>
 
 			<view class="tui-exit" v-if="is_login">
-				<view class="exit-btn" :style="{background:textColor}" @click="logout">
+				<view class="exit-btn" :style="{background:'#FF7104'}" @click="logout">
 					退出登录
 				</view>
 				<!-- <tui-button type="danger" height="88rpx" @click="logout" :style="{background:textColor}">退出登录</tui-button> -->

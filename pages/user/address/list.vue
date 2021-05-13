@@ -26,7 +26,7 @@
 
 		<!-- 新增地址 -->
 		<view class="tui-address-new">
-			<view class="add-btn" @click="editAddr(0)" :style="{background:textColor}">+ 新增收货地址</view>
+			<view class="add-btn" @click="editAddr(0)" :style="{background:'#FF7104'}">+ 新增收货地址</view>
 		</view>
 	</view>
 </template>
