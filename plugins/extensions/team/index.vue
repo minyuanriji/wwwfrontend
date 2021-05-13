@@ -10,10 +10,10 @@
 				<view class="content-head" v-if="parent">
 					<image :src="bg_url" mode="scaleToFill" class="jx-bg"></image>
 					<view class="super">
-						<image :src="parent.avatar_url || 'http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20201216/15262b999e48acc5891864e3f2463cb0.jpg'" mode="aspectFill" class="acatar"></image>
+						<image :src="parent.avatar_url || 'https://dev.mingyuanriji.cn/web/static//header-logo.png'" mode="aspectFill" class="acatar"></image>
 						<view class="userinfo">
 							<view class="username">推荐人: {{ parent.parent_name || '平台' }}</view>
-							<view class="desc" :style="{color:textColor}">
+							<view class="desc">
 								<span class="iconfont icon-huiyuan1"></span>
 								{{ parent.parent_level_name }}
 							</view>
@@ -61,19 +61,19 @@
 						<view class="title">客户佣金</view>
 						<view class="bill">
 							<view class="icon-text flex-column-x-center">
-								<view class="sum" :style="{color:textColor}">{{ team_commission.direct_push_total }}人</view>
+								<view class="sum">{{ team_commission.direct_push_total }}人</view>
 								<view class="name">直推客户</view>
 							</view>
 							<view class="icon-text flex-column-x-center">
-								<view class="sum" :style="{color:textColor}">{{ team_commission.direct_push_total + team_commission.space_push_total }}人</view>
+								<view class="sum">{{ team_commission.direct_push_total + team_commission.space_push_total }}人</view>
 								<view class="name">团队客户</view>
 							</view>
 							<view class="icon-text flex-column-x-center"  @click="toTeamOrder">
-								<view class="sum" :style="{color:textColor}">{{ team_commission.team_order_count || '0' }}单</view>
+								<view class="sum">{{ team_commission.team_order_count || '0' }}单</view>
 								<view class="name">团队订单</view>
 							</view>
 							<view class="icon-text flex-column-x-center">
-								<view class="sum" :style="{color:textColor}">{{ team_commission.team_order_total }}元</view>
+								<view class="sum">{{ team_commission.team_order_total }}元</view>
 								<view class="name">订单金额</view>
 							</view>
 						</view>
@@ -85,8 +85,8 @@
 							</view>
 						</view> -->
 						<div class="status">
-							<view class="name" :style="{'border-bottom':type == 1?'1px solid'+textColor:''}" @click="switchTab(1)">直推客户({{ team_commission.direct_push_total }}人)</view>
-							<view class="name" :style="{'border-bottom':type == 2?'1px solid'+textColor:''}" @click="switchTab(2)">间推客户({{ team_commission.space_push_total }}人)</view>
+							<view class="name" :style="{'border-bottom':type == 1?'1px solid'+'#FF7104':''}" @click="switchTab(1)">直推客户({{ team_commission.direct_push_total }}人)</view>
+							<view class="name" :style="{'border-bottom':type == 2?'1px solid'+'#FF7104':''}" @click="switchTab(2)">间推客户({{ team_commission.space_push_total }}人)</view>
 						</div>
 						<view class="order-items" v-if="dataList && dataList.length">
 							<view class="item" v-for="(item, i) in dataList" :key="i">
@@ -372,7 +372,7 @@ export default {
 
 					.desc,
 					.tel {
-						color: #bc0100;
+						color: #FF7104;
 						font-size: 9pt;
 					}
 
@@ -421,7 +421,7 @@ export default {
 
 						.sum {
 							font-weight: bold;
-							color: #bc0100;
+							color:#FF7104;
 							font-size: 11pt;
 							overflow: hidden;
 							text-overflow: ellipsis;

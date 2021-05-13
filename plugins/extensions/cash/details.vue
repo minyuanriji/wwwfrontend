@@ -29,7 +29,7 @@
 				<view class="content-bottom">
 					<view class="list" v-if="!loading || detail">
 						<view class="tabs">
-							<view class="tab flex" :style="{color: dataStatus == item.status?textColor:'','border-bottom':dataStatus == item.status?'4rpx solid'+textColor:''}" v-for="(item, i) in tabs" :key="i" @click="switchTab(item.status)">
+							<view class="tab flex" :style="{color: dataStatus == item.status?'#FF7104':'','border-bottom':dataStatus == item.status?'4rpx solid'+'#FF7104':''}" v-for="(item, i) in tabs" :key="i" @click="switchTab(item.status)">
 								<view class="name">{{ item.name }}</view>
 							</view>
 						</view>

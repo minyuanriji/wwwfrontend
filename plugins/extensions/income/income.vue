@@ -2,7 +2,7 @@
 	<view class="income-root">
 		<view class="tab flex">
 			<view v-for="(item,index) in tab_list" @tap="tabSwitch(index)"
-			class="tab-item" :class="{border:index == 0,cut:status == index}" :style="{background:status == index ? textColor :''}" :key='index'>{{item}}</view>
+			class="tab-item" :class="{border:index == 0,cut:status == index}" :style="{background:status == index ? '#FF7104' :''}" :key='index'>{{item}}</view>
 		</view>
 		
 		<view v-if="list.length == 0" class="nothing">没有更多记录~</view>
