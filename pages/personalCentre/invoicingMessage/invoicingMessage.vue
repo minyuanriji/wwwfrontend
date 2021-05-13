@@ -102,16 +102,16 @@
 
 <style lang="less" scoped>
 	.invoicingMessage-app{width: 100%;height: 100%;background: url(../../../plugins/images/confirm_order.jpg)no-repeat;background-size: 100%;padding-top: 30rpx;}
-	.order-code{width: 100%;height: 100rpx;background: #b0f0ea;line-height: 100rpx;
+	.order-code{width: 100%;height: 100rpx;background: #FF7104;line-height: 100rpx;
 	font-weight: 600;padding: 0rpx 20rpx;color: #000;}
-	.shop-detail{width: 100%;overflow: hidden;background: #b0f0ea;margin-top: 20rpx;display: flex;padding: 0rpx 20rpx;}
+	.shop-detail{width: 100%;overflow: hidden;background: #FF7104;margin-top: 20rpx;display: flex;padding: 0rpx 20rpx;}
 	.shop-logo{width: 158rpx;height: 158rpx;}
 	.shop-name{margin-left: 20rpx;width: 500rpx;color: #000;}
 	.shop-name text{display: block;}
 	.shop-name text:nth-of-type(1){margin-top:25rpx ;}
-	.product-price{width: 100%;height: 100rpx;background: #b0f0ea;margin: 30rpx 0 0 0;line-height: 100rpx;
+	.product-price{width: 100%;height: 100rpx;background: #FF7104;margin: 30rpx 0 0 0;line-height: 100rpx;
 	font-weight: 600;padding: 0rpx 20rpx;color: #000;}
-	.use-points{background: #b0f0ea;margin-top: 40rpx;color: #000;}
+	.use-points{background: #FF7104;margin-top: 40rpx;color: #000;}
 	.go-pay{width: 100%;height: 100rpx;margin-top: 100rpx;}
-	.go-pay button{width: 100%;outline: none;border: none;background: rgb(7, 190, 180);color: #fff;}
+	.go-pay button{width: 100%;outline: none;border: none;background: #FF7104;color: #fff;}
 </style>

@@ -729,7 +729,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "付款",
-				"navigationBarBackgroundColor": "#81d8d0",
+				"navigationBarBackgroundColor": "#FF7104",
 				"navigationBarTextStyle": "white",
                 "enablePullDownRefresh": false
             }
