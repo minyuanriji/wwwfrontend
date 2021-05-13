@@ -203,7 +203,7 @@
 
 	.withdrawal-money-num-all {
 		width: 25%;
-		background: #07beb4;
+		background:#FF7104;
 		text-align: center;
 		height: 60rpx;
 		line-height: 60rpx;
@@ -222,7 +222,7 @@
 	.withdrawal-sure {
 		width: 80%;
 		height: 80rpx;
-		background: #07beb4;
+		background:#FF7104;
 		margin: 0 auto;
 		border-radius: 10rpx;
 	}
@@ -232,7 +232,7 @@
 		height: 100%;
 		outline: none;
 		border: none;
-		background: #07beb4;
+		background:#FF7104;
 		line-height: 80rpx;
 		text-align: center;
 		color: #fff;

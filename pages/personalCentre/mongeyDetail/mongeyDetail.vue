@@ -188,6 +188,6 @@ export default {
 }
 .tabble{width: 100%;height: 80rpx;display: flex;justify-content: space-evenly;}
 .tabble text{display: block;height:80rpx;line-height: 80rpx;width: 50%;text-align: center;font-weight: bold;}
-.active{background: rgb(7, 190, 180);color: #fff;}
+.active{background: #FF7104;color: #fff;}
 </style>
 

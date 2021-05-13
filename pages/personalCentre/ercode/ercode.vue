@@ -5,7 +5,7 @@
 				<image :src="img_url+'/header-logo.png'" mode=""></image>
 			</view>
 			<view class="main-title">
-				让天下没有难做的生意
+				加入补商汇，消费全免费
 			</view>
 			<view class="main-title-english">
 				LET THERE BE NO HARD BUSSINESS IN THE WORLD
@@ -242,7 +242,7 @@
 		text-align: center;
 		font-size: 30rpx;
 		margin-top: -60rpx;
-		color: #395d5a;
+		color: #FF7104;
 		font-weight: bold;
 	}
 
@@ -270,7 +270,7 @@
 		width: 100%;
 		overflow: hidden;
 		text-align: center;
-		color: #395d5a;
+		color:#FF7104;
 		font-size: 28rpx;
 	}
 
@@ -278,8 +278,8 @@
 		width: 450rpx;
 		height: 450rpx;
 		margin: 30rpx auto 0;
-		background: url(../../../plugins/images/kuang.png)no-repeat;
-		background-size: 100% 100%;
+		// background: url(../../../plugins/images/kuang.png)no-repeat;
+		// background-size: 100% 100%;
 		position: relative;
 	}
 

@@ -47,6 +47,6 @@
 		margin: 20rpx 0;
 	}
 	.sure{width: 100%;}
-	.sure button{background: #07beb4;color: #fff;margin-top: 80rpx;border: none;outline: none;}
+	.sure button{background: #FF7104;color: #fff;margin-top: 80rpx;border: none;outline: none;}
 </style>
 
