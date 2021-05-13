@@ -126,7 +126,7 @@
 			</view> -->
 		</view>
 		<view class="operate">
-			<button class="btn" type="warn" :style="{backgroundColor: textColor || ''}" @click="dataSubmit" :disabled="editStatic">确认修改</button>
+			<button class="btn" type="warn" :style="{backgroundColor: '#FF7104' || ''}" @click="dataSubmit" :disabled="editStatic">确认修改</button>
 		</view>
 		<main-datetime ref="dateTime" :type="2" :startYear="startYear" :endYear="endYear" cancelColor="#888" color="#5677fc"
 		 :setDateTime="setDateTime" @confirm="changeDateTime"></main-datetime>
