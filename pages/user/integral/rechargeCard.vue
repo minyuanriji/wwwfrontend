@@ -4,7 +4,7 @@
 			<view class="title">请输入卡片兑换码</view>
 			<input v-model="serialize_no" class="uni-input" type="text" placeholder="请输入卡号" />
 			<input v-model="use_code" class="uni-input" type="text" placeholder="请输入兑换码" />
-			<view class="exchange-btn" :style="{background:textColor,borderColor:textColor}" @click="integralRecharge">立即充值</view>
+			<view class="exchange-btn" :style="{background:'#FF7104',borderColor:'#FF7104'}" @click="integralRecharge">立即充值</view>
 		</view>
 	</view>
 </template>

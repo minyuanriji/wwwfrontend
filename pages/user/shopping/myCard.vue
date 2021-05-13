@@ -3,10 +3,10 @@
 		<view class="shopping-main">
 			<view class="shopping-tools shopping-coupon-list">
 				<view class="tui-mtop">
-					<tabs :type="tabs" v-model="currentTab" @change="change" :blockLine="true" :itemColor="textColor" :lineColor="textColor"></tabs>
+					<tabs :type="tabs" v-model="currentTab" @change="change" :blockLine="true" itemColor="#FF7104" lineColor="#FF7104"></tabs>
 				</view>
 				<view class="tui-mtop">
-					<tabs :type="tabsStatus" v-model="currentStatus" @change="changeStatus" :blockLine="true" :itemColor="textColor" :lineColor="textColor" :tabLine="false"></tabs>
+					<tabs :type="tabsStatus" v-model="currentStatus" @change="changeStatus" :blockLine="true" itemColor="#FF7104" lineColor="#FF7104" :tabLine="false"></tabs>
 				</view>
 				<view v-if="list && list.length>0" class="coupon-list">
 					<view v-for="item in list" class="coupon-list-item">

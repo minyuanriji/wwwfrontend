@@ -12,7 +12,7 @@
 				<view class="item-right">
 					<view class="update margin-bottom text-12-pt" :style="{color:item.type == 1 ?textColor:''}">{{ updateStatus(item.type, item.money) }}</view>
 					 <!-- :class="item.type == 1 ? 'add' : 'dot'" -->
-					<view class="sum text-10-pt" :style="{color:textColor}">账户余额：{{ item.balance }}</view>
+					<view class="sum text-10-pt" :style="{color:'#FF7104'}">账户余额：{{ item.balance }}</view>
 				</view>
 			</view>
 		</view>

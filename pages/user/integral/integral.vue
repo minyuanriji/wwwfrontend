@@ -38,7 +38,7 @@
 			<view class="shopping-tools shopping-coupon-list">
 				<view class="tui-mtop">
 					<!-- <com-tabs :tabs="tabs" :currentTab="currentTab" @change="change" :selectedColor="textColor" :sliderBgColor="textColor"  itemWidth="50%" bgColor="#fff"></com-tabs> -->
-					<tabs :type="tabs" v-model="currentTab" @change="change" :blockLine="true" :itemColor="textColor" :lineColor="textColor"></tabs>
+					<tabs :type="tabs" v-model="currentTab" @change="change" :blockLine="true" itemColor="#FF7104" lineColor='#FF7104'></tabs>
 				</view>
 				<view v-if="list && list.length>0" class="coupon-list">
 					<view v-for="item in list" class="coupon-list-item">
@@ -272,7 +272,7 @@
 						font-size: 46rpx;
 						font-family: Source Han Sans CN;
 						font-weight: bold;
-						color:rgb(10, 217, 206);
+						color:#FF7104;
 						line-height: 37rpx;
 					}
 					.coupon-item-title{
@@ -376,7 +376,7 @@
 		left: 0;
 		width: 750rpx;
 		height: 90rpx;
-		background: rgb(10, 217, 206);
+		background:#FF7104;
 		font-size: 28rpx;
 		font-family: Source Han Sans CN;
 		font-weight: 400;
