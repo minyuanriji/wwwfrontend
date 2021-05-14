@@ -113,7 +113,10 @@
 					        document.body.scrollTop = 0;
 					        html2canvas(
 					            document.getElementById('poster'), 
-					            { scale: 1 }
+					            { 
+									scale: 1,
+									useCORS: true
+								 }
 					        ).then( canvas => {
 										this.poster_url = canvas.toDataURL('image/png', 1);
 										if(this.poster_url.length>0){
