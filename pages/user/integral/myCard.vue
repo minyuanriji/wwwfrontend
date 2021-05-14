@@ -23,7 +23,7 @@
 								<view class="item-status green" v-if="item.status == 1">已充值</view>
 								<view class="item-status red" v-if="item.status == 2">已过期</view>
 								<view class="item-status red" v-if="item.status == -1">禁用</view>
-								<!-- <view class="item-button" v-clipboard:copy="'卡号：'+item.serialize_no+',卡密：'+item.use_code" v-clipboard:success="(type) => paste('success')" v-clipboard:error="(type) => paste('error')">复制兑换码</view> -->
+								<view class="item-button" v-clipboard:copy="'卡号：'+item.serialize_no+',卡密：'+item.use_code" v-clipboard:success="(type) => paste('success')" v-clipboard:error="(type) => paste('error')">复制兑换码</view>
 							</view>
 						</view>
 					</view>
@@ -319,7 +319,7 @@
 									padding:0 8px;
 									height: 40rpx;
 									text-align: center;
-									background: rgb(10, 217, 206);
+									background: rgb(255, 113, 4);
 									border-radius: 20rpx;
 									font-size: 22rpx;
 									font-family: Source Han Sans CN;
