@@ -159,6 +159,7 @@
 				}
 				uni.chooseImage({
 					count: _this.limit - _this.imageList.length,
+					sizeType:'compressed',
 					success: function(e) {
 						let imageArr = [];
 						for (let i = 0; i < e.tempFilePaths.length; i++) {

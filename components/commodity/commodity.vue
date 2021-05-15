@@ -211,8 +211,8 @@
 			},
 			// 是否显示购物车按钮，1为显示，0为不显示
 			showBuyBtn: {
-				type: Number,
-				default: 1
+				type: Boolean,
+				default: true
 			},
 			buyBtnPic:{ //购物车按钮图片路径
 				type: String,
@@ -261,10 +261,12 @@
 			}
 		},
 		created() {
-			if(this.styleTitle.indexOf('购物券区')!=-1 ){
-				this.styleShow=true
-			}else{
-				this.styleShow=false
+			if(this.styleTitle){
+				if(this.styleTitle.indexOf('名品专区')!=-1 ){
+					this.styleShow=true
+				}else{
+					this.styleShow=false
+				}
 			}
 		},
 		mounted() {
