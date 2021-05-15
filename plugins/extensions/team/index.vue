@@ -95,7 +95,7 @@
 									<view class="name-datetime">
 										<view class="name">
 											<view class="name-text">{{ item.children.nickname }}</view>
-											<view class="id" :style="{color: textColor,border:'1px solid'+textColor}">ID:{{ item.children.id }}</view>
+											<view class="id" :style="{color: '#FF7104',border:'1px solid'+'#FF7104'}">ID:{{ item.children.id }}</view>
 										</view>
 										<view class="tel" v-if="item.children.mobile">
 											{{ item.children.mobile }}
@@ -112,7 +112,7 @@
 									</view>
 									<view class="money">
 										<view class="order-money">订单金额: {{ item.total_price }}元</view>
-										<view class="commission" :style="{color:textColor}">团队金额: {{ item.team_total_price }}元</view>
+										<view class="commission" :style="{color:'#FF7104'}">团队金额: {{ item.team_total_price }}元</view>
 									</view>
 								</view>
 							</view>

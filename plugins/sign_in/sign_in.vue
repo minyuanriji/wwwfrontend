@@ -1,6 +1,6 @@
 <template>
 	<view class="page_box">
-		<view class="header" :style="{'background':'#07BEB4'}">
+		<view class="header" :style="{'background':'#FF7104'}">
 			<view class="head-content flex flex-x-between flex-y-center">
 				<view class="flex flex-y-center">
 					<image class="avatar" :src="avatar_url || img_url+'images/my/mine_def_touxiang_3x.png'" mode=""></image>
@@ -10,7 +10,7 @@
 					</view>
 				</view>
 				<view class="integral flex">
-					<view class="integral-icon flex flex-x-center flex-y-center" :style="{'background':'#07BEB4'}">
+					<view class="integral-icon flex flex-x-center flex-y-center" :style="{'background':'#FF7104'}">
 						<view class="iconfont icon-xingxing" style="color: #FFFFFF;"></view>
 					</view>
 					{{score}}
@@ -23,11 +23,11 @@
 						<view class="bar-child flex flex-x-between flex-y-center">
 							<!-- 年月 -->
 							<view class="previous" @click="handleCalendar(0)">
-								<view class="triangle-left triangle" :style="{'--textColor':textColor}"></view>
+								<view class="triangle-left triangle" :style="{'--textColor':'#FF7104'}"></view>
 							</view>
 							<view class="date">{{ cur_year || '--' }} 年 {{ cur_month || '--' }} 月</view>
 							<view class="next" @click="handleCalendar(1)">
-								<view class="triangle-right triangle" :style="{'--textColor':textColor}"></view>
+								<view class="triangle-right triangle" :style="{'--textColor':'#FF7104'}"></view>
 							</view>
 						</view>
 					</view>
@@ -43,7 +43,7 @@
 							<view v-if="item.date == undefined || item.date == null" class="cell"><text :decode="true">&nbsp;&nbsp;</text></view>
 							<view v-else>
 								<!-- 已签到日期 -->
-								<view v-if="item.is_sign" class="cell is-sign" :style="{'background':'#07BEB4'}">
+								<view v-if="item.is_sign" class="cell is-sign" :style="{'background':'#FF7104'}">
 									<text>{{ item.day }}</text>
 								</view>
 								<!-- 漏签 -->
@@ -474,9 +474,9 @@
 	.is-sign {
 		width: 44rpx;
 		height: 44rpx;
-		background: #07BEB4;
+		// background: #07BEB4;
 		border-radius: 50%;
-		box-shadow: 0 0 4rpx 4rpx #07BEB4;
+		// box-shadow: 0 0 4rpx 4rpx #07BEB4;
 		color: #fff;
 	}
 
@@ -492,7 +492,7 @@
 		.sign-btn {
 			width: 96%;
 			height: 90rpx;
-			background: #07BEB4;
+			background: #FF7104;
 			border-radius: 80rpx;
 			font-size: 36rpx;
 			font-weight: 500;
@@ -599,11 +599,11 @@
 	}
 	.triangle-left {
 		border-width: 10rpx 18rpx 10rpx 0rpx;
-		border-color: transparent #07BEB4 transparent transparent;
+		border-color: transparent #FF7104 transparent transparent;
 	}
 	.triangle-right {
 		border-width: 10rpx 0rpx 10rpx 18rpx;
-		border-color: transparent transparent transparent #07BEB4;
+		border-color: transparent transparent transparent #FF7104;
 	}
 	
 	// 活动规则

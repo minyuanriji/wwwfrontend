@@ -11,7 +11,7 @@
 				<view class="detail-item-box">
 					<view class="time">创建时间：{{item.created_at}}</view>
 					<view class="price flex flex-x-between">
-						<view>收入：<text :style="{color: textColor}">{{item.income}}</text></view>
+						<view>收入：<text :style="{color: '#FF7104'}">{{item.income}}</text></view>
 						<view>当前金额：{{item.money}}</view>
 					</view>
 					<view class="explanation">
@@ -27,7 +27,7 @@
 				<view class="detail-item-box">
 					<view class="time">创建时间：{{item.created_at}}</view>
 					<view class="price flex flex-x-between">
-						<view>支出：<text :style="{color: textColor}">{{item.income}}</text></view>
+						<view>支出：<text :style="{color: '#FF7104'}">{{item.income}}</text></view>
 						<view>当前金额：{{item.money}}</view>
 					</view>
 					<view class="explanation">

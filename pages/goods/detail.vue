@@ -38,7 +38,7 @@
 							<text class="text" :style="{color:'#FF7104'}" v-if="attrGroupsLength != 0">起</text>
 							<text class="original-price" v-if="attrGroupsLength != 0">&yen;{{goodsData.original_price}}</text>
 						</view>
-						<jx-tag size="small" :plain="true" type="high-green" shape="circle">新品</jx-tag>
+						<jx-tag size="small" :plain="true"  type="high-green" shape="circle">新品</jx-tag>
 					</view>
 					<view class="round-btn">
 						<view class="tui-collection tui-size" @click.stop="poster()">

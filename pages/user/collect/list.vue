@@ -11,7 +11,7 @@
 			<image class="collect-item-img" :src="item.cover_pic" mode=""></image>
 			<view class="collect-item-content">
 				<view class="collect-item-title">{{item.goods_name}}</view>
-				<view class="collect-item-price" :style="{color:textColor}">
+				<view class="collect-item-price" :style="{color:'#FF7104'}">
 					<view>&yen;<text class="price">{{item.price}}</text></view>
 					<view class="collect-item-delete" @tap.stop="collectDelete(item.collect_id,index)">
 						<view class="collect-item-icon iconfont icon-shanchu"></view>

@@ -14,7 +14,7 @@
 					<view class="date-time text-10-pt">{{ item.format_date }}</view>
 				</view>
 				<view class="item-right">
-					<view class="update margin-bottom text-12-pt" :style="{color:item.type == 1 ?textColor:''}">{{ updateStatus(item.type, item.money) }}</view>
+					<view class="update margin-bottom text-12-pt" :style="{color:item.type == 1 ?'#FF7104':''}">{{ updateStatus(item.type, item.money) }}</view>
 				</view>
 			</view>
 		</view>
