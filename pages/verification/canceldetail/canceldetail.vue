@@ -184,7 +184,7 @@
 	.cancle-moreshop {
 		width: 300rpx;
 		height: 80rpx;
-		background: rgb(7, 190, 180);
+		background: #FF7104;
 		margin: 20rpx auto 30rpx;
 		border-radius: 35rpx;
 		text-align: center;

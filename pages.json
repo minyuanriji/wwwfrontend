@@ -577,7 +577,7 @@
 			"style": {
 				
 				"navigationBarTitleText": "门店主页",
-				"navigationBarBackgroundColor": "#53DEDB",
+				"navigationBarBackgroundColor": "#FF7104",
 				"navigationBarTextStyle": "white",
 				"enablePullDownRefresh": true,
 				"onReachBottomDistance": 50

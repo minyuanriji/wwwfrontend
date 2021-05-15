@@ -36,8 +36,8 @@
 						<view class="product-item-name">{{item.name}}</view>
 						<view class="product-item-money-buy">
 							<view class="product-item-money">
-								<text style="color: #c0c0c0;font-size: 28rpx;">官方价￥{{item.original_price}}</text>
-								<text style="color: rgb(7, 190, 180);font-size: 28rpx;">会员价{{item.price}}</text>
+								<text style="color:#c0c0c0;font-size: 28rpx;">官方价￥{{item.original_price}}</text>
+								<text style="color:'#FF7104';font-size: 28rpx;">会员价{{item.price}}</text>
 							</view>                                                   
 						</view>
 					</view>
@@ -101,7 +101,7 @@
 			return {
 				img_url: this.$api.img_url,
 				current: 0,
-				background: "#53DEDB",
+				background: "#FF7104",
 				height: "",
 				isMiniWechat: 2, //判断是否是小程序 1 是
 				mch_id: "", //商户ID
@@ -357,7 +357,8 @@
 
 	.home_content_content {
 		background-color:#fff;
-		border-radius: 21px;
+		border-radius: 21px 21px 0 0;
+		/* border-radius: 21px; */
 		padding: 8px 15px;
 	}
 
@@ -595,7 +596,7 @@
 		position: absolute;
 		top: 15rpx;
 		left: 20rpx;
-		color: #000;
+		color: #fff;
 		display: block;
 		font-size: 30rpx;
 		font-weight: bold;
@@ -604,7 +605,7 @@
 		position: absolute;
 		top: 15rpx;
 		right: 20rpx;
-		color: #000;
+		color: #fff;
 		display: block;
 		font-size: 30rpx;
 		font-weight: bold;
