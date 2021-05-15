@@ -35,7 +35,7 @@
 				
 
 				<view class="cart-item-pro">
-					<view class="select-btn-box select-btn2" :style="{color:textColor}" @tap="swtichSelect(index,item.is_not_can_buy,item.not_can_buy_reason)">
+					<view class="select-btn-box select-btn2" :style="{color:'#FF7104'}" @tap="swtichSelect(index,item.is_not_can_buy,item.not_can_buy_reason)">
 						<view class="icon iconfont icon-dagou1" v-if="item.isSelect"></view>
 						<view class="select-btn" v-else></view>
 					</view>
@@ -74,7 +74,7 @@
 		<view class="cart-content nothing" v-else>
 			<image class="nothing-img" :src="img_url+'images/cart/cart-nothing.png'" mode=""></image>
 			<view class="nothing-text">购物车还没有商品哦~</view>
-			<view class="nothing-go" :style="{color:textColor,border:'2px solid'+textColor}" @tap="goShop">去逛逛</view>
+			<view class="nothing-go" :style="{color:'#FF7104',border:'2px solid'+'#FF7104'}" @tap="goShop">去逛逛</view>
 		</view>
 
 		<view class="cart-content failure" v-if="stock.length != 0">
@@ -113,7 +113,7 @@
 		<!-- 合计 -->
 		<view class="total-box" v-if="isEdit">
 			<view class="total-left">
-				<view class="select-btn-box select-btn2" :style="{color: textColor}" @tap="allSelect">
+				<view class="select-btn-box select-btn2" :style="{color: '#FF7104'}" @tap="allSelect">
 					<view class="icon iconfont icon-dagou1" v-if="isAllSelect"></view>
 					<view class="select-btn" v-else></view>
 				</view>
@@ -131,7 +131,7 @@
 		<!-- 删除 -->
 		<view class="total-box" v-else>
 			<view class="total-left">
-				<view class="select-btn-box select-btn2" :style="{color: textColor}" @tap="allSelect">
+				<view class="select-btn-box select-btn2" :style="{color: '#FF7104'}" @tap="allSelect">
 					<view class="icon iconfont icon-dagou1" v-if="isAllSelect"></view>
 					<view class="select-btn" v-else></view>
 				</view>

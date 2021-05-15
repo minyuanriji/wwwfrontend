@@ -12,11 +12,11 @@
 						placeholder-style="color:#BFBFBF"
 						:placeholder="`最高可提现${income}元`"
 					/>
-					<view class="text font-size-9" @click="max()" :style="{color:textCol}">全部提现</view>
+					<view class="text font-size-9" @click="max()" :style="{color:'#FF7104'}">全部提现</view>
 				</view>
 				<view class="sum font-size-9 m-top-20">
 					可提现金额：
-					<span class="red" :style="{color:textCol}">{{ income }}元</span>
+					<span class="red" :style="{color:'#FF7104'}">{{ income }}元</span>
 				</view>
 			</view>
 
@@ -24,7 +24,7 @@
 				<view class="title">费用说明</view>
 				<view class="fee">
 					<view class="handling-fee">
-						<view class="sum" :style="{color:textCol}">{{ setting.cash_service_fee }}%</view>
+						<view class="sum" :style="{color:'#FF7104'}">{{ setting.cash_service_fee }}%</view>
 						<view class="desc">手续费费率</view>
 					</view>
 					<!-- <view class="labor-service-fee">
@@ -43,7 +43,7 @@
 								<image :src="item.url" mode="aspectFill" class="logo"></image>
 								<!-- <view class="name">提现到{{item.title}}</view> -->
 								<view class="name">{{ item.name }}</view>
-								<view class="icon iconfont" :style="{color:textCol}" :class="dataForm.type == item.key ? 'icon-xuanzhong-01 checked' : 'icon-quanquan check'"></view>
+								<view class="icon iconfont" :style="{color:'#FF7104'}" :class="dataForm.type == item.key ? 'icon-xuanzhong-01 checked' : 'icon-quanquan check'"></view>
 							</view>
 							<view>
 								<view class="attach" v-if="dataForm.type == 'wechat' && item.key == 'wechat'">
@@ -78,7 +78,7 @@
 			</view>
 
 			<view class="bottom">
-				<view class="btn submit font-size-9" @click="dataFormSubmit" :style="{background:textCol}"><span>确认提现</span></view>
+				<view class="btn submit font-size-9" @click="dataFormSubmit" :style="{background:'#FF7104'}"><span>确认提现</span></view>
 			</view>
 		</view>
 		<com-modal :button="button" :show="modal" @click="handleClick" @cancel="hide" title="提示" content="您没有设置支付密码,是否需要跳转设置？"></com-modal>

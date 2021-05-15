@@ -1,10 +1,10 @@
 <template>
 	<view class="index1_content">
 		<!--搜索-->
-		<view class="index1_content_top" :style="{background:background}" id="index1_content_top">
+		<view class="index1_content_top" :style="{background:'#FF7104'}" id="index1_content_top">
 			<picker :value="value" mode="multiSelector" @change="picker" @columnchange="columnPicker" :range="multiArray" class="index1_content_top_l">
 				<view style="display: flex;align-items: center;">
-					<view class="index1_content_top_l_name">{{city}}</view>
+					<view class="index1_content_top_l_name" style="color: white;">{{city}}</view>
 					<view class="index1_content_top_l_r"></view>
 				</view>
 			</picker>
@@ -469,7 +469,7 @@ font-size: 13px;
 font-weight: bold;
 color: #131313;
 }
-.index1_content_top_l_r{margin-left: 5px;width: 8px;height: 8px;border-top: 2px #131313 solid;border-right: 2px #131313 solid;transform: rotate(135deg);margin-top: 3px;}
+.index1_content_top_l_r{margin-left: 5px;width: 8px;height: 8px;border-top: 2px #FFF solid;border-right: 2px #fff solid;transform: rotate(135deg);margin-top: 3px;}
 .index1_content_top_r{width: 70%;
 height: 29px;
 background: #F4F4F4;

@@ -34,8 +34,8 @@
 				<view class="tui-pro-pricebox padding">
 					<view class="tui-pro-price">
 						<view class="price">
-							<text class="cur-price" :style="{color:textColor}">&yen;{{goodsData.min_price}}</text>
-							<text class="text" :style="{color:textColor}" v-if="attrGroupsLength != 0">起</text>
+							<text class="cur-price" :style="{color:'#FF7104'}">&yen;{{goodsData.min_price}}</text>
+							<text class="text" :style="{color:'#FF7104'}" v-if="attrGroupsLength != 0">起</text>
 							<text class="original-price" v-if="attrGroupsLength != 0">&yen;{{goodsData.original_price}}</text>
 						</view>
 						<jx-tag size="small" :plain="true" type="high-green" shape="circle">新品</jx-tag>
@@ -46,8 +46,8 @@
 							<view class="tui-scale">分享</view>
 						</view>
 						<view class="tui-collection tui-size" @tap="collecting">
-							<view class="tui-icon-collection iconfont" :class="collected ? 'icon-shoucang' : 'icon-shoucang1' " :style="{color:collected?textColor:'#333',fontSize:'20px'}"></view>
-							<view class="tui-scale" :style="{color:collected?textColor:''}">收藏</view>
+							<view class="tui-icon-collection iconfont" :class="collected ? 'icon-shoucang' : 'icon-shoucang1' " :style="{color:collected?'#FF7104':'#333',fontSize:'20px'}"></view>
+							<view class="tui-scale" :style="{color:collected?'#FF7104':''}">收藏</view>
 						</view>
 					</view>
 				</view>
@@ -167,12 +167,12 @@
 				</view>
 			</view>
 			<view class="tui-operation-right tui-right-flex tui-col-7 tui-btnbox-4">
-				<view class="jx-btn radius-left" style="height: 80%;" :style="{border:'1px solid'+textColor,color:textColor}"
+				<view class="jx-btn radius-left" style="height: 80%;" :style="{border:'1px solid'+'#FF7104',color:'#FF7104'}"
 				 @click="showPopup(1)" v-if="is_show_cart">
 					加入购物车
 				</view>
 				
-				<view class="jx-btn radius-right" style="height: 80%;" :style="{background:textColor,'border-radius':is_show_cart?'':'100rpx'}"
+				<view class="jx-btn radius-right" style="height: 80%;" :style="{background:'#FF7104','border-radius':is_show_cart?'':'100rpx'}"
 				 @click="showPopup(2)">
 					立即购买
 				</view>
@@ -241,8 +241,8 @@
 									<view v-if="Citem.expire_type == 1">领取{{Citem.expire_day}}天后过期</view>
 									<view v-else>{{Citem.begin_at}}~{{Citem.end_at}}</view>
 									<!-- <view class="receive" v-if="Citem.is_receive == 0" @tap="receiveCoupon(Citem.id)">领取</view> -->
-									<view class="receive" :style="{background:textColor}" v-if="isReceive(Citem.is_receive)" @tap="receiveCoupon(Cindex,Citem.id)">领取</view>
-									<view class="receive coupon-item-received" :style="{color:textColor,border:'1px solid'+textColor}" v-else>已领取</view>
+									<view class="receive" :style="{background:'#FF7104'}" v-if="isReceive(Citem.is_receive)" @tap="receiveCoupon(Cindex,Citem.id)">领取</view>
+									<view class="receive coupon-item-received" :style="{color:'#FF7104',border:'1px solid'+textColor}" v-else>已领取</view>
 								</view>
 								<!-- <view class="received iconfont icon-yilingqu" v-if="!isReceive(Citem.is_receive)"></view> -->
 							</view>
@@ -259,7 +259,7 @@
 				<view class="tui-product-box tui-padding" v-if="goodsData.use_attr == 1">
 					<image :src="selectData.pic_url?selectData.pic_url:goodsData.cover_pic" class="tui-popup-img"></image>
 					<view class="tui-popup-price">
-						<view class="tui-amount tui-bold" :style="{color:textColor}">¥{{selectData.price}}</view>
+						<view class="tui-amount tui-bold" :style="{color:'#FF7104'}">¥{{selectData.price}}</view>
 						<view class="tui-number">已选:{{strName}}</view>
 						<view class="tui-number">库存:{{selectData.stock}}</view>
 					</view>
@@ -267,7 +267,7 @@
 				<view v-else class="tui-product-box tui-padding">
 					<image :src="goodsData.cover_pic" class="tui-popup-img"></image>
 					<view class="tui-popup-price" v-if="goodsData.attr_list">
-						<view class="tui-amount tui-bold" :style="{color:textColor}">¥{{goodsData.attr_list[0].price}}</view>
+						<view class="tui-amount tui-bold" :style="{color:'#FF7104'}">¥{{goodsData.attr_list[0].price}}</view>
 						<view class="tui-number">已选:{{goodsData.attr_list[0].attr_list[0].attr_name}}</view>
 					</view>
 				</view>
@@ -279,7 +279,7 @@
 								<block v-if="goodsData.attr_list">
 									<view class="tui-bold tui-attr-title">{{goodsData.attr_list[0].attr_list[0].attr_group_name}}</view>
 									<view class="tui-attr-box">
-										<view class="tui-attr-item tui-attr-active" :style="{color:textColor}">
+										<view class="tui-attr-item tui-attr-active" :style="{color:'#FF7104'}">
 											{{goodsData.attr_list[0].attr_list[0].attr_name}}
 										</view>
 									</view>
@@ -289,7 +289,7 @@
 								<view class="tui-bold tui-attr-title">{{item.attr_group_name}}</view>
 								<view class="tui-attr-box">
 									<view class="tui-attr-item" @tap="specCol(item.attr_group_id,items.attr_id,items)" :class="queryAttr(items) ?'tui-attr-active':''"
-									 :style="{color:queryAttr(items)?textColor:'',border:queryAttr(items)?'1px solid'+textColor:''}" v-for="(items,indexs) in item.attr_list"
+									 :style="{color:queryAttr(items)?'#FF7104':'',border:queryAttr(items)?'1px solid'+'#FF7104':''}" v-for="(items,indexs) in item.attr_list"
 									 :key='indexs'>
 										{{items.attr_name}}
 									</view>
@@ -306,7 +306,7 @@
 					</view>
 				</scroll-view>
 				<view class="tui-operation tui-operation-right tui-right-flex tui-popup-btn">
-					<view class="sure-btn" :style="{background:textColor}" @tap="determine">确定</view>
+					<view class="sure-btn" :style="{background:'#FF7104'}" @tap="determine">确定</view>
 					
 				</view>
 				<view class="tui-icon tui-icon-close-fill tui-icon-close" style="color: #999;font-size:16pt" @tap="hidePopup"></view>

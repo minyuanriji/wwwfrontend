@@ -6,7 +6,7 @@
 			<view class="product-item-money-buy">
 				<view class="product-item-money">
 					<text style="color: #c0c0c0;font-size: 28rpx;">官方价￥{{item.original_price}}</text>
-					<text style="color: rgb(7, 190, 180);font-size: 28rpx;">会员价{{item.price}}</text>
+					<text style="color: #FF7104;font-size: 28rpx;">会员价{{item.price}}</text>
 				</view>
 			</view>
 		</view>

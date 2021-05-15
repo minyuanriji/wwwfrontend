@@ -73,11 +73,11 @@
 				<tui-list-cell :hover="false">
 					<view class="tui-padding tui-flex" v-if="flag">
 						<view>运营费</view>
-						<view v-if="list" :style="{color: textColor}">+&yen;{{item.express_price}}</view>
+						<view v-if="list" :style="{color: '#FF7104'}">+&yen;{{item.express_price}}</view>
 					</view>
 					<view class="tui-padding tui-flex" v-else>
 						<view>运营费</view>
-						<view v-if="list" :style="{color: textColor}">+&yen;{{ExpressPrice}}</view>
+						<view v-if="list" :style="{color: '#FF7104'}">+&yen;{{ExpressPrice}}</view>
 					</view>
 
 				</tui-list-cell>
@@ -95,7 +95,7 @@
 				</tui-list-cell>
 				<tui-list-cell :hover="false" :last="true">
 					<view class="tui-padding tui-flex tui-total-flex">
-						<view class="tui-flex-end tui-color-red" :style="{color:textColor}">
+						<view class="tui-flex-end tui-color-red" :style="{color:'#FF7104'}">
 							<view class="tui-black">小计： </view>
 							<view class="tui-size-26">￥</view>
 							<view v-if="flag" class="tui-price-large">{{item.total_price}}</view>
@@ -109,14 +109,14 @@
 				<view>使用积分 <view class="xieti">拥有积分：{{user_score}} <text class="text" v-if="is_checked">-{{total_score_use}}</text>
 					</view>
 				</view>
-				<switch :checked="is_checked" @change="use" :color='textColor' class="points-switch" />
+				<switch :checked="is_checked" @change="use" color='#FF7104' class="points-switch" />
 			</view>
 
 			<!-- 使用抵扣券 -->
 			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1 && scoreswitc == 2 || scoreswitc == 0||scoreswitc == 3">
 				<view>使用红包 <view class="xieti">拥有红包：{{user_integral}} <text class="text" v-if="is_integral">-{{total_integral_use}}</text></view>
 				</view>
-				<switch :checked="is_integral" @change="useIntegral" :color='textColor' class="points-switch" />
+				<switch :checked="is_integral" @change="useIntegral" color='#FF7104' class="points-switch" />
 			</view>
 		</view>
 
@@ -155,7 +155,7 @@
 									<view v-if="cItem.coupon_data.expire_type == 1">领取{{cItem.coupon_data.expire_day}}天后过期</view>
 									<view v-else>{{cItem.coupon_data.begin_at}}~{{cItem.coupon_data.end_at}}</view>
 									<view class="receive" :style="{background:textColor}" @tap="useCoupon('use',cIndex,cItem.id)" v-if="cItem.is_use == 0">使用</view>
-									<view class="receive receive-col" @tap="useCoupon('notUse',cIndex,cItem.id)" :style="{border:'1px solid'+textColor,color:textColor}"
+									<view class="receive receive-col" @tap="useCoupon('notUse',cIndex,cItem.id)" :style="{border:'1px solid'+'#FF7104',color:'#FF7104'}"
 									 v-else>不使用</view>
 								</view>
 								<!-- <view class="received iconfont icon-yilingqu"></view> -->
@@ -171,12 +171,12 @@
 
 		<view class="tui-tabbar">
 			<view class="tui-tabbar-box flex flex-x-between flex-y-center">
-				<view class="tui-flex-end tui-color-red tui-pr-20" :style={color:textColor}>
+				<view class="tui-flex-end tui-color-red tui-pr-20" :style="{color:'#FF7104'}">
 					<view class="tui-black">合计: </view>
 					<view class="tui-size-26">￥</view>
 					<view class="tui-price-large">{{total_price}}</view>
 				</view>
-				<view class="tui-pr25" @tap="btnPay" :style="{background:textColor}">
+				<view class="tui-pr25" @tap="btnPay" :style="{background:'#FF7104'}">
 					去支付
 				</view>
 			</view>

@@ -2,7 +2,7 @@
 	<view class="app">
 		<view class="app-header">
 			<view class="tui-mtop">
-				<com-tabs :tabs="tabs" :currentTab="currentTab" :selectedColor="textColor" :sliderBgColor="textColor" color="#000000"
+				<com-tabs :tabs="tabs" :currentTab="currentTab" selectedColor="#FF7104" sliderBgColor="#FF7104" color="#000000"
 				 @change="change" :sliderWidth="60" itemWidth="50%"></com-tabs>
 			</view>
 		</view>

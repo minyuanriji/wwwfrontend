@@ -12,7 +12,7 @@
 				</view>
 				<view class="pay-content">
 					<view class="pay-title">支付金额</view>
-					<view class="pay-price" :style="{color:textColor}" v-if="payData"><text class="pay-icon">&yen;</text>{{(payData.amount).toFixed(2)}}</view>
+					<view class="pay-price" :style="{color:'#FF7104'}" v-if="payData"><text class="pay-icon">&yen;</text>{{(payData.amount).toFixed(2)}}</view>
 					<view class="numbering">订单编号：{{payData.orderNo}}</view>
 				</view>
 			</view>
@@ -25,7 +25,7 @@
 						<text v-if="item == 'balance'">余额支付</text>
 					</view>
 					<view class="item-right-box" @tap="switchIcon(index)">
-						<view v-if="index == switchIndex" class="item-icon iconfont icon-dagou1" :style="{color:textColor}"></view>
+						<view v-if="index == switchIndex" class="item-icon iconfont icon-dagou1" :style="{color:'#FF7104'}"></view>
 						<view v-else class="item-right"></view>
 					</view>
 				</view>
@@ -37,12 +37,12 @@
 						<text>余额支付</text>
 					</view>
 					<view class="item-right-box">
-						<view class="item-icon iconfont icon-dagou1" :style="{color:textColor}"></view>
+						<view class="item-icon iconfont icon-dagou1" :style="{color:'#FF7104'}"></view>
 					</view>
 				</view>
 			</view>
 
-			<view class="confirmPay" @tap="confirmPay" :style="{background:textColor}">确认支付</view>
+			<view class="confirmPay" @tap="confirmPay" :style="{background:'#FF7104'}">确认支付</view>
 		</view>
 	</view>
 </template>

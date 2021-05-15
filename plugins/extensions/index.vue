@@ -20,7 +20,7 @@
 						<view class="total flex">
 							<view class="text">总金额 (元)</view>
 							<view class="sum">{{data.total_income}}</view>
-							<view class="yesterday" :style="{color:textColor}">昨日收益{{data.yesterday_income}}元</view>
+							<view class="yesterday" :style="{color:'#FF7104'}">昨日收益{{data.yesterday_income}}元</view>
 						</view>
 						<view class="status flex">
 							<view class="text-money flex flex-column-x-center">

@@ -14,10 +14,10 @@
 				<view class="common">
 					<view class="iconCss iconfont icon-mima"></view>
 					<input class="com-inp" v-model="dataForm.captcha" placeholder="请输入您的密码" />
-					<view class="get-code" :style="{color:textColor}" @tap="getCode" v-if="is_show_code">获取验证码</view>
-					<view class="get-code get-code2" :style="{color:textColor}" v-else>重新发送({{countdown}})</view>
+					<view class="get-code" :style="{color:'#FF7104'}" @tap="getCode" v-if="is_show_code">获取验证码</view>
+					<view class="get-code get-code2" :style="{color:'#FF7104'}" v-else>重新发送({{countdown}})</view>
 				</view>
-				<view class="common login-btn" @tap="pwdLogin" :style="{background:textColor}">登录</view>
+				<view class="common login-btn" @tap="pwdLogin" :style="{background:'#FF7104'}">登录</view>
 				
 				<view class="otherSelect">
 					<view @tap="goRes">用户注册</view>

@@ -69,14 +69,14 @@
 					<view class="select1_price flex flex-y-center" :class="displayStyle ==3 || displayStyle ==4?'flex-x-center':'flex-x-between'">
 						<view v-if="!styleShow">
 							<view v-if="showGoodsOriginalPrice" class="select1_original_price">{{originalPriceLabel}} &yen;{{item.original_price}}</view>
-							<view v-if="showGoodsPrice == '1'" :style="{color:textColor}">{{priceLabel}} &yen;{{item.price}}</view>
+							<view v-if="showGoodsPrice == '1'" :style="{color:'#FF7104'}">{{priceLabel}} &yen;{{item.price}}</view>
 							<view v-if="showGoodsLevelPrice == '1'" class="select1_level_price">{{levelPriceLabel}} &yen;{{item.level_price}}</view>
 						</view>
 						<view v-if="styleShow">
 							<view v-if="showGoodsOriginalPrice" class="select1_original_price">
 							{{originalPriceLabel}} &yen;{{item.original_price}}
 							</view>
-							<view v-if="showGoodsPrice == '1'" :style="{color:textColor}">
+							<view v-if="showGoodsPrice == '1'" :style="{color:'#FF7104'}">
 							{{priceLabel}}&nbsp;{{item.price}}
 							<text style="font-size: 25rpx;color: red;transform: scale(0.83);display: inline-block;">红包</text>
 							</view>
