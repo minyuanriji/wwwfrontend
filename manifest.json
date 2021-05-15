@@ -159,8 +159,8 @@
         "usingComponents" : true
     },
     "h5" : {
-        // "publicPath" : "https://www.mingyuanriji.cn/h5/",
-        "publicPath" : "https://dev.mingyuanriji.cn/h5/",
+        "publicPath" : "https://www.mingyuanriji.cn/h5/",
+        // "publicPath" : "https://dev.mingyuanriji.cn/h5/",
         // "publicPath" : "http://local.mingyuanriji.cn/h5/",
         "router" : {
             "mode" : "hash",
@@ -171,8 +171,8 @@
             "disableHostCheck" : true,
             "proxy" : {
                 "/api" : {
-                    // "target" : "https://www.mingyuanriji.cn/h5/web/index.php",
-                    "target" : "https://dev.mingyuanriji.cn/h5/web/index.php",
+                    "target" : "https://www.mingyuanriji.cn/h5/web/index.php",
+                    // "target" : "https://dev.mingyuanriji.cn/h5/web/index.php",
                     // "target" : "http://local.mingyuanriji.cn/h5/web/index.php",
                     "changeOrigin" : true,
                     "secure" : false,
@@ -183,8 +183,8 @@
             },
             "port" : 80
         },
-        // "domain" : "https://www.mingyuanriji.cn/h5/", 
-        "domain" : "https://dev.mingyuanriji.cn/h5/",
+        "domain" : "https://www.mingyuanriji.cn/h5/", 
+        // "domain" : "https://dev.mingyuanriji.cn/h5/",
         // "domain" : "http://local.mingyuanriji.cn/h5/",
         "title" : "补商汇",
         "template" : "template.h5.html",

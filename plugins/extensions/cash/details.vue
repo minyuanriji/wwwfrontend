@@ -37,11 +37,11 @@
 							<view class="item" v-for="(item, i) in dataList" :key="i">
 								<view class="status flex">
 									<view class="name font-size-11">{{ '提现状态' }}</view>
-									<view class="desc font-size-9" :style="{background:textColor}">{{ statusText[item.status] }}</view>
+									<view class="desc font-size-9" :style="{background:'#FF7104'}">{{ statusText[item.status] }}</view>
 								</view>
-								<view class="handling-fee flex" :style="{color:textColor}">
+								<view class="handling-fee flex" :style="{color:'#FF7104'}">
 									<view class="name">{{ '扣除手续费' }}</view>
-									<view class="fee" :style="{color:textColor}">-{{ item.price - item.fact_price }}元</view>
+									<view class="fee" :style="{color:'#FF7104'}">-{{ item.price - item.fact_price }}元</view>
 								</view>
 								<!-- <view class="labor-service-fee flex">
 									<view class="name">{{'扣除劳务费'}}</view>
@@ -49,7 +49,7 @@
 								</view> -->
 								<view class="arrive flex">
 									<view class="name">{{ '实际到账' }}</view>
-									<view class="fee" :style="{color:textColor}">+{{ item.fact_price }}元</view>
+									<view class="fee" :style="{color:'#FF7104'}">+{{ item.fact_price }}元</view>
 								</view>
 							</view>
 						</view>
