@@ -404,7 +404,6 @@
 					}, 2000);
 					return
 				}
-
 				if (isEmpty(this.form.paper_businessLicenseCode)) {
 					uni.showToast({
 						title: '请填写营业执照号',
@@ -524,8 +523,7 @@
 						var file = res.tempFiles[0].path
 						var requestData = {
 							//type=1 商家入驻1500 2头像 500
-							// serverUrl: that.$api.default.upload+'&width=1500&height=1500&type=1',
-							serverUrl: that.$api.default.upload,
+							serverUrl: that.$api.default.upload+'&width=1500&height=1500&type=1',
 							fileKeyName: "file",
 							file: file,
 						}
@@ -534,22 +532,32 @@
 						})
 						that.$http.uploadFile(requestData).then(function(res) {						
 							uni.hideLoading()
-							var url = res.data.url
-							if (id == 0) {
-								params.pic_business_license = url
-								that.form.paper_businessLicensePhoto = url
-							} else if (id == 1) {
-								params.pic_id_card_front = url
-								that.datatwo.paper_lawyerCertPhotoFront = url
-							} else if (id == 2) {
-								params.pic_id_card_back = url
-								that.datatwo.paper_lawyerCertPhotoBack = url
-							} else if (id == 3) {
-								params.pic_settlement = url
-								that.datathree.paper_settleAttachment = url
+							if(res.code==0){
+								var url = res.data.url
+								if (id == 0) {
+									params.pic_business_license = url
+									that.form.paper_businessLicensePhoto = url
+								} else if (id == 1) {
+									params.pic_id_card_front = url
+									that.datatwo.paper_lawyerCertPhotoFront = url
+								} else if (id == 2) {
+									params.pic_id_card_back = url
+									that.datatwo.paper_lawyerCertPhotoBack = url
+								} else if (id == 3) {
+									params.pic_settlement = url
+									that.datathree.paper_settleAttachment = url
+								}
+								that.params = params
+								that.$forceUpdate()
+							}else{
+								uni.showToast({
+									title: '图片太大，请重新上传',
+									icon: 'none'
+								});
+								setTimeout(function() {
+									uni.hideToast();
+								}, 2000);
 							}
-							that.params = params
-							that.$forceUpdate()
 						})
 					}
 				})

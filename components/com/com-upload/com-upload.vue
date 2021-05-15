@@ -187,16 +187,26 @@
 							// 	fileKeyName: _this.fileKeyName
 							// });
 							_this.$http.uploadFile({
-								serverUrl: _this.$api.default.upload,
+								serverUrl: _this.$api.default.upload+'&width=1500&height=1500&type=1',
 								file: imageArr[j],
 								fileKeyName: _this.fileKeyName
 							}).then(res => {
 								// console.log(res,"成功了");
-								_this.uploadImage(index,res).then(() => {
-									_this.change()
-								}).catch(() => {
-									_this.change()
-								})
+								if(res.code==0){
+									_this.uploadImage(index,res).then(() => {
+										_this.change()
+									}).catch(() => {
+										_this.change()
+									})
+								}else{
+									uni.showToast({
+										title: '图片太大，请重新上传',
+										icon: 'none'
+									});
+									setTimeout(function() {
+										uni.hideToast();
+									}, 2000);
+								}
 							}).catch(() => {
 								_this.$set(_this.statusArr, index, "3")
 								_this.change()

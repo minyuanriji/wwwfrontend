@@ -142,7 +142,7 @@ export default {
 		display: flex;
 		font-size: 9pt;
 		padding: 30rpx 0;
-		border-bottom: 1rpx solid #b0f0ea;
+		border-bottom: 1rpx solid #F7F7F9;
 
 		.item-left {
 			flex: 1;

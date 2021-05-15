@@ -121,7 +121,7 @@
 					success: function(res) {
 						var file = res.tempFiles[0].path
 						var requestData = {
-							serverUrl: that.$api.default.upload,
+							serverUrl: that.$api.default.upload+'&width=1500&height=1500&type=1',
 							fileKeyName: "file",
 							file: file
 						}
@@ -130,11 +130,21 @@
 						})
 						that.$http.uploadFile(requestData).then(function(res) {
 							uni.hideLoading()
-							var url = res.data.url
-							params.shop_logo = url
-							that.params = params
-							that.form.cover_url=that.params.shop_logo
-							that.$forceUpdate()
+							if(res.code==0){
+								var url = res.data.url
+								params.shop_logo = url
+								that.params = params
+								that.form.cover_url=that.params.shop_logo
+								that.$forceUpdate()
+							}else{
+								uni.showToast({
+									title: '图片太大，请重新上传',
+									icon: 'none'
+								});
+								setTimeout(function() {
+									uni.hideToast();
+								}, 2000);
+							}
 						})
 					}
 				})
