@@ -523,14 +523,16 @@
 					success: function(res) {
 						var file = res.tempFiles[0].path
 						var requestData = {
+							//type=1 商家入驻1500 2头像 500
+							// serverUrl: that.$api.default.upload+'&width=1500&height=1500&type=1',
 							serverUrl: that.$api.default.upload,
 							fileKeyName: "file",
-							file: file
+							file: file,
 						}
 						uni.showLoading({
 							title: "正在上传"
 						})
-						that.$http.uploadFile(requestData).then(function(res) {
+						that.$http.uploadFile(requestData).then(function(res) {						
 							uni.hideLoading()
 							var url = res.data.url
 							if (id == 0) {

@@ -39,15 +39,15 @@
 					</view>
 					<view class="team-benefits">
 						<view class="text-icon flex flex-column-x-center" @click="openUrl('/plugins/extensions/team/index')">
-							<view class="icon iconfont icon-tuandui" :style="{color:textColor}"></view>
+							<view class="icon iconfont icon-tuandui" :style="{color:'#FF7104'}"></view>
 							<view class="text">我的客户</view>
 						</view>
 						<view class="text-icon flex flex-column-x-center" @click="openUrl('/plugins/extensions/income/income')">
-							<view class="icon iconfont icon-shouyi" :style="{color:textColor}"></view>
+							<view class="icon iconfont icon-shouyi" :style="{color:'#FF7104'}"></view>
 							<view class="text">收益明细</view>
 						</view>
 						<view class="text-icon flex flex-column-x-center" @click="openUrl('/plugins/extensions/cash/details')">
-							<view class="icon iconfont icon-icon" :style="{color:textColor}"></view>
+							<view class="icon iconfont icon-icon" :style="{color:'#FF7104'}"></view>
 							<view class="text">提现明细</view>
 						</view>
 					</view>
@@ -55,29 +55,29 @@
 				<view class="content-bottom">
 					<view class="dividend">
 						<view class="card top left flex" v-if="data.distribution && data.distribution.is_display" @click.stop="openUrl('/plugins/extensions/distribution/index')">
-							<view class="icon iconfont icon-fenxiao1" :style="{color:textColor}"></view>
+							<view class="icon iconfont icon-fenxiao1" :style="{color:'#FF7104'}"></view>
 							<view class="info">
 								<view class="title">{{'分销佣金'}}</view>
 								<view class="desc">{{data.distribution.level_name || `青铜`}}</view>
-								<view class="money" :style="{color:textColor}">
+								<view class="money" :style="{color:'#FF7104'}">
 									<span class="dot">¥</span>
 									{{data.distribution.frozen_price || '0.00'}}
 								</view>
 							</view>
 						</view>
 						<view class="card top right flex" v-if="data.agent && data.agent.is_display" @click.stop="openUrl('/plugins/extensions/dealer/index')">
-							<view class="icon iconfont icon-tuandui2" :style="{color:textColor}"></view>
+							<view class="icon iconfont icon-tuandui2" :style="{color:'#FF7104'}"></view>
 							<view class="info">
 								<view class="title">{{'团队佣金'}}</view>
 								<view class="desc">{{data.agent.level_name || '合伙人'}}</view>
-								<view class="money" :style="{color:textColor}">
+								<view class="money" :style="{color:'#FF7104'}">
 									<span class="dot">¥</span>
 									{{'0.00'}}
 								</view>
 							</view>
 						</view>
 						<view class="card bottom top left flex" v-if="data.boss && data.boss.is_display" @click.stop="openUrl('/plugins/extensions/partner/index')">
-							<view class="icon iconfont icon-gudong1" :style="{color:textColor}"></view>
+							<view class="icon iconfont icon-gudong1" :style="{color:'#FF7104'}"></view>
 							<view class="info">
 								<view class="title">{{'股东分红'}}</view>
 								<view class="desc">{{data.boss.level_name || '创始人'}}</view>
@@ -88,11 +88,11 @@
 							</view>
 						</view>
 						<view class="card bottom top right flex" v-if="data.area && data.area.is_display" @click.stop="openUrl('/plugins/extensions/area/index')">
-							<view class="icon iconfont icon-address" :style="{color:textColor}"></view>
+							<view class="icon iconfont icon-address" :style="{color:'#FF7104'}"></view>
 							<view class="info">
 								<view class="title">{{'区域分红'}}</view>
 								<view class="desc">{{data.area.level_name || '市代理'}}</view>
-								<view class="money" :style="{color:textColor}">
+								<view class="money" :style="{color:'#FF7104'}">
 									<span class="dot">¥</span>
 									{{'0.00'}}
 								</view>
@@ -106,17 +106,17 @@
 							</view>
 						</view> -->
 						<view class="card bottom right flex" v-if="data.stock && data.stock.is_display" @click.stop="openUrl('/plugins/repertory-cloud/index')">
-							<view class="icon iconfont icon-jifen" :style="{color:textColor}"></view>
+							<view class="icon iconfont icon-jifen" :style="{color:'#FF7104'}"></view>
 							<view class="info">
 								<view class="title">{{'云仓'}}</view>
 								<view class="desc">{{'云仓'}}</view>
 							</view>
 						</view>
 						<view class="card bottom left flex" v-if="data.short_video && data.short_video.is_display" @click.stop="openUrl('/plugins/short-video/dividends/index')">
-							<view class="icon iconfont icon-jifen" :style="{color:textColor}"></view>
+							<view class="icon iconfont icon-jifen" :style="{color:'#FF7104'}"></view>
 							<view class="info">
 								<view class="title">{{'短视频分红'}}</view>
-								<view class="money" :style="{color:textColor}">
+								<view class="money" :style="{color:'#FF7104'}">
 									<span class="dot">¥</span>
 									{{data.short_video.total_price}}
 								</view>
