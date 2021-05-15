@@ -187,7 +187,7 @@
 							// 	fileKeyName: _this.fileKeyName
 							// });
 							_this.$http.uploadFile({
-								serverUrl: _this.$api.default.upload+'&width=1500&height=1500&type=1',
+								serverUrl: _this.$api.default.upload+'&width=3000&height=3000&type=1',
 								file: imageArr[j],
 								fileKeyName: _this.fileKeyName
 							}).then(res => {

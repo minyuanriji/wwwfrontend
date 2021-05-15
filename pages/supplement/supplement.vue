@@ -523,7 +523,7 @@
 						var file = res.tempFiles[0].path
 						var requestData = {
 							//type=1 商家入驻1500 2头像 500
-							serverUrl: that.$api.default.upload+'&width=1500&height=1500&type=1',
+							serverUrl: that.$api.default.upload+'&width=6000&height=6000&type=1',
 							fileKeyName: "file",
 							file: file,
 						}

@@ -121,7 +121,7 @@
 					success: function(res) {
 						var file = res.tempFiles[0].path
 						var requestData = {
-							serverUrl: that.$api.default.upload+'&width=1500&height=1500&type=1',
+							serverUrl: that.$api.default.upload+'&width=3000&height=3000&type=1',
 							fileKeyName: "file",
 							file: file
 						}
