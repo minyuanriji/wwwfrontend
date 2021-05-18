@@ -43,13 +43,15 @@
 									<view class="name">{{ '扣除手续费' }}</view>
 									<view class="fee" :style="{color:'#FF7104'}">-{{ item.price - item.fact_price }}元</view>
 								</view>
-								<!-- <view class="labor-service-fee flex">
-									<view class="name">{{'扣除劳务费'}}</view>
-									<view class="fee">-{{'3.90'}}元</view>
-								</view> -->
 								<view class="arrive flex">
 									<view class="name">{{ '实际到账' }}</view>
 									<view class="fee" :style="{color:'#FF7104'}">+{{ item.fact_price }}元</view>
+								</view>
+								<view class="arrive " v-if="item.status==3">
+									<view class="name">{{ '备注:' }}</view>
+									<view class="notice">
+										
+									</view>
 								</view>
 							</view>
 						</view>
