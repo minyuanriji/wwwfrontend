@@ -37,7 +37,7 @@
 							<view class="iconfont icon-zuanshi" v-else></view>
 							<view class="text">{{ userInfo.identity.level_name }}</view>
 						</view>
-						<view class="user-id">账号ID: {{ userInfo.user_id }}</view>
+						<view class="user-id">账号:BSH{{ userInfo.user_id }}</view>
 					</view>
 				</view>
 			<!-- 	<view class="user_shop" @click="shopInto">
