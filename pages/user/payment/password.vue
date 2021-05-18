@@ -11,7 +11,7 @@
 				<view class="title">验证码</view>
 				<view class="input-btn">
 					<input class="input" type="number" v-model.number="dataForm.captcha" placeholder="请输入验证码" />
-					<view class="btn" @click="getCode" :style="{color:textCol}">{{countDown || '发送验证码'}}</view>
+					<view class="btn" @click="getCode" :style="{color:'rgb(255, 113, 4)'}">{{countDown || '发送验证码'}}</view>
 				</view>
 			</view>
 			<view class="item">
@@ -28,7 +28,7 @@
 			</view>
 			<view class="item last">
 				<view class="title"></view>
-				<view class="jx-btn" @click="dataSubmit" :style="{background:textCol}">确认提交</view>
+				<view class="jx-btn" @click="dataSubmit" :style="{background:'rgb(255, 113, 4)'}">确认提交</view>
 				<!-- <span>*修改支付密码请到个人资料页进行修改</span> -->
 			</view>
 		</view>

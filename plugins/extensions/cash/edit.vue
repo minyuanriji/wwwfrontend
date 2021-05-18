@@ -99,7 +99,7 @@ export default {
 				name: '',
 				mobile: '',
 				bank_name: '',
-				bank_account: '',
+				bank_account: '', 
 				content: '',
 				wechat_qrcode: ''
 			},
@@ -113,6 +113,7 @@ export default {
 			modal:false,//模态弹窗
 			textCol:'#bc0100',
 			button:[],
+			default_bank:''
 		};
 	},
 	onLoad() {
@@ -304,8 +305,9 @@ export default {
 				.then(res => {
 					this.loading = false;
 					if (res.code == 0) {
-						let { setting, user_info } = res.data;
+						let { setting, user_info ,default_bank } = res.data;
 						this.setting = setting;
+						this.default_bank=default_bank;
 						this.income = user_info.income;
 						this.dataForm.type = setting.cash_type[0];
 						this.is_transaction_password = res.data.user_info.is_transaction_password;
@@ -318,14 +320,25 @@ export default {
 				});
 		},
 		switchType(key) {
-			this.dataForm.type = key;
-			this.dataForm.name = '';
-			this.dataForm.mobile = '';
-			this.dataForm.content = '';
-			this.dataForm.bank_name = '';
-			this.dataForm.bank_account = '';
-			this.dataForm.wechat_qrcode = '';
-			this.imgArr = [];
+			if(key=='bank'){
+				this.dataForm.type = key;
+				this.dataForm.name = this.default_bank.name;
+				this.dataForm.mobile = '';
+				this.dataForm.content = '';
+				this.dataForm.bank_name = this.default_bank.bank_name;
+				this.dataForm.bank_account =this.default_bank.bank_account;
+				this.dataForm.wechat_qrcode = '';
+				this.imgArr = [];
+			}else{
+				this.dataForm.type = key;
+				this.dataForm.name = '';
+				this.dataForm.mobile = '';
+				this.dataForm.content = '';
+				this.dataForm.bank_name = '';
+				this.dataForm.bank_account = '';
+				this.dataForm.wechat_qrcode = '';
+				this.imgArr = [];
+			}
 		},
 		max() {
 			this.dataForm.price = Number(this.income);
