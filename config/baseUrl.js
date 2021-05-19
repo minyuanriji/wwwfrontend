@@ -18,7 +18,8 @@ if (process.env.NODE_ENV === 'development') {
 const courtConfig = {
 	//微信公众号APPID
 	//publicAppId: "wxaead1c4fbee8a907",
-	publicAppId: "wx8227e203ac8c4555", //补商汇appid
+	// publicAppId: "wx8227e203ac8c4555", //补商汇appid
+	publicAppId: "wxd7ac6d41d564256c", //补商汇appid
 	//域名地址
 	domainUrl:domainUrl,
 	//请求接口
