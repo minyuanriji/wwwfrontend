@@ -47,10 +47,10 @@
 									<view class="name">{{ '实际到账' }}</view>
 									<view class="fee" :style="{color:'#FF7104'}">+{{ item.fact_price }}元</view>
 								</view>
-								<view class="arrive " v-if="item.status==3">
+								<view class="arrive " v-if="item.content.reject_content">
 									<view class="name">{{ '备注:' }}</view>
 									<view class="notice">
-										
+										{{item.content.reject_content}}
 									</view>
 								</view>
 							</view>
