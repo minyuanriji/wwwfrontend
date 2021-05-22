@@ -21,9 +21,6 @@
 		<block v-for="(item, index) in indexData" :key="index">
 			<view class="header" v-if="item.id == 'search'">
 				<view class="search_box" :style="{ position: is_fixed == 1 ? 'relative' : 'fixed' }">
-					<!-- <view class="header">
-					<diy-header :backgroundCol='receiveColor'></diy-header>
-				</view> -->
 					<!-- 搜索 -->
 					<view class="checksao" style="width: 15%;background: #fff;">
 						<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 90rpx;display: block;margin: 5rpx auto 0;"></image>
