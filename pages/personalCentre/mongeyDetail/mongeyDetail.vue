@@ -101,12 +101,12 @@ export default {
 			}
 		}
 	},
-	onPullDownRefresh() {
-		setTimeout(() => {
-			uni.stopPullDownRefresh();
-			this.getDateList();
-		}, 1000);
-	},
+	// onPullDownRefresh() {
+	// 	setTimeout(() => {
+	// 		uni.stopPullDownRefresh();
+	// 		this.getDateList();
+	// 	}, 1000);
+	// },
 	onReachBottom() {
 		this.loadding = true;
 		this.pullUpOn = true;

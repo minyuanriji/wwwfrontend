@@ -719,7 +719,7 @@
            	"navigationBarTitleText": "资金明细",
            	"navigationBarBackgroundColor": "#FFFFFF",
            	"navigationBarTextStyle": "black",
-           	"enablePullDownRefresh": true,
+           	"enablePullDownRefresh": false,
            	"onReachBottomDistance": 50,
            	"navigationStyle": "custom"
            }
