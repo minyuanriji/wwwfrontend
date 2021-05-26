@@ -75,7 +75,7 @@
 						data: {
 							code: code,
 							mall_id: uni.getStorageSync('mall_id'),
-							stand_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id:5,
+							stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
 						}
 					})
 					.then(res => {

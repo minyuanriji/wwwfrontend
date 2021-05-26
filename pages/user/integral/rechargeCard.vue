@@ -70,7 +70,7 @@
 						data: {
 							code: code,
 							mall_id: uni.getStorageSync('mall_id'),
-							stand_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id:5,
+							stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
 						}
 					})
 					.then(res => {
@@ -112,9 +112,9 @@
 				}).then(res => {
 					this.$http.toast(res.msg);
 					if(res.code==0){
-						setTimeout(() => {							uni.redirectTo({
+						setTimeout(() => {							uni.redirectTo({
 							    url:'/pages/user/integral/integral'
-							});						}, 800);
+							});						}, 800);
 					}
 				})
 			},

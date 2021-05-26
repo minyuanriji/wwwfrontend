@@ -168,7 +168,7 @@
 									method: 'post',
 									data: {
 										union_id: that.payData.union_id,
-										stand_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id:5,
+										stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
 										wx_type:'wechat'//公众号：wechat  小程序：mp-wx
 									}
 								}).then(res=>{
@@ -186,7 +186,7 @@
 									method: 'post',
 									data: {
 										union_id: that.payData.union_id,
-										stand_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id:5,
+										stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
 										wx_type:'mp-wx'//公众号：wechat  小程序：mp-wx
 									}
 								}).then(res=>{
