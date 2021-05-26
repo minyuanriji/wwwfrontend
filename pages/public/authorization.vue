@@ -100,6 +100,7 @@ export default {
 					mobile:this.dataForm.username,
 					captcha:this.dataForm.captcha,
 					key:this.key,
+					stand_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id:5,
 				}
 			}).then(res =>{
 				if(res.code == 0){

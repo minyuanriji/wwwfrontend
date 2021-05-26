@@ -96,7 +96,8 @@
 						recommend_id,
 						mobile,
 						captcha,
-						'user_id':this.user_id
+						'user_id':this.user_id,
+						stand_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id:5,
 					},
 					method: 'POST',
 					showLoading: true

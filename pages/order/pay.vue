@@ -168,6 +168,8 @@
 									method: 'post',
 									data: {
 										union_id: that.payData.union_id,
+										stand_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id:5,
+										wx_type:'wechat'//公众号：wechat  小程序：mp-wx
 									}
 								}).then(res=>{
 									if(res.code==0){
@@ -184,6 +186,8 @@
 									method: 'post',
 									data: {
 										union_id: that.payData.union_id,
+										stand_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id:5,
+										wx_type:'mp-wx'//公众号：wechat  小程序：mp-wx
 									}
 								}).then(res=>{
 									if(res.code==0){

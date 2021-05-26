@@ -157,7 +157,8 @@
 						url: this.$api.default.wxLogin,
 						data: {
 							code: code,
-							mall_id: uni.getStorageSync('mall_id')
+							mall_id: uni.getStorageSync('mall_id'),
+							stand_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id:5,
 						}
 					})
 					.then(res => {
@@ -232,6 +233,7 @@
 										code: loginRes.code,
 										encryptedData: encryptedData,
 										iv: iv,
+										stand_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stand_mall_id:5,
 									}
 								}).then(res => {
 									this.$http.toast(res.msg);
