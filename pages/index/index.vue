@@ -1,14 +1,11 @@
 <template>
 	<view class="root">
 		<view class="status_bar"></view>
-
-
 		<!-- #ifdef H5 -->
 		<view class="customer_service" @click="linkService">
 			<image :src="img_url+'/service_logo.png'" mode=""></image>
 		</view>
 		<!--#endif -->
-
 		<!-- #ifdef MP-WEIXIN -->
 		<view class="customer_service">
 			<button open-type="contact" :session-from='webapp' class="buttonWeapp" @tap="goService">
@@ -16,8 +13,6 @@
 			</button>
 		</view>
 		<!--#endif -->
-
-
 		<block v-for="(item, index) in indexData" :key="index">
 			<view class="header" v-if="item.id == 'search'">
 				<view class="search_box" :style="{ position: is_fixed == 1 ? 'relative' : 'fixed' }">
