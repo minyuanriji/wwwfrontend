@@ -4,9 +4,6 @@
 			//console.log('App Launch');
 			// 初始化项目就执行自定义分享
 			// this.$wechatSdk.share();
-			
-			
-			
 			this.initMall();
 			// #ifdef H5
 			if (this.$route.query.mall_id) {
@@ -96,8 +93,6 @@
 			// #endif
 			
 			// #ifdef H5
-			let userPid=options.query.pid
-			uni.setStorageSync('pid',options.query.pid)			
 			let location=window.location.href
 			let currentOne=''
 			let currentTwo=''
@@ -120,6 +115,7 @@
 				 }
 			}
 			if(options.query.pid){
+				uni.setStorageSync('pid',options.query.pid)	
 				setTimeout(function(){
 					uni.navigateTo({
 						url:'/pages/user/bindUser/bindUser'
