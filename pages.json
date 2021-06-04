@@ -894,6 +894,17 @@
             }
             
         }
+        ,{
+            "path" : "pages/user/bindUser/bindUser",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "绑定信息",
+                "enablePullDownRefresh": false,
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF"
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",

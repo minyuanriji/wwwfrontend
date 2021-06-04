@@ -4,7 +4,9 @@
 			//console.log('App Launch');
 			// 初始化项目就执行自定义分享
 			// this.$wechatSdk.share();
-
+			
+			
+			
 			this.initMall();
 			// #ifdef H5
 			if (this.$route.query.mall_id) {
@@ -94,6 +96,36 @@
 			// #endif
 			
 			// #ifdef H5
+			let userPid=options.query.pid
+			uni.setStorageSync('pid',options.query.pid)			
+			let location=window.location.href
+			let currentOne=''
+			let currentTwo=''
+			let currentLink=''
+			if(location.indexOf('pid=')!=-1){
+				 currentOne=location.split('&pid=')[0]				 				 
+				 currentLink=location.split('&pid=')[1].split("&")				 
+				 let arr=[]
+				 for(let i= 0;i<currentLink.length;i++){
+				 	if(i>0){
+				 		arr.push(currentLink[i])
+				 	}
+				 }
+				 if(arr.length>0){
+					  currentTwo= arr.join("&")
+					  let page=currentOne+"&"+currentTwo
+					  uni.setStorageSync('page',page)
+				 }else{
+					   uni.setStorageSync('page',currentOne)
+				 }
+			}
+			if(options.query.pid){
+				
+					uni.navigateTo({
+						url:'./pages/user/bindUser/bindUser'
+					})							 
+				
+			}	
 			/* let wx_platform = this.$http.getPlatform()
 			let wx_userInfo = uni.getStorageSync('userInfo');
 			let wx_currUrl = window.location.href;
