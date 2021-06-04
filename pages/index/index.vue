@@ -137,6 +137,11 @@
 		</block>
 		<!-- 版权 -->
 		<diy-copyright v-if="copyright.status == 1" :value="copyright"></diy-copyright>
+		<view class="ap-link" @click="navToLink()"
+		style="width: 100%;height: 30rpx;margin-bottom: 30rpx;text-align: center;font-size: 25rpx;">		
+					粤ICP备19145623号
+		</view>
+			
 		<!-- 版权 -->
 		<view style="height: 100rpx;"></view>
 		<!-- 导航栏 -->
@@ -477,6 +482,9 @@
 			return this.wxShare("补商汇", "/pages/index/index?source=1");
 		},
 		methods: {
+			navToLink(){
+				window.location.href='http://beian.miit.gov.cn'
+			},
 			getService() {
 				this.$http
 					.request({
