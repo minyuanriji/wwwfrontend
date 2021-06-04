@@ -1,15 +1,9 @@
 <template>
 	<view class="bindUser">
 		<view class="center">
-			<view class="logo">
-				<image :src="message.avatar_url" mode=""></image>
-			</view>
-			<view class="name">{{message.nickname}} 1122</view>
-			<view class="id">
-				BSH:{{message.id}} 1122
-			</view>
-			<view class="role">
-				{{message.role_type}} 1122
+			<image :src="img_url+'/header-logo.png'" mode="" class="shop-logo"></image>
+			<view class="title">
+				正在跳转，请稍后.....
 			</view>
 		</view>
 	</view>
@@ -19,7 +13,7 @@
 	export default {
 		data() {
 			return {
-				message:''
+				img_url: this.$api.img_url,
 			};
 		},
 		onLoad() {
@@ -32,18 +26,12 @@
 					showLoading: true,
 				}).then(res => {
 					if (res.code == 0) {
-						this.message=res.data.detail
 						let page=uni.getStorageSync('page')
 						setTimeout(function(){
 							window.location.href=page						 
-						},1000)
+						},500)
 					}else{
 						this.$http.toast(res.msg);
-						// setTimeout(function(){
-						// 	uni.reLaunch({
-						// 	    url: '../../index/index'
-						// 	});
-						// },1500)
 					}
 				})
 			}
@@ -53,7 +41,9 @@
 
 <style lang="less">
 	.bindUser{width: 100%;height: 100%;position: relative;}
-	.center{width: 100%;height: 500rpx;box-shadow: 0 1px 10px rgba(183, 183, 183, 0.5);position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;}
+	.center{width: 100%;height: 500rpx;position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;}
+	.shop-logo{width: 200rpx;height: 200rpx;margin: 0 auto;display: block;}
+	.title{width: 100%;overflow: hidden;font-size: 25rpx;text-align: center;margin-top: 20rpx;color: rgb(255, 113, 4);}
 	.logo{width: 100%;overflow: hidden;}
 	.logo image{width: 160rpx;height: 160rpx;margin: 30rpx auto;display: block;border-radius: 50%;}
 	.name{width: 100%;overflow: hidden;font-size: 34rpx;color: #000000;text-align: center;margin: 20rpx 0;}
