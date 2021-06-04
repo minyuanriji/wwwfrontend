@@ -120,12 +120,13 @@
 				 }
 			}
 			if(options.query.pid){
-				
+				setTimeout(function(){
 					uni.navigateTo({
-						url:'./pages/user/bindUser/bindUser'
-					})							 
-				
+						url:'/pages/user/bindUser/bindUser'
+					})
+				},2000)						 				
 			}	
+			
 			/* let wx_platform = this.$http.getPlatform()
 			let wx_userInfo = uni.getStorageSync('userInfo');
 			let wx_currUrl = window.location.href;

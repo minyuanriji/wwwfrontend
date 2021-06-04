@@ -36,14 +36,14 @@
 						let page=uni.getStorageSync('page')
 						setTimeout(function(){
 							window.location.href=page						 
-						},3000)
+						},1000)
 					}else{
 						this.$http.toast(res.msg);
-						setTimeout(function(){
-							uni.reLaunch({
-							    url: '../../index/index'
-							});
-						},2000)
+						// setTimeout(function(){
+						// 	uni.reLaunch({
+						// 	    url: '../../index/index'
+						// 	});
+						// },1500)
 					}
 				})
 			}
