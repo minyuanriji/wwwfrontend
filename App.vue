@@ -10,7 +10,7 @@
 				uni.setStorageSync('mall_id', this.$route.query.mall_id);
 			}
 			// #endif
-
+				
 			// #ifdef APP-PLUS
 			let that = this;
 			plus.runtime.getProperty(plus.runtime.appid, function(widgetInfo) {
