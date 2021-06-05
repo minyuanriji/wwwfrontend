@@ -120,7 +120,7 @@
 					uni.navigateTo({
 						url:'/pages/user/bindUser/bindUser'
 					})
-				},2000)						 				
+				},500)						 				
 			}	
 			
 			/* let wx_platform = this.$http.getPlatform()
