@@ -906,6 +906,17 @@
             }
             
         }
+        ,{
+            "path" : "pages/personalCentre/editePhone/editePhone",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF"
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",

@@ -4,9 +4,9 @@
 			<view class="login-content">
 				<view class="common">
 					<view class="iconCss iconfont icon-shouji"></view>
-					<input class="com-inp" type="number" v-model="dataForm.new_mobile" placeholder="请输入您的手机号" />
+					<input class="com-inp" type="number" v-model="dataForm.mobile" placeholder="请输入您的手机号" disabled/>
 				</view>
-				<view class="common code">
+				<view class="common code" v-if="editeBlock">
 					<view class="code-left">
 						<view class="iconCss iconfont icon-yanzhengma"></view>
 						<input class="com-inp" type="number" v-model="dataForm.captcha" placeholder="验证码" />
@@ -18,8 +18,11 @@
 						{{countDown}}
 					</view>
 				</view>
-				<view class="common login-btn" @tap="submit" :style="{background:textColor}">
-					绑定手机
+				<view class="common login-btn"  @click="editeBut"    :style="{background:textColor}" v-if="!editeBlock">
+					编辑
+				</view>
+				<view class="common login-btn" @tap="submit" :style="{background:textColor}" v-if="editeBlock">
+					下一步
 				</view>
 			</view>
 		</view>
@@ -36,27 +39,43 @@
 		data() {
 			return {
 				dataForm: {
-					new_mobile: '', //手机号
-					captcha: '', //手机验证码
-					auth_key:'',//key
+					mobile: '', //手机号
+					captcha: '' //手机验证码
 				},
 				countDown: '',
+				key: '',
 				textColor:'',
+				disabled:true,
+				editeBlock:false,
 			}
 		},
 		onLoad(options) {
+			if(options.phone){
+				this.dataForm.mobile=options.phone
+			}
+			if(options.title){
+				if(options.title=='绑定手机'){
+					this.editeBlock=false
+					uni.setNavigationBarTitle({
+						title:"绑定手机"
+					})
+				}
+				if(options.title=='验证绑定手机'){
+					this.editeBlock=true
+					uni.setNavigationBarTitle({
+						title:"验证绑定手机"
+					})
+				}
+			}
 			if(uni.getStorageSync('mall_config')){
 				this.textColor = this.globalSet('textCol');
-			}
-			if(options.key){
-				this.dataForm.auth_key= options.key;
 			}
 		},
 		methods: {
 			submit() {
 				let _self = this;
-				let {new_mobile,captcha,auth_key} = _self.dataForm;
-				if (!isNullOrEmpty(new_mobile) || !isMobile(new_mobile)) {
+				let {mobile,captcha} = _self.dataForm;
+				if (!isNullOrEmpty(mobile) || !isMobile(mobile)) {
 					_self.$http.toast("请输入正确的手机号")
 					return;
 				}
@@ -66,30 +85,25 @@
 				}
 				// 验证通过 发送请求
 				_self.$http.request({
-					url: this.$api.moreShop.updatePhone,
+					url: this.$api.moreShop.validationPhone,
 					data: {
-						new_mobile,
-						captcha,
-						auth_key,
+						mobile,
+						captcha
 					},
 					method: 'POST',
 					showLoading: true
 				}).then((res) => {
 					_self.showMsg(res.msg);
 					if (res.code == 0) {
-						if(uni.getStorageSync('userInfo')){
-							let users=JSON.parse(uni.getStorageSync('userInfo'))
-							users.mch_info.store.mobile=this.dataForm.new_mobile
-							uni.setStorageSync('userInfo',JSON.stringify(users))							
-						}
+						this.key=res.data.auth_key
 						uni.navigateTo({
-							url:'../personalCentre'
+							url:'../personalCentreSETPhone/personalCentreSETPhone?key='+this.key
 						})
 					}
 				})
 			},
 			getCode() {
-				if (!isMobile(this.dataForm.new_mobile)) {
+				if (!isMobile(this.dataForm.mobile)) {
 					this.showMsg('请输入手机号后在获取验证码');
 					return;
 				}
@@ -105,7 +119,7 @@
 				_self.$http.request({
 					url: _self.$api.default.phoneCode,
 					data: {
-						mobile: _self.dataForm.new_mobile
+						mobile: _self.dataForm.mobile
 					},
 					method: 'POST'
 				}).then((res) => {
@@ -119,12 +133,18 @@
 					icon: 'none',
 					title: msg
 				})
+			},
+			editeBut(){
+				this.editeBlock=true
+				uni.setNavigationBarTitle({
+					title:"验证绑定手机"
+				})
 			}
 		}
 	}
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 	page {
 		background: #FFFFFF !important;
 	}
@@ -234,4 +254,18 @@
 	.hide {
 		display: none;
 	}
+	.edite_but{
+		font-size: 28rpx;
+		position: relative;
+		color: rgb(255, 113, 4);
+		&::before {
+			color: #E0E0E0;
+			content: "|";
+			position: absolute;
+			left: -20rpx;
+		}
+	}
+	
+	
+	
 </style>

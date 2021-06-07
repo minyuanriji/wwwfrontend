@@ -21,6 +21,11 @@
 				<text>交易密码设置</text>
 				<image :src="img_url+'/arrow-right.png'" mode=""></image>
 			</view>
+			<view  @click="link(5)">
+				<image :src="img_url+'/editphone.png'" mode=""></image>
+				<text>绑定手机号码</text>
+				<image :src="img_url+'/arrow-right.png'" mode=""></image>
+			</view>
 		</view>
 	</view>
 </template>
@@ -30,7 +35,14 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
+				phone:''
 			};
+		},
+		onLoad() {
+			if(uni.getStorageSync('userInfo')){
+				this.phone=JSON.parse(uni.getStorageSync('userInfo')).mch_info.store.mobile
+				console.log(this.phone)
+			}
 		},
 		methods:{
 			link(index){
@@ -52,11 +64,22 @@
 				if(index==4){
 					if(uni.getStorageSync('userInfo')){
 						uni.navigateTo({
-							url:'../personalCentreSETPassWorde/personalCentreSETPassWorde?phone='+JSON.parse(uni.getStorageSync('userInfo')).mobile
+							url:'../personalCentreSETPassWorde/personalCentreSETPassWorde?phone='+this.phone
 						})
 					}else{
 						uni.navigateTo({
 							url:'../personalCentreSETPassWorde/personalCentreSETPassWorde'
+						})
+					}
+				}
+				if(index==5){
+					if(uni.getStorageSync('userInfo')){
+						uni.navigateTo({
+							url:'../editePhone/editePhone?phone='+this.phone+"&title="+"绑定手机"
+						})
+					}else{
+						uni.navigateTo({
+							url:'../editePhone/editePhone'
 						})
 					}
 				}

@@ -4,7 +4,8 @@
 			<view class="item">
 				<view class="title">手机号码</view>
 				<view class="input-btn">
-					<input class="input" type="number" v-model.number="dataForm.mobile" placeholder="请输入手机号码"/>
+					<input class="input" type="number" v-model.number="dataForm.mobile" placeholder="请输入手机号码" disabled/>
+					<view class="btn" @click="editePhone">{{'编辑'}}</view>
 				</view>
 			</view>
 			<view class="item">
@@ -94,6 +95,17 @@
 					}
 				})
 				
+			},
+			editePhone(){ //更改手机号码
+				if(uni.getStorageSync('userInfo')){
+					uni.navigateTo({
+						url:'../editePhone/editePhone?phone='+this.dataForm.mobile+"&title="+"验证绑定手机"
+					})
+				}else{
+					uni.navigateTo({
+						url:'../editePhone/editePhone'
+					})
+				}
 			},
 			getCode() {
 				if (!isMobile(this.dataForm.mobile)) {
