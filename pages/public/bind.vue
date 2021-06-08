@@ -70,7 +70,7 @@
 			}
 			if(uni.getStorageSync('mall_config')){
 				this.textColor = this.globalSet('textCol');
-			}
+			}					
 		},
 		mounted() {
 			//#ifdef H5
@@ -119,14 +119,28 @@
 						uni.removeStorageSync("user_id");
 						uni.removeStorageSync("_login_pre_url");
 						
-						uni.navigateTo({
-							url:'./bindParent'
-						})											
-							// setTimeout(() => {
-							// 		uni.redirectTo({
-							// 			url
-							// 		})
-							// }, 1000)
+		
+						
+						this.$http
+							.request({
+								url: this.$api.user.userInfo,
+								method: 'POST',
+								showLoading: true
+							})
+							.then(res => {
+								if (res.code == 0) {
+									let userMessage=res.data
+									if(userMessage.parent_id>0){
+										uni.redirectTo({
+											url
+										})
+									}else{
+										uni.navigateTo({
+											url:'./bindParent'
+										})	
+									}		
+								}
+							});										
 					}
 				})
 			},
