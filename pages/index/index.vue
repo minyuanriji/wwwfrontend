@@ -145,7 +145,7 @@
 		<!-- 版权 -->
 		<view style="height: 100rpx;"></view>
 		<!-- 导航栏 -->
-		<main-tabbar v-if='tabbarShow'></main-tabbar>
+		<main-tabbar v-if='modelSHOw'></main-tabbar>
 		<!-- 导航栏 -->
 		<!-- <navigator url="../business-card/client/index">跳转名片</navigator> -->
 		<main-loading :visible="loading"></main-loading>
@@ -422,7 +422,7 @@
 					pageTitle: '',
 					phone: '',
 				},
-				tabbarShow:false
+				modelSHOw:true
 			};
 		},
 		onShow() {
@@ -434,24 +434,25 @@
 				uni.setStorageSync('pid', options.pid);
 				uni.setStorageSync("user_id", options.pid);
 			}
-			if(!uni.getStorageSync('userInfo')){
-					uni.showModal({
-						title: "提示",
-						content: "您还未登录绑定",
-						confirmText: "登录绑定",
-						showCancel:false,
-						success: (res) => {
-							if (res.confirm) {
-								uni.navigateTo({
-									url: '/pages/public/login'
-								});
-							}
-						}
-					});
-				// }
-			}else{
-				this.tabbarShow=true
-			}			
+			
+//---------------------------------------------------------------首页进来绑定上下级	
+			// if(!uni.getStorageSync('userInfo')){
+			// 	this.modelSHOw=false
+			// 	uni.showModal({
+			// 		title: '提示',
+			// 		content: '您还未登录，去登录吧',
+			// 		confirmText: "去登录",
+			// 		showCancel:false,
+			// 		success: function (res) {
+			// 		    if (res.confirm) {
+			// 		       uni.navigateTo({
+			// 		       	url:'../public/login'
+			// 		       })
+			// 		    } 
+			// 		}
+			// 	})
+			// }
+//--------------------------------------------------------------------------						
 		},
 		onReachBottom() {
 			//上拉加载
