@@ -117,12 +117,16 @@
 						// uni.setStorageSync('new_user',1);
 						uni.removeStorageSync("pid");
 						uni.removeStorageSync("user_id");
-						uni.removeStorageSync("_login_pre_url");					
-						setTimeout(() => {
-								uni.redirectTo({
-									url
-								})
-							}, 1000)
+						uni.removeStorageSync("_login_pre_url");
+						
+						uni.navigateTo({
+							url:'./bindParent'
+						})											
+							// setTimeout(() => {
+							// 		uni.redirectTo({
+							// 			url
+							// 		})
+							// }, 1000)
 					}
 				})
 			},

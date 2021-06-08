@@ -435,23 +435,22 @@
 				uni.setStorageSync("user_id", options.pid);
 			}
 			
-//---------------------------------------------------------------首页进来绑定上下级	
-			// if(!uni.getStorageSync('userInfo')){
-			// 	this.modelSHOw=false
-			// 	uni.showModal({
-			// 		title: '提示',
-			// 		content: '您还未登录，去登录吧',
-			// 		confirmText: "去登录",
-			// 		showCancel:false,
-			// 		success: function (res) {
-			// 		    if (res.confirm) {
-			// 		       uni.navigateTo({
-			// 		       	url:'../public/login'
-			// 		       })
-			// 		    } 
-			// 		}
-			// 	})
-			// }
+//---------------------------------------------------------------首页进来绑定上下级
+			if(!uni.getStorageSync('userInfo')){
+				uni.showModal({
+					title: '提示',
+					content: '您还未登录，去登录吧',
+					confirmText: "去登录",
+					showCancel:false,
+					success: function (res) {
+					    if (res.confirm) {
+					       uni.navigateTo({
+					       	url:'../public/login'
+					       })
+					    } 
+					}
+				})
+			}
 //--------------------------------------------------------------------------						
 		},
 		onReachBottom() {
