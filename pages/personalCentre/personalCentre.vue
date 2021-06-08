@@ -245,9 +245,12 @@
 												}
 											});
 									} else if (res.cancel) {
-										uni.navigateBack({
-											delta:1
+										uni.redirectTo({
+											url:'../user/index'
 										})
+										// uni.navigateBack({
+										// 	delta:1
+										// })
 									}
 								}
 							});
