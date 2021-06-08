@@ -38,15 +38,6 @@
 			}
 		},
 		onLoad(options) {
-			/* let userInfo = uni.getStorageSync('userInfo')
-			if(userInfo['identity']['parent_id']>0){
-				let _login_pre_url = uni.getStorageSync("_login_pre_url");
-				let url = _login_pre_url ? _login_pre_url : '/pages/user/index';
-				uni.redirectTo({
-					url
-				})
-			} */
-			
 			if(uni.getStorageSync('mall_config')){
 				this.textColor = this.globalSet('textCol');
 			}

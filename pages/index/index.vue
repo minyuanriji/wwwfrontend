@@ -145,7 +145,7 @@
 		<!-- 版权 -->
 		<view style="height: 100rpx;"></view>
 		<!-- 导航栏 -->
-		<main-tabbar></main-tabbar>
+		<main-tabbar v-if='tabbarShow'></main-tabbar>
 		<!-- 导航栏 -->
 		<!-- <navigator url="../business-card/client/index">跳转名片</navigator> -->
 		<main-loading :visible="loading"></main-loading>
@@ -178,6 +178,9 @@
 	//#ifdef H5
 		var jweixin = require('jweixin-module');
 	//#endif
+	import {
+		isEmpty
+	} from '../../common/validate.js';
 	export default {
 		components: {
 			search,
@@ -418,7 +421,8 @@
 					pageUrl: '',
 					pageTitle: '',
 					phone: '',
-				}
+				},
+				tabbarShow:false
 			};
 		},
 		onShow() {
@@ -430,6 +434,24 @@
 				uni.setStorageSync('pid', options.pid);
 				uni.setStorageSync("user_id", options.pid);
 			}
+			if(!uni.getStorageSync('userInfo')){
+					uni.showModal({
+						title: "提示",
+						content: "您还未登录绑定",
+						confirmText: "登录绑定",
+						showCancel:false,
+						success: (res) => {
+							if (res.confirm) {
+								uni.navigateTo({
+									url: '/pages/public/login'
+								});
+							}
+						}
+					});
+				// }
+			}else{
+				this.tabbarShow=true
+			}			
 		},
 		onReachBottom() {
 			//上拉加载
@@ -440,7 +462,6 @@
 			this.getData();
 		},
 		onLoad(options) {
-			//
 			if (options.pid) {
 				uni.setStorageSync('pid', options.pid);
 				uni.setStorageSync("user_id", options.pid);
@@ -740,7 +761,6 @@
 	.content {
 		/* padding: 0 20rpx; */
 	}
-
 	.customer_service {
 		width: 100rpx;
 		height: 100rpx;

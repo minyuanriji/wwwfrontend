@@ -35,6 +35,9 @@
 		isMobile,
 		isWeChat
 	} from '@/utils/util.js';
+	import {
+		isEmpty
+	} from '../../common/validate.js';
 	export default {
 		data() {
 			return {
@@ -115,11 +118,15 @@
 						uni.removeStorageSync("pid");
 						uni.removeStorageSync("user_id");
 						uni.removeStorageSync("_login_pre_url");
-						setTimeout(() => {
-							uni.redirectTo({
-								url
-							})
-						}, 1000)
+						
+						uni.navigateTo({
+							url:'./bindParent'
+						})
+						// setTimeout(() => {
+						// 		uni.redirectTo({
+						// 			url
+						// 		})
+						// 	}, 1000)
 					}
 				})
 			},
