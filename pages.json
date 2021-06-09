@@ -917,6 +917,17 @@
             }
             
         }
+        ,{
+            "path" : "pages/user/bonus/bonus",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "奖金分红",
+                "enablePullDownRefresh": false,
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF"
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",

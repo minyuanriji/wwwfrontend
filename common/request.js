@@ -132,11 +132,11 @@ const fetch = {
 						// #endif
 						uni.removeStorageSync("token")
 						uni.removeStorageSync("initMenus")
-						
-						//console.log(uni.getStorageSync('userInfo'),'userInfouserInfo');
 						if(uni.getStorageSync('userInfo')){
 							uni.removeStorageSync('userInfo');
 						}
+						
+						uni.clearStorageSync()
 						
 						uni.showModal({
 							title: "提示",
@@ -145,6 +145,7 @@ const fetch = {
 							cancelText: "再逛会",
 							success: (res) => {
 								if (res.confirm) {
+	
 									uni.navigateTo({
 										url: '/pages/public/login'
 									});

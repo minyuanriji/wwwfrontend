@@ -284,6 +284,7 @@ export default {
 			this.mytoken = uni.getStorageSync('token');
 		}else{
 			this.mytoken=0
+			uni.clearStorageSync()
 			uni.showModal({
 				title: "提示",
 				content: "您还未登录，去登录吧~",
