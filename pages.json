@@ -927,7 +927,18 @@
 				"navigationBarBackgroundColor": "#FFFFFF"
             }
             
-        }
+        },
+		{
+		    "path" : "pages/user/bonus/bonusDetail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "奖金分红明细",
+		        "enablePullDownRefresh": false,
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FFFFFF"
+		    }
+		    
+		}
     ],
 	"subPackages": [{
 		"root": "plugins",

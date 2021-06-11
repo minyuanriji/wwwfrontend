@@ -8,7 +8,10 @@
 				<view class="home_content_top_r">
 					<view class="content_top_r_name">{{store.name}}</view>
 					<view class="content_top_r_desc">{{store.description}}</view>
-					<image :src="img_url+'/iphone.png'" mode="" class="tellPhone" @click="callPhone(store.service_mobile)"></image>
+					<view class="phone_location" style="margin-top: 20rpx;position: relative;">
+						<image :src="img_url+'/iphone.png'" mode="" class="tellPhone" @click="callPhone(store.service_mobile)"></image>
+						<image :src="img_url+'/dao_location.png'" mode="" class="location_logo"  @click="location(store.latitude,store.longitude,store.address)"></image>
+					</view>
 				</view>
 				<button class="home_content_top_share" open-type="share" v-if="isMiniWechat==1">
 					<view class="iconfont iconfenxiang"></view>
@@ -254,6 +257,22 @@
 				// uni.navigateTo({
 				// 	url:'../../diy/diy?page_id=11'
 				// })
+			},
+			location(lat,lnt,addrress){
+				window.location.href='https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:'+lat+','+lnt+';addr:'+addrress+'&referer=myapp&key=O3DBZ-IFH3W-KKIRN-RZPNQ-AOSH3-EGB5N'
+				// console.log(lat,lnt,addrress)
+				// uni.openLocation({
+				// 	 latitude:Number(lat),
+				// 	 longitude:Number(lnt),
+				// 	 name:addrress,
+				// 	 address:addrress,
+				// 	 success: function () {
+						
+				// 	},
+				// 	success: function () {
+						
+				// 	}
+				// })	
 			}
 		},
 		onReady() {
@@ -297,7 +316,7 @@
 		width: 100%;
 		height: 100%;
 	}
-
+	
 	.home_content {
 		width: 100%;
 		height: 100%;
@@ -305,8 +324,15 @@
 	.tellPhone{
 		width: 50rpx;
 		height: 50rpx;
-		display: block;
-		margin-top: 20rpx;
+		/* margin-top: 20rpx; */ 
+	}
+	.location_logo{
+		width: 58rpx;
+		height: 58rpx;
+		display: inline-block;
+		position: absolute;
+		top: -1rpx;
+		left: 120rpx;
 	}
 	.home_content_top {
 		width: 100%;

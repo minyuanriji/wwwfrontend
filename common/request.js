@@ -136,7 +136,7 @@ const fetch = {
 							uni.removeStorageSync('userInfo');
 						}
 						
-						uni.clearStorageSync()
+						uni.removeStorageSync('addressID')
 						
 						uni.showModal({
 							title: "提示",

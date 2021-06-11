@@ -436,21 +436,22 @@
 			}
 			
 //---------------------------------------------------------------首页进来绑定上下级
-			if(!uni.getStorageSync('userInfo')){
-				uni.showModal({
-					title: '提示',
-					content: '您还未登录，去登录吧',
-					confirmText: "去登录",
-					showCancel:false,
-					success: function (res) {
-					    if (res.confirm) {
-					       uni.navigateTo({
-					       	url:'../public/login'
-					       })
-					    } 
-					}
-				})
-			}
+			this.getCartList()
+			// if(!uni.getStorageSync('userInfo')){
+			// 	uni.showModal({
+			// 		title: '提示',
+			// 		content: '您还未登录，去登录吧',
+			// 		confirmText: "去登录",
+			// 		showCancel:false,
+			// 		success: function (res) {
+			// 		    if (res.confirm) {
+			// 		       uni.navigateTo({
+			// 		       	url:'../public/login'
+			// 		       })
+			// 		    } 
+			// 		}
+			// 	})
+			// }
 //--------------------------------------------------------------------------						
 		},
 		onReachBottom() {
@@ -503,6 +504,18 @@
 			return this.wxShare("补商汇", "/pages/index/index?source=1");
 		},
 		methods: {
+			getCartList() { //获取购物车列表
+				this.$http.request({
+					url: this.$api.cart.list,
+					method: 'GET'
+				}).then((res) => {
+					if(res.code==0){
+						this.modelSHOw=true
+					}else{
+						this.modelSHOw=false
+					}
+				})
+			},
 			navToLink(){
 				window.location.href='http://beian.miit.gov.cn'
 			},

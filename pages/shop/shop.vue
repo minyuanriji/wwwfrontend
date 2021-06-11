@@ -68,6 +68,7 @@
 						 	 <view class="index1_content_shop_block_r_m4_r">{{item.store.juan}}</view>
 						 </view>
 					 </view>
+					 <image :src="img_url+'dao_location.png'" mode="" class="locatins_logo" @click.stop="location(item.store.latitude,item.store.longitude,item.store.address)"></image>
 				</view>
 			</view>
 		</scroll-view>
@@ -85,6 +86,7 @@
 		},
 		data() {
 			return {
+				img_url: this.$api.img_url,
 				current:0,
 				background:"#53DEDB",
 				height:"",//滚动高度
@@ -387,7 +389,7 @@
 					type:'gcj02',
 					success(res) {
 						var longitude=res.longitude
-						var latitude=res.latitude
+						var latitude=res.latitude 
 						that.lat=latitude
 						that.lnt=longitude
 						uni.setStorageSync('x-longitude',res.longitude)
@@ -396,6 +398,22 @@
 					}
 				})
 			},
+			location(lat,lnt,addrress){
+				window.location.href='https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:'+lat+','+lnt+';addr:'+addrress+'&referer=myapp&key=O3DBZ-IFH3W-KKIRN-RZPNQ-AOSH3-EGB5N'
+				// console.log(lat,lnt,addrress)
+				// uni.openLocation({
+				// 	 latitude:Number(lat),
+				// 	 longitude:Number(lnt),
+				// 	 name:addrress,
+				// 	 address:addrress,
+				// 	 success: function () {
+						
+				// 	},
+				// 	success: function () {
+						
+				// 	}
+				// })	
+			}
 		},		
 		onReady(){	
 			var info=uni.getSystemInfoSync()
@@ -463,6 +481,7 @@ page{background-color: #fff;}
 	left: 0px;
 	right: 0px;
 }
+.locatins_logo{width: 48rpx;height: 48rpx;position: absolute;right: 30rpx;top: 30rpx;z-index: 999;}
 .index1_content_top{width: 100%;display: flex;align-items: center;padding: 15px 15px 10px 15px;}
 .index1_content_top_l{display: flex;
 font-size: 13px;
@@ -560,7 +579,7 @@ padding-left: 15px;
 	margin-left: 5px;
 }
 
-.index1_content_shop_block{display: flex;padding: 15px;border-bottom: 1px #eee solid;}
+.index1_content_shop_block{display: flex;padding: 15px;border-bottom: 1px #eee solid;position: relative;}
 .index1_content_shop_block_img{
 width: 58px;
 height: 58px;

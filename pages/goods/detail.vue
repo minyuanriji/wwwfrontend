@@ -521,7 +521,6 @@
 		},
 		onShow() {
 			this.getCartList();
-			
 		},
 		//用户点击分享
 		onShareAppMessage(e) {
