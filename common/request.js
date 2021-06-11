@@ -142,7 +142,7 @@ const fetch = {
 							title: "提示",
 							content: "您还未登录，去登录吧~",
 							confirmText: "去登录",
-							cancelText: "再逛会",
+							showCancel:false,
 							success: (res) => {
 								if (res.confirm) {
 	
