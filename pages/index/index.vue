@@ -1,6 +1,6 @@
 <template>
 	<view class="root">
-		<view class="foucs_H5" style="width: 100%;height: 96rpx;background:#3e4144;position: fixed;top: 0rpx;left: 0;z-index: 999;">
+		<view class="foucs_H5" style="width: 100%;height: 96rpx;background:#3e4144;position: fixed;top: 0rpx;left: 0;z-index: 999;" v-if="showFoucs">
 			<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 96rpx;display: block;float: left;"></image>
 			<view class="foucs_H5_messga" style="float: left;">
 				<text style="display: block;font-size: 25rpx;color: #fff;margin-top: 8rpx;">欢迎访问补商会</text>
@@ -435,7 +435,8 @@
 					pageTitle: '',
 					phone: '',
 				},
-				modelSHOw:true
+				modelSHOw:true,
+				showFoucs:false,
 			};
 		},
 		onShow() {
@@ -524,11 +525,17 @@
 				this.$http.request({
 					url: this.$api.cart.list,
 					method: 'GET'
-				}).then((res) => {
+				}).then((res) => { 
 					if(res.code==0){
 						this.modelSHOw=true
+						if(res.wechat_subscribe==1){
+							this.showFoucs=false
+						}else{
+							this.showFoucs=true
+						}
 					}else{
 						this.modelSHOw=false
+						this.showFoucs=true
 					}
 				})
 			},

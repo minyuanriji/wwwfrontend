@@ -1,6 +1,6 @@
 <template>
 	<view class="app">
-		<view class="foucs_H5" style="width: 100%;height: 96rpx;background:#3e4144;position: fixed;top: 0rpx;left: 0;z-index: 999;">
+		<view class="foucs_H5" style="width: 100%;height: 96rpx;background:#3e4144;position: fixed;top: 0rpx;left: 0;z-index: 999;" v-if="showFoucs">
 			<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 96rpx;display: block;float: left;"></image>
 			<view class="foucs_H5_messga" style="float: left;">
 				<text style="display: block;font-size: 25rpx;color: #fff;margin-top: 8rpx;">欢迎访问补商会</text>
@@ -258,7 +258,8 @@ export default {
 			take_a_code: '',
 			loading: false,
 			textColor:'#bc0100',
-			userMessage:{}
+			userMessage:{},
+			showFoucs:false
 		};
 	},
 	onLoad: function(options) {
@@ -359,6 +360,11 @@ export default {
 						this.configData = res.data.config;
 						this.userMessage=res.data.config
 						uni.setStorageSync('initMenus', JSON.stringify(res.data.config));
+						if(res.wechat_subscribe==1){
+							this.showFoucs=false
+						}else{
+							this.showFoucs=true
+						}
 					}
 				});
 		},
@@ -384,6 +390,12 @@ export default {
 						this.userInfo = res.data;
 						let token = uni.getStorageSync('token') || 0;
 						uni.setStorageSync('userInfo', JSON.stringify(res.data));
+						if(res.wechat_subscribe==1){
+							this.showFoucs=false
+						}else{
+							this.showFoucs=true
+						}
+						
 					} else {
 						uni.removeStorageSync('userInfo');
 						this.userInfo = {
@@ -391,6 +403,7 @@ export default {
 							score: 0,
 							coupon: 0
 						};
+						this.showFoucs=true
 					}
 				});
 		},
