@@ -3,7 +3,7 @@
 		<view class="type">
 			<image :src="img_url+'/type-one.png'" mode="widthFix" v-if="typeone"></image>
 			<image :src="img_url+'/type-two.png'" mode="widthFix" v-if="typetwo"></image>
-			<image :src="img_url+'/type-three.png'" mode="widthFix" v-if="typethree"></image>
+			<!-- <image :src="img_url+'/type-three.png'" mode="widthFix" v-if="typethree"></image> -->
 			<image :src="img_url+'/type-fouth.png'" mode="widthFix" v-if="typefourth"></image>
 		</view>
 		<view class="type-one" v-if="typeone">
@@ -12,8 +12,6 @@
 					<text>商户类型</text>
 				</view>
 				<view @click="popupShow=true" style="width: 350rpx;line-height: 120rpx;font-size:28rpx">{{userType.length>0?userType:'请选择'}}</view>
-				<!-- <input type="text" v-model="userType" placeholder="请选择" @click="popupShow=true" disabled /> -->
-			<!-- 	<image src="../../static/img/sanjia.png" mode="" class="logo"></image> -->
 			</view>
 			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
@@ -35,7 +33,6 @@
 				<picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
 					<view class="uni-input" style="height: 120rpx;line-height: 120rpx;">{{date}}</view>
 				</picker>
-				<!-- <input type="text" v-model="time" placeholder="请填写"/> -->
 			</view>
 			<view class="content_body_block">
 				<view class="content_body_block_desc">
@@ -128,17 +125,16 @@
 			</view>
 			<view class="type-one-Up-down">
 				<text @click="goBack(1)">上一页</text>
-				<text @click="savetwo">下一页</text>
+				<text style="background: #19BE6B;color: white;" @click="savetwo">提交</text>
+				<!-- <text @click="savetwo">下一页</text> -->
 			</view>
 		</view>
-		<view class="type-three" v-if="typethree">
+		<!-- <view class="type-three" v-if="typethree">
 			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>结算账户类型</text>
 				</view>
 				<view @click="bankShow=true" style="width: 350rpx;line-height: 120rpx;font-size:28rpx ;">{{userbanktype.length>0?userbanktype:'请选择'}}</view>
-				<!-- <input type="text" placeholder="请选择" @click="bankShow=true" v-model="userbanktype" disabled /> -->
-				<!-- 	<image src="../../static/img/sanjia.png" mode="" class="logo"></image> -->
 			</view>
 			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
@@ -152,13 +148,6 @@
 				</view>
 				<input type="text" placeholder="请填写" v-model="datathree.paper_settleAccount" />
 			</view>
-			<!-- <view class="item">
-				<view class="item_title" style="line-height: 120rpx;">
-					<text>结算方式</text>
-				</view>
-				<input type="text"  placeholder="请选择" />
-				<image src="../../static/img/sanjia.png" mode="" class="logo"></image>
-			</view> -->
 			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
 					<text>开户银行</text>
@@ -171,35 +160,20 @@
 				</view>
 				<input type="text" placeholder="请填写" v-model="datathree.paper_openSubBank" />
 			</view>
-		<!-- 	<view class="item" v-if="flags">
-				<view class="item_title" style="line-height: 120rpx;">
-					<text>开户行联行号</text>
-				</view>
-				<input type="text" placeholder="请填写" v-model="datathree.paper_openBankCode" />
-			</view> -->
-			<!-- <view class="content_body_block">
-				<view class="content_body_block_t">结算账户附件</view>
-				<view class="content_body_block_bb1">
-					<view class="content_body_block_bb_l2">
-						<image :src="params.pic_settlement" @tap="uploadImg" data-id="3"></image>
-						<view>附件照片</view>
-					</view>
-				</view>
-			</view> -->
 			<view class="type-one-Up-down">
 				<text @click="goBack(2)">上一页</text>
 				<text style="background: #19BE6B;color: white;" @click="savethree">提交</text>
 			</view>
-		</view>
+		</view> -->
 		<view class="type-fouth" v-if="typefourth">
 			<view class="type-fouth-title">
 				<image :src="img_url+'/audit.png'" mode=""></image>
 				<text>管理人员正在审核中</text>
 				<text>24小时内通过审核,请耐心等候</text>
 			</view>
-			<view class="btn_sure" @click="gocenter">
+			<!-- <view class="btn_sure" @click="gocenter">
 				确认
-			</view>
+			</view> -->
 		</view>
 		<com-bottom-popup :show="popupShow" @close="hidePopup(1)">
 			<view class="shop_type_item" v-for="(item,index) in shoptype" :key='index' @click="choose(item.num,item.name)">
@@ -243,10 +217,6 @@
 						name: '企业',
 						num: 2
 					},
-					// {
-					// 	name: '个人',
-					// 	num: 3
-					// },
 				],
 				banktype: [{ //结算账户类型
 						name: '对公账户',
@@ -286,15 +256,15 @@
 					paper_certificateName: '',
 					paper_certificateTo: currentDate,
 				},
-				datathree: { //结算类型参数
-					paper_settleAccountType: '',
-					paper_settleAccountNo: '',
-					paper_settleAccount: '',
-					paper_openBank: '',
-					paper_openSubBank: '',
-					// paper_openBankCode: '',
-					paper_settleAttachment: ''
-				},
+				// datathree: { //结算类型参数
+				// 	paper_settleAccountType: '',
+				// 	paper_settleAccountNo: '',
+				// 	paper_settleAccount: '',
+				// 	paper_openBank: '',
+				// 	paper_openSubBank: '',
+				// 	// paper_openBankCode: '',
+				// 	paper_settleAttachment: ''
+				// },
 			}
 		},
 		computed: {
@@ -349,22 +319,22 @@
 							this.datatwo.paper_certificateTo = totalMessage.paper_certificateTo.split(' ')[0]
 						}
 						//-------------------------------------上面是实名认证参数
-						this.datathree.paper_settleAccountType = totalMessage.paper_settleAccountType
-						if (totalMessage.paper_settleAccountType == 2) {
-							this.flags = false
-						}
-						for (let i = 0; i < this.banktype.length; i++) {
-							if (this.banktype[i].num == totalMessage.paper_settleAccountType) {
-								this.userbanktype = this.banktype[i].name
-							}
-						}
-						this.datathree.paper_settleAccountNo = totalMessage.paper_settleAccountNo
-						this.datathree.paper_settleAccount = totalMessage.paper_settleAccount
-						this.datathree.paper_openBank = totalMessage.paper_openBank
-						this.datathree.paper_openSubBank = totalMessage.paper_openSubBank
-						// this.datathree.paper_openBankCode = totalMessage.paper_openBankCode
-						this.datathree.paper_settleAttachment = totalMessage.paper_settleAttachment
-						this.params.pic_settlement = totalMessage.paper_settleAttachment
+						// this.datathree.paper_settleAccountType = totalMessage.paper_settleAccountType
+						// if (totalMessage.paper_settleAccountType == 2) {
+						// 	this.flags = false
+						// }
+						// for (let i = 0; i < this.banktype.length; i++) {
+						// 	if (this.banktype[i].num == totalMessage.paper_settleAccountType) {
+						// 		this.userbanktype = this.banktype[i].name
+						// 	}
+						// }
+						// this.datathree.paper_settleAccountNo = totalMessage.paper_settleAccountNo
+						// this.datathree.paper_settleAccount = totalMessage.paper_settleAccount
+						// this.datathree.paper_openBank = totalMessage.paper_openBank
+						// this.datathree.paper_openSubBank = totalMessage.paper_openSubBank
+						// // this.datathree.paper_openBankCode = totalMessage.paper_openBankCode
+						// this.datathree.paper_settleAttachment = totalMessage.paper_settleAttachment
+						// this.params.pic_settlement = totalMessage.paper_settleAttachment
 						//---------------------------------------上面是结算类型参数
 					}
 				});
@@ -615,117 +585,6 @@
 						if (res.code == 0) {
 							this.typeone = false
 							this.typetwo = false
-							this.typethree = true
-						} else {
-							this.$http.toast(res.msg);
-						}
-					});
-			},
-			savethree() { //保存第三部
-				if (isEmpty(this.datathree.paper_settleAccountType)) {
-					uni.showToast({
-						title: '请选择结算账户类型',
-						icon: 'none'
-					});
-					setTimeout(function() {
-						uni.hideToast();
-					}, 2000);
-					return
-				}
-				if (this.datathree.paper_settleAccountType == 1) {
-					if (isEmpty(this.datathree.paper_settleAccountNo)) {
-						uni.showToast({
-							title: '请填写正确的结算账户号',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (isEmpty(this.datathree.paper_settleAccount)) {
-						uni.showToast({
-							title: '请填写结算账户名',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (isEmpty(this.datathree.paper_openBank)) {
-						uni.showToast({
-							title: '请填写开户银行',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (isEmpty(this.datathree.paper_openSubBank)) {
-						uni.showToast({
-							title: '请填写开户支行',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					// if (isEmpty(this.datathree.paper_openBankCode)) {
-					// 	uni.showToast({
-					// 		title: '请填写正确的开户行联行号',
-					// 		icon: 'none'
-					// 	});
-					// 	setTimeout(function() {
-					// 		uni.hideToast();
-					// 	}, 2000);
-					// 	return
-					// }
-				} else if (this.datathree.paper_settleAccountType == 2) {
-					if (isEmpty(this.datathree.paper_settleAccountNo)) {
-						uni.showToast({
-							title: '请填写正确的结算账户号',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (isEmpty(this.datathree.paper_settleAccount)) {
-						uni.showToast({
-							title: '请填写结算账户名',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (isEmpty(this.datathree.paper_openBank)) {
-						uni.showToast({
-							title: '请填写开户银行',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-				}										
-				this.$http
-					.request({
-						url: this.$api.moreShop.merchantsettle,
-						method: 'POST',
-						data: this.datathree,
-						showLoading: true
-					})
-					.then(res => {
-						if (res.code == 0) {
-							this.typeone = false
-							this.typetwo = false
 							this.typethree = false
 							this.typefourth = true
 						} else {
@@ -733,6 +592,108 @@
 						}
 					});
 			},
+			// savethree() { //保存第三部
+			// 	if (isEmpty(this.datathree.paper_settleAccountType)) {
+			// 		uni.showToast({
+			// 			title: '请选择结算账户类型',
+			// 			icon: 'none'
+			// 		});
+			// 		setTimeout(function() {
+			// 			uni.hideToast();
+			// 		}, 2000);
+			// 		return
+			// 	}
+			// 	if (this.datathree.paper_settleAccountType == 1) {
+			// 		if (isEmpty(this.datathree.paper_settleAccountNo)) {
+			// 			uni.showToast({
+			// 				title: '请填写正确的结算账户号',
+			// 				icon: 'none'
+			// 			});
+			// 			setTimeout(function() {
+			// 				uni.hideToast();
+			// 			}, 2000);
+			// 			return
+			// 		}
+			// 		if (isEmpty(this.datathree.paper_settleAccount)) {
+			// 			uni.showToast({
+			// 				title: '请填写结算账户名',
+			// 				icon: 'none'
+			// 			});
+			// 			setTimeout(function() {
+			// 				uni.hideToast();
+			// 			}, 2000);
+			// 			return
+			// 		}
+			// 		if (isEmpty(this.datathree.paper_openBank)) {
+			// 			uni.showToast({
+			// 				title: '请填写开户银行',
+			// 				icon: 'none'
+			// 			});
+			// 			setTimeout(function() {
+			// 				uni.hideToast();
+			// 			}, 2000);
+			// 			return
+			// 		}
+			// 		if (isEmpty(this.datathree.paper_openSubBank)) {
+			// 			uni.showToast({
+			// 				title: '请填写开户支行',
+			// 				icon: 'none'
+			// 			});
+			// 			setTimeout(function() {
+			// 				uni.hideToast();
+			// 			}, 2000);
+			// 			return
+			// 		}
+			// 	} else if (this.datathree.paper_settleAccountType == 2) {
+			// 		if (isEmpty(this.datathree.paper_settleAccountNo)) {
+			// 			uni.showToast({
+			// 				title: '请填写正确的结算账户号',
+			// 				icon: 'none'
+			// 			});
+			// 			setTimeout(function() {
+			// 				uni.hideToast();
+			// 			}, 2000);
+			// 			return
+			// 		}
+			// 		if (isEmpty(this.datathree.paper_settleAccount)) {
+			// 			uni.showToast({
+			// 				title: '请填写结算账户名',
+			// 				icon: 'none'
+			// 			});
+			// 			setTimeout(function() {
+			// 				uni.hideToast();
+			// 			}, 2000);
+			// 			return
+			// 		}
+			// 		if (isEmpty(this.datathree.paper_openBank)) {
+			// 			uni.showToast({
+			// 				title: '请填写开户银行',
+			// 				icon: 'none'
+			// 			});
+			// 			setTimeout(function() {
+			// 				uni.hideToast();
+			// 			}, 2000);
+			// 			return
+			// 		}
+			// 	}										
+			// 	this.$http
+			// 		.request({
+			// 			url: this.$api.moreShop.merchantsettle,
+			// 			method: 'POST',
+			// 			data: this.datathree,
+			// 			showLoading: true
+			// 		})
+			// 		.then(res => {
+			// 			if (res.code == 0) {
+			// 				this.typeone = false
+			// 				this.typetwo = false
+			// 				this.typethree = false
+			// 				this.typefourth = true
+			// 			} else {
+			// 				this.$http.toast(res.msg);
+			// 			}
+			// 		});
+			// },
 			goBack(index) {
 				if (index == 1) {
 					this.typeone = true
@@ -746,7 +707,7 @@
 			},
 			gocenter() {
 				uni.navigateTo({
-					url: '../user/index'
+					url:'../personalCentre/personalCentre'
 				})
 			}
 		}
