@@ -81,13 +81,6 @@
 				</view>
 			</jx-list-cell>
 		</view>
-		<!-- <view class="personalCenter-item">
-			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(3)">
-				<view class="jx-cell-header" style="height: 100rpx;">
-					<view class="jx-cell-title" style="font-weight: 700;">核销订单</view>
-				</view>
-			</jx-list-cell>
-		</view> -->
 		<view class="personalCenter-item" style="margin-bottom: 100rpx;">
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(4)">
 				<view class="jx-cell-header" style="height: 100rpx;">
@@ -95,44 +88,6 @@
 				</view>
 			</jx-list-cell>
 		</view>
-		<!-- <view class="jx-content-box">
-			<view class="jx-header-btm">
-				<view class="jx-btm-item" @click="href(5)">
-					<view class="jx-btm-num">{{userMessage.stat.account_money}}</view>
-					<view class="jx-btm-text">账户</view>
-				</view>
-				<view class="jx-btm-item">
-					<view class="jx-btm-num">{{userMessage.stat.order_num}}</view>
-					<view class="jx-btm-text">订单</view>
-				</view>
-				<view class="jx-btm-item last">
-					<view class="jx-btm-num">{{userMessage.stat.goods_num}}</view>
-					<view class="jx-btm-text">商品</view>
-				</view>
-			</view>
-		</view>
-		<view class="personalCenter-item">
-			<jx-list-cell :arrow="true" padding="0" :lineLeft="false"  @click="href(1)">
-				<view class="jx-cell-header">
-					<view class="jx-cell-title" style="font-weight: 700;">我的首页</view>
-				</view>
-			</jx-list-cell>
-		</view>
-		<view class="personalCenter-item">
-			<jx-list-cell :arrow="true" padding="0" :lineLeft="false"  @click="href(2)">
-				<view class="jx-cell-header">
-					<view class="jx-cell-title" style="font-weight: 700;">二维码收款</view>
-				</view>
-			</jx-list-cell>
-		</view>
-		<view class="personalCenter-item">
-			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(3)">
-				<view class="jx-cell-header">
-					<view class="jx-cell-title" style="font-weight: 700;">核销订单</view>
-				</view>
-			</jx-list-cell>
-		</view>
-		</view> -->
 		<view class="goods-qrcode-modal" v-if="showPoster">
 			<view class="goods-qrcode-body flex-col">
 				<!-- 整一个图片包括二维码都是后台给的图片 -->
