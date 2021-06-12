@@ -242,6 +242,10 @@
 								}
 							});
 						}
+					}else{
+						uni.navigateTo({
+							url:'../index/index'
+						})
 					}
 				});
 		},
