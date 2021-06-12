@@ -68,6 +68,9 @@
 					<view class="tui-pro-title">
 						<text :selectable="true">{{goodsData.name}}</text>
 					</view>
+					<view class="tui-pro-title-product">
+						{{goodsData.product}}
+					</view>
 				</view>
 				<view class="tui-padding">
 					
@@ -1403,6 +1406,13 @@
 	.tui-pro-title {
 		padding-top: 20rpx;
 		color: #272727;
+		width: 100%;
+		overflow: hidden;
+	}
+	.tui-pro-title-product{
+		padding-top: 20rpx;
+		color: #808080;
+		font-size: 25rpx;
 		width: 100%;
 		overflow: hidden;
 	}
