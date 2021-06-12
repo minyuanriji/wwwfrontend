@@ -231,26 +231,13 @@
 								confirmText:'修改资料',
 								success: function(res) {
 									if (res.confirm) {
-										that.$http
-											.request({
-												url: that.$api.moreShop.changeStatus,
-												method: 'POST',
-												showLoading: true
-											})
-											.then(result => {
-												if(result.code==0){
-													uni.navigateTo({
-														url: '../supplement/supplement'
-													})
-												}
-											});
+										uni.navigateTo({
+											url: '../supplement/supplement'
+										})
 									} else if (res.cancel) {
 										uni.redirectTo({
 											url:'../user/index'
 										})
-										// uni.navigateBack({
-										// 	delta:1
-										// })
 									}
 								}
 							});
