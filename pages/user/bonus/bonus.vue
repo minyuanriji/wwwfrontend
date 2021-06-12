@@ -69,9 +69,9 @@
 				<view class="agreement-title">
 					补商会奖金池活动
 				</view>
-				<view class="agreement-time">
+				<!-- <view class="agreement-time">
 					活动时间：2021/06/8 -2021/07/08
-				</view>
+				</view> -->
 				<view class="agreement-detail">
 					方式：奖金池按照固定时间给有权利分红的所有人平分
 				</view>
