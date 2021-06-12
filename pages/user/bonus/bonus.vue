@@ -1,5 +1,8 @@
 <template>
 	<view class="bonus_app">
+		<view class="allmoney">
+			分1万红包
+		</view>
 		<view class="bonus_header">
 			<view class="bonus_header_right-che">
 				<!-- #ifdef H5  -->
@@ -98,6 +101,7 @@
 				userMessage:'',//个人信息
 				awards_list:'',//奖金池列表
 				bonus_log:'',//我的分红
+				moneyCount:'',
 			};
 		},
 		onLoad() {
@@ -157,6 +161,9 @@
 						if (res.code == 0) {
 							this.userMessage=res.data.list.user_bonus
 							this.awards_list=res.data.list.awards_list
+							for(let i=0;i<this.awards_list.length;i++){
+								this.moneyCount=this.awards_list[i].money
+							}
 							this.bonus_log=res.data.list.bonus_log
 						}
 				});
@@ -167,6 +174,9 @@
 
 <style lang="less">
 	.bonus_app{width: 100%;overflow: hidden;background: url(https://dev.mingyuanriji.cn/web/static/Prizepool.jpg)no-repeat;background-size: 100%;}
+	.allmoney{position: absolute;top: 85rpx;left: 0;width: 100%;font-size: 90rpx;color: #fff;font-weight: 600;
+	text-align: center;
+	}
 	.bonus_header{width: 100%;height: 480rpx;}
 	.bonus_header_right-che{width: 130rpx;float: right;height: 200rpx;display: flex;flex-wrap: wrap;margin-top: 220rpx;}
 	.bonus_header_right-che view{width: 100%;text-align: center;font-size: 25rpx;line-height: 50rpx;
