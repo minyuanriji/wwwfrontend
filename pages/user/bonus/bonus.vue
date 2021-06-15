@@ -1,8 +1,5 @@
 <template>
 	<view class="bonus_app">
-		<view class="allmoney">
-			分{{moneyCount}}红包
-		</view>
 		<view class="bonus_header">
 			<view class="bonus_header_right-che">
 				<!-- #ifdef H5  -->
@@ -38,7 +35,7 @@
 							总奖金池
 						</view>
 						<view class="bonus_type_item_num">
-							<text>{{moneyCount}}</text>
+							<text>{{money_count}}</text>
 							<text>现金红包</text>
 						</view>
 					</view>
@@ -111,7 +108,7 @@
 				userMessage:'',//个人信息
 				awards_list:'',//奖金池列表
 				bonus_log:'',//我的分红
-				moneyCount:0,//总的可以分红的数
+				money_count:0,//总的可以分红的数
 				detailShow:false, //控制个人信息显示
 			};
 		},
@@ -175,10 +172,8 @@
 								this.detailShow=true
 							}
 							this.awards_list=res.data.list.awards_list
-							for(let i=0;i<this.awards_list.length;i++){
-								this.moneyCount+=Number(this.awards_list[i].money)
-							}
 							this.bonus_log=res.data.list.bonus_log
+							this.money_count=res.data.list.money_count
 						}
 				});
 			}
