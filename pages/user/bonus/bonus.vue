@@ -1,7 +1,7 @@
 <template>
 	<view class="bonus_app">
 		<view class="allmoney">
-			分1万红包
+			分{{moneyCount}}红包
 		</view>
 		<view class="bonus_header">
 			<view class="bonus_header_right-che">
@@ -15,7 +15,7 @@
 					</button>
 				</view>
 				<!--#endif -->
-				<view @click="linkDetail">我的分红</view>
+				<view @click="linkDetail" v-if="detailShow">我的分红</view>
 				<view @click="dialogShow=true">规则</view>
 			</view>
 		</view>
@@ -35,7 +35,7 @@
 					</view>
 			</view>	
 		</view>
-		<view class="bonus_message_my">
+		<view class="bonus_message_my" v-if="detailShow">
 			<view class="bonus_message_title">
 				我的分红
 			</view>
@@ -84,6 +84,7 @@
 </template>
 
 <script>
+	import {isEmpty} from '../../../common/validate.js'
 	export default {
 		data() {
 			return {
@@ -101,7 +102,8 @@
 				userMessage:'',//个人信息
 				awards_list:'',//奖金池列表
 				bonus_log:'',//我的分红
-				moneyCount:'',
+				moneyCount:0,
+				detailShow:false,
 			};
 		},
 		onLoad() {
@@ -148,7 +150,7 @@
 			},
 			getbouns(){
 				this.$http
-					.request({
+					.request({   //获取分红信息
 						url: this.$api.moreShop.getbouns,
 						method: 'POST',
 						showLoading: true,
@@ -160,9 +162,12 @@
 					.then(res => {
 						if (res.code == 0) {
 							this.userMessage=res.data.list.user_bonus
+							if(!isEmpty(this.userMessage)){
+								this.detailShow=true
+							}
 							this.awards_list=res.data.list.awards_list
 							for(let i=0;i<this.awards_list.length;i++){
-								this.moneyCount=this.awards_list[i].money
+								this.moneyCount+=Number(this.awards_list[i].money)
 							}
 							this.bonus_log=res.data.list.bonus_log
 						}
@@ -174,7 +179,7 @@
 
 <style lang="less">
 	.bonus_app{width: 100%;overflow: hidden;background: url(https://dev.mingyuanriji.cn/web/static/Prizepool.jpg)no-repeat;background-size: 100%;}
-	.allmoney{position: absolute;top: 85rpx;left: 0;width: 100%;font-size: 90rpx;color: #fff;font-weight: 600;
+	.allmoney{position: absolute;top: 85rpx;left: 0;width: 100%;font-size: 70rpx;color: #fff;font-weight: 600;
 	text-align: center;
 	}
 	.bonus_header{width: 100%;height: 480rpx;}
