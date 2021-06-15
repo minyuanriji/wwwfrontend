@@ -33,6 +33,15 @@
 							<text>现金红包</text>
 						</view>
 					</view>
+					<view class="bonus_type_item">
+						<view class="bonus_type_item_title">
+							总奖金池
+						</view>
+						<view class="bonus_type_item_num">
+							<text>{{moneyCount}}</text>
+							<text>现金红包</text>
+						</view>
+					</view>
 			</view>	
 		</view>
 		<view class="bonus_message_my" v-if="detailShow">
