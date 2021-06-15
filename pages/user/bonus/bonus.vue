@@ -89,7 +89,7 @@
 		data() {
 			return {
 				serviceLink:'',//客服链接
-				webapp: {
+				webapp: {  //小程序端连接客服需要的数据
 					nickName: "",
 					avatarUrl: '',
 					province: '',
@@ -102,8 +102,8 @@
 				userMessage:'',//个人信息
 				awards_list:'',//奖金池列表
 				bonus_log:'',//我的分红
-				moneyCount:0,
-				detailShow:false,
+				moneyCount:0,//总的可以分红的数
+				detailShow:false, //控制个人信息显示
 			};
 		},
 		onLoad() {
@@ -143,14 +143,14 @@
 					)
 				}
 			},
-			linkDetail(){
+			linkDetail(){ //跳转到我的分红明细
 				uni.navigateTo({
 					url:'./bonusDetail'
 				})
 			},
-			getbouns(){
+			getbouns(){//获取分红信息
 				this.$http
-					.request({   //获取分红信息
+					.request({ 
 						url: this.$api.moreShop.getbouns,
 						method: 'POST',
 						showLoading: true,
