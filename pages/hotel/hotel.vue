@@ -52,7 +52,7 @@
 		</view>
 		<view class="hotel_list">
 			<view class="hotel_list_title">
-				猜你喜欢
+				推荐酒店
 			</view>
 			<view class="hotel_list_item" v-for="item in 5" :key='item'>
 				<image src="../../plugins/images/extensions/o2o/shuiguotu.png" mode="" class="hotel_logo"></image>
@@ -98,6 +98,7 @@
 			</view>
 		</com-bottom-popup>
 		
+	
 	</view>
 </template>
 
@@ -215,6 +216,8 @@
 					}
 				})
 			},
+			
+		
 		}		
 	}
 </script>
