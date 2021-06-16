@@ -329,7 +329,10 @@ export default {
 	},
 	methods: {
 		foucusInfo(){
-			window.location.href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI3MTIzMjAyOQ==&scene=#wechat_redirect"
+			//window.location.href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI3MTIzMjAyOQ==&scene=#wechat_redirect"
+			uni.navigateTo({
+				url: '/pages/diy/diy?page_id=114'
+			});
 		},
 		link(){
 			
