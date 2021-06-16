@@ -13,7 +13,7 @@
 				<view class="hotel_search_address_right">
 					<image :src="img_url+'/hotel/right.png'" mode=""></image>
 				</view>
-				<view class="hotel_search_address_location">
+				<view class="hotel_search_address_location" @tap="chooseAddress">
 					<image :src="img_url+'/hotel/my-location.png'" mode=""></image>
 					<text>我的位置</text>
 				</view>
@@ -36,19 +36,73 @@
 				<input type="text" value="" placeholder="酒店/地标/关键词"/>
 				<!-- <image :src="img_url+'/hotel/right.png'" mode=""></image> -->
 			</view>
-			<view class="hotel_search_screening">
-				<input type="text" value="" placeholder="酒店/地标/关键词"/>
+			<view class="hotel_search_screening" @click="popupShow=true">
+				<input type="text"  placeholder="价格/星级" disabled v-model="price_star"/>
 				<image :src="img_url+'/hotel/right.png'" mode=""></image>
 			</view>
 			<view class="hotel_search_sure">
 				搜索酒店
 			</view>
+			<view class="hotel_search_advertising">
+				<image :src="img_url+'/hotel/hotel_advising.png'" mode=""></image>
+			</view>
 		</view>
-		 <calendar :is-show="timeShow"  :start-date="startDate" :end-date="endDate" mode="2"  @callback="getDate" />
+		<view class="hotel_go_shop" @click="linkTo">
+			<image :src="img_url+'/hotel/go_myShop.png'" mode=""></image>
+		</view>
+		<view class="hotel_list">
+			<view class="hotel_list_title">
+				猜你喜欢
+			</view>
+			<view class="hotel_list_item" v-for="item in 5" :key='item'>
+				<image src="../../plugins/images/extensions/o2o/shuiguotu.png" mode="" class="hotel_logo"></image>
+				<view class="hotel_list_item_center">
+					<view class="hotel_list_item_name">
+						<text>把手机查克拉现金参加</text>
+						<text>舒适型</text>
+					</view>
+					<view class="hotel_list_item_product">
+						<text style="display: inline-block;margin-right: 10rpx;color: red;">4.8分</text>很好 
+						<text style="display: inline-block;margin:0 10rpx;color: red;">500+</text>点评
+					</view>
+					<view class="hotel_list_item_price">
+						<image :src="img_url+'/hotel/rightColor.png'" mode=""></image>
+						<text>￥1670起</text>
+					</view>
+				</view>
+			</view>
+		</view>
+		<calendar :is-show="timeShow"  :start-date="startDate" :end-date="endDate" mode="2"  @callback="getDate" />		
+		<com-bottom-popup :show="popupShow" @close="hidePopup">
+			<view class="hotel_screening">
+				筛选
+			</view>
+			<view class="hotel_screening_title">
+				价格
+			</view>
+			<view class="hotel_screening_price">
+				<input type="number"  placeholder="请输入起始价格" v-model="screeningSprice.begin"/>
+				<text>————</text>
+				<input type="number"  placeholder="请输入截止价格" v-model="screeningSprice.end"/>
+			</view>
+			<view class="hotel_screening_title">
+				星级
+			</view>
+			<view class="hotel_screening_star">
+				<text v-for="(item,index) in star" :key='index' @click="selectStar(index)"
+				:class="selectStarindex==index?'StarText':'unStarText'">{{item}}</text>
+			</view>
+			<view class="sure">
+				<view style="color: #000;" @click="clearInfo">重置</view>
+				<view style="background: #FF8F0B;color: #fff;" @click="sureRequest">完成</view>
+			</view>
+		</com-bottom-popup>
+		
 	</view>
 </template>
 
 <script>
+	import {isEmpty} from '../../common/validate.js'
 	import Calendar from '@/components/mobile-calendar-simple/Calendar.vue'
 	export default {
 		components:{
@@ -58,11 +112,12 @@
 			return {
 				img_url: this.$api.img_url,
 				selectIndex:1,
-				startDate:'',
-				endDate:'',
-				betweenStart:'',
-				betweenEnd:'',
+				startDate:'',//开始时间
+				endDate:'',//结束时间
+				betweenStart:'',//区间时间开始
+				betweenEnd:'',//取件时间结束
 				timeShow:false,
+				price_star:'',
 				timeStaus:{
 					dayCount:'',
 					endStr:{
@@ -76,29 +131,97 @@
 						week:''
 					}
 				},
-				
+				popupShow: false,//筛选弹窗
+				star:['1星级','2星级','3星级','4星级','5星级','6星级','7星级'],
+				starSet:'',//选择的星级
+				selectStarindex:null,//选择星级样式
+				screeningSprice:{ //填写的价格区间
+					begin:'',
+					end:""
+				}
 			};
-		},
-		onLoad() {
-			
 		},
 		methods:{
 			select(index){ //点击切换类型
 				this.selectIndex=index
 			},
-			getDate(date){				
+			getDate(date){ //获取入住时间				
 				this.timeStaus=date
 			    console.log(date)
 				this.timeShow=false
-			}
-		}
-		
+			},
+			linkTo(){ //跳转商城首页
+				uni.navigateTo({
+					url:'../index/index'
+				})
+			},
+			hidePopup(num) { //关闭弹窗
+				this.popupShow = false;
+			},
+			selectStar(index){ //选择星级
+				this.selectStarindex=index
+				for(let i=0;i<this.star.length;i++){
+					if(this.selectStarindex==i){
+						this.starSet=this.star[i]
+					}
+				}
+			},
+			sureRequest(){
+				// if(isEmpty(this.screeningSprice.begin)){
+				// 	uni.showToast({
+				// 		title: '请输入起始价格',
+				// 		icon: 'none'
+				// 	});
+				// 	setTimeout(function() {
+				// 		uni.hideToast();
+				// 	}, 2000);
+				// 	return
+				// }
+				// if(isEmpty(this.screeningSprice.end)){
+				// 	uni.showToast({
+				// 		title: '请输入截止价格',
+				// 		icon: 'none'
+				// 	});
+				// 	setTimeout(function() {
+				// 		uni.hideToast();
+				// 	}, 2000);
+				// 	return
+				// }
+				// if(this.selectStarindex==null){
+				// 	uni.showToast({
+				// 		title: '请选择星级',
+				// 		icon: 'none'
+				// 	});
+				// 	setTimeout(function() {
+				// 		uni.hideToast();
+				// 	}, 2000);
+				// 	return
+				// }
+				this.popupShow=false
+				this.price_star="￥"+this.screeningSprice.begin+'-'+"￥"+this.screeningSprice.end+"/"+this.starSet
+			},
+			clearInfo(){//重置
+				this.screeningSprice={
+					begin:'',
+					end:""
+				}
+				this.selectStarindex=null
+			},
+			chooseAddress() { //选择地址我的定位
+				var that = this
+				uni.chooseLocation({
+					success: function(res) {
+						console.log(res)
+					}
+				})
+			},
+		}		
 	}
 </script>
 
 <style lang="less">
 	.hotel_app{width: 100%;overflow: hidden;background: url(https://dev.mingyuanriji.cn/web/static/hotel/hotel_back.png)no-repeat;background-size: 100%;}
-	.hotel_search{width:696rpx;height: 586rpx;margin: 80px auto 0;border-radius: 20rpx;opacity: 1;background: #FFFFFF;
+	.hotel_search{width:696rpx;height: 626rpx;margin: 80px auto 0;border-radius: 20rpx;opacity: 1;background: #FFFFFF;
 	 box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);}
 	.hotel_search_header{width: 100%;height: 88rpx;display: flex;justify-content: space-evenly;}
 	.hotel_search_header view{line-height: 84rpx;}
@@ -125,4 +248,31 @@
 	.hotel_search_screening image{width: 16rpx;height: 26rpx;float: right;margin-top: 30rpx;}
 	.hotel_search_sure{width: 90%;height: 90rpx;margin: 20rpx auto 0;text-align: center;line-height: 90rpx;color: #fff;font-size: 30rpx;
 	background: url(https://dev.mingyuanriji.cn/web/static/hotel/searchHotel.png)no-repeat;background-size: 100%;}
+	.hotel_search_advertising{width: 252rpx;height: 24rpx;margin: 20rpx auto;}
+	.hotel_search_advertising image{width: 252rpx;height: 24rpx;display: block;}
+	.hotel_go_shop{width: 696rpx;height: 256rpx;margin: 20rpx auto 0;border-radius: 30rpx;}
+	.hotel_go_shop image{width: 100%;height: 100%;display: block;border-radius: 30rpx;}
+	.hotel_list{width: 92%;overflow: hidden;margin: 30rpx auto 80rpx;padding-top: 20rpx;background: #FFFFFF;box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.15);border-radius: 20rpx;}
+	.hotel_list_title{width: 100%;height: 50rpx;margin-bottom: 30rpx;line-height: 50rpx;text-align: left;font-size: 35rpx;color: #000;font-weight: bold;box-sizing: border-box;padding-left: 20rpx;}
+	.hotel_list_item{width: 100%;overflow: hidden;margin-bottom: 40rpx;}
+	.hotel_logo{width: 208rpx;height: 208rpx;display: block;float: left;margin-left: 15rpx;}
+	.hotel_list_item_center{width: 450rpx;float: left;}
+	.hotel_list_item_name{width: 100%;overflow: hidden;display: flex;justify-content: space-between;}
+	.hotel_list_item_name text:nth-of-type(1){width: 68%;height: 76rpx;font-size: 26rpx;color: #000;margin-left: 15rpx;
+	display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;}
+	.hotel_list_item_name text:nth-of-type(2){width: 30%;height: 76rpx;font-size: 25rpx;color: #FB4512;text-align: right;}
+	.hotel_list_item_product{width: 100%;margin-left: 15rpx;font-size: 25rpx;}
+	.hotel_list_item_price{width: 300rpx;font-size: 28rpx;font-weight: bold;float: right;text-align: right;margin: 45rpx 0 0 0;color: #FB4512;}
+	.hotel_list_item_price text{display: inline-block;float: right;}
+	.hotel_list_item_price image{width: 28rpx;height: 28rpx;display: inline-block;margin:8rpx 0 0 15rpx;float: right;}
+	.hotel_screening{width: 100%;height: 80rpx;text-align: center;margin:20rpx 0;color: #000000;font-weight: bold;}    .hotel_screening_title{width:98%;margin: 10rpx auto 40rpx;font-size: 30rpx;color: #000;font-weight: bold;}
+	.hotel_screening_price{width: 100%;display: flex;justify-content: space-evenly;margin: 20rpx 0 30rpx 0;}
+	.hotel_screening_price input{width: 30%;font-size: 25rpx;height: 60rpx;border: 1rpx solid #80848F;border-radius: 20rpx;text-align: center;}
+	.hotel_screening_star{width: 100%;margin: 20rpx 0 30rpx 0;overflow: hidden;}
+	.hotel_screening_star text{display: block;float: left;color: #fff;width: 20%;height: 50rpx;
+	line-height: 50rpx;text-align: center;margin: 20rpx 18rpx;font-size: 30rpx;border-radius: 20rpx;}
+	.sure{width: 100%;height: 80rpx;}
+	.sure view{width: 50%;float: left;text-align: center;line-height: 80rpx;}
+	.StarText{background: red;}
+	.unStarText{background:  rgba(110, 125, 130, 0.7)}
 </style>
