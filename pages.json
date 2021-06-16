@@ -939,6 +939,17 @@
 		    }
 		    
 		}
+        ,{
+            "path" : "pages/hotel/hotel",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "酒店",
+                "enablePullDownRefresh": false,
+                "navigationBarTextStyle": "black",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",
