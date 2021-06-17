@@ -7,9 +7,12 @@
 				<view @click="select(3)" :class="selectIndex==3?'active':''">民宿</view>
 			</view>
 			<view class="hotel_search_address">
-				<view class="hotel_search_address_int">
-					北京
-				</view>
+				<picker  mode="multiSelector" @change="picker"  :value="value" @columnchange="columnPicker" :range="multiArray"
+				style="float: left;">	
+					<view hotel_search_address_int>
+						<view class="index1_content_top_l_name" style="max-width: 400rpx;height: 80rpx;line-height: 80rpx;font-size: 28rpx;">{{text.length<=0?'请选择':text}}</view>
+					</view>
+				</picker>
 				<view class="hotel_search_address_right">
 					<image :src="img_url+'/hotel/right.png'" mode=""></image>
 				</view>
@@ -54,7 +57,7 @@
 			<view class="hotel_list_title">
 				推荐酒店
 			</view>
-			<view class="hotel_list_item" v-for="item in 5" :key='item'>
+			<view class="hotel_list_item" v-for="item in 5" :key='item' @click="checkInto">
 				<image src="../../plugins/images/extensions/o2o/shuiguotu.png" mode="" class="hotel_logo"></image>
 				<view class="hotel_list_item_center">
 					<view class="hotel_list_item_name">
@@ -139,8 +142,22 @@
 				screeningSprice:{ //填写的价格区间
 					begin:'',
 					end:""
-				}
+				},
+				num:0,
+				value:[0,0,0],
+				multiArray: [], //picker数据
+				selectList:[],
+				provice: "",
+				city: "",
+				district: "",
+				proviceId: "",
+				cityId: "",
+				districtId: "",
+				text:''
 			};
+		},
+		onLoad() {
+			this.getCity()
 		},
 		methods:{
 			select(index){ //点击切换类型
@@ -216,8 +233,100 @@
 					}
 				})
 			},
+			getCity() { //请求省市区数据
+				this.$http.request({
+					url: this.$api.moreShop.getCity,
+					method: 'post',
+					showLoading:true,
+				}).then((res) => {
+					// 处理数据
+					var provinceArr = [];
+					var cityArr = [];
+					var districtArr = [];
+					for (var key in res.data) { //分为三个数组
+						if (res.data[key].level == 'province' || res.data[key].level == 'city') {
+							this.$set(res.data[key], 'children', [])
+						}
+						if (res.data[key].level == 'province') {
+							provinceArr.push(res.data[key])
+						}
+						if (res.data[key].level == 'city') {
+							cityArr.push(res.data[key])
+						}
+						if (res.data[key].level == 'district') {
+							districtArr.push(res.data[key])
+						}
+					}
+					this.multiArray = [provinceArr, cityArr];
+					cityArr.forEach((item, index) => {
+						districtArr.forEach((items, index) => {
+							if (item.id == items.parent_id) {
+								item.children.push(items);
+							}
+						})
+					})
 			
-		
+					provinceArr.forEach((item, index) => {
+						cityArr.forEach((items, indexs) => {
+							if (item.id == items.parent_id) {
+								item.children.push(items);
+							}
+						})
+					})
+					this.selectList = provinceArr;
+					this.multiArray = [
+						this.toArr(this.selectList),
+						this.toArr(this.selectList[0].children),						
+					];	
+				})
+			},
+			toArr(object) {
+				let arr = [];
+				for (let i in object) {
+					arr.push(object[i].name);
+				}
+				return arr;
+			},
+			picker(e){ //选择城市
+				let value = e.detail.value;
+				if (this.selectList.length > 0) {
+					this.provice = this.selectList[value[0]].name; //获取省
+					// this.district = this.selectList[value[0]].children[value[1]].children[value[2]].name; //获取区
+					this.city = this.selectList[value[0]].children[value[1]].name; //获取区
+					this.proviceId = this.selectList[value[0]].id; //获取省id
+					this.cityId = this.selectList[value[0]].children[value[1]].id; //获取市id
+					// this.districtId = this.selectList[value[0]].children[value[1]].children[value[2]].id; //获取区id
+					this.text = this.provice + " " + this.city;
+					// this.form.province_id=this.proviceId
+					// this.form.city_id=this.cityId
+				}
+				console.log(this.text)
+				console.log(this.proviceId,this.cityId)
+			},
+			columnPicker(e){ //标记行
+				//第几列 下标从0开始
+				let column = e.detail.column;
+				//第几行 下标从0开始
+				let value = e.detail.value;
+				if (column === 0) {
+					this.multiArray = [
+						this.multiArray[0],
+						this.toArr(this.selectList[value].children),
+						
+					];
+					this.value = [value, 0, 0]
+				} else if (column === 1) {
+					this.multiArray = [
+						this.multiArray[0],
+						// this.multiArray[1],
+						
+					];
+					this.value = [this.value[0], value, 0]
+				}
+			},
+			checkInto(){ //进入推荐列表详情
+				
+			}
 		}		
 	}
 </script>
@@ -278,4 +387,5 @@
 	.sure view{width: 50%;float: left;text-align: center;line-height: 80rpx;}
 	.StarText{background: red;}
 	.unStarText{background:  rgba(110, 125, 130, 0.7)}
+	.index1_content_top_l_name{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
 </style>
