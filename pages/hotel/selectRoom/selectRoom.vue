@@ -30,7 +30,7 @@
 			</view>
 			<view class="Room_list">
 				<view class="Room_item" v-for="item in 5" :key='item'>
-					<view class="Room_items">
+					<view class="Room_items" @click="hotelDetalShow=true">
 						<view class="Room_item_image">
 							<image src="../../../plugins/images/extensions/o2o/shuiguotu.png" mode=""></image>
 						</view>
@@ -42,15 +42,15 @@
 							<view class="Room_item_price_detail">
 								<text style="font-size: 25rpx;text-decoration: line-through;">￥1888</text>
 								<text style="color:#FB4512;">￥0起</text>
-								<image :src="img_url+'/hotel/rightColor.png'" mode="" @click="heightPoup=true" v-if="!heightPoup"></image>
-								<image :src="img_url+'/hotel/rightColor.png'" mode="" @click="heightPoup=false" v-if="heightPoup"></image>
+								<image :src="img_url+'/hotel/rightColor.png'" mode="" @click.stop="heightPoup=true" v-if="!heightPoup"></image>
+								<image :src="img_url+'/hotel/rightColor.png'" mode="" @click.stop="heightPoup=false" v-if="heightPoup"></image>
 							</view>
 							<view class="shop_detail" style="margin-bottom: 20rpx;">
 								补商汇红包全额抵扣
 							</view>
 						</view>
 					</view>
-					<view class="Room_detail"  v-if="heightPoup">
+					<view class="Room_detail"  v-if="heightPoup" @click="hotelDetalShow=true">
 						<view class="Room_detail-left">
 							<view class="Room_detail-title">大床/单人床</view>
 							<view class="Room_detail-notice">
@@ -58,10 +58,6 @@
 								<text>入住当天18点前可以免费取消</text>
 							</view>
 							<view class="Room_detail-forbid">
-								<view style="color: #14C4AD;">
-									<image :src="img_url+'/hotel/lightning.png'" mode=""></image>
-									<text>立即确认</text>
-								</view>
 								<view>
 									<image :src="img_url+'/hotel/nosmoking.png'" mode=""></image>
 									<text>禁止吸烟</text>
@@ -78,7 +74,7 @@
 									红包全额抵扣
 								</view>
 							</view>
-							<view class="Room_detail-right_right">
+							<view class="Room_detail-right_right" @click.stop="order">
 								<image :src="img_url+'/hotel/drawup.png'" mode=""></image>
 							</view>
 						</view>
@@ -89,24 +85,71 @@
 				<view class="need-to-know_item">
 					<image :src="img_url+'/hotel/need-to-know1.png'" mode="widthFix"></image>
 					<view class="need-to-know-notice">
-						<text>查看全部必读</text>
+						<text @click="know">查看全部必读</text>
 					</view>
 				</view>
 				<view class="need-to-know_item">
 					<image :src="img_url+'/hotel/need-to-know2.png'" mode="widthFix"></image>
 					<view class="need-to-know-notice">
-						<text>查看详情</text>
+						<text @click="know">查看详情</text>
 					</view>
 				</view>
 				<view class="need-to-know_item">
 					<image :src="img_url+'/hotel/need-to-know3.png'" mode="widthFix"></image>
 					<view class="need-to-know-notice">
-						<text>查看详情</text>
+						<text @click="know">查看详情</text>
 					</view>
 				</view>
 			</view>
 		</view>
 		<calendar :is-show="timeShow"  :start-date="startDate" :end-date="endDate" mode="2"  @callback="getDate" />	
+		<com-bottom-popup :show="hotelDetalShow" @close="hidePopup">
+			<view class="hotelDetalShow">
+				<image :src="img_url+'/hotel/close.png'" mode="" class="closePoup" @click="hotelDetalShow=false"></image>
+				<view class="hotelDetalShow-image">
+					<image :src="img_url+'/hotel/hotel_images.png'" mode=""></image>
+				</view>
+				<view class="hotelDetalShow-detail">
+					<view class="hotelDetalShow_title">
+						醇香高级大床房
+					</view>
+					<view class="hotelDetalShow-detail-list">
+						<view v-for="item in 18" :key='item'>
+							<image src="" mode=""></image>
+							<text>1张大床（1.8m）</text>
+						</view>
+					</view>
+					<view class="hotelDetalShow_title">
+						基础设施
+					</view>
+					<view class="hotelDetalShow-detail-list">
+						<view v-for="item in 6" :key='item'>
+							<image src="" mode=""></image>
+							<text>1张大床（1.8m）</text>
+						</view>
+					</view>
+				</view>
+				<view class="sure">
+					<view class="sure_money">
+						<view>
+							<view>
+								<text style="color: #707070;font-size: 25rpx;text-decoration: line-through;">￥1888</text>
+								<text style="color: #FB4512;font-size: 30rpx;">￥0起</text>
+							</view>
+							<view style="width: 160rpx;font-size: 25rpx;text-align: center;border: 1px solid #FB4512;border-radius: 6rpx;color: #FB4512;">
+								红包全额抵扣
+							</view>
+						</view>
+						<view class="sure_money_logo" @click="order">
+							<image :src="img_url+'/hotel/drawup.png'" mode=""></image>
+						</view>
+					</view>
+				</view>
+			</view>
+			
+		</com-bottom-popup>
+	
+	
 	</view>
 </template>
 
@@ -138,6 +181,7 @@
 					}
 				},
 				heightPoup:false,
+				hotelDetalShow:false,
 			};
 		},
 		methods:{
@@ -146,6 +190,19 @@
 			    console.log(date)
 				this.timeShow=false
 			},
+			know(){ //跳转需知页面
+				uni.navigateTo({
+					url:'../hotelKnow/hotelKnow'
+				})
+			},
+			hidePopup(){
+				this.hotelDetalShow = false;
+			},
+			order(){
+				uni.navigateTo({
+					url:'../orderSure/orderSure'
+				})
+			}
 		}
 	}
 </script>
@@ -195,4 +252,23 @@
 	 .need-to-know-notice{width: 100%;height: 55rpx;position: absolute;left: 0;bottom: 0;}
 	 .need-to-know-notice text{display: block;width: 180rpx;height: 55rpx;color: #2088FF;margin: 0 auto;font-size: 25rpx;text-align: center;border: 1rpx solid #2088FF;line-height:55rpx ;
 	 border-radius: 15rpx;}
+	 .hotelDetalShow{width: 100%;overflow: hidden;position: relative;}
+	 .hotelDetalShow-image{width: 100%;overflow: hidden;}
+	 .hotelDetalShow-image image{width:100% ;border-radius: 20rpx 20rpx 0 0;height: 300rpx;display: block;}
+	.hotelDetalShow-detail{width: 100%;overflow: hidden;padding: 0 20rpx;}
+	.hotelDetalShow_title{width: 100%;overflow: hidden;font-size: 30rpx;color: #000;font-weight: bold;}
+	.hotelDetalShow-detail-list{width: 100%;overflow: hidden;display: flex;
+	justify-content: space-evenly;flex-wrap: wrap;}
+	.hotelDetalShow-detail-list view{overflow: hidden;margin: 5rpx 0 0 0;}
+	.hotelDetalShow-detail-list view image{width: 35rpx;height: 35rpx;display: inline-block;margin-top: 5rpx;}
+	.hotelDetalShow-detail-list view text{display: inline-block;font-size: 25rpx;color: #000;height: 50rpx;line-height: 50rpx;text-align: center;}
+
+	.sure{width: 100%;height: 110rpx;background: #fff;box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.6);margin-top: 20rpx;}
+	.sure_money{display: flex;justify-content: space-evenly;width: 300rpx;float: right;}
+	.sure_money_logo image{display: block;width: 70rpx;height: 74rpx;margin-top: 10rpx;}
+	.closePoup{width: 52rpx;height: 52rpx;position: absolute;top: 30rpx;right: 20rpx;z-index: 999;}
+
+
+
+
 </style>

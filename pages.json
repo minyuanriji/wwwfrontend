@@ -984,6 +984,28 @@
             }
             
         }
+        ,{
+            "path" : "pages/hotel/hotelKnow/hotelKnow",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "需知",
+               "enablePullDownRefresh": false,
+               "navigationBarTextStyle": "black",
+               "navigationBarBackgroundColor": "#FFFFFF"
+            }
+            
+        }
+        ,{
+            "path" : "pages/hotel/orderSure/orderSure",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "订单",
+               "enablePullDownRefresh": false,
+               "navigationBarTextStyle": "black",
+               "navigationBarBackgroundColor": "#FFFFFF"
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",

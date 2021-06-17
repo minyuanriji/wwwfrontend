@@ -173,7 +173,7 @@
 					url:'../index/index'
 				})
 			},
-			hidePopup(num) { //关闭弹窗
+			hidePopup() { //关闭弹窗
 				this.popupShow = false;
 			},
 			selectStar(index){ //选择星级
@@ -325,7 +325,9 @@
 				}
 			},
 			checkInto(){ //进入推荐列表详情
-				
+				uni.navigateTo({
+					url:'selectRoom/selectRoom'
+				})
 			}
 		}		
 	}
