@@ -973,6 +973,17 @@
             }
             
         }
+        ,{
+            "path" : "pages/hotel/selectRoom/selectRoom",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "房间选择",
+                "enablePullDownRefresh": false,
+                "navigationBarTextStyle": "black",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",

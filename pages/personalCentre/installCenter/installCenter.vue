@@ -11,14 +11,14 @@
 				<text>店铺设置</text>
 				<image :src="img_url+'/arrow-right.png'" mode=""></image>
 			</view>
-			<view  @click="link(3)">
-				<image :src="img_url+'/money.png'" mode=""></image>
-				<text>结算设置</text>
-				<image :src="img_url+'/arrow-right.png'" mode=""></image>
-			</view>
 			<view  @click="link(4)">
 				<image :src="img_url+'/pass_LOGO.png'" mode=""></image>
 				<text>交易密码设置</text>
+				<image :src="img_url+'/arrow-right.png'" mode=""></image>
+			</view>
+			<view  @click="link(3)">
+				<image :src="img_url+'/money.png'" mode=""></image>
+				<text>结算设置</text>
 				<image :src="img_url+'/arrow-right.png'" mode=""></image>
 			</view>
 			<view  @click="link(5)">
