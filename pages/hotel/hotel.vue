@@ -384,7 +384,7 @@
 	.hotel_list_item_product{width: 100%;margin-left: 15rpx;font-size: 25rpx;}
 	.hotel_list_item_price{width: 300rpx;font-size: 28rpx;font-weight: bold;float: right;text-align: right;margin: 45rpx 0 0 0;color: #FB4512;}
 	.hotel_list_item_price text{display: inline-block;float: right;}
-	.hotel_list_item_price image{width: 28rpx;height: 28rpx;display: inline-block;margin:8rpx 0 0 15rpx;float: right;}
+	.hotel_list_item_price image{width: 28rpx;height: 28rpx;display: inline-block;margin:8rpx 10rpx 0 15rpx;float: right;}
 	.hotel_screening{width: 100%;height: 80rpx;text-align: center;margin:20rpx 0;color: #000000;font-weight: bold;}    .hotel_screening_title{width:98%;margin: 10rpx auto 40rpx;font-size: 30rpx;color: #000;font-weight: bold;}
 	.hotel_screening_price{width: 100%;display: flex;justify-content: space-evenly;margin: 20rpx 0 30rpx 0;}
 	.hotel_screening_price input{width: 30%;font-size: 25rpx;height: 60rpx;border: 1rpx solid #80848F;border-radius: 20rpx;text-align: center;}
