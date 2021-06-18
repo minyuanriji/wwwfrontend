@@ -43,7 +43,7 @@
 								<text style="font-size: 25rpx;text-decoration: line-through;">￥1888</text>
 								<text style="color:#FB4512;">￥0起</text>
 								<image :src="img_url+'/hotel/rightColor.png'" mode="" @click.stop="heightPoup=true" v-if="!heightPoup"></image>
-								<image :src="img_url+'/hotel/rightColor.png'" mode="" @click.stop="heightPoup=false" v-if="heightPoup"></image>
+								<image :src="img_url+'/hotel/rightColor.png'" mode="" @click.stop="heightPoup=false" v-if="heightPoup" class="rightColor_logo"></image>
 							</view>
 							<view class="shop_detail" style="margin-bottom: 20rpx;">
 								补商汇红包全额抵扣
@@ -262,12 +262,11 @@
 	.hotelDetalShow-detail-list view{overflow: hidden;margin: 5rpx 0 0 0;}
 	.hotelDetalShow-detail-list view image{width: 35rpx;height: 35rpx;display: inline-block;margin-top: 5rpx;}
 	.hotelDetalShow-detail-list view text{display: inline-block;font-size: 25rpx;color: #000;height: 50rpx;line-height: 50rpx;text-align: center;}
-
 	.sure{width: 100%;height: 110rpx;background: #fff;box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.6);margin-top: 20rpx;}
 	.sure_money{display: flex;justify-content: space-evenly;width: 300rpx;float: right;}
 	.sure_money_logo image{display: block;width: 70rpx;height: 74rpx;margin-top: 10rpx;}
 	.closePoup{width: 52rpx;height: 52rpx;position: absolute;top: 30rpx;right: 20rpx;z-index: 999;}
-
+	.rightColor_logo{ transform: rotate(90deg);-webkit-transform: rotate(90deg); transition: transform 0.5s;}
 
 
 
