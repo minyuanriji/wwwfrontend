@@ -23,6 +23,15 @@
 					手机号码共<text :style="{color: background}">11</text>位<text :style="{color: background}">数字</text>。其他为无效输入
 				</view>
 				<input class="content_body_block_input" v-model="params.mobile"></input>
+				<view class="code">
+					<input  type="number" placeholder="输入验证码" v-model="params.code">
+					<button type="default" v-if="!countDown" @tap="getCode">
+						获取验证码
+					</button>
+					<button type="default" v-else>
+						{{countDown}}
+					</button>
+				</view>
 			</view>
 			<view class="content_body_block">
 				<view class="content_body_block_t">4、店铺消费类型</view>
@@ -54,6 +63,7 @@
 </template>
 
 <script>
+	import {isMobile} from '@/utils/util.js';
 	export default {
 		props: {
 			background: {
@@ -73,7 +83,8 @@
 				cats_arr1: [], //分类列表
 				catsIndex: 0,
 				district: [],
-				agreement:''
+				agreement:'',
+				countDown:''
 			}
 		},
 		created() {
@@ -104,6 +115,7 @@
 				if (!params['realname']) return this.alert('请填写您的真实姓名')
 				if (!params['mobile']) return this.alert('请填写您的手机号')
 				if (!params['mobile'].match(/1\d{10}/)) return this.alert('手机号错误')
+				if (!params['code']) return this.alert('请填写验证码')
 				if (!params['cat_id']) return this.alert('请选择店铺消费类型')
 				if (this.status == 0) return this.alert('请同意补商汇商城开店说明')
 				var that = this
@@ -113,6 +125,10 @@
 					'\r\nContent-Disposition: form-data; name="mobile"' +
 					'\r\n' +
 					'\r\n'+params['mobile']+
+					'\r\n--XXX' +
+					'\r\nContent-Disposition: form-data; name="code"' +
+					'\r\n' +
+					'\r\n'+params['code']+				
 					'\r\n--XXX' +
 					'\r\nContent-Disposition: form-data; name="realname"' +
 					'\r\n' +
@@ -282,7 +298,33 @@
 			},
 			popupShow(){
 				this.$refs.popup.open()
-			}
+			},
+			getCode() {
+				if (!isMobile(this.params['mobile'])) {
+					this.$http.toast('请输入手机号后在获取验证码');
+					return;
+				}
+				let _self = this;
+				_self.countDown = 60;
+				let temp = setInterval(() => {
+					_self.countDown--
+					if (_self.countDown <= 0) {
+						clearInterval(temp);
+					}
+				}, 1000)
+			
+				_self.$http.request({
+					url: _self.$api.default.phoneCode,
+					data: {
+						mobile: _self.params['mobile']
+					},
+					method: 'POST'
+				}).then((res) => {
+					this.$http.toast(res.msg);
+				}).catch(err => {
+					console.log(err);
+				})
+			},
 		},
 		mounted() {
 			this.getCat()
@@ -320,7 +362,6 @@
 		border-radius: 3px;
 		padding: 20px 5px 50px;
 	}
-
 	.sumbit {
 		width: 90%;
 		margin: 0px auto;
@@ -355,6 +396,32 @@
 		font-weight: 400;
 		color: #6B6B6B;
 
+	}
+	.code{
+		width: 100%;
+		height: 60rpx;
+		margin-top: 20rpx;
+	}
+	.code input{
+		display: inline-block;
+		width: 250rpx;
+		height: 63rpx;
+		border: 3px solid #eee;
+		float: left;
+		font-size: 25rpx;
+		text-align: center;
+	}
+	.code button{
+		width: 180rpx;
+		height:60rpx;
+		line-height: 60rpx;
+		background:rgb(83, 222, 219);
+		border-radius: 3px;
+		font-size: 25rpx;
+		color: #333;
+		float: left;
+		margin-left: 10rpx;
+		color: #fff;
 	}
 
 	.content_body_block_input {
