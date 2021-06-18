@@ -53,7 +53,7 @@
 				</view>
 				<view>
 					<text>到店时间</text>
-					<input type="text" v-model="form.time"  placeholder="请填写到店时间"/>
+					<input type="text" placeholder="14:00点后办理入住" disabled/>
 				</view>
 			</view>
 		</view>
@@ -92,7 +92,6 @@
 					name:'',
 					phone:'',
 					roomNum:'',
-					time:'',
 				}
 			};
 		},
@@ -121,16 +120,6 @@
 				if (isEmpty(this.form.roomNum)) {
 					uni.showToast({
 						title: '请填写房数数',
-						icon: 'none'
-					});
-					setTimeout(function() {
-						uni.hideToast();
-					}, 2000);
-					return
-				}
-				if (isEmpty(this.form.time)) {
-					uni.showToast({
-						title: '请填写到店入住时间',
 						icon: 'none'
 					});
 					setTimeout(function() {
