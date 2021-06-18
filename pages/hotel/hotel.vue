@@ -43,7 +43,7 @@
 				<input type="text"  placeholder="价格/星级" disabled v-model="price_star"/>
 				<image :src="img_url+'/hotel/right.png'" mode=""></image>
 			</view>
-			<view class="hotel_search_sure">
+			<view class="hotel_search_sure" @click="search">
 				搜索酒店
 			</view>
 			<view class="hotel_search_advertising">
@@ -326,7 +326,12 @@
 			},
 			checkInto(){ //进入推荐列表详情
 				uni.navigateTo({
-					url:'selectRoom/selectRoom'
+					url:'./selectRoom/selectRoom'
+				})
+			},
+			search(){ //搜索
+				uni.navigateTo({
+					url:'./hotelSearch/hotelSearch'
 				})
 			}
 		}		
