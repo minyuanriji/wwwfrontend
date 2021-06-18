@@ -117,7 +117,6 @@ const utils = {
 		// #endif
 	}, 
 }
-
 module.exports = {
 	isNullOrEmpty: utils.isNullOrEmpty,
 	trim: utils.trim,
@@ -128,5 +127,5 @@ module.exports = {
 	formatNum: utils.formatNum,
 	rmoney: utils.rmoney,
 	formatDate: utils.formatDate,
-	isWeChat: utils.isWeChat
+	isWeChat: utils.isWeChat,
 }

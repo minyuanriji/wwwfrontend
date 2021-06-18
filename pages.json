@@ -1006,6 +1006,43 @@
             }
             
         }
+		,{
+		    "path" : "pages/hotel/orderList/orderList",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "订单列表",
+		        "enablePullDownRefresh": false,
+		        "navigationBarTextStyle": "black",
+		        "navigationBarBackgroundColor": "#FFFFFF"
+		    }
+		    
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+        ,{
+            "path" : "pages/user/examine/examine",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "门店审核",
+                "enablePullDownRefresh": false,
+                "navigationBarTextStyle": "black",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "plugins",

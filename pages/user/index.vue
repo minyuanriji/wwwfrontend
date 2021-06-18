@@ -129,12 +129,6 @@
 					</view>
 				</view>
 			</view>
-			
-			
-			
-			
-			
-			
 			<!-- 社区团购 -->
 			<block v-if="0 == 1">
 				<view class="address">
