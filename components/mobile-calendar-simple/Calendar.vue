@@ -132,12 +132,12 @@ export default {
         this.day = date.getDate();
         this.today = new Date(this.year + "/" + this.month + "/" + this.day) * 1;
         if (!this.startDate) {
-            const year = date.getFullYear(),
-                month = date.getMonth() + 1,
-                day = date.getDate();
-            this.startDates = this.resetTime(year + "/" + month + "/" + day);
-            this.startYear = year;
-            this.startMonth = month;
+            // const year = date.getFullYear(),
+            //     month = date.getMonth() + 1,
+            //     day = date.getDate();
+            // this.startDates = this.resetTime(year + "/" + month + "/" + day);
+            // this.startYear = year;
+            // this.startMonth = month;
         } else {
             this.startDates = this.resetTime(this.startDate);
             var dd = this.startDate.replace(/-/g, "/").split("/");

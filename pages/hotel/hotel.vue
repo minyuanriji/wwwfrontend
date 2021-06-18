@@ -165,6 +165,7 @@
 			},
 			getDate(date){ //获取入住时间				
 				this.timeStaus=date
+				this.startDate=this.timeStaus.startStr.dateStr
 			    console.log(date)
 				this.timeShow=false
 			},
@@ -326,12 +327,12 @@
 			},
 			checkInto(){ //进入推荐列表详情
 				uni.navigateTo({
-					url:'./selectRoom/selectRoom'
+					url:'selectRoom/selectRoom'
 				})
 			},
 			search(){ //搜索
 				uni.navigateTo({
-					url:'./hotelSearch/hotelSearch'
+					url:'hotelSearch/hotelSearch'
 				})
 			}
 		}		
