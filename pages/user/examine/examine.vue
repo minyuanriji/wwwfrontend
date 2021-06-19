@@ -19,7 +19,7 @@
 						{{item.store.name}}
 					</view>
 					<view class="examine-item-title-name-time-status">
-						<text>提交时间：{{item.created_at}}</text>
+						<text style="margin-left: 25rpx;">提交时间：{{item.created_at}}</text>
 						<text v-if="form.review_status==1" style="background: #16AB60;">已通过</text>
 						<text v-if="form.review_status==2" style="background: red;">未通过</text>
 						<text v-if="form.review_status==0" style="float: right;">去审核</text>
@@ -133,15 +133,15 @@
 <style lang="less">
 	.examine_app{width: 100%;overflow: hidden;}
 	.search{overflow: hidden;width: 600rpx;margin: 0 auto;}
-	.search input{width: 500rpx;height: 70rpx;display: inline-block;margin: 35rpx 0;border-radius: 30rpx 0 0 30rpx;
+	.search input{width: 500rpx;height: 80rpx;display: inline-block;margin: 35rpx 0;border-radius: 30rpx 0 0 30rpx;
 	padding-left: 30rpx;font-size: 26rpx;background: rgb(242, 242, 242);float: left;}
 	.search_check{float: left;margin: 35rpx 0;display: inline-block;font-size: 28rpx;color: #000;border-radius: 0 30rpx 30rpx 0;
-	background:rgb(255, 113, 4) ;height: 68rpx;width: 100rpx;text-align: center;line-height: 68rpx;color: #fff;}
+	background:rgb(255, 113, 4) ;height: 78rpx;width: 100rpx;text-align: center;line-height: 78rpx;color: #fff;}
 	.examine-status{width: 100%;overflow: hidden;display: flex;justify-content: space-evenly;background: #fff;box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3)}
     .examine-status view{height: 60rpx;margin: 10rpx 0;font-size: 30rpx;}
 	.active{color: #ff7104;border-bottom: 4rpx solid #ff7104;}
 	.examine-list{width: 100%;overflow: hidden;}
-	.examine-item{width: 90%;height: 310rpx;background: #fff;margin: 30rpx auto;border-radius: 20rpx;
+	.examine-item{width: 92%;height: 310rpx;background: #fff;margin: 30rpx auto;border-radius: 20rpx;
 	box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);padding: 10rpx;}
 	.examine-item-title{width: 100%;overflow: hidden;}
 	.examine-item-title-name{font-size: 28rpx;color: #000;text-align: center;margin: 5rpx 0 10rpx 0;white-space: nowrap;
@@ -152,7 +152,8 @@
 	.examine-item-title-name-time-status text:nth-of-type(2){background: #ff7104;color: #fff;width: 100rpx;text-align: center;border-radius: 30rpx;margin-left: 20rpx;}
 	.examine-item-title-name-time-status text:nth-of-type(3){float: right;height: 50rpx;width: 100rpx;background: #ff7104;line-height: 50rpx;text-align: center;border-radius: 30rpx;color: #fff;}
 	.userMessage{width: 100%;overflow: hidden;display: flex;justify-content: space-between;margin-top: 10rpx}
-	.userMessage image{width: 120rpx;height: 120rpx;display: block;border-radius: 50%;}
+	.userMessage view{width: 33%;text-align: center;}
+	.userMessage image{width: 120rpx;height: 120rpx;border-radius: 50%;}
 	.userMessage view text{display: block;height: 120rpx;text-align: center;line-height: 120rpx;color: #000;}
 	.recommend{width: 100%;overflow: hidden;display: flex;justify-content: space-between;}
 	.recommend text{display: inline-block;font-size: 25rpx;height: 60rpx;line-height: 60rpx;width: 33%;text-align: center;
