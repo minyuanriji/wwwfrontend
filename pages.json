@@ -1017,6 +1017,17 @@
 		    }
 		    
 		}
+		,{
+		    "path" : "pages/hotel/hotelDetail/hotelDetail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "酒店订单详情",
+		        "enablePullDownRefresh": false,
+		        "navigationBarTextStyle": "black",
+		        "navigationBarBackgroundColor": "#FFFFFF"
+		    }
+		    
+		}
 		
 		
 		
