@@ -1,6 +1,6 @@
 <template>
 	<view class="examine-detail-app">
-		11122
+		
 	</view>
 </template>
 
