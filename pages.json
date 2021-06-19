@@ -1053,7 +1053,18 @@
                 "navigationBarBackgroundColor": "#FFFFFF"
             }
             
-        }
+        },
+		{
+		    "path" : "pages/user/examine/examineDetail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "审核详情",
+		        "enablePullDownRefresh": false,
+		        "navigationBarTextStyle": "black",
+		        "navigationBarBackgroundColor": "#FFFFFF"
+		    }
+		    
+		}
     ],
 	"subPackages": [{
 		"root": "plugins",

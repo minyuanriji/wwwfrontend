@@ -13,7 +13,7 @@
 			</view>
 		</view>
 		<view class="examine-list">
-			<view class="examine-item" v-for="(item,index) in list" :key='index'>
+			<view class="examine-item" v-for="(item,index) in list" :key='index' @click="linkTo(item.id)">
 				<view class="examine-item-title">
 					<view class="examine-item-title-name">
 						{{item.store.name}}
@@ -118,6 +118,11 @@
 				this.list=[]
 				this.page_count=''
 				this.getAuditList()
+			},
+			linkTo(id){ //跳转到详情
+				uni.navigateTo({
+					url:'./examineDetail?id='+id
+				})
 			}
 		},
 		onReachBottom() {
@@ -140,7 +145,7 @@
 	.examine-status{width: 100%;overflow: hidden;display: flex;justify-content: space-evenly;background: #fff;box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3)}
     .examine-status view{height: 60rpx;margin: 10rpx 0;font-size: 30rpx;}
 	.active{color: #ff7104;border-bottom: 4rpx solid #ff7104;}
-	.examine-list{width: 100%;overflow: hidden;}
+	.examine-list{width: 100%;overflow: hidden;margin-bottom: 80rpx;}
 	.examine-item{width: 92%;height: 310rpx;background: #fff;margin: 30rpx auto;border-radius: 20rpx;
 	box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);padding: 10rpx;}
 	.examine-item-title{width: 100%;overflow: hidden;}
