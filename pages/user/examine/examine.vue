@@ -1,7 +1,7 @@
 <template>
 	<view class="examine_app">
 		<view class="search">
-			<input type="search" v-model="form.keyword" placeholder="关键字搜索 店铺名"/>
+			<input type="search" v-model="form.keyword" placeholder="关键字搜索 店铺名、手机号"/>
 			<view class="search_check" @click="search">
 				搜索
 			</view>
@@ -20,7 +20,6 @@
 					</view>
 					<view class="examine-item-title-name-time-status">
 						<text>提交时间：{{item.created_at}}</text>
-						<text v-if="form.review_status==0">待审核</text>
 						<text v-if="form.review_status==1" style="background: #16AB60;">已通过</text>
 						<text v-if="form.review_status==2" style="background: red;">未通过</text>
 						<text v-if="form.review_status==0" style="float: right;">去审核</text>
@@ -145,7 +144,9 @@
 	.examine-item{width: 80%;height: 310rpx;background: #fff;margin: 30rpx auto;border-radius: 20rpx;
 	box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);padding: 10rpx;}
 	.examine-item-title{width: 100%;overflow: hidden;}
-	.examine-item-title-name{font-size: 28rpx;color: #000;text-align: center;margin: 5rpx 0 10rpx 0;}
+	.examine-item-title-name{font-size: 28rpx;color: #000;text-align: center;margin: 5rpx 0 10rpx 0;white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;}
 	.examine-item-title-name-time-status {font-size: 25rpx;}
 	.examine-item-title-name-time-status text{display: inline-block;}
 	.examine-item-title-name-time-status text:nth-of-type(2){background: #ff7104;color: #fff;width: 100rpx;text-align: center;border-radius: 30rpx;margin-left: 20rpx;}
