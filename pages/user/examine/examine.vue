@@ -141,7 +141,7 @@
     .examine-status view{height: 60rpx;margin: 10rpx 0;font-size: 30rpx;}
 	.active{color: #ff7104;border-bottom: 4rpx solid #ff7104;}
 	.examine-list{width: 100%;overflow: hidden;}
-	.examine-item{width: 80%;height: 310rpx;background: #fff;margin: 30rpx auto;border-radius: 20rpx;
+	.examine-item{width: 90%;height: 310rpx;background: #fff;margin: 30rpx auto;border-radius: 20rpx;
 	box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);padding: 10rpx;}
 	.examine-item-title{width: 100%;overflow: hidden;}
 	.examine-item-title-name{font-size: 28rpx;color: #000;text-align: center;margin: 5rpx 0 10rpx 0;white-space: nowrap;
