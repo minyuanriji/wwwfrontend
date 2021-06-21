@@ -308,6 +308,8 @@
 								this.form.review.paper_settleAccountType='授权对公'
 							}else if(res.data.review.paper_settleAccountType==4){
 								this.form.review.paper_settleAccountType='授权对私'
+							}else{
+								this.form.review.paper_settleAccountType=''
 							}
 							if(res.data.review.paper_lawyerCertType==0){
 								this.form.review.paper_lawyerCertType='身份证'
@@ -466,10 +468,12 @@
 	.shop-message view input{display: inline-block;height: 80rpx;outline: none;border: none;line-height: 80rpx;float: left;width: 450rpx;padding-left: 30rpx;margin-left: 5rpx;background: #f2f2f2;color: #000;font-size: 26rpx;}
 	.shop-message view image{display: block;margin: 5rpx 0;}
 	.audit-information{width: 100%;overflow: hidden;margin-bottom: 100rpx;}
+	.settlement-account view{margin: 15rpx 0;}
 	.settlement-account{width: 90%;margin: 0 auto;border-radius: 30rpx;background: #fff;box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);padding: 15rpx;}
 	.settlement-account view text{display: inline-block;height: 80rpx;line-height: 80rpx;font-size: 28rpx;color: #000;width: 180rpx;float: left;}
 	.settlement-account view input{display: inline-block;height: 80rpx;outline: none;border: none;line-height: 80rpx;width:400rpx ;background: #f2f2f2;color: #000;font-size: 26rpx; padding-left: 10rpx;margin-left: 5rpx;}
 	.legal-person{width: 90%;margin: 20rpx auto;border-radius: 30rpx;background: #fff;box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);padding: 15rpx;}
+	.legal-person view{margin: 15rpx 0;}
 	.legal-person view text{display: inline-block;height: 80rpx;line-height: 80rpx;font-size: 28rpx;color: #000;width: 180rpx;float: left;}
 	.legal-person view input{display: inline-block;height: 80rpx;outline: none;border: none;line-height: 80rpx;width:400rpx ;background: #f2f2f2;color: #000;font-size: 26rpx; padding-left: 10rpx;margin-left: 5rpx;}
 	.discount-apply{width:90% ;margin: 15rpx auto;}
