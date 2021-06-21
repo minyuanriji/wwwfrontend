@@ -121,7 +121,7 @@
 			},
 			linkTo(id){ //跳转到详情
 				uni.navigateTo({
-					url:'./examineDetail?id='+id
+					url:'./examineDetail?id='+id+"&review_status="+this.statusIndex
 				})
 			}
 		},

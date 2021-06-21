@@ -147,6 +147,13 @@
 							</radio-group>
 						</view>
 					</view>
+					<view class="special-discount-detail" style="margin-bottom: 20rpx;" v-if="seviceCount">
+						<view>
+							<text>服务费</text>
+							<input type="number" value="" placeholder="请输入折扣" v-model="form.detail.transfer_rate" style="margin-left: 45rpx;"/>
+							<text>折</text>
+						</view>
+					</view>
 					<view class="discount-results">
 						<text>审核结果</text>
 						<textarea value="" placeholder="请输入审核结果" v-model="form.detail.review_remark"/>
@@ -169,7 +176,7 @@
 					</view>
 				</view>		
 			</view>
-			<view class="save" @click="saveMessage">
+			<view class="save" @click="saveMessage" v-if="saveShow">
 				保存
 			</view>
 		</view>
@@ -204,6 +211,7 @@
 						address:'',//店铺地址
 						service_mobile:'',//客服电话
 						is_special:'',//是否特殊折扣申请 默认：0 0否 1是
+						transfer_rate:'',//0-8 服务费
 						review_status:'',//审核状态 1.审核通过.2=审核不通过
 						review_remark:'',//审核结果和备注
 						special_rate:'',//特殊折扣数
@@ -243,12 +251,19 @@
 				],
 				currentTwo:0,
 				message:{},
+				saveShow:false,//保存按钮显示
+				seviceCount:true,//服务费
 			}
 		},
 		onLoad(options) {
 			if(options&&options.id){
 				this.id=options.id
 				this.getexamineDetail(options.id)
+			}
+			if(options&&options.review_status){
+				if(options.review_status==0){
+					this.saveShow=true
+				}
 			}
 		},
 		methods:{
@@ -304,8 +319,10 @@
 							}
 							if(res.data.detail.review_status==1){
 								this.currentTwo=0
+								this.seviceCount=true
 							}else if(res.data.detail.review_status==2){
 								this.currentTwo=1
+								this.seviceCount=false
 							}
 						}
 				});
@@ -320,16 +337,43 @@
 		            }
 		        },
 			radioChangeTwo(evt){ //审核状态选择
-				for (let i = 0; i < this.items.length; i++) {
-				    if (this.items[i].value === evt.detail.value) {
+				for (let i = 0; i < this.itemTwo.length; i++) {
+				    if (this.itemTwo[i].value === evt.detail.value) {
 				        this.currentTwo = i;
 						console.log(this.currentTwo)
+						if(this.currentTwo==1){
+							this.seviceCount=false
+						}else{
+							this.seviceCount=true
+						}
 				        break;
 				    }
 				}
 			},		
 			saveMessage(){ //保存审核信息
 				if(this.current==0){
+					if(this.currentTwo==0){
+						if(this.form.detail.transfer_rate<0){
+							uni.showToast({
+								title: '服务费需在0-8之间',
+								icon: 'none'
+							});
+							setTimeout(function() {
+								uni.hideToast();
+							}, 2000);
+							return
+						}
+						if(this.form.detail.transfer_rate>8){
+							uni.showToast({
+								title: '服务费需在0-8之间',
+								icon: 'none'
+							});
+							setTimeout(function() {
+								uni.hideToast();
+							}, 2000);
+							return
+						}
+					}
 					if(isEmpty(this.form.detail.review_remark)){
 						uni.showToast({
 							title: '请填写审核结果',
@@ -343,7 +387,8 @@
 					this.message={
 						id:this.id,
 						is_special:this.current,//是否特殊折扣申请 0、否 1、是 
-						review_status:this.currentTwo=0?1:2,//审核状态 1、通过 2、不通过 
+						transfer_rate:this.form.detail.transfer_rate,//0-8
+						review_status:this.currentTwo==0?1:2,//审核状态 1、通过 2、不通过 
 						review_remark:this.form.detail.review_remark,//不通过原因
 					}
 				}
