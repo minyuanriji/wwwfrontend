@@ -760,7 +760,7 @@
 		    "path" : "pages/personalCentre/withdrawal/withdrawal_detail",
 		    "style" :                                                                                    
 		    {
-		        "navigationBarTitleText": "流水明细",
+		        "navigationBarTitleText": "提现记录",
 				"navigationBarTextStyle": "black",
 				"navigationBarBackgroundColor": "#fff",
 		        "enablePullDownRefresh": false
