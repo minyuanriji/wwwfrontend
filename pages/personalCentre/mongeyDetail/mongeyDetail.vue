@@ -5,7 +5,7 @@
 		<!--header-->
 		<view class="tabble">
 			<text @click="tabbleCheck(1)" :class="switchIndex==1?'active':''">收入</text>
-			<text @click="tabbleCheck(2)" :class="switchIndex==2?'active':''">提现</text>
+			<text @click="tabbleCheck(2)" :class="switchIndex==2?'active':''">支出</text>
 		</view>
 		<view class="items" v-if="dataList && dataList.length">
 			<view class="item" v-for="(item, i) in dataList" :key="i">
