@@ -26,7 +26,7 @@
 				</tui-list-cell>
 			</picker>
 
-			<block v-if="is_town == 1">
+			<!-- <block v-if="is_town == 1">
 				<picker @change="bindPickerChange" :value="index" :range="array">
 					<tui-list-cell :arrow="true" padding="0">
 						<view class="tui-line-cell">
@@ -36,7 +36,7 @@
 						</view>
 					</tui-list-cell>
 				</picker>
-			</block>
+			</block> -->
 
 			<tui-list-cell :hover="false" padding="0">
 				<view class="tui-line-cell">
@@ -125,11 +125,11 @@
 			}
 		},
 		methods: {
-			bindPickerChange(e) {
-				this.index = e.target.value;
-				this.town_text = this.town_data[this.index].name;
-				this.town_id = this.town_data[this.index].id;
-			},
+			// bindPickerChange(e) {
+			// 	this.index = e.target.value;
+			// 	this.town_text = this.town_data[this.index].name;
+			// 	this.town_id = this.town_data[this.index].id;
+			// },
 			switchChange(e) { //切换是否是默认地址
 				if (e.detail.value) {
 					this.is_default = 1;
@@ -137,19 +137,19 @@
 					this.is_default = 0;
 				}
 			},
-			getDistrict() { //获取乡镇数据
-				this.$http.request({
-					url: this.$api.district.town_list,
-					data: {
-						district_id: this.districtId
-					}
-				}).then(res => {
-					if (res.code == 0) {
-						this.town_data = res.list;
-						this.array = res.list.map(val => val.name);
-					}
-				})
-			},
+			// getDistrict() { //获取乡镇数据
+			// 	this.$http.request({
+			// 		url: this.$api.district.town_list,
+			// 		data: {
+			// 			district_id: this.districtId
+			// 		}
+			// 	}).then(res => {
+			// 		if (res.code == 0) {
+			// 			this.town_data = res.list;
+			// 			this.array = res.list.map(val => val.name);
+			// 		}
+			// 	})
+			// },
 			getCity() { //请求省市区数据
 				this.$http.request({
 					url: this.$api.user.addressInfo,
@@ -246,8 +246,8 @@
 						mobile: this.phone,
 						detail: this.detailed,
 						is_default: this.is_default,
-						town_id: this.town_id,
-						town: this.town_text,
+						// town_id: this.town_id,
+						// town: this.town_text,
 					}
 				}).then((res) => {
 					if (res.code == 0) {
@@ -287,8 +287,8 @@
 						this.districtId = res.data.district_id;
 						this.district = res.data.district;
 						this.is_default = res.data.is_default;
-						this.town_id = res.data.town_id;
-						this.town_text = res.data.town;
+						// this.town_id = res.data.town_id;
+						// this.town_text = res.data.town;
 						this.getDistrict();
 					}
 				})
@@ -305,8 +305,8 @@
 					this.districtId = this.selectList[value[0]].children[value[1]].children[value[2]].id; //获取区id
 				}
 
-				this.getDistrict(); //获取镇
-				console.log(this.districtId, 'districtId');
+				// this.getDistrict(); //获取镇
+				// console.log(this.districtId, 'districtId');
 			},
 			toArr(object) {
 				let arr = [];
