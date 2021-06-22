@@ -357,7 +357,7 @@
 					if(this.currentTwo==0){
 						if(this.form.detail.transfer_rate<0){
 							uni.showToast({
-								title: '服务费需在0-8之间',
+								title: '服务费需在0-8.5之间',
 								icon: 'none'
 							});
 							setTimeout(function() {
@@ -365,9 +365,9 @@
 							}, 2000);
 							return
 						}
-						if(this.form.detail.transfer_rate>8){
+						if(this.form.detail.transfer_rate>8.5){
 							uni.showToast({
-								title: '服务费需在0-8之间',
+								title: '服务费需在0-8.5之间',
 								icon: 'none'
 							});
 							setTimeout(function() {
