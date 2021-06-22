@@ -27,7 +27,7 @@
 		<view class="withdrawal-item">
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="link">
 				<view class="jx-cell-header">
-					<view class="jx-cell-title">流水明细</view>
+					<view class="jx-cell-title">提现记录</view>
 				</view>
 			</jx-list-cell>
 		</view>
