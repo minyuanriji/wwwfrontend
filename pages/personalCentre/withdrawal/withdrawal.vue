@@ -68,7 +68,9 @@
 		},
 		methods: {
 			link() { //跳到流水明细页面
-				alert(1122)
+				uni.navigateTo({
+					url:'./withdrawal_detail'
+				})
 			},
 			deposit() { //确认提现
 				var that = this
