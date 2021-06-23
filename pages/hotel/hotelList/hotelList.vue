@@ -1,35 +1,8 @@
 <template>
 	<view class="container">
-		<!--header-->
-		<view class="tui-header-box">
-			<view class="tui-header" :style="{width:width+'px',height:height+'px'}">
-				<view class="tui-back" :style="{marginTop:arrowTop+'px'}" @tap="back">
-					<tui-icon name="arrowleft" :size="28" color="#000"></tui-icon>
-				</view>
-				<view :style="{marginTop:arrowTop+'px'}" class="search-box">
-					<view class="tui-searchbox tui-search-mr" @tap="search(searchKey)">
-						<!-- :style="{marginTop:inputTop+'px'}" -->
-						<!-- #ifdef APP-PLUS || MP -->
-						<icon type="search" :size='13' color='#999'></icon>
-						<!-- #endif -->
-						<text class="tui-search-text" v-if="!searchKey">搜索酒店</text>
-						<view class="tui-search-key" v-if="searchKey">
-							<view class="tui-key-text">{{searchKey}}</view>
-							<tui-icon name="shut" :size='12' color='#fff'></tui-icon>
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
-		<!--header-->
-
-		<!--list-->
-		<view class="tui-product-list" :style="{marginTop:(dropScreenH+20)+'px'}">
-		<!-- <view class="tui-product-list" style="margin-top:70rpx"> -->
+		<view class="tui-product-list">
 			<view class="tui-product-container" :style="{width: isList ? '100%' : '49.2%'}">
 				<block v-for="(item,index) in productList" :key="index" v-if="(index+1)%2!=0 || isList">
-					<!-- <template is="productItem" data="{{item,index:index,isList:isList}}" /> -->
-					<!--商品列表-->
 					<view class="tui-pro-item" :class="[isList?'tui-flex-list':'']" hover-class="hover" :hover-start-time="150" @tap="detail(item.id)">
 						<image :src="item.cover_pic" class="tui-pro-img" :class="[isList?'tui-proimg-list':'']"
 						 mode="widthFix" />
@@ -44,12 +17,9 @@
 							</view>
 						</view>
 					</view>
-					<!--商品列表-->
 				</block>
 			</view>
 		</view>
-		<!--list-->
-
 		<!--加载loadding-->
 		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
 		<main-nomore :visible="pullUpOn" bgcolor="#f7f7f7"></main-nomore>
@@ -143,21 +113,6 @@
 							this.pullUpOn = true;
 						}
 					}
-				})
-			},
-			back() {
-					let routes = getCurrentPages();
-					if(routes.length == 1){
-						uni.redirectTo({
-							url: '../hotel'
-						})
-					}else{
-						uni.navigateBack();
-					}
-			},
-			search(key) {
-				uni.redirectTo({
-					url: '/pages/search/search?key='+key
 				})
 			},
 			detail(id) {

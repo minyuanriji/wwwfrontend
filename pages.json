@@ -976,11 +976,10 @@
             "path" : "pages/hotel/hotelList/hotelList",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "酒店列表",
                 "enablePullDownRefresh": false,
                 "navigationBarTextStyle": "black",
-                "navigationBarBackgroundColor": "#FFFFFF",
-				"navigationStyle": "custom"
+                "navigationBarBackgroundColor": "#FFFFFF"
             }
             
         }

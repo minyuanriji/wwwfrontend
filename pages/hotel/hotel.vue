@@ -333,9 +333,9 @@
 					url:'selectRoom/selectRoom'
 				})
 			},
-			search(){ //搜索
+			search(){ //搜索  
 				uni.navigateTo({
-					url:'hotelSearch/hotelSearch'
+					url:'hotelList/hotelList'
 				})
 			},
 			getrecommended(){ //获取酒店推荐
