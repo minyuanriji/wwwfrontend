@@ -1,5 +1,12 @@
 <template>
 	<view class="container">
+		<view class="to-upload">
+			<view class="to-upload-show">
+				<image :src="img_url+'/hotel/hotel_loading.png'" mode=""></image>
+				<text>已为你找到10家酒店</text>
+				<text>请稍后.....</text>
+			</view>
+		</view>
 		<view class="tui-product-list">
 			<view class="tui-product-container" :style="{width: isList ? '100%' : '49.2%'}">
 				<block v-for="(item,index) in productList" :key="index" v-if="(index+1)%2!=0 || isList">
@@ -41,6 +48,7 @@
 		},
 		data() {
 			return {
+				img_url: this.$api.img_url,
 				statusBarHeight:0,//状态栏高度
 				searchKey: "", //搜索关键词
 				width: 200, //header宽度
@@ -138,7 +146,7 @@
 	.container {
 		padding-bottom: env(safe-area-inset-bottom);
 	}
-
+	
 	/* 隐藏scroll-view滚动条*/
 
 	::-webkit-scrollbar {
@@ -146,7 +154,10 @@
 		height: 0;
 		color: transparent;
 	}
-
+	.to-upload{width: 100%;height: 100%;position: fixed;top: 0;left: 0;z-index: 9999;background: rgb(255,255,255);}
+	.to-upload-show{width: 300rpx;overflow: hidden;position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;height: 230rpx;}
+	.to-upload-show image{display: block;width: 120rpx;height: 120rpx;margin: 0 auto;}
+	.to-upload-show text{display: block;font-size: 26rpx;color:#ED6D00 ;width: 100%;overflow: hidden;text-align: center;}
 	.tui-header-box {
 		width: 100%;
 		background: #fff;

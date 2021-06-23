@@ -5,11 +5,14 @@
 		</view>
 		<view class="selectRoom_detail">
 			<view class="Room_title">
-				<text>大概是发给谁开的非常酒店</text>
-				<text style="color: rgb(251, 69, 18);">舒适型</text>
+				<text>{{hotelProduct.name}}</text>
+				<text style="color: rgb(251, 69, 18);">{{hotelProduct.type_text}}</text>
 			</view>
 			<view class="Room_notice">
-				<text v-for="item in 5" :key='item'>保管服务</text>
+				<text v-for="(item,index) in hotelProduct.tag" :key='index'>{{item}}</text>
+			</view>
+			<view class="hotel-jieshao" style="font-size: 25rpx;">
+				酒店介绍：{{hotelProduct.descript}}
 			</view>
 			<view class="select_time" @click="timeShow=true">
 				<view v-if="timeStaus.endStr.dateStr.length<=0">
@@ -25,22 +28,32 @@
 					</text>
 				</view>
 			</view>
-			<view class="selectRoom_type">
+			<!-- <view class="selectRoom_type">
 				<text>大床房</text>
-			</view>
+			</view> -->
 			<view class="Room_list">
-				<view class="Room_item" v-for="item in 5" :key='item'>
+				<view class="Room_item" v-for="(item,index) in hotel.booking_list" :key='index'>
 					<view class="Room_items" @click="hotelDetalShow=true">
 						<view class="Room_item_image">
-							<image src="../../../plugins/images/extensions/o2o/shuiguotu.png" mode=""></image>
+							<image :src="item.product_thumb" mode=""></image>
 						</view>
 						<view class="Room_item_name">
-							<text style="font-size: 28rpx;color: #000;">大床房</text>
-							<text style="font-size: 25rpx;">1张大床 封闭窗 禁烟</text>
+							<text style="font-size: 28rpx;color: #000;">{{item.product_name}}</text>
+							<view style="font-size: 25rpx;">
+								<text style="float: left;width: 100rpx;text-align: center;" v-if="item.bed_type=='single'">单床</text>
+								<text style="float: left;width: 100rpx;text-align: center;" v-if="item.bed_type=='double'">双床</text>
+								<text style="float: left;width: 100rpx;text-align: center;" v-if="item.bed_type=='big'">大床</text>
+								<text style="float: left;width: 100rpx;text-align: center;" v-if="item.window=='no'">无窗</text>
+								<text style="float: left;width: 100rpx;text-align: center;" v-if="item.window=='out'">外窗</text>
+								<text style="float: left;width: 100rpx;text-align: center;" v-if="item.window=='part_no'">部分无窗</text>
+								<text style="float: left;width: 100rpx;text-align: center;" v-if="item.window=='inner'">内窗</text>
+								<text style="float: left;width: 100rpx;text-align: center;" v-if="item.window=='part_inner'">部分内窗</text>
+								<text style="float: left;width: 100rpx;text-align: center;" v-if="item.ban_smoking==1">禁烟</text>
+							</view>
 						</view>
 						<view class="Room_item_price">
 							<view class="Room_item_price_detail">
-								<text style="font-size: 25rpx;text-decoration: line-through;">￥1888</text>
+								<text style="font-size: 25rpx;text-decoration: line-through;">￥{{item.product_price}}</text>
 								<text style="color:#FB4512;">￥0起</text>
 								<image :src="img_url+'/hotel/rightColor.png'" mode="" @click.stop="heightPoup=true" v-if="!heightPoup"></image>
 								<image :src="img_url+'/hotel/rightColor.png'" mode="" @click.stop="heightPoup=false" v-if="heightPoup" class="rightColor_logo"></image>
@@ -162,6 +175,7 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
+				id:'',
 				startDate:'',//开始时间
 				endDate:'',//结束时间
 				betweenStart:'',//区间时间开始
@@ -182,13 +196,45 @@
 				},
 				heightPoup:false,
 				hotelDetalShow:false,
+				hotel:'',
+				hotelProduct:'',
 			};
+		},
+		onLoad(options) {
+			if(options&&options.id){
+				this.id=options.id
+				let nowTime=new Date().toLocaleDateString().replace(/\//g, '-')
+				let days=1
+				this.getDetail(options.id,nowTime,days)
+			}
 		},
 		methods:{
 			getDate(date){ //获取入住时间
 				this.timeStaus=date
 			    console.log(date)
 				this.timeShow=false
+				this.getDetail(this.id,this.timeStaus.startStr.dateStr,this.timeStaus.dayCount)
+			},
+			getDetail(id,start_date,days){
+				this.$http
+					.request({
+						url: this.$api.hotel.gethoteldetail,
+						method: 'POST',
+						data:{
+							hotel_id:id,
+							start_date:start_date,
+							days:days,
+						},
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							this.hotel=res.data
+							this.hotelProduct=res.data.hotel_info
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});
 			},
 			know(){ //跳转需知页面
 				uni.navigateTo({
@@ -219,7 +265,8 @@
 	 .Room_title text:nth-of-type(2){font-size: 25rpx;margin-left: 20rpx;}
 	 .Room_notice{width: 100%;overflow: hidden;font-size: 25rpx;margin-top: 20rpx;}
 	 .Room_notice text{display: inline-block;float: left;margin:0 8rpx 8rpx 0;min-width: 120rpx;height: 50rpx;background: #EBEDF1;line-height: 50rpx;text-align: center;}
-	 .select_time{width: 100%;height: 80rpx;margin: 20rpx auto;font-size: 28rpx;line-height: 80rpx;position: relative;border-bottom: 4px solid  #F5F5F5;}
+	 .select_time{width: 100%;height: 100rpx;margin: 40rpx auto 0;font-size: 28rpx;line-height: 100rpx;position: relative;border-bottom: 2px solid  #F5F5F5;
+	 border-top: 2px solid  #F5F5F5;}
 	 .select_time view{display: flex;justify-content: space-between;} 
 	 .select_time image{width: 16rpx;height: 26rpx;display: block;position: absolute;top: 30rpx;right: 0;}
 	 .select_time view text{display: block;}

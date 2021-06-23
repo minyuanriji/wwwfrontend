@@ -57,7 +57,7 @@
 			<view class="hotel_list_title">
 				推荐酒店
 			</view>
-			<view class="hotel_list_item" v-for="(item,index) in recommendedList" :key='index' @click="checkInto">
+			<view class="hotel_list_item" v-for="(item,index) in recommendedList" :key='index' @click="checkInto(item.id)">
 				<image :src="item.thumb_url" mode="" class="hotel_logo"></image>
 				<view class="hotel_list_item_center">
 					<view class="hotel_list_item_name">
@@ -328,9 +328,9 @@
 					this.value = [this.value[0], value, 0]
 				}
 			},
-			checkInto(){ //进入推荐列表详情
+			checkInto(id){ //进入推荐列表详情
 				uni.navigateTo({
-					url:'selectRoom/selectRoom'
+					url:'selectRoom/selectRoom?id='+id
 				})
 			},
 			search(){ //搜索  
@@ -353,7 +353,7 @@
 					})
 					.then(res => {
 						if(res.code==0){
-							this.recommendedList=res.data.list
+							that.recommendedList=res.data.list
 						}else{
 							that.$http.toast(res.msg);
 						}
