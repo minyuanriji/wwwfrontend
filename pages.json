@@ -961,17 +961,17 @@
             }
             
         }
-        ,{
-            "path" : "pages/hotel/hotelSearch/hotelSearch",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "搜索",
-               "enablePullDownRefresh": false,
-               "navigationBarTextStyle": "black",
-               "navigationBarBackgroundColor": "#FFFFFF"
-            }
+        // ,{
+        //     "path" : "pages/hotel/hotelSearch/hotelSearch",
+        //     "style" :                                                                                    
+        //     {
+        //         "navigationBarTitleText": "搜索",
+        //        "enablePullDownRefresh": false,
+        //        "navigationBarTextStyle": "black",
+        //        "navigationBarBackgroundColor": "#FFFFFF"
+        //     }
             
-        }
+        // }
         ,{
             "path" : "pages/hotel/hotelList/hotelList",
             "style" :                                                                                    
