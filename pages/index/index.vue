@@ -652,6 +652,7 @@
 								// #endif
 								return;
 							}
+							uni.setStorageSync('city_address',res.city_data)
 							this.indexData = res.data.page_data;
 							uni.stopPullDownRefresh();
 							// this.loading = false;

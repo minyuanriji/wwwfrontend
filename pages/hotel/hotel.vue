@@ -57,20 +57,20 @@
 			<view class="hotel_list_title">
 				推荐酒店
 			</view>
-			<view class="hotel_list_item" v-for="item in 5" :key='item' @click="checkInto">
-				<image src="../../plugins/images/extensions/o2o/shuiguotu.png" mode="" class="hotel_logo"></image>
+			<view class="hotel_list_item" v-for="(item,index) in recommendedList" :key='index' @click="checkInto">
+				<image :src="item.thumb_url" mode="" class="hotel_logo"></image>
 				<view class="hotel_list_item_center">
 					<view class="hotel_list_item_name">
-						<text>把手机查克拉现金参加</text>
-						<text>舒适型</text>
+						<text>{{item.name}}</text>
+						<text>{{item.type_text}}</text>
 					</view>
 					<view class="hotel_list_item_product">
-						<text style="display: inline-block;margin-right: 10rpx;color: red;">4.8分</text>很好 
-						<text style="display: inline-block;margin:0 10rpx;color: red;">500+</text>点评
+						<text style="display: inline-block;margin-right: 10rpx;color: red;">{{item.cmt_grade}}分</text>很好 
+						<text style="display: inline-block;margin:0 10rpx;color: red;">{{item.cmt_num}}+</text>点评
 					</view>
 					<view class="hotel_list_item_price">
 						<image :src="img_url+'/hotel/rightColor.png'" mode=""></image>
-						<text>￥1670起</text>
+						<text>￥{{item.price}}起</text>
 					</view>
 				</view>
 			</view>
@@ -153,11 +153,14 @@
 				proviceId: "",
 				cityId: "",
 				districtId: "",
-				text:''
+				text:uni.getStorageSync('city_address')?uni.getStorageSync('city_address').city+' '+uni.getStorageSync('city_address').district:'',
+				recommendedList:[],//推荐酒店
 			};
 		},
 		onLoad() {
-			this.getCity()
+			this.getCity();
+			
+			this.getrecommended();
 		},
 		methods:{
 			select(index){ //点击切换类型
@@ -334,7 +337,28 @@
 				uni.navigateTo({
 					url:'hotelSearch/hotelSearch'
 				})
-			}
+			},
+			getrecommended(){ //获取酒店推荐
+				let that=this
+				that.$http
+					.request({
+						url: that.$api.hotel.getrecommended,
+						method: 'POST',
+						data:{
+							page:1,
+							lng:uni.getStorageSync('city_address')?uni.getStorageSync('city_address').longitude:'',
+							lat:uni.getStorageSync('city_address')?uni.getStorageSync('city_address').latitude:'',
+						},
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							this.recommendedList=res.data.list
+						}else{
+							that.$http.toast(res.msg);
+						}
+				});
+			},
 		}		
 	}
 </script>

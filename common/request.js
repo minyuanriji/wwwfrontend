@@ -164,7 +164,6 @@ const fetch = {
 							}
 						});
 					} else if (res.data.code == 2) {
-						console.log("未绑定手机号");
 						uni.navigateTo({
 							url: `/pages/public/bind`
 						})
@@ -177,7 +176,9 @@ const fetch = {
 						uni.navigateTo({
 							url: '/pages/public/bindParent'
 						});
-					}
+					}else if( res.data.code ==999){						
+						fetch.toast(res.data.msg)						
+					}	
 					resolve(res.data)
 				},
 				fail: (res) => {
