@@ -33,7 +33,7 @@
 			</view> -->
 			<view class="Room_list">
 				<view class="Room_item" v-for="(item,index) in hotel.booking_list" :key='index'>
-					<view class="Room_items" @click="hotelDetalShow=true">
+					<view class="Room_items" @click="pouSHow(item)">
 						<view class="Room_item_image">
 							<image :src="item.product_thumb" mode=""></image>
 						</view>
@@ -54,24 +54,24 @@
 						<view class="Room_item_price">
 							<view class="Room_item_price_detail">
 								<text style="font-size: 25rpx;text-decoration: line-through;">￥{{item.product_price}}</text>
-								<text style="color:#FB4512;">￥0起</text>
-								<image :src="img_url+'/hotel/rightColor.png'" mode="" @click.stop="heightPoup=true" v-if="!heightPoup"></image>
-								<image :src="img_url+'/hotel/rightColor.png'" mode="" @click.stop="heightPoup=false" v-if="heightPoup" class="rightColor_logo"></image>
+								<text style="color:#FB4512;">￥0{{item.check}}</text>
+								<image :src="img_url+'/hotel/rightColor.png'" mode="" @click.stop="checkSHow(index)" v-if="checkIndex!=index"></image>
+								<image :src="img_url+'/hotel/rightColor.png'" mode="" @click.stop="checkHidden(index)" v-if="checkIndex==index" class="rightColor_logo"></image>
 							</view>
 							<view class="shop_detail" style="margin-bottom: 20rpx;">
 								补商汇红包全额抵扣
 							</view>
 						</view>
 					</view>
-					<view class="Room_detail"  v-if="heightPoup" @click="hotelDetalShow=true">
+					<view class="Room_detail"  v-if="checkIndex==index" @click="pouSHow(item)">
 						<view class="Room_detail-left">
-							<view class="Room_detail-title">大床/单人床</view>
+							<view class="Room_detail-title">{{item.product_name}}</view>
 							<view class="Room_detail-notice">
 								<image :src="img_url+'/hotel/face.png'" mode=""></image>
 								<text>入住当天18点前可以免费取消</text>
 							</view>
 							<view class="Room_detail-forbid">
-								<view>
+								<view v-if="item.ban_smoking==1">
 									<image :src="img_url+'/hotel/nosmoking.png'" mode=""></image>
 									<text>禁止吸烟</text>
 								</view>
@@ -80,7 +80,7 @@
 						<view class="Room_detail-right">
 							<view class="Room_detail-right_left">
 								<view>
-									<text style="color: #707070;font-size: 25rpx;text-decoration: line-through;">￥1888</text>
+									<text style="color: #707070;font-size: 25rpx;text-decoration: line-through;">￥{{item.product_price}}</text>
 									<text  style="color: #FB4512;font-size: 30rpx;">￥0起</text>
 								</view>
 								<view style="min-width: 160rpx;font-size: 25rpx;text-align: center;border: 1px solid #FB4512;border-radius: 6rpx;color: #FB4512;">
@@ -97,21 +97,21 @@
 			<view class="need-to-know">
 				<view class="need-to-know_item">
 					<image :src="img_url+'/hotel/need-to-know1.png'" mode="widthFix"></image>
-					<view class="need-to-know-notice">
+					<!-- <view class="need-to-know-notice">
 						<text @click="know">查看全部必读</text>
-					</view>
+					</view> -->
 				</view>
 				<view class="need-to-know_item">
 					<image :src="img_url+'/hotel/need-to-know2.png'" mode="widthFix"></image>
-					<view class="need-to-know-notice">
+					<!-- <view class="need-to-know-notice">
 						<text @click="know">查看详情</text>
-					</view>
+					</view> -->
 				</view>
 				<view class="need-to-know_item">
 					<image :src="img_url+'/hotel/need-to-know3.png'" mode="widthFix"></image>
-					<view class="need-to-know-notice">
+					<!-- <view class="need-to-know-notice">
 						<text @click="know">查看详情</text>
-					</view>
+					</view> -->
 				</view>
 			</view>
 		</view>
@@ -120,19 +120,33 @@
 			<view class="hotelDetalShow">
 				<image :src="img_url+'/hotel/close.png'" mode="" class="closePoup" @click="hotelDetalShow=false"></image>
 				<view class="hotelDetalShow-image">
-					<image :src="img_url+'/hotel/hotel_images.png'" mode=""></image>
+					<image :src="itemDetai.product_thumb" mode=""></image>
 				</view>
 				<view class="hotelDetalShow-detail">
 					<view class="hotelDetalShow_title">
-						醇香高级大床房
+						{{itemDetai.product_name}}
 					</view>
 					<view class="hotelDetalShow-detail-list">
-						<view v-for="item in 18" :key='item'>
+						<view>
 							<image src="" mode=""></image>
-							<text>1张大床（1.8m）</text>
+							<text v-if="itemDetai.bed_type=='single'">单床</text>
+							<text v-if="itemDetai.bed_type=='double'">双床</text>
+							<text v-if="itemDetai.bed_type=='big'">大床</text>
+						</view>
+						<view>
+							<image src="" mode=""></image>
+							<text v-if="itemDetai.window=='no'">无窗</text>
+							<text v-if="itemDetai.window=='out'">外窗</text>
+							<text v-if="itemDetai.window=='part_no'">部分无窗</text>
+							<text v-if="itemDetai.window=='inner'">内窗</text>
+							<text v-if="itemDetai.window=='part_inner'">部分内窗</text>
+						</view>
+						<view>
+							<image src="" mode=""></image>
+							<text v-if="itemDetai.ban_smoking==1">禁烟</text>
 						</view>
 					</view>
-					<view class="hotelDetalShow_title">
+					<!-- <view class="hotelDetalShow_title">
 						基础设施
 					</view>
 					<view class="hotelDetalShow-detail-list">
@@ -140,7 +154,7 @@
 							<image src="" mode=""></image>
 							<text>1张大床（1.8m）</text>
 						</view>
-					</view>
+					</view> -->
 				</view>
 				<view class="sure">
 					<view class="sure_money">
@@ -158,8 +172,7 @@
 						</view>
 					</view>
 				</view>
-			</view>
-			
+			</view>			
 		</com-bottom-popup>
 	
 	
@@ -194,14 +207,26 @@
 						week:''
 					}
 				},
-				heightPoup:false,
+				heighShow:false,
+				checkIndex:null,
 				hotelDetalShow:false,
 				hotel:'',
 				hotelProduct:'',
+				itemDetai:'',
 			};
 		},
 		onLoad(options) {
-			let nowTime=new Date().toLocaleDateString().replace(/\//g, '-')
+			var myDate = new Date();
+			let year=myDate.getFullYear();
+			let monthy=myDate.getMonth()+1;
+			let day=myDate.getDate(); 
+			if(monthy<10){
+				monthy='0'+monthy
+			}
+			if(day<10){
+				day='0'+day
+			}
+			let nowTime=year+'-'+monthy+'-'+day
 			let days=1
 			if(options&&options.id){
 				this.id=options.id
@@ -230,11 +255,25 @@
 					.then(res => {
 						if(res.code==0){
 							this.hotel=res.data
+							console.log(this.hotel)
 							this.hotelProduct=res.data.hotel_info
 						}else{
 							this.$http.toast(res.msg);
 						}
 				});
+			},
+			checkSHow(index){
+				this.checkIndex=index
+				this.heighShow=true
+			},
+			checkHidden(index){
+				this.heighShow=false
+				this.checkIndex=null
+			},
+			pouSHow(item){
+				this.hotelDetalShow=true
+				this.itemDetai=item
+				console.log(this.itemDetai)
 			},
 			know(){ //跳转需知页面
 				uni.navigateTo({
