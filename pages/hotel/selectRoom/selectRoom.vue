@@ -340,7 +340,7 @@
 	 border-radius: 15rpx;}
 	 .hotelDetalShow{width: 100%;overflow: hidden;position: relative;}
 	 .hotelDetalShow-image{width: 100%;overflow: hidden;}
-	 .hotelDetalShow-image image{width:100% ;border-radius: 20rpx 20rpx 0 0;height: 300rpx;display: block;}
+	 .hotelDetalShow-image image{width:100% ;border-radius: 20rpx 20rpx 0 0;height:450rpx;display: block;}
 	.hotelDetalShow-detail{width: 100%;overflow: hidden;padding: 0 20rpx;}
 	.hotelDetalShow_title{width: 100%;overflow: hidden;font-size: 30rpx;color: #000;font-weight: bold;}
 	.hotelDetalShow-detail-list{width: 100%;overflow: hidden;display: flex;
