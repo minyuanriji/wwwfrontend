@@ -1,7 +1,7 @@
 <template>
 	<view class="selectRoom_app">
 		<view class="hotel_show_image">
-			<image :src="img_url+'/hotel/hotel_images.png'" mode="widthFix"></image>
+			<image :src="hotelProduct.thumb_url" mode="widthFix"></image>
 		</view>
 		<view class="selectRoom_detail">
 			<view class="Room_title">
@@ -201,10 +201,10 @@
 			};
 		},
 		onLoad(options) {
+			let nowTime=new Date().toLocaleDateString().replace(/\//g, '-')
+			let days=1
 			if(options&&options.id){
 				this.id=options.id
-				let nowTime=new Date().toLocaleDateString().replace(/\//g, '-')
-				let days=1
 				this.getDetail(options.id,nowTime,days)
 			}
 		},
