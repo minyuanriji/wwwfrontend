@@ -322,7 +322,7 @@
 	 .Room_item_name text{display: block;width: 100%;}
 	 .shop_detail{font-size: 25rpx;color:#FB4512 ;border: 1px solid #FB4512;border-radius: 10rpx;}
 	 .Room_item_price_detail{margin-top: 100rpx;position: relative;}
-	 .Room_item_price_detail image{width: 35rpx;height: 35rpx;display: block;position: absolute;top: 8rpx;right: 8rpx;}
+	 .Room_item_price_detail image{width: 35rpx;height: 35rpx;display: block;position: absolute;top: 8rpx;right: 15rpx;}
 	 .Room_detail{width: 100%;overflow: hidden;display: flex;justify-content: space-between;background: #F5F5F5;padding: 0 10rpx;}
 	 .Room_detail-title{font-size: 30rpx;color: #000;width: 100%;overflow: hidden;margin-top: 10rpx;}
 	 .Room_detail-notice{color: #14C4AD;font-size: 25rpx;margin: 15rpx 0;}
