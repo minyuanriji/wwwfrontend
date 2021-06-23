@@ -300,7 +300,7 @@
 	 overflow: hidden;background: #fff;opacity: 1;padding: 20rpx 20rpx 0 20rpx;position: relative;}
 	 .Room_title{width: 100%;overflow: hidden;}
 	 .Room_title text{display: inline-block;}
-	 .Room_title text:nth-of-type(1){font-size: 30rpx;color: #000;}
+	 .Room_title text:nth-of-type(1){font-size: 32rpx;color: #000;font-weight: bold;}
 	 .Room_title text:nth-of-type(2){font-size: 25rpx;margin-left: 20rpx;}
 	 .Room_notice{width: 100%;overflow: hidden;font-size: 25rpx;margin-top: 20rpx;}
 	 .Room_notice text{display: inline-block;float: left;margin:0 8rpx 8rpx 0;min-width: 120rpx;height: 50rpx;background: #EBEDF1;line-height: 50rpx;text-align: center;}
