@@ -345,6 +345,7 @@
 					})
 					.then(res => {
 						if(res.code==0){
+							uni.setStorageSync('timeStaus',this.timeStaus)
 							if(res.data.history==1){
 								uni.navigateTo({
 									url:'hotelList/hotelList?search_id='+res.data.search_id

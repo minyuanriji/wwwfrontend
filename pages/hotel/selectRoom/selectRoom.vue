@@ -230,7 +230,14 @@
 			let days=1
 			if(options&&options.id){
 				this.id=options.id
-				this.getDetail(options.id,nowTime,days)
+				if(options.timeStaus){
+					let timeStaus=JSON.parse(options.timeStaus)
+					this.timeStaus=timeStaus
+					this.getDetail(options.id,timeStaus.startStr.dateStr,timeStaus.dayCount)
+					console.log(JSON.parse(options.timeStaus))
+				}else{
+					this.getDetail(options.id,nowTime,days)
+				}
 			}
 		},
 		methods:{

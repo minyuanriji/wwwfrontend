@@ -127,9 +127,11 @@
 				});
 			},
 			checkInto(id){
-				uni.navigateTo({
-					url:'../selectRoom/selectRoom?id='+id
-				})
+				if(uni.getStorageSync('timeStaus')){
+					uni.navigateTo({
+						url:'../selectRoom/selectRoom?id='+id+"&timeStaus="+JSON.stringify(uni.getStorageSync('timeStaus'))
+					})
+				}
 			}
 		},
 		onReachBottom() {
