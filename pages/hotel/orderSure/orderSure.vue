@@ -83,9 +83,9 @@
 		<view class="goPAy">
 			<view class="goPAy_left">
 				<text style="font-size: 30rpx;color: #000;">红包支付</text>
-				<text style="font-size: 25rpx;text-decoration: line-through;margin: 0 5rpx;">￥0</text>
+				<text style="font-size: 25rpx;text-decoration: line-through;margin: 0 5rpx;">￥{{privewMessage.booking_item.product_price}}</text>
 				<text style="color:#FF5D0D ;font-size: 28rpx;font-weight: bold;">2000红包</text>
-				<text style="display: block;font-size: 25rpx;">已减￥11552</text>
+				<text style="display: block;font-size: 25rpx;">已减￥{{privewMessage.booking_item.product_price}}</text>
 			</view>
 			<view class="goPAy_right" @click="gopay">
 				<button type="default">去支付</button>
