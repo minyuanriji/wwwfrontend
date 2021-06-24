@@ -27,8 +27,8 @@
 					<image :src="img_url+'/hotel/right.png'" mode=""></image>
 				</view>
 				<view v-if="timeStaus.endStr.dateStr.length>0">
-					<text>
-						{{timeStaus.startStr.dateStr}}{{timeStaus.startStr.recent}}----{{timeStaus.endStr.dateStr}}{{timeStaus.endStr.recent}}
+					<text style="font-size: 26rpx;">
+						{{timeStaus.startStr.dateStr}}{{timeStaus.startStr.recent}}--{{timeStaus.endStr.dateStr}}{{timeStaus.endStr.recent}}
 					</text>
 					<text>
 						共{{timeStaus.dayCount}}天
