@@ -60,6 +60,7 @@
 				textColor:'#bc0100',
 				num:0,
 				search_id:'',
+				flag:1,
 			}
 		},
 		onLoad: function(options) {
@@ -76,30 +77,32 @@
 		},
 		methods: {
 			searchList(id){
-				this.$http
-					.request({
-						url: this.$api.hotel.searchfilter,
-						method: 'POST',
-						data:{
-							prepare_id:id
-						},
-						showLoading: true
-					})
-					.then(res => {
-						if(res.code==0){
-							console.log(res)
-							this.num+=res.data.founds
-							if(res.data.finished==0){
-								this.searchList(id)
+				if(this.flag==1){
+					this.$http
+						.request({
+							url: this.$api.hotel.searchfilter,
+							method: 'POST',
+							data:{
+								prepare_id:id
+							},
+							showLoading: true
+						})
+						.then(res => {
+							if(res.code==0){
+								console.log(res)
+								this.num+=res.data.founds
+								if(res.data.finished==0){
+									this.searchList(id)
+								}else{
+									this.id=res.data.search_id
+									this.heightShow=false
+									this.getList(this.id)
+								}
 							}else{
-								this.id=res.data.search_id
-								this.heightShow=false
-								this.getList(this.id)
+								this.$http.toast(res.msg);
 							}
-						}else{
-							this.$http.toast(res.msg);
-						}
-				});
+					});
+				}
 			},
 			getList(id){
 				this.$http
@@ -140,6 +143,9 @@
 			} 		
 			this.page=this.page+1
 			this.getList(this.id);
+		},
+		onUnload() {
+			this.flag=0
 		}
 	}
 </script>

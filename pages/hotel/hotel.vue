@@ -141,7 +141,6 @@
 					begin:'',
 					end:""
 				},
-				num:0,
 				value:[0,0,0],
 				multiArray: [], //picker数据
 				selectList:[],
@@ -282,7 +281,7 @@
 				}
 				return arr;
 			},
-			picker(e){ //选择城市
+			picker(e){
 				let value = e.detail.value;
 				if (this.selectList.length > 0) {
 					this.provice = this.selectList[value[0]].name; //获取省
@@ -291,14 +290,13 @@
 					this.proviceId = this.selectList[value[0]].id; //获取省id
 					this.cityId = this.selectList[value[0]].children[value[1]].id; //获取市id
 					// this.districtId = this.selectList[value[0]].children[value[1]].children[value[2]].id; //获取区id
-					this.text = this.provice + " " + this.city;
-					// this.form.province_id=this.proviceId
-					// this.form.city_id=this.cityId
+					this.text =this.city;
+					this.form.city_id=this.cityId
 				}
 				console.log(this.text)
 				console.log(this.proviceId,this.cityId)
 			},
-			columnPicker(e){ //标记行
+			columnPicker(e){
 				//第几列 下标从0开始
 				let column = e.detail.column;
 				//第几行 下标从0开始
@@ -313,7 +311,7 @@
 				} else if (column === 1) {
 					this.multiArray = [
 						this.multiArray[0],
-						// this.multiArray[1],
+						this.multiArray[1],
 						
 					];
 					this.value = [this.value[0], value, 0]
