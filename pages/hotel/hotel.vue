@@ -36,7 +36,7 @@
 				</view>
 			</view>
 			<view class="hotel_search_hotel_address">
-				<input type="text" value="" placeholder="酒店/地标/关键词"/>
+				<input type="text" value="" placeholder="酒店/地标/关键词" v-model="form.keyword"/>
 				<!-- <image :src="img_url+'/hotel/right.png'" mode=""></image> -->
 			</view>
 			<view class="hotel_search_screening" @click="popupShow=true">
@@ -84,9 +84,9 @@
 				价格
 			</view>
 			<view class="hotel_screening_price">
-				<input type="number"  placeholder="请输入起始价格" v-model="screeningSprice.begin"/>
+				<input type="number"  placeholder="请输入起始价格" v-model="form.s_price"/>
 				<text>————</text>
-				<input type="number"  placeholder="请输入截止价格" v-model="screeningSprice.end"/>
+				<input type="number"  placeholder="请输入截止价格" v-model="form.e_price"/>
 			</view>
 			<view class="hotel_screening_title">
 				星级
@@ -136,8 +136,7 @@
 					}
 				},
 				popupShow: false,//筛选弹窗
-				star:['1星级','2星级','3星级','4星级','5星级','6星级','7星级'],
-				starSet:'',//选择的星级
+				star:['1星级','2星级','3星级','4星级','5星级','6星级','7星级','8星级','9星级','10星级'],
 				selectStarindex:null,//选择星级样式
 				screeningSprice:{ //填写的价格区间
 					begin:'',
@@ -153,23 +152,43 @@
 				proviceId: "",
 				cityId: "",
 				districtId: "",
-				text:uni.getStorageSync('city_address')?uni.getStorageSync('city_address').city+' '+uni.getStorageSync('city_address').district:'',
+				text:uni.getStorageSync('city_address')?uni.getStorageSync('city_address').city:'',
 				recommendedList:[],//推荐酒店
+				form:{
+					city_id:uni.getStorageSync('city_address')?uni.getStorageSync('city_address').city_id:'',
+					type:'in',//酒店类型：in国内、hour钟点房、bb民宿
+					start_date:'',
+					days:"",
+					keyword:'',
+					s_price:'',
+					e_price:'',
+					level:'',
+					lng:'',
+					lat:'',
+				}
 			};
 		},
 		onLoad() {
-			this.getCity();
-			
+			this.getCity();			
 			this.getrecommended();
 		},
 		methods:{
 			select(index){ //点击切换类型
 				this.selectIndex=index
+				if(index==1){
+					this.form.type='in'
+				}else if(index==2){
+					this.form.type='hour'
+				}else if(index==3){
+					this.form.type='bb'
+				}
 			},
-			getDate(date){ //获取入住时间				
+			getDate(date){ //获取入住时间	
+				console.log(date)
 				this.timeStaus=date
 				this.startDate=this.timeStaus.startStr.dateStr
-			    console.log(date)
+				this.form.start_date=this.timeStaus.startStr.dateStr
+				this.form.days=this.timeStaus.dayCount
 				this.timeShow=false
 			},
 			linkTo(){ //跳转商城首页
@@ -184,43 +203,13 @@
 				this.selectStarindex=index
 				for(let i=0;i<this.star.length;i++){
 					if(this.selectStarindex==i){
-						this.starSet=this.star[i]
+						this.form.level=i+1
 					}
 				}
 			},
 			sureRequest(){
-				// if(isEmpty(this.screeningSprice.begin)){
-				// 	uni.showToast({
-				// 		title: '请输入起始价格',
-				// 		icon: 'none'
-				// 	});
-				// 	setTimeout(function() {
-				// 		uni.hideToast();
-				// 	}, 2000);
-				// 	return
-				// }
-				// if(isEmpty(this.screeningSprice.end)){
-				// 	uni.showToast({
-				// 		title: '请输入截止价格',
-				// 		icon: 'none'
-				// 	});
-				// 	setTimeout(function() {
-				// 		uni.hideToast();
-				// 	}, 2000);
-				// 	return
-				// }
-				// if(this.selectStarindex==null){
-				// 	uni.showToast({
-				// 		title: '请选择星级',
-				// 		icon: 'none'
-				// 	});
-				// 	setTimeout(function() {
-				// 		uni.hideToast();
-				// 	}, 2000);
-				// 	return
-				// }
 				this.popupShow=false
-				this.price_star="￥"+this.screeningSprice.begin+'-'+"￥"+this.screeningSprice.end+"/"+this.starSet
+				this.price_star="￥"+this.form.s_price+'-'+"￥"+this.form.e_price+"/"+this.form.level
 			},
 			clearInfo(){//重置
 				this.screeningSprice={
@@ -333,10 +322,42 @@
 					url:'selectRoom/selectRoom?id='+id
 				})
 			},
-			search(){ //搜索  
-				uni.navigateTo({
-					url:'hotelList/hotelList'
-				})
+			search(){ //搜索
+				if(isEmpty(this.form.start_date)){
+					uni.showToast({
+						title: '请选择入住时间',
+						icon: 'none'
+					});
+					setTimeout(function() {
+						uni.hideToast();
+					}, 2000);
+					return
+				}
+				this.$http
+					.request({
+						url: this.$api.hotel.searchhotel,
+						method: 'POST',
+						data:this.form,
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							if(res.data.history==1){
+								uni.navigateTo({
+									url:'hotelList/hotelList?search_id='+res.data.search_id
+								})
+							}else if(res.data.history==0){
+								uni.navigateTo({
+									url:'hotelList/hotelList?prepare_id='+res.data.prepare_id
+								})
+							}
+							console.log(res)
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});
+
+				
 			},
 			getrecommended(){ //获取酒店推荐
 				let that=this

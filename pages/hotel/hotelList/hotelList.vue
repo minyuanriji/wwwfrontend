@@ -1,37 +1,36 @@
 <template>
 	<view class="container">
-		<view class="to-upload">
+		<view class="to-upload" v-if="heightShow">
 			<view class="to-upload-show">
 				<image :src="img_url+'/hotel/hotel_loading.png'" mode=""></image>
-				<text>已为你找到10家酒店</text>
+				<text>已为你找到{{num}}家酒店</text>
 				<text>请稍后.....</text>
 			</view>
 		</view>
 		<view class="tui-product-list">
-			<view class="tui-product-container" :style="{width: isList ? '100%' : '49.2%'}">
-				<block v-for="(item,index) in productList" :key="index" v-if="(index+1)%2!=0 || isList">
-					<view class="tui-pro-item" :class="[isList?'tui-flex-list':'']" hover-class="hover" :hover-start-time="150" @tap="detail(item.id)">
-						<image :src="item.cover_pic" class="tui-pro-img" :class="[isList?'tui-proimg-list':'']"
-						 mode="widthFix" />
-						<view class="tui-pro-content">
-							<view class="tui-pro-tit">{{item.name}}</view>
-							<view>
-								<view class="tui-pro-price flex flex-y-center">
-									<view class="tui-sale-price" :style="{color:textColor}">￥{{item.price}}</view>
-									<view class="tui-factory-price">￥{{item.original_price}}</view>
-								</view>
-								<view class="tui-pro-pay" v-if="item.is_show_sales == 1">{{item.sales || 0}}人付款</view>
-							</view>
+			<view class="tui-product-container" :style="{width: isList ? '100%' : '49.2%'}" v-if="productList && productList.length">
+				<view class="hotel_list_item" v-for="(item,index) in productList" :key='index' @click="checkInto(item.id)">
+					<image :src="item.thumb_url" mode="" class="hotel_logo"></image>
+					<view class="hotel_list_item_center">
+						<view class="hotel_list_item_name">
+							<text>{{item.name}}</text>
+							<text>{{item.type_text}}</text>
+						</view>
+						<view class="hotel_list_item_product">
+							<text style="display: inline-block;margin-right: 10rpx;color: red;">{{item.cmt_grade}}分</text>很好 
+							<text style="display: inline-block;margin:0 10rpx;color: red;">{{item.cmt_num}}+</text>点评
+						</view>
+						<view class="hotel_list_item_price">
+							<text>￥{{item.price}}起</text>
 						</view>
 					</view>
-				</block>
+				</view>
 			</view>
-		</view>
-		<!--加载loadding-->
-		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
-		<main-nomore :visible="pullUpOn" bgcolor="#f7f7f7"></main-nomore>
-		<!--加载loadding-->
-		
+			<view class="nomore" v-else>
+				<main-nomore text="暂无记录" :visible="true" bgcolor="transparent" style='width: 100%;'>
+					
+				</main-nomore></view>
+		</view>		
 		<main-tabbar></main-tabbar>
 	</view>
 </template>
@@ -48,92 +47,97 @@
 		},
 		data() {
 			return {
+				id:'',
+				heightShow:false,
 				img_url: this.$api.img_url,
-				statusBarHeight:0,//状态栏高度
-				searchKey: "", //搜索关键词
-				width: 200, //header宽度
-				height: 64, //header高度
-				inputTop: 0, //搜索框距离顶部距离
-				arrowTop: 0, //箭头距离顶部距离
-				dropScreenH: 0, //下拉筛选框距顶部距离
 				isList: true, //是否以列表展示  | 列表或大图
 				drawer: false,
-				cat_id:0,
 				productList: [],
 				page: 1,
 				loadding: false,
 				pullUpOn:false,
 				page_count:0,//总页数
-				carryOut:true,//请求完成
-				searchKey:'',//搜索内容的字段
-				textColor:'#bc0100'
+				textColor:'#bc0100',
+				num:0,
+				search_id:'',
 			}
 		},
 		onLoad: function(options) {
-			this.textColor = this.globalSet('textCol');
-			
-			this.cat_id = options.cat_id;
-			options.cat_id ? this.cat_id = options.cat_id : this.cat_id = '';
-			this.searchKey = options.searchKey;
-			this.getData();
-			
-			let obj = {};
-			// #ifdef MP-WEIXIN
-			obj = wx.getMenuButtonBoundingClientRect();
-			// #endif
-			// #ifdef MP-BAIDU
-			obj = swan.getMenuButtonBoundingClientRect();
-			// #endif
-			// #ifdef MP-ALIPAY
-			my.hideAddToDesktopMenu();
-			// #endif
-			
-			uni.getSystemInfo({
-				success: (res) => {
-					this.statusBarHeight = res.statusBarHeight;
-					this.width = obj.left || res.windowWidth;
-					this.height = obj.top ? (obj.top + obj.height + 8) : (res.statusBarHeight + 44);
-					this.inputTop = obj.top ? (obj.top + (obj.height - 30) / 2) : (res.statusBarHeight + 7);
-					this.arrowTop = obj.top ? (obj.top + (obj.height - 32) / 2) : (res.statusBarHeight + 6);
-					this.searchKey = options.searchKey || "";
-					this.dropScreenH = this.height - 10;
-					// this.dropScreenH = this.height * 750 / res.windowWidth + 186;
-				}
-			})
+			this.textColor = this.globalSet('textCol');			
+			if(options&&options.prepare_id){
+				this.heightShow=true
+				this.searchList(options.prepare_id)
+			}
+			if(options&&options.search_id){
+				this.heightShow=false
+				this.id=options.search_id
+				this.getList(options.search_id)
+			}
 		},
 		methods: {
-			getData(){ //获取数据
-				this.loadding = true;
-				this.$http.request({
-					url:this.$api.goods.rightList,
-					data:{
-						cat_id:this.cat_id,
-						keyword:this.searchKey,
-						page:this.page,
-						limit:6
-					}
-				}).then((res)=>{
-					if(res.code == 0){
-						this.productList = this.productList.concat(res.data.list);
-						this.page_count = res.data.page_count;
-						this.loadding = false;
-						if(this.page >= res.data.page_count){
-							this.pullUpOn = true;
+			searchList(id){
+				this.$http
+					.request({
+						url: this.$api.hotel.searchfilter,
+						method: 'POST',
+						data:{
+							prepare_id:id
+						},
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							console.log(res)
+							this.num+=res.data.founds
+							if(res.data.finished==0){
+								this.searchList(id)
+							}else{
+								this.id=res.data.search_id
+								this.heightShow=false
+								this.getList(this.id)
+							}
+						}else{
+							this.$http.toast(res.msg);
 						}
-					}
-				})
+				});
 			},
-			detail(id) {
+			getList(id){
+				this.$http
+					.request({
+						url: this.$api.hotel.getrecommended,
+						method: 'POST',
+						data:{
+							page:this.page,
+							search_id:id,
+							lng:'',
+							lat:'',
+						},
+						showLoading: true,
+					})
+					.then(res => {
+						if(res.code==0){
+							if(res.data.list.length==0)return false
+							let list= res.data.list;
+							var arr=this.productList.concat(list)
+							this.productList =arr
+							this.page_count = res.data.pagination.page_count;
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});
+			},
+			checkInto(id){
 				uni.navigateTo({
-					url: '/pages/goods/detail?proId='+id
+					url:'../selectRoom/selectRoom?id='+id
 				})
 			}
 		},
 		onReachBottom() {
-			this.page++;
-			if(this.page <= this.page_count){
-				this.getData();
-			}
+			if(this.page==this.page_count){
+				return false;
+			} 		
+			this.page=this.page+1
+			this.getList(this.id);
 		}
 	}
 </script>
@@ -154,89 +158,11 @@
 		height: 0;
 		color: transparent;
 	}
+	.nomore{width: 100%;overflow: hidden;}
 	.to-upload{width: 100%;height: 100%;position: fixed;top: 0;left: 0;z-index: 9999;background: rgb(255,255,255);}
 	.to-upload-show{width: 300rpx;overflow: hidden;position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;height: 230rpx;}
 	.to-upload-show image{display: block;width: 120rpx;height: 120rpx;margin: 0 auto;}
 	.to-upload-show text{display: block;font-size: 26rpx;color:#ED6D00 ;width: 100%;overflow: hidden;text-align: center;}
-	.tui-header-box {
-		width: 100%;
-		background: #fff;
-		position: fixed;
-		z-index: 99998;
-		left: 0;
-		top: 0;
-	}
-
-	.tui-header {
-		display: flex;
-		align-items: flex-start;
-		position: relative;
-	}
-
-	.tui-back {
-		margin-left: 8rpx;
-		height: 32px !important;
-		width: 32px !important;
-		position: relative;
-		top:-9rpx;
-	}
-
-	.tui-searchbox {
-		width: 80%;
-		height: 30px;
-		margin-right: 30rpx;
-		border-radius: 15px;
-		font-size: 9pt;
-		background: #f7f7f7;
-		padding: 3px 10px;
-		box-sizing: border-box;
-		color: #999;
-		display: flex;
-		align-items: center;
-		overflow: hidden;
-	}
-
-	/* #ifdef MP-WEIXIN */
-	.tui-search-mr {
-		margin-right: 20rpx !important;
-	}
-
-	/* #endif */
-	/* #ifdef MP-BAIDU */
-	.tui-search-mr {
-		margin-right: 20rpx !important;
-	}
-
-	/* #endif */
-
-	.tui-search-text {
-		padding-left: 16rpx;
-	}
-
-	.tui-search-key {
-		max-width: 80%;
-		height: 100%;
-		padding: 0 16rpx;
-		margin-left: 12rpx;
-		display: flex;
-		align-items: center;
-		border-radius: 15px;
-		background: rgba(0, 0, 0, 0.5);
-		color: #fff;
-	}
-
-	.tui-key-text {
-		box-sizing: border-box;
-		padding-right: 12rpx;
-		font-size: 9pt;
-		line-height: 12px;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-
-	/* 商品列表*/
-
 	.tui-product-list {
 		display: flex;
 		justify-content: space-between;
@@ -247,99 +173,19 @@
 
 	.tui-product-container {
 		width: 49.2%;
-		margin-right: 10rpx;
-	}
 
-	.tui-product-container:last-child {
-		margin-right: 0;
+		margin-bottom: 60rpx;
 	}
+	.hotel_list_item{width: 92%;overflow: hidden;margin: 20rpx auto;background: #fff;box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);border-radius: 30rpx;}
+	.hotel_logo{width: 208rpx;height: 208rpx;display: block;float: left;margin:20rpx 0 20rpx 15rpx}
+	.hotel_list_item_center{width: 450rpx;float: left;margin-top: 20rpx;}
+	.hotel_list_item_name{width: 100%;overflow: hidden;display: flex;justify-content: space-between;}
+	.hotel_list_item_name text:nth-of-type(1){width: 68%;height: 76rpx;font-size: 26rpx;color: #000;margin-left: 15rpx;
+	display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;}
+	.hotel_list_item_name text:nth-of-type(2){width: 30%;height: 76rpx;font-size: 25rpx;color: #FB4512;text-align: right;}
+	.hotel_list_item_product{width: 100%;margin-left: 15rpx;font-size: 25rpx;}
+	.hotel_list_item_price{width: 300rpx;font-size: 28rpx;font-weight: bold;float: right;text-align: right;margin: 45rpx 0 0 0;color: #FB4512;}
+	.hotel_list_item_price text{display: inline-block;float: right;}
+	.hotel_list_item_price image{width: 28rpx;height: 28rpx;display: inline-block;margin:8rpx 10rpx 0 15rpx;float: right;}
 
-	.tui-pro-item {
-		width: 100%;
-		margin-bottom: 10rpx;
-		background: #fff;
-		box-sizing: border-box;
-		/* border-radius: 12rpx; */
-		overflow: hidden;
-		transition: all 0.15s ease-in-out;
-	}
-
-	.tui-flex-list {
-		display: flex;
-		margin-bottom: 16rpx !important;
-	}
-
-	.tui-pro-img {
-		width: 100%;
-		display: block;
-	}
-
-	.tui-proimg-list {
-		width: 260rpx;
-		height: 260rpx !important;
-		flex-shrink: 0;
-		/* border-radius: 12rpx; */
-	}
-
-	.tui-pro-content {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		box-sizing: border-box;
-		padding: 20rpx;
-	}
-
-	.tui-pro-tit {
-		color: #2e2e2e;
-		font-size: 9pt;
-		word-break: break-all;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		display: -webkit-box;
-		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 2;
-	}
-
-	.tui-pro-price {
-		padding-top: 18rpx;
-		flex-wrap: wrap;
-	}
-
-	.tui-sale-price {
-		font-size: 13pt;
-		font-weight: 500;
-		color: #e41f19;
-		padding-right: 12rpx;
-	}
-
-	.tui-factory-price {
-		font-size: 9pt;
-		color: #a0a0a0;
-		text-decoration: line-through;
-	}
-
-	.tui-pro-pay {
-		padding-top: 10rpx;
-		font-size: 9pt;
-		color: #656565;
-	}
-
-	/* 商品列表*/
-	
-	/* .switchStyle{
-		position: absolute;
-		top: 50%;
-		right: 20rpx;
-		transform: translateY(-50%);
-	} */
-	.search-box{
-		flex: 1;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		height: 30px;
-	}
-	.switchStyle{
-		margin-right: 20rpx;
-	}
 </style>

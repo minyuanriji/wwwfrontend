@@ -287,7 +287,7 @@
 				uni.navigateTo({
 					url:'../orderSure/orderSure'
 				})
-			}
+			},
 		}
 	}
 </script>
