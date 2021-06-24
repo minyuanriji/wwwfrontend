@@ -37,7 +37,6 @@
 			</view>
 			<view class="hotel_search_hotel_address">
 				<input type="text" value="" placeholder="酒店/地标/关键词" v-model="form.keyword"/>
-				<!-- <image :src="img_url+'/hotel/right.png'" mode=""></image> -->
 			</view>
 			<view class="hotel_search_screening" @click="popupShow=true">
 				<input type="text"  placeholder="价格/星级" disabled v-model="price_star"/>

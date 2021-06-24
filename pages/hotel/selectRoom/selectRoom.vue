@@ -160,7 +160,7 @@
 					<view class="sure_money">
 						<view>
 							<view>
-								<text style="color: #707070;font-size: 25rpx;text-decoration: line-through;">￥1888</text>
+								<text style="color: #707070;font-size: 25rpx;text-decoration: line-through;">￥{{itemDetai.product_price}}</text>
 								<text style="color: #FB4512;font-size: 30rpx;">￥0起</text>
 							</view>
 							<view style="width: 160rpx;font-size: 25rpx;text-align: center;border: 1px solid #FB4512;border-radius: 6rpx;color: #FB4512;">
@@ -290,6 +290,7 @@
 				this.hotelDetalShow = false;
 			},
 			order(){
+				this.hotelDetalShow=false
 				uni.navigateTo({
 					url:'../orderSure/orderSure'
 				})
