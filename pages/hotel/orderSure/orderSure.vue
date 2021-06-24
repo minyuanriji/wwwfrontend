@@ -4,34 +4,45 @@
 			<view class="order_timer_interval">
 				<view>
 					<text>入住时间</text>
-					<text>01月01</text>
+					<text>{{beginTime}}</text>
 				</view>
 				<view>
 					<text>离店时间</text>
-					<text>01月02</text>
+					<text>{{privewMessage.end_day}}</text>
 				</view>
 			</view>
 			<view class="order_timer_count">
-				  共1晚
+				  共{{privewMessage.days}}晚
 			</view>
 		</view>
 		<view class="order-message">
 			<view class="order_hotel_info">
 				<view class="order_hotel_logo">
-					<image src="../../../plugins/images/extensions/o2o/shuiguotu.png" mode=""></image>
+					<image :src="privewMessage.hotel_info.thumb_url" mode=""></image>
 				</view>
 				<view class="order_hotel-detail">
-					<view>酒店名称</view>
-					<view>大床房/15m²/有电脑/无早餐</view>
-					<view>位于火车站附近 500m</view>
+					<view>{{privewMessage.hotel_info.name}}</view>
+					<view>
+						<text>{{privewMessage.booking_item.product_name}}</text>
+						<text v-if="privewMessage.booking_item.bed_type=='single'">单床</text>
+						<text v-if="privewMessage.booking_item.bed_type=='double'">双床</text>
+						<text v-if="privewMessage.booking_item.bed_type=='big'">大床</text>
+						<text v-if="privewMessage.booking_item.window=='no'">无窗</text>
+						<text v-if="privewMessage.booking_item.window=='out'">外窗</text>
+						<text v-if="privewMessage.booking_item.window=='part_no'">部分无窗</text>
+						<text v-if="privewMessage.booking_item.window=='inner'">内窗</text>
+						<text v-if="privewMessage.booking_item.window=='part_inner'">部分内窗</text>
+						<text v-if="privewMessage.booking_item.ban_smoking==1">禁烟</text>
+					</view>
+					<view>{{privewMessage.hotel_info.address}}</view>
 				</view>
 			</view>
-			<view class="order_hotel_notice">
+			<!-- <view class="order_hotel_notice">
 				<view v-for="item in 5" :key='item'>
 					<text></text>
 					<text>仅接待大陆客人</text>
 				</view>
-			</view>
+			</view> -->
 		</view>
 		<view class="check_in_message">
 			<view class="check_in_message_title">
@@ -92,10 +103,39 @@
 					name:'',
 					phone:'',
 					roomNum:'',
-				}
+				},
+				beginTime:'',
+				privewMessage:'',			
 			};
 		},
+		onLoad(options){
+			if(options){
+				this.beginTime=options.start_date
+				this.getorderprivew(options.unique_id,options.product_code,options.start_date,options.days)
+			}			
+		},
 		methods:{
+			getorderprivew(unique_id,product_code,start_date,days){//获取预览订单信息
+				this.$http
+					.request({
+						url: this.$api.hotel.getpreviewOrder,
+						method: 'POST',
+						data:{
+							unique_id:unique_id,
+							product_code:product_code,
+							start_date:start_date,
+							days:days,
+						},
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							this.privewMessage=res.data
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});
+			},
 			gopay(){ //去支付
 				if (isEmpty(this.form.name)) {
 					uni.showToast({
@@ -150,6 +190,7 @@
 	text-overflow:ellipsis;
 	white-space: nowrap;}
 	.order_hotel-detail view:nth-of-type(2){font-size: 25rpx;margin: 10rpx 0;}
+	.order_hotel-detail view:nth-of-type(2) text{margin: 0 10rpx;}
 	.order_hotel-detail view:nth-of-type(3){font-size: 25rpx;}
 	.order_hotel_notice{width: 100%;overflow: hidden;padding: 0 20rpx;background: #F3F3F3;border-radius: 0 0 20rpx 20rpx;}
 	.order_hotel_notice view{margin: 0rpx 0 10rpx 0;}

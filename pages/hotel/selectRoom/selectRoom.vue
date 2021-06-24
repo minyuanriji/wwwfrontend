@@ -87,7 +87,7 @@
 									红包全额抵扣
 								</view>
 							</view>
-							<view class="Room_detail-right_right" @click.stop="order">
+							<view class="Room_detail-right_right" @click.stop="order(item.unique_id,item.product_code)">
 								<image :src="img_url+'/hotel/drawup.png'" mode=""></image>
 							</view>
 						</view>
@@ -167,7 +167,7 @@
 								红包全额抵扣
 							</view>
 						</view>
-						<view class="sure_money_logo" @click="order">
+						<view class="sure_money_logo" @click="order(itemDetai.unique_id,itemDetai.product_code)">
 							<image :src="img_url+'/hotel/drawup.png'" mode=""></image>
 						</view>
 					</view>
@@ -180,6 +180,7 @@
 </template>
 
 <script>
+	import {isEmpty} from '../../../common/validate.js'
 	import Calendar from '@/components/mobile-calendar-simple/Calendar.vue'
 	export default {
 		components:{
@@ -289,11 +290,29 @@
 			hidePopup(){
 				this.hotelDetalShow = false;
 			},
-			order(){
+			order(unique_id,product_code){
+				console.log(unique_id,product_code)
 				this.hotelDetalShow=false
-				uni.navigateTo({
-					url:'../orderSure/orderSure'
-				})
+				if(isEmpty(this.timeStaus.dayCount)){
+					var myDate = new Date();
+					let year=myDate.getFullYear();
+					let monthy=myDate.getMonth()+1;
+					let day=myDate.getDate(); 
+					if(monthy<10){
+						monthy='0'+monthy
+					}
+					if(day<10){
+						day='0'+day
+					}
+					let nowTime=year+'-'+monthy+'-'+day
+					uni.navigateTo({
+						url:'../orderSure/orderSure?unique_id='+unique_id+'&product_code='+product_code+"&start_date="+nowTime+"&days="+'1'
+					})
+				}else{
+					uni.navigateTo({
+						url:'../orderSure/orderSure?unique_id='+unique_id+'&product_code='+product_code+"&start_date="+this.timeStaus.startStr.dateStr+"&days="+this.timeStaus.dayCount
+					})
+				}
 			},
 		}
 	}
