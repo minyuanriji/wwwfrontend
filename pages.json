@@ -1038,7 +1038,17 @@
 		    }
 		    
 		}
-		
+		,{
+		    "path" : "pages/hotel/orderswaiting/orderswaiting",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false,
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#FF7B10"
+		    }
+		    
+		}
 		
 		
 		

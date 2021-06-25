@@ -52,24 +52,41 @@
 			<view class="check_in_message_form">
 				<view>
 					<text>房间数</text>
-					<text  @click="roomPoup=true"  style="width: 450rpx;height: 80rpx;font-size: 28rpx;color: #000;line-height: 80rpx;border-bottom: 1rpx dashed #808080;display: block;float: left;">
-						{{form.roomNum==''?'1间':form.roomNum}}
-					</text>
+					<view style="width: 450rpx;height: 80rpx;float: left;margin: 0;">
+						<text style="width: 80rpx;text-align: center;background:#FF5D0D ;color: #fff;" @click="count">-</text>
+						<input type="number" v-model="form.num" placeholder="1" style="width: 200rpx;border: none;text-align: center;background: #F5F5F5;" disabled/>
+						<text style="width: 80rpx;text-align: center;background:#FF5D0D ;color: #fff;" @click="add">+</text>
+					</view>
 				</view>
-				<view>
+				<view style="position: relative;">
 					<text>到店时间</text>
-					<input type="text" placeholder="14:00点后办理入住" disabled/>
+					<view style="width: 450rpx;height: 80rpx;float: left;margin: 0;font-size: 26rpx;">
+						<picker mode="time" :value="time" start="00:00" end="24:00" @change="bindTimeChange">
+						        <view style="height: 80rpx;margin: 0;line-height: 80rpx;">{{beginTime}} {{time}}</view>
+						</picker>
+					</view>
+					<!-- <input type="text" placeholder="14:00点后办理入住" disabled/> -->
+					<image :src="img_url+'/hotel/down.png'" mode="" class="down-logo"></image>
 				</view>
+			</view>		
+			<view class="check_in_message_title" style="margin: 15rpx 0 0 0;position: relative;" >
+				<text style="color: #FF5D0D;font-weight: bold;margin-right: 10rpx;">|</text>
+				<text style="font-size: 28rpx;color: #000;font-weight: 600;">添加入住人</text>
+				<image :src="img_url+'/hotel/add.png'" mode="" class="add-logo" @click="addpepple"></image>
+			</view>
+			<view class="check_in_message_form" v-for="(item,index) in form.passengers" :key='index'
+			style="border: 1rpx solid rgb(255, 93, 13);position: relative;margin:25rpx 0 ;padding: 25rpx;border-radius: 10rpx;">
+				<image :src="img_url+'/hotel/count.png'" mode="" class="count-logo" @click="removepepple(index)" v-if="form.passengers.length>1"></image>
 				<view>
 					<text>姓名</text>
-					<input type="text" v-model="form.name" placeholder="请填写姓名"/>
+					<input type="text" v-model="item.name" placeholder="请填写姓名"/>
 				</view>
 				<view>
 					<text>联系手机</text>
-					<input type="text" v-model="form.phone"  placeholder="请填写联系手机" />
+					<input type="text" v-model="item.mobile"  placeholder="请填写联系手机" />
 				</view>	
-			</view>		
-		</view>			
+			</view>
+		</view>		
 		<view class="check_in_message" style="margin-bottom: 100rpx;">
 			<view class="check_in_message_title">
 				<text style="color: #FF5D0D;font-weight: bold;margin-right: 10rpx;">|</text>
@@ -84,13 +101,15 @@
 		</view>
 		<view class="goPAy">
 			<view class="goPAy_left">
-				<text style="font-size: 30rpx;color: #000;">红包支付</text>
-				<text style="font-size: 25rpx;text-decoration: line-through;margin: 0 5rpx;">￥{{privewMessage.booking_item.product_price}}</text>
-				<text style="color:#FF5D0D ;font-size: 28rpx;font-weight: bold;">2000红包</text>
-				<text style="display: block;font-size: 25rpx;">已减￥{{privewMessage.booking_item.product_price}}</text>
+				<text style="display: block;font-size: 25rpx;color:#FF5D0D">我的红包：{{privewMessage.user_integral}}</text>
+				<text style="font-size: 30rpx;color: #000;font-size: 26rpx;">红包支付</text>
+				<text style="font-size: 25rpx;text-decoration: line-through;margin: 0 5rpx;">￥{{privewMessage.order_price}}</text>
+				<text style="color:#FF5D0D ;font-size: 28rpx;font-weight: bold;">{{privewMessage.integral_price}}红包</text>
+				<text style="display: block;font-size: 25rpx;">已减￥{{privewMessage.order_price}}</text>
 			</view>
-			<view class="goPAy_right" @click="gopay">
-				<button type="default">去支付</button>
+			<view class="goPAy_right">
+				<button type="default" @click="gopay" class="btn-check"   v-if="privewMessage.user_integral>=privewMessage.integral_price">去支付</button>
+				<button type="default" class="active" v-if="privewMessage.user_integral<privewMessage.integral_price">去支付</button>
 			</view>
 		</view>
 		
@@ -110,24 +129,73 @@
 	export default {
 		data() {
 			return {
+				img_url: this.$api.img_url,
 				form:{
-					name:'',
-					phone:'',
-					roomNum:'',
+					unique_id:'',//第三方唯一产品编号
+					product_code:'',//产品编号
+					start_date:'',//起始日期 (0000-00-00)
+					days:'',//预订天数
+					num:1,//房间数量
+					arrive_date:'',//到达日期（0000-00-00 00:00）
+					passengers:[
+						{
+							"name":"",
+							"mobile":""
+						}
+					],//入住人信息
 				},
 				beginTime:'',
 				privewMessage:'',
 				roomPoup:false,
+				time:'14:00',
+				disabled:true,
 			};
 		},
 		onLoad(options){
 			if(options){
 				this.beginTime=options.start_date
-				this.getorderprivew(options.unique_id,options.product_code,options.start_date,options.days)
+				this.form.unique_id=options.unique_id
+				this.form.product_code=options.product_code
+				this.form.start_date=options.start_date
+				this.form.days=options.days
+				this.form.arrive_date=options.start_date+' '+'14:00'
+				this.getorderprivew(options.unique_id,options.product_code,options.start_date,options.days,this.form.num)
 			}			
 		},
 		methods:{
-			getorderprivew(unique_id,product_code,start_date,days){//获取预览订单信息
+			bindTimeChange(e){
+				 this.time = e.target.value
+				 this.form.arrive_date=this.form.start_date+' '+e.target.value
+			},
+			count(){//房间数减
+				if(this.form.num==1){
+					uni.showToast({
+						title: '房间最少为1间',
+						icon: 'none'
+					});
+					setTimeout(function() {
+						uni.hideToast();
+					}, 2000);
+					return
+				}
+				this.form.num--;
+				this.getorderprivew(this.form.unique_id,this.form.product_code,this.form.start_date,this.form.days,this.form.num)
+			},
+			add(){//房间增加
+				if(this.form.num==this.privewMessage.booking_item.product_num){
+					uni.showToast({
+						title: '房间最多为'+this.privewMessage.booking_item.product_num+'间',
+						icon: 'none'
+					});
+					setTimeout(function() {
+						uni.hideToast();
+					}, 2000);
+					return
+				}
+				this.form.num++;
+				this.getorderprivew(this.form.unique_id,this.form.product_code,this.form.start_date,this.form.days,this.form.num)
+			},
+			getorderprivew(unique_id,product_code,start_date,days,num){//获取预览订单信息
 				this.$http
 					.request({
 						url: this.$api.hotel.getpreviewOrder,
@@ -137,48 +205,96 @@
 							product_code:product_code,
 							start_date:start_date,
 							days:days,
+							num:num,
 						},
 						showLoading: true
 					})
 					.then(res => {
 						if(res.code==0){
 							this.privewMessage=res.data
+							if(this.privewMessage.user_integral<this.privewMessage.integral_price){
+								this.disabled=false
+							}else{
+								this.disabled=true
+							}
 						}else{
 							this.$http.toast(res.msg);
 						}
 				});
 			},
-			gopay(){ //去支付
-				if (isEmpty(this.form.name)) {
-					uni.showToast({
-						title: '请填写姓名',
-						icon: 'none'
-					});
-					setTimeout(function() {
-						uni.hideToast();
-					}, 2000);
-					return
+			addpepple(){ //添加入住人
+				let arr=this.form.passengers
+				arr.push({name:'',mobile:''})
+				this.form.passengers=arr
+				console.log(this.form)
+			},
+			removepepple(index){ //移除入住人
+				let arr=[];
+				for(let i=0;i<this.form.passengers.length;i++){
+					if(i!=index){
+						arr.push(this.form.passengers[i])		
+					}
 				}
-				if (isEmpty(this.form.phone)) {
-					uni.showToast({
-						title: '请填写联系电话',
-						icon: 'none'
-					});
-					setTimeout(function() {
-						uni.hideToast();
-					}, 2000);
-					return
+				this.form.passengers=arr
+			},
+			gopay(){ //去支付  generateOrder
+				if(!this.disabled)return
+				var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+				for(let i=0;i<this.form.passengers.length;i++){
+					if (isEmpty(this.form.passengers[i].name)) {
+						uni.showToast({
+							title: '请填写姓名',
+							icon: 'none'
+						});
+						setTimeout(function() {
+							uni.hideToast();
+						}, 2000);
+						return
+					}
+					if (isEmpty(this.form.passengers[i].mobile)) {
+						uni.showToast({
+							title: '请填写联系电话,',
+							icon: 'none'
+						});
+						setTimeout(function() {
+							uni.hideToast();
+						}, 2000);
+						return
+					}
+					if (!myreg.test(this.form.passengers[i].mobile)) {
+						uni.showToast({
+							title: '请填写正确的手机号码,',
+							icon: 'none'
+						});
+						setTimeout(function() {
+							uni.hideToast();
+						}, 2000);
+						return
+					}
 				}
-				if (isEmpty(this.form.roomNum)) {
-					uni.showToast({
-						title: '请填写房数数',
-						icon: 'none'
-					});
-					setTimeout(function() {
-						uni.hideToast();
-					}, 2000);
-					return
+				let data={
+					unique_id:this.form.unique_id,//第三方唯一产品编号
+					product_code:this.form.product_code,//产品编号
+					start_date:this.form.start_date,//起始日期 (0000-00-00)
+					days:this.form.days,//预订天数
+					num:this.form.num,//房间数量
+					arrive_date:this.form.arrive_date,//到达日期（0000-00-00 00:00）
+					passengers:JSON.stringify(this.form.passengers),//入住人信息
 				}
+				this.$http
+					.request({
+						url: this.$api.hotel.generateOrder,
+						method: 'POST',
+						data:data,
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});
 			}
 		}
 	}
@@ -211,14 +327,15 @@
 	.order_hotel_notice text:nth-of-type(2){font-size: 25rpx;}
 	.check_in_message{width: 720rpx;overflow: hidden;background: #fff;margin: 20rpx auto;border-radius: 20rpx;padding: 20rpx;}
 	.check_in_message_form{width: 100%;overflow: hidden;}
-	.check_in_message_form view{width: 100%;height: 80rpx;}
+	.check_in_message_form view{width: 100%;height: 80rpx;margin: 10rpx 0;}
 	.check_in_message_form view text{display: block;float: left;width: 150rpx;font-size: 28rpx;color: #000;line-height: 80rpx;text-align: left;}
 	.check_in_message_form view input{width: 450rpx;height: 80rpx;font-size: 28rpx;color: #000;line-height: 80rpx;border-bottom: 1rpx dashed #808080;display: block;float: left;}
-	.goPAy{width: 100%;height: 120rpx;background: #fff;padding:20rpx;display: flex;justify-content: space-between;}
-	.goPAy_right button{width: 260rpx;height: 80rpx;background: #FF5D0D;line-height: 80rpx;border-radius: 40rpx;color: #fff;outline: none;}
-
-
-
+	.goPAy{width: 100%;height: 160rpx;background: #fff;padding:20rpx;display: flex;justify-content: space-between;}
+	.btn-check{width: 260rpx;height: 80rpx;background: #FF5D0D;line-height: 80rpx;border-radius: 40rpx;color: #fff;outline: none;margin-top: 20rpx;}
+	.active{width: 260rpx;height: 80rpx;background: #F3F4F3;line-height: 80rpx;border-radius: 40rpx;color: #fff;outline: none;margin-top: 20rpx;}
+	.down-logo{width: 24rpx;height: 24rpx;position: absolute;top: 30rpx;right: 90rpx;}
+	.add-logo{width: 50rpx;height: 50rpx;position: absolute;top: 0;right: 20rpx;}
+	.count-logo{width: 50rpx;height: 50rpx;position: absolute;top: 10rpx;right: 20rpx;}
 
 
 
