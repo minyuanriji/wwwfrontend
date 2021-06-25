@@ -37,9 +37,15 @@
 			}
 		},
 		onLoad() {
-				console.log(typeof uni.getStorageSync('userInfo'))
-			if(typeof uni.getStorageSync('userInfo')=='string'){
-				if(uni.getStorageSync('userInfo')&&JSON.parse(uni.getStorageSync('userInfo')).new_user_is_get_score==0){
+			this.$http
+				.request({
+					url: this.$api.user.userInfo,
+					method: 'POST',
+				})
+				.then(res => {
+					if (res.code == 0) {
+						let message=res.data
+						if(message.new_user_is_get_score==0){
 							this.show=false
 							uni.showModal({
 									    title: '提示',
@@ -55,35 +61,13 @@
 									        }
 									    }
 									});
-				}else{
-					this.show=true
-					this.getData()
-				}
-			}else if(typeof uni.getStorageSync('userInfo')=='object'){			
-				if(uni.getStorageSync('userInfo')&&uni.getStorageSync('userInfo').new_user_is_get_score==0){
-							this.show=false
-							uni.showModal({
-									    title: '提示',
-									    content: '新人领取红包',
-										showCancel:false,
-									    success: function (res) {
-									        if (res.confirm) {
-									            uni.navigateTo({
-									            	url: '/pages/link/welfare'
-									            });
-									        } else if (res.cancel) {
-									            console.log('用户点击取消');
-									        }
-									    }
-									});
-				}else{
-					this.show=true
-					this.getData()
-				}
-				
-				
-			}
-		
+						}else{
+							this.show=true
+							this.getData()
+						}
+						console.log(res.data)
+					}
+			})	
 		},
 		methods: {
 			getData() {

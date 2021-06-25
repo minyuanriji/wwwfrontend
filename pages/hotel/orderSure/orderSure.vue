@@ -51,23 +51,25 @@
 			</view>
 			<view class="check_in_message_form">
 				<view>
+					<text>房间数</text>
+					<text  @click="roomPoup=true"  style="width: 450rpx;height: 80rpx;font-size: 28rpx;color: #000;line-height: 80rpx;border-bottom: 1rpx dashed #808080;display: block;float: left;">
+						{{form.roomNum==''?'1间':form.roomNum}}
+					</text>
+				</view>
+				<view>
+					<text>到店时间</text>
+					<input type="text" placeholder="14:00点后办理入住" disabled/>
+				</view>
+				<view>
 					<text>姓名</text>
 					<input type="text" v-model="form.name" placeholder="请填写姓名"/>
 				</view>
 				<view>
 					<text>联系手机</text>
 					<input type="text" v-model="form.phone"  placeholder="请填写联系手机" />
-				</view>
-				<view>
-					<text>房间数</text>
-					<input type="text" v-model="form.roomNum"  placeholder="请填写房间数"/>
-				</view>
-				<view>
-					<text>到店时间</text>
-					<input type="text" placeholder="14:00点后办理入住" disabled/>
-				</view>
-			</view>
-		</view>
+				</view>	
+			</view>		
+		</view>			
 		<view class="check_in_message" style="margin-bottom: 100rpx;">
 			<view class="check_in_message_title">
 				<text style="color: #FF5D0D;font-weight: bold;margin-right: 10rpx;">|</text>
@@ -91,6 +93,15 @@
 				<button type="default">去支付</button>
 			</view>
 		</view>
+		
+		<com-bottom-popup :show="roomPoup" @close="hidePopup">
+			<view class="hotel_screening">
+				筛选
+			</view>
+		</com-bottom-popup>
+		
+		
+		
 	</view>
 </template>
 
@@ -105,7 +116,8 @@
 					roomNum:'',
 				},
 				beginTime:'',
-				privewMessage:'',			
+				privewMessage:'',
+				roomPoup:false,
 			};
 		},
 		onLoad(options){
