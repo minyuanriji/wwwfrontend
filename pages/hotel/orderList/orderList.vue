@@ -58,11 +58,11 @@
 						status:1
 					},
 					{
-						title:'待处理',
+						title:'待确认',
 						status:2
 					},
 					{
-						title:'待出行',
+						title:'已完成',
 						status:3
 					},
 					// {

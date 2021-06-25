@@ -12,6 +12,7 @@
 			</view>
 			<view class="check-list">
 				<text @click="ordetailInto">订单详情</text>
+				<text @click="ordetailListInto">订单列表</text>
 			</view>
 		</view>
 	</view>
@@ -28,6 +29,11 @@
 			ordetailInto(){
 				uni.navigateTo({
 					url:'../hotelDetail/hotelDetail'
+				})
+			},
+			ordetailListInto(){
+				uni.navigateTo({
+					url:'../orderList/orderList'
 				})
 			}
 		}
