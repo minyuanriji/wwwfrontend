@@ -25,13 +25,12 @@
 			先简单实现功能，项目进度安排到这，再详细创建数据表，和编写页面
 			*/
 			get_integral() {
-				var user = uni.getStorageSync('userInfo');
-				var user_id = JSON.parse(user).user_id;
+				var user = uni.getStorageSync('user-id');								
 				this.$http.request({
 					url: this.$api.plugin.extensions.GetIntegral,
 					method: 'POST',
 					data:{
-						"user_id":user_id
+						"user_id":user
 					}
 				}).then(res => {
 					if (res.code == 0) {

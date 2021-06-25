@@ -45,6 +45,7 @@
 				.then(res => {
 					if (res.code == 0) {
 						let message=res.data
+						uni.setStorageSync('user-id',message.user_id)
 						if(message.new_user_is_get_score==0){
 							this.show=false
 							uni.showModal({
