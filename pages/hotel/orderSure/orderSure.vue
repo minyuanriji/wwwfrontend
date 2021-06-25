@@ -290,7 +290,9 @@
 					})
 					.then(res => {
 						if(res.code==0){
-							
+							uni.navigateTo({
+								url:'../orderswaiting/orderswaiting'
+							})
 						}else{
 							this.$http.toast(res.msg);
 						}
