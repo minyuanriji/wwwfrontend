@@ -11,7 +11,7 @@
 				平台一般会在5分钟内为您反馈结果，请您耐心等待~
 			</view>
 			<view class="check-list">
-				<text>订单详情</text>
+				<text @click="ordetailInto">订单详情</text>
 			</view>
 		</view>
 	</view>
@@ -23,6 +23,13 @@
 			return {
 				img_url: this.$api.img_url,
 			};
+		},
+		methods:{
+			ordetailInto(){
+				uni.navigateTo({
+					url:'../hotelDetail/hotelDetail'
+				})
+			}
 		}
 	}
 </script>

@@ -290,9 +290,12 @@
 					})
 					.then(res => {
 						if(res.code==0){
-							uni.navigateTo({
-								url:'../orderswaiting/orderswaiting'
-							})
+							this.$http.toast('已用红包支付成功');
+							setTimeout(function(){
+								uni.navigateTo({
+									url:'../orderswaiting/orderswaiting?order_no='+res.data.order_no
+								})
+							},2000)	
 						}else{
 							this.$http.toast(res.msg);
 						}
