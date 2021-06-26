@@ -370,7 +370,6 @@
 					.then(res => {
 						if(res.code==0){
 							this.hotel=res.data
-							console.log(this.hotel)
 							this.hotelProduct=res.data.hotel_info
 						}else{
 							this.$http.toast(res.msg);
