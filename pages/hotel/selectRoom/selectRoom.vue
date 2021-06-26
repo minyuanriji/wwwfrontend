@@ -96,19 +96,127 @@
 			</view>
 			<view class="need-to-know">
 				<view class="need-to-know_item">
-					<image :src="img_url+'/hotel/need-to-know1.png'" mode="widthFix"></image>
+					<view class="need-to-know_item-title">
+						<text>|</text>
+						<text>订房必读</text>
+					</view>
+					<view class="must-read">
+						<view class="must-read-item">
+							<text class="cicle"></text>
+							<view class="must-read-item-right">
+								<view>
+									<text>仅接待大陆客服</text>
+								</view>
+							</view>
+						</view>
+						<view class="must-read-item">
+							<text class="cicle"></text>
+							<view class="must-read-item-right">
+								<view>
+									<text>1. </text>
+									<text>酒店允许携带儿童入住</text>
+								</view>
+								<view>
+									<text>2. </text>
+									<text>每间客房最多接纳2名1.2米以下儿童，和成人公用现有床铺</text>
+								</view>
+								<view>
+									<text>3. </text>
+									<text>每间客房最多接纳2名1.2米以下儿童，和成人公用现有床铺</text>
+								</view>
+								<view>
+									<text>4. </text>
+									<text>每间客房最多接纳2名1.2米以下儿童，和成人公用现有床铺</text>
+								</view>
+							</view>
+						</view>
+					</view>			
 					<!-- <view class="need-to-know-notice">
 						<text @click="know">查看全部必读</text>
 					</view> -->
 				</view>
 				<view class="need-to-know_item">
-					<image :src="img_url+'/hotel/need-to-know2.png'" mode="widthFix"></image>
+					<view class="need-to-know_item-title">
+						<text>|</text>
+						<text>设施</text>
+					</view>
+					<view class="facilities-type">
+						<view class="facilities-type-item">
+							<view class="facilities-type-left">
+								热门设施
+							</view>
+							<view class="facilities-type-right">
+								<view>
+									<text>1:</text>
+									<text>停车免费</text>
+								</view>
+								<view>
+									<text>1:</text>
+									<text>酒店前台</text>
+								</view>
+								<view>
+									<text>1:</text>
+									<text>行李寄存</text>
+								</view>
+								<view>
+									<text>1:</text>
+									<text>餐厅</text>
+								</view>
+							</view>
+						</view>
+						<view class="facilities-type-item">
+							<view class="facilities-type-left">
+								前台服务
+							</view>
+							<view class="facilities-type-right">
+								<view>
+									<text>1:</text>
+									<text>停车免费</text>
+								</view>
+								<view>
+									<text>1:</text>
+									<text>酒店前台</text>
+								</view>
+								<view>
+									<text>1:</text>
+									<text>行李寄存</text>
+								</view>
+								<view>
+									<text>1:</text>
+									<text>餐厅</text>
+								</view>
+							</view>
+						</view>
+					</view>
 					<!-- <view class="need-to-know-notice">
 						<text @click="know">查看详情</text>
 					</view> -->
 				</view>
 				<view class="need-to-know_item">
-					<image :src="img_url+'/hotel/need-to-know3.png'" mode="widthFix"></image>
+					<view class="need-to-know_item-title">
+						<text>|</text>
+						<text>政策</text>
+					</view>
+					<view class="policy">
+						<view class="policy-item">
+							<view>
+								<text>入住时间：14：00以后</text>
+								<text>离店时间：14：00以后</text>
+							</view>
+							<view>
+								<text>人群接待政策</text>
+								<text>仅接待中国大陆地区客人</text>
+							</view>
+							<view>
+								<text>宠物政策</text>
+								<text>不允许携带宠物</text>
+							</view>
+							<view>
+								<text>加床政策</text>
+								<text>暂无信息</text>
+							</view>
+						</view>
+					</view>
 					<!-- <view class="need-to-know-notice">
 						<text @click="know">查看详情</text>
 					</view> -->
@@ -358,12 +466,25 @@
 	 .Room_detail-right_left{margin-top: 70rpx;}
 	 .Room_detail-right{display: flex;justify-content: space-between;}
 	 .Room_detail-right_right image{display: block;width: 70rpx;height: 74rpx;margin: 85rpx 10rpx 0 15rpx;}
-	 .need-to-know{width: 100%;overflow: hidden;margin-bottom: 80rpx;}
+	 .need-to-know{width: 100%;overflow: hidden;margin-bottom: 80rpx;margin-top: 30rpx;}
 	 .need-to-know view image{display: block;width: 100%;}	 
-	 .need-to-know_item{position: relative;}
-	 .need-to-know-notice{width: 100%;height: 55rpx;position: absolute;left: 0;bottom: 0;}
-	 .need-to-know-notice text{display: block;width: 180rpx;height: 55rpx;color: #2088FF;margin: 0 auto;font-size: 25rpx;text-align: center;border: 1rpx solid #2088FF;line-height:55rpx ;
-	 border-radius: 15rpx;}
+	 .need-to-know_item{position: relative;margin-bottom: 30rpx;}
+	 .need-to-know_item-title{width: 100%;overflow: hidden;}
+	 .need-to-know_item-title text{display: inline-block;font-size: 30rpx;font-weight: bold;color: #FB4512;margin-right: 20rpx;line-height: 50rpx;}
+	 .must-read{width: 100%;overflow: hidden;margin: 20rpx 0 0 0;}
+	 .must-read-item{width: 100%;overflow: hidden;margin-bottom: 10rpx;}
+	 .cicle{width: 8rpx;height: 8rpx;border-radius: 50%;background: #000;display: block;float: left;margin-right: 20rpx;margin-top: 15rpx;}
+	 .must-read-item-right{overflow: hidden;float: left;width: 650rpx;font-size: 25rpx;color: #000;}
+	 .must-read-item-right text{margin-bottom: 5rpx;display: inline-block;}
+	 .facilities-type{width: 100%;overflow: hidden;}
+	 .facilities-type-item{width: 100%;overflow: hidden;}
+	 .facilities-type-left{margin: 15rpx 0;font-size: 25rpx;color: #000;width: 100%;}
+	 .facilities-type-right{width: 650rpx;overflow: hidden;display: flex;justify-content: space-evenly;flex-wrap: wrap;}
+	 .facilities-type-right view{width: 45%;text-align: left;font-size: 25rpx;margin-bottom: 10rpx;}
+	 .policy{width: 100%;overflow: hidden;}
+	 .policy-item{width: 100%;overflow: hidden;font-size: 25rpx;}
+	 .policy-item view{width: 100%;overflow: hidden;margin-bottom: 5rpx;}
+	 .policy-item view text{display: inline-block;width: 50%;}
 	 .hotelDetalShow{width: 100%;overflow: hidden;position: relative;}
 	 .hotelDetalShow-image{width: 100%;overflow: hidden;}
 	 .hotelDetalShow-image image{width:100% ;border-radius: 20rpx 20rpx 0 0;height:450rpx;display: block;}
@@ -379,7 +500,6 @@
 	.sure_money_logo image{display: block;width: 70rpx;height: 74rpx;margin-top: 10rpx;}
 	.closePoup{width: 52rpx;height: 52rpx;position: absolute;top: 30rpx;right: 20rpx;z-index: 999;}
 	.rightColor_logo{ transform: rotate(90deg);-webkit-transform: rotate(90deg); transition: transform 0.5s;}
-
 
 
 </style>
