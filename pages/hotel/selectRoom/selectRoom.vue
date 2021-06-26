@@ -427,10 +427,10 @@
 
 <style lang="less">
 	.selectRoom_app{width: 100%;overflow: hidden;}
-	.hotel_show_image{width: 100%;height: 320rpx;}
+	.hotel_show_image{width: 100%;overflow: hidden;}
 	.hotel_show_image image{width: 100%;display: block;}
 	.selectRoom_detail{width: 100%;border-radius: 30rpx 30rpx 0 0;box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.6);
-	 overflow: hidden;background: #fff;opacity: 1;padding: 20rpx 20rpx 0 20rpx;position: relative;}
+	 overflow: hidden;background: #fff;opacity: 1;padding: 20rpx 20rpx 0 20rpx;position: relative;top: -20rpx;}
 	 .Room_title{width: 100%;overflow: hidden;}
 	 .Room_title text{display: inline-block;}
 	 .Room_title text:nth-of-type(1){font-size: 32rpx;color: #000;font-weight: bold;}
