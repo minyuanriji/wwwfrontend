@@ -182,7 +182,6 @@
 				}
 			},
 			getDate(date){ //获取入住时间	
-				console.log(date)
 				this.timeStaus=date
 				this.startDate=this.timeStaus.startStr.dateStr
 				this.form.start_date=this.timeStaus.startStr.dateStr
@@ -352,7 +351,6 @@
 									url:'hotelList/hotelList?prepare_id='+res.data.prepare_id
 								})
 							}
-							console.log(res)
 						}else{
 							this.$http.toast(res.msg);
 						}

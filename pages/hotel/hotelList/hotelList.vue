@@ -89,7 +89,6 @@
 						})
 						.then(res => {
 							if(res.code==0){
-								console.log(res)
 								this.num+=res.data.founds
 								if(res.data.finished==0){
 									this.searchList(id)
