@@ -2,7 +2,7 @@
 	<view class="hotel-detail-app">
 		<view class="hotel-detai-header">
 			<text>{{orderMessage.status_text}}</text>
-		<!-- 	<text>房间将为您整晚保留，请安心入住</text> -->
+			<text>房间将为您整晚保留，请安心入住</text>
 		</view>
 		<view class="hotel-detai-setAgain">
 			<text v-if="action.is_payable==1">去支付</text>
@@ -13,7 +13,7 @@
 		<view class="hotel-detail-prompt">
 			<!-- <view class="hotel-detail-prompt-title">
 				<text>免费取消</text>
-				<text>预定后可随时取消订单，补商汇不收取任何费用</text>
+				<text>预定后可随时取消订单，各酒店取消订单规则不一，详细请咨询酒店</text>
 			</view> -->
 			<view class="hotel-detail-prompt-detail">
 				<view class="hotel-detail-prompt-detail-title">
@@ -229,7 +229,7 @@
 	.hotel-detai-setAgain text{display: block;width: 194rpx;height: 60rpx;text-align: center;line-height: 60rpx;background: rgba(255, 255, 255, 0.85);
 border-radius: 31px;color: #0F0F0F;font-size: 26rpx;}
 .hotel-detail-prompt{width: 100%;overflow: hidden;background: #fff;border-radius: 20rpx 20rpx 0 0;border-bottom: 6rpx solid #F1F3F4;}
-.hotel-detail-prompt-title{width: 90%;height: 70rpx;font-size: 25rpx;line-height: 70rpx;margin: 0 auto;border-bottom: 1rpx solid #E6E6E6;}
+.hotel-detail-prompt-title{width: 90%;overflow: hidden;font-size: 25rpx;margin: 10rpx auto;border-bottom: 1rpx solid #E6E6E6;}
 .hotel-detail-prompt-title text:nth-of-type(1){color: #14C4AD;}
 .hotel-detail-prompt-title text:nth-of-type(2){color: #000;}
 .hotel-detail-prompt-detail-title{width: 90%;overflow: hidden;font-size: 28rpx;color: #000;margin: 10rpx auto 0;}
