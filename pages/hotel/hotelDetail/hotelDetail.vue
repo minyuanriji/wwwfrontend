@@ -1,13 +1,13 @@
 <template>
 	<view class="hotel-detail-app">
 		<view class="hotel-detai-header">
-			<text>{{orderDetail.order.status_text}}</text>
+			<text>{{orderMessage.status_text}}</text>
 		<!-- 	<text>房间将为您整晚保留，请安心入住</text> -->
 		</view>
 		<view class="hotel-detai-setAgain">
-			<text v-if="orderDetail.action.is_payable==1">去支付</text>
-			<text v-if="orderDetail.action.is_cancelable==1" @click="cancleOrder(orderDetail.order.id)">取消订单</text>
-			<text v-if="orderDetail.action.is_refundable==1">退款/售后</text>
+			<text v-if="action.is_payable==1">去支付</text>
+			<text v-if="action.is_cancelable==1" @click="cancleOrder(orderMessage.id)">取消订单</text>
+			<text v-if="is_refundable==1" @click="applyrefund(orderMessage.id)">退款/售后</text>
 			<!-- <text>再次预订</text> -->
 		</view>
 		<view class="hotel-detail-prompt">
@@ -36,52 +36,52 @@
 			</view>
 			<view class="hotel-detail-product">
 				<view class="hotel-detail-product-image">
-					<image :src="orderDetail.hotel.thumb_url" mode=""></image>
+					<image :src="hotelMessage.thumb_url" mode=""></image>
 				</view>
 				<view class="hotel-detail-product-messgae">
 					<view class="hotel-detail-product-messgae-name">
-						{{orderDetail.hotel.name}} 
+						{{hotelMessage.name}} 
 					</view>
 					<!-- <view class="hotel-detail-product-messgae-facilities">
 						<text>儿童乐园</text>
 						<text>娱乐场/棋牌室</text>
 					</view> -->
 					<view class="hotel-phone-address">
-						<text style="margin-bottom: 5rpx;">酒店联系方式 : {{orderDetail.hotel.contact_phone}}</text>
-						<text>地址 :{{orderDetail.hotel.province_name}}{{orderDetail.hotel.city_name}}{{orderDetail.hotel.address}}</text>
+						<text style="margin-bottom: 5rpx;">酒店联系方式 : {{hotelMessage.contact_phone}}</text>
+						<text>地址 :{{hotelMessage.province_name}}{{hotelMessage.city_name}}{{hotelMessage.address}}</text>
 					</view>
 				</view>
 			</view>
 			<view class="hotel-phone-address-logo">
-				<image :src="img_url+'/hotel/tellphone.png'" mode=""></image>
-				<image :src="img_url+'/hotel/locations.png'" mode=""></image>
+				<image :src="img_url+'/hotel/tellphone.png'" mode="" @click="tellphone(hotelMessage.contact_phone)"></image>
+				<image :src="img_url+'/hotel/locations.png'" mode="" @click="location(hotelMessage.tx_lat,hotelMessage.tx_lng,hotelMessage.address)"></image>
 			</view>
 			<view class="hotel-room-detail">
 				<view class="hotel-room-detail-messahe">
-					{{orderDetail.room.name}}-
-					<text v-if="orderDetail.hotel.policy_breakfast==0">无早餐</text>
-					<text v-if="orderDetail.hotel.policy_breakfast==1">有早餐</text>
-					·{{orderDetail.order.booking_num}}间·{{orderDetail.order.booking_days}}天
+					{{roomMessage.name}}-
+					<text v-if="hotelMessage.policy_breakfast==0">无早餐</text>
+					<text v-if="hotelMessage.policy_breakfast==1">有早餐</text>
+					·{{orderMessage.booking_num}}间·{{orderMessage.booking_days}}天
 				</view>
 				<view class="hotel-room-detail-specifications">
-					{{orderDetail.room.room_size}}m²|
-					<text v-if="orderDetail.room.bed_type=='single'">单床</text>
-					<text v-if="orderDetail.room.bed_type=='double'">双床</text>
-					<text v-if="orderDetail.room.bed_type=='double'">大床</text>
-					{{orderDetail.room.bed_width}}m |可住{{orderDetail.room.people_num}}人
+					{{roomMessage.room_size}}m²|
+					<text v-if="roomMessage.bed_type=='single'">单床</text>
+					<text v-if="roomMessage.bed_type=='double'">双床</text>
+					<text v-if="roomMessage.bed_type=='double'">大床</text>
+					{{roomMessage.bed_width}}m |可住{{roomMessage.people_num}}人
 				</view>
 				<view class="hotel-room-detail-time">
 					<view>
-						<text style="color: #000;">{{orderDetail.order.booking_start_date}}</text>
+						<text style="color: #000;">{{orderMessage.booking_start_date}}</text>
 						<text>入住</text>
 					</view>
 					<view>
-						<text style="color: #000;">{{orderDetail.order.end_date}}</text>
+						<text style="color: #000;">{{orderMessage.end_date}}</text>
 						<text>14:00前离店</text>
 					</view>
 				</view>
 			</view>
-			<view class="passengers-message" v-for="(item,index) in orderDetail.order.booking_passengers" :key='index'>
+			<view class="passengers-message" v-for="(item,index) in orderMessage.booking_passengers" :key='index'>
 				<view>
 					<text>入住人</text>
 					<text>{{item.name}}</text>
@@ -102,12 +102,18 @@
 				img_url: this.$api.img_url,
 				orderDetail:'',
 				hotel_order_id:'',
+				hotelMessage:'',
+				orderMessage:'',
+				roomMessage:'',
+				action:'',
+				is_refundable:'',//0不可以退款，1可以退款
 			};
 		},
 		onLoad(options) {
 			if(options&&options.hotel_order_id){
 				this.hotel_order_id=options.hotel_order_id
 				this.getOrderDetail(options.hotel_order_id)
+				this.isrefund(options.hotel_order_id)
 			}
 		},
 		methods:{
@@ -123,7 +129,45 @@
 					})
 					.then(res => {
 						if(res.code==0){
-							this.orderDetail=res.data
+							this.action=res.data.action
+							this.hotelMessage=res.data.hotel
+							this.orderMessage=res.data.order
+							this.roomMessage=res.data.room
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});
+			},
+			isrefund(hotel_order_id){//判断是否可以退款
+				this.$http
+					.request({
+						url: this.$api.hotel.isrefund,
+						method: 'POST',
+						data:{
+							hotel_order_id:hotel_order_id
+						},
+					})
+					.then(res => {
+						if(res.code==0){
+							this.is_refundable=res.data.is_refundable
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});
+			},
+			applyrefund(id){
+				this.$http
+					.request({
+						url: this.$api.hotel.applyrefund,
+						method: 'POST',
+						data:{
+							hotel_order_id:id
+						},
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							this.$http.toast('取消订单成功');
 						}else{
 							this.$http.toast(res.msg);
 						}
@@ -147,8 +191,26 @@
 							this.$http.toast(res.msg);
 						}
 				});
+			},
+			tellphone(phone){ //拨打电话
+				// alert(phone)
+				uni.makePhoneCall({
+				 	// 手机号
+				    phoneNumber: phone, 				
+					// 成功回调
+					success: (res) => {
+						console.log('调用成功!')	
+					},				
+					// 失败回调
+					fail: (res) => {
+						console.log('调用失败!')
+					}					
+				 })
+			},
+			location(lat,lnt,addrress){
+				window.location.href='https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:'+lat+','+lnt+';addr:'+addrress+'&referer=myapp&key=O3DBZ-IFH3W-KKIRN-RZPNQ-AOSH3-EGB5N'
+				
 			}
-		
 		}
 	}
 </script>

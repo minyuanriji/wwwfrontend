@@ -51,7 +51,7 @@
 				<view class="hotel-orderLis-statusDetail">
 					<text v-if="item.is_payable==1">去支付</text>				
 					<text v-if="item.is_cancelable==1" @click.stop="cancleOrder(item.order_id)">取消订单</text>
-					<text v-if="item.is_refundable==1">退款/售后</text>
+					<!-- <text v-if="item.is_refundable==1">退款/售后</text> -->
 				</view>
 			</view>
 			<view class="nomore" v-else>
@@ -196,7 +196,7 @@
 	overflow: hidden; }
 	.hotel-orderLis-item-detail-selectType{font-size: 25rpx;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden; }
 	.hotel-orderLis-item-detail-time{font-size: 25rpx;}
-	.hotel-orderLis-item-detail-price{overflow: hidden;width: 22%;float: left;}
+	.hotel-orderLis-item-detail-price{overflow: hidden;width: 20%;float: left;}
 	.hotel-orderLis-item-detail-price text{display: block;text-align: right;font-size: 25rpx;color:#FF7B10 ;}
 	.hotel-orderLis-item-count{width: 100%;overflow: hidden;text-align: right;margin: 0rpx 0 10rpx 0;}
 	.hotel-orderLis-item-count text:nth-of-type(1){font-size: 25rpx;}
