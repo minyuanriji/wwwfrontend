@@ -38,7 +38,7 @@
 		methods:{
 			ordetailInto(){
 				uni.navigateTo({
-					url:'../hotelDetail/hotelDetail'
+					url:'../hotelDetail/hotelDetail?hotel_order_id='+this.order_id
 				})
 			},
 			ordetailListInto(){
