@@ -7,8 +7,8 @@
 		<view class="hotel-detai-setAgain">
 			<text v-if="action.is_payable==1">去支付</text>
 			<text v-if="action.is_cancelable==1" @click="cancleOrder(orderMessage.id)">取消订单</text>
-			<text v-if="is_refundable==1" @click="applyrefund(orderMessage.id)">退款/售后</text>
-			<!-- <text>再次预订</text> -->
+			<!-- <text v-if="is_refundable==1" @click="applyrefund(orderMessage.id)">退款/售后</text> -->
+			<text @click="againReservation" v-if="action.is_payable==0">再次预订</text>
 		</view>
 		<view class="hotel-detail-prompt">
 			<!-- <view class="hotel-detail-prompt-title">
@@ -155,7 +155,7 @@
 						}
 				});
 			},
-			applyrefund(id){
+			applyrefund(id){ //退款
 				this.$http
 					.request({
 						url: this.$api.hotel.applyrefund,
@@ -167,13 +167,13 @@
 					})
 					.then(res => {
 						if(res.code==0){
-							this.$http.toast('取消订单成功');
+							this.$http.toast('退款成功');
 						}else{
 							this.$http.toast(res.msg);
 						}
 				});
 			},
-			cancleOrder(id){
+			cancleOrder(id){//取消订单
 				this.$http
 					.request({
 						url: this.$api.hotel.cancleOrder,
@@ -211,9 +211,14 @@
 					}					
 				 })
 			},
-			location(lat,lnt,addrress){
+			location(lat,lnt,addrress){ //导航
 				window.location.href='https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:'+lat+','+lnt+';addr:'+addrress+'&referer=myapp&key=O3DBZ-IFH3W-KKIRN-RZPNQ-AOSH3-EGB5N'
 				
+			},
+			againReservation(){ //再次预定
+				uni.navigateTo({
+					url:'../selectRoom/selectRoom?id='+this.hotelMessage.id
+				})
 			}
 		}
 	}

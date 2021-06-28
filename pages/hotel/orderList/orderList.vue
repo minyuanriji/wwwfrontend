@@ -5,8 +5,8 @@
 				{{item.title}}
 			</view>
 		</view>
-		<view class="hotel-orderLis">
-			<view class="hotel-orderLis-item" v-for="(item,index) in orderList" :key='index' @click="linkTo(item.order_id)" v-if="orderList && orderList.length">
+		<view class="hotel-orderLis" >
+			<view class="hotel-orderLis-item" v-for="(item,index) in orderList" :key='index' @click="linkTo(item.order_id)">
 				<view class="hotel-orderLis-item-title">
 					<image :src="img_url+'/shoplogo.png'" mode="widthFix"></image>
 					<text>订单号：{{item.order_no}}</text>
@@ -53,11 +53,6 @@
 					<text v-if="item.is_cancelable==1" @click.stop="cancleOrder(item.order_id)">取消订单</text>
 					<!-- <text v-if="item.is_refundable==1">退款/售后</text> -->
 				</view>
-			</view>
-			<view class="nomore" v-else>
-				<main-nomore text="暂无记录" :visible="true" bgcolor="transparent" style='width: 100%;'>
-					
-				</main-nomore>
 			</view>
 		</view>
 	</view>
