@@ -108,8 +108,8 @@
 				<text style="display: block;font-size: 25rpx;">已减￥{{privewMessage.order_price}}</text>
 			</view>
 			<view class="goPAy_right">
-				<button type="default" @click="gopay" class="btn-check"   v-if="privewMessage.user_integral>=privewMessage.integral_price">去支付</button>
-				<button type="default" class="active" v-if="privewMessage.user_integral<privewMessage.integral_price">去支付</button>
+				<button type="default" @click="gopay" class="btn-check">去支付</button>
+				<!-- <button type="default" class="active" v-if="privewMessage.user_integral<privewMessage.integral_price">去支付</button> -->
 			</view>
 		</view>
 		
@@ -212,11 +212,11 @@
 					.then(res => {
 						if(res.code==0){
 							this.privewMessage=res.data
-							if(this.privewMessage.user_integral<this.privewMessage.integral_price){
-								this.disabled=false
-							}else{
-								this.disabled=true
-							}
+							// if(this.privewMessage.user_integral<this.privewMessage.integral_price){
+							// 	this.disabled=false
+							// }else{
+							// 	this.disabled=true
+							// }
 						}else{
 							this.$http.toast(res.msg);
 						}
@@ -238,7 +238,7 @@
 				this.form.passengers=arr
 			},
 			gopay(){ //去支付  generateOrder
-				if(!this.disabled)return
+				// if(!this.disabled)return
 				var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
 				for(let i=0;i<this.form.passengers.length;i++){
 					if (isEmpty(this.form.passengers[i].name)) {
