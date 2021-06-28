@@ -299,13 +299,13 @@
 					})
 					.then(res => {
 						if(res.code==0){
-							this.pay(res.data.order_no)
+							this.pay(res.data.order_no,res.data.order_id)
 						}else{
 							this.$http.toast(res.msg);
 						}
 				});
 			},
-			pay(order_no){//用红包支付 hotelPay
+			pay(order_no,order_id){//用红包支付 hotelPay
 				this.$http
 					.request({
 						url: this.$api.hotel.hotelPay,
@@ -313,6 +313,7 @@
 						data:{
 							order_no:order_no,
 						},
+						showLoading: true
 					})
 					.then(res => {
 						if(res.code==0){							
@@ -320,7 +321,7 @@
 							setTimeout(()=>{
 								this.$refs.popup.close()
 								uni.navigateTo({
-									url:'../orderswaiting/orderswaiting?order_no='+order_no
+									url:'../orderswaiting/orderswaiting?order_no='+order_no+'&order_id='+order_id
 								})
 							},2000)	
 						}else{

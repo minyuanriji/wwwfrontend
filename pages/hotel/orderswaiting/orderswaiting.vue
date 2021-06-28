@@ -23,7 +23,17 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
+				order_no:'',
+				order_id:'',
 			};
+		},
+		onLoad(options) {
+			if(potions&&options.order_no){
+				this.order_no=options.order_no
+			}
+			if(potions&&options.order_id){
+				this.order_id=options.order_id
+			}
 		},
 		methods:{
 			ordetailInto(){
