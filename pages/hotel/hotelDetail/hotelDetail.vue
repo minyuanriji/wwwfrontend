@@ -186,7 +186,11 @@
 					.then(res => {
 						if(res.code==0){
 							this.$http.toast('取消订单成功');
-							this.getOrderDetail(this.hotel_order_id)
+							setTimeout(()=>{
+								uni.redirectTo({
+									url:'../orderList/orderList'
+								})
+							},2000)
 						}else{
 							this.$http.toast(res.msg);
 						}
