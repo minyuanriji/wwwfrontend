@@ -3,7 +3,13 @@
 		<view class="order_waiting_app-header">
 			<view style="width: 200rpx;height: 42rpx;margin: 0 auto;">
 				<image :src="img_url+'/hotel/righr_back.png'" mode="" class="count-logo" ></image>
-				<text style="font-size: 36rpx;color: #fff;font-weight: bold;">等待确认</text>
+				<text style="font-size: 36rpx;color: #fff;font-weight: bold;" v-if="order_state==0">待确认</text>
+				<text style="font-size: 36rpx;color: #fff;font-weight: bold;" v-if="order_state==1">预订成功</text>
+				<text style="font-size: 36rpx;color: #fff;font-weight: bold;" v-if="order_state==2">已取消</text>
+				<text style="font-size: 36rpx;color: #fff;font-weight: bold;" v-if="order_state==3">预订未到</text>
+				<text style="font-size: 36rpx;color: #fff;font-weight: bold;" v-if="order_state==4">已入住</text>
+				<text style="font-size: 36rpx;color: #fff;font-weight: bold;" v-if="order_state==5">已完成</text>
+				<text style="font-size: 36rpx;color: #fff;font-weight: bold;" v-if="order_state==6">确认失败</text>
 			</view>
 		</view>
 		<view class="check-link">
@@ -25,14 +31,16 @@
 				img_url: this.$api.img_url,
 				order_no:'',
 				order_id:'',
+				order_state:'',//订单状态：0待确认 1预订成功 2已取消 3预订未到 4已入住 5已完成 6确认失败
+				timer:'',
 			};
 		},
 		onLoad(options) {
-			if(potions&&options.order_no){
+			if(options&&options.order_no){
 				this.order_no=options.order_no
-			}
-			if(potions&&options.order_id){
-				this.order_id=options.order_id
+				this.timer=setInterval(() => {
+					this.getorderStatus(options.order_no)
+				},1500);
 			}
 		},
 		methods:{
@@ -45,8 +53,36 @@
 				uni.navigateTo({
 					url:'../orderList/orderList'
 				})
+			},
+			getorderStatus(order_no){
+				if(this.order_state!=0){
+					return false  
+				}
+				this.$http
+					.request({
+						url: this.$api.hotel.getorderStatus,
+						method: 'POST',
+						data:{
+							order_no:order_no
+						},
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							this.order_id=res.data.order_id
+							this.order_state=res.data.order_state
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});
 			}
-		}
+		},
+		onUnload() {
+			if(this.timer!=null) {  
+			    clearInterval(this.timer);  
+			    this.timer = null;  
+			}  
+		},
 	}
 </script>
 
