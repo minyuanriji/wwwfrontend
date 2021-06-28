@@ -52,6 +52,7 @@
 							</view>
 						</view>
 						<view class="Room_item_price">
+							<view style="width: 100%;font-size: 25rpx;">剩余房间数：{{item.product_num}}</view>
 							<view class="Room_item_price_detail">
 								<text style="font-size: 25rpx;text-decoration: line-through;">￥{{item.product_price}}</text>
 								<text style="color:#FB4512;">￥0{{item.check}}</text>
@@ -454,7 +455,7 @@
 	 .Room_item_name{width: 300rpx;display: flex;flex-wrap: wrap;height: 120rpx;}
 	 .Room_item_name text{display: block;width: 100%;}
 	 .shop_detail{font-size: 25rpx;color:#FB4512 ;border: 1px solid #FB4512;border-radius: 10rpx;}
-	 .Room_item_price_detail{margin-top: 100rpx;position: relative;}
+	 .Room_item_price_detail{margin-top: 80rpx;position: relative;}
 	 .Room_item_price_detail image{width: 35rpx;height: 35rpx;display: block;position: absolute;top: 8rpx;right: 15rpx;}
 	 .Room_detail{width: 100%;overflow: hidden;display: flex;justify-content: space-between;background: #F5F5F5;padding: 0 10rpx;}
 	 .Room_detail-title{font-size: 30rpx;color: #000;width: 100%;overflow: hidden;margin-top: 10rpx;}

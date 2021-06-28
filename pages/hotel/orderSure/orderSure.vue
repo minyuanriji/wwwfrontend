@@ -299,15 +299,30 @@
 					})
 					.then(res => {
 						if(res.code==0){
+							this.pay(res.data.order_no)
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});
+			},
+			pay(order_no){//用红包支付 hotelPay
+				this.$http
+					.request({
+						url: this.$api.hotel.hotelPay,
+						method: 'POST',
+						data:{
+							order_no:order_no,
+						},
+					})
+					.then(res => {
+						if(res.code==0){							
 							this.$refs.popup.open()
 							setTimeout(()=>{
 								this.$refs.popup.close()
-							},2000)
-							// setTimeout(function(){
-							// 	uni.navigateTo({
-							// 		url:'../orderswaiting/orderswaiting?order_no='+res.data.order_no
-							// 	})
-							// },2000)	
+								uni.navigateTo({
+									url:'../orderswaiting/orderswaiting?order_no='+order_no
+								})
+							},2000)	
 						}else{
 							this.$http.toast(res.msg);
 						}
