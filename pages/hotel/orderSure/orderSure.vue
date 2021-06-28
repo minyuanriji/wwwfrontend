@@ -118,15 +118,24 @@
 				筛选
 			</view>
 		</com-bottom-popup>
-		
-		
+		<uni-popup ref="popup" type="center">
+			<view class="pay-poup">
+				<image :src="img_url+'/hotel/paySuccess.png'" mode=""></image>
+				<view>恭喜你</view>
+				<view>红包支付成功</view>
+			</view>
+		</uni-popup>
 		
 	</view>
 </template>
 
 <script>
 	import {isEmpty} from '../../../common/validate.js'
+	import unipopup from '../../../components/uni-popup/uni-popup.vue'
 	export default {
+		components:{
+			unipopup,
+		},
 		data() {
 			return {
 				img_url: this.$api.img_url,
@@ -239,67 +248,71 @@
 			},
 			gopay(){ //去支付  generateOrder
 				// if(!this.disabled)return
-				var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
-				for(let i=0;i<this.form.passengers.length;i++){
-					if (isEmpty(this.form.passengers[i].name)) {
-						uni.showToast({
-							title: '请填写姓名',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (isEmpty(this.form.passengers[i].mobile)) {
-						uni.showToast({
-							title: '请填写联系电话,',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-					if (!myreg.test(this.form.passengers[i].mobile)) {
-						uni.showToast({
-							title: '请填写正确的手机号码,',
-							icon: 'none'
-						});
-						setTimeout(function() {
-							uni.hideToast();
-						}, 2000);
-						return
-					}
-				}
-				let data={
-					unique_id:this.form.unique_id,//第三方唯一产品编号
-					product_code:this.form.product_code,//产品编号
-					start_date:this.form.start_date,//起始日期 (0000-00-00)
-					days:this.form.days,//预订天数
-					num:this.form.num,//房间数量
-					arrive_date:this.form.arrive_date,//到达日期（0000-00-00 00:00）
-					passengers:JSON.stringify(this.form.passengers),//入住人信息
-				}
-				this.$http
-					.request({
-						url: this.$api.hotel.generateOrder,
-						method: 'POST',
-						data:data,
-						showLoading: true
-					})
-					.then(res => {
-						if(res.code==0){
-							this.$http.toast('已用红包支付成功');
-							setTimeout(function(){
-								uni.navigateTo({
-									url:'../orderswaiting/orderswaiting?order_no='+res.data.order_no
-								})
-							},2000)	
-						}else{
-							this.$http.toast(res.msg);
-						}
-				});
+				this.$refs.popup.open()
+				setTimeout(()=>{
+					this.$refs.popup.close()
+				},2000)
+				// var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+				// for(let i=0;i<this.form.passengers.length;i++){
+				// 	if (isEmpty(this.form.passengers[i].name)) {
+				// 		uni.showToast({
+				// 			title: '请填写姓名',
+				// 			icon: 'none'
+				// 		});
+				// 		setTimeout(function() {
+				// 			uni.hideToast();
+				// 		}, 2000);
+				// 		return
+				// 	}
+				// 	if (isEmpty(this.form.passengers[i].mobile)) {
+				// 		uni.showToast({
+				// 			title: '请填写联系电话,',
+				// 			icon: 'none'
+				// 		});
+				// 		setTimeout(function() {
+				// 			uni.hideToast();
+				// 		}, 2000);
+				// 		return
+				// 	}
+				// 	if (!myreg.test(this.form.passengers[i].mobile)) {
+				// 		uni.showToast({
+				// 			title: '请填写正确的手机号码,',
+				// 			icon: 'none'
+				// 		});
+				// 		setTimeout(function() {
+				// 			uni.hideToast();
+				// 		}, 2000);
+				// 		return
+				// 	}
+				// }
+				// let data={
+				// 	unique_id:this.form.unique_id,//第三方唯一产品编号
+				// 	product_code:this.form.product_code,//产品编号
+				// 	start_date:this.form.start_date,//起始日期 (0000-00-00)
+				// 	days:this.form.days,//预订天数
+				// 	num:this.form.num,//房间数量
+				// 	arrive_date:this.form.arrive_date,//到达日期（0000-00-00 00:00）
+				// 	passengers:JSON.stringify(this.form.passengers),//入住人信息
+				// }
+				// this.$http
+				// 	.request({
+				// 		url: this.$api.hotel.generateOrder,
+				// 		method: 'POST',
+				// 		data:data,
+				// 		showLoading: true
+				// 	})
+				// 	.then(res => {
+				// 		if(res.code==0){
+				// 			this.$http.toast('已用红包支付成功');
+				// 			setTimeout(function(){
+				// 				uni.navigateTo({
+				// 					url:'../orderswaiting/orderswaiting?order_no='+res.data.order_no
+				// 				})
+				// 			},2000)	
+				// 		}else{
+				// 			this.$http.toast(res.msg);
+				// 		}
+				// });
 			}
 		}
 	}
@@ -341,7 +354,7 @@
 	.down-logo{width: 24rpx;height: 24rpx;position: absolute;top: 30rpx;right: 90rpx;}
 	.add-logo{width: 50rpx;height: 50rpx;position: absolute;top: 0;right: 20rpx;}
 	.count-logo{width: 50rpx;height: 50rpx;position: absolute;top: 10rpx;right: 20rpx;}
-
-
-
+	.pay-poup{width: 400rpx;height: 400rpx;border-radius: 30rpx;background: #fff;padding: 40rpx 20rpx;}
+	.pay-poup image{display: block;width: 120rpx;height: 120rpx;margin: 0rpx auto 35rpx;}
+	.pay-poup view{width: 100%;overflow: hidden;font-size: 30rpx;color: #000;text-align: center;margin: 25rpx 0;}
 </style>
