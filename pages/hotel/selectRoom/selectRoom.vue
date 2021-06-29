@@ -88,7 +88,7 @@
 									红包全额抵扣
 								</view>
 							</view>
-							<view class="Room_detail-right_right" @click.stop="order(item.unique_id,item.product_code)">
+							<view class="Room_detail-right_right" @click.stop="order(item.unique_id,item.product_code,item.product_num)">
 								<image :src="img_url+'/hotel/drawup.png'" mode=""></image>
 							</view>
 						</view>
@@ -276,7 +276,7 @@
 								红包全额抵扣
 							</view>
 						</view>
-						<view class="sure_money_logo" @click="order(itemDetai.unique_id,itemDetai.product_code)">
+						<view class="sure_money_logo" @click="order(itemDetai.unique_id,itemDetai.product_code,itemDetai.product_num)">
 							<image :src="img_url+'/hotel/drawup.png'" mode=""></image>
 						</view>
 					</view>
@@ -398,9 +398,12 @@
 			hidePopup(){
 				this.hotelDetalShow = false;
 			},
-			order(unique_id,product_code){
-				console.log(unique_id,product_code)
+			order(unique_id,product_code,num){
 				this.hotelDetalShow=false
+				if(num==0){
+					this.$http.toast('剩余房间为0，没有更多房间了.请选择其他房间预订，谢谢');
+					return
+				}
 				if(isEmpty(this.timeStaus.dayCount)){
 					var myDate = new Date();
 					let year=myDate.getFullYear();
