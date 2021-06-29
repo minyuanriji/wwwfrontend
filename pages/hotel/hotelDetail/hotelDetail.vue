@@ -11,10 +11,13 @@
 			<text @click="againReservation" v-if="action.is_payable==0">再次预订</text>
 		</view>
 		<view class="hotel-detail-prompt">
-			<!-- <view class="hotel-detail-prompt-title">
-				<text>免费取消</text>
-				<text>预定后可随时取消订单，各酒店取消订单规则不一，详细请咨询酒店</text>
-			</view> -->
+			<view class="hotel-detail-prompt-title">
+				<text>倒计时</text>
+				<text style="width: 50rpx;height: 50rpx;background: red;color: #fff;display: inline-block;text-align: center;margin: 0 10rpx;">{{minute}}</text>
+				<text style="margin: 0 10rpx;">:</text>
+				<text style="width: 50rpx;height: 50rpx;background: red;color: #fff;display: inline-block;text-align: center;margin: 0 10rpx;">{{seconds}}</text>
+				<text>内可再次支付，超过时间，订单失效</text>
+			</view>
 			<view class="hotel-detail-prompt-detail">
 				<view class="hotel-detail-prompt-detail-title">
 					<image :src="img_url+'/hotel/prompt-logo.png'" mode=""></image>
@@ -107,6 +110,9 @@
 				roomMessage:'',
 				action:'',
 				is_refundable:'',//0不可以退款，1可以退款
+				minute:"00",
+				seconds:'00',
+				timer:'',
 			};
 		},
 		onLoad(options) {
@@ -133,6 +139,24 @@
 							this.hotelMessage=res.data.hotel
 							this.orderMessage=res.data.order
 							this.roomMessage=res.data.room
+							let time=this.action.pay_last_second
+							this.timer=setInterval(()=>{
+								time--
+								if(time<0){
+									clearInterval(this.timer)
+									this.orderMessage.status_text='已失效'
+									this.action.is_payable=0
+									return			
+								}
+								this.minute=Math.floor(time / 60)
+								this.seconds = Math.floor(time % 60);
+								if(this.minute<10){
+									this.minute="0"+this.minute
+								}
+								if(this.seconds<10){
+									this.seconds="0"+this.seconds
+								}
+							},1000)		
 						}else{
 							this.$http.toast(res.msg);
 						}
@@ -220,7 +244,10 @@
 					url:'../selectRoom/selectRoom?id='+this.hotelMessage.id
 				})
 			}
-		}
+		},
+		onUnload() {
+			clearInterval(this.timer)
+		},
 	}
 </script>
 
@@ -234,7 +261,7 @@
 	.hotel-detai-setAgain text{display: block;width: 194rpx;height: 60rpx;text-align: center;line-height: 60rpx;background: rgba(255, 255, 255, 0.85);
 border-radius: 31px;color: #0F0F0F;font-size: 26rpx;}
 .hotel-detail-prompt{width: 100%;overflow: hidden;background: #fff;border-radius: 20rpx 20rpx 0 0;border-bottom: 6rpx solid #F1F3F4;}
-.hotel-detail-prompt-title{width: 90%;overflow: hidden;font-size: 25rpx;margin: 10rpx auto;border-bottom: 1rpx solid #E6E6E6;}
+.hotel-detail-prompt-title{width: 90%;height: 60rpx;line-height: 50rpx;font-size: 25rpx;margin: 10rpx auto;border-bottom: 1rpx solid #E6E6E6;}
 .hotel-detail-prompt-title text:nth-of-type(1){color: #14C4AD;}
 .hotel-detail-prompt-title text:nth-of-type(2){color: #000;}
 .hotel-detail-prompt-detail-title{width: 90%;overflow: hidden;font-size: 28rpx;color: #000;margin: 10rpx auto 0;}
