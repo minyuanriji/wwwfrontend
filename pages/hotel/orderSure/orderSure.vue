@@ -326,9 +326,11 @@
 							},2000)	
 						}else{
 							this.$http.toast(res.msg);
-							uni.navigateTo({
-								url:'../orderList/orderList'
-							})
+							setTimeout(()=>{
+								uni.navigateTo({
+									url:'../orderList/orderList'
+								})
+							},2000)	
 						}
 				});
 			}
