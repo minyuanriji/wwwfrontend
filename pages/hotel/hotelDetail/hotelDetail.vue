@@ -11,7 +11,7 @@
 			<text @click="againReservation" v-if="action.is_payable==0">再次预订</text>
 		</view>
 		<view class="hotel-detail-prompt">
-			<view class="hotel-detail-prompt-title">
+			<view class="hotel-detail-prompt-title" v-if="action.is_payable==1">
 				<text>倒计时</text>
 				<text style="width: 50rpx;height: 50rpx;background: red;color: #fff;display: inline-block;text-align: center;margin: 0 10rpx;">{{minute}}</text>
 				<text style="margin: 0 10rpx;">:</text>
@@ -139,24 +139,26 @@
 							this.hotelMessage=res.data.hotel
 							this.orderMessage=res.data.order
 							this.roomMessage=res.data.room
-							let time=this.action.pay_last_second
-							this.timer=setInterval(()=>{
-								time--
-								if(time<0){
-									clearInterval(this.timer)
-									this.orderMessage.status_text='已失效'
-									this.action.is_payable=0
-									return			
-								}
-								this.minute=Math.floor(time / 60)
-								this.seconds = Math.floor(time % 60);
-								if(this.minute<10){
-									this.minute="0"+this.minute
-								}
-								if(this.seconds<10){
-									this.seconds="0"+this.seconds
-								}
-							},1000)		
+							if(this.action.is_payable==1){
+								let time=this.action.pay_last_second
+								this.timer=setInterval(()=>{
+									time--
+									if(time<0){
+										clearInterval(this.timer)
+										this.orderMessage.status_text='已失效'
+										this.action.is_payable=0
+										return			
+									}
+									this.minute=Math.floor(time / 60)
+									this.seconds = Math.floor(time % 60);
+									if(this.minute<10){
+										this.minute="0"+this.minute
+									}
+									if(this.seconds<10){
+										this.seconds="0"+this.seconds
+									}
+								},1000)			
+							}
 						}else{
 							this.$http.toast(res.msg);
 						}
