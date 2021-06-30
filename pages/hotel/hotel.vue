@@ -250,8 +250,8 @@
 						that.form.lng=res.longitude
 						that.form.lat=res.latitude
 						that.form.city_id=0
-						that.recommendedForm.lng=res.longitude
-						that.recommendedForm.lat=res.latitude
+						that.recommendedForm.lng=String(res.longitude)
+						that.recommendedForm.lat=String(res.latitude)
 						that.getrecommended()
 					}
 				})
