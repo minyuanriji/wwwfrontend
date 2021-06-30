@@ -99,8 +99,6 @@
 				<view style="background: #FF8F0B;color: #fff;" @click="sureRequest">完成</view>
 			</view>
 		</com-bottom-popup>
-		
-	
 	</view>
 </template>
 
