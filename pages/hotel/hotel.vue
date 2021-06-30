@@ -168,7 +168,12 @@
 					lat:'',
 				},
 				time:'',
-				tomoryTime:''
+				tomoryTime:'',
+				recommendedForm:{
+					page:1,
+					lng:uni.getStorageSync('city_address')?uni.getStorageSync('city_address').longitude:'',
+					lat:uni.getStorageSync('city_address')?uni.getStorageSync('city_address').latitude:'',
+				}
 			};
 		},
 		onLoad() {
@@ -245,6 +250,9 @@
 						that.form.lng=res.longitude
 						that.form.lat=res.latitude
 						that.form.city_id=0
+						that.recommendedForm.lng=res.longitude
+						that.recommendedForm.lat=res.latitude
+						that.getrecommended()
 					}
 				})
 			},
@@ -384,11 +392,7 @@
 					.request({
 						url: that.$api.hotel.getrecommended,
 						method: 'POST',
-						data:{
-							page:1,
-							lng:uni.getStorageSync('city_address')?uni.getStorageSync('city_address').longitude:'',
-							lat:uni.getStorageSync('city_address')?uni.getStorageSync('city_address').latitude:'',
-						},
+						data:this.recommendedForm,
 						showLoading: true
 					})
 					.then(res => {
