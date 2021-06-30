@@ -323,21 +323,22 @@
 				hotel:'',
 				hotelProduct:'',
 				itemDetai:'',
+				time:'',
 			};
 		},
 		onLoad(options) {
-			var myDate = new Date();
-			let year=myDate.getFullYear();
-			let monthy=myDate.getMonth()+1;
-			let day=myDate.getDate(); 
-			if(monthy<10){
-				monthy='0'+monthy
-			}
-			if(day<10){
-				day='0'+day
-			}
-			let nowTime=year+'-'+monthy+'-'+day
-			let days=1
+			this.time=this.changeTime(new Date())
+			var day= new Date();
+			day.setTime(day.getTime()+24*60*60*1000);
+			this.tomoryTime = day.getFullYear()+"-" +((day.getMonth()+1)<10?'0'+(day.getMonth()+1):(day.getMonth()+1))+ "-" +(day.getDate()<10?'0'+day.getDate():day.getDate());
+			this.startDate=this.time
+			this.endDate=this.tomoryTime
+			this.timeStaus.startStr.dateStr=this.time
+			this.timeStaus.startStr.recent='今天'
+			this.timeStaus.endStr.dateStr=this.tomoryTime
+			this.timeStaus.endStr.recent='明天'
+			this.timeStaus.dayCount=1
+			var days=1
 			if(options&&options.id){
 				this.id=options.id
 				if(options.timeStaus){
@@ -345,14 +346,19 @@
 					this.timeStaus=timeStaus
 					this.getDetail(options.id,timeStaus.startStr.dateStr,timeStaus.dayCount)
 				}else{
-					this.getDetail(options.id,nowTime,days)
+					this.getDetail(options.id,this.time,days)
 				}
 			}
 		},
 		methods:{
+			changeTime(d){
+			     return d.getFullYear() + '-' +((d.getMonth()+1)<10?'0'+(d.getMonth()+1):(d.getMonth()+1)) + '-' + (d.getDate()<10?'0'+d.getDate():d.getDate());
+			},
 			getDate(date){ //获取入住时间
 				this.timeStaus=date
 			    console.log(date)
+				this.startDate=this.timeStaus.startStr.dateStr
+				this.endDate=this.timeStaus.endStr.dateStr
 				this.timeShow=false
 				this.getDetail(this.id,this.timeStaus.startStr.dateStr,this.timeStaus.dayCount)
 			},
