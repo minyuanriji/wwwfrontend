@@ -152,15 +152,15 @@
 									<text>停车免费</text>
 								</view>
 								<view>
-									<text>1:</text>
+									<text>2:</text>
 									<text>酒店前台</text>
 								</view>
 								<view>
-									<text>1:</text>
+									<text>3:</text>
 									<text>行李寄存</text>
 								</view>
 								<view>
-									<text>1:</text>
+									<text>4:</text>
 									<text>餐厅</text>
 								</view>
 							</view>
@@ -175,15 +175,15 @@
 									<text>停车免费</text>
 								</view>
 								<view>
-									<text>1:</text>
+									<text>2:</text>
 									<text>酒店前台</text>
 								</view>
 								<view>
-									<text>1:</text>
+									<text>3:</text>
 									<text>行李寄存</text>
 								</view>
 								<view>
-									<text>1:</text>
+									<text>4:</text>
 									<text>餐厅</text>
 								</view>
 							</view>
@@ -202,7 +202,7 @@
 						<view class="policy-item">
 							<view>
 								<text>入住时间：14：00以后</text>
-								<text>离店时间：14：00以后</text>
+								<text>离店时间：14：00以前</text>
 							</view>
 							<view>
 								<text>人群接待政策</text>

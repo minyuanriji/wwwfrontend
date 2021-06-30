@@ -77,7 +77,7 @@
 				</view>
 			</view>
 		</view>
-		<calendar :is-show="timeShow"  :start-date="startDate" :end-date="endDate" mode="2"  @callback="getDate" />		
+		<calendar :is-show="timeShow"  :start-date="startDate" :end-date="endDate" mode="2"  @callback="getDate" />
 		<com-bottom-popup :show="popupShow" @close="hidePopup">
 			<view class="hotel_screening">
 				筛选
