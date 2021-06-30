@@ -5,9 +5,9 @@
 			<text>房间将为您整晚保留，请安心入住</text>
 		</view>
 		<view class="hotel-detai-setAgain">
-			<text v-if="action.is_payable==1">去支付</text>
+			<text v-if="action.is_payable==1" @click="payAgain(orderMessage.order_no)">去支付</text>
 			<text v-if="action.is_cancelable==1" @click="cancleOrder(orderMessage.id)">取消订单</text>
-			<!-- <text v-if="is_refundable==1" @click="applyrefund(orderMessage.id)">退款/售后</text> -->
+			<text v-if="is_refundable==1" @click="applyrefund(orderMessage.id)">退款/售后</text>
 			<text @click="againReservation" v-if="action.is_payable==0">再次预订</text>
 		</view>
 		<view class="hotel-detail-prompt">
@@ -95,11 +95,22 @@
 				</view>
 			</view>
 		</view>
+		<uni-popup ref="popup" type="center">
+			<view class="pay-poup">
+				<image :src="img_url+'/hotel/paySuccess.png'" mode=""></image>
+				<view>恭喜你</view>
+				<view>红包支付成功</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
+	import unipopup from '../../../components/uni-popup/uni-popup.vue'
 	export default {
+		components:{
+			unipopup,
+		},
 		data() {
 			return {
 				img_url: this.$api.img_url,
@@ -245,6 +256,30 @@
 				uni.navigateTo({
 					url:'../selectRoom/selectRoom?id='+this.hotelMessage.id
 				})
+			},
+			payAgain(order_no){//用红包支付 hotelPay
+				this.$http
+					.request({
+						url: this.$api.hotel.hotelPay,
+						method: 'POST',
+						data:{
+							order_no:order_no,
+						},
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){							
+							this.$refs.popup.open()
+							setTimeout(()=>{
+								this.$refs.popup.close()
+								uni.navigateTo({
+									url:'../hotelList/hotelList'
+								})
+							},2000)	
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});
 			}
 		},
 		onUnload() {
@@ -303,4 +338,8 @@ display: -webkit-box;
 .passengers-message view text{display: inline-block;}
 .passengers-message view text:nth-of-type(1){font-size: 28rpx;width: 150rpx;}
 .passengers-message view text:nth-of-type(2){font-size: 28rpx;color: #000;}
+.pay-poup{width: 400rpx;height: 400rpx;border-radius: 30rpx;background: #fff;padding: 40rpx 20rpx;}
+.pay-poup image{display: block;width: 120rpx;height: 120rpx;margin: 0rpx auto 35rpx;}
+.pay-poup view{width: 100%;overflow: hidden;font-size: 30rpx;color: #000;text-align: center;margin: 25rpx 0;}
 </style>
+
