@@ -172,23 +172,24 @@
 		onLoad() {
 			this.getCity();			
 			this.getrecommended();
-			// this.time=this.changeTime(new Date())
-			// var day= new Date();
-			// day.setTime(day.getTime()+24*60*60*1000);
-			// this.tomoryTime = day.getFullYear()+"-" + (day.getMonth()+1) + "-" + day.getDate();
-			// console.log(this.time,this.tomoryTime)
-			// this.startDate=this.time
-			// this.endDate=this.tomoryTime
-			// this.timeStaus.startStr.dateStr=this.time
-			// this.timeStaus.startStr.recent='今天'
-			// this.timeStaus.endStr.dateStr=this.tomoryTime
-			// this.timeStaus.endStr.recent='明天'
-			// this.timeStaus.dayCount=1
+			this.time=this.changeTime(new Date())
+			var day= new Date();
+			day.setTime(day.getTime()+24*60*60*1000);
+			this.tomoryTime = day.getFullYear()+"-" +((day.getMonth()+1)<10?'0'+(day.getMonth()+1):(day.getMonth()+1))+ "-" +(day.getDate()<10?'0'+day.getDate():day.getDate());
+			this.startDate=this.time
+			this.endDate=this.tomoryTime
+			this.timeStaus.startStr.dateStr=this.time
+			this.timeStaus.startStr.recent='今天'
+			this.timeStaus.endStr.dateStr=this.tomoryTime
+			this.timeStaus.endStr.recent='明天'
+			this.timeStaus.dayCount=1
+			this.form.start_date=this.time
+			this.form.days=1
 		},
 		methods:{
-			// changeTime(d){
-			//      return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
-			// },
+			changeTime(d){
+			     return d.getFullYear() + '-' +((d.getMonth()+1)<10?'0'+(d.getMonth()+1):(d.getMonth()+1)) + '-' + (d.getDate()<10?'0'+d.getDate():d.getDate());
+			},
 			select(index){ //点击切换类型
 				this.selectIndex=index
 				if(index==1){
@@ -202,7 +203,7 @@
 			getDate(date){ //获取入住时间
 				this.timeStaus=date				
 				this.startDate=this.timeStaus.startStr.dateStr
-				// this.endDate=this.timeStaus.endStr.dateStr
+				this.endDate=this.timeStaus.endStr.dateStr
 				this.form.start_date=this.timeStaus.startStr.dateStr
 				this.form.days=this.timeStaus.dayCount
 				this.timeShow=false
