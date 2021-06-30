@@ -68,10 +68,12 @@
 						<text style="display: inline-block;margin:0 10rpx;color: red;">{{item.cmt_num}}+</text>点评
 					</view>
 					<view class="hotel_list_item_distance" v-if="item.distance!='N'">
-						<text style="margin-left: 15rpx;">距离你：</text><text>{{item.distance}}{{item.distance_unit}}</text>
+						<text style="margin-left: 15rpx;">距离你：{{item.distance}}</text>
+						<text v-if="item.distance_unit=='km'">公里</text>
+						<text v-if="item.distance_unit=='m'">米</text>
 					</view>
 					<view class="hotel_list_item_price">
-						<image :src="img_url+'/hotel/rightColor.png'" mode=""></image>
+						<!-- <image :src="img_url+'/hotel/rightColor.png'" mode=""></image> -->
 						<text>￥{{item.price}}起</text>
 					</view>
 				</view>
@@ -444,7 +446,7 @@
 	display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;}
 	.hotel_list_item_name text:nth-of-type(2){width: 30%;height: 76rpx;font-size: 25rpx;color: #FB4512;text-align: right;}
 	.hotel_list_item_product{width: 100%;margin-left: 15rpx;font-size: 25rpx;}
-	.hotel_list_item_price{width: 50%;font-size: 28rpx;font-weight: bold;float: right;text-align: right;margin: 40rpx 0 0 0;color: #FB4512;}
+	.hotel_list_item_price{width: 40%;font-size: 28rpx;font-weight: bold;float: right;text-align: right;margin: 40rpx 0 0 0;color: #FB4512;}
 	.hotel_list_item_price text{display: inline-block;float: right;}
 	.hotel_list_item_price image{width: 28rpx;height: 28rpx;display: inline-block;margin:8rpx 10rpx 0 15rpx;float: right;}
 	.hotel_screening{width: 100%;height: 80rpx;text-align: center;margin:20rpx 0;color: #000000;font-weight: bold;}    .hotel_screening_title{width:98%;margin: 10rpx auto 40rpx;font-size: 30rpx;color: #000;font-weight: bold;}
@@ -458,5 +460,5 @@
 	.StarText{background: red;}
 	.unStarText{background:  rgba(110, 125, 130, 0.7)}
 	.index1_content_top_l_name{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
-	.hotel_list_item_distance{font-size: 25rpx;margin-top: 40rpx;float: left;width: 50%;}
+	.hotel_list_item_distance{font-size: 25rpx;margin-top: 40rpx;float: left;width: 60%;}
 </style>
