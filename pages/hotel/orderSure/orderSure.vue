@@ -75,7 +75,7 @@
 				<image :src="img_url+'/hotel/add.png'" mode="" class="add-logo" @click="addpepple"></image>
 			</view>
 			<view class="check_in_message_form" v-for="(item,index) in form.passengers" :key='index'
-			style="border: 1rpx solid rgb(255, 93, 13);position: relative;margin:25rpx 0 ;padding: 25rpx;border-radius: 10rpx;box-sizing: border-box;">
+			style="border: 1rpx solid rgb(255, 93, 13);position: relative;margin:25rpx auto ;padding: 20rpx;border-radius: 10rpx;box-sizing: border-box;">
 				<image :src="img_url+'/hotel/count.png'" mode="" class="count-logo" @click="removepepple(index)" v-if="form.passengers.length>1"></image>
 				<view>
 					<text>姓名</text>
@@ -364,10 +364,10 @@
 	.order_hotel_notice text:nth-of-type(1){width: 10rpx;height: 10rpx;background: #000;border-radius: 50%;margin: 0 10rpx;}
 	.order_hotel_notice text:nth-of-type(2){font-size: 25rpx;}
 	.check_in_message{width: 720rpx;overflow: hidden;background: #fff;margin: 20rpx auto;border-radius: 20rpx;padding: 20rpx;}
-	.check_in_message_form{width: 100%;overflow: hidden;}
+	.check_in_message_form{width: 95%;overflow: hidden;}
 	.check_in_message_form view{width: 100%;height: 80rpx;margin: 10rpx 0;}
 	.check_in_message_form view text{display: block;float: left;width: 150rpx;font-size: 28rpx;color: #000;line-height: 80rpx;text-align: left;}
-	.check_in_message_form view input{width: 450rpx;height: 80rpx;font-size: 28rpx;color: #000;line-height: 80rpx;border-bottom: 1rpx dashed #808080;display: block;float: left;}
+	.check_in_message_form view input{width: 400rpx;height: 80rpx;font-size: 28rpx;color: #000;line-height: 80rpx;border-bottom: 1rpx dashed #808080;display: block;float: left;}
 	.goPAy{width: 100%;height: 160rpx;background: #fff;padding:20rpx;display: flex;justify-content: space-between;}
 	.btn-check{width: 260rpx;height: 80rpx;background: #FF5D0D;line-height: 80rpx;border-radius: 40rpx;color: #fff;outline: none;margin-top: 20rpx;}
 	.active{width: 260rpx;height: 80rpx;background: #F3F4F3;line-height: 80rpx;border-radius: 40rpx;color: #fff;outline: none;margin-top: 20rpx;}

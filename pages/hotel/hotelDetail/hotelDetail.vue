@@ -75,11 +75,11 @@
 				</view>
 				<view class="hotel-room-detail-time">
 					<view>
-						<text style="color: #000;">{{orderMessage.booking_start_date}}</text>
+						<text style="color: #000;margin-right: 10rpx;">{{orderMessage.booking_start_date}}</text>
 						<text>入住</text>
 					</view>
 					<view>
-						<text style="color: #000;">{{orderMessage.end_date}}</text>
+						<text style="color: #000;margin-right: 10rpx;">{{orderMessage.end_date}}</text>
 						<text>14:00前离店</text>
 					</view>
 				</view>
@@ -205,6 +205,8 @@
 					.then(res => {
 						if(res.code==0){
 							this.$http.toast('退款成功');
+							this.orderMessage.status_text='已退款'
+							this.is_refundable=0
 						}else{
 							this.$http.toast(res.msg);
 						}
