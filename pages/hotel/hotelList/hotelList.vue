@@ -20,7 +20,7 @@
 							<text style="display: inline-block;margin-right: 10rpx;color: red;">{{item.cmt_grade}}分</text>很好 
 							<text style="display: inline-block;margin:0 10rpx;color: red;">{{item.cmt_num}}+</text>点评
 						</view>
-						<view class="hotel_list_item_distance">
+						<view class="hotel_list_item_distance" v-if="item.distance!='N'">
 							<text style="margin-right: 10rpx;">距离你：{{item.distance}}</text>
 							<text>{{item.distance_unit}}</text>
 						</view>
