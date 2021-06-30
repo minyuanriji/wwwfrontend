@@ -20,6 +20,10 @@
 							<text style="display: inline-block;margin-right: 10rpx;color: red;">{{item.cmt_grade}}分</text>很好 
 							<text style="display: inline-block;margin:0 10rpx;color: red;">{{item.cmt_num}}+</text>点评
 						</view>
+						<view class="hotel_list_item_distance">
+							<text style="margin-right: 10rpx;">距离你：{{item.distance}}</text>
+							<text>{{item.distance_unit}}</text>
+						</view>
 						<view class="hotel_list_item_price">
 							<text>￥{{item.price}}起</text>
 						</view>
@@ -194,5 +198,5 @@
 	.hotel_list_item_price{width: 300rpx;font-size: 28rpx;font-weight: bold;float: right;text-align: right;margin: 45rpx 0 0 0;color: #FB4512;}
 	.hotel_list_item_price text{display: inline-block;float: right;}
 	.hotel_list_item_price image{width: 28rpx;height: 28rpx;display: inline-block;margin:8rpx 10rpx 0 15rpx;float: right;}
-
+	.hotel_list_item_distance{font-size: 25rpx;margin-left: 15rpx;margin-top: 10rpx;}
 </style>
