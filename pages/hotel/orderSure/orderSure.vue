@@ -75,7 +75,7 @@
 				<image :src="img_url+'/hotel/add.png'" mode="" class="add-logo" @click="addpepple"></image>
 			</view>
 			<view class="check_in_message_form" v-for="(item,index) in form.passengers" :key='index'
-			style="border: 1rpx solid rgb(255, 93, 13);position: relative;margin:25rpx 0 ;padding: 25rpx;border-radius: 10rpx;">
+			style="border: 1rpx solid rgb(255, 93, 13);position: relative;margin:25rpx 0 ;padding: 25rpx;border-radius: 10rpx;box-sizing: border-box;">
 				<image :src="img_url+'/hotel/count.png'" mode="" class="count-logo" @click="removepepple(index)" v-if="form.passengers.length>1"></image>
 				<view>
 					<text>姓名</text>
