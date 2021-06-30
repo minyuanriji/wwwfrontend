@@ -154,7 +154,6 @@ export default {
             // this.endYear = year;
             // this.endMonth = month;
         } else {
-			console.log( this.endDates)
             this.endDates = this.resetTime(this.endDate);
             var dd = this.endDate.replace(/-/g, "/").split("/");
             this.endYear = dd[0];
