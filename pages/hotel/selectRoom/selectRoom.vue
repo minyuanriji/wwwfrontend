@@ -11,6 +11,7 @@
 			<view class="selectRoom-map">
 				<image :src="img_url+'/hotel/locations.png'" mode="" @click="location(hotelProduct.tx_lat,hotelProduct.tx_lng,hotelProduct.address)"></image>
 				<text>地址：{{hotelProduct.address}}</text>
+				<text>距离你：{{hotelProduct.distance.di}}{{hotelProduct.distance.unit}}</text>
 			</view>
 			<view class="Room_notice">
 				<text v-for="(item,index) in hotelProduct.tag" :key='index'>{{item}}</text>
@@ -518,5 +519,5 @@
 	.rightColor_logo{ transform: rotate(90deg);-webkit-transform: rotate(90deg); transition: transform 0.5s;}
 	.selectRoom-map{width: 100%;overflow: hidden;}
 	.selectRoom-map image{width: 60rpx;height: 60rpx;display: block;float: left;margin-top: 10rpx;}
-	.selectRoom-map text{display: block;float: left;height: 70rpx;line-height: 100rpx;font-size: 28rpx;margin-left: 10rpx;}
+	.selectRoom-map text{display: block;float: left;color: #000;height: 70rpx;line-height: 100rpx;font-size: 26rpx;margin-left: 10rpx;}
 </style>
