@@ -11,7 +11,7 @@
 			<view class="selectRoom-map">
 				<image :src="img_url+'/hotel/locations.png'" mode="" @click="location(hotelProduct.tx_lat,hotelProduct.tx_lng,hotelProduct.address)"></image>
 				<text>地址：{{hotelProduct.address}}</text>
-				<text>距离你：{{hotelProduct.distance.di}}{{hotelProduct.distance.unit}}</text>
+				<text>距离你：{{hotelProduct.dist_info.di}}{{hotelProduct.dist_info.unit}}</text>
 			</view>
 			<view class="Room_notice">
 				<text v-for="(item,index) in hotelProduct.tag" :key='index'>{{item}}</text>
