@@ -8,6 +8,10 @@
 				<text>{{hotelProduct.name}}</text>
 				<text style="color: rgb(251, 69, 18);">{{hotelProduct.type_text}}</text>
 			</view>
+			<view class="selectRoom-map">
+				<image :src="img_url+'/hotel/locations.png'" mode="" @click="location(hotelProduct.tx_lat,hotelProduct.tx_lng,hotelProduct.address)"></image>
+				<text>地址：{{hotelProduct.address}}</text>
+			</view>
 			<view class="Room_notice">
 				<text v-for="(item,index) in hotelProduct.tag" :key='index'>{{item}}</text>
 			</view>
@@ -431,6 +435,9 @@
 					})
 				}
 			},
+			location(lat,lnt,address){
+				window.location.href='https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:'+lat+','+lnt+';addr:'+address+'&referer=myapp&key=O3DBZ-IFH3W-KKIRN-RZPNQ-AOSH3-EGB5N'
+			}
 		}
 	}
 </script>
@@ -509,6 +516,7 @@
 	.sure_money_logo image{display: block;width: 70rpx;height: 74rpx;margin-top: 10rpx;}
 	.closePoup{width: 52rpx;height: 52rpx;position: absolute;top: 30rpx;right: 20rpx;z-index: 999;}
 	.rightColor_logo{ transform: rotate(90deg);-webkit-transform: rotate(90deg); transition: transform 0.5s;}
-
-
+	.selectRoom-map{width: 100%;overflow: hidden;}
+	.selectRoom-map image{width: 60rpx;height: 60rpx;display: block;float: left;margin-top: 10rpx;}
+	.selectRoom-map text{display: block;float: left;height: 70rpx;line-height: 100rpx;font-size: 28rpx;margin-left: 10rpx;}
 </style>
