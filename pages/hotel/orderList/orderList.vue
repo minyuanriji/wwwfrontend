@@ -55,6 +55,10 @@
 				</view>
 			</view>
 		</view>
+		<view class="no-more" v-if="orderList.length==0">
+			<image :src="img_url+'/hotel/hotel_loading.png'" mode=""></image>
+			<text>暂无订单信息哦</text>
+		</view>
 	</view>
 </template>
 
@@ -198,4 +202,7 @@
 	.hotel-orderLis-item-count text:nth-of-type(2){font-size: 35rpx;color: #FF7B10;font-weight: bold;}
 	.hotel-orderLis-statusDetail{width: 100%;overflow: hidden;}
 	.hotel-orderLis-statusDetail text{display: block;float: right;width: 150rpx;height: 60rpx;background:#FF7B10;border-radius: 30rpx;text-align: center;line-height: 58rpx;font-size: 25rpx;color: #fff;margin-right: 10rpx;}
+	.no-more{width: 200rpx;height: 280rpx;position: absolute;top: 0;left: 0;right: 0;margin: auto;bottom: 0;
+	font-size: 26rpx;text-align: center;}
+	.no-more image{width: 200rpx;height: 200rpx;}
 </style>
