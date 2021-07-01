@@ -203,6 +203,6 @@
 	.hotel-orderLis-statusDetail{width: 100%;overflow: hidden;}
 	.hotel-orderLis-statusDetail text{display: block;float: right;width: 150rpx;height: 60rpx;background:#FF7B10;border-radius: 30rpx;text-align: center;line-height: 58rpx;font-size: 25rpx;color: #fff;margin-right: 10rpx;}
 	.no-more{width: 200rpx;height: 280rpx;position: absolute;top: 0;left: 0;right: 0;margin: auto;bottom: 0;
-	font-size: 26rpx;text-align: center;}
+	font-size: 26rpx;text-align: center;color: #808080;}
 	.no-more image{width: 200rpx;height: 200rpx;}
 </style>
