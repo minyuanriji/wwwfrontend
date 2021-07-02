@@ -220,6 +220,7 @@
 				uni.getLocation({
 					type:'gcj02',
 					success(res) {
+						console.log(res)
 						that.recommendedForm.lng=String(res.longitude)
 						that.recommendedForm.lat=String(res.latitude)
 						uni.setStorageSync('x-longitude',res.longitude)
@@ -280,13 +281,13 @@
 				var that = this
 				uni.chooseLocation({
 					success: function(res) {
+						that.text=res.address
 						that.form.lng=res.longitude
 						that.form.lat=res.latitude
 						that.form.city_id=0
 						that.recommendedForm.lng=String(res.longitude)
 						that.recommendedForm.lat=String(res.latitude)
 						that.getrecommended()
-						that.text=res.address
 					}
 				})
 			},
@@ -358,8 +359,6 @@
 					this.recommendedForm.city_id=this.cityId
 					this.getrecommended()
 				}
-				console.log(this.text)
-				console.log(this.proviceId,this.cityId)
 			},
 			columnPicker(e){
 				//第几列 下标从0开始
@@ -432,10 +431,12 @@
 						showLoading: true
 					})
 					.then(res => {
-						that.form.city_id=res.city_data.city_id
-						that.text=res.city_data.sel_city
 						if(res.code==0){
 							that.recommendedList=res.data.list
+							if(isEmpty(this.recommendedForm.city_id)){
+								that.form.city_id=res.city_data.city_id
+								that.text=res.city_data.sel_city
+							}
 						}else{
 							that.$http.toast(res.msg);
 						}
