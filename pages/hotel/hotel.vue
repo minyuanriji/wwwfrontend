@@ -153,10 +153,10 @@
 				proviceId: "",
 				cityId: "",
 				districtId: "",
-				text:uni.getStorageSync('city_address')?uni.getStorageSync('city_address').city:'',
+				text:'',
 				recommendedList:[],//推荐酒店
 				form:{
-					city_id:uni.getStorageSync('city_address')?uni.getStorageSync('city_address').city_id:'',
+					city_id:'',
 					type:'in',//酒店类型：in国内、hour钟点房、bb民宿
 					start_date:'',
 					days:"",
@@ -171,14 +171,13 @@
 				tomoryTime:'',
 				recommendedForm:{
 					page:1,
-					lng:uni.getStorageSync('city_address')?uni.getStorageSync('city_address').longitude:'',
-					lat:uni.getStorageSync('city_address')?uni.getStorageSync('city_address').latitude:'',
+					lng:'',
+					lat:'',
 				}
 			};
 		},
 		onLoad() {
-			this.getCity();			
-			this.getrecommended();
+			this.getCity();	
 			this.time=this.changeTime(new Date())
 			var day= new Date();
 			day.setTime(day.getTime()+24*60*60*1000);
@@ -192,8 +191,42 @@
 			this.timeStaus.dayCount=1
 			this.form.start_date=this.time
 			this.form.days=1
+			
+			
+			//#ifdef H5
+			   if(this.$http.getPlatform()=='wechat'){
+				   let that=this
+				   this.$wechatSdk.location(function(res){	
+				   		that.recommendedForm.lat=String(res.latitude)
+				   		that.recommendedForm.lng=String(res.longitude)
+				   		uni.setStorageSync('x-longitude',res.longitude)
+				   		uni.setStorageSync('x-latitude',res.latitude)
+						that.getrecommended()						
+				   })
+			   }else{
+				    this.getLocationData()
+			   }
+			   
+			// #endif
+			// #ifndef H5
+				this.getLocationData()	  
+			// #endif
+			
 		},
 		methods:{
+			getLocationData(){
+				var that=this
+				uni.getLocation({
+					type:'gcj02',
+					success(res) {
+						that.recommendedForm.lng=String(res.longitude)
+						that.recommendedForm.lat=String(res.latitude)
+						uni.setStorageSync('x-longitude',res.longitude)
+						uni.setStorageSync('x-latitude',res.latitude)
+						that.getrecommended()
+					}
+				})
+			},
 			changeTime(d){
 			     return d.getFullYear() + '-' +((d.getMonth()+1)<10?'0'+(d.getMonth()+1):(d.getMonth()+1)) + '-' + (d.getDate()<10?'0'+d.getDate():d.getDate());
 			},
@@ -318,6 +351,7 @@
 					this.city = this.selectList[value[0]].children[value[1]].name; //获取区
 					this.proviceId = this.selectList[value[0]].id; //获取省id
 					this.cityId = this.selectList[value[0]].children[value[1]].id; //获取市id
+					// uni.setStorageSync('x-city-id',this.cityId)
 					// this.districtId = this.selectList[value[0]].children[value[1]].children[value[2]].id; //获取区id
 					this.text =this.city;
 					this.form.city_id=this.cityId
@@ -396,6 +430,8 @@
 						showLoading: true
 					})
 					.then(res => {
+						that.form.city_id=res.city_data.city_id
+						that.text=res.city_data.sel_city
 						if(res.code==0){
 							that.recommendedList=res.data.list
 						}else{
