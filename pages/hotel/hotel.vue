@@ -173,6 +173,7 @@
 					page:1,
 					lng:'',
 					lat:'',
+					city_id:'',
 				}
 			};
 		},
@@ -196,7 +197,7 @@
 			//#ifdef H5
 			   if(this.$http.getPlatform()=='wechat'){
 				   let that=this
-				   this.$wechatSdk.location(function(res){	
+				   this.$wechatSdk.location(function(res){
 				   		that.recommendedForm.lat=String(res.latitude)
 				   		that.recommendedForm.lng=String(res.longitude)
 				   		uni.setStorageSync('x-longitude',res.longitude)
@@ -279,13 +280,13 @@
 				var that = this
 				uni.chooseLocation({
 					success: function(res) {
-						that.text=res.address
 						that.form.lng=res.longitude
 						that.form.lat=res.latitude
 						that.form.city_id=0
 						that.recommendedForm.lng=String(res.longitude)
 						that.recommendedForm.lat=String(res.latitude)
 						that.getrecommended()
+						that.text=res.address
 					}
 				})
 			},
@@ -351,10 +352,11 @@
 					this.city = this.selectList[value[0]].children[value[1]].name; //获取区
 					this.proviceId = this.selectList[value[0]].id; //获取省id
 					this.cityId = this.selectList[value[0]].children[value[1]].id; //获取市id
-					// uni.setStorageSync('x-city-id',this.cityId)
 					// this.districtId = this.selectList[value[0]].children[value[1]].children[value[2]].id; //获取区id
 					this.text =this.city;
 					this.form.city_id=this.cityId
+					this.recommendedForm.city_id=this.cityId
+					this.getrecommended()
 				}
 				console.log(this.text)
 				console.log(this.proviceId,this.cityId)
