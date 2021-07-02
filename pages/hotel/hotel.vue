@@ -281,8 +281,7 @@
 				var that = this
 				uni.chooseLocation({
 					success: function(res) {
-						console.log(res)
-						that.text=res.address
+						that.text=res.name
 						that.form.lng=res.longitude
 						that.form.lat=res.latitude
 						that.form.city_id=0
