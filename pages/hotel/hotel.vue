@@ -433,7 +433,7 @@
 					.then(res => {
 						if(res.code==0){
 							that.recommendedList=res.data.list
-							if(isEmpty(this.recommendedForm.city_id)){
+							if(isEmpty(this.form.city_id)){
 								that.form.city_id=res.city_data.city_id
 								that.text=res.city_data.sel_city
 							}
