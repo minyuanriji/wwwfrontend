@@ -285,8 +285,7 @@
 						that.form.lng=res.longitude
 						that.form.lat=res.latitude
 						that.form.city_id=0
-						uni.setStorageSync('x-longitude',res.longitude)
-						uni.setStorageSync('x-latitude',res.latitude)
+						that.recommendedForm.city_id=""
 						that.recommendedForm.lng=String(res.longitude)
 						that.recommendedForm.lat=String(res.latitude)
 						that.getrecommended()
