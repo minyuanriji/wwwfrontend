@@ -94,8 +94,8 @@
 						})
 						.then(res => {
 							if(res.code==0){
-								this.num+=res.data.founds
 								if(res.data.finished==0){
+									this.num=res.data.founds
 									this.searchList(id)
 								}else{
 									this.id=res.data.search_id
