@@ -126,14 +126,6 @@
 									<text>2. </text>
 									<text>每间客房最多接纳2名1.2米以下儿童，和成人公用现有床铺</text>
 								</view>
-								<view>
-									<text>3. </text>
-									<text>每间客房最多接纳2名1.2米以下儿童，和成人公用现有床铺</text>
-								</view>
-								<view>
-									<text>4. </text>
-									<text>每间客房最多接纳2名1.2米以下儿童，和成人公用现有床铺</text>
-								</view>
 							</view>
 						</view>
 					</view>			
