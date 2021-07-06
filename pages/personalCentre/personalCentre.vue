@@ -143,7 +143,7 @@
 		},
 		onLoad() {
 			this.$http
-				.request({
+				.request({  //获取用户个人信息
 					url: this.$api.user.userInfo,
 					method: 'POST',
 					showLoading: true
@@ -153,7 +153,7 @@
 					uni.setStorageSync("mchMessage", res.data.mch_info)
 				});
 			this.$http
-				.request({
+				.request({  //查询入住进程
 					url: this.$api.moreShop.progress,
 					method: 'POST',
 					showLoading: true
