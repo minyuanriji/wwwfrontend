@@ -174,7 +174,8 @@
 					lng:'',
 					lat:'',
 					city_id:'',
-				}
+				},
+				flag:false,
 			};
 		},
 		onLoad() {
@@ -197,12 +198,21 @@
 			//#ifdef H5
 			   if(this.$http.getPlatform()=='wechat'){
 				   let that=this
+				   uni.showLoading({
+						title:'正在定位中...'
+				   })
 				   this.$wechatSdk.location(function(res){
+					   if(res.latitude){
+						   setTimeout(function () {
+						       uni.hideLoading();
+						   }, 3500)
+					   }
 				   		that.recommendedForm.lat=String(res.latitude)
 				   		that.recommendedForm.lng=String(res.longitude)
 				   		uni.setStorageSync('x-longitude',res.longitude)
 				   		uni.setStorageSync('x-latitude',res.latitude)
-						that.getrecommended()						
+						that.getrecommended()
+						
 				   })
 			   }else{
 				    this.getLocationData()
@@ -220,7 +230,6 @@
 				uni.getLocation({
 					type:'gcj02',
 					success(res) {
-						console.log(res)
 						that.recommendedForm.lng=String(res.longitude)
 						that.recommendedForm.lat=String(res.latitude)
 						uni.setStorageSync('x-longitude',res.longitude)
@@ -390,6 +399,7 @@
 				})
 			},
 			search(){ //搜索
+				if(!this.flag)return
 				if(isEmpty(this.form.start_date)){
 					uni.showToast({
 						title: '请选择入住时间',
@@ -431,10 +441,10 @@
 						url: that.$api.hotel.getrecommended,
 						method: 'POST',
 						data:this.recommendedForm,
-						showLoading: true
 					})
 					.then(res => {
 						if(res.code==0){
+							that.flag=true
 							that.recommendedList=res.data.list
 							if(isEmpty(this.form.city_id)){
 								that.form.city_id=res.city_data.city_id
