@@ -202,16 +202,14 @@
 						title:'正在定位中...'
 				   })
 				   this.$wechatSdk.location(function(res){
-					   if(res.latitude){
-						   setTimeout(function () {
-						       uni.hideLoading();
-						   }, 3500)
-					   }
 				   		that.recommendedForm.lat=String(res.latitude)
 				   		that.recommendedForm.lng=String(res.longitude)
 				   		uni.setStorageSync('x-longitude',res.longitude)
 				   		uni.setStorageSync('x-latitude',res.latitude)
 						that.getrecommended()
+						setTimeout(function () {
+						    uni.hideLoading();
+						}, 4000)
 						
 				   })
 			   }else{
