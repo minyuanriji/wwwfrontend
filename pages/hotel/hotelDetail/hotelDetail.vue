@@ -7,7 +7,8 @@
 		<view class="hotel-detai-setAgain">
 			<text v-if="action.is_payable==1" @click="payAgain(orderMessage.order_no)">去支付</text>
 			<text v-if="action.is_cancelable==1" @click="cancleOrder(orderMessage.id)">取消订单</text>
-			<text v-if="is_refundable==1" @click="applyrefund(orderMessage.id)">退款/售后</text>
+			<!-- <text v-if="is_refundable==1" @click="applyrefund(orderMessage.id)">退款/售后</text> -->
+			<text  @click="applyrefund(orderMessage.id)">退款/售后</text>
 			<text @click="againReservation" v-if="action.is_payable==0">再次预订</text>
 		</view>
 		<view class="hotel-detail-prompt">
@@ -193,23 +194,34 @@
 				});
 			},
 			applyrefund(id){ //退款
-				this.$http
-					.request({
-						url: this.$api.hotel.applyrefund,
-						method: 'POST',
-						data:{
-							hotel_order_id:id
-						},
-						showLoading: true
-					})
-					.then(res => {
-						if(res.code==0){
-							this.$http.toast('退款成功');
-							this.orderMessage.status_text='已退款'
-							this.is_refundable=0
-						}else{
-							this.$http.toast(res.msg);
-						}
+				let that=this
+				uni.showModal({
+				    title: '提示',
+				    content: '您确定要退款吗？',
+				    success: function (res) {
+				        if (res.confirm) {
+				           that.$http
+				           	.request({
+				           		url: that.$api.hotel.applyrefund,
+				           		method: 'POST',
+				           		data:{
+				           			hotel_order_id:id
+				           		},
+				           		showLoading: true
+				           	})
+				           	.then(result => {
+				           		if(result.code==0){
+				           			that.$http.toast('退款成功');
+				           			that.orderMessage.status_text='已退款'
+				           			that.is_refundable=0
+				           		}else{
+				           			that.$http.toast(res.msg);
+				           		}
+				           });
+				        } else if (res.cancel) {
+				           
+				        }
+				    }
 				});
 			},
 			cancleOrder(id){//取消订单
