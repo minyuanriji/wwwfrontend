@@ -7,8 +7,7 @@
 		<view class="hotel-detai-setAgain">
 			<text v-if="action.is_payable==1" @click="payAgain(orderMessage.order_no)">去支付</text>
 			<text v-if="action.is_cancelable==1" @click="cancleOrder(orderMessage.id)">取消订单</text>
-			<!-- <text v-if="is_refundable==1" @click="applyrefund(orderMessage.id)">退款/售后</text> -->
-			<text  @click="applyrefund(orderMessage.id)">退款/售后</text>
+			<text v-if="is_refundable==1" @click="applyrefund(orderMessage.id)">退款/售后</text>
 			<text @click="againReservation" v-if="action.is_payable==0">再次预订</text>
 		</view>
 		<view class="hotel-detail-prompt">
