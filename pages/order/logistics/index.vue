@@ -62,7 +62,7 @@
 		data() {
 			return {
 				orderData: '',
-				status_list:['待发货','已下单给品牌方','已揽件','运输中','已签收'],
+				status_list:['待发货','已发货','已揽件','运输中','已签收'],
 				status_index:null,
 				logistics_data:'',
 				logistics_order:'',
