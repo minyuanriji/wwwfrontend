@@ -451,30 +451,11 @@
 			
 //---------------------------------------------------------------首页进来绑定上下级
 			this.getCartList()
-			// if(!uni.getStorageSync('userInfo')){
-			// 	uni.showModal({
-			// 		title: '提示',
-			// 		content: '您还未登录，去登录吧',
-			// 		confirmText: "去登录",
-			// 		showCancel:false,
-			// 		success: function (res) {
-			// 		    if (res.confirm) {
-			// 		       uni.navigateTo({
-			// 		       	url:'../public/login'
-			// 		       })
-			// 		    } 
-			// 		}
-			// 	})
-			// }
 //--------------------------------------------------------------------------						
 		},
 		onReachBottom() {
 			//上拉加载
 			this.t_page++;
-		},
-		onPullDownRefresh() {
-			//下拉刷新
-			this.getData();
 		},
 		onLoad(options) {
 			if (options.pid) {
@@ -484,7 +465,6 @@
 			if (uni.getStorageSync('mall_config')) {
 				this.copyright = JSON.parse(uni.getStorageSync('mall_config')).copyright;
 			}
-			// this.getConfigData();
 			this.getData();
 			this.btnList = [...this.suspendedList];
 			//#ifdef MP-WEIXIN
@@ -595,17 +575,7 @@
 				// #endif
 			},
 			linkService() {
-				console.log(this.serviceLink)
 				location.href = this.serviceLink
-			},
-			topicNavTo(e) {
-				//专题页跳转
-				// uni.navigateTo({
-				// 	url:'/pages/topic/detail?id='+e
-				// })
-				uni.navigateTo({
-					url: '/pages/topic/list'
-				});
 			},
 			// 判断微信版本是否 兼容小程序更新机制API的使用
 			checkUpdateVersion() {
@@ -638,7 +608,6 @@
 			},
 			getData(key) {
 				var that = this;
-				// this.loading = true;
 				this.$http
 					.request({
 						url: this.$api.index2
@@ -647,14 +616,12 @@
 						if (res.code == 0) {
 							if (key) {
 								// #ifdef  H5
-								//console.log(res.data.share_data,'res.data.share_data');
 								this.$wechatSdk.initShareUrl(res.data.share_data, 'source=1');
 								// #endif
 								return;
 							}
 							this.indexData = res.data.page_data;
 							uni.stopPullDownRefresh();
-							// this.loading = false;
 							that.placeholderHeight4 = 80;
 							setTimeout(() => {
 								let statusInfo = uni.createSelectorQuery().select('.status_bar');
