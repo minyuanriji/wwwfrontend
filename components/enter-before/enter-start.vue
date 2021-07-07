@@ -127,12 +127,11 @@
 				uni.chooseLocation({
 					success: function(res) {
 						that.addresss = res.name
-						that.params.latitude = res.latitude
-						that.params.longitude = res.longitude
+						that.params.store_latitude = res.latitude
+						that.params.store_longitude = res.longitude
 					}
 				})
 			},
-
 			getCat: function() { //获取店铺消费类型
 				var that = this
 				that.$http.request({
@@ -405,6 +404,6 @@
 		display: block;
 		position: absolute;
 		right: 100rpx;
-		top: 110rpx;
+		top: 115rpx;
 	}
 </style>
