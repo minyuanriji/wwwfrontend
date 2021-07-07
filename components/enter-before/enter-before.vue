@@ -56,15 +56,15 @@
 
 <script>
 	export default {
-		props: {
-			background: { //控制是否显示
-				type: String,
-				default: true
-			},
-		},
+		// props: {
+		// 	background: { //控制是否显示
+		// 		type: String,
+		// 		default: true
+		// 	},
+		// },
 		data() {
 			return {
-
+              background:'rgb(255, 113, 4)',
 			}
 		},
 		methods:{
@@ -104,7 +104,7 @@
 	border-top-left-radius: 4px;
 	border-bottom-right-radius: 4px;
 	font-weight: bold;
-	color: #333333;
+	color: #fff;
 	
 }
 .content_body_block_l_b{
@@ -150,7 +150,7 @@
 	box-shadow: 0px 1px 2px 0px rgba(4, 76, 102, 0.71);
 	border-radius: 13px;
     line-height: 32px;
-	color: #000000;
+	color: #fff;
 	font-size: 14px;
 	font-weight: bold;
 }

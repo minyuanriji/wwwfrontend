@@ -44,7 +44,7 @@
 		},
 		data() {
 			return {
-				background:"#53DEDB",
+				background:'rgb(255, 113, 4)',
 				status:0,//1:提交资料,2 审核签约 ,3 开门营业
 				agreement:''
 			}
@@ -109,7 +109,7 @@ page{background-color: #e9f5f6;}
 	width: 26px;
 	height: 26px;
 	font-weight: bold;
-	color: #000000;
+	color: #fff;
 	text-align: center;
 	line-height: 26px;
 	margin: 0px auto;

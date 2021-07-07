@@ -25,10 +25,10 @@
 				<input class="content_body_block_input" v-model="params.mobile"></input>
 				<view class="code">
 					<input  type="number" placeholder="输入验证码" v-model="params.code">
-					<button type="default" v-if="!countDown" @tap="getCode">
+					<button type="default" v-if="!countDown" @tap="getCode" style="background:rgb(255, 113, 4) ;'">
 						获取验证码
 					</button>
-					<button type="default" v-else>
+					<button type="default" v-else style="background:rgb(255, 113, 4) ;'">
 						{{countDown}}
 					</button>
 				</view>
@@ -65,14 +65,9 @@
 <script>
 	import {isMobile} from '@/utils/util.js';
 	export default {
-		props: {
-			background: {
-				type: String,
-				default: true
-			},
-		},
 		data() {
 			return {
+				background:'rgb(255, 113, 4)',
 				status: 0, //0 未同意,1 同意
 				params: {
 					// pic_id_card_front: this.$api.test_url + "/images/shop/sfz_zm.png",
@@ -370,7 +365,7 @@
 		box-shadow: 0px 1px 2px 0px rgba(4, 76, 102, 0.71);
 		border-radius: 13px;
 		line-height: 32px;
-		color: #000000;
+		color: #fff;
 		font-size: 14px;
 		font-weight: bold;
 	}
