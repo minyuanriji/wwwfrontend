@@ -39,9 +39,12 @@
 						 </view>
 					 </view>
 					 <view class="content_body_block">
-							 <view class="content_body_block_l">
-								 
-							 </view>
+						 <view class="content_body_block_l">
+						 	<view class="content_body_block_l_t1">
+						 		<view class="content_body_block_l_t" :style="{background:background}">实例</view>
+						 	</view>
+						 		<view class="content_body_block_l_b">美容美发,餐饮美食,酒店名宿,服饰鞋帽</view>
+						 </view>
 							 <view class="content_body_block_r">
 								  <view class="content_body_block_r_t">4、店铺消费类型</view>
 								  <view class="content_body_block_r_b">选择你的店铺的消费类型，以方便消费者快速搜索到你的店铺</view>
