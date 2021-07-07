@@ -55,20 +55,8 @@
 			</view>
 		</view>
 		<view class="content_footer">
-			<!-- <view class="content_footer_top">
-				<view class="iconfont iconxuanzhong" :style="{color:status==1?background:''}" @tap="agreeBtn"></view>
-				<view class="content_footer_top_m">我已阅读并同意</view>
-				<view class="content_footer_top_r" :style="{color: background}" @click="popupShow">《补商汇商城开店说明》</view>
-			</view> -->
 			<button class="sumbit" :style="{background:background}" @tap="sumbit">下一步</button>
 		</view>
-		<!-- <uni-popup ref="popup" type="center">
-			<scroll-view scroll-y="true"  class="scroll-Ys">
-				<view class="html" v-html="agreement">
-					<rich-text :nodes="agreement"></rich-text>
-				</view>
-			</scroll-view>
-		</uni-popup> -->
 	</view>
 </template>
 
@@ -81,7 +69,6 @@
 			return {
 				img_url: this.$api.img_url,
 				background: 'rgb(255, 113, 4)',
-				status: 0, //0 未同意,1 同意
 				params: {
 					store_name: '', //店铺名称
 					store_mch_common_cat_id: '', //行业ID
@@ -100,21 +87,6 @@
 				addresss: '', //商铺地址
 			}
 		},
-		created() {
-			// let that=this
-			// that.$http.request({
-			// 	 url:that.$api.moreShop.getTExt,
-			// 	 data:{},
-			// 	 method:'post',
-			// 	 }).
-			// 	then(function(res){
-			// 		if(res.code==0){
-			// 			var str = res.data.agreement.replace(/[\n]/, "<br/>");
-			// 			str = str.replace("[\s]", "&nbsp;");
-			// 			that.agreement=str;
-			// 		}
-			// 	})
-		},
 		methods: {
 			alert(txt) { //弹窗提示
 				uni.showToast({
@@ -123,28 +95,27 @@
 				})
 			},
 			sumbit: function() {
-				this.$emit("returnStatus", 2)
-				// if (!this.params.store_name) return this.alert('请输入店铺名称')
-				// if (!this.params.realname) return this.alert('请填写您的真实姓名')
-				// if (!this.addresss) return this.alert('请选择地址')
-				// if (!this.params.mobile) return this.alert('请填写您的手机号')
-				// if (!this.params.mobile.match(/1\d{10}/)) return this.alert('手机号错误')
-				// if (!this.params.captcha) return this.alert('请填写验证码')
-				// if (!this.params.store_mch_common_cat_id) return this.alert('请选择店铺消费类型')
-				// var that = this
-				// that.$http.request({
-				// 	url: that.$api.merchants.Fillbasic,
-				// 	data:that.params,
-				// 	method: 'post',
-				// 	showLoading: true
-				// }).
-				// then(function(res) {
-				// 	if (res.code == 0) {
-				// 		that.$emit("returnStatus",2)
-				// 	} else {
-				// 		that.$http.toast(res.msg)
-				// 	}
-				// })
+				if (!this.params.store_name) return this.alert('请输入店铺名称')
+				if (!this.params.realname) return this.alert('请填写您的真实姓名')
+				if (!this.addresss) return this.alert('请选择地址')
+				if (!this.params.mobile) return this.alert('请填写您的手机号')
+				if (!this.params.mobile.match(/1\d{10}/)) return this.alert('手机号错误')
+				if (!this.params.captcha) return this.alert('请填写验证码')
+				if (!this.params.store_mch_common_cat_id) return this.alert('请选择店铺消费类型')
+				var that = this
+				that.$http.request({
+					url: that.$api.merchants.Fillbasic,
+					data:that.params,
+					method: 'post',
+					showLoading: true
+				}).
+				then(function(res) {
+					if (res.code == 0) {
+						that.$emit("returnStatus",2)
+					} else {
+						that.$http.toast(res.msg)
+					}
+				})
 			},
 			changeCart(e) { //下拉选择商户分类
 				var index = e.detail.value
@@ -315,6 +286,7 @@
 		float: left;
 		font-size: 25rpx;
 		text-align: center;
+		line-height: 63rpx;
 	}
 
 	.code button {
@@ -333,8 +305,8 @@
 	.content_body_block_input {
 		width: 70%;
 		margin-top: 10px;
-		height: 35px;
-		line-height: 35px;
+		height: 40px;
+		line-height: 38px;
 		border: 3px solid #eee;
 		border-radius: 3px;
 		font-size: 14px;
@@ -433,6 +405,6 @@
 		display: block;
 		position: absolute;
 		right: 100rpx;
-		top: 130rpx;
+		top: 110rpx;
 	}
 </style>

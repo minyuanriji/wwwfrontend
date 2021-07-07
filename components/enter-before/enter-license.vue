@@ -328,8 +328,8 @@
 	.content_body_block_input {
 		width: 70%;
 		margin-top: 10px;
-		height: 35px;
-		line-height: 35px;
+		height: 40px;
+		line-height: 38px;
 		border: 3px solid #eee;
 		border-radius: 3px;
 		font-size: 14px;
