@@ -47,6 +47,17 @@
 								  <view class="content_body_block_r_b">选择你的店铺的消费类型，以方便消费者快速搜索到你的店铺</view>
 							 </view>
 					 </view>
+					 <view class="content_body_block">
+					 	<view class="content_body_block_l">
+					 			<view class="content_body_block_l_t1">
+					 				<view class="content_body_block_l_t" :style="{background:background}">更多</view>
+					 			</view>
+					 	</view>
+					 	<view class="content_body_block_r">
+					 			<view class="content_body_block_r_t">5、更多资料...</view>
+					 			<view class="content_body_block_r_b"></view>
+					 	</view>
+					 </view>
 		</view>
 		<view class="content_footer">
 			 <button class="sumbit" :style="{background:background}" @tap="sumbit">我准备好了,开始填写</button>
