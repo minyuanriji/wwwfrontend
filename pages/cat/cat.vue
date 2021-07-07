@@ -208,7 +208,7 @@
 							}
 						})
 						this.catStyle = res.data.cat_style;
-						this.id == -1 ? this.getRightData(res.data.list[0].id) : this.getRightData(this.id);
+						// this.id == -1 ? this.getRightData(res.data.list[0].id) : this.getRightData(this.id);
 					}
 				})
 			},
@@ -223,7 +223,7 @@
 				// this.cur = index;
 				this.currentTab = index;
 				this.checkCor();
-				this.getRightData(id);
+				// this.getRightData(id);
 			},
 			//判断当前滚动超过一屏时，设置tab标题滚动条。
 			checkCor: function() {
