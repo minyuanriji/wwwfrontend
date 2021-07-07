@@ -22,7 +22,7 @@
 				<view class="content_body_block_desc">
 					请选择你的<text :style="{color: background}">店铺地址</text>
 				</view>
-				<input class="content_body_block_input" v-model="addresss" placeholder="请选择地址" disabled></input>
+				<input class="content_body_block_input" v-model="addresss"  disabled></input>
 				<image :src="img_url+'dao_location.png'" mode="" class="location" @tap="chooseAddress"></image>
 			</view>
 			<view class="content_body_block">
