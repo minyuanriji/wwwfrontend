@@ -13,29 +13,11 @@
 			</view>
 		</view>
 		<main-tabbar></main-tabbar>
-		<!--header-->
-		<!-- <view class="jx-header-box" v-if="opcity > 0" :style="{ height: height + 'px', background: 'rgba(255,255,255,' + opcity + ')' }">
-			<view class="jx-header" :style="{ paddingTop: top + 'px', opacity: opcity }">我的</view>
-			#ifndef MP
-			<view class="jx-header-icon" :style="{ marginTop: top + 'px' }">
-				<view class="jx-icon-box" @tap="href(2)">
-					<view class="icon iconfont icon-shezhi" :style="{ color: opcity > 0.02 ? `rgba(85,85,85,${opcity})` : '#fff' }"></view>
-				</view>
-			</view> 
-			 #endif 
-		</view> -->
-		
-		<!--header-->
 		<view class="jx-mybg-box">
 			<block v-if="configData.user_center">
 				<image v-if="configData.user_center.top_style == 3" :src="configData.user_center.style_bg_pic_url" class="jx-my-bg"></image>
 				<image v-else :src="img_url+'/userTOP_logo.jpg'" class="jx-my-bg"></image>
 			</block>
-			
-			<!-- <view style="position: absolute;right: 40rpx;z-index: 999;" @click="link">
-				<image :src="img_url+'/CancelTwo.png'" mode="" style="display: block;width: 100rpx;height: 100rpx;"></image>
-			</view> -->
-			
 			<view v-if="userInfo && userInfo.identity && configData.user_center" class="jx-header-center"
 				:class="configData.user_center.top_style == 3 ? 'right' : configData.user_center.top_style == 2 ? 'top' : ''">
 				<image :src="userInfo.avatar || configData.user_center.member_pic_url" class="jx-avatar" @tap="href(3)"></image>
@@ -52,10 +34,6 @@
 						<view class="user-id">账号:BSH{{ userInfo.user_id }}</view>
 					</view>
 				</view>
-			<!-- 	<view class="user_shop" @click="shopInto">
-					商户
-				</view> -->
-
 				<!-- 社区团购 -->
 				<view class="withdraw flex" v-if="0 == 1">
 					<navigator url="./interests">
@@ -66,20 +44,6 @@
 					</navigator>
 				</view>
 				<!-- 社区团购 -->
-
-				<!-- <view class="jx-btn-sign">
-						<jx-button type="white" :plain="true" shape="circle" width="92rpx" height="40rpx" :size="22" @click="checkSign">签到</jx-button>
-					</view> -->
-				<!-- #ifndef MP -->
-				<!-- <view class="jx-btn-edit">
-						<jx-button type="white" :plain="true" shape="circle" width="92rpx" height="40rpx" :size="22" @click="href(3)">编辑</jx-button>
-					</view> -->
-				<!-- #endif -->
-				<!-- #ifdef MP -->
-				<!-- <view class="jx-icon-box">
-					<view class="icon iconfont icon-shezhi" style="color: #FFFFFF;" @tap="href(2)"></view>
-				</view> -->
-				<!-- #endif -->
 			</view>
 			<block v-else>
 				<view v-if="configData.user_center" class="jx-header-center flex flex-y-center" :class="{'flex-col':configData.user_center.top_style == 2,'marginB':configData.user_center.top_style == 2}">
@@ -102,10 +66,6 @@
 					<view class="jx-btm-num">{{ Number(userInfo.dynamic_integral)+Number(userInfo.static_integral) }}</view>
 					<view class="jx-btm-text">红包</view>
 				</view>
-				<!-- <view class="jx-btm-item last" @click="openUrl(`./coupon/coupon`)">
-					<view class="jx-btm-num">{{ userInfo.coupon }}</view>
-					<view class="jx-btm-text">优惠券</view>
-				</view> -->
 			</view>
 			
 			<view class="jx-box jx-info-box" v-if="mytoken!=0 && userInfo && !userInfo.mobile" @click="openUrl(`mobile`)">
@@ -154,16 +114,6 @@
 					</view>
 				</view>
 			</block>
-			<!-- 社区团购 -->
-
-		<!-- 	<view v-if="configData.user_center.user_tool_menus && configData.user_center.user_tool_menus.length">
-				<toolbar
-					v-if="configData.user_center.is_show_user_tool != 0"
-					:toolbarTitle="configData.user_center.user_tool_menu_title"
-					:toolbarData="configData.user_center.user_tool_menus"
-					:flex="configData.user_center.user_tool_menu_style || '2'"
-				></toolbar>
-			</view> -->
 			<!-- #ifdef H5 -->
 			<view v-if="configData.user_center.menus && configData.user_center.menus.length">
 				<toolbar
@@ -189,7 +139,6 @@
 		<jx-tips ref="toast"></jx-tips>
 		<com-modal :show="modal" @cancel="hide" :custom="true">
 			<view class="jx-modal-custom">
-				<!-- <image src="" class="jx-tips-img"></image> -->
 				<view class="jx-modal-custom-text">签到成功</view>
 				<jx-button type="danger" shape="circle" @click="hide">确定</jx-button>
 			</view>
@@ -283,10 +232,6 @@ export default {
 				this.scrollH = res.windowWidth * 0.6;
 			}
 		});
-		// 初始化数据
-		// if (uni.getStorageSync('userInfo')) {
-		// 	this.userInfo = JSON.parse(uni.getStorageSync('userInfo'));
-		// }
 		if (uni.getStorageSync('token')) {
 			this.mytoken = uni.getStorageSync('token');
 		}else{
@@ -308,22 +253,16 @@ export default {
 				}
 			});
 		}
-		// if (uni.getStorageSync('initMenus')) {
-		// 	this.configData = JSON.parse(uni.getStorageSync('initMenus'));
-		// }
 		this.initData(false);
-		// this.$http.isLogin() && this.getUser(false);
 	},
 	onShow() {
 		this.$http.isLogin() && this.getUser(false);
 		if(uni.getStorageSync('token')){
 			this.initData(false);
 		}
-		// this.getCartList();
 	},
 	methods: {
 		foucusInfo(){
-			//window.location.href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI3MTIzMjAyOQ==&scene=#wechat_redirect"
 			uni.navigateTo({
 				url: '/pages/diy/diy?page_id=114'
 			});
@@ -365,14 +304,6 @@ export default {
 					}
 				});
 		},
-		// getCartList() { //获取购物车列表
-		// 	this.$http.request({
-		// 		url: this.$api.cart.list,
-		// 		method: 'GET'
-		// 	}).then((res) => {
-				
-		// 	})
-		// },
 		getUser(bool) {
 			this.loading = bool;
 			this.$http
@@ -436,12 +367,6 @@ export default {
 		},
 		checkSign() {
 			this.modal = true;
-			// let options = {
-			// 	msg: "成功签到",
-			// 	duration: 2000,
-			// 	type: "green"
-			// };
-			// this.$refs.toast.showTips(options);
 		},
 		hide() {
 			this.modal = false;
