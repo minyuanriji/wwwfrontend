@@ -199,9 +199,6 @@
 
 					}
 				}
-
-
-
 			},
 			chooseAddress() { //打开腾讯地图
 				var that = this
@@ -224,8 +221,8 @@
 			//获取地址
 			getAddress() {
 				var that = this
-				this.$http.request({
-					url: this.$api.district.tree,
+				that.$http.request({
+					url: that.$api.district.tree,
 					data: {},
 					method: 'post',
 				}).
@@ -270,8 +267,8 @@
 			},
 			getCat: function() { //获取分类
 				var that = this
-				this.$http.request({
-					url: this.$api.moreShop.getmchscats,
+				that.$http.request({
+					url: that.$api.moreShop.getmchscats,
 					data: {},
 					method: 'post',
 				}).
