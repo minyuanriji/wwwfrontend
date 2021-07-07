@@ -180,7 +180,7 @@
 				then(function(res) {
 					if (res.code == 0) {
 						uni.navigateTo({
-							url:'../../pages/personalCentre/personalCentre'
+							url:'../../pages/user/index'
 						})
 					} else {
 						that.$http.toast(res.msg)
