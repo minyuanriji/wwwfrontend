@@ -146,9 +146,6 @@
 				// 	}
 				// })
 			},
-			// agreeBtn() {
-			// 	this.status = this.status == 1 ? 0 : 1
-			// },
 			changeCart(e) { //下拉选择商户分类
 				var index = e.detail.value
 				this.params.store_mch_common_cat_id = this.cats[index]['id']
@@ -188,9 +185,6 @@
 					that.changeCart(data) //默认第一个
 				})
 			},
-			// popupShow(){
-			// 	this.$refs.popup.open()
-			// },
 			getCode() { //获取验证码
 				if (!isMobile(this.params['mobile'])) {
 					this.$http.toast('请输入手机号后在获取验证码');

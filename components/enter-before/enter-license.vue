@@ -89,9 +89,23 @@
 			</view>
 		</view>
 		<view class="content_footer">
-			<button class="sumbit" :style="{background:background}" @tap="backTo">上一步</button>
-			<button class="sumbit" :style="{background:background}" @tap="sumbit">提交</button>
+			<view class="content_footer_top">
+				<view class="iconfont iconxuanzhong" :style="{color:status==1?background:''}" @tap="agreeBtn"></view>
+				<view class="content_footer_top_m">我已阅读并同意</view>
+				<view class="content_footer_top_r" :style="{color: background}" @click="popupShow">《补商汇商城开店说明》</view>
+			</view>
+			<view class="btncheck">
+				<button class="sumbit" :style="{background:background}" @tap="backTo">上一步</button>
+				<button class="sumbit" :style="{background:background}" @tap="sumbit">提交</button>
+			</view>
 		</view>
+		<uni-popup ref="popup" type="center">
+			<scroll-view scroll-y="true"  class="scroll-Ys">
+				<view class="html" v-html="agreement">
+					<rich-text :nodes="agreement"></rich-text>
+				</view>
+			</scroll-view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -102,6 +116,8 @@
 			return {
 				img_url: this.$api.img_url,
 				background: 'rgb(255, 113, 4)',
+				status: 0, //0 未同意,1 同意
+				agreement:'',
 				params: {
 					license_name:'',//企业名称
 					license_num:'',//营业执照编号
@@ -123,6 +139,21 @@
 				},
 			}
 		},
+		created() {
+			let that=this
+			that.$http.request({
+				 url:that.$api.moreShop.getTExt,
+				 data:{},
+				 method:'post',
+				 }).
+				then(function(res){
+					if(res.code==0){
+						var str = res.data.agreement.replace(/[\n]/, "<br/>");
+						str = str.replace("[\s]", "&nbsp;");
+						that.agreement=str;
+					}
+			})
+		},
 		methods: {
 			alert(txt) { //弹窗提示
 				uni.showToast({
@@ -135,23 +166,32 @@
 				if (isEmpty(this.params.license_num)) return this.alert('请填写营业执照编号')
 				if (isEmpty(this.params.license_pic)) return this.alert('请上传营业执照图片')
 				if (isEmpty(this.params.cor_realname)) return this.alert('请填写法人姓名')
-				if (isEmpty(this.params.cor_num)) return this.alert('请填写法人身份证号码')
+				if (isEmpty(this.params.cor_num)) return this.alert('请填写身份证号码')
 				if (isEmpty(this.params.cor_pic1)) return this.alert('请上传法人身份证正面')
 				if (isEmpty(this.params.cor_pic2)) return this.alert('请上传法人身份证反面')
+				if(this.status==0)return this.alert('请阅读协议后勾选')
 				var that = this
 				that.$http.request({
-					url: that.$api.merchants.Fillbasic,
+					url: that.$api.merchants.Filllicense,
 					data:that.params,
 					method: 'post',
 					showLoading: true
 				}).
 				then(function(res) {
 					if (res.code == 0) {
-						
+						uni.navigateTo({
+							url:'../../pages/personalCentre/personalCentre'
+						})
 					} else {
 						that.$http.toast(res.msg)
 					}
 				})
+			},
+			agreeBtn() {
+				this.status = this.status == 1 ? 0 : 1
+			},
+			popupShow(){
+				this.$refs.popup.open()
 			},
 			backTo(){
 				this.$emit("returnStatus", 1)
@@ -248,8 +288,6 @@
 		box-shadow: 0px 1px 1px 1px rgba(2, 58, 63, 0.16);
 		border-radius: 3px;
 		padding: 20px 5px 50px;
-		display: flex;
-		justify-content: space-evenly;
 	}
 
 	.sumbit {
@@ -387,4 +425,5 @@
 		right: 100rpx;
 		top: 130rpx;
 	}
+	.btncheck{width: 100%;overflow: hidden;display: flex;justify-content: space-evenly;}
 </style>
