@@ -114,8 +114,8 @@
 				if (!params['cat_id']) return this.alert('请选择店铺消费类型')
 				if (this.status == 0) return this.alert('请同意补商汇商城开店说明')
 				var that = this
-				this.$http.request({
-					url: this.$api.moreShop.apply,
+				that.$http.request({
+					url: that.$api.moreShop.apply,
 					data:'\r\n--XXX' +
 					'\r\nContent-Disposition: form-data; name="mobile"' +
 					'\r\n' +
