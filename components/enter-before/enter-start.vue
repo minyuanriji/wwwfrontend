@@ -8,7 +8,7 @@
 					输入您<text :style="{color: background}">线下店铺</text>
 					的名称
 				</view>
-				<input class="content_body_block_input" v-model="params.name"></input>
+				<input class="content_body_block_input" v-model="params.store_name"></input>
 			</view>
 			<view class="content_body_block">
 				<view class="content_body_block_t">2、申请人姓名</view>
@@ -17,14 +17,23 @@
 				</view>
 				<input class="content_body_block_input" v-model="params.realname"></input>
 			</view>
-			<view class="content_body_block">
-				<view class="content_body_block_t">3、申请人手机号</view>
+			<view class="content_body_block" style="position: relative;">
+				<view class="content_body_block_t">3、选择商铺位置</view>
 				<view class="content_body_block_desc">
-					手机号码共<text :style="{color: background}">11</text>位<text :style="{color: background}">数字</text>。其他为无效输入
+					请选择你的<text :style="{color: background}">店铺地址</text>
+				</view>
+				<input class="content_body_block_input" v-model="addresss" placeholder="请选择地址" disabled></input>
+				<image :src="img_url+'dao_location.png'" mode="" class="location" @tap="chooseAddress"></image>
+			</view>
+			<view class="content_body_block">
+				<view class="content_body_block_t">4、申请人手机号</view>
+				<view class="content_body_block_desc">
+					手机号码共<text :style="{color: background}">11</text>位<text
+						:style="{color: background}">数字</text>。其他为无效输入
 				</view>
 				<input class="content_body_block_input" v-model="params.mobile"></input>
 				<view class="code">
-					<input  type="number" placeholder="输入验证码" v-model="params.code">
+					<input type="number" placeholder="输入验证码" v-model="params.captcha">
 					<button type="default" v-if="!countDown" @tap="getCode" style="background:rgb(255, 113, 4) ;'">
 						获取验证码
 					</button>
@@ -34,238 +43,129 @@
 				</view>
 			</view>
 			<view class="content_body_block">
-				<view class="content_body_block_t">4、店铺消费类型</view>
+				<view class="content_body_block_t">5、店铺消费类型</view>
 				<view class="content_body_block_desc">
 					选择你的店铺的消费类型，以方便消费者快速搜索到你的店铺。
 				</view>
 				<view class="content_body_block_bb2">
-					<picker :range="cats_arr1" :value="catsIndex" class="content_body_block_bb2_l" @change="changeCart">{{params['cat_id']?params['cat_name']:"请选择"}}</picker>
+					<picker :range="cats_arr1" :value="catsIndex" class="content_body_block_bb2_l" @change="changeCart">
+						{{params.store_mch_common_cat_id?cat_name:"请选择"}}</picker>
 					<view class="block_bb1_r" :style="'border-top:'+'10px '+background+' solid'"></view>
 				</view>
 			</view>
 		</view>
 		<view class="content_footer">
-			<view class="content_footer_top">
+			<!-- <view class="content_footer_top">
 				<view class="iconfont iconxuanzhong" :style="{color:status==1?background:''}" @tap="agreeBtn"></view>
 				<view class="content_footer_top_m">我已阅读并同意</view>
 				<view class="content_footer_top_r" :style="{color: background}" @click="popupShow">《补商汇商城开店说明》</view>
-			</view>
-			<button class="sumbit" :style="{background:background}" @tap="sumbit">我准备好了</button>
+			</view> -->
+			<button class="sumbit" :style="{background:background}" @tap="sumbit">下一步</button>
 		</view>
-		<uni-popup ref="popup" type="center">
+		<!-- <uni-popup ref="popup" type="center">
 			<scroll-view scroll-y="true"  class="scroll-Ys">
 				<view class="html" v-html="agreement">
 					<rich-text :nodes="agreement"></rich-text>
 				</view>
 			</scroll-view>
-		</uni-popup>
+		</uni-popup> -->
 	</view>
 </template>
 
 <script>
-	import {isMobile} from '@/utils/util.js';
+	import {
+		isMobile
+	} from '@/utils/util.js';
 	export default {
 		data() {
 			return {
-				background:'rgb(255, 113, 4)',
+				img_url: this.$api.img_url,
+				background: 'rgb(255, 113, 4)',
 				status: 0, //0 未同意,1 同意
 				params: {
-					// pic_id_card_front: this.$api.test_url + "/images/shop/sfz_zm.png",
-					// pic_id_card_back: this.$api.test_url + "/images/shop/sfz_fm.png",
-					// pic_business_license: this.$api.test_url + "/images/shop/yyzz2.png"
+					store_name: '', //店铺名称
+					store_mch_common_cat_id: '', //行业ID
+					store_longitude: '', //经度
+					store_latitude: '', //纬度
+					captcha: '', //短信验证码
+					realname: '', //申请人姓名
+					mobile: '', //申请人手机号
 				},
 				cats: [], //分类列表
 				cats_arr1: [], //分类列表
 				catsIndex: 0,
-				district: [],
-				agreement:'',
-				countDown:''
+				agreement: '',
+				countDown: '',
+				cat_name: '',
+				addresss: '', //商铺地址
 			}
 		},
 		created() {
-			let that=this
-			that.$http.request({
-				 url:that.$api.moreShop.getTExt,
-				 data:{},
-				 method:'post',
-				 }).
-				then(function(res){
-					if(res.code==0){
-						var str = res.data.agreement.replace(/[\n]/, "<br/>");
-						str = str.replace("[\s]", "&nbsp;");
-						that.agreement=str;
-					}
-				})
+			// let that=this
+			// that.$http.request({
+			// 	 url:that.$api.moreShop.getTExt,
+			// 	 data:{},
+			// 	 method:'post',
+			// 	 }).
+			// 	then(function(res){
+			// 		if(res.code==0){
+			// 			var str = res.data.agreement.replace(/[\n]/, "<br/>");
+			// 			str = str.replace("[\s]", "&nbsp;");
+			// 			that.agreement=str;
+			// 		}
+			// 	})
 		},
 		methods: {
-			alert(txt) {
+			alert(txt) { //弹窗提示
 				uni.showToast({
 					title: txt,
 					icon: 'none'
 				})
 			},
 			sumbit: function() {
-				var params = this.params
-				if (!params['name']) return this.alert('请输入店铺名称')
-				if (!params['realname']) return this.alert('请填写您的真实姓名')
-				if (!params['mobile']) return this.alert('请填写您的手机号')
-				if (!params['mobile'].match(/1\d{10}/)) return this.alert('手机号错误')
-				if (!params['code']) return this.alert('请填写验证码')
-				if (!params['cat_id']) return this.alert('请选择店铺消费类型')
-				if (this.status == 0) return this.alert('请同意补商汇商城开店说明')
-				var that = this
-				that.$http.request({
-					url: that.$api.moreShop.apply,
-					data:'\r\n--XXX' +
-					'\r\nContent-Disposition: form-data; name="mobile"' +
-					'\r\n' +
-					'\r\n'+params['mobile']+
-					'\r\n--XXX' +
-					'\r\nContent-Disposition: form-data; name="code"' +
-					'\r\n' +
-					'\r\n'+params['code']+				
-					'\r\n--XXX' +
-					'\r\nContent-Disposition: form-data; name="realname"' +
-					'\r\n' +
-					'\r\n'+params['realname']+
-					'\r\n--XXX' +
-					'\r\nContent-Disposition: form-data; name="name"' +
-					'\r\n' +
-					'\r\n'+params['name']+
-					'\r\n--XXX' +
-					'\r\nContent-Disposition: form-data; name="cat_id"' +
-					'\r\n' +
-					'\r\n'+params['cat_id']
-					,
-					method: 'post',
-					showLoading: true,
-					isformData:true
-				}).
-				then(function(res) {
-					if (res.code == 0) {
-						that.$http.toast(res.msg)
-						setTimeout(function() {
-							uni.reLaunch({
-								url: "/pages/index/index"
-							})
-						}, 2000)
-					} else {
-						that.$http.toast(res.msg)
-					}
-				})
+				this.$emit("returnStatus", 2)
+				// if (!this.params.store_name) return this.alert('请输入店铺名称')
+				// if (!this.params.realname) return this.alert('请填写您的真实姓名')
+				// if (!this.addresss) return this.alert('请选择地址')
+				// if (!this.params.mobile) return this.alert('请填写您的手机号')
+				// if (!this.params.mobile.match(/1\d{10}/)) return this.alert('手机号错误')
+				// if (!this.params.captcha) return this.alert('请填写验证码')
+				// if (!this.params.store_mch_common_cat_id) return this.alert('请选择店铺消费类型')
+				// var that = this
+				// that.$http.request({
+				// 	url: that.$api.merchants.Fillbasic,
+				// 	data:that.params,
+				// 	method: 'post',
+				// 	showLoading: true
+				// }).
+				// then(function(res) {
+				// 	if (res.code == 0) {
+				// 		that.$emit("returnStatus",2)
+				// 	} else {
+				// 		that.$http.toast(res.msg)
+				// 	}
+				// })
 			},
-			agreeBtn() {
-				this.status = this.status == 1 ? 0 : 1
-			},
-			//下拉选择商户分类
-			changeCart(e) {
+			// agreeBtn() {
+			// 	this.status = this.status == 1 ? 0 : 1
+			// },
+			changeCart(e) { //下拉选择商户分类
 				var index = e.detail.value
-				var cats = this.cats
-				var params = this.params
-				params['cat_id'] = cats[index]['id']
-				params['cat_name'] = cats[index]['name']
-				this.params = params
-				this.$forceUpdate()
+				this.params.store_mch_common_cat_id = this.cats[index]['id']
+				this.cat_name = this.cats[index]['name']
 			},
-			//匹配地址ID
-			decAddress(addressList) {
-				var len = addressList.length
-				var province = addressList[0] //省
-				var city = len == 2 ? addressList[0] : addressList[1] //市
-				var district = len == 2 ? addressList[1] : addressList[2] //区
-				var district_arr = this.district //地址数据
-				var params = this.params
-				for (var i = 0; i < district_arr.length; i++) {
-					if (district_arr[i]['name'] == province) {
-						var city_arr = district_arr[i]['list']
-						var province_id = district_arr[i]['id']
-						for (var j = 0; j < city_arr.length; j++) {
-							if (city_arr[j]['name'] == city) {
-								var city_id = city_arr[j]['id']
-								var district1_arr = city_arr[j]['list']
-								for (var z = 0; z < district1_arr.length; z++) {
-									if (district1_arr[z]['name'] == district) {
-										var district_id = district1_arr[z]['id']
-										params.province_id = province_id
-										params.city_id = city_id
-										params.district_id = district_id
-										console.log(params)
-										return false;
-									}
-								}
-							}
-						}
-
-
-					}
-				}
-			},
-			chooseAddress() { //打开腾讯地图
+			chooseAddress() { ////获取地址
 				var that = this
-				var params = this.params
 				uni.chooseLocation({
 					success: function(res) {
-						params.address = res.address
-						//params.address = "北京市东城区长安街"
-						var reg = /.+?(省|市|自治区|自治州|县|区)/g;
-						let addressList = params.address.match(reg).toString().split(",");
-						that.decAddress(addressList)
-						params.latitude = res.latitude
-						params.status = 1
-						params.longitude = res.longitude
-						that.params = params
-						that.$forceUpdate()
+						that.addresss = res.name
+						that.params.latitude = res.latitude
+						that.params.longitude = res.longitude
 					}
 				})
 			},
-			//获取地址
-			getAddress() {
-				var that = this
-				that.$http.request({
-					url: that.$api.district.tree,
-					data: {},
-					method: 'post',
-				}).
-				then(function(res) {
-					console.log(res)
-					that.district = res.data.district
-				})
-			},
-			uploadImg(e) { //上传图片
-				var id = e.currentTarget.dataset.id
-				console.log(id)
-				var that = this
-				var params = this.params
-				uni.chooseImage({
-					count: 1,
-					success: function(res) {
-						var file = res.tempFiles[0].path
-						var requestData = {
-							serverUrl: that.$api.default.upload,
-							fileKeyName: "file",
-							file: file
-						}
-						uni.showLoading({
-							title: "正在上传"
-						})
-						that.$http.uploadFile(requestData).then(function(res) {
-							uni.hideLoading()
-							var url = res.data.url
-							if (id == 0) {
-								params.pic_id_card_front = url
-							} else if (id == 1) {
-								params.pic_id_card_back = url
-							} else if (id == 2) {
-								params.pic_business_license = url
-							}
-							that.params = params
-							that.$forceUpdate()
-						})
-					}
-				})
 
-			},
-			getCat: function() { //获取分类
+			getCat: function() { //获取店铺消费类型
 				var that = this
 				that.$http.request({
 					url: that.$api.moreShop.getmchscats,
@@ -288,10 +188,10 @@
 					that.changeCart(data) //默认第一个
 				})
 			},
-			popupShow(){
-				this.$refs.popup.open()
-			},
-			getCode() {
+			// popupShow(){
+			// 	this.$refs.popup.open()
+			// },
+			getCode() { //获取验证码
 				if (!isMobile(this.params['mobile'])) {
 					this.$http.toast('请输入手机号后在获取验证码');
 					return;
@@ -304,7 +204,7 @@
 						clearInterval(temp);
 					}
 				}, 1000)
-			
+
 				_self.$http.request({
 					url: _self.$api.default.phoneCode,
 					data: {
@@ -320,7 +220,6 @@
 		},
 		mounted() {
 			this.getCat()
-			this.getAddress()
 		},
 
 	}
@@ -328,9 +227,26 @@
 
 <style>
 	@import url("../../plugins/font-icon/iconfont1.css");
-	.scroll-Ys{width: 80%;overflow: hidden;margin: 0 auto;background: #fff;border-radius: 20rpx;}
-	.html{width: 100%;height: 500rpx;margin: 0 auto;border-radius: 20rpx;font-size: 30rpx;text-align: center;
-	line-height: 60rpx;padding: 20rpx;}
+
+	.scroll-Ys {
+		width: 80%;
+		overflow: hidden;
+		margin: 0 auto;
+		background: #fff;
+		border-radius: 20rpx;
+	}
+
+	.html {
+		width: 100%;
+		height: 500rpx;
+		margin: 0 auto;
+		border-radius: 20rpx;
+		font-size: 30rpx;
+		text-align: center;
+		line-height: 60rpx;
+		padding: 20rpx;
+	}
+
 	.content_body {
 		width: 98%;
 		margin: 5px auto;
@@ -354,6 +270,7 @@
 		border-radius: 3px;
 		padding: 20px 5px 50px;
 	}
+
 	.sumbit {
 		width: 90%;
 		margin: 0px auto;
@@ -389,12 +306,14 @@
 		color: #6B6B6B;
 
 	}
-	.code{
+
+	.code {
 		width: 100%;
 		height: 60rpx;
 		margin-top: 20rpx;
 	}
-	.code input{
+
+	.code input {
 		display: inline-block;
 		width: 250rpx;
 		height: 63rpx;
@@ -403,11 +322,12 @@
 		font-size: 25rpx;
 		text-align: center;
 	}
-	.code button{
+
+	.code button {
 		width: 180rpx;
-		height:60rpx;
+		height: 60rpx;
 		line-height: 60rpx;
-		background:rgb(83, 222, 219);
+		background: rgb(83, 222, 219);
 		border-radius: 3px;
 		font-size: 25rpx;
 		color: #333;
@@ -511,5 +431,14 @@
 		display: flex;
 		color: #6B6B6B;
 		padding: 0px 0px 10px 15px;
+	}
+
+	.location {
+		width: 60rpx;
+		height: 60rpx;
+		display: block;
+		position: absolute;
+		right: 100rpx;
+		top: 130rpx;
 	}
 </style>

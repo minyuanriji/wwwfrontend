@@ -23,11 +23,14 @@
 		 </view>
 		 <!--开店需要准备材料的内容展示-->
 		 <view class="content_block">
-			  <view class="enter_before" v-if="status==0">
+			  <view class="enter_before" v-show="status==0">
 				  <enter_before :background="background" @returnStatus="getStatus"></enter_before>
 			  </view>
-			  <view class="enter_before" v-if="status==1">
+			  <view class="enter_before" v-show="status==1">
 			  	 <enter_start :background='background' @returnStatus="getStatus"></enter_start>
+			  </view>
+			  <view class="enter_before" v-show="status==2">
+			  	 <enter_license :background='background' @returnStatus="getStatus"></enter_license>
 			  </view>
 		 </view>
 		 
@@ -37,10 +40,12 @@
 <script>
 	import enter_before from '@/components/enter-before/enter-before.vue';
 	import enter_start from '@/components/enter-before/enter-start.vue';
+	import enter_license from '@/components/enter-before/enter-license.vue';
 	export default {
 		components: {
 			 enter_before,
 			 enter_start,
+			 enter_license,
 		},
 		data() {
 			return {
