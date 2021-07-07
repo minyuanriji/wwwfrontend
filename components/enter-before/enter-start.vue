@@ -71,7 +71,7 @@
 				background: 'rgb(255, 113, 4)',
 				params: {
 					store_name: '', //店铺名称
-					store_mch_common_cat_id: '', //行业ID
+					store_mch_common_cat_id:"", //行业ID
 					store_longitude: '', //经度
 					store_latitude: '', //纬度
 					captcha: '', //短信验证码
@@ -85,6 +85,18 @@
 				countDown: '',
 				cat_name: '',
 				addresss: '', //商铺地址
+			}
+		},
+		created() {
+			if(uni.getStorageSync('applyInfo')){
+				let applyInfo=uni.getStorageSync('applyInfo')
+				this.params.store_name=applyInfo.store_name
+				this.params.store_mch_common_cat_id=applyInfo.store_mch_common_cat_id
+				this.params.store_longitude=applyInfo.store_longitude
+				this.params.store_latitude=applyInfo.store_latitude
+				this.params.realname=applyInfo.realname
+				this.params.mobile=applyInfo.mobile
+				this.addresss=applyInfo.store_address
 			}
 		},
 		methods: {
@@ -139,8 +151,15 @@
 					data: {},
 					method: 'post',
 				}).
-				then(function(res) {
+				then(function(res) {					
 					that.cats = res.data.list
+					if(that.params.store_mch_common_cat_id.length>0){
+						for (var i = 0; i <that.cats.length; i++) {
+							if(that.params.store_mch_common_cat_id==that.cats[i].id){
+								that.cat_name=that.cats[i].name
+							}
+						}
+					}
 					var cats = res.data.list
 					var cats_arr1 = []
 					for (var i = 0; i < cats.length; i++) {
@@ -185,7 +204,6 @@
 		mounted() {
 			this.getCat()
 		},
-
 	}
 </script>
 

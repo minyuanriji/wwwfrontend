@@ -27,7 +27,7 @@
 				  <enter_before :background="background" @returnStatus="getStatus"></enter_before>
 			  </view>
 			  <view class="enter_before" v-show="status==1">
-			  	 <enter_start :background='background' @returnStatus="getStatus"></enter_start>
+			  	 <enter_start :background='background' @returnStatus="getStatus" ></enter_start>
 			  </view>
 			  <view class="enter_before" v-show="status==2">
 			  	 <enter_license :background='background' @returnStatus="getStatus"></enter_license>
@@ -51,12 +51,28 @@
 			return {
 				background:'rgb(255, 113, 4)',
 				status:0,//1:提交资料,2 审核签约 ,3 开门营业
-				agreement:''
+				agreement:'',
 			}
+		},
+		onLoad() {
+			this.getApplyInfo()
 		},
 		methods: {
 			getStatus:function(e){
 				this.status=e
+			},
+			getApplyInfo(){
+				this.$http
+					.request({  //获取用户个人信息
+						url: this.$api.merchants.getapplyInfo,
+						method: 'POST',
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							uni.setStorageSync("applyInfo",res.data)
+						}
+					});
 			}
 		},
 		onShow() {
