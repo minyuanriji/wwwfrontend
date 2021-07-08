@@ -10,7 +10,7 @@
 				<button type="default" style="width: 130rpx;height: 50rpx;text-align: center;font-size: 25rpx;
 				background: rgb(255, 113, 4);margin: 20rpx 10rpx 0 0;color: #fff;line-height: 50rpx;"
 				@click='foucusInfo'
-				>关注</button>
+				>关注</button> 
 			</view>
 		</view>
 		<view class="status_bar"></view>
