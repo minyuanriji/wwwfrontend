@@ -153,6 +153,20 @@
 						that.agreement=str;
 					}
 			})
+			if(uni.getStorageSync('applyInfo')){
+				let applyInfo=uni.getStorageSync('applyInfo')
+				this.params.license_name=applyInfo.license_name
+				this.params.license_num=applyInfo.license_num
+				this.params.license_pic=applyInfo.license_pic
+				this.params.cor_realname=applyInfo.cor_realname
+				this.params.cor_num=applyInfo.cor_num
+				this.params.cor_pic1=applyInfo.cor_pic1
+				this.params.cor_pic2=applyInfo.cor_pic2
+				this.params.settle_num=applyInfo.settle_num
+				this.params.settle_realname=applyInfo.settle_realname
+				this.params.settle_bank=applyInfo.settle_bank
+				this.params.settle_discount=applyInfo.settle_discount
+			}
 		},
 		methods: {
 			alert(txt) { //弹窗提示
@@ -179,7 +193,7 @@
 				}).
 				then(function(res) {
 					if (res.code == 0) {
-						uni.navigateTo({
+						uni.redirectTo({
 							url:'../../pages/user/index'
 						})
 					} else {
