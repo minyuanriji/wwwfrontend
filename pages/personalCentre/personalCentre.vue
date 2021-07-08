@@ -154,37 +154,17 @@
 				});
 			this.$http
 				.request({  //查询入住进程
-					url: this.$api.merchants.applyreset,
+					url: this.$api.merchants.getapplyInfo,
 					method: 'POST',
 					showLoading: true
 				})
 				.then(res => {
 					if (res.code == 0) {
-						if(res.data.status == 'applying'||res.data.status == 'verifying'){
+						if(res.data.status == 'applying'||res.data.status == 'verifying'||res.data.status == 'refused'){
 							uni.navigateTo({
 								url:'../enter/enter'
 							})
 						}				
-						if (res.data.status == 'refused') {
-							let that=this
-							uni.showModal({
-								title: '审核不通过',
-								content: res.data.remark,
-								cancelText:'返回',
-								confirmText:'修改资料',
-								success: function(res) {
-									if (res.confirm) {
-										uni.navigateTo({
-											url:'../enter/enter'
-										})
-									} else if (res.cancel) {
-										uni.redirectTo({
-											url:'../user/index'
-										})
-									}
-								}
-							});
-						}
 					}
 				});
 		},
