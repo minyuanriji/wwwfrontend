@@ -112,6 +112,12 @@
 <script>
 	import {isEmpty} from '../../common/validate.js'
 	export default {
+		props:{
+			applyInfo:{
+				type:Object,
+				required:true,
+			}
+		},
 		data() {
 			return {
 				img_url: this.$api.img_url,
@@ -153,20 +159,19 @@
 						that.agreement=str;
 					}
 			})
-			if(uni.getStorageSync('applyInfo')){
-				let applyInfo=uni.getStorageSync('applyInfo')
-				this.params.license_name=applyInfo.license_name
-				this.params.license_num=applyInfo.license_num
-				this.params.license_pic=applyInfo.license_pic
-				this.params.cor_realname=applyInfo.cor_realname
-				this.params.cor_num=applyInfo.cor_num
-				this.params.cor_pic1=applyInfo.cor_pic1
-				this.params.cor_pic2=applyInfo.cor_pic2
-				this.params.settle_num=applyInfo.settle_num
-				this.params.settle_realname=applyInfo.settle_realname
-				this.params.settle_bank=applyInfo.settle_bank
-				this.params.settle_discount=applyInfo.settle_discount
-			}
+			setTimeout(()=>{
+				this.params.license_name=this.applyInfo.license_name
+				this.params.license_num=this.applyInfo.license_num
+				this.params.license_pic=this.applyInfo.license_pic
+				this.params.cor_realname=this.applyInfo.cor_realname
+				this.params.cor_num=this.applyInfo.cor_num
+				this.params.cor_pic1=this.applyInfo.cor_pic1
+				this.params.cor_pic2=this.applyInfo.cor_pic2
+				this.params.settle_num=this.applyInfo.settle_num
+				this.params.settle_realname=this.applyInfo.settle_realname
+				this.params.settle_bank=this.applyInfo.settle_bank
+				this.params.settle_discount=this.applyInfo.settle_discount
+			},1000)
 		},
 		methods: {
 			alert(txt) { //弹窗提示
@@ -193,7 +198,7 @@
 				}).
 				then(function(res) {
 					if (res.code == 0) {
-						uni.redirectTo({
+						uni.navigateTo({
 							url:'../../pages/user/index'
 						})
 					} else {

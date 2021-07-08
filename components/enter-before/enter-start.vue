@@ -65,6 +65,12 @@
 		isMobile
 	} from '@/utils/util.js';
 	export default {
+		props:{
+			applyInfo:{
+				type:Object,
+				required:true,
+			}
+		},
 		data() {
 			return {
 				img_url: this.$api.img_url,
@@ -88,16 +94,16 @@
 			}
 		},
 		created() {
-			if(uni.getStorageSync('applyInfo')){
-				let applyInfo=uni.getStorageSync('applyInfo')
-				this.params.store_name=applyInfo.store_name
-				this.params.store_mch_common_cat_id=applyInfo.store_mch_common_cat_id
-				this.params.store_longitude=applyInfo.store_longitude
-				this.params.store_latitude=applyInfo.store_latitude
-				this.params.realname=applyInfo.realname
-				this.params.mobile=applyInfo.mobile
-				this.addresss=applyInfo.store_address
-			}
+			setTimeout(()=>{
+				console.log(this.applyInfo)
+				this.params.store_name=this.applyInfo.store_name
+				this.params.store_mch_common_cat_id=this.applyInfo.store_mch_common_cat_id
+				this.params.store_longitude=this.applyInfo.store_longitude
+				this.params.store_latitude=this.applyInfo.store_latitude
+				this.params.realname=this.applyInfo.realname
+				this.params.mobile=this.applyInfo.mobile
+				this.addresss=this.applyInfo.store_address
+			},1000)
 		},
 		methods: {
 			alert(txt) { //弹窗提示
@@ -107,28 +113,27 @@
 				})
 			},
 			sumbit: function() {
-				this.$emit("returnStatus",2)
-				// if (!this.params.store_name) return this.alert('请输入店铺名称')
-				// if (!this.params.realname) return this.alert('请填写您的真实姓名')
-				// if (!this.addresss) return this.alert('请选择地址')
-				// if (!this.params.mobile) return this.alert('请填写您的手机号')
-				// if (!this.params.mobile.match(/1\d{10}/)) return this.alert('手机号错误')
-				// if (!this.params.captcha) return this.alert('请填写验证码')
-				// if (!this.params.store_mch_common_cat_id) return this.alert('请选择店铺消费类型')
-				// var that = this
-				// that.$http.request({
-				// 	url: that.$api.merchants.Fillbasic,
-				// 	data:that.params,
-				// 	method: 'post',
-				// 	showLoading: true
-				// }).
-				// then(function(res) {
-				// 	if (res.code == 0) {
-				// 		that.$emit("returnStatus",2)
-				// 	} else {
-				// 		that.$http.toast(res.msg)
-				// 	}
-				// })
+				if (!this.params.store_name) return this.alert('请输入店铺名称')
+				if (!this.params.realname) return this.alert('请填写您的真实姓名')
+				if (!this.addresss) return this.alert('请选择地址')
+				if (!this.params.mobile) return this.alert('请填写您的手机号')
+				if (!this.params.mobile.match(/1\d{10}/)) return this.alert('手机号错误')
+				if (!this.params.captcha) return this.alert('请填写验证码')
+				if (!this.params.store_mch_common_cat_id) return this.alert('请选择店铺消费类型')
+				var that = this
+				that.$http.request({
+					url: that.$api.merchants.Fillbasic,
+					data:that.params,
+					method: 'post',
+					showLoading: true
+				}).
+				then(function(res) {
+					if (res.code == 0) {
+						that.$emit("returnStatus",2)
+					} else {
+						that.$http.toast(res.msg)
+					}
+				})
 			},
 			changeCart(e) { //下拉选择商户分类
 				var index = e.detail.value
