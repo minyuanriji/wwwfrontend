@@ -154,30 +154,18 @@
 				});
 			this.$http
 				.request({  //查询入住进程
-					url: this.$api.moreShop.progress,
+					url: this.$api.merchants.applyreset,
 					method: 'POST',
 					showLoading: true
 				})
 				.then(res => {
 					if (res.code == 0) {
-						if (res.data.status == 0) {
-							uni.showModal({
-								title: '提示',
-								content: '请补充入驻资料',
-								showCancel: false,
-								success: function(res) {
-									if (res.confirm) {
-										uni.redirectTo({
-											url: '../supplement/supplement'
-										})
-									}
-								}
-							});
-						} else if (res.data.status == 1) {
-							uni.redirectTo({
-								url: '../supplement/supplement?status=' + res.data.detail.status
+						if(res.data.status == 'applying'||res.data.status == 'verifying'){
+							uni.navigateTo({
+								url:'../enter/enter'
 							})
-						} else if (res.data.status == 3) {
+						}				
+						if (res.data.status == 'refused') {
 							let that=this
 							uni.showModal({
 								title: '审核不通过',
@@ -187,7 +175,7 @@
 								success: function(res) {
 									if (res.confirm) {
 										uni.navigateTo({
-											url: '../supplement/supplement'
+											url:'../enter/enter'
 										})
 									} else if (res.cancel) {
 										uni.redirectTo({
@@ -197,10 +185,6 @@
 								}
 							});
 						}
-					}else{
-						uni.navigateTo({
-							url:'../index/index'
-						})
 					}
 				});
 		},

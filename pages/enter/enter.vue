@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		 <view class="content_top">
+		 <view class="content_top" v-if="SHOW">
 			 <view class="content_top_body">
 			 	<image src="http://hs.wezhijin.com/images/shop/resiger_banner1.png" class="content_top_banner" mode="aspectFill"></image>
 				<view class="content_top_body_bottom">
@@ -27,10 +27,14 @@
 				  <enter_before :background="background" @returnStatus="getStatus"></enter_before>
 			  </view>
 			  <view class="enter_before" v-show="status==1">
-			  	 <enter_start :background='background' @returnStatus="getStatus" ></enter_start>
+			  	 <enter_start :background='background' @returnStatus="getStatus" :applyInfo='applyInfo'></enter_start>
 			  </view>
 			  <view class="enter_before" v-show="status==2">
-			  	 <enter_license :background='background' @returnStatus="getStatus"></enter_license>
+			  	 <enter_license :background='background' @returnStatus="getStatus" :applyInfo='applyInfo'></enter_license>
+			  </view>
+			  <view class="enter_before" v-show="status==3">
+			  	 <enter_results :background='background' @returnStatus="getStatus" :type='type' :msg='msg'>
+				</enter_results>
 			  </view>
 		 </view>
 		 
@@ -41,17 +45,23 @@
 	import enter_before from '@/components/enter-before/enter-before.vue';
 	import enter_start from '@/components/enter-before/enter-start.vue';
 	import enter_license from '@/components/enter-before/enter-license.vue';
+	import enter_results from '@/components/enter-before/enter-results.vue';
 	export default {
 		components: {
 			 enter_before,
 			 enter_start,
 			 enter_license,
+			 enter_results,
 		},
 		data() {
 			return {
 				background:'rgb(255, 113, 4)',
 				status:0,//1:提交资料,2 审核签约 ,3 开门营业
 				agreement:'',
+				type:'',
+				msg:'',
+				applyInfo:'',
+				SHOW:true,
 			}
 		},
 		onLoad() {
@@ -69,8 +79,27 @@
 						showLoading: true
 					})
 					.then(res => {
-						if(res.code==0){
-							uni.setStorageSync("applyInfo",res.data)
+						if(res.code==0){ //申请状态（refused拒绝，passed通过，verifying审核中，applying申请中）							
+							if(res.data.status=='applying'){
+								this.status=0
+								this.applyInfo=res.data
+							}
+							if(res.data.status=='refused'){
+								this.status=3
+								this.type='refused'
+								this.remark=res.data.remark
+								this.SHOW=false
+							}
+							if(res.data.status=='verifying'){
+								this.status=3
+								this.type='verifying'
+								this.SHOW=false
+							}
+							if(res.data.status=='passed'){
+								this.status=3
+								this.type='passed'
+								this.SHOW=false
+							}
 						}
 					});
 			}
