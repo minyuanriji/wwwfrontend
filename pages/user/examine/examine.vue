@@ -7,7 +7,7 @@
 			</view>
 		</view>
 		<view class="examine-status">
-			<view v-for="(item,index) in status" :key='index' @click="swichIndex(index,item.review_status)"
+			<view v-for="(item,index) in status" :key='index' @click="swichIndex(index,item.status)"
 			:class="statusIndex==index?'active':''">
 				{{item.title}}
 			</view>
@@ -16,18 +16,18 @@
 			<view class="examine-item" v-for="(item,index) in list" :key='index' @click="linkTo(item.id)">
 				<view class="examine-item-title">
 					<view class="examine-item-title-name">
-						{{item.store.name}}
+						{{item.store_name}}
 					</view>
 					<view class="examine-item-title-name-time-status">
 						<text style="margin-left: 25rpx;">提交时间：{{item.created_at}}</text>
-						<text v-if="form.review_status==1" style="background: #16AB60;">已通过</text>
-						<text v-if="form.review_status==2" style="background: red;">未通过</text>
-						<text v-if="form.review_status==0" style="float: right;">去审核</text>
+						<text v-if="item.status=='passed'" style="background: #16AB60;">已通过</text>
+						<text v-if="item.status=='refused'" style="background: red;">未通过</text>
+						<text v-if="item.status=='verifying'" style="float: right;">去审核</text>
 					</view>
 				</view>
 				<view class="userMessage">
 					<view>
-						<image :src="item.store.cover_url" mode=""></image>
+						<image :src="item.store_logo" mode=""></image>
 					</view>
 					<view>
 						<text>{{item.realname}}</text>
@@ -53,36 +53,38 @@
 				status:[
 					{
 						title:'待审核',
-						review_status:0
+						status:'verifying'
 					},
 					{
 						title:'通过',
-						review_status:1
+						status:'passed'
 					},
 					{
 						title:'未通过',
-						review_status:2
+						status:'refused'
 					}
 				],
 				statusIndex:0,
 				form:{
 					page:1,
-					review_status:0,//0待审核1通过2未通过
+					status:'verifying',
 					keyword:''
 				},
 				list:[],
 				page_count:'',
+				setStatus:'verifying',
 			};
 		},
 		onLoad() {
 			this.getAuditList() 
 		},
 		methods:{
-			swichIndex(index,review_status){ //选择状态
+			swichIndex(index,status){ //选择状态
 				this.statusIndex=index
+				this.setStatus=status
 				this.form={
 					page:1,
-					review_status:review_status,//0待审核1通过2未通过
+					status:status,//0待审核1通过2未通过
 				}
 				this.list=[]
 				this.page_count=''
@@ -109,10 +111,10 @@
 			},
 			search(){
 				let keyword=this.form.keyword
-				let review_status=this.statusIndex
+				let status=this.setStatus
 				this.form={
 					page:1,
-					review_status:review_status,
+					status:status,
 					keyword:keyword
 				}
 				this.list=[]
@@ -121,7 +123,7 @@
 			},
 			linkTo(id){ //跳转到详情
 				uni.navigateTo({
-					url:'./examineDetail?id='+id+"&review_status="+this.statusIndex
+					url:'./examineDetail?id='+id+"&status="+this.setStatus
 				})
 			}
 		},
