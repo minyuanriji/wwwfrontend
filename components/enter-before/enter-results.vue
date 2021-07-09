@@ -83,6 +83,6 @@
 	.results-app{width: 100%;overflow: hidden;}
 	.message{width: 100%;height: 550rpx;position: absolute;top: 0;right: 0;left: 0;bottom: 0;margin: auto;}
 	.message image{width: 200rpx;height: 200rpx;display: block;margin: 50rpx auto 20rpx;}
-	.message text{display: block;width: 100%;overflow: hidden;text-align: center;font-size: 28rpx;color: #000;}
+	.message text{display: block;width: 100%;overflow: hidden;text-align: center;font-size: 28rpx;color: #000;margin: 5rpx 0;}
 	.message button{width: 280rpx;height: 60rpx;line-height: 60rpx;font-size: 28rpx;margin: 40rpx auto;background:rgb(255, 113, 4) ;color: #fff;}
 </style>

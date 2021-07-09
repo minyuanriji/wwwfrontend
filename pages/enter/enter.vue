@@ -33,7 +33,7 @@
 			  	 <enter_license :background='background' @returnStatus="getStatus" :applyInfo='applyInfo'></enter_license>
 			  </view>
 			  <view class="enter_before" v-show="status==3">
-			  	 <enter_results :background='background' @returnStatus="getStatus" :type='type' :msg='msg'>
+			  	 <enter_results :background='background' @returnStatus="getStatus" :type='type' :msg='applyInfo.remark'>
 				</enter_results>
 			  </view>
 		 </view>
@@ -59,7 +59,6 @@
 				status:0,//1:提交资料,2 审核签约 ,3 开门营业
 				agreement:'',
 				type:'',
-				msg:'',
 				applyInfo:'',
 				SHOW:true,
 			}
@@ -80,9 +79,9 @@
 					})
 					.then(res => {
 						if(res.code==0){ //申请状态（refused拒绝，passed通过，verifying审核中，applying申请中）							
+							this.applyInfo=res.data
 							if(res.data.status=='applying'){
 								this.status=0
-								this.applyInfo=res.data
 							}
 							if(res.data.status=='refused'){
 								this.status=3
