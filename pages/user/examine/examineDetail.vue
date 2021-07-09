@@ -68,7 +68,7 @@
 							<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items"
 								:key="item.value">
 								<view>
-									<radio :value="item.value" :checked="index === current" />
+									<radio :value="item.value" :checked="index === current" :disabled='countdisabled'/>
 								</view>
 								<view>{{item.name}}</view>
 							</label>
@@ -87,7 +87,7 @@
 								<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in itemTwo"
 									:key="item.value">
 									<view>
-										<radio :value="item.value" :checked="index === currentTwo" />
+										<radio :value="item.value" :checked="index === currentTwo" :disabled='countdisabled'/>
 									</view>
 									<view>{{item.name}}</view>
 								</label>
@@ -98,13 +98,13 @@
 						<view>
 							<text>服务费</text>
 							<input type="number" value="" placeholder="请输入折扣" v-model="form.apply_data.settle_discount"
-								style="margin-left: 45rpx;" />
+								style="margin-left: 45rpx;" :disabled='countdisabled'/>
 							<text>折</text>
 						</view>
 					</view>
 					<view class="discount-results" v-if="currentTwo==1">
 						<text>审核结果</text>
-						<textarea value="" placeholder="请输入审核结果" v-model="form.detail.remark" />
+						<textarea value="" placeholder="请输入审核结果" v-model="form.detail.remark" :disabled='countdisabled'/>
 					</view>
 				</view>
 				<view class="special-discount" v-if="current==1">
@@ -115,13 +115,13 @@
 					<view class="special-discount-detail">
 						<view>
 							<text>特殊折扣申请</text>
-							<input type="number" value="" placeholder="请输入折扣" v-model="form.apply_data.settle_discount" />
+							<input type="number" value="" placeholder="请输入折扣" v-model="form.apply_data.settle_discount" :disabled='countdisabled'/>
 							<text>折</text>
 						</view>
 					</view>
 					<view class="special-discount-notice">
 						<text>说明</text>
-						<textarea value="" placeholder="请输入说明" v-model="form.apply_data.settle_special_rate_remark" />
+						<textarea value="" placeholder="请输入说明" v-model="form.apply_data.settle_special_rate_remark" :disabled='countdisabled'/>
 					</view>
 				</view>
 			</view> 
@@ -193,6 +193,8 @@
 				message: {},
 				saveShow: false, //保存按钮显示
 				seviceCount: true, //服务费
+				countdisabled:false,//是否输入折扣和点击radio
+				
 			}
 		},
 		onLoad(options) {
@@ -232,8 +234,10 @@
 							}
 							if(res.data.detail.status=='passed'){
 								this.currentTwo = 0
+								this.countdisabled=true
 							}else if(res.data.detail.status=='refused'){
 								this.currentTwo = 1
+								this.countdisabled=true
 							}
 						}
 					});
