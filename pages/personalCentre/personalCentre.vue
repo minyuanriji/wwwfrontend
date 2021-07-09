@@ -1,10 +1,10 @@
 <template>
 	<view class="personalCenter">
 		<view class="personalCenter-top">
-			<image :src="userMessage.store.cover_url" class="personal-logo"></image>
+			<image :src="store.cover_url" class="personal-logo"></image>
 			<view class="personal_nicken_ID">
-				<view class="personal_nicken">{{userMessage.store.name}}</view>
-				<view class="personal_id">ID:{{userMessage.store.mch_id}}</view>
+				<view class="personal_nicken">{{store.name}}</view>
+				<view class="personal_id">ID:{{store.mch_id}}</view>
 			</view>
 			<!-- 分享的店铺  -->
 			<view class="share-shop">
@@ -21,7 +21,7 @@
 					当前商品
 				</view>
 				<view class="jx-btm-item">
-					{{userMessage.stat.goods_num}}件
+					{{stat.goods_num}}件
 				</view>
 				<view class="jx-btm-item last">
 					<text
@@ -36,7 +36,7 @@
 					当前余额
 				</view>
 				<view class="jx-btm-item">
-					{{userMessage.stat.account_money}}元
+					{{stat.account_money}}元
 				</view>
 				<view class="jx-btm-item last">
 					<text
@@ -62,7 +62,7 @@
 					<view class="jx-btm-text">今日订单</view>
 				</view>
 				<view class="jx-btm-item">
-					<view class="jx-btm-num">{{userMessage.stat.order_num}}笔</view>
+					<view class="jx-btm-num">{{stat.order_num}}笔</view>
 					<view class="jx-btm-text">历史订单</view>
 				</view>
 			</view>
@@ -121,9 +121,6 @@
 				</view>
 			</view>
 		</view>
-
-
-
 	</view>
 </template>
 
@@ -139,6 +136,8 @@
 				showPoster: false,
 				loading: false,
 				poster_url: "",
+				store:'',
+				stat:'',
 			}
 		},
 		onLoad() {
@@ -150,6 +149,8 @@
 				})
 				.then(res => {
 					this.userMessage = res.data.mch_info
+					this.store=res.data.mch_info.store
+					this.stat=res.data.mch_info.stat
 					uni.setStorageSync("mchMessage", res.data.mch_info)
 				});
 			this.$http
