@@ -9,7 +9,7 @@
 		<view class="message" v-if="style=='refused'">
 			<image :src="img_url+'/Not-through.png'" mode=""></image>
 			<text>申请已拒绝</text>
-			<text>{{message}}</text>
+			<text style="width: 70%;margin: 10rpx auto;color: red;">{{message}}</text>
 			<button type="default"  @click="checkINto(2)">去修改资料</button>
 		</view>
 		<view class="message" v-if="style=='passed'">
