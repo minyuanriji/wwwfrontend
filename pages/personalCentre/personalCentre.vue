@@ -148,24 +148,15 @@
 					showLoading: true
 				})
 				.then(res => {
-					this.userMessage = res.data.mch_info
-					this.store=res.data.mch_info.store
-					this.stat=res.data.mch_info.stat
-					uni.setStorageSync("mchMessage", res.data.mch_info)
-				});
-			this.$http
-				.request({  //查询入住进程
-					url: this.$api.merchants.getapplyInfo,
-					method: 'POST',
-					showLoading: true
-				})
-				.then(res => {
-					if (res.code == 0) {
-						if(res.data.status == 'applying'||res.data.status == 'verifying'||res.data.status == 'refused'){
-							uni.navigateTo({
-								url:'../enter/enter'
-							})
-						}				
+					if(res.data.mch_info.mch_status=='applying'||res.data.mch_info.mch_status=='verifying'||res.data.mch_info.mch_status=='refused'){
+						uni.navigateTo({
+							url:'../enter/enter'
+						})
+					}else{
+						this.userMessage = res.data.mch_info
+						this.store=res.data.mch_info.store
+						this.stat=res.data.mch_info.stat
+						uni.setStorageSync("mchMessage", res.data.mch_info)
 					}
 				});
 		},
