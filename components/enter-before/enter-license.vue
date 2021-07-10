@@ -198,9 +198,8 @@
 				}).
 				then(function(res) {
 					if (res.code == 0) {
-						uni.navigateTo({
-							url:'../../pages/user/index'
-						})
+						that.$emit("returnStatus",3)
+						location.reload()
 					} else {
 						that.$http.toast(res.msg)
 					}
