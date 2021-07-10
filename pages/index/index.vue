@@ -13,7 +13,7 @@
 				>关注</button> 
 			</view>
 		</view>
-		<view class="status_bar"></view>
+		<view class="status_bar"></view>   
 		<!-- #ifdef H5 -->
 		<view class="customer_service" @click="linkService">
 			<image :src="img_url+'/service_logo.png'" mode=""></image>
