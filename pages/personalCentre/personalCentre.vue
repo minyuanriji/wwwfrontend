@@ -144,7 +144,7 @@
 			this.$http
 				.request({  //获取用户个人信息
 					url: this.$api.user.userInfo,
-					method: 'POST',
+					method: 'POST', 
 					showLoading: true
 				})
 				.then(res => {
