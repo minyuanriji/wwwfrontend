@@ -45,8 +45,7 @@
 		},
 		onLoad() {
 			if(uni.getStorageSync('userInfo')){
-				this.phone=JSON.parse(uni.getStorageSync('userInfo')).mch_info.store.mobile
-				console.log(this.phone)
+				this.phone=JSON.parse(uni.getStorageSync('userInfo')).mch_info.mch_mobile
 			}
 		},
 		methods:{
