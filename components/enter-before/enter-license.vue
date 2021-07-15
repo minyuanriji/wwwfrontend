@@ -44,9 +44,9 @@
 				<input class="content_body_block_input" v-model="params.cor_num"></input>
 			</view>
 			<view class="content_body_block">
-				<view class="content_body_block_t">6、营业执照图片</view>
+				<view class="content_body_block_t">6、法人身份证照片</view>
 				<view class="content_body_block_desc">
-					请上传<text :style="{color: background}">营业执照图片</text>
+					请上传<text :style="{color: background}">法人身份证照片</text>
 				</view>
 				<view class="content_body_block_bb1">				
 						<view class="content_body_block_bb_l2">
