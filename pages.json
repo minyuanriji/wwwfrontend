@@ -748,6 +748,43 @@
             }
             
         }
+		,{
+		    "path" : "pages/personalCentre/subAccount/subAccount",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "子帐号管理",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#fff",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/personalCentre/subAccount/add/add",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "添加子账号",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/personalCentre/subAccount/edit/edit",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "子账号设置",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/personalCentre/subAccount/chooseToEnter/chooseToEnter",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "选择商户",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
         ,{
             "path" : "pages/personalCentre/shopSetting/shopSetting",
             "style" :                                                                                    

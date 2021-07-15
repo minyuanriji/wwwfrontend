@@ -185,8 +185,7 @@
         },
         // "domain" : "https://www.mingyuanriji.cn/h5/", 
         "domain" : "https://dev.mingyuanriji.cn/h5/",
-        // "domain" : "http://local.mingyuanriji.cn/h5/",
-        "title" : "补商汇",
+        "title" : "补商汇-测试版",
         "template" : "template.h5.html",
         "sdkConfigs" : {
             "maps" : {

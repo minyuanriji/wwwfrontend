@@ -40,7 +40,7 @@
 		isNullOrEmpty,
 		isMobile
 	} from '@/utils/util.js';
-	export default {
+	export default { 
 		data() {
 			return {
 				data: {},

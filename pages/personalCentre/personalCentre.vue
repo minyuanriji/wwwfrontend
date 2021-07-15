@@ -1,5 +1,5 @@
 <template>
-	<view class="personalCenter">
+	<view v-if="!loading" class="personalCenter">
 		<view class="personalCenter-top">
 			<image :src="store.cover_url" class="personal-logo"></image>
 			<view class="personal_nicken_ID">
@@ -122,6 +122,7 @@
 			</view>
 		</view>
 	</view>
+	<view v-else></view>
 </template>
 
 <script>
@@ -138,29 +139,36 @@
 				poster_url: "",
 				store:'',
 				stat:'',
+				loading: true
 			}
 		},
 		onLoad() {
-			this.$http
-				.request({  //获取用户个人信息
-					url: this.$api.user.userInfo,
-					method: 'POST', 
-					showLoading: true
-				})
-				.then(res => {
-					if(res.data.mch_info.mch_status=='applying'||res.data.mch_info.mch_status=='verifying'||res.data.mch_info.mch_status=='refused'){
-						uni.navigateTo({
-							url:'../enter/enter'
-						})
-					}else{
-						this.userMessage = res.data.mch_info
-						this.store=res.data.mch_info.store
-						this.stat=res.data.mch_info.stat
-						uni.setStorageSync("mchMessage", res.data.mch_info)
-					}
-				});
+			this.getBaseInfo();
 		},
 		methods: {
+			getBaseInfo(){
+				this.$http.request({  //获取商户基本信息
+					url: this.$api.moreShop.getMchBaseInfo,
+					method: 'POST', 
+					showLoading: true
+				}).then(res => {
+					if(res.code == 0){
+						this.loading = false;
+						this.userMessage = res.data.base_info;
+						this.store=res.data.base_info.store;
+						this.stat=res.data.base_info.stat;
+						uni.setStorageSync("mchMessage", res.data.base_info);
+						
+						if(res.data.base_info.mch_status=='applying'||res.data.base_info.mch_status=='verifying'||res.data.mch_info.mch_status=='refused'){
+							uni.navigateTo({
+								url:'../enter/enter'
+							})
+						}
+					}else{
+						this.$http.toast(res.msg);
+					}
+				});
+			},
 			href(page) {
 				if (page == 1) {
 					let mch_id = this.userMessage.store.mch_id
