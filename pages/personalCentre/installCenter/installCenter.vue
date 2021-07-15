@@ -6,6 +6,11 @@
 				<text>帐号设置</text>
 				<image :src="img_url+'/arrow-right.png'" mode=""></image>
 			</view>
+			<view @click="link(6)">
+				<image :src="img_url+'/accountSettings.png'" mode=""></image>
+				<text>子帐号管理</text>
+				<image :src="img_url+'/arrow-right.png'" mode=""></image>
+			</view>
 			<view @click="link(2)">
 				<image :src="img_url+'/shopSetting.png'" mode=""></image>
 				<text>店铺设置</text>
@@ -48,6 +53,11 @@
 				if(index==1){
 					uni.navigateTo({
 						url:'./accountSetting/accountSetting'
+					})
+				}
+				if(index==6){
+					uni.navigateTo({
+						url:'../subAccount/subAccount'
 					})
 				}
 				if(index==2){

@@ -1,4 +1,4 @@
-<template>
+<template> 
 	<view class="tui-tabbar" :class="{'tui-tabbar-fixed':isFixed,'tui-unlined':unlined}" :style="{background:backgroundColor}">
 		<block v-for="(item,index) in tabBar" :key="index">
 			<view class="tui-tabbar-item" :class="{'tui-item-hump':item.hump}"
@@ -9,7 +9,7 @@
 					 v-if="item.num">{{item.isDot?"":item.num}}</view>
 				</view>
 				<view class="tui-text-scale" :class="{'tui-text-hump':item.hump}" :style="{color:current==index?selectedColor:color}">{{item.text}}</view>
-			</view>
+			</view> 
 		</block>
 		<view :class="{'tui-hump-box':hump}" v-if="hump && !unlined"></view>
 	</view>

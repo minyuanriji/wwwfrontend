@@ -111,6 +111,7 @@ const fetch = {
 			// 'x-city-name':encodeURIComponent(city),
 			'x-longitude':uni.getStorageSync("x-longitude"),
 			'x-latitude':uni.getStorageSync('x-latitude'),
+			'x-sub-mch-id': uni.getStorageSync("x-sub-mch-id") || 0
 		}
 		return new Promise((resolve, reject) => {
 			uni.request({
@@ -179,6 +180,12 @@ const fetch = {
 					}else if( res.data.code ==999){						
 						fetch.toast(res.data.msg)						
 					}	
+
+					if(typeof res.data.clean_header_sub_mch_id != "undefined" 
+						&& res.data.clean_header_sub_mch_id == 1){
+						uni.removeStorageSync("x-sub-mch-id")
+					}
+
 					resolve(res.data)
 				},
 				fail: (res) => {
