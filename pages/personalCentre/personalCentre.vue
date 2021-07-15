@@ -88,6 +88,7 @@
 				</view>
 			</jx-list-cell>
 		</view>
+	
 		<view class="goods-qrcode-modal" v-if="showPoster">
 			<view class="goods-qrcode-body flex-col">
 				<!-- 整一个图片包括二维码都是后台给的图片 -->
@@ -194,7 +195,9 @@
 				// }
 				if (page == 4) {
 					uni.navigateTo({
-						url: './installCenter/installCenter'
+						url: './installCenter/installCenter',
+						animationType: 'pop-in',
+						animationDuration: 200
 					})
 				}
 				if (page == 5) {

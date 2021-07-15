@@ -4,15 +4,15 @@ let url = 'https://www.mingyuanriji.cn/web/static/'; //图片路径
 let plugins_img_url = 'https://www.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
  */
 // 测试服务器
-/* let api_root = 'https://dev.mingyuanriji.cn/web/index.php?r=';
+let api_root = 'https://dev.mingyuanriji.cn/web/index.php?r=';
 let url = 'https://dev.mingyuanriji.cn/web/static/'; //图片路径
 let plugins_img_url = 'https://dev.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
- */
+
 
 // 本地服务器
- let api_root = 'http://local.mingyuanriji.cn/web/index.php?r=';
+/* let api_root = 'http://local.mingyuanriji.cn/web/index.php?r=';
  let url = 'http://local.mingyuanriji.cn/web/static/'; //图片路径
- let plugins_img_url = 'http://local.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
+ let plugins_img_url = 'http://local.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径 */
 
 
 //wx493ce82aab45e4da
@@ -389,7 +389,7 @@ let api = {
 		getAudit:api_root+"api/shop-examine/shop-list",
 		getexamineDetail:api_root+"api/shop-examine/details",
 		saveMessage:api_root+"api/shop-examine/details",
-		withdrawal_detail:api_root+"mch/withdrawal-details/mch-all-list",			
+		withdrawal_detail:api_root+"mch/api/withdrawal-details/mch-all-list",			
 	},
 	hotel:{
 		getrecommended: api_root +'plugin/hotel/api/hotel/simple-list',

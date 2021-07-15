@@ -101,32 +101,23 @@
 			};
 		},
 		onShow(){
-			this.$http
-				.request({
-					url: this.$api.moreShop.progress,
-					method: 'POST',
-					showLoading: true
-				}).then(res=>{
-					if(res.code==0){
-						console.log(res)
-						this.form.paper_settleAccountType=res.data.detail.paper_settleAccountType
-						for(let i=0;i<this.banktype.length;i++){
-							if(this.banktype[i].num==res.data.detail.paper_settleAccountType){
-								this.userbanktype=this.banktype[i].name
-							}
-						}
-						this.form.paper_settleAccountNo=res.data.detail.paper_settleAccountNo
-						this.form.paper_settleAccount=res.data.detail.paper_settleAccount
-						this.form.paper_openBank=res.data.detail.paper_openBank
-						// this.form.withdraw_pwd=
-						this.form.paper_settleTarget=res.data.detail.paper_settleTarget
-						for(let j=0;j<this.targetType.length;j++){
-							if(this.targetType[j].num==res.data.detail.paper_settleAccountType){
-								this.Targettype=this.targetType[j].name
-							}
-						}
-					}
-				})
+			let baseInfo = uni.getStorageSync("mchMessage");
+			this.form.paper_settleAccountType=baseInfo.settle.paper_settleAccountType
+			for(let i=0;i<this.banktype.length;i++){
+				if(this.banktype[i].num == baseInfo.settle.paper_settleAccountType){
+					this.userbanktype=this.banktype[i].name
+				}
+			}
+			this.form.paper_settleAccountNo=baseInfo.settle.paper_settleAccountNo
+			this.form.paper_settleAccount=baseInfo.settle.paper_settleAccount
+			this.form.paper_openBank=baseInfo.settle.paper_openBank
+			// this.form.withdraw_pwd=
+			this.form.paper_settleTarget=baseInfo.settle.paper_settleTarget
+			for(let j=0;j<this.targetType.length;j++){
+				if(this.targetType[j].num==baseInfo.settle.paper_settleTarget){
+					this.Targettype=this.targetType[j].name
+				}
+			}
 		},
 		methods:{
 			hidePopup(index) { //底部弹窗显示隐藏

@@ -6,7 +6,7 @@
 				<text>帐号设置</text>
 				<image :src="img_url+'/arrow-right.png'" mode=""></image>
 			</view>
-			<view @click="link(6)">
+			<view v-if="!is_sub" @click="link(6)">
 				<image :src="img_url+'/accountSettings.png'" mode=""></image>
 				<text>子帐号管理</text>
 				<image :src="img_url+'/arrow-right.png'" mode=""></image>
@@ -40,16 +40,22 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
-				phone:''
+				phone:'',
+				is_sub: false
 			};
 		},
 		onLoad() {
+			if(uni.getStorageSync('x-sub-mch-id') > 0){
+				this.is_sub = true;
+			}
+				
 			if(uni.getStorageSync('userInfo')){
 				this.phone=JSON.parse(uni.getStorageSync('userInfo')).mch_info.mch_mobile
 			}
 		},
 		methods:{
 			link(index){
+				let baseInfo = uni.getStorageSync("mchMessage");
 				if(index==1){
 					uni.navigateTo({
 						url:'./accountSetting/accountSetting'
@@ -71,9 +77,10 @@
 					})
 				}
 				if(index==4){
+					
 					if(uni.getStorageSync('userInfo')){
 						uni.navigateTo({
-							url:'../personalCentreSETPassWorde/personalCentreSETPassWorde?phone='+this.phone
+							url:'../personalCentreSETPassWorde/personalCentreSETPassWorde?phone='+baseInfo.bind_mobile
 						})
 					}else{
 						uni.navigateTo({
@@ -84,7 +91,7 @@
 				if(index==5){
 					if(uni.getStorageSync('userInfo')){
 						uni.navigateTo({
-							url:'../editePhone/editePhone?phone='+this.phone+"&title="+"绑定手机"
+							url:'../editePhone/editePhone?phone='+baseInfo.bind_mobile+"&title="+"绑定手机"
 						})
 					}else{
 						uni.navigateTo({

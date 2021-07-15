@@ -103,7 +103,7 @@
 		},
 		onLoad() {
 			this.getCity()
-			this.getUser()
+			this.getBaseInfo()
 		},
 		methods: {
 			toArr(object) {
@@ -328,48 +328,35 @@
 					url:'../shopLogoupload/shopLogoupload'
 				})
 			},
-			getUser(){
-				this.$http
-					.request({
-						url: this.$api.user.userInfo,
-						method: 'POST',
-						showLoading: true
+			getBaseInfo(){
+				this.$http.request({
+					url: this.$api.moreShop.getMchBaseInfo,
+					method: 'POST',
+					showLoading: true
+				}).then(res => {
+					this.userMessage=res.data.base_info.store
+					this.form.name=this.userMessage.name
+					this.form.cover_url=this.userMessage.cover_url
+					this.params.shop_logo=this.userMessage.cover_url
+					this.form.city_id=this.userMessage.city_id
+					this.form.province_id=this.userMessage.province_id
+					this.form.latitude=this.userMessage.latitude
+					this.form.longitude=this.userMessage.longitude
+					this.form.address=this.userMessage.address;
+					let cityList=this.selectList
+					
+					this.text=this.userMessage.province + ' ' + this.userMessage.city + ' ' + this.userMessage.district;
+					console.log(this.text)
+					let imgList=JSON.parse(this.userMessage.pic_url)
+					let logoList=[]
+					imgList.forEach((item)=>{
+						if(typeof(item)!='object'){
+							logoList.push(item)
+						}
 					})
-					.then(res => {
-						this.userMessage=res.data.mch_info.store
-						this.form.name=this.userMessage.name
-						this.form.cover_url=this.userMessage.cover_url
-						this.params.shop_logo=this.userMessage.cover_url
-						this.form.city_id=this.userMessage.city_id
-						this.form.province_id=this.userMessage.province_id
-						this.form.latitude=this.userMessage.latitude
-						this.form.longitude=this.userMessage.longitude
-						this.form.address=this.userMessage.address
-						let cityList=this.selectList
-						let province=''
-						let city=''
-						cityList.forEach((item, index) => {
-							if(this.userMessage.province_id==item.id){
-								province=item.name
-							}
-							item.children.forEach((items, indexs) => {
-								if(this.userMessage.city_id==items.id){
-									city=items.name
-								}
-							})
-						})
-						this.text=province+' '+city
-						console.log(this.text)
-						let imgList=JSON.parse(this.userMessage.pic_url)
-						let logoList=[]
-						imgList.forEach((item)=>{
-							if(typeof(item)!='object'){
-								logoList.push(item)
-							}
-						})
-						uni.setStorageSync('imglist',logoList)
-						this.num=logoList.length
-					});
+					uni.setStorageSync('imglist',logoList)
+					this.num=logoList.length
+				});
 			}
 		}	
 	}

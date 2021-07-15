@@ -585,7 +585,10 @@
             {
                 "navigationBarTitleText": "商户中心",
 				"navigationBarBackgroundColor": "#fff",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+	
+				}
             }
             
         }
