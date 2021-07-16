@@ -411,6 +411,9 @@ let api = {
 		Filllicense: api_root +'plugin/mch/api/apply/license',
 		getapplyInfo: api_root +'plugin/mch/api/apply/info',
 		applyreset: api_root +'plugin/mch/api/apply/reset',
+	},
+	morecredit:{
+		creditOrder:api_root +'plugin/addcredit/api/phone-bill/prepaid-order-submit',
 	}
 };
 module.exports = api; 

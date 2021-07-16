@@ -1081,12 +1081,17 @@
             }
             
         }
-		
-		
-		
-		
-		
-		
+		,{
+		    "path" : "pages/moreCredit/creditResults",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false,
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#ff7104"
+		    }
+		    
+		}
     ],
 	"subPackages": [{
 		"root": "plugins",

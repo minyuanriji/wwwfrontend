@@ -5,7 +5,7 @@
 				充值中心
 			</view>
 			<view class="text">
-				<input type="number" value="" />
+				<input type="number" v-model="form.mobile" />
 			</view>
 		</view>
 		<view class="moreCreadit_detail">
@@ -21,7 +21,7 @@
 							<text style="color:rgb(255, 113, 4);font-size: 25rpx;">元</text>
 						</view>
 						<view style="font-size: 26rpx;color: #9E9E9E;">
-							售价{{item.price}}
+							红包{{item.price}}
 						</view>
 					</view>
 				</view>
@@ -34,13 +34,21 @@
 			<view class="recharge_detail">
 				<view class="recharge_money">
 					<text style="color: rgb(255, 113, 4)">￥</text>
-					<text style="font-size: 50rpx;font-weight: bold;color: rgb(255, 113, 4);">{{form.price}}</text>
+					<text style="font-size: 50rpx;font-weight: bold;color: rgb(255, 113, 4);">{{form.order_price}}</text>
 				</view>
 				<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
 					<view class="jx-cell-header"
 						style="height: 80rpx;width: 90%;margin: 0 auto;border-bottom: 1rpx solid #F8FAF9;">
 						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: left;">订单信息</view>
 						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: right;">手机充值
+						</view>
+					</view>
+				</jx-list-cell>
+				<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
+					<view class="jx-cell-header"
+						style="height: 80rpx;width: 90%;margin: 0 auto;border-bottom: 1rpx solid #F8FAF9;">
+						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: left;">手机号</view>
+						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: right;">{{form.mobile}}
 						</view>
 					</view>
 				</jx-list-cell>
@@ -63,7 +71,7 @@
 					</radio-group>
 				</view> -->
 				<view class="sumbit">
-					<button type="default">立即支付</button>
+					<button type="default" @click="sumbit">立即支付</button>
 					<image :src="img_url+'/artice_logo.png'" mode="widthFix"></image>
 				</view>
 			</view>
@@ -73,6 +81,7 @@
 
 <script>
 	import jxListCell from '@/components/list-cell/list-cell';
+	import {isEmpty} from '../../common/validate.js'
 	export default {
 		components: {
 			jxListCell
@@ -123,30 +132,54 @@
 				],
 				current: 0,
 				form:{
-					price:100,
-					type:"红包支付"
+					mobile:'',
+					order_price:100,
+					plateform_id:1
 				}
 			};
 		},
 		methods: {
-			select(item, index) {
+			select(item, index) { //选择充值金额
 				this.selectIndex = index
-				console.log(item)
-				this.form.price=item.price
+				this.form.order_price=item.price
 			},
-			checkrecharge() {
+			checkrecharge() {//打开弹窗
+				if(isEmpty(this.form.mobile))return this.alert('请填写充值的号码')
 				this.popupShow = true
 			},
 			hidePopup() { //关闭弹窗
 				this.popupShow = false;
 			},
-			radioChange: function(evt) {
+			radioChange: function(evt) {//选择支付方式
 				for (let i = 0; i < this.items.length; i++) {
 					if (this.items[i].value === evt.detail.value) {
 						this.current = i;
 						break;
 					}
 				}
+			},
+			alert(txt) { //弹窗提示
+				uni.showToast({
+					title: txt,
+					icon: 'none'
+				})
+			},
+			sumbit(){
+				this.$http.request({  //生成充值订单
+					url: this.$api.morecredit.creditOrder,
+					method: 'POST', 
+					data:this.form,
+					showLoading: true
+				}).then(res => {
+					if(res.code == 0){
+						console.log(res)
+						// uni.navigateTo({
+						// 	url:'./creditResults'
+						// })
+					}else{
+						this.$http.toast(res.msg);
+					}
+				});
 			}
 		}
 	}
