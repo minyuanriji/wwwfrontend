@@ -172,7 +172,11 @@
 					showLoading: true
 				}).then(res => {
 					if(res.code == 0){
-						console.log(res)
+						let datas={
+							order_no:res.data.order_no,
+							order_price:res.data.order_price
+						}
+						console.log(datas)
 						// uni.navigateTo({
 						// 	url:'./creditResults'
 						// })
