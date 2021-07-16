@@ -68,7 +68,7 @@
 			deleteOn(item){
 				let that = this;
 				uni.showModal({
-					content: '确定要删除该地址吗?',
+					content: '确定要删除该账户吗?',
 					confirmColor: this.textColor,
 					success: function(res) {
 						if (res.confirm) {

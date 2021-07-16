@@ -115,6 +115,9 @@
 										<view class="commission" :style="{color:'#FF7104'}">团队金额: {{ item.team_total_price }}元</view>
 									</view>
 								</view>
+								<view class="shop-name" style="font-size: 25rpx;">
+									店铺名：{{item.store_name}}
+								</view>
 							</view>
 						</view>
 						<view class="order-items" v-else><main-nomore text="暂无客户" :visible="true" bgcolor="transparent"></main-nomore></view>

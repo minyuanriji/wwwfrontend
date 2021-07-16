@@ -1070,6 +1070,23 @@
 		    }
 		    
 		}
+        ,{
+            "path" : "pages/moreCredit/moreCredit",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "rgb(255, 113, 4)"
+            }
+            
+        }
+		
+		
+		
+		
+		
+		
     ],
 	"subPackages": [{
 		"root": "plugins",
