@@ -48,10 +48,6 @@
 			if(uni.getStorageSync('x-sub-mch-id') > 0){
 				this.is_sub = true;
 			}
-				
-			if(uni.getStorageSync('userInfo')){
-				this.phone=JSON.parse(uni.getStorageSync('userInfo')).mch_info.mch_mobile
-			}
 		},
 		methods:{
 			link(index){
@@ -78,7 +74,7 @@
 				}
 				if(index==4){
 					
-					if(uni.getStorageSync('userInfo')){
+					if(baseInfo){
 						uni.navigateTo({
 							url:'../personalCentreSETPassWorde/personalCentreSETPassWorde?phone='+baseInfo.bind_mobile
 						})
@@ -89,7 +85,7 @@
 					}
 				}
 				if(index==5){
-					if(uni.getStorageSync('userInfo')){
+					if(baseInfo){
 						uni.navigateTo({
 							url:'../editePhone/editePhone?phone='+baseInfo.bind_mobile+"&title="+"绑定手机"
 						})
