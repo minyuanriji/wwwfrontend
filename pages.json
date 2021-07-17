@@ -1088,7 +1088,8 @@
 		        "navigationBarTitleText": "",
 		        "enablePullDownRefresh": false,
 				"navigationBarTextStyle": "white",
-				"navigationBarBackgroundColor": "#ff7104"
+				"navigationBarBackgroundColor": "#ff7104",
+				"navigationStyle": "custom"
 		    }
 		    
 		}
