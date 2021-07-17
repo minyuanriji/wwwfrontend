@@ -34,7 +34,8 @@
 			<view class="recharge_detail">
 				<view class="recharge_money">
 					<text style="color: rgb(255, 113, 4)">￥</text>
-					<text style="font-size: 50rpx;font-weight: bold;color: rgb(255, 113, 4);">{{form.order_price}}</text>
+					<text
+						style="font-size: 50rpx;font-weight: bold;color: rgb(255, 113, 4);">{{form.order_price}}</text>
 				</view>
 				<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
 					<view class="jx-cell-header"
@@ -48,7 +49,8 @@
 					<view class="jx-cell-header"
 						style="height: 80rpx;width: 90%;margin: 0 auto;border-bottom: 1rpx solid #F8FAF9;">
 						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: left;">手机号</view>
-						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: right;">{{form.mobile}}
+						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: right;">
+							{{form.mobile}}
 						</view>
 					</view>
 				</jx-list-cell>
@@ -81,7 +83,9 @@
 
 <script>
 	import jxListCell from '@/components/list-cell/list-cell';
-	import {isEmpty} from '../../common/validate.js'
+	import {
+		isEmpty
+	} from '../../common/validate.js'
 	export default {
 		components: {
 			jxListCell
@@ -124,33 +128,31 @@
 					}
 				],
 				popupShow: false,
-				items:[
-					{
-						 value: '红包支付',
-						 name: '红包支付'
-					},
-				],
+				items: [{
+					value: '红包支付',
+					name: '红包支付'
+				}, ],
 				current: 0,
-				form:{
-					mobile:'',
-					order_price:100,
-					plateform_id:1
+				form: {
+					mobile: '',
+					order_price: 100,
+					plateform_id: 1
 				}
 			};
 		},
 		methods: {
 			select(item, index) { //选择充值金额
 				this.selectIndex = index
-				this.form.order_price=item.price
+				this.form.order_price = item.price
 			},
-			checkrecharge() {//打开弹窗
-				if(isEmpty(this.form.mobile))return this.alert('请填写充值的号码')
+			checkrecharge() { //打开弹窗
+				if (isEmpty(this.form.mobile)) return this.alert('请填写充值的号码')
 				this.popupShow = true
 			},
 			hidePopup() { //关闭弹窗
 				this.popupShow = false;
 			},
-			radioChange: function(evt) {//选择支付方式
+			radioChange: function(evt) { //选择支付方式
 				for (let i = 0; i < this.items.length; i++) {
 					if (this.items[i].value === evt.detail.value) {
 						this.current = i;
@@ -164,23 +166,23 @@
 					icon: 'none'
 				})
 			},
-			sumbit(){
-				this.$http.request({  //生成充值订单
+			sumbit() {
+				this.$http.request({ //生成充值订单
 					url: this.$api.morecredit.creditOrder,
-					method: 'POST', 
-					data:this.form,
+					method: 'POST',
+					data: this.form,
 					showLoading: true
 				}).then(res => {
-					if(res.code == 0){
-						let datas={
-							order_no:res.data.order_no,
-							order_price:res.data.order_price
+					if (res.code == 0) {
+						let datas = {
+							order_no: res.data.order_no,
+							order_price: res.data.order_price
 						}
 						console.log(datas)
 						// uni.navigateTo({
 						// 	url:'./creditResults'
 						// })
-					}else{
+					} else {
 						this.$http.toast(res.msg);
 					}
 				});
@@ -343,6 +345,16 @@
 		width: 40%;
 		margin: 20rpx auto 0;
 	}
-	.pay-type{width: 90%;overflow: hidden;margin: 0 auto;}
-	.lables{width: 100%;height: 60rpx;margin: 10rpx 0;}
+
+	.pay-type {
+		width: 90%;
+		overflow: hidden;
+		margin: 0 auto;
+	}
+
+	.lables {
+		width: 100%;
+		height: 60rpx;
+		margin: 10rpx 0;
+	}
 </style>
