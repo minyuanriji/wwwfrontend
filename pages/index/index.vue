@@ -487,7 +487,7 @@
 			}
 			//#ifdef H5
 				this.$wechatSdk.initJssdk(function(signData){
-					console.log(signData)
+					
 				});
 			//#endif
 		},
