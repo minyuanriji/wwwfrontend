@@ -412,8 +412,11 @@ let api = {
 		getapplyInfo: api_root +'plugin/mch/api/apply/info',
 		applyreset: api_root +'plugin/mch/api/apply/reset',
 	},
-	morecredit:{
+	morecredit:{ 
 		creditOrder:api_root +'plugin/addcredit/api/phone-bill/prepaid-order-submit',
+		creditpay:api_root +'plugin/addcredit/api/phone-bill/prepaid-refill',
+		creditStatus:api_root +'plugin/addcredit/api/phone-bill/recharge-record',
+		creditOrderStatus:api_root +'plugin/addcredit/api/phone-bill/query-order-status',
 	}
 };
 module.exports = api; 
