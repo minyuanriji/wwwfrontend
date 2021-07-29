@@ -417,6 +417,23 @@ let api = {
 		creditpay:api_root +'plugin/addcredit/api/phone-bill/prepaid-refill',
 		creditStatus:api_root +'plugin/addcredit/api/phone-bill/recharge-record',
 		creditOrderStatus:api_root +'plugin/addcredit/api/phone-bill/query-order-status',
+	},
+	package:{
+		getpackageList:api_root +'plugin/giftpacks/api/giftpacks/list',
+		packageListitem:api_root +'plugin/giftpacks/api/giftpacks/item-list',
+		getgroupList:api_root +'plugin/giftpacks/api/giftpacks/group-list',
+		packageDetail:api_root +'plugin/giftpacks/api/giftpacks/detail',
+		previewOrder:api_root +'plugin/giftpacks/api/order/preview',
+		productOrder:api_root +'plugin/giftpacks/api/order/submit',
+		payMoney:api_root +'api/payCenter/integral-pay/giftpacks',
+		createspell:api_root +'plugin/giftpacks/api/group/new-group',
+		payspellMoney:api_root +'api/payCenter/integral-pay/giftpacks-group',
+		espellDetail:api_root +'plugin/giftpacks/api/giftpacks/group-detail',
+		joinespell:api_root +'plugin/giftpacks/api/group/join',
+		orderList:api_root +'plugin/giftpacks/api/order/list',
+		getorderDetail:api_root +'plugin/giftpacks/api/order/detail',
+		getserviceList:api_root +'plugin/giftpacks/api/order/pack-item-list',
+		generateQRcode:api_root +'plugin/giftpacks/api/order/clerk-qr-code',
 	}
 };
 module.exports = api; 

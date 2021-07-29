@@ -182,7 +182,6 @@ export default {
 		}
 		let mall_id = uni.getStorageSync("mall_id");
 		let user = uni.getStorageSync("userInfo") ? JSON.parse(uni.getStorageSync("userInfo")) : {};
-		console.log(data,url)
 		// let _url = `${window.location.href.split("#")[0]}#/${this.getUrl()}`;
 		
 		// if(this.getUrl().indexOf('?') == -1 && url){
@@ -221,17 +220,14 @@ export default {
 					},
 					cancel: function(res) {}
 				};
-				//分享给朋友接口  
+				//分享给朋友接口 
 				jweixin.updateAppMessageShareData({
 					title: data && data.app_share_title ? data.app_share_title : signData.site_name,
 					desc: data && data.app_share_desc ? data.app_share_desc : signData.site_description,
 					link: url,
 					imgUrl: data && data.app_share_pic ? data.app_share_pic : signData.site_logo,
 					success: function(res) {
-						// alert(data.app_share_title)
-						// alert(data.app_share_desc)
-						// alert(data.app_share_pic)
-						// alert(url)
+						
 					}
 				});
 				//分享到朋友圈接口  

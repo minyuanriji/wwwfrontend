@@ -1129,7 +1129,7 @@
             "path" : "pages/giftbag/giftbagCapacity/giftbagCapacity",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "礼包类容",
+                "navigationBarTitleText": "礼包内容",
                 "enablePullDownRefresh": false,
 				"navigationBarTextStyle": "black"
             }
@@ -1169,9 +1169,19 @@
             "path" : "pages/giftbag/orderList/orderList",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "大礼包订单",
+                "navigationBarTitleText": "订单",
                 "enablePullDownRefresh": false,
 				"navigationBarTextStyle": "black"
+            }
+            
+        }
+        ,{
+            "path" : "pages/giftbag/spelldetail/spelldetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "邀请好友一起加入拼单",
+                "enablePullDownRefresh": false,
+                "navigationBarTextStyle": "black"
             }
             
         }
