@@ -72,15 +72,10 @@
 		},
 		methods:{
 			linkQrcode(item){
-				console.log(item)
-				if(item.is_available==0){
-					return this.$http.toast('该服务已经使用完');
-				}else if(item.is_available==1){
 					uni.setStorageSync("seviceDetail",item)
 					uni.navigateTo({
 						url:'../userGiftbag/userGiftbag'
 					})
-				}
 			},
 			location(lat,lnt,address){//导航
 				window.location.href='https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:'+lat+','+lnt+';addr:'+address+'&referer=myapp&key=O3DBZ-IFH3W-KKIRN-RZPNQ-AOSH3-EGB5N'

@@ -15,7 +15,7 @@
 				<text v-if="item.is_owner==1">拼主</text>
 			</view>
 		</view>
-		<view>
+	<!-- 	<view>
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false">
 				<view class="jx-cell-header" style="height: 80rpx;">
 					<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">订单详情</view>
@@ -24,7 +24,7 @@
 					<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">查看</view>
 				</view>
 			</jx-list-cell>
-		</view>
+		</view> -->
 		<view>
 			<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
 				<view class="jx-cell-header" style="height: 80rpx;">
