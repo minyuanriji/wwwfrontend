@@ -97,16 +97,16 @@
 		
 		</tui-top-dropdown>
 		<view class="bottom">
-			<view @click="linkTO(1)">
+			<view @click="linkTO(1)" style="width: 20%;display: flex;justify-content: space-evenly;flex-wrap: wrap;">
 				<image :src="img_url+'/gifh_home_logo.png'" mode="" ></image>
 				<text>首页</text>
 			</view>
-			<view @click="linkTO(2)">
+			<view @click="linkTO(2)" style="width: 20%;display: flex;justify-content: space-evenly;flex-wrap: wrap;">
 				<image :src="img_url+'/gift_service_logo.png'" mode="" ></image>
 				<text>客服</text>
 			</view>
 			<view class="buytype">
-				<view style="width: 40%;height: 100rpx;margin-left: 90rpx;background:rgb(255,113,4);float: left;color: #fff;" @click="gobuy(detail.id)">
+				<view  :class="detail.group_enable==1?'active':'actove'" @click="gobuy(detail.id)">
 					<text style="display: block;width: 100%;line-height: 50rpx;text-align: center;">￥{{detail.price}}</text>
 					<text style="display: block;width: 100%;line-height: 50rpx;text-align: center;">单独购买</text>
 				</view>
@@ -587,7 +587,6 @@
 	.giftbagDetail-service{width: 100%;overflow: hidden;background: #fff;margin-top: 10rpx;}
 	.bottom{width: 100%;height: 100rpx;background: #fff;position: fixed;bottom: 0;left: 0;
 	display: flex;justify-content: space-evenly;box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.4)}
-	.bottom view:nth-of-type(1),.bottom view:nth-of-type(2){width: 20%;display: flex;justify-content: space-evenly;flex-wrap: wrap;}
 	.bottom view:nth-of-type(3){width: 60%;height: 100%;}
 	.bottom view image{width: 32rpx;height: 32rpx;display: block;margin: 10rpx auto;}
 	.bottom view text{display: block;width: 100%;text-align: center;font-size: 25rpx;}
@@ -618,4 +617,6 @@
 	.gospellgroup-detail-people-item text{display: block;position: absolute;top: -10rpx;right: -10rpx;font-size: 25rpx;background: rgb(255,207,121);text-align: center;width: 60rpx;height: 32rpx;line-height: 30rpx;color: #fff;border-radius: 8rpx;}
 	.participate{width: 360rpx;height: 60rpx;line-height: 60rpx;text-align: center;background: #ff330b;margin: 50rpx auto;color: #fff;border-radius: 30rpx;font-size: 28rpx;}
 	.scroll-Ys {width: 700rpx;overflow: hidden;margin: 0 auto;background: #fff;border-radius: 20rpx;}
+	.active{width: 40%;height: 100rpx;background:rgb(255,113,4);float: left;color: #fff;margin-left: 90rpx;}
+	.actove{width: 40%;height: 100rpx;background:rgb(255,113,4);float: left;color: #fff;margin-left: 270rpx;}
 </style>
