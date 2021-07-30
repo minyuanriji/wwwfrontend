@@ -50,7 +50,12 @@ let api = {
 		authPhone: api_root + 'api/identity/auth-phone',
 		parentMember:api_root + 'api/identity/parent-member',
 		bindParent:api_root + 'api/identity/bind-parent',
-		subscribe:api_root + 'api/identity/subscribe-status'
+		subscribe:api_root + 'api/identity/subscribe-status',
+		
+	//---------------------------------------------------------------统一核销	
+		verification:api_root + 'api/clerkCenter/clerk/get-logs', //核销记录
+		verificationProgress:api_root +'api/clerkCenter/clerk/do-clerk' //核销进度
+		
 	},
 	plugin:{
 		// 短视频
