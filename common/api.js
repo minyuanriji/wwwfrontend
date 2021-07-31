@@ -54,8 +54,8 @@ let api = {
 		
 	//---------------------------------------------------------------统一核销	
 		verification:api_root + 'api/clerkCenter/clerk/get-logs', //核销记录
-		verificationProgress:api_root +'api/clerkCenter/clerk/do-clerk' //核销进度
-		
+		verificationProgress:api_root +'api/clerkCenter/clerk/do-clerk', //核销
+		getOrdercodestatus:api_root +'api/clerkCenter/clerk/detail' //核销进度
 	},
 	plugin:{
 		// 短视频
