@@ -296,9 +296,6 @@
 			if (options.orderId) {
 				this.getDetail(options.orderId,true);
 				this.getCode(options.orderId)
-				this.timer=setInterval(() => {
-					this.getResult(options.orderId)
-				},6000);
 			}
 			if(options.active_status){
 				this.active_status = options.active_status;
@@ -344,15 +341,19 @@
 		},
 		methods: {
 			getCode(id){
-				this.$http.request({
-					url: this.$api.moreShop.getOrdercode,
+				let that=this
+				that.$http.request({
+					url: that.$api.moreShop.getOrdercode,
 					data: {
-						id:id
+						id:id,
+						route:'/h5/#/pages/newmoreShop/newmoreShop',
 					}
 				}).then((res) => {
 					if (res.code == 0) {
-						console.log(res)
-						this.codeDetail=res.data
+						that.codeDetail=res.data
+						that.timer=setInterval(() => {
+							that.getResult(that.codeDetail.id)
+						},6000);
 					}
 				})
 			},
@@ -360,7 +361,7 @@
 				if(!this.begin)return false
 				if(	this.poup=="已核销")return false
 				this.$http.request({
-					url: this.$api.moreShop.getOrdercodestatus,
+					url: this.$api.default.getOrdercodestatus,
 					method: 'POST',
 					data: {
 						id:id,

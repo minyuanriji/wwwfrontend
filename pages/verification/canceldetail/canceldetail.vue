@@ -65,23 +65,28 @@
 				that.id=options.id
 				that.getCode(options.id)
 				that.getDetail(options.id)
-				that.timer=setInterval(() => {
-					that.getResult(options.id)
-				},1500);
+				// that.timer=setInterval(() => {
+				// 	that.getResult(options.id)
+				// },1500);
 			}
 		},
 		methods: {
 			getCode(id) { //获取二维码
-				this.$http.request({
-					url: this.$api.moreShop.getOrdercode,
+				let that=this
+				that.$http.request({
+					url: that.$api.moreShop.getOrdercode,
 					data: {
-						id: id
+						id: id,
+						route:'/h5/#/pages/newmoreShop/newmoreShop',
 					}
 				}).then((res) => {
 					if (res.code == 0) {
-						this.codeDetail = res.data
+						that.codeDetail = res.data
+						that.timer=setInterval(() => {
+							that.getResult(that.codeDetail.id)
+						},1500);
 					} else {
-						this.$http.toast(res.msg);
+						that.$http.toast(res.msg);
 					}
 				})
 			},
@@ -102,7 +107,7 @@
 			getResult(id) { //轮询核销结果
 				if(this.showCode)return false
 				this.$http.request({
-					url: this.$api.moreShop.getOrdercodestatus,
+					url: this.$api.default.getOrdercodestatus,
 					method: 'POST',
 					data: {
 						id:id,

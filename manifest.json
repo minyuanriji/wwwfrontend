@@ -184,7 +184,7 @@
             "port" : 80
         },
         "domain" : "https://dev.mingyuanriji.cn/h5/",
-        "title" : "补商汇-测试",
+        "title" : "补商汇",
         "template" : "template.h5.html",
         "sdkConfigs" : {
             "maps" : {

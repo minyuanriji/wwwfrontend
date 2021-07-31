@@ -49,7 +49,6 @@
 		onLoad() {
 			if(uni.getStorageSync("seviceDetail")){
 				this.seviceDetail=uni.getStorageSync("seviceDetail")
-				console.log(this.seviceDetail)
 			}
 		},
 		methods:{
@@ -65,7 +64,7 @@
 						data:{
 							order_id:that.seviceDetail.order_id,//订单ID
 							pack_item_id:that.seviceDetail.pack_item_id,//大礼包物品ID
-							route_with_param:'/h5/#/pages/more-shop/more-shop',//带参数的前端路由
+							route_with_param:'/h5/#/pages/newmoreShop/newmoreShop',//带参数的前端路由
 						},
 						showLoading: true
 					})

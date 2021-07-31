@@ -4,8 +4,8 @@
 			手动输入核销码或扫码进行核销
 		</view>
 		<view class="accountingOrder_int">
-			<input type="text" value="" v-model.trim="code"/>
-			<button type="default" @click='btn'>确定</button>
+			<input type="text" value="" v-model.trim="code" disabled placeholder="暂时不支持输入核销,请扫一扫核销"/>
+			<button type="default" @click='btn' disabled>确定</button>
 		</view>
 		<view class="accountingOrder_scan" @click='ercodeBtn'>
 			<image :src="img_url+'/shop-scan.png'" mode=""></image>
@@ -17,7 +17,7 @@
 					<!-- <view class="jx-cell-sub">查看全部订单</view> -->
 				</view>
 			</jx-list-cell>
-			<view class="personalCenter-item-list" v-for="(item,index) in list" :key='index'>
+			<!-- <view class="personalCenter-item-list" v-for="(item,index) in list" :key='index'>
 				<image :src="item.goods_info.goods_attr.cover_pic" mode=""></image>
 				<view class="personalCenter-item-list-message">
 					<view class="buyName" >
@@ -30,8 +30,19 @@
 					<view class="personalCenter-item-list-message-time">
 						{{item.format_date}}
 					</view>
+				</view>				
+			</view> -->
+			<view class="hexiao-list" v-for="(item,index) in list" :key='index'>
+				<view style="width: 60%;height: 110rpx;font-size: 30rpx;padding: 15rpx 0;overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;">
+					{{item.descript}}侧面看了吗方面看了吗购买人里面			
 				</view>
-				
+				<view style="width: 40%;height: 125rpx;font-size: 25rpx;text-align: right;line-height: 110rpx;">
+					{{item.created_at}}
+				</view>	
 			</view>
 		</view>
 	</view>
@@ -95,9 +106,27 @@
 				})	
 			},
 			getList(){
+				// this.$http
+				// 	.request({
+				// 		url: this.$api.moreShop.getclerkList,
+				// 		method: 'POST',
+				// 		data:this.form,
+				// 		showLoading: true,
+				// 	})
+				// 	.then(res => {
+				// 		if(res.code==0){
+				// 			console.log(res.data)
+				// 			if(res.data.list.length==0)return false
+				// 			let arr= res.data.list;
+				// 			this.list=this.list.concat(arr)
+				// 			this.page_count= res.data.pagination.page_count;
+				// 		}else{
+				// 			this.$http.toast(res.msg);
+				// 		}
+				// 	});	
 				this.$http
 					.request({
-						url: this.$api.moreShop.getclerkList,
+						url: this.$api.default.verification,
 						method: 'POST',
 						data:this.form,
 						showLoading: true,
@@ -193,7 +222,7 @@
 		border-bottom: 1rpx solid #f3f3f3;
 	}
 	.jx-cell-title {
-		font-size: 9pt;
+		font-size: 30rpx;
 		line-height: 30rpx;
 		color: #333;
 		font-weight: 600;
@@ -217,4 +246,8 @@
 	  font-size: 25rpx;
 	}
 	.personalCenter-item-list-message-time{font-size: 25rpx;}
+	
+	
+	.hexiao-list{width: 100%;overflow: hidden;display: flex;justify-content: space-evenly;padding: 0 20rpx;box-sizing: border-box;margin-bottom: 20rpx;
+	border-bottom: 1rpx solid #C0C4CC;}
 </style>
