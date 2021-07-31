@@ -38,7 +38,7 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;">
-					{{item.descript}}侧面看了吗方面看了吗购买人里面			
+					{{item.descript}}		
 				</view>
 				<view style="width: 40%;height: 125rpx;font-size: 25rpx;text-align: right;line-height: 110rpx;">
 					{{item.created_at}}
