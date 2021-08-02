@@ -43,12 +43,16 @@
 			return {
 				img_url: this.$api.img_url,
 				seviceDetail:'',
-				file_path:''
+				file_path:'',
+				order_id:'',
+				pack_item_id:'',
 			};
 		},
 		onLoad(options) {
 			if(options&&options.order_id&&options.pack_item_id){
 				this.getDetail(options.order_id,options.pack_item_id)
+				this.order_id=options.order_id
+				this.pack_item_id=options.pack_item_id
 			}
 		},
 		methods:{
@@ -62,8 +66,8 @@
 						url: that.$api.package.generateQRcode,
 						method: 'POST',
 						data:{
-							order_id:that.seviceDetail.order_id,//订单ID
-							pack_item_id:that.seviceDetail.pack_item_id,//大礼包物品ID
+							order_id:that.order_id,//订单ID
+							pack_item_id:that.pack_item_id,//大礼包物品ID
 							route_with_param:'/h5/#/pages/newmoreShop/newmoreShop',//带参数的前端路由
 						},
 						showLoading: true
