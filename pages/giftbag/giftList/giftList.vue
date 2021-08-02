@@ -98,4 +98,7 @@
 	.giftList-item-right text{display: block;width: 100%;text-align: center;}
 	.giftList-item-right text:nth-of-type(1){color: #FF5A0E;font-weight: bold;margin: 35rpx 0 20rpx 0;}
 	.giftList-item-right text:nth-of-type(2){background: #FF5A0E;border-radius: 30rpx;font-size: 25rpx;height: 50rpx;line-height: 50rpx;color: #fff;}
+	.no-more{width: 200rpx;height: 280rpx;position: absolute;top: 0;left: 0;right: 0;margin: auto;bottom: 0;
+	font-size: 26rpx;text-align: center;color: #808080;}
+	.no-more image{width: 200rpx;height: 200rpx;}
 </style>
