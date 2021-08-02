@@ -10,15 +10,15 @@
 				</view>
 				<input class="content_body_block_input" v-model="params.license_name"></input>
 			</view>
-			<view class="content_body_block">
+			<!-- <view class="content_body_block">
 				<view class="content_body_block_t">2、营业执照编号</view>
 				<view class="content_body_block_desc">
 					请填写你的<text :style="{color: background}">营业执照编号</text>
 				</view>
 				<input class="content_body_block_input" v-model="params.license_num"></input>
-			</view>
+			</view> -->
 			<view class="content_body_block">
-				<view class="content_body_block_t">3、营业执照图片</view>
+				<view class="content_body_block_t">2、营业执照图片</view>
 				<view class="content_body_block_desc">
 					请上传<text :style="{color: background}">营业执照图片</text>
 				</view>
@@ -30,21 +30,21 @@
 				</view>
 			</view>		
 			<view class="content_body_block">
-				<view class="content_body_block_t">4、法人姓名</view>
+				<view class="content_body_block_t">3、法人姓名</view>
 				<view class="content_body_block_desc">
 					请填写<text :style="{color: background}">法人姓名</text>
 				</view>
 				<input class="content_body_block_input" v-model="params.cor_realname"></input>
 			</view>
 			<view class="content_body_block">
-				<view class="content_body_block_t">5、身份证号码</view>
+				<view class="content_body_block_t">4、身份证号码</view>
 				<view class="content_body_block_desc">
 					请填写你的<text :style="{color: background}">身份证号码</text>
 				</view>
 				<input class="content_body_block_input" v-model="params.cor_num"></input>
 			</view>
 			<view class="content_body_block">
-				<view class="content_body_block_t">6、法人身份证照片</view>
+				<view class="content_body_block_t">5、法人身份证照片</view>
 				<view class="content_body_block_desc">
 					请上传<text :style="{color: background}">法人身份证照片</text>
 				</view>
@@ -60,28 +60,28 @@
 				</view>
 			</view>		
 			<view class="content_body_block">
-				<view class="content_body_block_t">7、银行卡号码</view>
+				<view class="content_body_block_t">6、银行卡号码</view>
 				<view class="content_body_block_desc">
 					请填写你的<text :style="{color: background}">银行卡号码（选填）</text>
 				</view>
 				<input class="content_body_block_input" v-model="params.settle_num"></input>
 			</view>
 			<view class="content_body_block">
-				<view class="content_body_block_t">8、银行卡开户人</view>
+				<view class="content_body_block_t">7、银行卡开户人</view>
 				<view class="content_body_block_desc">
 					请填写你的<text :style="{color: background}">银行卡开户人（选填）</text>
 				</view>
 				<input class="content_body_block_input" v-model="params.settle_realname"></input>
 			</view>
 			<view class="content_body_block">
-				<view class="content_body_block_t">9、银行名称</view>
+				<view class="content_body_block_t">8、银行名称</view>
 				<view class="content_body_block_desc">
 					请填写你的<text :style="{color: background}">银行名称（选填）</text>
 				</view>
 				<input class="content_body_block_input" v-model="params.settle_bank"></input>
 			</view>
 			<view class="content_body_block">
-				<view class="content_body_block_t">10、店铺折扣</view>
+				<view class="content_body_block_t">9、店铺折扣</view>
 				<view class="content_body_block_desc">
 					请填写你的<text :style="{color: background}">店铺折扣（选填）</text>
 				</view>
@@ -126,7 +126,7 @@
 				agreement:'',
 				params: {
 					license_name:'',//企业名称
-					license_num:'',//营业执照编号
+					// license_num:'',//营业执照编号
 					license_pic:'',//营业执照图片
 					cor_realname:'',//法人姓名
 					cor_num:'',//法人身份证号码
@@ -161,7 +161,7 @@
 			})
 			setTimeout(()=>{
 				this.params.license_name=this.applyInfo.license_name
-				this.params.license_num=this.applyInfo.license_num
+				// this.params.license_num=this.applyInfo.license_num
 				this.params.license_pic=this.applyInfo.license_pic
 				this.params.cor_realname=this.applyInfo.cor_realname
 				this.params.cor_num=this.applyInfo.cor_num
@@ -182,7 +182,7 @@
 			},
 			sumbit: function() {
 				if (isEmpty(this.params.license_name)) return this.alert('请填写企业名称')
-				if (isEmpty(this.params.license_num)) return this.alert('请填写营业执照编号')
+				// if (isEmpty(this.params.license_num)) return this.alert('请填写营业执照编号')
 				if (isEmpty(this.params.license_pic)) return this.alert('请上传营业执照图片')
 				if (isEmpty(this.params.cor_realname)) return this.alert('请填写法人姓名')
 				if (isEmpty(this.params.cor_num)) return this.alert('请填写身份证号码')
