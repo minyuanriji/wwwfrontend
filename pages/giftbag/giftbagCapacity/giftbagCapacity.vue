@@ -9,7 +9,7 @@
 					<text style="margin: 10rpx 0rpx 0 8rpx;height: 30rpx;background: #F4F4F4;width: 5rpx;"></text>
 					<text style="width: 370rpx;font-size: 30rpx;color: #000;padding-left: 10rpx;">{{item.store_name}}</text>
 				</view>
-				<view style="font-size: 26rpx;">
+				<view style="font-size: 26rpx;width: 350rpx;">
 					{{item.name}}
 				</view>
 				<view style="margin-top: 50rpx;">
@@ -89,7 +89,7 @@
 	.giftbagCapacity-product text{display: inline-block;height: 48rpx;line-height: 48rpx;float: left;}
 	.giftbagCapacity-product text:nth-of-type(3){overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
 	.star{width:30rpx ;height: 27rpx;float: left;margin-top: 10rpx;}
-	.location_div{font-size: 28rpx;position: absolute;right: 0;top: 50rpx;}
+	.location_div{font-size: 28rpx;position: absolute;right: 0;top: 90rpx;}
 	.location_div text{display: block;width: 100%;text-align: center;font-size: 25rpx;height: 40rpx;line-height: 40rpx;}
 	.loc{width: 23rpx;height: 35rpx;display: block;margin: 0 auto;}
 	.no-more{width: 200rpx;height: 280rpx;position: absolute;top: 0;left: 0;right: 0;margin: auto;bottom: 0;
