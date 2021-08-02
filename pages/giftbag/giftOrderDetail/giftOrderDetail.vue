@@ -22,7 +22,7 @@
 			<view class="product-title">
 				服务内容
 			</view>
-			<view class="product-item" v-for="(item,index) in severList" :key='index' @click="linkQrcode(item)">
+			<view class="product-item" v-for="(item,index) in severList" :key='index' @click="linkQrcode(order_detail.order_id,item.pack_item_id)">
 				<image :src="item.cover_pic" mode="" class="product-item_img"></image>
 				<view class="product-item-detail">
 					<view class="product-item-name-loc">
@@ -71,10 +71,10 @@
 			}
 		},
 		methods:{
-			linkQrcode(item){
-					uni.setStorageSync("seviceDetail",item)
+			linkQrcode(order_id,pack_item_id){
+				console.log(order_id,pack_item_id)
 					uni.navigateTo({
-						url:'../userGiftbag/userGiftbag'
+						url:'../userGiftbag/userGiftbag?order_id='+order_id+"&pack_item_id="+pack_item_id
 					})
 			},
 			location(lat,lnt,address){//导航

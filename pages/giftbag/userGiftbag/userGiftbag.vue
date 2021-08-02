@@ -46,9 +46,9 @@
 				file_path:''
 			};
 		},
-		onLoad() {
-			if(uni.getStorageSync("seviceDetail")){
-				this.seviceDetail=uni.getStorageSync("seviceDetail")
+		onLoad(options) {
+			if(options&&options.order_id&&options.pack_item_id){
+				this.getDetail(options.order_id,options.pack_item_id)
 			}
 		},
 		methods:{
@@ -72,6 +72,26 @@
 						if(res.code==0){
 							that.$refs.popupgo.open()
 							this.file_path=res.data.file_path
+						}else{
+							that.$http.toast(res.msg);
+						}
+				});
+			},
+			getDetail(order_id,pack_item_id){//点击展示二维码
+				let that=this
+				that.$http
+					.request({
+						url: that.$api.package.getitemdetail,
+						method: 'POST',
+						data:{
+							order_id:order_id,//订单ID
+							pack_item_id:pack_item_id,//大礼包物品ID
+						},
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							this.seviceDetail=res.data.detail
 						}else{
 							that.$http.toast(res.msg);
 						}

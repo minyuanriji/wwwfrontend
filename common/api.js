@@ -439,6 +439,7 @@ let api = {
 		getorderDetail:api_root +'plugin/giftpacks/api/order/detail',
 		getserviceList:api_root +'plugin/giftpacks/api/order/pack-item-list',
 		generateQRcode:api_root +'plugin/giftpacks/api/order/clerk-qr-code',
+		getitemdetail:api_root +'plugin/giftpacks/api/order/item-detail',
 	}
 };
 module.exports = api; 
