@@ -24,7 +24,11 @@
 				<text>{{item.price}}元</text>
 				<text>立即抢购</text>
 			</view>
-		</view>		
+		</view>
+		<view class="no-more" v-if="productList.length==0">
+			<image :src="img_url+'/giftOrder_logo.png'" mode=""></image>
+			<text>暂无服务内容</text>
+		</view>
 	</view>
 </template>
 
