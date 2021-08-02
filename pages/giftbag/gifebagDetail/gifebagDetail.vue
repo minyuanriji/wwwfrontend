@@ -355,6 +355,7 @@
 					if (res.code == 0) {
 						this.$refs.paymentPassword.modalFun('hide');
 						this.$refs.popupgo.close();
+						this.$refs.popup.close();
 						this.$http.toast('拼单成功');
 						setTimeout(()=>{
 							uni.navigateTo({

@@ -12,7 +12,7 @@
 					</view>
 					<view class="giftList-item-product-num">
 						<image :src="img_url+'/gift-icon.png'" mode="" ></image>
-						<text>内含{{item.item_num}}款</text>
+						<text>含{{item.item_num}}款服务</text>
 					</view>
 					<view class="giftList-item-product-num" style="font-size: 25rpx;">
 						<text>库存:{{item.max_stock}}</text>
