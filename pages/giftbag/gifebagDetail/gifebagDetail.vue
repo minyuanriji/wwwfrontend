@@ -357,11 +357,19 @@
 						this.$refs.popupgo.close();
 						this.$refs.popup.close();
 						this.$http.toast('拼单成功');
-						setTimeout(()=>{
-							uni.navigateTo({
-								url:'../spelldetail/spelldetail?group_id='+group_id+"&pack_id="+this.detail.id
-							})
-						},2000)
+						if(res.data.finished==1){
+							setTimeout(()=>{
+								uni.navigateTo({
+									url:'../orderList/orderList'
+								})
+							},2000)
+						}else{
+							setTimeout(()=>{
+								uni.navigateTo({
+									url:'../spelldetail/spelldetail?group_id='+group_id+"&pack_id="+this.detail.id
+								})
+							},2000)
+						}
 					} else {
 						this.$http.toast(res.msg);
 					}
