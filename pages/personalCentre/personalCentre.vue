@@ -48,6 +48,21 @@
 				</view>
 			</view>
 		</view>
+		<view class="jx-content-box" style="margin-top: 20rpx;">
+			<view class="jx-header-btm">
+				<view class="jx-btm-item">
+					待结算金额
+				</view>
+				<view class="jx-btm-item">
+					{{stat.fz_account_money}}元
+				</view>
+				<view class="jx-btm-item last">
+					<text  @click="href(3)"
+						style="background: #FF7104;width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;margin-bottom: 10rpx;margin-top: 10rpx;"
+						>明细</text>
+				</view>
+			</view>
+		</view>		
 		<view class="personalCenter-item">
 			<jx-list-cell  padding="0" :lineLeft="false">
 				<view class="jx-cell-header">
@@ -188,11 +203,9 @@
 						url: './ercode/ercode'
 					})
 				}
-				// if(page==3){
-				// 	uni.navigateTo({
-				// 		url:'./accountingOrder/accountingOrder'
-				// 	})
-				// }
+				if(page==3){
+					alert(11233)
+				}
 				if (page == 4) {
 					uni.navigateTo({
 						url: './installCenter/installCenter',
@@ -405,7 +418,7 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		padding: 40rpx;
+		padding: 40rpx 0rpx;
 		position: relative;
 
 		&::after {

@@ -112,9 +112,7 @@
 					}
 				}).then((res) => {
 					if (res.code == 0) {
-						console.log(res.data)
 						this.payData = res.data;
-						console.log(this.payData)
 					}
 				})
 			},
@@ -132,11 +130,19 @@
 					}).then(res=>{
 						if(res.code==0){
 							that.$http.toast('支付成功!');
-							setTimeout(() => {
-								uni.redirectTo({
-									url: '/pages/order/list?status=1'
-								})
-							},500)
+							if(that.payData.is_send==1){
+								setTimeout(() => {
+									uni.redirectTo({
+										url: '/pages/order/beused/beused'
+									})
+								},500)
+							}else{
+								setTimeout(() => {
+									uni.redirectTo({
+										url: '/pages/order/list?status=1'
+									})
+								},500)
+							}
 							return;
 						}else{
 							that.$http.toast(res.msg)
@@ -153,8 +159,16 @@
 								}
 							}).then(res=>{
 								if(res.code==0){
-									let url=res.data.codeUrl
-									location.href=url
+									if(that.payData.is_send==1){
+										setTimeout(() => {
+											uni.redirectTo({
+												url: '/pages/order/beused/beused'
+											})
+										},500)
+									}else{
+										let url=res.data.codeUrl
+										location.href=url
+									}
 								}else{
 									that.$http.toast(res.msg)
 								}
@@ -173,7 +187,11 @@
 									}
 								}).then(res=>{
 									if(res.code==0){
-										that.$wechatSdk.pay(res.data,'/pages/order/list?status=1');
+										if(that.payData.is_send==1){
+											that.$wechatSdk.pay(res.data,'/pages/order/beused/beused');
+										}else{
+											that.$wechatSdk.pay(res.data,'/pages/order/list?status=1');
+										}
 									}else{
 										that.$http.toast(res.msg);	
 									}
@@ -198,13 +216,22 @@
 											} else {
 												that.$http.toast("未支付")
 												_url = '/pages/order/list?status=0'
-											}															
-											setTimeout(() => {
-												uni.redirectTo({
-													url: _url
-												})
-											},1000)
-																
+											}
+											
+											
+											if(that.payData.is_send==1){
+												setTimeout(() => {
+													uni.redirectTo({
+														url: '/pages/order/beused/beused'
+													})
+												},500)
+											}else{
+												setTimeout(() => {
+													uni.redirectTo({
+														url: _url
+													})
+												},1000)
+											}																
 										});
 									}else{
 										that.$http.toast(res.msg);	
@@ -223,11 +250,19 @@
 						}).then(res=>{
 							if(res.code==0){
 								that.$http.toast('支付成功!');
-								setTimeout(() => {
-									uni.redirectTo({
-										url: '/pages/order/list?status=1'
-									})
-								},500)
+								if(that.payData.is_send==1){
+									setTimeout(() => {
+										uni.redirectTo({
+											url: '/pages/order/beused/beused'
+										})
+									},500)
+								}else{
+									setTimeout(() => {
+										uni.redirectTo({
+											url: '/pages/order/list?status=1'
+										})
+									},500)
+								}
 								return;
 							}else{
 								that.$http.toast(res.msg)

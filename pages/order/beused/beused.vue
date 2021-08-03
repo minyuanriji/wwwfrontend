@@ -129,6 +129,7 @@
 		},
 		onLoad(options) {
 			console.log(this.url)
+			
 			if(uni.getStorageSync('mall_config')){
 				this.textColor = this.globalSet('textCol');
 			}
