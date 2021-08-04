@@ -53,7 +53,7 @@
 </template>
 
 <script>
-	import JMessage from '@/common/jmessage-wxapplet-sdk-1.4.3.min.js';
+	// import JMessage from '@/common/jmessage-wxapplet-sdk-1.4.3.min.js';
 	const JIM = new JMessage();
 	
 	export default {
