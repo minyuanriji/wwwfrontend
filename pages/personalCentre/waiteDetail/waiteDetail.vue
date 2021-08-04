@@ -9,7 +9,7 @@
 					{{item.content}}
 				</view>
 				<view class="item-right">
-					<text style="color: #FF7104;font-size: 30rpx;font-weight: bold;">￥{{item.price}}1</text>
+					<text style="color: #FF7104;font-size: 30rpx;font-weight: bold;">￥{{item.price}}</text>
 					<text>{{item.created_at}}</text>
 				</view>
 			</view>
