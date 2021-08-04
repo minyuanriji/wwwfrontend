@@ -1033,37 +1033,6 @@
 		    
 		}
         ,{
-            "path" : "pages/moreCredit/moreCredit",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false,
-				"navigationBarTextStyle": "white",
-				"navigationBarBackgroundColor": "#ff7104"
-            }
-            
-        }
-		,{
-		    "path" : "pages/moreCredit/creditResults",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false,
-				"navigationBarTextStyle": "white",
-				"navigationBarBackgroundColor": "#ff7104",
-				"navigationStyle": "custom"
-		    }
-		    
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-        ,{
             "path" : "pages/giftbag/giftList/giftList",
             "style" :                                                                                    
             {
@@ -1750,7 +1719,34 @@
 		]
 	}, {
 		"root": "mch",
-		"pages": [{
+		"pages": [
+			{
+			    "path" : "moreCredit/moreCredit",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "",
+			        "enablePullDownRefresh": false,
+					"navigationBarTextStyle": "white",
+					"navigationBarBackgroundColor": "#ff7104"
+			    }
+			    
+			}
+			,{
+			    "path" : "moreCredit/creditResults",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "",
+			        "enablePullDownRefresh": false,
+					"navigationBarTextStyle": "white",
+					"navigationBarBackgroundColor": "#ff7104",
+					"navigationStyle": "custom"
+			    }
+			    
+			},
+			
+			
+			
+			{
 				"path": "group-buy/list",
 				"style": {
 					"navigationBarTitleText": "拼团商品",
@@ -1789,7 +1785,6 @@
 					}
 				}
 			},
-
 			{
 				"path": "group-buy/pay",
 				"style": {
