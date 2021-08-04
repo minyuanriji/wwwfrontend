@@ -204,7 +204,9 @@
 					})
 				}
 				if(page==3){
-					alert(11233)
+					uni.navigateTo({
+						url:'./waiteDetail/waiteDetail'
+					})
 				}
 				if (page == 4) {
 					uni.navigateTo({

@@ -696,6 +696,17 @@
            	"navigationStyle": "custom"
            }
         }
+		,{
+		    "path" : "pages/personalCentre/waiteDetail/waiteDetail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "待结算明细",
+		        "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+		    }
+		    
+		}
         ,{
             "path" : "pages/personalCentre/ercode/payPages/payPages",
             "style" :                                                                                    
@@ -1196,6 +1207,7 @@
             }
             
         }
+
     ],
 	"subPackages": [{
 		"root": "plugins",
