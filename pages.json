@@ -625,18 +625,7 @@
                 "enablePullDownRefresh": false
             }
            
-        },
-		{
-		    "path" : "pages/more-shop/more-shop",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "核销进度",
-				"navigationBarBackgroundColor": "#fff",
-		        "enablePullDownRefresh": false,
-				"navigationStyle": "custom"
-		    }
-		    
-		}
+        }
         ,{
             "path" : "pages/personalCentre/invoicingMessage/invoicingMessage",
             "style" :                                                                                    
