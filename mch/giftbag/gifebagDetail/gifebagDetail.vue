@@ -251,7 +251,7 @@
 			linkTO(index){
 				if(index==1){
 					uni.navigateTo({
-						url:'../../index/index'
+						url:'../../../pages/index/index'
 					})
 				}
 				if(index==2){
@@ -284,17 +284,17 @@
 				switch (index) {
 					case 0:
 						uni.navigateTo({
-							url: '/pages/index/index'
+							url: '../../../pages/index/index'
 						})
 						break;
 					case 1:
 						uni.navigateTo({
-							url: '/pages/user/index'
+							url: '../../../pages/user/index'
 						})
 						break;
 					case 2:
 						uni.navigateTo({
-							url: '/pages/cart/index'
+							url: '../../../pages/cart/index'
 						})
 						break;
 				}
@@ -384,7 +384,7 @@
 					this.modal = false;
 				} else {
 					uni.navigateTo({
-						url:'../../user/payment/password'
+						url:'../../../pages/user/payment/password'
 					})
 				}
 				this.hide();
