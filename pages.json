@@ -99,14 +99,8 @@
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
-		}, {
-			"path": "pages/user/footmark/list",
-			"style": {
-				"navigationBarTitleText": "我的足迹",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"navigationBarTextStyle": "black"
-			}
-		}, {
+		}, 
+		{
 			"path": "pages/user/setting",
 			"style": {
 				"navigationBarTitleText": "设置",
@@ -194,20 +188,8 @@
 					"titleNView": false
 				}
 			}
-		}, {
-			"path": "pages/coupon/list",
-			"style": {
-				"navigationBarTitleText": "领券中心",
-				"navigationBarBackgroundColor": "#fff",
-				"navigationBarTextStyle": "black",
-				"backgroundColorTop": "#fcfcfc",
-				"backgroundColorBottom": "#fcfcfc",
-				"disableScroll": true,
-				"app-plus": {
-					"bounce": "none"
-				}
-			}
-		}, {
+		},
+		{
 			"path": "pages/user/coupon/coupon",
 			"style": {
 				"navigationBarTitleText": "我的优惠券",
@@ -243,15 +225,6 @@
 			"path": "pages/user/shopping/sendPlan",
 			"style": {
 				"navigationBarTitleText": "发放计划",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"navigationBarTextStyle": "black"
-			}
-		},
-
-		{
-			"path": "pages/user/shopping/detailed",
-			"style": {
-				"navigationBarTitleText": "红包详情",
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
@@ -990,17 +963,6 @@
                 "enablePullDownRefresh": false,
                 "navigationBarTextStyle": "black",
                 "navigationBarBackgroundColor": "#FFFFFF"
-            }
-            
-        }
-        ,{
-            "path" : "pages/hotel/hotelKnow/hotelKnow",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "需知",
-               "enablePullDownRefresh": false,
-               "navigationBarTextStyle": "black",
-               "navigationBarBackgroundColor": "#FFFFFF"
             }
             
         }
