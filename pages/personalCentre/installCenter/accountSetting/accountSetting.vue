@@ -98,7 +98,7 @@
 	}
 
 	.accountSetting-main {
-		width: 90%;
+		width: 95%;
 		background: #fff;
 		height: 700rpx;
 		margin: 0 auto;
@@ -117,7 +117,7 @@
 	}
 
 	.accountSetting-main view text {
-		width: 160rpx;
+		width: 200rpx;
 		height: 100rpx;
 		display: block;
 		line-height: 100rpx;
