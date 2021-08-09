@@ -84,7 +84,7 @@
 					<text style="width: 120rpx;margin-top: 30rpx;height: 45rpx;font-size: 25rpx;line-height: 45rpx;text-align: center;background: rgb(76,217,100);color: #fff;border-radius: 30rpx;">
 						已完成
 					</text>
-				</view>
+				</view>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 			</view>
 		</view>
 		<view class="Spell-group-polite" v-if="selectIndex==2">

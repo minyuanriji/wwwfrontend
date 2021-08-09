@@ -446,6 +446,7 @@
 				mch_baopin_id:'',//爆品id
 				serviceLink:'',
 				showFoucs:false,
+				is_buy_power:''
 			}
 		},
 		onLoad(options) {
@@ -877,6 +878,7 @@
 					this.loading = false;
 					if (res.code == 0) {
 						this.goodsData = res.data.goods;
+						this.is_buy_power=res.data.is_buy_power
 						//#ifdef H5
 						let link=window.location.href
 							var obj = {}
@@ -1063,9 +1065,22 @@
 				this.menuShow = false
 			},
 			showPopup(num) {
-				this.popupShow = true;
-				if (num) {
-					this.is_index = num;
+				if(this.is_buy_power==0){
+					uni.showModal({
+					    title: '提示',
+					    content: '会员等级不够，无法购买此商品',
+						showCancel:false,
+					    success: function (res) {
+					        if (res.confirm) {
+					            
+					        }
+					    }
+					});
+				}else{
+					this.popupShow = true;
+					if (num) {
+						this.is_index = num;
+					}
 				}
 			},
 			change: function(e) {
