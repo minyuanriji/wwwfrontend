@@ -459,7 +459,7 @@
 
 <style lang="less">
 	.hotel_app{width: 100%;overflow: hidden;background: url(https://dev.mingyuanriji.cn/web/static/hotel/hotel_back.png)no-repeat;background-size: 100%;}
-	.hotel_search{width:696rpx;height: 626rpx;margin: 80px auto 0;border-radius: 20rpx;opacity: 1;background: #FFFFFF;
+	.hotel_search{width:96%;height: 626rpx;margin: 80px auto 0;border-radius: 20rpx;opacity: 1;background: #FFFFFF;
 	 box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);}
 	.hotel_search_header{width: 100%;height: 88rpx;display: flex;justify-content: space-evenly;}
 	.hotel_search_header view{line-height: 84rpx;}

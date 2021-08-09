@@ -25,8 +25,7 @@
 				 @tap.stop="openMenu"></view>
 				
 			</view>
-		</view>
-		
+		</view>		
 		<view class="tui-banner-swiper">
 			<swiper :duration="150" :style="{height:scrollH + 'px'}" @change="bannerChange">
 				<swiper-item :data-index="0" v-if="goodsData.video_url">
@@ -40,8 +39,6 @@
 			</swiper>
 			<jx-tag class="tui-tag-class" type="translucent" shape="circle" size="small">{{bannerIndex+1}}/{{bannerLength}}</jx-tag>
 		</view>
-		<!--banner-->
-
 		<view class="tui-pro-detail" v-if="goodsData">
 			<view class="tui-product-title">
 				<view class="tui-pro-pricebox padding">
@@ -75,7 +72,7 @@
 				<view class="tui-padding">
 					
 					<view class="tui-sale-info tui-size tui-gray" style="padding: 16rpx 0;">
-						<!-- <view class="text">快递：0.00</view> -->
+						
 						<view class="text">销量：{{goodsData.sales}}件</view>
 					</view>
 
@@ -113,7 +110,6 @@
 					</view>
 				</view>
 			</view>
-            <!--店铺信息-->
 			<info :params="mch" v-if="is_mch==1"></info>
 			<view class="assess-content tui-mtop" v-if="commentsData && commentsData.length">
 				<view class="tui-list-cell last tui-between">
@@ -142,7 +138,6 @@
 							<span class="icon iconfont icon-gengduo1"></span>
 						</view>
 					</view>
-					<!-- </scroll-view> -->
 				</view>
 			</view>
 			
@@ -195,9 +190,7 @@
 			</view>
 		</view>
 		<view style="height: 100rpx;width: 100%;"></view>
-		<!--底部操作栏--->
-
-		<!--顶部下拉菜单-->
+		
 		<tui-top-dropdown tui-top-dropdown="tui-top-dropdown" bgcolor="rgba(76, 76, 76, 0.95)" :show="menuShow" :height="0"
 		 @close="closeMenu">
 			<view class="tui-menu-box tui-padding tui-ptop">
@@ -219,9 +212,7 @@
 			</view>
 
 		</tui-top-dropdown>
-		<!---顶部下拉菜单-->
-
-		<!--优惠券底部选择层-->
+		
 		<com-bottom-popup :show="popupShow2" @close="hidePopup">
 			<scroll-view scroll-y="true" style="max-height: 1000rpx;">
 				<view class="coupon-box">
@@ -234,7 +225,7 @@
 					<view class="coupon-content">
 						<view class="coupon-item" :style="{background: 'url('+couponImg+')no-repeat'}" v-for="(Citem,Cindex) in goodsData.coupon_list"
 						 :key="Cindex">
-							<!-- :style="{background: 'url('+img_url+'couponBg.png)no-repeat'}" -->
+							
 							<view class="coupon-item-left">
 								<view class="coupon-item-price">
 									<block v-if="Citem.type == 2">
@@ -245,7 +236,7 @@
 										<text class="price-int">{{Citem.discount*10}}</text>
 										<text>折</text>
 									</block>
-									<!-- <text class="price-decimal">.00</text> -->
+									
 								</view>
 								<view class="coupon-item-condition">
 									满{{Citem.min_price}}可用
@@ -256,20 +247,18 @@
 								<view class="coupon-item-time">
 									<view v-if="Citem.expire_type == 1">领取{{Citem.expire_day}}天后过期</view>
 									<view v-else>{{Citem.begin_at}}~{{Citem.end_at}}</view>
-									<!-- <view class="receive" v-if="Citem.is_receive == 0" @tap="receiveCoupon(Citem.id)">领取</view> -->
+									
 									<view class="receive" :style="{background:'#FF7104'}" v-if="isReceive(Citem.is_receive)" @tap="receiveCoupon(Cindex,Citem.id)">领取</view>
 									<view class="receive coupon-item-received" :style="{color:'#FF7104',border:'1px solid'+textColor}" v-else>已领取</view>
 								</view>
-								<!-- <view class="received iconfont icon-yilingqu" v-if="!isReceive(Citem.is_receive)"></view> -->
+								
 							</view>
 						</view>
 					</view>
 				</view>
 			</scroll-view>
 		</com-bottom-popup>
-		<!--优惠券底部选择层-->
-
-		<!--底部选择层-->
+		
 		<com-bottom-popup :show="popupShow" @close="hidePopup">
 			<view class="tui-popup-box" style="border-radius: 20rpx;">
 				<view class="tui-product-box tui-padding" v-if="goodsData.use_attr == 1">
@@ -289,7 +278,7 @@
 				</view>
 				<scroll-view scroll-y class="tui-popup-scroll">
 					<view class="tui-scrollview-box">
-						<!-- 规格 -->
+					
 						<view>
 							<view v-if="!goodsData.use_attr">
 								<block v-if="goodsData.attr_list">
@@ -312,8 +301,7 @@
 								</view>
 							</view>
 						</view>
-						<!-- 规格-->
-
+					
 						<view class="tui-number-box tui-bold tui-attr-title">
 							<view class="tui-attr-title">数量</view>
 							<tui-numberbox :max="9999999999999999" :min="1" :value="value" @change="change"></tui-numberbox>
@@ -331,7 +319,7 @@
 
 		<view class="goods-qrcode-modal" v-if="showPoster">
 			<view class="goods-qrcode-body flex-col">
-				<!-- 整一个图片包括二维码都是后台给的图片 -->
+				
 				<view class="goods-qrcode2 flex flex-y-center flex-x-center">
 					<view class="codeImg_box">
 						<!-- #ifdef H5 -->
@@ -362,7 +350,7 @@
 			</view>
 		</view>
 
-		<!--底部选择层-->
+	
 		<main-loading :visible="loading"></main-loading>
 	</view>
 </template>
@@ -458,6 +446,7 @@
 				mch_baopin_id:'',//爆品id
 				serviceLink:'',
 				showFoucs:false,
+				is_buy_power:''
 			}
 		},
 		onLoad(options) {
@@ -549,9 +538,6 @@
 			      imageUrl: ""
 			    }
 			//#endif
-			// //#ifdef H5
-			// 	return this.wxShare(this.goodsData.name, `/pages/goods/detail?source=3&proId=${this.proId}`);
-			// //#endif
 		},
 		computed: {
 			isReceive() {
@@ -576,7 +562,6 @@
 		},
 		methods: {
 			foucusInfo(){
-				//window.location.href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI3MTIzMjAyOQ==&scene=#wechat_redirect"
 				uni.navigateTo({
 					url: '/pages/diy/diy?page_id=114'
 				});
@@ -815,9 +800,9 @@
 								url = '/pages/order/submit';
 							}
 							// #ifdef H5
-							// url = url + '?nav_id=' + this.$route.query.proId+'&mch_id='+mch_id
+							
 							url = url + '?nav_id=' + JSON.stringify([{id:this.$route.query.proId,num:this.value}])+'&mch_id='+mch_id+"&user_address_id=0"+"&use_score=0"+"&use_integral=0"+"&list="+String(res.data.cart_id)
-							// {id:this.selectArr[i].goods_id,num:this.selectArr[i].num}       
+							     
 							// #endif
 							
 							// #ifdef MP-WEIXIN
@@ -893,6 +878,7 @@
 					this.loading = false;
 					if (res.code == 0) {
 						this.goodsData = res.data.goods;
+						this.is_buy_power=res.data.is_buy_power
 						//#ifdef H5
 						let link=window.location.href
 							var obj = {}
@@ -1079,9 +1065,22 @@
 				this.menuShow = false
 			},
 			showPopup(num) {
-				this.popupShow = true;
-				if (num) {
-					this.is_index = num;
+				if(this.is_buy_power==0){
+					uni.showModal({
+					    title: '提示',
+					    content: '会员等级不够，无法购买此商品',
+						showCancel:false,
+					    success: function (res) {
+					        if (res.confirm) {
+					            
+					        }
+					    }
+					});
+				}else{
+					this.popupShow = true;
+					if (num) {
+						this.is_index = num;
+					}
 				}
 			},
 			change: function(e) {

@@ -49,11 +49,6 @@
 			<!-- 轮播图 -->
 			<view class="bannersBox" v-if="item.id == 'banner'">
 				<banners :bannerData="item.data"></banners>
-				<!-- 下订单弹窗 -->
-				<!-- <view class="order">
-				<order-popup :orderPopupData="orderPopupData"></order-popup>
-			</view> -->
-				<!-- 下订单弹窗 -->
 			</view>
 			<!-- 导航按钮 -->
 			<nav-icon v-if="item.id == 'nav'" class="navIcon_style" :list="item.data.navs" :textColor="item.data.color" :rowNums="item.data.rows"
@@ -66,22 +61,7 @@
 			<!-- 公告 -->
 
 			<view class="content">
-				<!-- 短视频 -->
-				<!-- <view @tap='navTo("/plugins/short-video/index")'>短视频</view> -->
-				<!-- 短视频 -->
 				<placeholder v-if="item.id == 'empty'" :placeholderHeight="placeholderHeight"></placeholder>
-
-				<!-- 直播 -->
-				<!-- <view>
-				<navigator url="/pages/live/index">直播</navigator>
-			</view> -->
-				<!-- 直播 -->
-
-				<!-- 限时秒杀 -->
-				<!-- <view class="limited">
-				<seckill-slider :goods="seckillGoods" :period="1586592000000" :countdown="4000"></seckill-slider>
-			</view> -->
-				<!-- 限时秒杀 -->
 				<!-- 视频组件 -->
 				<diy-video v-if="item.id == 'video'" :value="item.data"></diy-video>
 				<!-- 视频组件 -->
@@ -93,25 +73,11 @@
 				<!-- 广告弹窗 -->
 				<diy-modal v-if="item.id == 'modal'" :modalData="item.data"></diy-modal>
 				<!-- 广告弹窗 -->
-
-				<!-- 优惠券 -->
-				<coupon v-if="item.id == 'coupon'" :couponData="couponData" @click="navTo2" @receiveClick="receiveClick"></coupon>
-				<!-- 优惠券 -->
-
 				<!-- 专题 -->
 				<view class="thematicBox" v-if="item.id == 'topic'">
 					<thematic :topicData="item.data" @click="topicNavTo"></thematic>
 				</view>
 				<!-- 专题 -->
-
-				<!-- 团购 -->
-				<view v-if="item.id == 'group'" :style="{ background: g_listStyle == 3 ? '' : '#ffffff' }">
-					<group-buy :listStyle="g_listStyle" :productNameBool="g_productNameBool" :priceBool="g_priceBool" :buyBtnBool="g_buyBtnBool"
-					 :subscriptStyle="g_subscriptStyle" :subscriptIcon="g_subscriptIcon" :subscriptBool="g_subscriptBool" :buyBtnStyle="g_buyBtnStyle"
-					 :displayStyle="g_displayStyle" :productData="g_productData"></group-buy>
-				</view>
-				<!-- 团购 -->
-
 				<!-- 图片魔方 -->
 				<view class="adBoxs" v-if="item.id == 'rubik'">
 					<!-- <view class="ad1">图片广告一</view> -->
@@ -129,23 +95,6 @@
 					 :productData="item.data.list" :buyBtnPic="item.data.buyBtnPic" :buttonColor="item.data.buttonColor"></commodity>
 				</view>
 				<!-- 商品 -->
-
-				<!-- 吸顶 -->
-				<view class="ceiling-box" v-if="item.id == 'label-bar'" style="padding-bottom: 20rpx;">
-					<ceiling :list="item.data.label_list" @click="ceilingSwitch" :page="t_page" :styleBool="styleBool" :searchHeight="is_fixed == 1 ? 0 : searchHeight"
-					 :statusHeight="statusHeight"></ceiling>
-				</view>
-				<!-- 吸顶 -->
-
-				<!-- 地图 -->
-				<diy-map v-if="item.id == 'map'" :value="item.data"></diy-map>
-				<!-- 地图 -->
-
-				<!-- <tui-fab :left="left" :right="right" :bottom="bottom" :bgColor="bgColor" :btnList="btnList" @click="onClick"></tui-fab> -->
-
-				<!-- 挂件 -->
-				<!-- <pendant :jumpType="jumpType" :shiftBool="shiftBool" :pendant_pic_url="pendant_pic_url" :pendant_url="pendant_url"></pendant> -->
-				<!-- 挂件 -->
 			</view>
 		</block>
 		<!-- 版权 -->
@@ -271,13 +220,6 @@
 				oldScrollTop: 0, //记录上一次滚动结束后的滚动距离
 				scrollTop: 0, // 记录当前的滚动距离
 				searchHeight: 0, //搜索框高度
-
-				// 悬浮挂件参数
-				// pendant_pic_url:'../../static/images/index/test.gif',
-				// pendant_url:'/pages/user/index',
-				// shiftBool:true,//控制小图标位置
-				// jumpType:2, //1为跳转页面 2为打开手机打电话页面
-
 				// 回到顶部参数
 				scrollTop: 0,
 				isAllCat: 0,
@@ -321,70 +263,9 @@
 				g_subscriptBool: true, //角标，true为显示，false为不显示
 				g_subscriptStyle: 1, //角标样式。1为热销 2为新品 3为折扣 4为推荐 5为自定义
 				g_subscriptIcon: 'http://store.hzstorm.com/web/statics/mch/images/diy/time.png', //角标为自定义的时候才需要传
-				g_productData: [{
-						id: 1,
-						cover_pic: 'http://img.alicdn.com/imgextra/i1/742634735/TB2.peMXwCN.eBjSZFoXXXj0FXa_!!742634735.jpg',
-						url: '/pages/group/good',
-						productName: '梅湾街春装新款百搭修身高领打底衫女长袖针织衫套头毛衣女羊毛衫',
-						price: 139,
-						original_price: '22.00',
-						g_peopleNums: 2 //几人团
-					},
-					{
-						id: 2,
-						cover_pic: 'http://img.alicdn.com/imgextra/i3/112394247/O1CN01VvYEyA1hFAakp4yWf_!!0-item_pic.jpg',
-						url: '/pages/group/good',
-						productName: '直筒牛仔裤女2019春季新款高腰宽松短裤毛边不规则热裤太平鸟女装',
-						price: 329,
-						original_price: '18.00',
-						g_peopleNums: 2 //几人团
-					},
-					{
-						id: 3,
-						cover_pic: 'http://img.alicdn.com/imgextra/i4/263817957/O1CN01UqnchQ28eLzBYpy1L_!!263817957.jpg',
-						url: '/pages/group/good',
-						productName: '韩都衣舍2019韩版女装夏装新款宽松显瘦毛边chic牛仔短裤HO8250魭',
-						price: 106,
-						original_price: '100.50',
-						g_peopleNums: 2 //几人团
-					},
-					{
-						id: 4,
-						cover_pic: 'http://img.alicdn.com/imgextra/i4/2142747419/O1CN01FWniwm24fwucTTgIY_!!2142747419.jpg',
-						url: '/pages/group/good',
-						productName: '南极人被子冬被加厚保暖春秋冬季被芯双人太空调被单人冬天棉被褥',
-						price: 98,
-						original_price: '122.00',
-						g_peopleNums: 2 //几人团
-					}
-				],
-
 				//导航栏数据
 				tabCurrent: 0,
 				selectedColor: '#bc0100',
-
-				//优惠券数据
-				couponData: [{
-						price: '10.00',
-						condition: '满900可用',
-						receive: 1 //是否领取 1为领取 2为未领取
-					},
-					{
-						price: '10.00',
-						condition: '满1900可用',
-						receive: 2
-					},
-					{
-						price: '10.00',
-						condition: '满60可用',
-						receive: 1
-					},
-					{
-						price: '10.00',
-						condition: '满60可用',
-						receive: 2
-					}
-				],
 				// 秒杀商品列表
 				seckillGoods: [{
 						img: 'http://img12.360buyimg.com/n1/jfs/t1/111874/33/3368/122650/5ea7bfb4Ea097bc8e/04b759fb100461ae.jpg',

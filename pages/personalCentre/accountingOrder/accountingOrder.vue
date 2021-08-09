@@ -102,7 +102,7 @@
 					return
 				}
 				uni.navigateTo({
-					url:'../../more-shop/more-shop?code='+this.code
+					url:'../../newmoreShop/newmoreShop?code='+this.code
 				})	
 			},
 			getList(){

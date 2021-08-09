@@ -97,7 +97,7 @@
 </script>
 
 <style lang="scss" scoped>
-	@import '../../static/style/thorui.css';
+	@import  '../../mch/style/thorui.css';
 	.list{
 		flex-wrap: wrap;
 		overflow: hidden;

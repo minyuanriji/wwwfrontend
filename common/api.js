@@ -394,7 +394,8 @@ let api = {
 		getAudit:api_root+"api/shop-examine/shop-list",
 		getexamineDetail:api_root+"api/shop-examine/details",
 		saveMessage:api_root+"api/shop-examine/details",
-		withdrawal_detail:api_root+"mch/api/withdrawal-details/mch-all-list",			
+		withdrawal_detail:api_root+"mch/api/withdrawal-details/mch-all-list",
+		getcountList:api_root+"plugin/mch/api/price-log/list",
 	},
 	hotel:{
 		getrecommended: api_root +'plugin/hotel/api/hotel/simple-list',

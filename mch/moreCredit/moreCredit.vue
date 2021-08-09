@@ -111,9 +111,7 @@
 
 <script>
 	import jxListCell from '@/components/list-cell/list-cell';
-	import {
-		isEmpty
-	} from '../../common/validate.js'
+	import {isEmpty} from '../../common/validate.js'
 	export default {
 		components: {
 			jxListCell

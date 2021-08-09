@@ -21,8 +21,11 @@
 					<text>{{seviceDetail.distance_format}}</text>
 				</view>
 			</view>
-		</view>	
-		<view class="btn" @click="showQrde">
+		</view>
+		<view class="btn" v-if="seviceDetail.is_available==0" style="background: #C0C0C0;">
+			已使用完，或者已失效
+		</view>
+		<view class="btn" @click="showQrde" v-if="seviceDetail.is_available==1">
 			点击展示二维码
 		</view>
 		<unipopup ref="popupgo" type="center">

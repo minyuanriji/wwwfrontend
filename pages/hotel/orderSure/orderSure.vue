@@ -221,6 +221,9 @@
 					.then(res => {
 						if(res.code==0){
 							this.privewMessage=res.data
+							if(this.privewMessage.hotel_order_info.length>0){
+								this.form.passengers=this.privewMessage.hotel_order_info
+							}
 							// if(this.privewMessage.user_integral<this.privewMessage.integral_price){
 							// 	this.disabled=false
 							// }else{

@@ -139,7 +139,7 @@ export default {
 		// console.log(url,"分享url");
 		//每需要重新初始化
 		this.initJssdk(function(sdk) {
-
+		
 			jweixin.ready(() => {
 				// 分享到朋友圈
 				// jweixin.updateTimelineShareData({

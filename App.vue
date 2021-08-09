@@ -66,6 +66,20 @@
 		},
 
 		onShow: function(options) {
+			// //#ifdef H5
+			// 	var jweixin = require('jweixin-module');
+			// 	this.$wechatSdk.initJssdk(function(signData){});
+			// 	let use=uni.getStorageSync('userInfo')
+			// 	let url=window.location.href+"&pid="+JSON.parse(use).user_id
+			// 	let shareInfo={
+			// 		title:'分享',
+			// 		desc: '自定义分享',
+			// 		imgUrl: 'https://www.mingyuanriji.cn/web/static//header-logo.png',
+			// 		link:url,
+			// 	}
+			// 	console.log(shareInfo)
+			// 	jweixin.updateAppMessageShareData(shareInfo)				
+			// //#endif
 			// #ifdef MP-WEIXIN
 			if (uni.getUpdateManager) {
 				const updateManager = uni.getUpdateManager();

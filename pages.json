@@ -99,14 +99,8 @@
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
-		}, {
-			"path": "pages/user/footmark/list",
-			"style": {
-				"navigationBarTitleText": "我的足迹",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"navigationBarTextStyle": "black"
-			}
-		}, {
+		}, 
+		{
 			"path": "pages/user/setting",
 			"style": {
 				"navigationBarTitleText": "设置",
@@ -194,20 +188,8 @@
 					"titleNView": false
 				}
 			}
-		}, {
-			"path": "pages/coupon/list",
-			"style": {
-				"navigationBarTitleText": "领券中心",
-				"navigationBarBackgroundColor": "#fff",
-				"navigationBarTextStyle": "black",
-				"backgroundColorTop": "#fcfcfc",
-				"backgroundColorBottom": "#fcfcfc",
-				"disableScroll": true,
-				"app-plus": {
-					"bounce": "none"
-				}
-			}
-		}, {
+		},
+		{
 			"path": "pages/user/coupon/coupon",
 			"style": {
 				"navigationBarTitleText": "我的优惠券",
@@ -243,15 +225,6 @@
 			"path": "pages/user/shopping/sendPlan",
 			"style": {
 				"navigationBarTitleText": "发放计划",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"navigationBarTextStyle": "black"
-			}
-		},
-
-		{
-			"path": "pages/user/shopping/detailed",
-			"style": {
-				"navigationBarTitleText": "红包详情",
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
@@ -652,18 +625,7 @@
                 "enablePullDownRefresh": false
             }
            
-        },
-		{
-		    "path" : "pages/more-shop/more-shop",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "核销进度",
-				"navigationBarBackgroundColor": "#fff",
-		        "enablePullDownRefresh": false,
-				"navigationStyle": "custom"
-		    }
-		    
-		}
+        }
         ,{
             "path" : "pages/personalCentre/invoicingMessage/invoicingMessage",
             "style" :                                                                                    
@@ -696,6 +658,17 @@
            	"navigationStyle": "custom"
            }
         }
+		,{
+		    "path" : "pages/personalCentre/waiteDetail/waiteDetail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "待结算明细",
+		        "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+		    }
+		    
+		}
         ,{
             "path" : "pages/personalCentre/ercode/payPages/payPages",
             "style" :                                                                                    
@@ -960,17 +933,6 @@
             }
             
         }
-        // ,{
-        //     "path" : "pages/hotel/hotelSearch/hotelSearch",
-        //     "style" :                                                                                    
-        //     {
-        //         "navigationBarTitleText": "搜索",
-        //        "enablePullDownRefresh": false,
-        //        "navigationBarTextStyle": "black",
-        //        "navigationBarBackgroundColor": "#FFFFFF"
-        //     }
-            
-        // }
         ,{
             "path" : "pages/hotel/hotelList/hotelList",
             "style" :                                                                                    
@@ -990,17 +952,6 @@
                 "enablePullDownRefresh": false,
                 "navigationBarTextStyle": "black",
                 "navigationBarBackgroundColor": "#FFFFFF"
-            }
-            
-        }
-        ,{
-            "path" : "pages/hotel/hotelKnow/hotelKnow",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "需知",
-               "enablePullDownRefresh": false,
-               "navigationBarTextStyle": "black",
-               "navigationBarBackgroundColor": "#FFFFFF"
             }
             
         }
@@ -1069,9 +1020,9 @@
 		        "navigationBarBackgroundColor": "#FFFFFF"
 		    }
 		    
-		}
-        ,{
-            "path" : "pages/moreCredit/moreCredit",
+		},
+		{
+			"path" : "pages/moreCredit/moreCredit",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
@@ -1184,8 +1135,8 @@
                 "navigationBarTextStyle": "black"
             }
             
-        }
-        ,{
+        },
+		{
             "path" : "pages/newmoreShop/newmoreShop",
             "style" :                                                                                    
             {
@@ -1196,6 +1147,7 @@
             }
             
         }
+
     ],
 	"subPackages": [{
 		"root": "plugins",
@@ -1787,7 +1739,132 @@
 		]
 	}, {
 		"root": "mch",
-		"pages": [{
+		"pages": [			
+			{
+			    "path" : "giftbag/giftList/giftList",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "超值大礼包",
+			        "enablePullDownRefresh": false,
+					"navigationBarTextStyle": "black"
+			    }
+			    
+			}
+			,{
+				"path": "giftbag/gifebagDetail/gifebagDetail",
+				"style": {
+					"navigationBarBackgroundColor": "#fff",
+					"navigationBarTextStyle": "black",
+					"backgroundColorTop": "#F7F7F7",
+					"backgroundColorBottom": "#F7F7F7",
+					"navigationBarTitleText": " ",
+					"navigationStyle": "custom",
+					"app-plus": {
+						"titleNView": false
+					}
+				}
+			},
+			{
+				"path": "giftbag/gifebagDetail/newgifebagDetail",
+				"style": {
+					"navigationBarBackgroundColor": "#fff",
+					"navigationBarTextStyle": "black",
+					"backgroundColorTop": "#F7F7F7",
+					"backgroundColorBottom": "#F7F7F7",
+					"navigationBarTitleText": " ",
+					"navigationStyle": "custom",
+					"app-plus": {
+						"titleNView": false
+					}
+				}
+			}
+			,{
+			    "path" : "giftbag/giftbagCapacity/giftbagCapacity",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "礼包内容",
+			        "enablePullDownRefresh": false,
+					"navigationBarTextStyle": "black"
+			    }
+			    
+			}
+			,{
+			    "path" : "giftbag/giftsubmit/giftsubmit",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "提交订单",
+			        "enablePullDownRefresh": false,
+					"navigationBarTextStyle": "black"
+			    }
+			    
+			}
+			,{
+			    "path" : "giftbag/giftOrderDetail/giftOrderDetail",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "订单详情",
+			        "enablePullDownRefresh": false,
+					"navigationBarTextStyle": "black"
+			    }
+			    
+			}
+			,{
+			    "path" : "giftbag/userGiftbag/userGiftbag",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "",
+			        "enablePullDownRefresh": false,
+					"navigationBarTextStyle": "black"
+			    }
+			    
+			}
+			,{
+			    "path" : "giftbag/orderList/orderList",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "订单",
+			        "enablePullDownRefresh": false,
+					"navigationBarTextStyle": "black"
+			    }
+			    
+			}
+			,{
+			    "path" : "giftbag/spelldetail/spelldetail",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "邀请好友一起加入拼单",
+			        "enablePullDownRefresh": false,
+			        "navigationBarTextStyle": "black"
+			    }
+			    
+			},
+			{
+			    "path" : "moreCredit/moreCredit",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "",
+			        "enablePullDownRefresh": false,
+					"navigationBarTextStyle": "white",
+					"navigationBarBackgroundColor": "#ff7104"
+			    }
+			    
+			}
+			,{
+			    "path" : "moreCredit/creditResults",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "",
+			        "enablePullDownRefresh": false,
+					"navigationBarTextStyle": "white",
+					"navigationBarBackgroundColor": "#ff7104",
+					"navigationStyle": "custom"
+			    }
+			    
+			},
+			
+			
+			
+			{
 				"path": "group-buy/list",
 				"style": {
 					"navigationBarTitleText": "拼团商品",
@@ -1826,7 +1903,6 @@
 					}
 				}
 			},
-
 			{
 				"path": "group-buy/pay",
 				"style": {

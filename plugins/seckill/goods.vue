@@ -485,7 +485,7 @@
 
 <style>
 	/* icon 也可以使用组件*/
-	@import "@/static/style/icon.css";
+	@import "../../mch/style/icon.css";
 
 	page {
 		background: #f7f7f7;
