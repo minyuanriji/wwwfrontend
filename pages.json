@@ -1077,7 +1077,7 @@
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false,
 				"navigationBarTextStyle": "white",
-				"navigationBarBackgroundColor": "rgb(255, 113, 4)"
+				"navigationBarBackgroundColor": "#ff7104"
             }
             
         }
