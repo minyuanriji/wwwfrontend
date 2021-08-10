@@ -233,7 +233,7 @@
 	.popup-bottom text{display: inline-block;}
 	.popup-bottom text:nth-of-type(1){line-height: 100rpx;margin-left: 50rpx;font-size: 30rpx;color: #FF5A0E;font-weight: bold;}
 	.popup-bottom text:nth-of-type(2){width: 260rpx;height: 80rpx;background: red;text-align: center;line-height: 80rpx;border-radius: 30rpx;
-	margin-left: 140rpx;color: #fff;}
+	margin-left: 80rpx;color: #fff;}
 	.bottom{width: 100%;height: 120rpx;padding: 0 20rpx;background: #fff;position: fixed;left: 0;bottom: 0;z-index: 99;display: flex;justify-content: space-evenly;}
 	.bottom view image{width: 50rpx;height: 50rpx;display: block;margin: 15rpx auto 5rpx;}
 	.bottom-back,.bottom-order{width: 20%;text-align: center;font-size: 29rpx;}
@@ -454,12 +454,16 @@
 				}
 			},
 			buy(){ //点击去支付弹出输入密码框
-				if(!this.is_transaction_password){
-					this.modal = true;
-					return;
-				}
-				this.cashFlag=true
-				this.$refs.paymentPassword.modalFun('show');	
+				if(this.current==0){
+					if(!this.is_transaction_password){
+						this.modal = true;
+						return;
+					}
+					this.cashFlag=true
+					this.$refs.paymentPassword.modalFun('show');
+				}else{
+					this.payMoney(this.group_id,this.paymentPwd)
+				}	
 			},
 			payMoney(group_id,trade_pwd){ //支付
 				if(this.detail.allow_currency=='integral'){ //红包支付

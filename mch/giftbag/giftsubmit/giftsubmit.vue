@@ -150,12 +150,17 @@
 				}).then(res => {
 					if (res.code == 0) {
 						this.order_id=res.data.order_id
-						if(!this.is_transaction_password){
-							this.modal = true;
-							return;
+						if(this.current==0){
+							if(!this.is_transaction_password){
+								this.modal = true;
+								return;
+							}
+							this.cashFlag=true
+							this.$refs.paymentPassword.modalFun('show');
+						}else{
+							this.payMoney(this.order_id,this.paymentPwd)
 						}
-						this.cashFlag=true
-						this.$refs.paymentPassword.modalFun('show');						
+						
 					} else {
 						this.$http.toast(res.msg);
 					}
