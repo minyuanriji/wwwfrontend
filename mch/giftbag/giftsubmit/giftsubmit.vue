@@ -7,29 +7,57 @@
 				<text>{{detail.descript}}</text>
 			</view>
 		</view>
-		<view class="giftbagDetail-service">
-			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click='href(detail.id)'>
-				<view class="jx-cell-header" style="height: 80rpx;">
-					<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">内含{{detail.item_count}}项服务</view>		
-				</view>
-				<view class="jx-cell-header" style="height: 80rpx;margin-left: 400rpx">
-					<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">详情</view>		
-				</view>
-			</jx-list-cell>
-		</view>
-		<view class="giftbagDetail-service">
+		<view class="giftbagDetail-service" v-if="detail.allow_currency=='integral'">
 			<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
 				<view class="jx-cell-header" style="height: 80rpx;">
 					<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用红包支付</view>
 				</view>
 				<view class="jx-cell-header" style="margin-left: 350rpx;color: #FF5A0E;height: 80rpx;">
-					<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">{{integral_deduction_price}}元</view>
+					<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">{{integral_deduction_price}}红包</view>
 				</view>
-			</jx-list-cell>
+			</jx-list-cell>		
 		</view>
-		<view class="bottom">
+		<view class="bottom"  v-if="detail.allow_currency=='integral'">
 			<text>剩余红包：{{integrals}}</text>
 			<text @click="buy(detail.id)">去支付</text>
+		</view>
+		<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'">
+			<radio-group @change="radioChange">
+                <view  v-for="(item, index) in payitems" :key="index" style="width: 100%;height: 100rpx;line-height: 100rpx;padding: 0 20rpx;">
+					<view style="float: left;">{{item.name}}</view>
+					<view style="float: right;">
+                        <radio :value="item.value" :checked="index === current" />
+                    </view>
+                </view>
+            </radio-group>
+		</view>
+		<view class="giftbagDetail-service" v-if='current==0'>
+			<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
+				<view class="jx-cell-header" style="height: 80rpx;">
+					<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用余额支付</view>
+				</view>
+				<view class="jx-cell-header" style="margin-left: 350rpx;color: #FF5A0E;height: 80rpx;">
+					<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">{{price}}元</view>
+				</view>
+			</jx-list-cell>		
+		</view>
+		<view class="giftbagDetail-service" v-if='current==1'>
+			<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
+				<view class="jx-cell-header" style="height: 80rpx;">
+					<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用微信支付</view>
+				</view>
+				<view class="jx-cell-header" style="margin-left: 350rpx;color: #FF5A0E;height: 80rpx;">
+					<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">{{price}}元</view>
+				</view>
+			</jx-list-cell>		
+		</view>
+		<view class="bottom"  v-if="detail.allow_currency=='money'&&current==0">
+			<text>剩余余额：{{balance}}</text>
+			<text @click="buy(detail.id)">去支付</text>
+		</view>
+		<view class="bottom"  v-if="detail.allow_currency=='money'&&current==1">
+			<text   style="width: 350rpx;height: 80rpx;background: red;text-align: center;line-height: 80rpx;border-radius: 30rpx;
+					margin-left: 240rpx;color: #fff;margin-top: 10rpx;"  @click="buy(detail.id)">去支付</text>
 		</view>
 		<com-modal :button="button" :show="modal" @click="handleClick" @cancel="hide" title="提示" content="您没有设置支付密码,是否需要跳转设置？"></com-modal>
 		<com-payment-password ref="paymentPassword" :show="cashFlag" :value="paymentPwd" :digits="6"
@@ -39,14 +67,19 @@
 
 <script>
 	import jxListCell from '@/components/list-cell/list-cell';
+	// #ifdef H5
+	var jweixin = require('jweixin-module');
+	// #endif
 	export default {
 		components: {
 			jxListCell
 		},
 		data() {
 			return {
-				integral_deduction_price:'',
-				integrals:'',
+				integral_deduction_price:'',//需支付的红包
+				integrals:'',//剩余红包
+				price:'',//需支付的余额
+				balance:'',//剩余余额
 				detail:'',
 				modal:false,//模态弹窗
 				button:[],
@@ -54,6 +87,17 @@
 				paymentPwd: '',
 				is_transaction_password:true,//是否设置过支付密码
 				order_id:'',//订单ID
+				payitems: [
+					{
+                        value: '余额支付',
+                        name: '余额支付'
+                    },
+                    {
+                        value: '微信支付',
+                        name: '微信支付'
+                    }
+                ],
+				current: 0,
 			};
 		},
 		onLoad(options) {
@@ -66,11 +110,6 @@
 			this.initSetting()
 		},
 		methods:{
-			href(id){ //更过服务
-				uni.navigateTo({
-					url:'../giftbagCapacity/giftbagCapacity?pack_id='+id
-				})
-			},
 			prevwDetail(id){ //预览订单
 				this.$http.request({
 					url: this.$api.package.previewOrder,
@@ -84,10 +123,21 @@
 						this.detail=res.data.detail
 						this.integral_deduction_price=res.data.integral_deduction_price
 						this.integrals=res.data.integrals
+						this.balance=res.data.balance
+						this.price=res.data.price
 					} else {
 						this.$http.toast(res.msg);
 					}
 				});
+			},
+			radioChange: function(evt) {
+				for (let i = 0; i < this.payitems.length; i++) {
+					if (this.payitems[i].value === evt.detail.value) {
+						this.current = i;
+						console.log(this.current )
+						break;
+					}
+				}
 			},
 			buy(id){//生成订单并且支付
 				this.$http.request({
@@ -111,28 +161,69 @@
 					}
 				});
 			},
-			payMoney(order_id,trade_pwd){ //红包个人支付
-				this.$http.request({
-					url: this.$api.package.payMoney,
-					method: 'POST',
-					data: {
-						order_id:order_id,
-						trade_pwd:trade_pwd
-					},
-					showLoading: true
-				}).then(res => {
-					if (res.code == 0) {
-						this.$refs.paymentPassword.modalFun('hide');
-						this.$http.toast('支付成功');
-						setTimeout(()=>{
-							uni.navigateTo({
-								url:'../orderList/orderList'
-							})
-						},2000)
-					} else {
-						this.$http.toast(res.msg);
-					}
-				});
+			payMoney(order_id,trade_pwd){ //支付
+				if(this.detail.allow_currency=='integral'){ //红包支付
+					this.$http.request({
+						url: this.$api.package.payMoney,
+						method: 'POST',
+						data: {
+							order_id:order_id,
+							trade_pwd:trade_pwd
+						},
+						showLoading: true
+					}).then(res => {
+						if (res.code == 0) {
+							this.$refs.paymentPassword.modalFun('hide');
+							this.$http.toast('支付成功');
+							setTimeout(()=>{
+								uni.navigateTo({
+									url:'../orderList/orderList'
+								})
+							},2000)
+						} else {
+							this.$http.toast(res.msg);
+						}
+					});
+				}
+				if(this.detail.allow_currency=='money'&&this.current==0){ //余额支付
+					this.$http.request({
+						url: this.$api.package.paybalance,
+						method: 'POST',
+						data: {
+							order_id:order_id,
+							trade_pwd:trade_pwd
+						},
+						showLoading: true
+					}).then(res => {
+						if (res.code == 0) {
+							this.$refs.paymentPassword.modalFun('hide');
+							this.$http.toast('支付成功');
+							setTimeout(()=>{
+								uni.navigateTo({
+									url:'../orderList/orderList'
+								})
+							},2000)
+						} else {
+							this.$http.toast(res.msg);
+						}
+					});
+				}
+				if(this.detail.allow_currency=='money'&&this.current==1){ //微信支付
+					this.$http.request({
+						url: this.$api.package.paywechatcreated,
+						method: 'POST',
+						data: {
+							order_id:order_id,
+						},
+					}).then(res => {
+						if (res.code == 0) {
+							var union_id=res.data.union_id
+							this.getWchat(union_id)
+						} else {
+							this.$http.toast(res.msg);
+						}
+					});
+				}
 			},
 			hide() {
 				this.modal = false;
@@ -171,8 +262,25 @@
 						}
 					});
 			},
-			
-			
+			getWchat(union_id){ //第三方支付
+				this.$http.request({
+					url: this.$api.package.paywechat,
+					method: 'POST',
+					data: {
+						union_id:union_id,
+						stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
+						wx_type:'wechat'//公众号：wechat  小程序：mp-wx
+					},
+					showLoading: true
+				}).then(res => {
+					this.$refs.paymentPassword.modalFun('hide');
+					if (res.code == 0) {
+						this.$wechatSdk.pay(res.data,'/mch/orderList/orderList');
+					} else {
+						this.$http.toast(res.msg);
+					}
+				});
+			}		
 		}
 	}
 </script>
@@ -189,6 +297,6 @@
 	.bottom{position: fixed;left: 0;bottom: 0;width: 100%;height: 100rpx;box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.4);background: #fff;}
 	.bottom text{display: inline-block;}
 	.bottom text:nth-of-type(1){line-height: 100rpx;margin-left: 50rpx;font-size: 30rpx;color: #FF5A0E;font-weight: bold;}
-	.bottom text:nth-of-type(2){width: 200rpx;height: 60rpx;background: red;text-align: center;line-height: 60rpx;border-radius: 30rpx;
-	margin-left: 200rpx;color: #fff;}
+	.bottom text:nth-of-type(2){width: 260rpx;height: 80rpx;background: red;text-align: center;line-height: 80rpx;border-radius: 30rpx;
+	margin-left: 100rpx;color: #fff;}
 </style>

@@ -441,6 +441,16 @@ let api = {
 		getserviceList:api_root +'plugin/giftpacks/api/order/pack-item-list',
 		generateQRcode:api_root +'plugin/giftpacks/api/order/clerk-qr-code',
 		getitemdetail:api_root +'plugin/giftpacks/api/order/item-detail',
+		paybalance:api_root +'api/payCenter/balance-pay/giftpacks',
+		paywechatcreated:api_root +'api/payCenter/payment-order-prepare/giftpacks',
+		paywechat:api_root +'api/payCenter/efps-wechat-pay/giftpacks',
+		
+		
+		payMoneybag:api_root +'api/payCenter/integral-pay/giftpacks-group',
+		paybalancebag:api_root +'api/payCenter/balance-pay/giftpacks-group',
+		paywechatcreatedbag:api_root +'api/payCenter/payment-order-prepare/giftpacks-group',
+		paywechatbag:api_root +'api/payCenter/efps-wechat-pay/giftpacks-group',
+		
 	}
 };
 module.exports = api; 

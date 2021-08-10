@@ -11,8 +11,11 @@
 			<view>
 				订单号：{{order_detail.order_sn}}
 			</view>
-			<view>
-				红包支付：{{order_detail.integral_deduction_price}}
+			<view v-if="giftpacks.allow_currency=='integral'" style="color: red;">
+				已支付：{{order_detail.integral_deduction_price}}
+			</view>
+			<view v-if="giftpacks.allow_currency=='money'" style="color: red;">
+				已支付：{{order_detail.pay_price}}
 			</view>
 			<view>
 				日期 : {{order_detail.created_at}}

@@ -48,7 +48,7 @@
 		methods:{
 			linkDetail(id){//跳转到大礼包详情
 				uni.navigateTo({
-					url:'../gifebagDetail/gifebagDetail?pack_id='+id
+					url:'../gifebagDetail/newgifebagDetail?pack_id='+id
 				})
 			},
 			packageList(){ //获取大礼包列表

@@ -1,29 +1,29 @@
 <template>
 	<view class="giftbagDetail-app">
 		<view class="tui-banner-swiper">
-			<image src="http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20210802/98d72971fdda19357649d7e0ab24a589.jpeg" mode="widthFix" style="width: 100%;"></image>
+			<image :src="detail.cover_pic" mode="widthFix" style="width: 100%;"></image>
 		</view>
 		<view class="time-money">
 			<view class="time-money-left">
 				<view style="height: 60rpx;line-height: 60rpx;">
 					<text style="font-weight: bold;">￥</text>
-					<text style="font-size: 48rpx;font-weight: bold;">0.02</text>
+					<text style="font-size: 48rpx;font-weight: bold;">{{detail.group_price}}</text>
 				</view>
 				<view>
 					<text style="font-size: 30rpx;color: #fff;width: 120rpx;background: #007AFF;line-height: 44rpx;text-align: center;border-radius: 30rpx;">拼团价</text>
 					<text style="font-size: 28rpx;color: #fff;margin-left: 10rpx;">原价</text>
-					<text style="font-size: 28rpx;color: #fff;text-decoration: line-through;">￥358</text>
+					<text style="font-size: 28rpx;color: #fff;text-decoration: line-through;">￥{{detail.price}}</text>
 				</view>
 			</view>
 			<view class="time-money-right">
 				<view style="margin-top: 10rpx;">距离活动结束</view>
-				<view>875天14时17分4秒</view>
+				<view>{{expired_at}}</view>
 			</view>
 		</view>
 		<view class="giftbag-title">
 			<view style="width: 80%;color: #000;font-weight: bold;padding: 0 20rpx;font-size: 31rpx;border-right:1rpx solid rgb(238,238,238);">
-				<text style="display: inline-block;;width: 120rpx;height: 50rpx;line-height: 48rpx;color: rgb(255,71,121);text-align: center;border: 1rpx solid rgb(255,71,121);border-radius: 30rpx;margin-right: 10rpx;">2人团</text>
-				疯狂618节：原价358的双人海鲜套餐5人拼团只需59--机会仅此几天
+				<text style="display: inline-block;;width: 120rpx;height: 50rpx;line-height: 48rpx;color: rgb(255,71,121);text-align: center;border: 1rpx solid rgb(255,71,121);border-radius: 30rpx;margin-right: 10rpx;">{{detail.group_num}}人团</text>
+				{{detail.title}}
 			</view>
 			<view style="width: 20%;font-size: 30rpx;">
 				<image :src="img_url+'/new-share.png'" mode="" style="display: block;width: 50rpx;height: 50rpx;margin: 0 auto;"></image>
@@ -31,13 +31,13 @@
 			</view>
 		</view>
 		<view class="giftbag-describe">
-			5人成团即可59元获得原价358元双人海鲜套餐一份
-			有<text style="background: rgb(217,217,217);color: #000;border-radius: 30rpx;display: inline-block;min-width: 90rpx;text-align: center;">1186</text>人浏览，
-			<text style="background: rgb(221,82,77);color: #fff;border-radius: 30rpx;display: inline-block;min-width: 90rpx;text-align: center;">107</text>人参与
+			{{detail.descript}}
+			有<text style="background: rgb(217,217,217);color: #000;border-radius: 30rpx;display: inline-block;min-width: 90rpx;text-align: center;">{{detail.view_num}}</text>人浏览，
+			<text style="background: rgb(221,82,77);color: #fff;border-radius: 30rpx;display: inline-block;min-width: 90rpx;text-align: center;">{{detail.sold_num}}</text>人参与
 		</view>
 		<view class="warm-prompt">
 			<text style="display: block;color: rgb(255,71,83);padding-left: 10rpx;position: absolute;z-index: 99;background: #fff;right: 50rpx;top:-26rpx;height: 50rpx;border: 1rpx solid rgb(255,71,83);border-radius: 10rpx;text-align: center;line-height: 52rpx;">友情提示！</text>
-			拼团发起后，<text style="color: rgb(255,68,0);">1小时内</text>完成<text  style="color: rgb(255,68,0);">2人</text>组团即拼团成功，否则拼团失败，拼团金额返回用户支付帐户
+			拼团发起后，<text style="color: rgb(255,68,0);">{{detail.group_hour_expired}}小时内</text>完成<text  style="color: rgb(255,68,0);">{{detail.group_num}}人</text>组团即拼团成功，否则拼团失败，拼团金额返回用户支付帐户
 		</view>
 		<view class="select-check">
 			<text v-for="(item,index) in table" :key='index' :class="selectIndex==index?'active':'actove'" @click="select(index)">
@@ -48,9 +48,9 @@
 			<view class="package-content-title">
 				套餐包括：
 			</view>
-			<view class="package-content-item" v-for="item in 3" :key='item'>
-				<image src="http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20210802/98d72971fdda19357649d7e0ab24a589.jpeg" mode="widthFix"></image>
-				<text>1.北极贝刺身1份；</text>
+			<view class="package-content-item" v-for="(item,index) in productList" :key='index'>
+				<image :src="item.cover_pic" mode="widthFix"></image>
+				<text>{{index+1}}.{{item.name}}</text>
 			</view>
 		</view>
 		<view class="Spell-group-records" v-if="selectIndex==1">
@@ -58,28 +58,15 @@
 				<text style="color: #000;font-size: 30rpx;">最近拼团记录</text>
 				<text style="float: right;font-size: 25rpx;min-width: 120rpx;background:rgb(0,122,255);height: 45rpx;line-height: 45rpx;color: #fff;text-align: center;
 				margin-top: 20rpx;border-radius: 30rpx;">
-					共107
+					共{{detail.sold_num}}
 				</text>
 			</view>
-			<view class="Spell-group-records-item" v-for="item in 3" :key='item'>
-				<image src="https://thirdwx.qlogo.cn/mmopen/vi_32/rKziaiauzDTSbziaDdBzNRZZ8c0vTL0IZRdicrf61aMtlCVm8xNQW2gicxQVhVmLQW9oxvWiclzLBh628D1Y73PuN46w/132" mode=""></image>
+			<view class="Spell-group-records-item" v-for="(item,index) in spellgroup" :key='index'>
+				<image :src="item.avatar_url" mode=""></image>
 				<view style="width: 65%;">
-					<text style="color: #000;font-size: 28rpx;margin: 5rpx 0;">周先生</text>
-					<text style="color: rgb(255,153,0);font-size: 28rpx;">2021-08-05 10:37:12发起</text>
+					<text style="color: #000;font-size: 28rpx;margin: 5rpx 0;">{{item.nickname}}</text>
+					<text style="color: rgb(255,153,0);font-size: 28rpx;">{{item.created_at}}发起</text>
 				</view>
-				<!-- <view style="width: 65%;">
-					<view style="float: left;width: 45%;height: 100%;line-height: 100rpx;font-size: 28rpx;color: #000;
-					overflow: hidden;text-overflow:ellipsis;white-space: nowrap;padding-left: 5rpx;
-					">周先生</view>
-					<view style="float: right;">
-						<view style="font-size: 25rpx;margin: 10rpx 0;">
-							还差<text style="display: inline-block;color: red;">1</text>人就可以完成拼团
-						</view>
-						<text style="font-size: 25rpx;text-align: right;">
-							2小时59分12秒
-						</text>
-					</view>
-				</view> -->
 				<view>
 					<text style="width: 120rpx;margin-top: 30rpx;height: 45rpx;font-size: 25rpx;line-height: 45rpx;text-align: center;background: rgb(76,217,100);color: #fff;border-radius: 30rpx;">
 						已完成
@@ -87,7 +74,7 @@
 				</view>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 			</view>
 		</view>
-		<view class="Spell-group-polite" v-if="selectIndex==2">
+		<!-- <view class="Spell-group-polite" v-if="selectIndex==2">
 			<view class="Spell-group-polite-header">
 				发起拼团可得以下礼品：
 			</view>
@@ -118,7 +105,7 @@
 					到店核销领取
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<view class="bottom">
 			<view class="bottom-back" @click="back">
 				<image :src="img_url+'/new_bac.png'" mode=""></image>
@@ -129,16 +116,78 @@
 				<text>订单</text>
 			</view>
 			<view class="bottom-buy">
-				<view style="background: rgb(253,188,2);width: 50%;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx 0 0 50rpx;">
-					<text style="font-size: 30rpx;font-weight: bold;">￥358</text>
+				<view style="background: rgb(253,188,2);width: 50%;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx 0 0 50rpx;" @click="singleBuy">
+					<text style="font-size: 30rpx;font-weight: bold;">￥{{detail.price}}</text>
 					<text style="font-size: 28rpx;">单独购买</text>
 				</view>
-				<view style="background: rgb(255,71,83);width: 50%;height: 85rpx;margin-top: 25rpx;border-radius: 0 50rpx 50rpx 0;">
-					<text style="font-size: 30rpx;font-weight: bold;">￥0.02</text>
+				<view style="background: rgb(255,71,83);width: 50%;height: 85rpx;margin-top: 25rpx;border-radius: 0 50rpx 50rpx 0;" @click="gospellbuy">
+					<text style="font-size: 30rpx;font-weight: bold;">￥{{detail.group_price}}</text>
 					<text style="font-size: 28rpx;">我要开团</text>
 				</view>
 			</view>
 		</view>
+		<com-modal :button="button" :show="modal" @click="handleClick" @cancel="hide" title="提示" content="您没有设置支付密码,是否需要跳转设置？"></com-modal>
+		<com-payment-password ref="paymentPassword" :show="cashFlag" :value="paymentPwd" :digits="6"
+		@submit="checkPwd" @cancel="togglePayment" @checkSafePwd="safePasswork"></com-payment-password>
+		<unipopup ref="popup" type="bottom">
+			<view class="spell-pay-type" >
+				<view class="spell-pay-type-title">支付方式</view>
+				<view class="giftbagDetail-service" v-if="detail.allow_currency=='integral'">
+					<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
+						<view class="jx-cell-header" style="height: 80rpx;">
+							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用红包支付</view>
+						</view>
+						<view class="jx-cell-header" style="margin-left: 350rpx;color: #FF5A0E;height: 80rpx;">
+							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">{{moneyMessage.integral_deduction_price}}红包</view>
+						</view>
+					</jx-list-cell>		
+				</view>
+				<view class="popup-bottom"  v-if="detail.allow_currency=='integral'">
+					<text>剩余红包：{{moneyMessage.user_integral}}</text>
+					<text @click="buy">去支付</text>
+				</view>
+				<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'">
+					<radio-group @change="radioChange">
+				        <view  v-for="(item, index) in payitems" :key="index" style="width: 100%;height: 100rpx;line-height: 100rpx;padding: 0 20rpx;">
+							<view style="float: left;">{{item.name}}</view>
+							<view style="float: right;">
+				                <radio :value="item.value" :checked="index === current" />
+				            </view>
+				        </view>
+				    </radio-group>
+				</view>
+				<view class="giftbagDetail-service" v-if='current==0'>
+					<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
+						<view class="jx-cell-header" style="height: 80rpx;">
+							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用余额支付</view>
+						</view>
+						<view class="jx-cell-header" style="margin-left: 350rpx;color: #FF5A0E;height: 80rpx;">
+							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">{{moneyMessage.group_price}}元</view>
+						</view>
+					</jx-list-cell>		
+				</view>
+				<view class="giftbagDetail-service" v-if='current==1'>
+					<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
+						<view class="jx-cell-header" style="height: 80rpx;">
+							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用微信支付</view>
+						</view>
+						<view class="jx-cell-header" style="margin-left: 350rpx;color: #FF5A0E;height: 80rpx;">
+							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">{{moneyMessage.group_price}}元</view>
+						</view>
+					</jx-list-cell>		
+				</view>
+				<view class="popup-bottom"  v-if="detail.allow_currency=='money'&&current==0">
+					<text>剩余余额：{{moneyMessage.balance}}</text>
+					<text @click="buy">去支付</text>
+				</view>
+				<view class="popup-bottom"  v-if="detail.allow_currency=='money'&&current==1">
+					<text   style="width: 360rpx;height: 80rpx;background: red;text-align: center;line-height: 80rpx;border-radius: 30rpx;
+							margin-left: 240rpx;color: #fff;margin-top: 10rpx;"  @click="buy">去支付</text>
+				</view>
+			</view>
+		</unipopup>
+		
+		
 	</view>
 </template>
 <style lang="less" scoped>
@@ -178,20 +227,14 @@
 	.Spell-group-polite-item-title{width: 100%;display: flex;justify-content: space-between;background: #fff;margin-top: 20rpx;padding: 0 20rpx;}
 	.Spell-group-polite-item-title image{display: inline-block;width: 50rpx;height: 50rpx;float: left;}
 	.Spell-group-polite-item-describe{font-size: 26rpx;margin: 30rpx 0;padding: 0 20rpx;}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	.bottom{width: 100%;height: 120rpx;padding: 0 20rpx;background: #fff;position: fixed;left: 0;bottom: 0;z-index: 999s;display: flex;justify-content: space-evenly;}
+	.spell-pay-type{width: 100%;min-height: 700rpx;background: #fff;border-radius: 30rpx 30rpx 0 0;}
+	.spell-pay-type-title{width: 100%;line-height: 80rpx;text-align: center;color: #000;}
+	.popup-bottom{position: absolute;left: 0;bottom: 0;width: 100%;height: 100rpx;box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.4);background: #fff;}
+	.popup-bottom text{display: inline-block;}
+	.popup-bottom text:nth-of-type(1){line-height: 100rpx;margin-left: 50rpx;font-size: 30rpx;color: #FF5A0E;font-weight: bold;}
+	.popup-bottom text:nth-of-type(2){width: 260rpx;height: 80rpx;background: red;text-align: center;line-height: 80rpx;border-radius: 30rpx;
+	margin-left: 140rpx;color: #fff;}
+	.bottom{width: 100%;height: 120rpx;padding: 0 20rpx;background: #fff;position: fixed;left: 0;bottom: 0;z-index: 99;display: flex;justify-content: space-evenly;}
 	.bottom view image{width: 50rpx;height: 50rpx;display: block;margin: 15rpx auto 5rpx;}
 	.bottom-back,.bottom-order{width: 20%;text-align: center;font-size: 29rpx;}
 	.bottom-buy{display: flex;justify-content: space-between;width: 60%;}
@@ -200,13 +243,61 @@
 
 
 <script>
+	import unipopup from '@/components/uni-popup/uni-popup';
+	import jxListCell from '@/components/list-cell/list-cell';
+	// #ifdef H5
+	var jweixin = require('jweixin-module');
+	// #endif
 	export default {
+		components: {
+			unipopup,
+			jxListCell
+		},
 		data() {
 			return {
+				pack_id:'',
 				img_url: this.$api.img_url,
 				selectIndex:0,//table选项
-				table:['活动介绍','拼团记录','拼团有礼']
+				table:['活动介绍','拼团记录'],
+				// table:['活动介绍','拼团记录','拼团有礼']
+				detail:'',
+				productList:[],
+				expired_at:'',
+				spellgroup:[],//拼团记录
+				page_count:'',
+				page:1,
+				modal:false,//模态弹窗
+				button:[],
+				cashFlag: false,
+				paymentPwd: '',
+				is_transaction_password:true,//是否设置过支付密码
+				popup:false,
+				payitems: [
+					{
+				        value: '余额支付',
+				        name: '余额支付'
+				    },
+				    {
+				        value: '微信支付',
+				        name: '微信支付'
+				    }
+				],
+				current: 0,
+				moneyMessage:"",
+				group_id:'',//团id
 			}
+		},
+		onLoad(options) {
+			if(options&&options.pack_id){
+				this.pack_id=options.pack_id
+				this.packageDetail(options.pack_id)
+				this.getpackageListitem(options.pack_id)
+				this.morespellgroup(options.pack_id)
+			}
+			this.button = this.globalSet('btnCol','确定');
+		},
+		onShow() {
+			this.initSetting()
 		},
 		methods:{
 			select(index){ //table切换
@@ -221,7 +312,250 @@
 				uni.navigateTo({
 					url:'../orderList/orderList'
 				})
+			},
+			packageDetail(pack_id){ //获取大礼包详情
+				this.$http.request({
+					url: this.$api.package.packageDetail,
+					method: 'POST',
+					data: {
+						pack_id:pack_id
+					},
+					showLoading: true
+				}).then(res => {
+					if (res.code == 0) {
+						this.detail=res.data.detail
+						this.expired_at=res.data.detail.expired_at
+						var timestamp =parseInt( new Date().getTime()/1000)
+						let time=this.expired_at-timestamp
+						let days=''
+						let hours=''
+						let minutes=''
+						let seconds=''
+						let timers=setInterval(()=>{
+							time--
+							if(time<=0){
+								this.expired_at='00'+'天'+'00'+"时"+'00'+'分'+'00'+'秒'
+								clearInterval(timers)
+								return 
+							}
+							days = parseInt(time / 60 / 60 / 24 , 10); //计算剩余的天数
+							hours = parseInt(time / 60 / 60 % 24 , 10)<10?"0"+parseInt(time / 60 / 60 % 24 , 10):parseInt(time  / 60 / 60 % 24 , 10); //计算剩余的小时 
+							minutes = parseInt(time / 60 % 60, 10)<10?"0"+parseInt(time / 60 % 60, 10):parseInt(time / 60 % 60, 10);//计算剩余的分钟 
+							seconds = parseInt(time % 60, 10)<10?"0"+parseInt(time  % 60, 10):parseInt(time  % 60, 10);//计算剩余的秒数 								
+							this.expired_at=days+'天'+hours+"时"+minutes+'分'+seconds+"秒"
+						},1000)
+					} else {
+						this.$http.toast(res.msg);
+					}
+				});
+			},
+			getpackageListitem(pack_id){ //获取礼包套餐类容
+				this.$http.request({
+					url: this.$api.package.packageListitem,
+					method: 'POST',
+					data: {
+						page:this.page,
+						pack_id:pack_id
+					},
+					showLoading: true
+				}).then(res => {
+					if (res.code == 0) {
+						this.productList =res.data.list
+					} else {
+						this.$http.toast(res.msg);
+					}
+				});
+			},
+			morespellgroup(pack_id){//更多拼团
+				 this.$http.request({
+				 	url: this.$api.package.getgroupList,
+				 	method: 'POST',
+				 	data: {
+						page:this.page,
+				 		pack_id:pack_id
+				 	},
+				 	showLoading: true
+				 }).then(res => {
+				 	if (res.code == 0) {
+						if(res.data.list.length==0)return false
+						let list= res.data.list;
+						var arr=this.spellgroup.concat(list)
+						this.spellgroup =arr
+						this.page_count = res.data.pagination.page_count;
+				 	} else {
+				 		this.$http.toast(res.msg);
+				 	}
+				 });
+			},
+			singleBuy(){ //单独购买
+				uni.navigateTo({
+					url:'../giftsubmit/giftsubmit?pack_id='+this.pack_id
+				})
+			},
+			gospellbuy(){ //创建拼团
+				this.$refs.popup.open()
+				this.$http.request({
+					url: this.$api.package.createspell,
+					method: 'POST',
+					data: {
+						pack_id:this.pack_id
+					},
+					showLoading: true
+				}).then(res => {
+					if (res.code == 0) {
+						 this.moneyMessage=res.data
+						 this.group_id=res.data.group_id
+					} else {
+						this.$http.toast(res.msg);
+					}
+				});
+			},
+			initSetting() { //获取是否设置支付密码
+				this.$http
+					.request({
+						url: this.$api.plugin.extensions.cash.setting
+					})
+					.then(res => {
+						if (res.code == 0) {
+							this.is_transaction_password = res.data.user_info.is_transaction_password;
+						} else {
+							this.$http.toast(res.msg);
+						}
+					});
+			},
+			hide() { //影藏
+				this.modal = false;
+			},
+			handleClick(e) { //没有设置密码
+				let index = e.index;
+				if (index === 0) {
+					this.modal = false;
+				} else {
+					uni.navigateTo({
+						url:'../../../pages/user/payment/password'
+					})
+				}
+				this.hide();
+			},
+			checkPwd(e) { //输入密码
+				console.log(e)
+			},
+			safePasswork(e){ //密码校验
+				this.paymentPwd = e.passwork;
+				this.payMoney(this.group_id,this.paymentPwd)
+			},
+			radioChange: function(evt) {
+				for (let i = 0; i < this.payitems.length; i++) {
+					if (this.payitems[i].value === evt.detail.value) {
+						this.current = i;
+						console.log(this.current )
+						break;
+					}
+				}
+			},
+			buy(){ //点击去支付弹出输入密码框
+				if(!this.is_transaction_password){
+					this.modal = true;
+					return;
+				}
+				this.cashFlag=true
+				this.$refs.paymentPassword.modalFun('show');	
+			},
+			payMoney(group_id,trade_pwd){ //支付
+				if(this.detail.allow_currency=='integral'){ //红包支付
+					this.$http.request({
+						url: this.$api.package.payMoneybag,
+						method: 'POST',
+						data: {
+							group_id:group_id,
+							trade_pwd:trade_pwd
+						},
+						showLoading: true
+					}).then(res => {
+						if (res.code == 0) {
+							this.$refs.paymentPassword.modalFun('hide');
+							this.$http.toast('支付成功');
+							setTimeout(()=>{
+								uni.navigateTo({
+									url:'../spelldetail/spelldetail?pack_id='+this.pack_id+"&group_id="+group_id
+								})
+							},2000)
+						} else {
+							this.$http.toast(res.msg);
+						}
+					});
+				}
+				if(this.detail.allow_currency=='money'&&this.current==0){ //余额支付
+					this.$http.request({
+						url: this.$api.package.paybalancebag,
+						method: 'POST',
+						data: {
+							group_id:group_id,
+							trade_pwd:trade_pwd
+						},
+						showLoading: true
+					}).then(res => {
+						if (res.code == 0) {
+							this.$refs.paymentPassword.modalFun('hide');
+							this.$http.toast('支付成功');
+							setTimeout(()=>{
+								uni.navigateTo({
+									url:'../spelldetail/spelldetail?pack_id='+this.pack_id+"&group_id="+group_id
+								})
+							},2000)
+						} else {
+							this.$http.toast(res.msg);
+						}
+					});
+				}
+				if(this.detail.allow_currency=='money'&&this.current==1){ //微信支付
+					this.$http.request({
+						url: this.$api.package.paywechatcreatedbag,
+						method: 'POST',
+						data: {
+							group_id:group_id,
+						},
+					}).then(res => {
+						if (res.code == 0) {
+							var union_id=res.data.union_id
+							this.getWchat(union_id)
+						} else {
+							this.$http.toast(res.msg);
+						}
+					});
+				}
+			},
+			getWchat(union_id){ //第三方支付
+				this.$http.request({
+					url: this.$api.package.paywechatbag,
+					method: 'POST',
+					data: {
+						union_id:union_id,
+						stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
+						wx_type:'wechat'//公众号：wechat  小程序：mp-wx
+					},
+					showLoading: true
+				}).then(res => {
+					this.$refs.paymentPassword.modalFun('hide');
+					if (res.code == 0) {
+						let url="/mch/spelldetail/spelldetail?pack_id="+this.pack_id+"&group_id="+this.group_id
+						this.$wechatSdk.pay(res.data,url);
+					} else {
+						this.$http.toast(res.msg);
+					}
+				});
+			}		
+		
+		
+		},
+		onReachBottom() {
+			if(this.selectIndex==1){
+				if(this.page==this.page_count){
+					return false;
+				} 		
+				this.page=this.page+1
+				this.morespellgroup(this.pack_id);
 			}
-		}
+		},
 	}
 </script>
