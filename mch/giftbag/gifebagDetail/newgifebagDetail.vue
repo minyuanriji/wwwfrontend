@@ -67,19 +67,6 @@
 					<text style="color: #000;font-size: 28rpx;margin: 5rpx 0;">周先生</text>
 					<text style="color: rgb(255,153,0);font-size: 28rpx;">2021-08-05 10:37:12发起</text>
 				</view>
-				<!-- <view style="width: 65%;">
-					<view style="float: left;width: 45%;height: 100%;line-height: 100rpx;font-size: 28rpx;color: #000;
-					overflow: hidden;text-overflow:ellipsis;white-space: nowrap;padding-left: 5rpx;
-					">周先生</view>
-					<view style="float: right;">
-						<view style="font-size: 25rpx;margin: 10rpx 0;">
-							还差<text style="display: inline-block;color: red;">1</text>人就可以完成拼团
-						</view>
-						<text style="font-size: 25rpx;text-align: right;">
-							2小时59分12秒
-						</text>
-					</view>
-				</view> -->
 				<view>
 					<text style="width: 120rpx;margin-top: 30rpx;height: 45rpx;font-size: 25rpx;line-height: 45rpx;text-align: center;background: rgb(76,217,100);color: #fff;border-radius: 30rpx;">
 						已完成
