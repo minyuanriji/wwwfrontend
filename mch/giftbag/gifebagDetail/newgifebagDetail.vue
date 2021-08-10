@@ -156,7 +156,7 @@
 				        </view>
 				    </radio-group>
 				</view>
-				<view class="giftbagDetail-service" v-if='current==0'>
+				<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'&&current==0">
 					<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
 						<view class="jx-cell-header" style="height: 80rpx;">
 							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用余额支付</view>
@@ -166,7 +166,7 @@
 						</view>
 					</jx-list-cell>		
 				</view>
-				<view class="giftbagDetail-service" v-if='current==1'>
+				<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'&&current==1">
 					<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
 						<view class="jx-cell-header" style="height: 80rpx;">
 							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用微信支付</view>
@@ -530,19 +530,20 @@
 				}
 			},
 			getWchat(union_id){ //第三方支付
+				var url="https://dev.mingyuanriji.cn/h5/#/mch/spelldetail/spelldetail?pack_id="+this.pack_id+"&group_id="+this.group_id
 				this.$http.request({
 					url: this.$api.package.paywechatbag,
 					method: 'POST',
 					data: {
 						union_id:union_id,
 						stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
-						wx_type:'wechat'//公众号：wechat  小程序：mp-wx
+						wx_type:'wechat',//公众号：wechat  小程序：mp-wx
+						redirect_url:url
 					},
 					showLoading: true
 				}).then(res => {
 					this.$refs.paymentPassword.modalFun('hide');
 					if (res.code == 0) {
-						let url="/mch/spelldetail/spelldetail?pack_id="+this.pack_id+"&group_id="+this.group_id
 						this.$wechatSdk.pay(res.data,url);
 					} else {
 						this.$http.toast(res.msg);
