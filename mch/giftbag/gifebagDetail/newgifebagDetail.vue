@@ -25,7 +25,7 @@
 				<text style="display: inline-block;;width: 120rpx;height: 50rpx;line-height: 48rpx;color: rgb(255,71,121);text-align: center;border: 1rpx solid rgb(255,71,121);border-radius: 30rpx;margin-right: 10rpx;">{{detail.group_num}}人团</text>
 				{{detail.title}}
 			</view>
-			<view style="width: 20%;font-size: 30rpx;">
+			<view style="width: 20%;font-size: 30rpx;" @click="invitation">
 				<image :src="img_url+'/new-share.png'" mode="" style="display: block;width: 50rpx;height: 50rpx;margin: 0 auto;"></image>
 				<text style="display: block;width: 100%;text-align: center;color:rgb(255,71,83);">分享</text>
 			</view>
@@ -186,7 +186,20 @@
 				</view>
 			</view>
 		</unipopup>
-		
+		<unipopup ref="popupShare" type="center">
+			<view class="popup-detail">
+				<view class="popup-detail-title">
+					分享链接
+				</view>
+				<view class="popup-detail-link">
+					{{url}}
+				</view>
+				<view class="select-type">
+					<button type="default" @click="deleted">取消</button>
+					<button type="default"  style="background: red;color: #fff;"  v-clipboard:copy="url" v-clipboard:success="(type) => paste('success')" v-clipboard:error="(type) => paste('error')">复制链接</button>
+				</view>
+			</view>
+		</unipopup>
 		
 	</view>
 </template>
@@ -239,6 +252,13 @@
 	.bottom-back,.bottom-order{width: 20%;text-align: center;font-size: 29rpx;}
 	.bottom-buy{display: flex;justify-content: space-between;width: 60%;}
 	.bottom-buy text{display: block;text-align: center;color: #fff;}
+	
+	.popup-detail{width: 550rpx;height: 400rpx;background: #fff;border-radius: 30rpx;}
+	.popup-detail-title{width:550rpx;text-align: center;height: 80rpx;line-height: 80rpx;color: #000;}
+	.popup-detail-link{width:550rpx;overflow: hidden;font-size: 25rpx;color: #000;background:#fafafa ;margin: 35rpx 0;padding: 0 10rpx;box-sizing: border-box;
+	overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height: 80rpx;}
+	.select-type{width: 100%;height: 80rpx;display: flex;justify-content: space-evenly;margin: 80rpx 0 0 0;}
+	.select-type button{width: 40%;height: 80rpx;text-align: center;line-height: 80rpx;font-size: 28rpx;}
 </style>
 
 
@@ -285,12 +305,13 @@
 				current: 0,
 				moneyMessage:"",
 				group_id:'',//团id
+				popupShare:false,
+				url:'',
 			}
 		},
 		onLoad(options) {
 			if(options&&options.pack_id){
 				this.pack_id=options.pack_id
-				this.packageDetail(options.pack_id)
 				this.getpackageListitem(options.pack_id)
 				this.morespellgroup(options.pack_id)
 			}
@@ -298,6 +319,12 @@
 		},
 		onShow() {
 			this.initSetting()
+			let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
+			let curRoute = routes[routes.length - 1].route //获取当前页面路由
+			let curParam = routes[routes.length - 1].options; //获取路由参数
+			if(curParam&&curParam.pack_id){
+				this.packageDetail(curParam.pack_id)
+			}
 		},
 		methods:{
 			select(index){ //table切换
@@ -323,6 +350,11 @@
 					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
+						if(res.data.my_group.has_group==1){
+							uni.redirectTo({
+								url:"../spelldetail/spelldetail?pack_id="+pack_id+"&group_id="+res.data.my_group.group_id
+							})
+						}
 						this.detail=res.data.detail
 						this.expired_at=res.data.detail.expired_at
 						var timestamp =parseInt( new Date().getTime()/1000)
@@ -549,7 +581,23 @@
 						this.$http.toast(res.msg);
 					}
 				});
-			}		
+			},
+			invitation(){ //分享
+				this.$refs.popupShare.open()
+				let pid=JSON.parse(uni.getStorageSync('userInfo')).user_id
+				this.url=window.location.href+"&pid="+pid+"&type="+1
+			},
+			deleted(){
+				 this.$refs.popupShare.close()
+			},
+			paste(type) {
+				if (type==='success') {
+					this.$http.toast('复制成功');
+					this.$refs.popupShare.close()
+				} else {
+					this.$http.toast('复制失败');
+				}
+			},
 		
 		
 		},
