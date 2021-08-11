@@ -1118,9 +1118,10 @@
 			}, {
 				"path": "extensions/income/income",
 				"style": {
-					"navigationBarTitleText": "收益明细",
+					"navigationBarTitleText": "",
 					"navigationBarBackgroundColor": "#FFFFFF",
-					"navigationBarTextStyle": "black"
+					"navigationBarTextStyle": "black",
+					"navigationStyle": "custom"
 				}
 			}, {
 				"path": "extensions/dealer/interests/index",

@@ -1,12 +1,26 @@
 <template>
 	<view class="app">
 		<!--header-->
-		<view class="app-header-box"><com-nav-bar @clickLeft="back" left-icon="back" title="账户明细" :status-bar="true"></com-nav-bar></view>
-		<!--header-->
-		<view class="tabble">
-			<text @click="tabbleCheck(1)" :class="switchIndex==1?'active':''">收入</text>
-			<text @click="tabbleCheck(2)" :class="switchIndex==2?'active':''">支出</text>
+		<view class="app-header-box">
+			<com-nav-bar @clickLeft="back" left-icon="back" title="账户明细" :status-bar="true"></com-nav-bar>
+			<view class="tabble">
+				<text @click="tabbleCheck(1)" :class="switchIndex==1?'active':''">收入</text>
+				<text @click="tabbleCheck(2)" :class="switchIndex==2?'active':''">支出</text>
+			</view>
+			<view class="pick-time">
+				<view class="pick-time-detail">
+					<picker mode="date" :value="date"  @change="bindDateChange" fields='month'>
+					    <view class="uni-input">{{date}}</view>
+					 </picker>
+					<image :src="img_url+'/upstrong.png'" mode=""></image>
+				</view>
+				<view style="float: right;height: 85rpx;margin-right: 30rpx;" @click="reset">
+					<text style="display: block;width: 100rpx;height: 60rpx;background:#FF7104;text-align: center;line-height: 60rpx;
+					margin-top: 15rpx;color: #fff;border-radius: 15rpx;">重置</text>
+				</view>
+			</view>
 		</view>
+		<!--header-->
 		<view class="items" v-if="dataList && dataList.length">
 			<view class="item" v-for="(item, i) in dataList" :key="i">
 				<view class="item-left">
@@ -19,30 +33,24 @@
 			</view>
 		</view>
 		<view class="items" v-else><main-nomore text="暂无记录" :visible="true" bgcolor="transparent"></main-nomore></view>
-
-		<!--加载loadding-->
-	<!-- 	<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore> -->
-		<!-- 没有更多了-->
 		<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
-		<!-- 正在加载 -->
-	<!-- 	<main-loading :visible="loading"></main-loading> -->
-		<!--加载loadding-->
 	</view>
 </template>
 
 <script>
-// const _status = 'refresh';
 export default {
 	data() {
 		return {
+			img_url: this.$api.img_url,
+			date: "全部",
 			pullUpOn: true,
-			loadding: false,
 			dataList: [],
 			page:1,
 			type:'in',//in收入，out支出
 			textColor:'#bc0100',
 			page_count:'',
 			switchIndex:1,
+			created_at:'',
 		};
 	},
 	onLoad() {
@@ -59,14 +67,14 @@ export default {
 			return type == 1 ? `+${data}` : `-${data}`;
 		},
 		getDateList() {	
-			// this.loadding=true
 			this.$http
 				.request({
 					url: this.$api.moreShop.getaccountList,
 					method: 'POST',
 					data: {
 						page:this.page,
-						type:this.type
+						type:this.type,
+						created_at:this.created_at,
 					},
 					showLoading: true,
 				})
@@ -84,7 +92,6 @@ export default {
 		tabbleCheck(index){
 			this.switchIndex=index
 			if(index==1){
-				// this.loadding=false,
 				this.pullUpOn=true,
 				this.dataList=[],
 				this.pages=1
@@ -92,27 +99,35 @@ export default {
 				this.getDateList();
 			}
 			if(index==2){
-				// this.loadding=false,
 				this.pullUpOn=true,
 				this.dataList=[],
 				this.pages=1
 				this.type='out'
 				this.getDateList();
 			}
+		},
+		bindDateChange: function(e) { //点击选择年月
+			let time=e.target.value		
+		    this.date = time.split('-')[0]+'年'+time.split('-')[1]+'月'
+			this.created_at=time.split('-')[0]+'年'+time.split('-')[1]+'月'
+			this.page=1
+			this.dataList=[]
+			this.pullUpOn=true
+			this.getDateList()			
+		},
+		reset(){//重置
+			this.page=1
+			this.dataList=[]
+			this.created_at=''
+			this.date='全部'
+			this.pullUpOn=true
+			this.getDateList()	
 		}
+		
 	},
-	// onPullDownRefresh() {
-	// 	setTimeout(() => {
-	// 		uni.stopPullDownRefresh();
-	// 		this.getDateList();
-	// 	}, 1000);
-	// },
 	onReachBottom() {
-		this.loadding = true;
 		this.pullUpOn = true;
-		console.log(this.page,this.page_count)
 		if(this.page==this.page_count){
-			this.loadding=false
 			this.pullUpOn = false;
 			return false;
 		} 		
@@ -134,8 +149,9 @@ export default {
 }
 
 .items {
-	margin: 0 30rpx;
+	width: 100%;
 	display: flex;
+	padding: 0 30rpx;
 	flex-direction: column;
 
 	.item {
@@ -189,5 +205,8 @@ export default {
 .tabble{width: 100%;height: 80rpx;display: flex;justify-content: space-evenly;}
 .tabble text{display: block;height:80rpx;line-height: 80rpx;width: 50%;text-align: center;font-weight: bold;}
 .active{background: #FF7104;color: #fff;}
+.pick-time{width: 100%;height: 95rpx;background: rgb(244,244,244);}
+.pick-time-detail{width: 300rpx;height: 60rpx;float: left;margin: 20rpx 30rpx;border-radius: 15rpx;font-weight: bold;color: #000;position: relative;}
+.pick-time-detail image{display: block;width: 36rpx;height: 36rpx;position: absolute;top: 7rpx;left: 185rpx;}
 </style>
 
