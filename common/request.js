@@ -143,14 +143,18 @@ const fetch = {
 							title: "提示",
 							content: "您还未登录，去登录吧~",
 							confirmText: "去登录",
-							showCancel:false,
+							showCancel:true,
 							success: (res) => {
+								
+								
+								
 								if (res.confirm) {
 	
 									uni.navigateTo({
 										url: '/pages/public/login'
 									});
 								}else{
+									
 									let _currRoute = ''
 									// #ifdef H5
 									_currRoute = currPage.route;
@@ -168,7 +172,7 @@ const fetch = {
 						uni.navigateTo({
 							url: `/pages/public/bind`
 						})
-					} else if( res.data.code == 6 ){						
+					} else if( res.data.code == 6 ){			
 						// #ifdef H5
 						let preUrl = prevPage.$route.fullPath;
 						uni.setStorageSync("_login_pre_url", preUrl);
