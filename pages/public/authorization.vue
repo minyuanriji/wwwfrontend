@@ -110,7 +110,7 @@ export default {
 					this.$http.setToken(res.data.access_token);
 					uni.removeStorageSync("pid");
 					uni.removeStorageSync("user_id");
-					uni.removeStorageSync("_login_pre_url");
+					
 					
 					if(this.form == 'login'){
 						uni.navigateBack();
@@ -120,6 +120,7 @@ export default {
 						})
 					}
 					
+					uni.removeStorageSync("_login_pre_url");
 				}else{
 					this.$http.toast(res.msg);
 				}
