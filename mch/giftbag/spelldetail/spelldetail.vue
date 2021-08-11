@@ -268,19 +268,6 @@
 				this.show=false
 			}
 			this.button = this.globalSet('btnCol','确定');
-
-			//#ifdef H5
-				// this.$wechatSdk.initJssdk(function(signData){});
-				let use=uni.getStorageSync('userInfo')
-				let url=window.location.href+"&pid="+JSON.parse(use).user_id+"&pack_id="+options.pack_id+"&group_id="+options.group_id+"&type=jojin"
-				let shareInfo={
-					title:'分享',
-					desc: '自定义分享',
-					imgUrl: 'https://www.mingyuanriji.cn/web/static//header-logo.png',
-					link:url,
-				}
-				jweixin.updateAppMessageShareData(shareInfo)				
-			//#endif
 		},
 		onShow() {
 			this.initSetting()
@@ -502,9 +489,8 @@
 			invitation(){ //邀请好友
 				this.$refs.popupShare.open()
 				let pid=JSON.parse(uni.getStorageSync('userInfo')).user_id
-				console.log(pid)
-				this.url="https://dev.mingyuanriji.cn/h5/#/pages/giftbag/gifebagDetail/gifebagDetail?pack_id="+this.pack_id+"&pid="+pid
-			},
+				this.url=window.location.href+"&pid="+pid+"&type="+1
+			},	
 			deleted(){
 				 this.$refs.popupShare.close()
 			},

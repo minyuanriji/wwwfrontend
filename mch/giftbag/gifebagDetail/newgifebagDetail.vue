@@ -25,7 +25,7 @@
 				<text style="display: inline-block;;width: 120rpx;height: 50rpx;line-height: 48rpx;color: rgb(255,71,121);text-align: center;border: 1rpx solid rgb(255,71,121);border-radius: 30rpx;margin-right: 10rpx;">{{detail.group_num}}人团</text>
 				{{detail.title}}
 			</view>
-			<view style="width: 20%;font-size: 30rpx;">
+			<view style="width: 20%;font-size: 30rpx;" @click="invitation">
 				<image :src="img_url+'/new-share.png'" mode="" style="display: block;width: 50rpx;height: 50rpx;margin: 0 auto;"></image>
 				<text style="display: block;width: 100%;text-align: center;color:rgb(255,71,83);">分享</text>
 			</view>
@@ -156,7 +156,7 @@
 				        </view>
 				    </radio-group>
 				</view>
-				<view class="giftbagDetail-service" v-if='current==0'>
+				<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'&&current==0">
 					<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
 						<view class="jx-cell-header" style="height: 80rpx;">
 							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用余额支付</view>
@@ -166,7 +166,7 @@
 						</view>
 					</jx-list-cell>		
 				</view>
-				<view class="giftbagDetail-service" v-if='current==1'>
+				<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'&&current==1">
 					<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
 						<view class="jx-cell-header" style="height: 80rpx;">
 							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用微信支付</view>
@@ -186,7 +186,20 @@
 				</view>
 			</view>
 		</unipopup>
-		
+		<unipopup ref="popupShare" type="center">
+			<view class="popup-detail">
+				<view class="popup-detail-title">
+					分享链接
+				</view>
+				<view class="popup-detail-link">
+					{{url}}
+				</view>
+				<view class="select-type">
+					<button type="default" @click="deleted">取消</button>
+					<button type="default"  style="background: red;color: #fff;"  v-clipboard:copy="url" v-clipboard:success="(type) => paste('success')" v-clipboard:error="(type) => paste('error')">复制链接</button>
+				</view>
+			</view>
+		</unipopup>
 		
 	</view>
 </template>
@@ -233,12 +246,19 @@
 	.popup-bottom text{display: inline-block;}
 	.popup-bottom text:nth-of-type(1){line-height: 100rpx;margin-left: 50rpx;font-size: 30rpx;color: #FF5A0E;font-weight: bold;}
 	.popup-bottom text:nth-of-type(2){width: 260rpx;height: 80rpx;background: red;text-align: center;line-height: 80rpx;border-radius: 30rpx;
-	margin-left: 140rpx;color: #fff;}
+	margin-left: 80rpx;color: #fff;}
 	.bottom{width: 100%;height: 120rpx;padding: 0 20rpx;background: #fff;position: fixed;left: 0;bottom: 0;z-index: 99;display: flex;justify-content: space-evenly;}
 	.bottom view image{width: 50rpx;height: 50rpx;display: block;margin: 15rpx auto 5rpx;}
 	.bottom-back,.bottom-order{width: 20%;text-align: center;font-size: 29rpx;}
 	.bottom-buy{display: flex;justify-content: space-between;width: 60%;}
 	.bottom-buy text{display: block;text-align: center;color: #fff;}
+	
+	.popup-detail{width: 550rpx;height: 400rpx;background: #fff;border-radius: 30rpx;}
+	.popup-detail-title{width:550rpx;text-align: center;height: 80rpx;line-height: 80rpx;color: #000;}
+	.popup-detail-link{width:550rpx;overflow: hidden;font-size: 25rpx;color: #000;background:#fafafa ;margin: 35rpx 0;padding: 0 10rpx;box-sizing: border-box;
+	overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height: 80rpx;}
+	.select-type{width: 100%;height: 80rpx;display: flex;justify-content: space-evenly;margin: 80rpx 0 0 0;}
+	.select-type button{width: 40%;height: 80rpx;text-align: center;line-height: 80rpx;font-size: 28rpx;}
 </style>
 
 
@@ -285,12 +305,13 @@
 				current: 0,
 				moneyMessage:"",
 				group_id:'',//团id
+				popupShare:false,
+				url:'',
 			}
 		},
 		onLoad(options) {
 			if(options&&options.pack_id){
 				this.pack_id=options.pack_id
-				this.packageDetail(options.pack_id)
 				this.getpackageListitem(options.pack_id)
 				this.morespellgroup(options.pack_id)
 			}
@@ -298,6 +319,12 @@
 		},
 		onShow() {
 			this.initSetting()
+			let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
+			let curRoute = routes[routes.length - 1].route //获取当前页面路由
+			let curParam = routes[routes.length - 1].options; //获取路由参数
+			if(curParam&&curParam.pack_id){
+				this.packageDetail(curParam.pack_id)
+			}
 		},
 		methods:{
 			select(index){ //table切换
@@ -323,6 +350,11 @@
 					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
+						if(res.data.my_group.has_group==1){
+							uni.redirectTo({
+								url:"../spelldetail/spelldetail?pack_id="+pack_id+"&group_id="+res.data.my_group.group_id
+							})
+						}
 						this.detail=res.data.detail
 						this.expired_at=res.data.detail.expired_at
 						var timestamp =parseInt( new Date().getTime()/1000)
@@ -454,12 +486,16 @@
 				}
 			},
 			buy(){ //点击去支付弹出输入密码框
-				if(!this.is_transaction_password){
-					this.modal = true;
-					return;
-				}
-				this.cashFlag=true
-				this.$refs.paymentPassword.modalFun('show');	
+				if(this.current==0){
+					if(!this.is_transaction_password){
+						this.modal = true;
+						return;
+					}
+					this.cashFlag=true
+					this.$refs.paymentPassword.modalFun('show');
+				}else{
+					this.payMoney(this.group_id,this.paymentPwd)
+				}	
 			},
 			payMoney(group_id,trade_pwd){ //支付
 				if(this.detail.allow_currency=='integral'){ //红包支付
@@ -526,25 +562,42 @@
 				}
 			},
 			getWchat(union_id){ //第三方支付
+				var url="https://dev.mingyuanriji.cn/h5/#/mch/spelldetail/spelldetail?pack_id="+this.pack_id+"&group_id="+this.group_id
 				this.$http.request({
 					url: this.$api.package.paywechatbag,
 					method: 'POST',
 					data: {
 						union_id:union_id,
 						stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
-						wx_type:'wechat'//公众号：wechat  小程序：mp-wx
+						wx_type:'wechat',//公众号：wechat  小程序：mp-wx
+						redirect_url:url
 					},
 					showLoading: true
 				}).then(res => {
 					this.$refs.paymentPassword.modalFun('hide');
 					if (res.code == 0) {
-						let url="/mch/spelldetail/spelldetail?pack_id="+this.pack_id+"&group_id="+this.group_id
 						this.$wechatSdk.pay(res.data,url);
 					} else {
 						this.$http.toast(res.msg);
 					}
 				});
-			}		
+			},
+			invitation(){ //分享
+				this.$refs.popupShare.open()
+				let pid=JSON.parse(uni.getStorageSync('userInfo')).user_id
+				this.url=window.location.href+"&pid="+pid+"&type="+1
+			},
+			deleted(){
+				 this.$refs.popupShare.close()
+			},
+			paste(type) {
+				if (type==='success') {
+					this.$http.toast('复制成功');
+					this.$refs.popupShare.close()
+				} else {
+					this.$http.toast('复制失败');
+				}
+			},
 		
 		
 		},

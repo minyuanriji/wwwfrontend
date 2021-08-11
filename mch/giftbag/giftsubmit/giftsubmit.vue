@@ -31,7 +31,7 @@
                 </view>
             </radio-group>
 		</view>
-		<view class="giftbagDetail-service" v-if='current==0'>
+		<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'&&current==0">
 			<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
 				<view class="jx-cell-header" style="height: 80rpx;">
 					<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用余额支付</view>
@@ -41,7 +41,7 @@
 				</view>
 			</jx-list-cell>		
 		</view>
-		<view class="giftbagDetail-service" v-if='current==1'>
+		<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'&&current==1">
 			<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
 				<view class="jx-cell-header" style="height: 80rpx;">
 					<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用微信支付</view>
@@ -150,12 +150,17 @@
 				}).then(res => {
 					if (res.code == 0) {
 						this.order_id=res.data.order_id
-						if(!this.is_transaction_password){
-							this.modal = true;
-							return;
+						if(this.current==0){
+							if(!this.is_transaction_password){
+								this.modal = true;
+								return;
+							}
+							this.cashFlag=true
+							this.$refs.paymentPassword.modalFun('show');
+						}else{
+							this.payMoney(this.order_id,this.paymentPwd)
 						}
-						this.cashFlag=true
-						this.$refs.paymentPassword.modalFun('show');						
+						
 					} else {
 						this.$http.toast(res.msg);
 					}
@@ -263,19 +268,21 @@
 					});
 			},
 			getWchat(union_id){ //第三方支付
+				var url="https://dev.mingyuanriji.cn/h5/#/mch/orderList/orderList"
 				this.$http.request({
 					url: this.$api.package.paywechat,
 					method: 'POST',
 					data: {
 						union_id:union_id,
 						stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
-						wx_type:'wechat'//公众号：wechat  小程序：mp-wx
+						wx_type:'wechat',//公众号：wechat  小程序：mp-wx
+						redirect_url:url
 					},
 					showLoading: true
 				}).then(res => {
 					this.$refs.paymentPassword.modalFun('hide');
 					if (res.code == 0) {
-						this.$wechatSdk.pay(res.data,'/mch/orderList/orderList');
+						this.$wechatSdk.pay(res.data,url);
 					} else {
 						this.$http.toast(res.msg);
 					}
