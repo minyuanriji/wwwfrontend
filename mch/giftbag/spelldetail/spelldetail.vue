@@ -15,7 +15,10 @@
 					<text style="font-size: 28rpx;color: #fff;text-decoration: line-through;">￥{{detail.price}}</text>
 				</view>
 			</view>
-			<view class="time-money-right">
+			<view class="group-finished-right" v-if="group_info.status == 'success' || group_info.status == 'closed'">
+				<view>已结束</view>
+			</view>
+			<view class="time-money-right" v-if="group_info.status == 'sharing'">
 				<view style="margin-top: 10rpx;">距离活动结束</view>
 				<view>{{expired_at}}</view>
 			</view>
@@ -56,7 +59,22 @@
 				<text>{{index+1}}.{{item.name}}</text>
 			</view>
 		</view>
-		<view class="bottom" v-if="show">
+		<view class="bottom" v-if="!canPay">
+			<view class="bottom-back" @click="back">
+				<image :src="img_url+'/new_bac.png'" mode=""></image>
+				<text>返回</text>
+			</view>
+			<view class="bottom-back" @click="home">
+				<image src="https://www.mingyuanriji.cn/web//uploads/images/original/20210506/2cacecc12ab4ae6fd6cb233da7089f75.png" mode=""></image>
+				<text>首页</text>
+			</view>
+			<view class="bottom-buy">
+				<button style="background:#ddd;width: 100%;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx;">
+					<text style="font-size: 30rpx;font-weight: bold;line-height: 85rpx;">已结束</text>
+				</button>
+			</view>
+		</view>
+		<view class="bottom" v-if="show && canPay">
 			<view class="bottom-back" @click="back">
 				<image :src="img_url+'/new_bac.png'" mode=""></image>
 				<text>返回</text>
@@ -78,7 +96,7 @@
 				<!-- #endif -->
 			</view>
 		</view>
-		<view class="bottom" v-if="!show">
+		<view class="bottom" v-if="!show && canPay">
 			<view class="bottom-back" @click="back">
 				<image :src="img_url+'/new_bac.png'" mode=""></image>
 				<text>返回</text>
@@ -180,6 +198,7 @@
 	.time-money-left view:nth-of-type(1){color: rgb(255,255,0);}
 	.time-money-left view text{display: inline-block;}	
 	.time-money-right{text-align: right;color: #fff;}
+	.group-finished-right{height: 140rpx;line-height:140rpx;text-align: right;color: #fff;}
 	.giftbag-title{width: 100%;overflow: hidden;display: flex;justify-content: space-between;margin: 20rpx 0;}
 	.giftbag-describe{width: 80%;font-size: 29rpx;padding-left: 20rpx;}
 	.warm-prompt{width: 95%;min-height: 150rpx;position: relative;margin: 40rpx auto 0;border-radius: 15rpx;border: 1rpx solid rgb(255,71,83);padding: 30rpx 15rpx;font-size: 28rpx;}
@@ -272,6 +291,12 @@
 				show:true,//控制底部的显示
 				url:'',
 				join_list:[],//参团人员
+				group_info: {status: ''} //拼团详情
+			}
+		},
+		computed:{
+			canPay:function(){
+				return this.group_info.status == 'sharing';
 			}
 		},
 		onLoad(options) {
@@ -578,6 +603,7 @@
 				}).then(res => {
 					if (res.code == 0) {
 						this.join_list=res.data.join_list
+						this.group_info=res.data.group_info;
 					} else {
 						this.$http.toast(res.msg);
 					}

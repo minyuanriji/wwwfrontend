@@ -16,7 +16,8 @@
 				</view>
 			</view>
 			<view class="time-money-right">
-				<view style="margin-top: 10rpx;">距离活动结束</view>
+				<view style="margin-top: 10rpx;" v-if="!detail.is_finished">距离活动结束</view>
+				<view style="margin-top: 10rpx;" v-if="detail.is_finished">活动已结束</view>
 				<view>{{expired_at}}</view>
 			</view>
 		</view>
@@ -193,7 +194,7 @@
 			</view>
 		</unipopup>
 		
-		<view class="bottom">
+		<view class="bottom" v-if="!detail.is_finished">
 			<view class="bottom-back" @click="back">
 				<image :src="img_url+'/new_bac.png'" mode=""></image>
 				<text>返回</text>
@@ -210,6 +211,21 @@
 				<view style="background: rgb(255,71,83);width: 50%;height: 85rpx;margin-top: 25rpx;border-radius: 0 50rpx 50rpx 0;" @click="gospellbuy">
 					<text style="font-size: 30rpx;font-weight: bold;">￥{{detail.group_price}}</text>
 					<text style="font-size: 28rpx;">我要开团</text>
+				</view>
+			</view>
+		</view>
+		<view class="bottom" v-if="detail.is_finished">
+			<view class="bottom-back" @click="back">
+				<image :src="img_url+'/new_bac.png'" mode=""></image>
+				<text>返回</text>
+			</view>
+			<view class="bottom-order" @click="order">
+				<image :src="img_url+'/new_ord.png'" mode=""></image>
+				<text>订单</text>
+			</view>
+			<view class="bottom-buy">
+				<view style="background: #ddd;width: 100%;text-align:center;line-height:85rpx;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx;">
+					已结束
 				</view>
 			</view>
 		</view>
@@ -297,7 +313,7 @@
 				selectIndex:0,//table选项
 				table:['活动介绍','拼团记录'],
 				// table:['活动介绍','拼团记录','拼团有礼']
-				detail:'',
+				detail:{is_finished:0},
 				productList:[],
 				expired_at:'',
 				spellgroup:[],//拼团记录
@@ -335,9 +351,9 @@
 			this.button = this.globalSet('btnCol','确定');
 		},
 		onShow() {
-			uni.redirectTo({
+			/* uni.redirectTo({
 				url:"../spelldetail/spelldetail?pack_id=4&group_id=198&type=1"
-			});
+			}); */
 			
 			this.initSetting()
 			let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
