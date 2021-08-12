@@ -59,7 +59,7 @@
 				status:0,//1:提交资料,2 审核签约 ,3 开门营业
 				agreement:'',
 				type:'',
-				applyInfo:'',
+				applyInfo:{},
 				SHOW:true,
 			}
 		},
@@ -68,7 +68,11 @@
 		},
 		methods: {
 			getStatus:function(e){
-				this.status=e
+				this.status=e;
+				if(this.status == 3){
+					this.type = 'verifying';
+					this.SHOW = false;
+				}
 			},
 			getApplyInfo(){
 				this.$http

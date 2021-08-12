@@ -114,26 +114,7 @@
 				</view>
 			</view>
 		</view> -->
-		<view class="bottom">
-			<view class="bottom-back" @click="back">
-				<image :src="img_url+'/new_bac.png'" mode=""></image>
-				<text>返回</text>
-			</view>
-			<view class="bottom-order" @click="order">
-				<image :src="img_url+'/new_ord.png'" mode=""></image>
-				<text>订单</text>
-			</view>
-			<view class="bottom-buy">
-				<view style="background: rgb(253,188,2);width: 50%;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx 0 0 50rpx;" @click="singleBuy">
-					<text style="font-size: 30rpx;font-weight: bold;">￥{{detail.price}}</text>
-					<text style="font-size: 28rpx;">单独购买</text>
-				</view>
-				<view style="background: rgb(255,71,83);width: 50%;height: 85rpx;margin-top: 25rpx;border-radius: 0 50rpx 50rpx 0;" @click="gospellbuy">
-					<text style="font-size: 30rpx;font-weight: bold;">￥{{detail.group_price}}</text>
-					<text style="font-size: 28rpx;">我要开团</text>
-				</view>
-			</view>
-		</view>
+		
 		<com-modal :button="button" :show="modal" @click="handleClick" @cancel="hide" title="提示" content="您没有设置支付密码,是否需要跳转设置？"></com-modal>
 		
 		<unipopup ref="popup" type="bottom">
@@ -193,8 +174,10 @@
 				</view>
 			</view>
 		</unipopup>
-		<com-payment-password ref="paymentPassword" :show="cashFlag" :value="paymentPwd" :digits="6"
+		
+		<com-payment-password :H5Bottom="h5Bottom" ref="paymentPassword" :show="cashFlag" :value="paymentPwd" :digits="6"
 			@submit="checkPwd" @cancel="togglePayment" @checkSafePwd="safePasswork"></com-payment-password>
+			
 		<unipopup ref="popupShare" type="center">
 			<view class="popup-detail">
 				<view class="popup-detail-title">
@@ -210,6 +193,26 @@
 			</view>
 		</unipopup>
 		
+		<view class="bottom">
+			<view class="bottom-back" @click="back">
+				<image :src="img_url+'/new_bac.png'" mode=""></image>
+				<text>返回</text>
+			</view>
+			<view class="bottom-order" @click="order">
+				<image :src="img_url+'/new_ord.png'" mode=""></image>
+				<text>订单</text>
+			</view>
+			<view class="bottom-buy">
+				<view style="background: rgb(253,188,2);width: 50%;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx 0 0 50rpx;" @click="singleBuy">
+					<text style="font-size: 30rpx;font-weight: bold;">￥{{detail.price}}</text>
+					<text style="font-size: 28rpx;">单独购买</text>
+				</view>
+				<view style="background: rgb(255,71,83);width: 50%;height: 85rpx;margin-top: 25rpx;border-radius: 0 50rpx 50rpx 0;" @click="gospellbuy">
+					<text style="font-size: 30rpx;font-weight: bold;">￥{{detail.group_price}}</text>
+					<text style="font-size: 28rpx;">我要开团</text>
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 <style lang="less" scoped>
@@ -256,7 +259,7 @@
 	.popup-bottom text:nth-of-type(1){line-height: 100rpx;margin-left: 50rpx;font-size: 30rpx;color: #FF5A0E;font-weight: bold;}
 	.popup-bottom text:nth-of-type(2){width: 260rpx;height: 80rpx;background: red;text-align: center;line-height: 80rpx;border-radius: 30rpx;
 	margin-left: 80rpx;color: #fff;}
-	.bottom{width: 100%;height: 120rpx;padding: 0 20rpx;box-sizing: border-box;background: #fff;position: fixed;left: 0;bottom: 0;z-index: 99;display: flex;justify-content: space-evenly;}
+	.bottom{width: 100%;height: 120rpx;padding: 0 20rpx;box-sizing: border-box;background: #fff;position: fixed;left: 0;bottom: 0;z-index: 1;display: flex;justify-content: space-evenly;}
 	.bottom view image{width: 50rpx;height: 50rpx;display: block;margin: 15rpx auto 5rpx;}
 	.bottom-back,.bottom-order{width: 20%;text-align: center;font-size: 29rpx;}
 	.bottom-buy{display: flex;justify-content: space-between;width: 60%;}
@@ -268,6 +271,7 @@
 	overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height: 80rpx;}
 	.select-type{width: 100%;height: 80rpx;display: flex;justify-content: space-evenly;margin: 80rpx 0 0 0;}
 	.select-type button{width: 40%;height: 80rpx;text-align: center;line-height: 80rpx;font-size: 28rpx;}
+	
 </style>
 
 
@@ -287,6 +291,7 @@
 		},
 		data() {
 			return {
+				h5Bottom:true,
 				pack_id:'',
 				img_url: this.$api.img_url,
 				selectIndex:0,//table选项
@@ -330,6 +335,10 @@
 			this.button = this.globalSet('btnCol','确定');
 		},
 		onShow() {
+			/* uni.redirectTo({
+				url:"../spelldetail/spelldetail?pack_id=4&group_id=198&type=1"
+			}); */
+			
 			this.initSetting()
 			let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
 			let curRoute = routes[routes.length - 1].route //获取当前页面路由
@@ -363,9 +372,17 @@
 				}).then(res => {
 					if (res.code == 0) {
 						if(res.data.my_group.has_group==1){
-							uni.redirectTo({
-								url:"../spelldetail/spelldetail?pack_id="+pack_id+"&group_id="+res.data.my_group.group_id
-							})
+							var my_group = res.data.my_group;
+							uni.showModal({
+							    content: '你正在参与活动，去邀请好友吧',
+							    success: function (res) {
+							        if (res.confirm) {
+							            uni.redirectTo({
+							            	url:"../spelldetail/spelldetail?pack_id="+pack_id+"&group_id="+my_group.group_id
+							            });
+							        }
+							    }
+							});
 						}
 						this.detail=res.data.detail
 						this.expired_at=res.data.detail.expired_at
@@ -499,11 +516,7 @@
 				}
 			},
 			buy(){ //点击去支付弹出输入密码框
-			
-				// #ifdef MP-WEIXIN || APP-PLUS
-				this.$refs.popup.close();
-				// #endif
-				
+		
 				if(this.current==0){
 					if(!this.is_transaction_password){
 						this.modal = true;

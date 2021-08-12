@@ -58,6 +58,10 @@
 		</view>
 		<view class="bottom" v-if="show">
 			<view class="bottom-back" @click="back">
+				<image :src="img_url+'/new_bac.png'" mode=""></image>
+				<text>返回</text>
+			</view>
+			<view class="bottom-back" @click="home">
 				<image src="https://www.mingyuanriji.cn/web//uploads/images/original/20210506/2cacecc12ab4ae6fd6cb233da7089f75.png" mode=""></image>
 				<text>首页</text>
 			</view>
@@ -76,6 +80,10 @@
 		</view>
 		<view class="bottom" v-if="!show">
 			<view class="bottom-back" @click="back">
+				<image :src="img_url+'/new_bac.png'" mode=""></image>
+				<text>返回</text>
+			</view>
+			<view class="bottom-back" @click="home">
 				<image src="https://www.mingyuanriji.cn/web//uploads/images/original/20210506/2cacecc12ab4ae6fd6cb233da7089f75.png" mode=""></image>
 				<text>首页</text>
 			</view>
@@ -285,9 +293,14 @@
 			select(index){ //table切换
 				this.selectIndex=index
 			},
-			back(){ //点击返回首页
+			home(){ //点击返回首页
 				uni.navigateTo({
 					url:'../../../pages/index/index'
+				})
+			},
+			back(){ //点击返回按钮
+				uni.navigateBack({
+					delta:1
 				})
 			},
 			packageDetail(pack_id){ //获取大礼包详情

@@ -1,7 +1,9 @@
 <template>
 	<view>
 		<view class="content_body">
-			<image :src="this.$api.test_url+'/images/shop/ttzl.png'" class="content_start_title"></image>
+			<!--
+			 <image :src="this.$api.test_url+'/images/shop/ttzl.png'" class="content_start_title"></image>
+			 -->
 			<view class="content_body_block">
 				<view class="content_body_block_t">1、营业执照名称</view>
 				<view class="content_body_block_desc">
@@ -199,7 +201,8 @@
 				then(function(res) {
 					if (res.code == 0) {
 						that.$emit("returnStatus",3)
-						location.reload()
+						//location.reload()
+						
 					} else {
 						that.$http.toast(res.msg)
 					}

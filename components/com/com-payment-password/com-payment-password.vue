@@ -1,6 +1,6 @@
 <template>
-	<view>
-		<com-payment-modal ref="ssModal" :mode="_parentMode" :position="_parentPosition" @change="changeModal">
+	<view >
+		<com-payment-modal ref="ssModal" :H5Bottom="_H5Bottom" :mode="_parentMode" :position="_parentPosition" @change="changeModal">
 			<view class="digital-keyboard-modal" :class="'digital-keyboard-modal-' + _mode">
 				<view class="dk-close" v-if="_mode !== 1 && _mode !== 4" @click="close()">
 					<icon type="clear" color="#333" :size="u50"></icon>
@@ -125,9 +125,19 @@
 			trigger: {
 				type: String,
 				default: 'auto'
+			},
+			/*
+			* H5置底
+			*/
+			H5Bottom: {
+				type: Boolean,
+				default: false
 			}
 		},
 		computed: {
+			_H5Bottom() {
+				return this.H5Bottom;
+			},
 			payPassWord () {
 				var payPassWord = this.paymentPwd.split('') || [];
 				payPassWord.fill('*');
