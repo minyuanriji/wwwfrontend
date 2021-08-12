@@ -335,9 +335,9 @@
 			this.button = this.globalSet('btnCol','确定');
 		},
 		onShow() {
-			/* uni.redirectTo({
-				url:"../spelldetail/spelldetail?pack_id=4&group_id=198&type=1"
-			}); */
+			// uni.redirectTo({
+			// 	url:"../spelldetail/spelldetail?pack_id=4&group_id=198&type=1"
+			// });
 			
 			this.initSetting()
 			let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
