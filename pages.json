@@ -1020,7 +1020,17 @@
 		        "navigationBarBackgroundColor": "#FFFFFF"
 		    }
 		    
-		}
+		},
+		{
+		    "path" : "pages/newmoreShop/newmoreShop",
+		    "style" :                                                                                    
+		    {
+				"navigationBarTitleText": "核销进度",
+				"navigationBarBackgroundColor": "#fff",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+		    }
+		}		
     ],
 	"subPackages": [{
 		"root": "plugins",
