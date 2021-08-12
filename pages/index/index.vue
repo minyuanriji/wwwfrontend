@@ -371,6 +371,11 @@
 					
 				});
 			//#endif
+			
+			uni.navigateTo({
+				url: '/pages/cat/cat'
+			});
+			return;
 		},
 
 

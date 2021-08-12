@@ -262,8 +262,22 @@
 				 })
 			},
 			location(lat,lnt,addrress){ //导航
+			
+				// #ifdef H5
 				window.location.href='https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:'+lat+','+lnt+';addr:'+addrress+'&referer=myapp&key=O3DBZ-IFH3W-KKIRN-RZPNQ-AOSH3-EGB5N'
+				// #endif
 				
+				// #ifdef MP-WEIXIN || APP-PLUS
+				uni.openLocation({
+				 	latitude:Number(lat),
+				 	longitude:Number(lnt),
+				 	name:addrress,
+				 	address:addrress,
+				 	success: function () {
+						
+				 	}
+				 });
+				 // #endif
 			},
 			againReservation(){ //再次预定
 				uni.navigateTo({

@@ -15,7 +15,10 @@
 					<text style="font-size: 28rpx;color: #fff;text-decoration: line-through;">￥{{detail.price}}</text>
 				</view>
 			</view>
-			<view class="time-money-right">
+			<view class="group-finished-right" v-if="group_info.status == 'success' || group_info.status == 'closed'">
+				<view>已结束</view>
+			</view>
+			<view class="time-money-right" v-if="group_info.status == 'sharing'">
 				<view style="margin-top: 10rpx;">距离活动结束</view>
 				<view>{{expired_at}}</view>
 			</view>
@@ -56,19 +59,49 @@
 				<text>{{index+1}}.{{item.name}}</text>
 			</view>
 		</view>
-		<view class="bottom" v-if="show">
+		<view class="bottom" v-if="!canPay">
 			<view class="bottom-back" @click="back">
+				<image :src="img_url+'/new_bac.png'" mode=""></image>
+				<text>返回</text>
+			</view>
+			<view class="bottom-back" @click="home">
 				<image src="https://www.mingyuanriji.cn/web//uploads/images/original/20210506/2cacecc12ab4ae6fd6cb233da7089f75.png" mode=""></image>
 				<text>首页</text>
 			</view>
 			<view class="bottom-buy">
+				<button style="background:#ddd;width: 100%;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx;">
+					<text style="font-size: 30rpx;font-weight: bold;line-height: 85rpx;">已结束</text>
+				</button>
+			</view>
+		</view>
+		<view class="bottom" v-if="show && canPay">
+			<view class="bottom-back" @click="back">
+				<image :src="img_url+'/new_bac.png'" mode=""></image>
+				<text>返回</text>
+			</view>
+			<view class="bottom-back" @click="home">
+				<image src="https://www.mingyuanriji.cn/web//uploads/images/original/20210506/2cacecc12ab4ae6fd6cb233da7089f75.png" mode=""></image>
+				<text>首页</text>
+			</view>
+			<view class="bottom-buy">
+				<!-- #ifdef H5 -->
 				<view style="background: rgb(54,207,54);width: 100%;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx;" @click="invitation">
 					<text style="font-size: 30rpx;font-weight: bold;line-height: 85rpx;">邀请好友拼团</text>
 				</view>
+				<!-- #endif -->
+				<!-- #ifdef MP-WEIXIN || APP-PLUS -->
+				<button open-type="share" style="background: rgb(54,207,54);width: 100%;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx;">
+					<text style="font-size: 30rpx;font-weight: bold;line-height: 85rpx;">邀请好友拼团</text>
+				</button>
+				<!-- #endif -->
 			</view>
 		</view>
-		<view class="bottom" v-if="!show">
+		<view class="bottom" v-if="!show && canPay">
 			<view class="bottom-back" @click="back">
+				<image :src="img_url+'/new_bac.png'" mode=""></image>
+				<text>返回</text>
+			</view>
+			<view class="bottom-back" @click="home">
 				<image src="https://www.mingyuanriji.cn/web//uploads/images/original/20210506/2cacecc12ab4ae6fd6cb233da7089f75.png" mode=""></image>
 				<text>首页</text>
 			</view>
@@ -100,7 +133,7 @@
 				</view>
 				<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'">
 					<radio-group @change="radioChange">
-				        <view  v-for="(item, index) in payitems" :key="index" style="width: 100%;height: 100rpx;line-height: 100rpx;padding: 0 20rpx;">
+				        <view  v-for="(item, index) in payitems" :key="index" style="width: 100%;height: 100rpx;line-height: 100rpx;padding: 0 20rpx;box-sizing: border-box;">
 							<view style="float: left;">{{item.name}}</view>
 							<view style="float: right;">
 				                <radio :value="item.value" :checked="index === current" />
@@ -134,10 +167,11 @@
 				</view>
 				<view class="popup-bottom"  v-if="detail.allow_currency=='money'&&current==1">
 					<text   style="width: 360rpx;height: 80rpx;background: red;text-align: center;line-height: 80rpx;border-radius: 30rpx;
-							margin-left: 240rpx;color: #fff;margin-top: 10rpx;"  @click="buy">去支付</text>
+							margin-left: 230rpx;color: #fff;margin-top: 10rpx;"  @click="buy">去支付</text>
 				</view>
 			</view>
 		</unipopup>
+		<!-- #ifdef H5 -->
 		<unipopup ref="popupShare" type="center">
 			<view class="popup-detail">
 				<view class="popup-detail-title">
@@ -152,6 +186,7 @@
 				</view>
 			</view>
 		</unipopup>
+		<!-- #endif -->
 		
 	</view>
 </template>
@@ -159,10 +194,11 @@
 	.giftbagDetail-app{width: 100%;overflow: hidden;}
 	.tui-banner-swiper{width: 100%;overflow: hidden;position: relative;}
 	.tui-banner-swiper image{display: block;width: 100%;}
-	.time-money{width: 100%;height: 140rpx;padding: 10rpx 20rpx;background: rgb(255,71,83);display: flex;justify-content: space-between;}
+	.time-money{width: 100%;height: 140rpx;padding: 10rpx 20rpx;box-sizing: border-box;background: rgb(255,71,83);display: flex;justify-content: space-between;}
 	.time-money-left view:nth-of-type(1){color: rgb(255,255,0);}
 	.time-money-left view text{display: inline-block;}	
 	.time-money-right{text-align: right;color: #fff;}
+	.group-finished-right{height: 140rpx;line-height:140rpx;text-align: right;color: #fff;}
 	.giftbag-title{width: 100%;overflow: hidden;display: flex;justify-content: space-between;margin: 20rpx 0;}
 	.giftbag-describe{width: 80%;font-size: 29rpx;padding-left: 20rpx;}
 	.warm-prompt{width: 95%;min-height: 150rpx;position: relative;margin: 40rpx auto 0;border-radius: 15rpx;border: 1rpx solid rgb(255,71,83);padding: 30rpx 15rpx;font-size: 28rpx;}
@@ -192,8 +228,8 @@
 	.popup-bottom text{display: inline-block;}
 	.popup-bottom text:nth-of-type(1){line-height: 100rpx;margin-left: 50rpx;font-size: 30rpx;color: #FF5A0E;font-weight: bold;}
 	.popup-bottom text:nth-of-type(2){width: 260rpx;height: 80rpx;background: red;text-align: center;line-height: 80rpx;border-radius: 30rpx;
-	margin-left: 140rpx;color: #fff;}
-	.bottom{width: 100%;height: 120rpx;padding: 0 20rpx;background: #fff;position: fixed;left: 0;bottom: 0;z-index: 99;display: flex;justify-content: space-evenly;}
+	margin-left: 100rpx;color: #fff;}
+	.bottom{width: 100%;height: 120rpx;padding: 0 20rpx;box-sizing: border-box;background: #fff;position: fixed;left: 0;bottom: 0;z-index: 99;display: flex;justify-content: space-evenly;}
 	.bottom view image{width: 50rpx;height: 50rpx;display: block;margin: 15rpx auto 5rpx;}
 	.bottom-back{width: 20%;text-align: center;font-size: 29rpx;}
 	.bottom-buy{display: flex;justify-content: space-between;width: 75%;}
@@ -213,6 +249,9 @@
 	import jxListCell from '@/components/list-cell/list-cell';
 	// #ifdef H5
 	var jweixin = require('jweixin-module');
+	// #endif
+	// #ifdef MP-WEIXIN || APP-PLUS
+	import {setPay} from '@/config/utils.js'
 	// #endif
 	export default {
 		components: {
@@ -252,6 +291,12 @@
 				show:true,//控制底部的显示
 				url:'',
 				join_list:[],//参团人员
+				group_info: {status: ''} //拼团详情
+			}
+		},
+		computed:{
+			canPay:function(){
+				return this.group_info.status == 'sharing';
 			}
 		},
 		onLoad(options) {
@@ -276,9 +321,14 @@
 			select(index){ //table切换
 				this.selectIndex=index
 			},
-			back(){ //点击返回首页
+			home(){ //点击返回首页
 				uni.navigateTo({
 					url:'../../../pages/index/index'
+				})
+			},
+			back(){ //点击返回按钮
+				uni.navigateBack({
+					delta:1
 				})
 			},
 			packageDetail(pack_id){ //获取大礼包详情
@@ -394,13 +444,17 @@
 					}
 				}
 			},
-			buy(){ //点击去支付弹出输入密码框
-				if(!this.is_transaction_password){
-					this.modal = true;
-					return;
-				}
-				this.cashFlag=true
-				this.$refs.paymentPassword.modalFun('show');	
+			buy(){ //点击去支付弹出输入密码框			
+				if(this.current==0){
+					if(!this.is_transaction_password){
+						this.modal = true;
+						return;
+					}
+					this.cashFlag=true
+					this.$refs.paymentPassword.modalFun('show');
+				}else{
+					this.payMoney(this.group_id,this.paymentPwd)
+				}	
 			},
 			payMoney(group_id,trade_pwd){ //支付
 				if(this.detail.allow_currency=='integral'){ //红包支付
@@ -467,6 +521,7 @@
 				}
 			},
 			getWchat(union_id){ //第三方支付
+				// #ifdef H5
 				this.$http.request({
 					url: this.$api.package.paywechatbag,
 					method: 'POST',
@@ -485,6 +540,41 @@
 						this.$http.toast(res.msg);
 					}
 				});
+				// #endif
+				// #ifdef MP-WEIXIN || APP-PLUS
+				this.$http.request({
+					url: this.$api.package.paywechatbag,
+					method: 'POST',
+					data: {
+						union_id:union_id,
+						stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
+						wx_type:'mp-wx'//公众号：wechat  小程序：mp-wx
+					},
+					showLoading: true
+				}).then(res => {
+					this.$refs.paymentPassword.modalFun('hide');
+					if (res.code == 0) {
+						let url="/mch/spelldetail/spelldetail?pack_id="+this.pack_id
+						setPay(res.data, (result) => {
+							if (result.success) {
+								this.$http.toast("支付成功")
+								setTimeout(() => {
+									uni.redirectTo({
+										url: url
+									})
+								},500)
+							} else {
+								this.$http.toast("支付失败")
+							}													
+						});
+					} else {
+						this.$http.toast(res.msg);
+					}
+				});
+				
+				
+				
+				// #endif
 			},		
 			invitation(){ //邀请好友
 				this.$refs.popupShare.open()
@@ -513,6 +603,7 @@
 				}).then(res => {
 					if (res.code == 0) {
 						this.join_list=res.data.join_list
+						this.group_info=res.data.group_info;
 					} else {
 						this.$http.toast(res.msg);
 					}

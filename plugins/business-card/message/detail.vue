@@ -54,7 +54,7 @@
 
 <script>
 	// import JMessage from '@/common/jmessage-wxapplet-sdk-1.4.3.min.js';
-	const JIM = new JMessage();
+	// const JIM = new JMessage();
 	
 	export default {
 		data() {

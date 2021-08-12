@@ -28,41 +28,27 @@
 			if (uni.getStorageSync('mall_config')) {
 				this.textColor = this.globalSet('textCol');
 			}
-			let token = uni.getStorageSync('token');
-			if (isWeChat() && !token) {
-				this.is_weixn = true;
-				// 通过链接 获取 code
-				let code = this.$http.getUrlParam('code');
-				if (!code) {
-					// code 不存在进入此判断
-					let _baseUrl = window.location.href;
-					_baseUrl = encodeURIComponent(_baseUrl);
-					let url =
-						`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${base.publicAppId}&redirect_uri=${_baseUrl}&response_type=code&scope=snsapi_userinfo#wechat_redirect`;
-					window.location.replace(url);
-				} else {
-					// 获取当前 URL
-					let temp = document.URL.match(/\?.*#/)[0];
-					if (temp.match(/=.*&/)) {
-						// 解析code
-						let _code = temp.match(/=.*&/)[0];
-						_code = _code.substr(1, _code.length); // 去掉 ?
-						_code = _code.substr(0, _code.length - 1); // 去掉 #
-						// 重置URL(去掉code参数，避免重复调用)
-						window.history.replaceState({}, 0, document.URL.replace(temp.substr(0, temp.length - 1), ''));
-						// 通过code请求获取openId或者用户信息
-						this.wxLogin(code);
-					}
-				}
-			}
 		},
 		onShow(){
-			
+			//先引导登录操作
+			this.getUserInfo();
 		},
 		onReachBottom:function(e){
 			
 		},
 		methods:{
+			getUserInfo() {
+				this.$http.request({
+					url: this.$api.user.userInfo,
+					method: 'POST',
+				}).then(res => {
+					if (res.code == 0) {
+						
+					}
+				}).catch(err => {
+					console.log(err);
+				})
+			},
 			wxLogin(code) {
 				this.$http
 					.request({
@@ -112,9 +98,11 @@
 				}).then(res => {
 					this.$http.toast(res.msg);
 					if(res.code==0){
-						setTimeout(() => {							uni.redirectTo({
+						setTimeout(() => {							
+							uni.redirectTo({
 							    url:'/pages/user/integral/integral'
-							});						}, 800);
+							});						
+						}, 800);
 					}
 				})
 			},

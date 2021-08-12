@@ -80,6 +80,7 @@
 		},
 		methods: {
 			submit() {
+				
 				let _self = this;
 				let key = this.key.trim();
 				let {recommend_id,mobile,captcha} = _self.dataForm;
@@ -120,7 +121,6 @@
 						uni.removeStorageSync("_login_pre_url");
 						
 		
-						
 						this.$http
 							.request({
 								url: this.$api.user.userInfo,
@@ -140,7 +140,7 @@
 										})	
 									}		
 								}
-							});										
+							});		
 					}
 				})
 			},

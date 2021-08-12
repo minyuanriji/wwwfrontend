@@ -60,9 +60,34 @@
 		},
 		methods:{
 			location(lat,lnt,address){//导航
+				// #ifdef H5
 				window.location.href='https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:'+lat+','+lnt+';addr:'+address+'&referer=myapp&key=O3DBZ-IFH3W-KKIRN-RZPNQ-AOSH3-EGB5N'
+				// #endif
+			
+				// #ifdef MP-WEIXIN || APP-PLUS
+				uni.openLocation({
+					latitude:Number(lat),
+					longitude:Number(lnt),
+					name:address,
+					address:address,
+					success: function () {
+						
+					}
+				 });
+				 // #endif
 			},
 			showQrde(){//点击展示二维码
+			
+				
+			
+				// #ifdef H5
+				let route = '/h5/#/pages/newmoreShop/newmoreShop';
+				// #endif
+				
+				// #ifdef MP-WEIXIN || APP-PLUS
+				let route = 'pages/newmoreShop/newmoreShop';
+				// #endif
+				
 				let that=this
 				that.$http
 					.request({
@@ -71,7 +96,7 @@
 						data:{
 							order_id:that.order_id,//订单ID
 							pack_item_id:that.pack_item_id,//大礼包物品ID
-							route_with_param:'/h5/#/pages/newmoreShop/newmoreShop',//带参数的前端路由
+							route_with_param:route,//带参数的前端路由
 						},
 						showLoading: true
 					})

@@ -1,7 +1,9 @@
 <template>
 	<view>
 		<view class="content_body">
+					<!--
 					 <image :src="this.$api.test_url+'/images/shop/resiger_title.png'" class="content_body_title"></image>
+					 -->
 					 <view class="content_body_block">
 						 <view class="content_body_block_l">
 							 <view class="content_body_block_l_t1">

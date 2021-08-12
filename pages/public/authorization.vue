@@ -13,7 +13,7 @@
 				</view>
 				<view class="common">
 					<view class="iconCss iconfont icon-mima"></view>
-					<input class="com-inp" v-model="dataForm.captcha" placeholder="请输入您的密码" />
+					<input class="com-inp" v-model="dataForm.captcha" placeholder="请输入您的验证码" />
 					<view class="get-code" :style="{color:textColor}" @tap="getCode" v-if="is_show_code">获取验证码</view>
 					<view class="get-code get-code2" :style="{color:textColor}" v-else>重新发送({{countdown}})</view>
 				</view>
@@ -106,6 +106,12 @@ export default {
 				if(res.code == 0){
 					// uni.setStorageSync('new_user',1);
 					this.$http.toast('绑定成功!');
+					
+					this.$http.setToken(res.data.access_token);
+					uni.removeStorageSync("pid");
+					uni.removeStorageSync("user_id");
+					
+					
 					if(this.form == 'login'){
 						uni.navigateBack();
 					}else{
@@ -113,8 +119,8 @@ export default {
 							url:'/pages/order/submit'
 						})
 					}
-					uni.removeStorageSync("pid");
-					uni.removeStorageSync("user_id");
+					
+					uni.removeStorageSync("_login_pre_url");
 				}else{
 					this.$http.toast(res.msg);
 				}
