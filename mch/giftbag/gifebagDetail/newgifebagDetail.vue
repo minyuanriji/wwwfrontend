@@ -25,10 +25,18 @@
 				<text style="display: inline-block;;width: 120rpx;height: 50rpx;line-height: 48rpx;color: rgb(255,71,121);text-align: center;border: 1rpx solid rgb(255,71,121);border-radius: 30rpx;margin-right: 10rpx;">{{detail.group_num}}人团</text>
 				{{detail.title}}
 			</view>
+			<!-- #ifdef H5 -->
 			<view style="width: 20%;font-size: 30rpx;" @click="invitation">
 				<image :src="img_url+'/new-share.png'" mode="" style="display: block;width: 50rpx;height: 50rpx;margin: 0 auto;"></image>
 				<text style="display: block;width: 100%;text-align: center;color:rgb(255,71,83);">分享</text>
 			</view>
+			<!-- #endif -->
+			<!-- #ifdef MP-WEIXIN || APP-PLUS -->
+			<button open-type="share" style="width: 20%;font-size: 30rpx;">
+				<image :src="img_url+'/new-share.png'" mode="" style="display: block;width: 50rpx;height: 50rpx;margin: 0 auto;"></image>
+				<text style="display: block;width: 100%;text-align: center;color:rgb(255,71,83);">分享</text>
+			</button>
+			<!-- #endif -->
 		</view>
 		<view class="giftbag-describe">
 			{{detail.descript}}
@@ -36,7 +44,7 @@
 			<text style="background: rgb(221,82,77);color: #fff;border-radius: 30rpx;display: inline-block;min-width: 90rpx;text-align: center;">{{detail.sold_num}}</text>人参与
 		</view>
 		<view class="warm-prompt">
-			<text style="display: block;color: rgb(255,71,83);padding-left: 10rpx;position: absolute;z-index: 99;background: #fff;right: 50rpx;top:-26rpx;height: 50rpx;border: 1rpx solid rgb(255,71,83);border-radius: 10rpx;text-align: center;line-height: 52rpx;">友情提示！</text>
+			<text style="display: block;color: rgb(255,71,83);padding-left: 10rpx;position: absolute;z-index: 1;background: #fff;right: 50rpx;top:-26rpx;height: 50rpx;border: 1rpx solid rgb(255,71,83);border-radius: 10rpx;text-align: center;line-height: 52rpx;">友情提示！</text>
 			拼团发起后，<text style="color: rgb(255,68,0);">{{detail.group_hour_expired}}小时内</text>完成<text  style="color: rgb(255,68,0);">{{detail.group_num}}人</text>组团即拼团成功，否则拼团失败，拼团金额返回用户支付帐户
 		</view>
 		<view class="select-check">
@@ -127,8 +135,7 @@
 			</view>
 		</view>
 		<com-modal :button="button" :show="modal" @click="handleClick" @cancel="hide" title="提示" content="您没有设置支付密码,是否需要跳转设置？"></com-modal>
-		<com-payment-password ref="paymentPassword" :show="cashFlag" :value="paymentPwd" :digits="6"
-		@submit="checkPwd" @cancel="togglePayment" @checkSafePwd="safePasswork"></com-payment-password>
+		
 		<unipopup ref="popup" type="bottom">
 			<view class="spell-pay-type" >
 				<view class="spell-pay-type-title">支付方式</view>
@@ -186,6 +193,8 @@
 				</view>
 			</view>
 		</unipopup>
+		<com-payment-password ref="paymentPassword" :show="cashFlag" :value="paymentPwd" :digits="6"
+			@submit="checkPwd" @cancel="togglePayment" @checkSafePwd="safePasswork"></com-payment-password>
 		<unipopup ref="popupShare" type="center">
 			<view class="popup-detail">
 				<view class="popup-detail-title">
@@ -425,7 +434,7 @@
 				})
 			},
 			gospellbuy(){ //创建拼团
-				this.$refs.popup.open()
+				let that = this;
 				this.$http.request({
 					url: this.$api.package.createspell,
 					method: 'POST',
@@ -435,10 +444,11 @@
 					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
-						 this.moneyMessage=res.data
-						 this.group_id=res.data.group_id
+						that.$refs.popup.open();
+						that.moneyMessage=res.data
+						that.group_id=res.data.group_id
 					} else {
-						this.$http.toast(res.msg);
+						that.$http.toast(res.msg);
 					}
 				});
 			},
@@ -486,6 +496,11 @@
 				}
 			},
 			buy(){ //点击去支付弹出输入密码框
+			
+				// #ifdef MP-WEIXIN || APP-PLUS
+				this.$refs.popup.close();
+				// #endif
+				
 				if(this.current==0){
 					if(!this.is_transaction_password){
 						this.modal = true;
@@ -583,20 +598,29 @@
 				});
 			},
 			invitation(){ //分享
+				
+				// #ifdef H5
 				this.$refs.popupShare.open()
 				let pid=JSON.parse(uni.getStorageSync('userInfo')).user_id
 				this.url=window.location.href+"&pid="+pid+"&type="+1
+				// #endif
+				
 			},
 			deleted(){
+				// #ifdef H5
 				 this.$refs.popupShare.close()
+				 // #endif
 			},
 			paste(type) {
+				
+				// #ifdef H5
 				if (type==='success') {
 					this.$http.toast('复制成功');
 					this.$refs.popupShare.close()
 				} else {
 					this.$http.toast('复制失败');
 				}
+				// #endif
 			},
 		
 		
