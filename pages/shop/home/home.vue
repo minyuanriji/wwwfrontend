@@ -283,20 +283,22 @@
 				// })
 			},
 			location(lat,lnt,addrress){
+				
+				// #ifdef H5
 				window.location.href='https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:'+lat+','+lnt+';addr:'+addrress+'&referer=myapp&key=O3DBZ-IFH3W-KKIRN-RZPNQ-AOSH3-EGB5N'
-				// console.log(lat,lnt,addrress)
-				// uni.openLocation({
-				// 	 latitude:Number(lat),
-				// 	 longitude:Number(lnt),
-				// 	 name:addrress,
-				// 	 address:addrress,
-				// 	 success: function () {
+				// #endif
+				
+				// #ifdef MP-WEIXIN || APP-PLUS
+				uni.openLocation({
+					latitude:Number(lat),
+					longitude:Number(lnt),
+					name:addrress,
+					address:addrress,
+					success: function () {
 						
-				// 	},
-				// 	success: function () {
-						
-				// 	}
-				// })	
+					}
+				})	
+				// #endif
 			}
 		},
 		onReady() {

@@ -73,8 +73,18 @@
 		methods: {
 			getData() {
 				this.loading = true;
+				
+				// #ifdef MP-WEIXIN || APP-PLUS
+				let url = this.$api.plugin.extensions.LinkPosterNew;
+				// #endif
+				
+				// #ifdef H5
+				let url = this.$api.plugin.extensions.LinkPoster;
+				// #endif
+				
+				
 				this.$http.request({
-					url: this.$api.plugin.extensions.LinkPoster,
+					url: url,
 					method: 'POST'
 				}).then(res => {
 					if (res.status == 1) {

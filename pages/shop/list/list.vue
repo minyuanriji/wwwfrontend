@@ -47,6 +47,12 @@
 						 </view>
 					 </view>
 				</view>
+				
+				<!--加载loadding-->
+				<main-loadmore :visible="moreLoading" :index="3" type="red"></main-loadmore>
+				<main-loading :visible="mainLoading"></main-loading>
+				<!--加载loadding-->
+				
 			</view>
 		</scroll-view>
 	</view>
@@ -86,7 +92,10 @@
 				page_count:"",//页面总数
 				isScorll:true,//是否可以滚动
 				host:"",
-				cat_id:""
+				cat_id:"",
+				
+				moreLoading: false,
+				mainLoading: false,
 			}
 		},
 		methods: {
@@ -149,7 +158,7 @@
 						that.sortList=res.data.list
 				   })
 			},
-			getData(){//获取门店列表
+			getData(bool){//获取门店列表
 				this.isScorll=false
 				var page=this.page
 				var lat=this.lat
@@ -158,13 +167,24 @@
 				var that=this
 				var cat_id=this.cat_id
 				var params={page,lat,lnt,keyword,cat_id}
+				
+				if(bool){
+					this.mainLoading = true;
+				}else{
+					this.moreLoading = true;
+				}
+				
 				this.$http.request({
 						 url:this.$api.moreShop.getmchs,
 						 data:params,
-						 method:'post',
-						 showLoading:true
+						 method:'post'
 						 }).
 						then(function(res){
+							
+							that.mainLoading = false;
+							that.moreLoading = false;
+												
+							
 							if(res.list.length==0) return false;
 							that.isScorll=true
 							var alist=res.list

@@ -60,7 +60,7 @@
 							<view style="width: 100%;font-size: 25rpx;">剩余房间数：{{item.product_num}}</view>
 							<view class="Room_item_price_detail">
 								<text style="font-size: 25rpx;text-decoration: line-through;">￥{{item.product_price}}</text>
-								<text style="color:#FB4512;">￥0{{item.check}}</text>
+								<text style="color:#FB4512;">￥0</text>
 								<image :src="img_url+'/hotel/rightColor.png'" mode="" @click.stop="checkSHow(index)" v-if="checkIndex!=index"></image>
 								<image :src="img_url+'/hotel/rightColor.png'" mode="" @click.stop="checkHidden(index)" v-if="checkIndex==index" class="rightColor_logo"></image>
 							</view>

@@ -65,7 +65,7 @@
 					<view class="tui-pro-title">
 						<text :selectable="true">{{goodsData.name}}</text>
 					</view>
-					<view class="tui-pro-title-product">
+					<view class="tui-pro-title-product" v-if="goodsData.product">
 						{{goodsData.product}}
 					</view>
 				</view>

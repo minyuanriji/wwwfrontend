@@ -40,6 +40,8 @@
 			</view>
 			<!--店铺列表-->
 			<view class="index1_content_shop">
+				
+				
 				<view class="index1_content_shop_block" v-for="(item,index) in shop_list" @tap="toDetail(item.id)" :key='index'>
 					 <image :src="item.store.cover_url" class="index1_content_shop_block_img"></image>
 					 <view class="index1_content_shop_block_r">
@@ -68,8 +70,16 @@
 						 	 <view class="index1_content_shop_block_r_m4_r">{{item.store.juan}}</view>
 						 </view>
 					 </view>
+				
 					 <image :src="img_url+'dao_location.png'" mode="" class="locatins_logo" @click.stop="location(item.store.latitude,item.store.longitude,item.store.address)"></image>
+					
 				</view>
+				
+				<!--加载loadding-->
+				<main-loadmore :visible="moreLoading" :index="3" type="red"></main-loadmore>
+				<main-loading :visible="mainLoading"></main-loading>
+				<!--加载loadding-->
+				
 			</view>
 		</scroll-view>
 		<!-- 导航栏 -->
@@ -123,6 +133,9 @@
 				cityId: "",
 				districtId: "",
 				ifOnShow:false,
+				
+				moreLoading: false,
+				mainLoading: false,
 			}
 		},
 		methods: {
@@ -226,7 +239,7 @@
 						that.sortList=res.data.list
 				   })
 			},
-			getData(){//获取门店列表
+			getData(bool){//获取门店列表
 				this.isScorll=false
 				var page=this.page
 				var lat=this.lat
@@ -235,13 +248,22 @@
 				var effect =this.effect
 				var that=this
 				var params={page,lat,lnt,keyword,effect}
+				if(bool){
+					this.mainLoading = true;
+				}else{
+					this.moreLoading = true;
+				}
 				this.$http.request({
 						 url:this.$api.moreShop.getmchs,
 						 data:params,
-						 method:'post',
-						 showLoading:true
+						 method:'post'
 						 }).
 						then(function(res){
+							
+							that.mainLoading = false;
+							that.moreLoading = false;
+					
+							
 							that.city=res.city_data.sel_city
 							if(res.list.length==0) return false;
 							that.isScorll=true
@@ -385,9 +407,11 @@
 			},
 			getLocationData(){
 				var that=this
+				this.mainLoading = true;
 				uni.getLocation({
 					type:'gcj02',
 					success(res) {
+						that.mainLoading = false;
 						var longitude=res.longitude
 						var latitude=res.latitude 
 						that.lat=latitude
@@ -399,20 +423,22 @@
 				})
 			},
 			location(lat,lnt,addrress){
+				
+				// #ifdef H5
 				window.location.href='https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:'+lat+','+lnt+';addr:'+addrress+'&referer=myapp&key=O3DBZ-IFH3W-KKIRN-RZPNQ-AOSH3-EGB5N'
-				// console.log(lat,lnt,addrress)
-				// uni.openLocation({
-				// 	 latitude:Number(lat),
-				// 	 longitude:Number(lnt),
-				// 	 name:addrress,
-				// 	 address:addrress,
-				// 	 success: function () {
+				// #endif
+				
+				// #ifdef MP-WEIXIN || APP-PLUS
+				uni.openLocation({
+				 	latitude:Number(lat),
+				 	longitude:Number(lnt),
+				 	name:addrress,
+				 	address:addrress,
+				 	success: function () {
 						
-				// 	},
-				// 	success: function () {
-						
-				// 	}
-				// })	
+				 	}
+				 });
+				 // #endif
 			}
 		},		
 		onReady(){	
@@ -426,15 +452,21 @@
 			}).exec()
 		},	
 		onLoad() {
+			
+			this.getCity();
+			this.getCat();
+			
 			var that=this
 			this.host=this.$api.test_url
 			if(uni.getStorageSync('x-city-id')){
 				uni.removeStorageSync("x-city-id")
 			}
-			this.getCity();
+			
 			//#ifdef H5
 			   if(this.$http.getPlatform()=='wechat'){
+				   this.mainLoading = true;
 				   this.$wechatSdk.location(function(res){
+					   that.mainLoading = false;
 				   		var longitude=res.longitude
 				   		var latitude=res.latitude
 				   		that.lat=latitude
@@ -451,7 +483,7 @@
 			// #ifndef H5
 				that.getLocationData()	  
 			// #endif
-			that.getCat()
+			
 		},
 		onShareAppMessage() {
 			return{

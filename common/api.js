@@ -200,6 +200,7 @@ let api = {
 			info: api_root + 'api/income/info',
 			poster: api_root + 'api/user/poster',
 			LinkPoster: api_root + 'api/user/link-poster',
+			LinkPosterNew: api_root + 'api/user/link-poster-new',
 			GetIntegral:api_root + 'api/user/get-integral',
 			distribution: {
 				list: api_root + 'api/income/list'
