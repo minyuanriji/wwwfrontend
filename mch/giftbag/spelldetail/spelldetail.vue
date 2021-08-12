@@ -115,7 +115,7 @@
 				</view>
 				<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'">
 					<radio-group @change="radioChange">
-				        <view  v-for="(item, index) in payitems" :key="index" style="width: 100%;height: 100rpx;line-height: 100rpx;padding: 0 20rpx;">
+				        <view  v-for="(item, index) in payitems" :key="index" style="width: 100%;height: 100rpx;line-height: 100rpx;padding: 0 20rpx;box-sizing: border-box;">
 							<view style="float: left;">{{item.name}}</view>
 							<view style="float: right;">
 				                <radio :value="item.value" :checked="index === current" />
@@ -149,7 +149,7 @@
 				</view>
 				<view class="popup-bottom"  v-if="detail.allow_currency=='money'&&current==1">
 					<text   style="width: 360rpx;height: 80rpx;background: red;text-align: center;line-height: 80rpx;border-radius: 30rpx;
-							margin-left: 240rpx;color: #fff;margin-top: 10rpx;"  @click="buy">去支付</text>
+							margin-left: 230rpx;color: #fff;margin-top: 10rpx;"  @click="buy">去支付</text>
 				</view>
 			</view>
 		</unipopup>
@@ -416,13 +416,17 @@
 					}
 				}
 			},
-			buy(){ //点击去支付弹出输入密码框
-				if(!this.is_transaction_password){
-					this.modal = true;
-					return;
-				}
-				this.cashFlag=true
-				this.$refs.paymentPassword.modalFun('show');	
+			buy(){ //点击去支付弹出输入密码框			
+				if(this.current==0){
+					if(!this.is_transaction_password){
+						this.modal = true;
+						return;
+					}
+					this.cashFlag=true
+					this.$refs.paymentPassword.modalFun('show');
+				}else{
+					this.payMoney(this.group_id,this.paymentPwd)
+				}	
 			},
 			payMoney(group_id,trade_pwd){ //支付
 				if(this.detail.allow_currency=='integral'){ //红包支付
@@ -489,6 +493,7 @@
 				}
 			},
 			getWchat(union_id){ //第三方支付
+				// #ifdef H5
 				this.$http.request({
 					url: this.$api.package.paywechatbag,
 					method: 'POST',
@@ -507,6 +512,41 @@
 						this.$http.toast(res.msg);
 					}
 				});
+				// #endif
+				// #ifdef MP-WEIXIN || APP-PLUS
+				this.$http.request({
+					url: this.$api.package.paywechatbag,
+					method: 'POST',
+					data: {
+						union_id:union_id,
+						stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
+						wx_type:'mp-wx'//公众号：wechat  小程序：mp-wx
+					},
+					showLoading: true
+				}).then(res => {
+					this.$refs.paymentPassword.modalFun('hide');
+					if (res.code == 0) {
+						let url="/mch/spelldetail/spelldetail?pack_id="+this.pack_id
+						setPay(res.data, (result) => {
+							if (result.success) {
+								this.$http.toast("支付成功")
+								setTimeout(() => {
+									uni.redirectTo({
+										url: url
+									})
+								},500)
+							} else {
+								this.$http.toast("支付失败")
+							}													
+						});
+					} else {
+						this.$http.toast(res.msg);
+					}
+				});
+				
+				
+				
+				// #endif
 			},		
 			invitation(){ //邀请好友
 				this.$refs.popupShare.open()
