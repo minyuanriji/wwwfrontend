@@ -139,7 +139,7 @@
 		<unipopup ref="popup" type="bottom">
 			<view class="spell-pay-type" >
 				<view class="spell-pay-type-title">支付方式</view>
-				<view class="giftbagDetail-service" v-if="detail.allow_currency=='integral'">
+				<view class="giftbagDetail-service" v-if="detail.allow_currency=='integral'" >
 					<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
 						<view class="jx-cell-header" style="height: 80rpx;">
 							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用红包支付</view>
@@ -155,7 +155,7 @@
 				</view>
 				<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'">
 					<radio-group @change="radioChange">
-				        <view  v-for="(item, index) in payitems" :key="index" style="width: 100%;height: 100rpx;line-height: 100rpx;padding: 0 20rpx;">
+				        <view  v-for="(item, index) in payitems" :key="index" style="width: 100%;height: 100rpx;line-height: 100rpx;padding: 0 20rpx;box-sizing: border-box;">
 							<view style="float: left;">{{item.name}}</view>
 							<view style="float: right;">
 				                <radio :value="item.value" :checked="index === current" />
@@ -216,7 +216,7 @@
 	.giftbagDetail-app{width: 100%;overflow: hidden;}
 	.tui-banner-swiper{width: 100%;overflow: hidden;position: relative;}
 	.tui-banner-swiper image{display: block;width: 100%;}
-	.time-money{width: 100%;height: 140rpx;padding: 10rpx 20rpx;background: rgb(255,71,83);display: flex;justify-content: space-between;}
+	.time-money{width: 100%;height: 140rpx;padding: 10rpx 20rpx;box-sizing: border-box;background: rgb(255,71,83);display: flex;justify-content: space-between;}
 	.time-money-left view:nth-of-type(1){color: rgb(255,255,0);}
 	.time-money-left view text{display: inline-block;}	
 	.time-money-right{text-align: right;color: #fff;}
@@ -256,12 +256,12 @@
 	.popup-bottom text:nth-of-type(1){line-height: 100rpx;margin-left: 50rpx;font-size: 30rpx;color: #FF5A0E;font-weight: bold;}
 	.popup-bottom text:nth-of-type(2){width: 260rpx;height: 80rpx;background: red;text-align: center;line-height: 80rpx;border-radius: 30rpx;
 	margin-left: 80rpx;color: #fff;}
-	.bottom{width: 100%;height: 120rpx;padding: 0 20rpx;background: #fff;position: fixed;left: 0;bottom: 0;z-index: 99;display: flex;justify-content: space-evenly;}
+	.bottom{width: 100%;height: 120rpx;padding: 0 20rpx;box-sizing: border-box;background: #fff;position: fixed;left: 0;bottom: 0;z-index: 99;display: flex;justify-content: space-evenly;}
 	.bottom view image{width: 50rpx;height: 50rpx;display: block;margin: 15rpx auto 5rpx;}
 	.bottom-back,.bottom-order{width: 20%;text-align: center;font-size: 29rpx;}
 	.bottom-buy{display: flex;justify-content: space-between;width: 60%;}
 	.bottom-buy text{display: block;text-align: center;color: #fff;}
-	
+	.giftbagDetail-service{box-sizing: border-box;}
 	.popup-detail{width: 550rpx;height: 400rpx;background: #fff;border-radius: 30rpx;}
 	.popup-detail-title{width:550rpx;text-align: center;height: 80rpx;line-height: 80rpx;color: #000;}
 	.popup-detail-link{width:550rpx;overflow: hidden;font-size: 25rpx;color: #000;background:#fafafa ;margin: 35rpx 0;padding: 0 10rpx;box-sizing: border-box;
@@ -276,6 +276,9 @@
 	import jxListCell from '@/components/list-cell/list-cell';
 	// #ifdef H5
 	var jweixin = require('jweixin-module');
+	// #endif
+	// #ifdef MP-WEIXIN || APP-PLUS
+	import {setPay} from '@/config/utils.js'
 	// #endif
 	export default {
 		components: {
@@ -577,6 +580,7 @@
 				}
 			},
 			getWchat(union_id){ //第三方支付
+				// #ifdef H5
 				var url="https://dev.mingyuanriji.cn/h5/#/mch/spelldetail/spelldetail?pack_id="+this.pack_id+"&group_id="+this.group_id
 				this.$http.request({
 					url: this.$api.package.paywechatbag,
@@ -596,6 +600,39 @@
 						this.$http.toast(res.msg);
 					}
 				});
+				// #endif
+				// #ifdef MP-WEIXIN || APP-PLUS
+					var url="/mch/spelldetail/spelldetail?pack_id="+this.pack_id+"&group_id="+this.group_id
+					this.$http.request({
+						url: this.$api.package.paywechatbag,
+						method: 'POST',
+						data: {
+							union_id:union_id,
+							stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
+							wx_type:'mp-wx',//公众号：wechat  小程序：mp-wx
+							redirect_url:url
+						},
+						showLoading: true
+					}).then(res => {
+						this.$refs.paymentPassword.modalFun('hide');
+						if (res.code == 0) {
+							setPay(res.data, (result) => {
+								if (result.success) {
+									this.$http.toast("支付成功")
+									setTimeout(() => {
+										uni.redirectTo({
+											url: url
+										})
+									},500)
+								} else {
+									this.$http.toast("支付失败")
+								}													
+							});
+						} else {
+							this.$http.toast(res.msg);
+						}
+					});
+				// #endif	
 			},
 			invitation(){ //分享
 				

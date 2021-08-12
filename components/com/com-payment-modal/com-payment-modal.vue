@@ -91,10 +91,11 @@
 <style lang="scss" scoped>
 	// 弹窗公用样式
 	.ss-modal-body{
+		background-color: rgba(0, 0, 0, 0.4);
 		box-sizing: border-box;
 		opacity: 0;
 		position: fixed;
-		top: 44px;
+		top: 0px;
 		bottom: 50px;
 		left: 0;
 		width: 100%;

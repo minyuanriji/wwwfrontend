@@ -23,7 +23,7 @@
 		</view>
 		<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'">
 			<radio-group @change="radioChange">
-                <view  v-for="(item, index) in payitems" :key="index" style="width: 100%;height: 100rpx;line-height: 100rpx;padding: 0 20rpx;">
+                <view  v-for="(item, index) in payitems" :key="index" style="width: 100%;height: 100rpx;line-height: 100rpx;padding: 0 20rpx;box-sizing: border-box;">
 					<view style="float: left;">{{item.name}}</view>
 					<view style="float: right;">
                         <radio :value="item.value" :checked="index === current" />
@@ -57,7 +57,7 @@
 		</view>
 		<view class="bottom"  v-if="detail.allow_currency=='money'&&current==1">
 			<text   style="width: 350rpx;height: 80rpx;background: red;text-align: center;line-height: 80rpx;border-radius: 30rpx;
-					margin-left: 240rpx;color: #fff;margin-top: 10rpx;"  @click="buy(detail.id)">去支付</text>
+					margin-left: 230rpx;color: #fff;margin-top: 10rpx;"  @click="buy(detail.id)">去支付</text>
 		</view>
 		<com-modal :button="button" :show="modal" @click="handleClick" @cancel="hide" title="提示" content="您没有设置支付密码,是否需要跳转设置？"></com-modal>
 		<com-payment-password ref="paymentPassword" :show="cashFlag" :value="paymentPwd" :digits="6"
@@ -69,6 +69,9 @@
 	import jxListCell from '@/components/list-cell/list-cell';
 	// #ifdef H5
 	var jweixin = require('jweixin-module');
+	// #endif
+	// #ifdef MP-WEIXIN || APP-PLUS
+	import {setPay} from '@/config/utils.js'
 	// #endif
 	export default {
 		components: {
@@ -268,6 +271,7 @@
 					});
 			},
 			getWchat(union_id){ //第三方支付
+				// #ifdef H5
 				var url="https://dev.mingyuanriji.cn/h5/#/mch/orderList/orderList"
 				this.$http.request({
 					url: this.$api.package.paywechat,
@@ -287,6 +291,39 @@
 						this.$http.toast(res.msg);
 					}
 				});
+				// #endif
+				// #ifdef MP-WEIXIN || APP-PLUS
+					var url="/mch/orderList/orderList"
+					this.$http.request({
+						url: this.$api.package.paywechat,
+						method: 'POST',
+						data: {
+							union_id:union_id,
+							stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
+							wx_type:'mp-wx',//公众号：wechat  小程序：mp-wx
+							redirect_url:url
+						},
+						showLoading: true
+					}).then(res => {
+						this.$refs.paymentPassword.modalFun('hide');
+						if (res.code == 0) {
+							setPay(res.data, (result) => {
+								if (result.success) {
+									this.$http.toast("支付成功")
+									setTimeout(() => {
+										uni.redirectTo({
+											url: url
+										})
+									},500)
+								} else {
+									this.$http.toast("支付失败")
+								}													
+							});
+						} else {
+							this.$http.toast(res.msg);
+						}
+					});
+				// #endif	
 			}		
 		}
 	}

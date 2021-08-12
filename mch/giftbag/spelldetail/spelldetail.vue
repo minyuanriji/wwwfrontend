@@ -62,9 +62,16 @@
 				<text>首页</text>
 			</view>
 			<view class="bottom-buy">
+				<!-- #ifdef H5 -->
 				<view style="background: rgb(54,207,54);width: 100%;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx;" @click="invitation">
 					<text style="font-size: 30rpx;font-weight: bold;line-height: 85rpx;">邀请好友拼团</text>
 				</view>
+				<!-- #endif -->
+				<!-- #ifdef MP-WEIXIN || APP-PLUS -->
+				<button open-type="share" style="background: rgb(54,207,54);width: 100%;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx;">
+					<text style="font-size: 30rpx;font-weight: bold;line-height: 85rpx;">邀请好友拼团</text>
+				</button>
+				<!-- #endif -->
 			</view>
 		</view>
 		<view class="bottom" v-if="!show">
@@ -138,6 +145,7 @@
 				</view>
 			</view>
 		</unipopup>
+		<!-- #ifdef H5 -->
 		<unipopup ref="popupShare" type="center">
 			<view class="popup-detail">
 				<view class="popup-detail-title">
@@ -152,6 +160,7 @@
 				</view>
 			</view>
 		</unipopup>
+		<!-- #endif -->
 		
 	</view>
 </template>
@@ -159,7 +168,7 @@
 	.giftbagDetail-app{width: 100%;overflow: hidden;}
 	.tui-banner-swiper{width: 100%;overflow: hidden;position: relative;}
 	.tui-banner-swiper image{display: block;width: 100%;}
-	.time-money{width: 100%;height: 140rpx;padding: 10rpx 20rpx;background: rgb(255,71,83);display: flex;justify-content: space-between;}
+	.time-money{width: 100%;height: 140rpx;padding: 10rpx 20rpx;box-sizing: border-box;background: rgb(255,71,83);display: flex;justify-content: space-between;}
 	.time-money-left view:nth-of-type(1){color: rgb(255,255,0);}
 	.time-money-left view text{display: inline-block;}	
 	.time-money-right{text-align: right;color: #fff;}
@@ -193,7 +202,7 @@
 	.popup-bottom text:nth-of-type(1){line-height: 100rpx;margin-left: 50rpx;font-size: 30rpx;color: #FF5A0E;font-weight: bold;}
 	.popup-bottom text:nth-of-type(2){width: 260rpx;height: 80rpx;background: red;text-align: center;line-height: 80rpx;border-radius: 30rpx;
 	margin-left: 140rpx;color: #fff;}
-	.bottom{width: 100%;height: 120rpx;padding: 0 20rpx;background: #fff;position: fixed;left: 0;bottom: 0;z-index: 99;display: flex;justify-content: space-evenly;}
+	.bottom{width: 100%;height: 120rpx;padding: 0 20rpx;box-sizing: border-box;background: #fff;position: fixed;left: 0;bottom: 0;z-index: 99;display: flex;justify-content: space-evenly;}
 	.bottom view image{width: 50rpx;height: 50rpx;display: block;margin: 15rpx auto 5rpx;}
 	.bottom-back{width: 20%;text-align: center;font-size: 29rpx;}
 	.bottom-buy{display: flex;justify-content: space-between;width: 75%;}
