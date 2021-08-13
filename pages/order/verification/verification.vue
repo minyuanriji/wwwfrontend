@@ -48,7 +48,12 @@
 				method: 'POST',
 				data: {
 					id: options.id,
-					route: '/h5/#/mch/newmoreShop/newmoreShop'
+					// #ifdef H5
+					route: '/h5/#/mch/newmoreShop/newmoreShop',
+					// #endif
+					// #ifdef MP-WEIXIN || APP-PLUS
+					route:'mch/newmoreShop/newmoreShop',
+					// #endif
 				},
 				showLoading: true
 			}).then(res => {

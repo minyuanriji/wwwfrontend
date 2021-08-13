@@ -77,7 +77,12 @@
 					url: that.$api.moreShop.getOrdercode,
 					data: {
 						id: id,
-						route:'/h5/#/mch/newmoreShop/newmoreShop',
+						// #ifdef H5
+						route: '/h5/#/mch/newmoreShop/newmoreShop',
+						// #endif
+						// #ifdef MP-WEIXIN || APP-PLUS
+						route:'mch/newmoreShop/newmoreShop',
+						// #endif
 					}
 				}).then((res) => {
 					if (res.code == 0) {
