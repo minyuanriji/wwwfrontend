@@ -30,6 +30,7 @@
 		<!--#endif -->
 		<block v-for="(item, index) in indexData" :key="index">
 			<view class="header" v-if="item.id == 'search'">
+				<!-- #ifdef H5 -->
 				<view class="search_box" :style="{ position: is_fixed == 1 ? 'relative' : 'fixed' }">
 					<!-- 搜索 -->
 					<view class="checksao" style="width: 15%;background: #fff;">
@@ -46,6 +47,25 @@
 						 <text style="display: block;font-size: 24rpx;width: 100%;text-align: center;">扫一扫</text>
 					</view>
 				</view>
+				<!--#endif -->
+				<!-- #ifdef MP-WEIXIN -->
+				<view class="search_box_mp" :style="{ position: is_fixed == 1 ? 'relative' : 'fixed' }">
+					<!-- 搜索 -->
+					<view class="checksao" style="width: 15%;background: #fff;">
+						<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 90rpx;display: block;margin: 5rpx auto 0;"></image>
+					</view>
+					<view class="search" @tap="navTo('/pages/search/search')" style="width: 70%;">
+						<search :message="item.data.placeholder" :textAlign="item.data.textPosition" :frameColor="item.data.background"
+						 :innerFrameColor="item.data.color" :textColor="item.data.textColor" :borderRadius="item.data.radius"></search>
+						<!-- :frameColor="scrollTop>0?item.data.background:receiveColor" 用来做渐变 -->
+					</view>
+					<!-- 搜索 -->
+					<view class="checksao" style="width: 15%;background: #fff;" @click="scanSome">
+						<image :src="img_url+'/scan.png'" mode="" style="width: 50rpx;height: 50rpx;display: block;margin: 5rpx auto 0;"></image>
+						 <text style="display: block;font-size: 24rpx;width: 100%;text-align: center;">扫一扫</text>
+					</view>
+				</view>
+				<!--#endif -->
 			</view>
 			<placeholder v-if="item.id == 'search' && is_fixed == 0" :placeholderHeight="placeholderHeight4"></placeholder>
 			<!-- 轮播图 -->
@@ -694,19 +714,19 @@
 		z-index: 99;
 		background-color: #ffffff;
 
-	}
-	.search_box {
+	}	
+	.search_box_mp {
 		top: 0;
 		width: 100%;
 		z-index: 99;
 		display: flex;
 	}
-	/* .search_box {
+	.search_box {
 		top: var(--status-bar-height);
 		width: 100%;
 		z-index: 99;
 		display: flex;
-	} */
+	}
 
 	.navIcon_style {
 		/* padding: 30rpx 0px; */
