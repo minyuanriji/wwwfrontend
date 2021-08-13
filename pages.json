@@ -9,7 +9,7 @@
 				"navigationBarTitleText": "首页",
 				"enablePullDownRefresh": true,
 				"onReachBottomDistance": 50,
-				"navigationStyle": "custom",
+				// "navigationStyle": "custom",
 				"app-plus": {
 					"titleNView": false,
 					"pullToRefresh": {
@@ -475,8 +475,8 @@
 		}, {
 			"path": "pages/shop/shop",
 			"style": {
-				"navigationBarBackgroundColor": "#53DEDB",
-				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#FF7104",
+				"navigationBarTextStyle": "white",
 				"backgroundColorTop": "#F7F7F7",
 				"backgroundColorBottom": "#F7F7F7",
 				"navigationBarTitleText": "门店列表",

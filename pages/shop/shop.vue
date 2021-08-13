@@ -552,6 +552,7 @@ padding-left: 15px;
 .index1_content_body{
 	background-color: #fff;
 	padding: 5px 10px 5px 10px;
+	box-sizing: border-box;
 }
 .index1_content_sort_block_icon{
 	width: 100%;
