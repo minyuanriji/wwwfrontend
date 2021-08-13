@@ -371,11 +371,11 @@
 					
 				});
 			//#endif
-			
+			/* 
 			uni.navigateTo({
-				url: '/pages/cat/cat'
+				url: '/pages/personalCentre/ercode/payPages/payPages?id=262'
 			});
-			return;
+			return; */
 		},
 
 

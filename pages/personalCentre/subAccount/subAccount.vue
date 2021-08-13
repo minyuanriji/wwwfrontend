@@ -49,7 +49,7 @@
 				dataList: []
 			}
 		},
-		onLoad() {
+		onShow() {
 			this.getList(_status, true);
 		},
 		onReachBottom() {
@@ -69,7 +69,7 @@
 				let that = this;
 				uni.showModal({
 					content: '确定要删除该账户吗?',
-					confirmColor: this.textColor,
+					confirmColor: "#C90A0C",
 					success: function(res) {
 						if (res.confirm) {
 							that.$http.request({
