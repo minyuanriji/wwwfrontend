@@ -1,7 +1,6 @@
 <template>
 	<view class="income-root">
 		<view class="income-root-header">
-			<com-nav-bar @clickLeft="back" left-icon="back" title="收益明细" background-color="#ffffff" color="#000000" rightText='筛选' @clickRight='screening'></com-nav-bar>
 			<view class="pick-time">
 				<view class="pick-time-detail">
 					<picker mode="date" :value="date"  @change="bindDateChange" fields='month'>
@@ -12,6 +11,10 @@
 				<view style="float: right;height: 85rpx;margin-right: 30rpx;" @click="reset">
 					<text style="display: block;width: 100rpx;height: 60rpx;background:#FF7104;text-align: center;line-height: 60rpx;
 					margin-top: 15rpx;color: #fff;border-radius: 15rpx;">重置</text>
+				</view>
+				<view style="float: right;height: 85rpx;margin-right: 30rpx;" @click="screening">
+					<text style="display: block;width: 100rpx;height: 60rpx;background:#FF7104;text-align: center;line-height: 60rpx;
+					margin-top: 15rpx;color: #fff;border-radius: 15rpx;">筛选</text>
 				</view>
 			</view>
 		</view>
@@ -120,11 +123,6 @@
 			this.getList()
 		},
 		methods: {
-			back(){ //返回上一个页面
-				uni.navigateBack({
-					delta:1
-				})
-			},
 			bindDateChange: function(e) { //点击选择年月
 				let time=e.target.value		
 			    this.date = time.split('-')[0]+'年'+time.split('-')[1]+'月'
@@ -227,7 +225,8 @@
 		letter-spacing: 1px;
 
 	}
-	.income-root-header{width: 100%;overflow: hidden;position: fixed;top: 0;left: 0;}
+	.income-root{width: 100%;overflow: hidden;}
+	.income-root-header{width: 100%;overflow: hidden;position: fixed;top: 88rpx;left: 0;}
 	
 	.pick-time{width: 100%;height: 95rpx;background: rgb(244,244,244);}
 	.pick-time-detail{width: 300rpx;height: 60rpx;float: left;margin: 20rpx 30rpx;border-radius: 15rpx;font-weight: bold;color: #000;position: relative;}
