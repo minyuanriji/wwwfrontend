@@ -922,83 +922,7 @@
 		    }
 		    
 		}
-        ,{
-            "path" : "pages/hotel/hotel",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "酒店",
-                "enablePullDownRefresh": false,
-                "navigationBarTextStyle": "black",
-                "navigationBarBackgroundColor": "#FFFFFF"
-            }
-            
-        }
-        ,{
-            "path" : "pages/hotel/hotelList/hotelList",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "酒店列表",
-                "enablePullDownRefresh": false,
-                "navigationBarTextStyle": "black",
-                "navigationBarBackgroundColor": "#FFFFFF"
-            }
-            
-        }
-        ,{
-            "path" : "pages/hotel/selectRoom/selectRoom",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "房间选择",
-                "enablePullDownRefresh": false,
-                "navigationBarTextStyle": "black",
-                "navigationBarBackgroundColor": "#FFFFFF"
-            }
-            
-        }
-        ,{
-            "path" : "pages/hotel/orderSure/orderSure",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "订单",
-               "enablePullDownRefresh": false,
-               "navigationBarTextStyle": "black",
-               "navigationBarBackgroundColor": "#FFFFFF"
-            }
-            
-        }
-		,{
-		    "path" : "pages/hotel/orderList/orderList",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "订单列表",
-		        "enablePullDownRefresh": false,
-		        "navigationBarTextStyle": "black",
-		        "navigationBarBackgroundColor": "#FFFFFF"
-		    }
-		    
-		}
-		,{
-		    "path" : "pages/hotel/hotelDetail/hotelDetail",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "酒店订单详情",
-		        "enablePullDownRefresh": false,
-		        "navigationBarTextStyle": "black",
-		        "navigationBarBackgroundColor": "#FFFFFF"
-		    }
-		    
-		}
-		,{
-		    "path" : "pages/hotel/orderswaiting/orderswaiting",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false,
-				"navigationBarTextStyle": "white",
-				"navigationBarBackgroundColor": "#FF7B10"
-		    }
-		    
-		}
+		
         ,{
             "path" : "pages/user/examine/examine",
             "style" :                                                                                    
@@ -1622,7 +1546,89 @@
 		]
 	}, {
 		"root": "mch",
-		"pages": [			
+		"pages": [	
+			{
+			    "path" : "hotel/hotel",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "酒店",
+			        "enablePullDownRefresh": false,
+			        "navigationBarTextStyle": "black",
+			        "navigationBarBackgroundColor": "#FFFFFF"
+			    }
+			    
+			}
+			,{
+			    "path" : "hotel/hotelList/hotelList",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "酒店列表",
+			        "enablePullDownRefresh": false,
+			        "navigationBarTextStyle": "black",
+			        "navigationBarBackgroundColor": "#FFFFFF"
+			    }
+			    
+			}
+			,{
+			    "path" : "hotel/selectRoom/selectRoom",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "房间选择",
+			        "enablePullDownRefresh": false,
+			        "navigationBarTextStyle": "black",
+			        "navigationBarBackgroundColor": "#FFFFFF"
+			    }
+			    
+			}
+			,{
+			    "path" : "hotel/orderSure/orderSure",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "订单",
+			       "enablePullDownRefresh": false,
+			       "navigationBarTextStyle": "black",
+			       "navigationBarBackgroundColor": "#FFFFFF"
+			    }
+			    
+			}
+			,{
+			    "path" : "hotel/orderList/orderList",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "订单列表",
+			        "enablePullDownRefresh": false,
+			        "navigationBarTextStyle": "black",
+			        "navigationBarBackgroundColor": "#FFFFFF"
+			    }
+			    
+			}
+			,{
+			    "path" : "hotel/hotelDetail/hotelDetail",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "酒店订单详情",
+			        "enablePullDownRefresh": false,
+			        "navigationBarTextStyle": "black",
+			        "navigationBarBackgroundColor": "#FFFFFF"
+			    }
+			    
+			}
+			,{
+			    "path" : "hotel/orderswaiting/orderswaiting",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "",
+			        "enablePullDownRefresh": false,
+					"navigationBarTextStyle": "white",
+					"navigationBarBackgroundColor": "#FF7B10"
+			    }
+			    
+			},
+			
+			
+			
+			
+			
 			{
 			    "path" : "giftbag/giftList/giftList",
 			    "style" :                                                                                    
