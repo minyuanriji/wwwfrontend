@@ -33,7 +33,7 @@
 				message:{},
 			};
 		},
-		//#ifdef H5
+	
 		onLoad(options) {
 			this.id=options.id
 			this.$http.request({
@@ -49,29 +49,7 @@
 						}
 			})
 		},
-		//#endif 
-		//#ifdef MP-WEIXIN 
-		onLoad(options) {
-			console.log(options)
-			if(options.scene){
-			  console.log(options.scene)
-			  var scene = decodeURIComponent(options.scene)
-			  this.id=scene.split('=')[1]
-			  this.$http.request({
-			  			url: this.$api.moreShop.getmchstore,
-			  			method: 'POST',
-			  			data: {
-			  				mch_id:this.id,
-			  			},
-			  			showLoading: true
-			  		}).then(res => {
-			  			if(res.code==0){
-			  				this.message=res.data.store
-			  			}
-			  })
-			}
-		},
-		//#endif
+		
 		methods:{
 			sure(){
 				if(this.num.length<=0){
@@ -79,20 +57,20 @@
 					return
 				}
 				this.$http.request({
-							url: this.$api.moreShop.creatCheckOrder,
-							method: 'POST',
-							data: {
-								id:this.id,
-								order_price:this.num
-							},
-							showLoading: true
-						}).then(res => {
-							if(res.code==0){
-								uni.navigateTo({
-									url:'../../invoicingMessage/invoicingMessage?id='+res.data.id
-								})
-							}
-						})
+						url: this.$api.moreShop.creatCheckOrder,
+						method: 'POST',
+						data: {
+							id:this.id,
+							order_price:this.num
+						},
+						showLoading: true
+					}).then(res => {
+						if(res.code==0){
+							uni.navigateTo({
+								url:'../../invoicingMessage/invoicingMessage?id='+res.data.id
+							})
+						}
+					})
 				
 			}
 		}

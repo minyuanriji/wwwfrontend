@@ -1,7 +1,8 @@
 <template>
-	<view class="more-shop" v-if="show">
+	<view class="more-shop">
 		<com-nav-bar left-icon="back" :title="title" @clickLeft="back"></com-nav-bar>
-		<view class="success_message" v-if="flag">
+		
+		<view v-if="result == 1" class="success_message">
 			<view class="zhanwei"></view>
 			<view class="success_logo">
 				<image :src="img_url+'/success_logo.png'" mode=""></image>				
@@ -13,8 +14,11 @@
 				完成
 			</view>
 		</view>
-		<view class="faile_message" v-if="!flag">
+		
+		<view v-if="result == 2" class="faile_message" >
+			
 			<view class="faile_message_title">
+				<view style="font-size: 42rpx;font-weight: bold;margin-bottom:10rpx;">出错啦</view>
 				{{msg}}
 			</view>
 		</view>
@@ -23,46 +27,41 @@
 
 <script>
 	export default {
-		data() {
+		data() { 
 			return {
-				flag:true,
-				show:false,
 				img_url: this.$api.img_url,
 				id:'',
 				title:'核销进度',
 				msg:'',
+				result: 0
 			}
 		},
 		onLoad(options) {
 			let that=this
 			that.id=options.id
 			uni.showLoading({
-			    title: '正在核销中'
+			    title: '核销中'
 			});
-			setTimeout(function () {
-			    uni.hideLoading();
-				that.$http.request({
-					url: that.$api.default.verificationProgress,
-					method: 'POST',
-					data: {
-						id:options.id,
-					}
-				}).then(res => {
-					if(res.code==0){
-						that.flag=true
-						that.show=true
-					}else{
-						that.flag=false
-						that.show=true
-						that.msg=res.msg
-						// setTimeout(function(){
-						// 	uni.navigateBack({
-						// 		delta:1
-						// 	})
-						// },2000)
-					}
-				})		
-			}, 2000);
+			that.$http.request({
+				url: that.$api.default.verificationProgress,
+				method: 'POST',
+				data: {
+					id:options.id,
+				}
+			}).then(res => {
+				uni.hideLoading();
+				if(res.code==0){
+					that.result = 1;
+				}else{
+					that.result = 2;
+					that.msg=res.msg
+					// setTimeout(function(){
+					// 	uni.navigateBack({
+					// 		delta:1
+					// 	})
+					// },2000)
+				}
+			})		
 		},
 		methods: {
 			gointo(){
@@ -148,11 +147,8 @@
 	border-radius: 15rpx;outline: none;border: none;line-height: 80rpx;color: #fff;font-weight: bold;}
 	
 	.zhanwei{width: 100%;height: 100rpx;}
-	.faile_message{width: 100%;height: 100%;background: url(../../plugins/images/faile_back.jpg)no-repeat;background-size: cover;position: relative;}
-	.faile_message_title{position: absolute;top: 0;left: 0;right: 0;bottom: 0;margin: auto;width: 100%;
-	height: 80rpx;text-align: center;color: #000;font-size: 42rpx;font-weight: bold;}
-
-
+	.faile_message{width: 100%;height: 100%;text-align:center;background:#F7F7F7;padding-top:50rpx;}
+	.faile_message_title{margin-left:20%;border:1px solid #C90A0C;border-radius: 30rpx; padding-top:30rpx;padding-bottom:30rpx;width: 60%;text-align: center;color:#C51A15;}
 
 
 </style>
