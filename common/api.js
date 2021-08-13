@@ -1,3 +1,5 @@
+
+
 // 正式服务器
 // let api_root = 'https://www.mingyuanriji.cn/web/index.php?r=';
 // let url = 'https://www.mingyuanriji.cn/web/static/'; //图片路径
@@ -7,21 +9,18 @@
 let api_root = 'https://dev.mingyuanriji.cn/web/index.php?r=';
 let url = 'https://dev.mingyuanriji.cn/web/static/'; //图片路径
 let plugins_img_url = 'https://dev.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
-
+		
 
 // 本地服务器
 /* let api_root = 'http://local.mingyuanriji.cn/web/index.php?r=';
  let url = 'http://local.mingyuanriji.cn/web/static/'; //图片路径
  let plugins_img_url = 'http://local.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径 */
 
-
 //wx493ce82aab45e4da
 //71b93cac952e55289cc5b3a9b03a345d
 // let api_root = 'http://8.129.63.124/web/index.php?r=';
 // let url = 'http://8.129.63.124/web/static/'; //图片路径
 // let plugins_img_url = 'http://8.129.63.124/web/plugins/'; //扩展页面图片路径
-
-
 
 //
 

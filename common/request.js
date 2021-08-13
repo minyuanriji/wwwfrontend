@@ -113,6 +113,11 @@ const fetch = {
 			'x-latitude':uni.getStorageSync('x-latitude'),
 			'x-sub-mch-id': uni.getStorageSync("x-sub-mch-id") || 0
 		}
+		// #ifdef MP-WEIXIN
+		const accountInfo = wx.getAccountInfoSync();
+		header['x-mp-appid'] = accountInfo.miniProgram.appId;
+		header['x-mp-version'] = accountInfo.miniProgram.version;
+		// #endif
 		return new Promise((resolve, reject) => {
 			uni.request({
 				url: url,
