@@ -13,10 +13,10 @@
 				<view class="coupon-item-right">
 					<view class="item-title">{{item.desc}}</view>
 					<view class="item-plan">
-						发放计划：送{{item.period}}{{item.period_unit=='month'?'月':'周'}}，每{{item.period_unit=='month'?'个月':'周'}}送{{item.integral_num}}积分，
+						发放计划：送{{item.period}}{{item.period_unit=='month'?'月':'周'}}，每{{item.period_unit=='month'?'个月':'周'}}送{{item.integral_num}}红包，
 						<!-- 永久无需渲染有效期 -->
 						<text v-if="item.type!=1">有效期{{item.effective_days}}天</text>
-						已发放：{{item.finish_period}}{{item.period_unit=='month'?'个月':'周'}}   {{alreadyIntegral(item.finish_period,item.integral_num)}}积分 
+						已发放：{{item.finish_period}}{{item.period_unit=='month'?'个月':'周'}}   {{alreadyIntegral(item.finish_period,item.integral_num)}}红包 
 					</view>
 				</view>
 			</view>
@@ -184,7 +184,7 @@
 						font-family: Source Han Sans CN;
 						font-weight: 400;
 						color: #000000;
-						line-height: 58rpx;
+						line-height: 45rpx;
 					}
 					.item-plan{
 						font-size: 18rpx;
