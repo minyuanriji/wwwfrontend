@@ -372,7 +372,7 @@
 	.check_in_message_form view text{display: block;float: left;width: 150rpx;font-size: 28rpx;color: #000;line-height: 80rpx;text-align: left;}
 	.check_in_message_form view input{width: 400rpx;height: 80rpx;font-size: 28rpx;color: #000;line-height: 80rpx;border-bottom: 1rpx dashed #808080;display: block;float: left;}
 	.goPAy{width: 100%;height: 160rpx;background: #fff;padding:20rpx;display: flex;justify-content: space-between;
-	position: fixed;bottom: 0;left: 0;}
+	position: fixed;bottom: 0;left: 0;box-sizing: border-box;}
 	.btn-check{width: 260rpx;height: 80rpx;background: #FF5D0D;line-height: 80rpx;border-radius: 40rpx;color: #fff;outline: none;margin-top: 20rpx;}
 	.active{width: 260rpx;height: 80rpx;background: #F3F4F3;line-height: 80rpx;border-radius: 40rpx;color: #fff;outline: none;margin-top: 20rpx;}
 	.down-logo{width: 24rpx;height: 24rpx;position: absolute;top: 30rpx;right: 90rpx;}
