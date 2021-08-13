@@ -695,14 +695,18 @@
 		background-color: #ffffff;
 
 	}
-
 	.search_box {
-		/* position: fixed; */
-		top: var(--status-bar-height);
+		top: 0;
 		width: 100%;
 		z-index: 99;
 		display: flex;
 	}
+	/* .search_box {
+		top: var(--status-bar-height);
+		width: 100%;
+		z-index: 99;
+		display: flex;
+	} */
 
 	.navIcon_style {
 		/* padding: 30rpx 0px; */
