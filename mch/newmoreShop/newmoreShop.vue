@@ -66,7 +66,7 @@
 		methods: {
 			gointo(){
 				uni.navigateTo({
-					url:'../personalCentre/accountingOrder/accountingOrder'
+					url:'../../pages/personalCentre/accountingOrder/accountingOrder'
 				})
 			},
 			back(){
