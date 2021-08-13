@@ -944,17 +944,17 @@
 		        "navigationBarBackgroundColor": "#FFFFFF"
 		    }
 		    
-		},
-		{
-		    "path" : "pages/newmoreShop/newmoreShop",
-		    "style" :                                                                                    
-		    {
-				"navigationBarTitleText": "核销进度",
-				"navigationBarBackgroundColor": "#fff",
-				"enablePullDownRefresh": false,
-				"navigationStyle": "custom"
-		    }
-		}		
+		}
+		// {
+		//     "path" : "pages/newmoreShop/newmoreShop",
+		//     "style" :                                                                                    
+		//     {
+		// 		"navigationBarTitleText": "核销进度",
+		// 		"navigationBarBackgroundColor": "#fff",
+		// 		"enablePullDownRefresh": false,
+		// 		"navigationStyle": "custom"
+		//     }
+		// }		
     ],
 	"subPackages": [{
 		"root": "plugins",
@@ -1546,7 +1546,17 @@
 		]
 	}, {
 		"root": "mch",
-		"pages": [	
+		"pages": [
+			{
+			    "path" : "newmoreShop/newmoreShop",
+			    "style" :                                                                                    
+			    {
+					"navigationBarTitleText": "核销进度",
+					"navigationBarBackgroundColor": "#fff",
+					"enablePullDownRefresh": false,
+					"navigationStyle": "custom"
+			    }
+			},		
 			{
 			    "path" : "hotel/hotel",
 			    "style" :                                                                                    

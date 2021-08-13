@@ -48,7 +48,7 @@
 				method: 'POST',
 				data: {
 					id: options.id,
-					route: '/h5/#/pages/newmoreShop/newmoreShop'
+					route: '/h5/#/mch/newmoreShop/newmoreShop'
 				},
 				showLoading: true
 			}).then(res => {

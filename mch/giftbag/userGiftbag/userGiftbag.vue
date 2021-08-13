@@ -81,11 +81,11 @@
 				
 			
 				// #ifdef H5
-				let route = '/h5/#/pages/newmoreShop/newmoreShop';
+				let route = '/h5/#/mch/newmoreShop/newmoreShop';
 				// #endif
 				
 				// #ifdef MP-WEIXIN || APP-PLUS
-				let route = 'pages/newmoreShop/newmoreShop';
+				let route = 'mch/newmoreShop/newmoreShop';
 				// #endif
 				
 				let that=this

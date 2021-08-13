@@ -346,7 +346,7 @@
 					url: that.$api.moreShop.getOrdercode,
 					data: {
 						id:id,
-						route:'/h5/#/pages/newmoreShop/newmoreShop',
+						route:'/h5/#/mch/newmoreShop/newmoreShop',
 					}
 				}).then((res) => {
 					if (res.code == 0) {
