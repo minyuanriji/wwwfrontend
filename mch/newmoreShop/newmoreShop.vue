@@ -54,7 +54,7 @@
 					that.result = 1;
 				}else{
 					that.result = 2;
-					that.msg=res.msg
+					that.msg=res.msg					
 					// setTimeout(function(){
 					// 	uni.navigateBack({
 					// 		delta:1
