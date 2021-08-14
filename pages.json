@@ -1638,7 +1638,7 @@
 			    "path" : "giftbag/giftList/giftList",
 			    "style" :                                                                                    
 			    {
-			        "navigationBarTitleText": "超值大礼包",
+			        "navigationBarTitleText": "活动列表",
 			        "enablePullDownRefresh": false,
 					"navigationBarTextStyle": "black"
 			    }
@@ -1651,7 +1651,7 @@
 					"navigationBarTextStyle": "black",
 					"backgroundColorTop": "#F7F7F7",
 					"backgroundColorBottom": "#F7F7F7",
-					"navigationBarTitleText": " ",
+					"navigationBarTitleText": "活动介绍",
 					"navigationStyle": "custom",
 					"app-plus": {
 						"titleNView": false
@@ -1665,8 +1665,8 @@
 					"navigationBarTextStyle": "black",
 					"backgroundColorTop": "#F7F7F7",
 					"backgroundColorBottom": "#F7F7F7",
-					"navigationBarTitleText": " ",
-					"navigationStyle": "custom",
+					"navigationBarTitleText": "活动介绍",
+					//"navigationStyle": "custom",
 					"app-plus": {
 						"titleNView": false
 					}
@@ -1676,7 +1676,7 @@
 			    "path" : "giftbag/giftbagCapacity/giftbagCapacity",
 			    "style" :                                                                                    
 			    {
-			        "navigationBarTitleText": "礼包内容",
+			        "navigationBarTitleText": "活动内容",
 			        "enablePullDownRefresh": false,
 					"navigationBarTextStyle": "black"
 			    }
