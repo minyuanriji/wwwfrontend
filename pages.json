@@ -83,7 +83,7 @@
 				"navigationBarTextStyle": "black",
 				"enablePullDownRefresh": true,
 				"onReachBottomDistance": 50,
-				"navigationStyle": "custom",
+				//"navigationStyle": "custom",
 				"app-plus": {
 					"titleNView": false,
 					"pullToRefresh": {
