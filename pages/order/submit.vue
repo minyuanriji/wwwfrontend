@@ -111,8 +111,8 @@
 				</view>
 				<switch :checked="is_checked" @change="use" color='#FF7104' class="points-switch" />
 			</view>
-
-			<!-- 使用抵扣券 -->
+			
+					
 			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1">
 				<view>使用红包 <view class="xieti">拥有红包：{{user_integral}} <text class="text" v-if="is_integral">-{{total_integral_use}}</text></view>
 				</view>
