@@ -12,7 +12,7 @@
 				@click='foucusInfo'
 				>关注</button> 
 			</view>
-		</view>
+		</view><strong></strong>
 		<!-- #ifdef H5 -->
 		<view class="status_bar"></view> 
 		 <!--#endif -->

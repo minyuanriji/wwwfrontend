@@ -177,7 +177,7 @@
 						
 						if(res.data.base_info.mch_status=='applying'||res.data.base_info.mch_status=='verifying'||res.data.base_info.mch_status=='refused'){
 							uni.navigateTo({
-								url:'../enter/enter'
+								url:'../../pages/enter/enter'
 							})
 						}
 					}else{
