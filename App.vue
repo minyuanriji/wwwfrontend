@@ -2,6 +2,7 @@
 	export default {
 		onLaunch: function() {
 
+
 			//console.log('App Launch');
 			// 初始化项目就执行自定义分享
 			// this.$wechatSdk.share();
@@ -67,11 +68,7 @@
 		},
 
 		onShow: function(options) {
-			
-			
-			
-			
-			
+
 			// //#ifdef H5
 			// 	var jweixin = require('jweixin-module');
 			// 	this.$wechatSdk.initJssdk(function(signData){});

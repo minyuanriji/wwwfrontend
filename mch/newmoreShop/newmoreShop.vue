@@ -37,8 +37,15 @@
 			}
 		},
 		onLoad(options) {
+			
+			this.beforeOnLoad(options);
+			
 			let that=this
+			
+			// #ifdef H5
 			that.id=options.id
+			// #endif
+			
 			uni.showLoading({
 			    title: '核销中'
 			});

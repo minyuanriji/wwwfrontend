@@ -101,7 +101,7 @@
 							</view>
 							<image :src="codeDetail.file_path" mode="" style="border: 1rpx solid #337766;"></image>
 							<text>核销码：{{codeDetail.code}}</text>
-							<text>{{poup}}</text>
+							<text></text>
 						</view>
 					</view>
 					<info :params="params.mch" v-if="params.is_mch==1"></info>

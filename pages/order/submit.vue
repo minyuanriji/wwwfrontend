@@ -105,7 +105,7 @@
 				</tui-list-cell>
 			</view>
 
-			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1 && scoreswitc == 1 || scoreswitc == 0">
+			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1">
 				<view>使用积分 <view class="xieti">拥有积分：{{user_score}} <text class="text" v-if="is_checked">-{{total_score_use}}</text>
 					</view>
 				</view>
@@ -113,7 +113,7 @@
 			</view>
 
 			<!-- 使用抵扣券 -->
-			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1 && scoreswitc == 2 || scoreswitc == 0||scoreswitc == 3">
+			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1">
 				<view>使用红包 <view class="xieti">拥有红包：{{user_integral}} <text class="text" v-if="is_integral">-{{total_integral_use}}</text></view>
 				</view>
 				<switch :checked="is_integral" @change="useIntegral" color='#FF7104' class="points-switch" />
@@ -253,7 +253,7 @@
 				}
 			}
 		},
-		onLoad(options) {			
+		onLoad(options) {		
 			this.form.use_score=options.use_score
 			this.form.use_integral=options.use_integral
 			this.form.list=options.list
@@ -275,7 +275,6 @@
 			this.getData();
 			//#ifdef MP-WEIXIN
 			this.wx_order_id =options.nav_id;
-			console.log(this.wx_order_id);
 			//#endif
 			
 			//#ifdef H5

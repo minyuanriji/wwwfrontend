@@ -152,3 +152,15 @@ export const dateFormat  = function(time){
 function add0(val){
 	return val<10?'0'+val:val;
 }
+
+export const beforeOnLoad  = function(options){
+	// #ifdef MP-WEIXIN
+	if(typeof options['scene'] != "undefined"){
+		var scene = decodeURIComponent(options.scene), i, arr;
+		for (i = 0; i < scene.split('&').length; i++){
+			arr = scene.split('&')[i].split('=');
+			options[arr[0]] = arr[1];
+		}
+	}
+	// #endif
+}

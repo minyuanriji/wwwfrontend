@@ -198,7 +198,7 @@ const fetch = {
 					resolve(res.data)
 				},
 				fail: (res) => {
-					console.log(url)
+					console.log(res)
 					fetch.toast("网络不给力，请稍后再试~")
 					reject(res)
 				}

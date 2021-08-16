@@ -361,6 +361,9 @@
 			this.t_page++;
 		},
 		onLoad(options) {
+			
+			this.beforeOnLoad(options);
+			
 			if (options.pid) {
 				uni.setStorageSync('pid', options.pid);
 				uni.setStorageSync("user_id", options.pid);

@@ -450,7 +450,9 @@
 			}
 		},
 		onLoad(options) {
-			console.log(options)
+			
+			this.beforeOnLoad(options);
+			
 			this.getService()
 			this.textColor = this.globalSet('textCol');
 			this.couponImg = this.globalSet('couponImg');
@@ -464,8 +466,7 @@
 				pid,
 				source
 			} = options;
-			
-			
+
 			if (pid) {
 				uni.setStorageSync("pid", pid);
 				uni.setStorageSync("user_id", pid);

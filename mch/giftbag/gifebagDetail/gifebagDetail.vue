@@ -227,6 +227,7 @@
 			}
 		},
 		onLoad(options) {
+			
 			let obj = {};
 			setTimeout(() => {
 				uni.getSystemInfo({
