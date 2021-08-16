@@ -111,7 +111,7 @@
 							    success: function (resSure) {
 							        if (resSure.confirm) {
 							           	uni.redirectTo({
-							           		url: '../../index/index'
+											url:'../../../pages/index/index'							           		
 							           	})
 							        } 
 							    }
@@ -211,7 +211,7 @@
 								success: function (resSure) {
 									if (resSure.confirm) {
 										uni.redirectTo({
-											url: '../../index/index'
+											url:'../../../pages/index/index'
 										})
 									} 
 								}

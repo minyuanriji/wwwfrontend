@@ -552,70 +552,6 @@
 				"navigationBarBackgroundColor": "#fff"
 			}
 		}
-	    ,{
-            "path" : "pages/personalCentre/personalCentre",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "商户中心",
-				"navigationBarBackgroundColor": "#fff",
-                "enablePullDownRefresh": false,
-				"app-plus": {
-	
-				}
-            }
-            
-        }
-        ,{
-            "path" : "pages/personalCentre/personalCentreSET/personalCentreSET",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "设置",
-				"navigationBarBackgroundColor": "#fff",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/personalCentre/personalCentreSETPhone/personalCentreSETPhone",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "修改电话",
-				"navigationBarBackgroundColor": "#fff",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/personalCentre/personalCentreSETPassWorde/personalCentreSETPassWorde",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "修改密码",
-				"navigationBarBackgroundColor": "#fff",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/personalCentre/accountingOrder/accountingOrder",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "核销订单",
-				"navigationBarBackgroundColor": "#fff",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/personalCentre/ercode/ercode",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "二维码收款",
-				"navigationBarBackgroundColor": "#FE830A",
-				"navigationBarTextStyle": "white",
-                "enablePullDownRefresh": false
-            }
-            
-        }
         ,{
             "path" : "pages/order/verification/verification",
             "style" :                                                                                    
@@ -625,207 +561,6 @@
                 "enablePullDownRefresh": false
             }
            
-        }
-        ,{
-            "path" : "pages/personalCentre/invoicingMessage/invoicingMessage",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "账单详情",
-				"navigationBarBackgroundColor": "#fff",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-		,{
-		    "path" : "pages/personalCentre/invoicingMessage/pay",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "账单支付",
-				"navigationBarBackgroundColor": "#fff",
-		        "enablePullDownRefresh": false,
-				"navigationStyle": "custom"
-		    }
-		    
-		}
-        ,{
-            "path" : "pages/personalCentre/mongeyDetail/mongeyDetail",
-           "style": {
-           	"navigationBarTitleText": "资金明细",
-           	"navigationBarBackgroundColor": "#FFFFFF",
-           	"navigationBarTextStyle": "black",
-           	"enablePullDownRefresh": false,
-           	"onReachBottomDistance": 50,
-           	"navigationStyle": "custom"
-           }
-        }
-		,{
-		    "path" : "pages/personalCentre/waiteDetail/waiteDetail",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "待结算明细",
-		        "enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"navigationBarTextStyle": "black"
-		    }
-		    
-		}
-        ,{
-            "path" : "pages/personalCentre/ercode/payPages/payPages",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "付款",
-				"navigationBarBackgroundColor": "#FF7104",
-				"navigationBarTextStyle": "white",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/personalCentre/withdrawal/withdrawal",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "提现",
-				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "#fff",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-		,{
-		    "path" : "pages/personalCentre/withdrawal/withdrawal_detail",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "提现记录",
-				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "#fff",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-        ,{
-            "path" : "pages/personalCentre/installCenter/installCenter",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "商户设置中心",
-				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "#fff",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/personalCentre/installCenter/accountSetting/accountSetting",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "帐号设置",
-				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "#fff",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-		,{
-		    "path" : "pages/personalCentre/subAccount/subAccount",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "子帐号管理",
-				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "#fff",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-		,{
-		    "path" : "pages/personalCentre/subAccount/add/add",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "添加子账号",
-		        "enablePullDownRefresh": false
-		    }
-		},
-		{
-		    "path" : "pages/personalCentre/subAccount/edit/edit",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "子账号设置",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-		,{
-		    "path" : "pages/personalCentre/subAccount/chooseToEnter/chooseToEnter",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "选择商户",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-        ,{
-            "path" : "pages/personalCentre/shopSetting/shopSetting",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "店铺设置",
-				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "#fff",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/personalCentre/shopLogoupload/shopLogoupload",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "商铺图片",
-				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "#fff",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/personalCentre/audit/audit",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "资金审核",
-				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "#fff",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/personalCentre/productList/productList",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "店铺商品",
-				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "#fff",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/personalCentre/countSet/countSet",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "结算设置",
-				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "#fff",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/personalCentre/agreement/agreement",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "协议",
-				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "#fff",
-                "enablePullDownRefresh": false
-            }
-            
         }
         ,{
             "path" : "pages/order/beused/beused",
@@ -889,17 +624,6 @@
             }
             
         }
-        ,{
-            "path" : "pages/personalCentre/editePhone/editePhone",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false,
-				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "#FFFFFF"
-            }
-            
-        }
         ,{ 
             "path" : "pages/user/bonus/bonus",
             "style" :                                                                                    
@@ -945,16 +669,6 @@
 		    }
 		    
 		}
-		// {
-		//     "path" : "pages/newmoreShop/newmoreShop",
-		//     "style" :                                                                                    
-		//     {
-		// 		"navigationBarTitleText": "核销进度",
-		// 		"navigationBarBackgroundColor": "#fff",
-		// 		"enablePullDownRefresh": false,
-		// 		"navigationStyle": "custom"
-		//     }
-		// }		
     ],
 	"subPackages": [{
 		"root": "plugins",
@@ -1546,7 +1260,309 @@
 		]
 	}, {
 		"root": "mch",
-		"pages": [
+		"pages": [		
+			{
+			    "path" : "personalCentre/personalCentre",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "商户中心",
+					"navigationBarBackgroundColor": "#fff",
+			        "enablePullDownRefresh": false,
+					"app-plus": {
+				
+					}
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/personalCentreSET/personalCentreSET",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "设置",
+					"navigationBarBackgroundColor": "#fff",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/personalCentreSETPhone/personalCentreSETPhone",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "修改电话",
+					"navigationBarBackgroundColor": "#fff",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/personalCentreSETPassWorde/personalCentreSETPassWorde",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "修改密码",
+					"navigationBarBackgroundColor": "#fff",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/accountingOrder/accountingOrder",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "核销订单",
+					"navigationBarBackgroundColor": "#fff",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/ercode/ercode",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "二维码收款",
+					"navigationBarBackgroundColor": "#FE830A",
+					"navigationBarTextStyle": "white",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/invoicingMessage/invoicingMessage",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "账单详情",
+					"navigationBarBackgroundColor": "#fff",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/invoicingMessage/pay",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "账单支付",
+					"navigationBarBackgroundColor": "#fff",
+			        "enablePullDownRefresh": false,
+					"navigationStyle": "custom"
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/mongeyDetail/mongeyDetail",
+			   "style": {
+			   	"navigationBarTitleText": "资金明细",
+			   	"navigationBarBackgroundColor": "#FFFFFF",
+			   	"navigationBarTextStyle": "black",
+			   	"enablePullDownRefresh": false,
+			   	"onReachBottomDistance": 50,
+			   	"navigationStyle": "custom"
+			   }
+			}
+			,{
+			    "path" : "personalCentre/waiteDetail/waiteDetail",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "待结算明细",
+			        "enablePullDownRefresh": false,
+					"navigationBarBackgroundColor": "#FFFFFF",
+					"navigationBarTextStyle": "black"
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/ercode/payPages/payPages",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "付款",
+					"navigationBarBackgroundColor": "#FF7104",
+					"navigationBarTextStyle": "white",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/withdrawal/withdrawal",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "提现",
+					"navigationBarTextStyle": "black",
+					"navigationBarBackgroundColor": "#fff",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/withdrawal/withdrawal_detail",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "提现记录",
+					"navigationBarTextStyle": "black",
+					"navigationBarBackgroundColor": "#fff",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/installCenter/installCenter",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "商户设置中心",
+					"navigationBarTextStyle": "black",
+					"navigationBarBackgroundColor": "#fff",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/installCenter/accountSetting/accountSetting",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "帐号设置",
+					"navigationBarTextStyle": "black",
+					"navigationBarBackgroundColor": "#fff",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/subAccount/subAccount",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "子帐号管理",
+					"navigationBarTextStyle": "black",
+					"navigationBarBackgroundColor": "#fff",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/subAccount/add/add",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "添加子账号",
+			        "enablePullDownRefresh": false
+			    }
+			},
+			{
+			    "path" : "personalCentre/subAccount/edit/edit",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "子账号设置",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/subAccount/chooseToEnter/chooseToEnter",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "选择商户",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/shopSetting/shopSetting",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "店铺设置",
+					"navigationBarTextStyle": "black",
+					"navigationBarBackgroundColor": "#fff",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/shopLogoupload/shopLogoupload",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "商铺图片",
+					"navigationBarTextStyle": "black",
+					"navigationBarBackgroundColor": "#fff",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/audit/audit",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "资金审核",
+					"navigationBarTextStyle": "black",
+					"navigationBarBackgroundColor": "#fff",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/productList/productList",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "店铺商品",
+					"navigationBarTextStyle": "black",
+					"navigationBarBackgroundColor": "#fff",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/countSet/countSet",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "结算设置",
+					"navigationBarTextStyle": "black",
+					"navigationBarBackgroundColor": "#fff",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			}
+			,{
+			    "path" : "personalCentre/agreement/agreement",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "协议",
+					"navigationBarTextStyle": "black",
+					"navigationBarBackgroundColor": "#fff",
+			        "enablePullDownRefresh": false
+			    }
+			    
+			},
+			{
+			    "path" : "personalCentre/editePhone/editePhone",
+			    "style" :                                                                                    
+			    {
+			        "navigationBarTitleText": "",
+			        "enablePullDownRefresh": false,
+					"navigationBarTextStyle": "black",
+					"navigationBarBackgroundColor": "#FFFFFF"
+			    }
+			    
+			},
+	
+	
+	
+	
+	
+	
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+			
 			{
 			    "path" : "newmoreShop/newmoreShop",
 			    "style" :                                                                                    

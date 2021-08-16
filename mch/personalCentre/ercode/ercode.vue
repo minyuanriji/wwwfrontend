@@ -76,7 +76,7 @@
 				url: this.$api.moreShop.checkOrder,
 				method: 'POST',
 				data: {
-					route: '/h5/#/pages/personalCentre/ercode/payPages/payPages'
+					route: '/h5/#/mch/personalCentre/ercode/payPages/payPages'
 				},
 				showLoading: true
 			}).then(res => {
