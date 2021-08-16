@@ -104,7 +104,7 @@
 					</view>
 				</tui-list-cell>
 			</view>
-
+<!-- 
 			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1 && scoreswitc == 1 || scoreswitc == 0">
 				<view>使用积分 <view class="xieti">拥有积分：{{user_score}} <text class="text" v-if="is_checked">-{{total_score_use}}</text>
 					</view>
@@ -112,8 +112,22 @@
 				<switch :checked="is_checked" @change="use" color='#FF7104' class="points-switch" />
 			</view>
 
-			<!-- 使用抵扣券 -->
+		
 			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1 && scoreswitc == 2 || scoreswitc == 0||scoreswitc == 3">
+				<view>使用红包 <view class="xieti">拥有红包：{{user_integral}} <text class="text" v-if="is_integral">-{{total_integral_use}}</text></view>
+				</view>
+				<switch :checked="is_integral" @change="useIntegral" color='#FF7104' class="points-switch" />
+			</view> -->
+			
+			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1">
+				<view>使用积分 <view class="xieti">拥有积分：{{user_score}} <text class="text" v-if="is_checked">-{{total_score_use}}</text>
+					</view>
+				</view>
+				<switch :checked="is_checked" @change="use" color='#FF7104' class="points-switch" />
+			</view>
+			
+					
+			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1">
 				<view>使用红包 <view class="xieti">拥有红包：{{user_integral}} <text class="text" v-if="is_integral">-{{total_integral_use}}</text></view>
 				</view>
 				<switch :checked="is_integral" @change="useIntegral" color='#FF7104' class="points-switch" />
