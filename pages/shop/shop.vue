@@ -541,12 +541,14 @@ padding-left: 15px;
 	flex-wrap: wrap;
 	border-radius: 5px;
 	border: 1px #eee solid;
+	box-sizing: border-box;
 	padding: 10px 10px 0px 10px;
 }
 .index1_content_sort_block{
 	width: 20%;
 	text-align: center;
 	padding: 0px 5px;
+	box-sizing: border-box;
 	margin-bottom: 10px;
 }
 .index1_content_body{
