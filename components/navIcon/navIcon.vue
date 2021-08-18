@@ -85,6 +85,23 @@
 								this.$http.toast('打电话回调成功！')
 							}
 						});
+					}else if(url.split('=')[0] == 'app?app_id'){
+						//#ifdef MP-WEIXIN
+							 wx.navigateToMiniProgram({
+								appId: 'wx0a557311f7f0bb23',
+								path: 'pages/href/href',
+								extraData: {  //参数
+								    mall: '1'
+								},
+								envVersion: 'release',// 打开正式版
+								success(res) {
+									   // 打开成功
+								},
+								fail: function (err) {
+									console.log(err);
+							    }
+							})
+						//#endif
 					}else{
 						uni.navigateTo({
 							url
