@@ -35,6 +35,9 @@
 		},
 	
 		onLoad(options) {
+			
+			this.beforeOnLoad(options);
+			
 			this.id=options.id
 			this.$http.request({
 						url: this.$api.moreShop.getmchstore,

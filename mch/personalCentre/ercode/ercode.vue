@@ -72,11 +72,20 @@
 			}
 		},
 		onLoad() {
+			
+			// #ifdef MP-WEIXIN || APP-PLUS
+			var route = '/h5/#/mch/personalCentre/ercode/payPages/payPages';
+			// #endif
+			
+			// #ifdef H5
+			var route = 'mch/personalCentre/ercode/payPages/payPages';
+			// #endif
+			
 			this.$http.request({
 				url: this.$api.moreShop.checkOrder,
 				method: 'POST',
 				data: {
-					route: '/h5/#/mch/personalCentre/ercode/payPages/payPages'
+					route: route
 				},
 				showLoading: true
 			}).then(res => {

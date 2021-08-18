@@ -183,8 +183,9 @@
             },
             "port" : 80
         },
-        "domain" : "https://dev.mingyuanriji.cn/h5/",
-        "title" : "补商汇-本地",
+        // "domain" : "https://www.mingyuanriji.cn/h5/",
+		"domain" : "https://dev.mingyuanriji.cn/h5/",
+        "title" : "补商汇",
         "template" : "template.h5.html",
         "sdkConfigs" : {
             "maps" : {
