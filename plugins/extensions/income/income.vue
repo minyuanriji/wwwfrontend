@@ -1,6 +1,11 @@
 <template>
 	<view class="income-root">
-		<view class="income-root-header">
+	<!-- #ifdef H5 -->
+		<view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 88rpx;left: 0;">
+	<!--#endif -->
+	<!-- #ifdef MP-WEIXIN || APP-PLUS -->
+		 <view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 0;left: 0;">
+	 <!--#endif -->
 			<view class="pick-time">
 				<view class="pick-time-detail">
 					<picker mode="date" :value="date"  @change="bindDateChange" fields='month'>
@@ -226,7 +231,6 @@
 
 	}
 	.income-root{width: 100%;overflow: hidden;}
-	.income-root-header{width: 100%;overflow: hidden;position: fixed;top: 0;left: 0;}	
 	.pick-time{width: 100%;height: 95rpx;background: rgb(244,244,244);}
 	.pick-time-detail{width: 300rpx;height: 60rpx;float: left;margin: 20rpx 30rpx;border-radius: 15rpx;font-weight: bold;color: #000;position: relative;}
 	.pick-time-detail image{display: block;width: 36rpx;height: 36rpx;position: absolute;top: 7rpx;left: 185rpx;}
