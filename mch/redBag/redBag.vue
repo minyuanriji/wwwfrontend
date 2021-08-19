@@ -29,7 +29,7 @@
 					<view class="price flex flex-x-between">
 						<view v-if="item.type==1">收入：<text :style="{color: '#FF7104'}">{{item.integral}}</text></view>
 						<view v-if="item.type==2">支出：<text :style="{color: '#FF7104'}">{{item.integral}}</text></view>
-						<view>剩余金额： <text :style="{color: '#FF7104'}">{{item.current_integral}}</text> </view>
+						<view>剩余红包： <text :style="{color: '#FF7104'}">{{item.current_integral}}</text> </view>
 					</view>
 					<view class="explanation">
 						说明：{{item.desc}}
