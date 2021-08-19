@@ -1930,7 +1930,17 @@
 					"navigationBarTextStyle": "black"
 				}
 			}
-        ]
+            ,{
+                    "path" : "redBag/redBag",
+                    "style" :                                                                                    
+                {
+                   "navigationBarTitleText": "红包",
+                   "navigationBarBackgroundColor": "#FFFFFF",
+                   "navigationBarTextStyle": "black"
+                }
+                
+                }
+            ]
 	}],
 	"globalStyle": {
 		"backgroundTextStyle": "dark",

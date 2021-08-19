@@ -1,11 +1,11 @@
 <template>
 	<view class="income-root">
-	<!-- #ifdef H5 -->
-		<view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 88rpx;left: 0;">
-	<!--#endif -->
-	<!-- #ifdef MP-WEIXIN || APP-PLUS -->
-		 <view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 0;left: 0;">
-	 <!--#endif -->
+		<!-- #ifdef H5 -->
+			<view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 88rpx;left: 0;">
+		<!--#endif -->
+		<!-- #ifdef MP-WEIXIN || APP-PLUS -->
+			 <view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 0;left: 0;">
+		 <!--#endif -->
 			<view class="pick-time">
 				<view class="pick-time-detail">
 					<picker mode="date" :value="date"  @change="bindDateChange" fields='month'>
@@ -23,13 +23,13 @@
 				</view>
 			</view>
 		</view>
-		<view style="margin-top: 130rpx;margin-bottom: 30rpx;">
+		<view style="margin-top: 130rpx;margin-bottom: 50rpx;">
 			<view class="detail-box" v-for="(item,index) in list" :key='index'>
 				<view class="detail-item-box">
 					<view class="price flex flex-x-between">
-						<view v-if="item.type==1">收入：<text :style="{color: '#FF7104'}">{{item.income}}</text></view>
-						<view v-if="item.type==2">支出：<text :style="{color: '#FF7104'}">{{item.income}}</text></view>
-						<view>剩余金额： <text :style="{color: '#FF7104'}">{{item.money}}</text> </view>
+						<view v-if="item.type==1">收入：<text :style="{color: '#FF7104'}">{{item.integral}}</text></view>
+						<view v-if="item.type==2">支出：<text :style="{color: '#FF7104'}">{{item.integral}}</text></view>
+						<view>剩余金额： <text :style="{color: '#FF7104'}">{{item.current_integral}}</text> </view>
 					</view>
 					<view class="explanation">
 						说明：{{item.desc}}
@@ -75,49 +75,49 @@
 						name:'全部',
 						type:''
 					},
+					// {
+					// 	name:'大礼包订单',
+					// 	type:'giftpacks_order'
+					// },
+					// {
+					// 	name:'大礼包拼单',
+					// 	type:'giftpacks_group_payorder'
+					// },
+					// {
+					// 	name:'话费充值退款',
+					// 	type:'addcredit_refund'
+					// },
+					// {
+					// 	name:'话费充值',
+					// 	type:'addcredit'
+					// },
 					{
-						name:'商品消费',
-						type:'goods'
+						name:'商品购买',
+						type:'record'
 					},
 					{
-						name:'推荐门店',
-						type:'store'
+						name:'商品订单退款',
+						type:'order_refund'
 					},
 					{
-						name:'结账单扫码',
-						type:'checkout'
+						name:'酒店订单',
+						type:'hotel_order'
 					},
 					{
-						name:'酒店消费',
-						type:'hotel_3r_commission'
+						name:'酒店退款单',
+						type:'hotel_order_refund'
 					},
-					{
-						name:'推荐酒店',
-						type:'hotel_commission'
-					},
-					{
-						name:'平台充值',
-						type:'admin'
-					},
-					{
-						name:'股东分红',
-						type:'boss'
-					},
-					{
-						name:'提现',
-						type:'cash'
-					},
-					{
-						name:'话费直推',
-						type:'addcredit'
-					},
-					{
-						name:'话费充值',
-						type:'addcredit_3r'
-					},
+					// {
+					// 	name:'管理员操作',
+					// 	type:'admin'
+					// },
+					// {
+					// 	name:'大礼包拼单取消退款',
+					// 	type:'giftpacks_group_pay_order_refund'
+					// },
 				],
 				selectIndex:0,
-				updated_at:'',//时间
+				created_at:'',//时间
 				source_type:'',//类型
 			};
 		},
@@ -134,15 +134,15 @@
 				this.page=1
 				this.list=[]
 				this.page_count=''
-				this.updated_at=this.date
+				this.created_at=this.date
 				this.getList()
 			},		
 			getList() {
 				this.$http.request({
-					url: this.$api.income.list,
+					url: this.$api.default.getredbagList,
 					data: {
 						page: this.page,
-						updated_at:this.updated_at,
+						created_at:this.created_at,
 						source_type:this.source_type,
 						// status: '',
 					},
@@ -169,9 +169,9 @@
 				this.list=[]
 				this.page_count=''
 				if(this.date=='全部'){
-					this.updated_at=''
+					this.created_at=''
 				}else{
-					this.updated_at=this.date
+					this.created_at=this.date
 				}
 				this.source_type=type
 				this.getList()
@@ -181,7 +181,7 @@
 				this.list=[]
 				this.date="全部",
 				this.page_count=''
-				this.updated_at=''
+				this.created_at=''
 				this.source_type=''
 				this.selectIndex=0
 				this.getList()
@@ -231,6 +231,7 @@
 
 	}
 	.income-root{width: 100%;overflow: hidden;}
+	.income-root-header{width: 100%;overflow: hidden;position: fixed;top: 0;left: 0;}
 	.pick-time{width: 100%;height: 95rpx;background: rgb(244,244,244);}
 	.pick-time-detail{width: 300rpx;height: 60rpx;float: left;margin: 20rpx 30rpx;border-radius: 15rpx;font-weight: bold;color: #000;position: relative;}
 	.pick-time-detail image{display: block;width: 36rpx;height: 36rpx;position: absolute;top: 7rpx;left: 185rpx;}
@@ -241,3 +242,4 @@
 	float: left;margin: 20rpx 0rpx 0 50rpx;border-radius: 10rpx;font-size: 26rpx;font-weight: bold;}
 	.active{background: rgb(222,59,45);color: #fff;}
 </style>
+
