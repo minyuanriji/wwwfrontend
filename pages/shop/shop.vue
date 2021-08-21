@@ -169,36 +169,6 @@
 				uni.navigateTo({
 						url:"/pages/shop/home/home?mch_id="+mch_id
 					})
-				// if(uni.getStorageSync("userInfo")){
-				// 	let user_id=JSON.parse(uni.getStorageSync("userInfo")).user_id
-				// 	let obj={
-				// 		mall_id:mall_id,
-				// 		user_id:user_id,
-				// 		mch_id:Number(mch_id),
-				// 	}
-				// 	this.$http.request({
-				// 		url: this.$api.moreShop.getclickNum,
-				// 		method: 'POST',
-				// 		showLoading:true,
-				// 		data: obj
-				// 	}).then(res => {
-				// 		if (res.code == 0) {
-				// 			uni.setStorage({
-				// 				key:'mch_id',
-				// 				data:mch_id,
-				// 				success() {
-				// 					uni.navigateTo({
-				// 						url:"/pages/shop/home/home?mch_id="+mch_id
-				// 					})
-				// 				}
-				// 			})
-				// 		}
-				// 	})			
-				// }else{
-				// 	uni.navigateTo({
-				// 		url:"/pages/shop/home/home?mch_id="+mch_id
-				// 	})
-				// }	
 			},
 			search(){//搜索
 			    this.shop_list=[]
@@ -491,18 +461,10 @@
 				path:"/pages/shop/shop"
 			}
 		},
-		// onHide(){
-		// 	this.page=1
-		// 	this.lat='',
-		// 	this.lnt='',
-		// 	this.keyword='',
-		// 	this.shop_list=[]
-		// },
 	}
 </script>	
 
 <style>
-/* @import url("../../static/font-icon/iconfont1.css"); */
 @import url("../../plugins/font-icon/iconfont1.css");
 page{background-color: #fff;}
 .index1_content{
