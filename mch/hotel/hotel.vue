@@ -218,7 +218,7 @@
 			   
 			// #endif
 			// #ifndef H5
-				this.getLocationData()	  
+					this.getLocationData()	  
 			// #endif
 			
 		},
