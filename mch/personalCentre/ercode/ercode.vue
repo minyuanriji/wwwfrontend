@@ -72,12 +72,11 @@
 			}
 		},
 		onLoad() {
-			
-			// #ifdef MP-WEIXIN || APP-PLUS
+			// #ifdef H5
 			var route = '/h5/#/mch/personalCentre/ercode/payPages/payPages';
 			// #endif
 			
-			// #ifdef H5
+			// #ifdef MP-WEIXIN || APP-PLUS
 			var route = 'mch/personalCentre/ercode/payPages/payPages';
 			// #endif
 			

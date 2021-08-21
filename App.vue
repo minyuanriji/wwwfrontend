@@ -68,21 +68,6 @@
 		},
 
 		onShow: function(options) {
-
-			// //#ifdef H5
-			// 	var jweixin = require('jweixin-module');
-			// 	this.$wechatSdk.initJssdk(function(signData){});
-			// 	let use=uni.getStorageSync('userInfo')
-			// 	let url=window.location.href+"&pid="+JSON.parse(use).user_id
-			// 	let shareInfo={
-			// 		title:'分享',
-			// 		desc: '自定义分享',
-			// 		imgUrl: 'https://www.mingyuanriji.cn/web/static//header-logo.png',
-			// 		link:url,
-			// 	}
-			// 	console.log(shareInfo)
-			// 	jweixin.updateAppMessageShareData(shareInfo)				
-			// //#endif
 			// #ifdef MP-WEIXIN
 			if (uni.getUpdateManager) {
 				const updateManager = uni.getUpdateManager();
@@ -139,24 +124,22 @@
 					})
 				},500)						 				
 			}	
-			
-			/* let wx_platform = this.$http.getPlatform()
-			let wx_userInfo = uni.getStorageSync('userInfo');
-			let wx_currUrl = window.location.href;
-			let wx_token = uni.getStorageSync('token');
-			if(wx_platform == 'wechat'){
-				if(!wx_token){11
-					if(wx_currUrl.indexOf('rechargeCard') == -1 && wx_currUrl.indexOf('pages/public') == -1){
-						uni.navigateTo({
-							url:'/pages/public/login'
-						})
-					}
-				}
-			} */
 			// #endif
+	
+	
+	
+	
+	
+			
+			// //#ifdef H5
+			//    this.locationH5()	   
+			// // #endif
+			// // #ifndef H5
+			// 	this.locationMp()
+			// // #endif
 		},
 		onHide: function() {
-			
+
 		},
 		methods: {
 			initMall() {
@@ -177,7 +160,115 @@
 					}
 				});
 
-			}
+			},			
+			
+			
+			
+			
+			// getLocationDataH5(){ //公众号定位
+			// 	let that=this
+			// 	if(that.$http.getPlatform()=='wechat'){
+			// 		that.$wechatSdk.location(function(res){
+			// 		if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){	
+			// 			 var  countLO=that.getMapDistanceApi(uni.getStorageSync('x-longitude'),uni.getStorageSync('x-latitude'),res.longitude,res.latitude)					
+			// 			 if((Math.floor(countLO/1000 * 100) / 100)>3){
+			// 				 uni.showModal({
+			// 				 	title: '提示',
+			// 				 	content: "已经超出初次定位3公里，是否重新定位",
+			// 				 	success: function(result) {
+			// 				 		if (result.confirm) {
+			// 							uni.removeStorageSync('x-longitude')
+			// 							uni.removeStorageSync('x-latitude')
+			// 				 			that.locationH5()
+			// 				 		} else if (result.cancel) {
+										
+			// 				 		}
+			// 				 	}
+			// 				 })
+			// 			 }else{
+							
+			// 			 }
+			// 		}
+			// 		uni.setStorageSync('x-longitude',res.longitude)
+			// 		uni.setStorageSync('x-latitude',res.latitude)
+			// 		})
+			// 	}else{
+			// 		that.getLocationData()
+			// 	}
+			// },
+			// getLocationData(){  //微信或者APP定位
+			// 	var that=this
+			// 	uni.getLocation({
+			// 		type:'gcj02',
+			// 		success(res) {
+			// 			if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
+			// 				 var  countLO=that.getMapDistanceApi(uni.getStorageSync('x-longitude'),uni.getStorageSync('x-latitude'),res.longitude,res.latitude)					
+			// 				 if((Math.floor(countLO/1000 * 100) / 100)>3){
+			// 					 uni.showModal({
+			// 					 	title: '提示',
+			// 					 	content: "已经超出初次定位3公里，是否重新定位",
+			// 					 	success: function(result) {
+			// 					 		if (result.confirm) {
+			// 								uni.removeStorageSync('x-longitude')
+			// 								uni.removeStorageSync('x-latitude')
+			// 					 			that.locationMp()
+			// 					 		} else if (result.cancel) {
+											
+			// 					 		}
+			// 					 	}
+			// 					 })
+			// 				 }else{
+								
+			// 				 }
+			// 			}
+			// 			uni.setStorageSync('x-longitude',res.longitude)
+			// 			uni.setStorageSync('x-latitude',res.latitude)
+			// 		}
+			// 	})
+			// },			
+			// locationH5(){
+			// 	this.getLocationDataH5()
+			// 	var time=(parseInt(new Date().getTime()/1000)+7200)-parseInt(new Date().getTime()/1000)
+			// 	let temp=setInterval(()=>{
+			// 		time--
+			// 		if(time<=0){
+			// 			this.getLocationDataH5()
+			// 			clearInterval(temp);
+			// 		}else{
+									
+			// 		}
+			// 	},1000)				
+			// },
+			// locationMp(){
+			// 	this.getLocationData()
+			// 	var time=(parseInt(new Date().getTime()/1000)+7200)-parseInt(new Date().getTime()/1000)
+			// 	let temp=setInterval(()=>{
+			// 		time--
+			// 		if(time<=0){
+			// 			this.getLocationData()
+			// 			clearInterval(temp);
+			// 		}else{
+									
+			// 	}
+			// 	},1000)	  
+			// },
+			// getMapDistanceApi(lng1,lat1,lng2,lat2){	 //计算两点之间的距离		    
+			//     var radLat1 = lat1*Math.PI / 180.0;
+			//     var radLat2 = lat2*Math.PI / 180.0;
+			//     var a = radLat1 - radLat2;
+			//     var  b = lng1*Math.PI / 180.0 - lng2*Math.PI / 180.0;
+			//     var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) +
+			//     Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
+			//     s = s *6378.137 ;// EARTH_RADIUS;
+			//     s = Math.round(s * 10000) / 10000;
+			    
+			//     s = s * 1000
+			    
+			//     if (isNaN(s)) {  
+			//         return 0;  
+			//     }	    
+			//     return s;
+			// }
 		}
 	};
 </script>
