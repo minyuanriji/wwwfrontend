@@ -115,6 +115,10 @@
 						name:'话费充值',
 						type:'addcredit_3r'
 					},
+					{
+						name:'区域分红',
+						type:'region'
+					},
 				],
 				selectIndex:0,
 				updated_at:'',//时间
