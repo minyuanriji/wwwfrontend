@@ -262,7 +262,7 @@
 		},
 		created() {
 			if(this.styleTitle){
-				if(this.styleTitle.indexOf('名品专区')!=-1 ){
+				if(this.styleTitle.indexOf('红包兑换专区')!=-1 ){
 					this.styleShow=true
 				}else{
 					this.styleShow=false
