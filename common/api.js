@@ -53,6 +53,7 @@ let api = {
 		parentMember:api_root + 'api/identity/parent-member',
 		bindParent:api_root + 'api/identity/bind-parent',
 		subscribe:api_root + 'api/identity/subscribe-status',
+		getwxaddress:api_root + 'api/user/wx-user-address-save',
 		
 	//---------------------------------------------------------------统一核销	
 		verification:api_root + 'api/clerkCenter/clerk/get-logs', //核销记录

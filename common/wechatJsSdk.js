@@ -32,7 +32,7 @@ export default {
 				url: root_url
 			}
 		}).then((res) => {
-			if (res.code == 0) {
+			if (res.code == 0) {			
 				let sdk = res.data.config;
 				jweixin.config({
 					debug: sdk.debug,
@@ -260,5 +260,6 @@ export default {
 				});
 			});
 		});
-	},	
+	},
+
 }

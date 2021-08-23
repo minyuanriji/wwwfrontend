@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
-		<com-nav-bar @clickLeft="back" left-icon="back" title="提交订单" :status-bar="true" background-color="#ffffff" :border="false"
-		 color="#000000"></com-nav-bar>
+		<com-nav-bar @clickLeft="back" left-icon="back" title="提交订单" :status-bar="true" background-color="#ffffff"
+			:border="false" color="#000000"></com-nav-bar>
 		<view class="tui-box">
 			<!-- 收货地址 -->
 			<tui-list-cell :arrow="true" :last="true" :radius="true" @click="chooseAddr" v-if="addressShpw">
@@ -11,17 +11,26 @@
 							<text class="tui-name">{{user_address.name}}</text> {{user_address.mobile}}
 						</view>
 						<view class="tui-addr">
-							
+
 							<text>{{user_address.province}}{{user_address.city}}{{user_address.district}}{{user_address.detail}}</text>
 						</view>
 					</view>
 					<view class="tui-none-addr" v-else>
 						<text>请添加收货地址</text>
+						<!-- #ifdef H5 -->
+						<button type="default"
+							style="width: 250rpx;font-size: 25rpx;margin-left: 140rpx;background: rgb(255, 113, 4);color: #fff;"
+							@click.stop="getWechatAddress">获取微信收货地址</button>
+						<!--#endif -->
+						<!-- #ifdef MP-WEIXIN || APP-PLUS -->
+						<button type="default"
+							style="width: 250rpx;font-size: 25rpx;margin-left: 140rpx;background: rgb(255, 113, 4);color: #fff;"
+							@click.stop="getMPAddress">获取微信收货地址</button>
+						<!--#endif -->
 					</view>
 				</view>
 			</tui-list-cell>
 			<!-- 收货地址 -->
-
 			<!-- 商品详情 -->
 			<!-- 0.1 循环出商家 -->
 			<view class="tui-top tui-goods-info" v-for="(item,index) in list" :key='index'>
@@ -30,24 +39,29 @@
 					<view class="tui-goods-title">
 						<view class="logo" @tap="toShop(item.mch.id)">
 							<!-- <span :style="`background-image:url(${})`"></span> -->
-							<image class="img" lazy-load="true" :src="img_url+'/shoplogo.png'" mode="aspectFill"></image>
+							<image class="img" lazy-load="true" :src="img_url+'/shoplogo.png'" mode="aspectFill">
+							</image>
 							<span class="name">{{item.mch.name?item.mch.name:"补商汇官方商城"}}</span>
 							<view class="toright"></view>
 							<view class="icon-logo" style="position: absolute;top: 25rpx;right: 10rpx;">
-								<image :src="img_url+'/hot1.png'" mode="" style="width: 40rpx;height: 40rpx;margin-right: 30rpx;"
-								v-if="item.is_baopin==1"></image>
-								<image :src="img_url+'/Cancel1.png'" mode="" style="width: 40rpx;height: 40rpx;margin-right: 20rpx;"
-								v-if="item.is_offline==1"></image>
+								<image :src="img_url+'/hot1.png'" mode=""
+									style="width: 40rpx;height: 40rpx;margin-right: 30rpx;" v-if="item.is_baopin==1">
+								</image>
+								<image :src="img_url+'/Cancel1.png'" mode=""
+									style="width: 40rpx;height: 40rpx;margin-right: 20rpx;" v-if="item.is_offline==1">
+								</image>
 							</view>
 						</view>
 					</view>
 				</tui-list-cell>
-				<view v-for="(its,ids) in item.same_goods_list" class="item-goods">
+				<view v-for="(its,ids) in item.same_goods_list" class="item-goods" :key='ids'>
 					<!-- 0.3 循环出规格 -->
-					<view v-for="(gItem,gIndex) in its.goods_list">
+					<view v-for="(gItem,gIndex) in its.goods_list" :key='gIndex'>
 						<tui-list-cell :hover="false" padding="0">
 							<view class="tui-goods-item">
-								<image v-if="" :src="gItem.goods_attr.pic_url?gItem.goods_attr.pic_url:gItem.goods_attr.cover_pic" class="tui-goods-img"></image>
+								<image v-if=""
+									:src="gItem.goods_attr.pic_url?gItem.goods_attr.pic_url:gItem.goods_attr.cover_pic"
+									class="tui-goods-img"></image>
 								<view class="tui-goods-center">
 									<view class="tui-goods-name">{{gItem.name}}</view>
 									<view class="tui-goods-attr">{{groupName(gItem.attr_list)}}</view>
@@ -60,11 +74,14 @@
 						</tui-list-cell>
 					</view>
 					<!-- 0.2.1 该商品对应的优惠券 -->
-					<view style="border-bottom: 2rpx solid #e8e8e8;" v-if="its.coupon_list.length != 0" @tap="showPopup(its.coupon_list,index,ids,its.goods_id)">
+					<view style="border-bottom: 2rpx solid #e8e8e8;" v-if="its.coupon_list.length != 0"
+						@tap="showPopup(its.coupon_list,index,ids,its.goods_id)">
 						<tui-list-cell :arrow="hasCoupon" :hover="hasCoupon">
 							<view class="tui-padding tui-flex">
 								<view>优惠券</view>
-								<view :class="{'tui-color-red':hasCoupon}" :style="{color:hasCoupon ? textColor :''}">{{its.coupon_name}}</view>
+								<view :class="{'tui-color-red':hasCoupon}" :style="{color:hasCoupon ? textColor :''}">
+									{{its.coupon_name}}
+								</view>
 							</view>
 						</tui-list-cell>
 					</view>
@@ -90,7 +107,8 @@
 				<tui-list-cell :hover="false" :lineLeft="false" padding="0">
 					<view class="tui-remark-box tui-padding tui-flex">
 						<view>订单备注</view>
-						<input type="text" class="tui-remark" placeholder="选填: 请先和商家协商一致" placeholder-class="tui-phcolor" v-model="remark"></input>
+						<input type="text" class="tui-remark" placeholder="选填: 请先和商家协商一致"
+							placeholder-class="tui-phcolor" v-model="remark"></input>
 					</view>
 				</tui-list-cell>
 				<tui-list-cell :hover="false" :last="true">
@@ -106,15 +124,17 @@
 			</view>
 
 			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1">
-				<view>使用积分 <view class="xieti">拥有积分：{{user_score}} <text class="text" v-if="is_checked">-{{total_score_use}}</text>
+				<view>使用积分 <view class="xieti">拥有积分：{{user_score}} <text class="text"
+							v-if="is_checked">-{{total_score_use}}</text>
 					</view>
 				</view>
 				<switch :checked="is_checked" @change="use" color='#FF7104' class="points-switch" />
 			</view>
-			
-					
+
+
 			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1">
-				<view>使用红包 <view class="xieti">拥有红包：{{user_integral}} <text class="text" v-if="is_integral">-{{total_integral_use}}</text></view>
+				<view>使用红包 <view class="xieti">拥有红包：{{user_integral}} <text class="text"
+							v-if="is_integral">-{{total_integral_use}}</text></view>
 				</view>
 				<switch :checked="is_integral" @change="useIntegral" color='#FF7104' class="points-switch" />
 			</view>
@@ -132,8 +152,8 @@
 					<view style="height: 120rpx"></view>
 					<!-- <view class="coupon-tips">领取优惠券购买</view> -->
 					<view class="coupon-content">
-						<view class="coupon-item" :style="{background: 'url('+couponImg+')no-repeat'}" v-for="(cItem,cIndex) in coupon_list"
-						 :key="cIndex">
+						<view class="coupon-item" :style="{background: 'url('+couponImg+')no-repeat'}"
+							v-for="(cItem,cIndex) in coupon_list" :key="cIndex">
 							<view class="coupon-item-left">
 								<view class="coupon-item-price">
 									<block v-if="cItem.type == 2">
@@ -152,11 +172,13 @@
 							<view class="coupon-item-right">
 								<view class="coupon-item-name">{{cItem.coupon_data.name}}</view>
 								<view class="coupon-item-time">
-									<view v-if="cItem.coupon_data.expire_type == 1">领取{{cItem.coupon_data.expire_day}}天后过期</view>
+									<view v-if="cItem.coupon_data.expire_type == 1">
+										领取{{cItem.coupon_data.expire_day}}天后过期</view>
 									<view v-else>{{cItem.coupon_data.begin_at}}~{{cItem.coupon_data.end_at}}</view>
-									<view class="receive" :style="{background:textColor}" @tap="useCoupon('use',cIndex,cItem.id)" v-if="cItem.is_use == 0">使用</view>
-									<view class="receive receive-col" @tap="useCoupon('notUse',cIndex,cItem.id)" :style="{border:'1px solid'+'#FF7104',color:'#FF7104'}"
-									 v-else>不使用</view>
+									<view class="receive" :style="{background:textColor}"
+										@tap="useCoupon('use',cIndex,cItem.id)" v-if="cItem.is_use == 0">使用</view>
+									<view class="receive receive-col" @tap="useCoupon('notUse',cIndex,cItem.id)"
+										:style="{border:'1px solid'+'#FF7104',color:'#FF7104'}" v-else>不使用</view>
 								</view>
 								<!-- <view class="received iconfont icon-yilingqu"></view> -->
 							</view>
@@ -186,6 +208,9 @@
 </template>
 
 <script>
+	//#ifdef H5
+	var jweixin = require('jweixin-module');
+	//#endif
 	import tuiListCell from "@/components/list-cell/list-cell"
 	export default {
 		components: {
@@ -244,53 +269,55 @@
 				price: 0,
 				express_price: 0,
 				express: 0,
-				addressShpw:true,
-				form:{
-					"user_address_id":"",
-					"use_score":0,
-					"use_integral":0,
-					"list":""
+				addressShpw: true,
+				form: {
+					"user_address_id": "",
+					"use_score": 0,
+					"use_integral": 0,
+					"list": ""
 				}
 			}
 		},
-		onLoad(options) {		
-			this.form.use_score=options.use_score
-			this.form.use_integral=options.use_integral
-			this.form.list=options.list
-			console.log(this.form)
+		onLoad(options) {
+			this.form.use_score = options.use_score
+			this.form.use_integral = options.use_integral
+			this.form.list = options.list
 			if (uni.getStorageSync('mall_config')) {
 				this.textColor = this.globalSet('textCol');
 				this.couponImg = this.globalSet('couponImg');
 			}
 			if (uni.getStorageSync("addressID")) { //如果有地址id在请求地址接口，如果没有则用默认的地址
 				this.addressId = uni.getStorageSync("addressID");
-				this.form.user_address_id=this.addressId
+				this.form.user_address_id = this.addressId
 				this.getAddress();
 			} else {
 				this.addressId = 0;
-				this.form.user_address_id=0
+				this.form.user_address_id = 0
 			}
 			this.mch_id = options.mch_id
 			this.sendData = uni.getStorageSync('orderData');
 			this.getData();
 			//#ifdef MP-WEIXIN
-			this.wx_order_id =options.nav_id;
+			this.wx_order_id = options.nav_id;
 			//#endif
-			
+
 			//#ifdef H5
 			this.wx_order_id = this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0;
 			//#endif
 			this.getscoreswitc();
+			//#ifdef H5
+			this.$wechatSdk.initJssdk(function(signData){})
+			//#endif
 		},
 		onShow() {
 			this.switcExpressPrice();
 			if (uni.getStorageSync("addressID")) { //如果有地址id在请求地址接口，如果没有则用默认的地址
 				this.addressId = uni.getStorageSync("addressID");
-				this.form.user_address_id=this.addressId
+				this.form.user_address_id = this.addressId
 				this.getAddress();
 			} else {
 				this.addressId = 0;
-				this.form.user_address_id=0
+				this.form.user_address_id = 0
 			}
 		},
 		onBackPress(e) {
@@ -343,15 +370,15 @@
 			},
 			//切换地址获取运费
 			switcExpressPrice() {
-				if(this.province == this.user_address.province){
+				if (this.province == this.user_address.province) {
 					return false;
 				}
-				if(this.user_address.province === undefined){
+				if (this.user_address.province === undefined) {
 					this.user_address = uni.getStorageSync('user_address_cache');
 				}
 				this.province = this.user_address.province;
-				this.express=0
-				if(this.user_address.province){
+				this.express = 0
+				if (this.user_address.province) {
 					this.$http.request({
 						url: this.$api.order.express_price,
 						method: 'post',
@@ -361,18 +388,18 @@
 							order_id: JSON.parse(this.wx_order_id)
 						}
 					}).then((res) => {
-						var result=Object.keys(res)
-						this.list.forEach((item)=>{
-							if(item.mch.id==0){
-								item.goods_list.forEach((ites)=>{
+						var result = Object.keys(res)
+						this.list.forEach((item) => {
+							if (item.mch.id == 0) {
+								item.goods_list.forEach((ites) => {
 									console.log(ites)
-									if(result.indexOf(String(ites.id))!=-1){
-										this.express+=Number(res[ites.id])
+									if (result.indexOf(String(ites.id)) != -1) {
+										this.express += Number(res[ites.id])
 									}
 								})
-								item.express_price=this.express;
-								item.total_price=Number(item.total_price)+Number(item.express_price);
-							}							
+								item.express_price = this.express;
+								item.total_price = Number(item.total_price) + Number(item.express_price);
+							}
 						})
 						this.getData();
 						console.log(this.list)
@@ -383,21 +410,21 @@
 			// 使用积分
 			use(e) {
 				this.price = 0;
-				this.is_checked = e.detail.value; 
+				this.is_checked = e.detail.value;
 				this.is_checked ? this.form.use_score = 1 : this.form.use_score = 0; //是否使用积分(请求用)
 				this.is_integral ? this.form.use_integral = 1 : this.form.use_integral = 0; //是否使用抵扣券(请求用)
-				
-				
-				
-				
-				this.is_checked ? this.total_score_use =this.total_score_use :this.total_score_use = 0
+
+
+
+
+				this.is_checked ? this.total_score_use = this.total_score_use : this.total_score_use = 0
 				let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
 				let curRoute = routes[routes.length - 1].route //获取当前页面路由
 				let curParam = routes[routes.length - 1].options; //获取路由参数
-				this.form.user_address_id=this.addressId,
-				// this.form.use_score=curParam.use_score
-				// this.form.use_integral=curParam.use_integral
-				this.form.list=curParam.list
+				this.form.user_address_id = this.addressId,
+					// this.form.use_score=curParam.use_score
+					// this.form.use_integral=curParam.use_integral
+					this.form.list = curParam.list
 				this.getData(); //重新获取订单详情
 			},
 			// 使用抵扣券
@@ -406,18 +433,18 @@
 				this.is_integral = e.detail.value;
 				this.is_checked ? this.form.use_score = 1 : this.form.use_score = 0; //是否使用积分(请求用)
 				this.is_integral ? this.form.use_integral = 1 : this.form.use_integral = 0; //是否使用抵扣券(请求用)
-				
-				
-				
-				
+
+
+
+
 				this.is_integral ? this.total_integral_use = this.total_integral_use : this.total_integral_use = 0;
 				let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
 				let curRoute = routes[routes.length - 1].route //获取当前页面路由
 				let curParam = routes[routes.length - 1].options; //获取路由参数
-				this.form.user_address_id=this.addressId,
-				// this.form.use_score=curParam.use_score
-				// this.form.use_integral=curParam.use_integral
-				this.form.list=curParam.list
+				this.form.user_address_id = this.addressId,
+					// this.form.use_score=curParam.use_score
+					// this.form.use_integral=curParam.use_integral
+					this.form.list = curParam.list
 				this.getData(); //重新获取订单详情
 			},
 			//去重
@@ -437,8 +464,8 @@
 			},
 			// 0.1 获取订单页面数据
 			getData(fn) {
-				this.total_score_use=0
-				this.total_integral_use=0
+				this.total_score_use = 0
+				this.total_integral_use = 0
 				this.$http.request({
 					url: this.$api.moreShop.getOrderList,
 					method: 'post',
@@ -447,8 +474,8 @@
 				}).then((res) => {
 					if (res.code == 0) {
 						console.log(res)
-						if(res.data.is_need_address==0){
-							this.addressShpw=false
+						if (res.data.is_need_address == 0) {
+							this.addressShpw = false
 						}
 						let resList = res.data.list
 						resList.forEach((item) => {
@@ -463,13 +490,16 @@
 										// 0.0.2应该是要先初始化当前商品对应的优惠券数据-先移除再添加
 										couponItem.is_use = 0;
 
-										if (its.usable_user_coupon_id && its.usable_user_coupon_id != 0 && its.usable_user_coupon_id ==
+										if (its.usable_user_coupon_id && its
+											.usable_user_coupon_id != 0 && its
+											.usable_user_coupon_id ==
 											couponItem.id) { //如果这里使用了优惠券
 											// 0.0.3被选中的优惠券切换状态，同时追加到所有使用的优惠券列表中
 											let couponObj = {};
 											couponObj['goods_id'] = its.goods_id;
 											couponObj['user_coupon_id'] = couponItem.id;
-											couponItem.is_use = 1; //切换对应优惠券列表中对应优惠券的is_use状态
+											couponItem.is_use =
+												1; //切换对应优惠券列表中对应优惠券的is_use状态
 											that.use_coupon_list.push(couponObj);
 											its.coupon_name = couponItem.coupon_data.name;
 											///console.log(that.use_coupon_list);
@@ -485,31 +515,30 @@
 						})
 
 						this.list = resList;
-						console.log(this.list)
 						this.score_enable = res.data.score_enable;
 						this.user_score = this.list[0].score.user_score; //用户拥有积分
 						this.user_remaining_score = this.list[0].score.user_remaining_score; //剩余积分
 						if (this.list[0].score.use) {
 							this.is_checked = true; //是否打开使用积分
 							this.use_score = 1; //是否使用积分(请求用)
-						
+
 						} else {
 							this.is_checked = false; //是否打开使用积分
 							this.use_score = 0; //是否使用积分(请求用)
 						}
 						this.integral_enable = res.data.integral_enable;
 						this.user_integral = this.list[0].integral.user_integral; //用户拥有抵扣券
-						
-						
-						
-						
-						for(let i=0;i<this.list.length;i++){
-							this.total_integral_use+=Number(this.list[i].integral.use_num)
-							this.total_score_use+=Number(this.list[i].score.use_num)
+
+
+
+
+						for (let i = 0; i < this.list.length; i++) {
+							this.total_integral_use += Number(this.list[i].integral.use_num)
+							this.total_score_use += Number(this.list[i].score.use_num)
 						}
-						
-	
-	
+
+
+
 						this.user_remaining_integral = this.list[0].integral.user_remaining_integral; //剩余抵扣券
 						if (this.list[0].integral.use) {
 							this.is_integral = true; //是否打开使用抵扣券
@@ -533,7 +562,7 @@
 
 						// 这里后台返回了总价
 						this.total_price = res.data.total_price;
-						if(typeof fn  == "function"){
+						if (typeof fn == "function") {
 							fn.call(this);
 						}
 					} else {
@@ -553,7 +582,7 @@
 				}).then((res) => {
 					if (res.code == 0) {
 						this.user_address = res.data;
-						uni.setStorageSync('user_address_cache',res.data);
+						uni.setStorageSync('user_address_cache', res.data);
 					}
 				})
 			},
@@ -641,10 +670,12 @@
 					}
 
 					if (coupon_detail.type == '1') { //计算使用优惠券后价格
-						goods_list.sale_price = (((goods_list.total_price * 1) * (coupon_detail.coupon_data.discount * 1)).toFixed(2)) *
+						goods_list.sale_price = (((goods_list.total_price * 1) * (coupon_detail.coupon_data.discount * 1))
+								.toFixed(2)) *
 							1;
 					} else {
-						goods_list.sale_price = (((goods_list.total_price * 1) - (coupon_detail.coupon_data.sub_price * 1)).toFixed(2)) *
+						goods_list.sale_price = (((goods_list.total_price * 1) - (coupon_detail.coupon_data.sub_price * 1))
+								.toFixed(2)) *
 							1;
 					}
 
@@ -686,19 +717,19 @@
 				let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
 				let curRoute = routes[routes.length - 1].route //获取当前页面路由
 				let curParam = routes[routes.length - 1].options; //获取路由参数
-				this.form.user_address_id=this.addressId
+				this.form.user_address_id = this.addressId
 				this.is_checked ? this.form.use_score = 1 : this.form.use_score = 0; //是否使用积分(请求用)
-				
+
 				this.is_integral ? this.form.use_integral = 1 : this.form.use_integral = 0; //是否使用抵扣券(请求用)
-				this.form.list=curParam.list
-				
-				if(this.addressShpw){	
+				this.form.list = curParam.list
+
+				if (this.addressShpw) {
 					if (!(this.addressId || this.user_address.id)) {
 						this.$http.toast('请添加收货地址!')
 						this.is_request = false
 						return;
-					}else{
-						this.form.user_address_id=this.user_address.id
+					} else {
+						this.form.user_address_id = this.user_address.id
 					}
 				}
 				this.$http.request({
@@ -714,6 +745,59 @@
 						})
 					} else {
 						this.$http.toast(res.msg);
+					}
+				})
+			},
+			getWechatAddress() {
+				let that = this
+				jweixin.openAddress({
+					success: function(res) {
+						that.$http.request({
+							url: that.$api.default.getwxaddress,
+							method: 'post',
+							data: {
+								name: res.userName,
+								province: res.provinceName,
+								city: res.cityName,
+								district: res.countryName,
+								mobile: res.telNumber,
+								detail: res.detailInfo,
+								is_default: 1,
+							}
+						}).then((result) => {
+							if (result.code == 0) {
+								that.getData()
+							} else {
+								that.$http.toast(result.msg);						
+							}
+						})
+					}
+				})
+			},
+			getMPAddress() {
+				let that = this
+				wx.chooseAddress({
+					success: function(res) {
+						console.log(res)
+						that.$http.request({
+							url: that.$api.default.getwxaddress,
+							method: 'post',
+							data: {
+								name: res.userName,
+								province: res.provinceName,
+								city: res.cityName,
+								district: res.countyName,
+								mobile: res.telNumber,
+								detail: res.detailInfo,
+								is_default: 1,
+							}
+						}).then((result) => {
+							if (result.code == 0) {
+								that.getData()
+							} else {
+								that.$http.toast(result.msg);
+							}
+						})
 					}
 				})
 			}
