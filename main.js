@@ -2,6 +2,9 @@ import Vue from 'vue'
 import App from './App'
 import request from '@/common/request.js';
 import api from '@/common/api.js';
+
+import location from '@/common/location.js';
+Vue.prototype.$location = location;
 // #ifdef H5
 import wechatSdk from '@/common/wechatJsSdk.js';
 import VueClipboard from 'vue-clipboard2'
