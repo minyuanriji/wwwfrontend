@@ -21,31 +21,35 @@ export default {
 		let that=this
 		if(getPlatform()=='wechat'){
 			that.$wechatSdk.location(function(res){
-			if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){	
-				 var  countLO=that.getMapDistanceApi(uni.getStorageSync('x-longitude'),uni.getStorageSync('x-latitude'),res.longitude,res.latitude)					
-				 if((Math.floor(countLO/1000 * 100) / 100)>3){
-					 uni.showModal({
-					 	title: '提示',
-					 	content: "已经超出初次定位3公里，是否重新定位",
-					 	success: function(result) {
-					 		if (result.confirm) {
-								uni.removeStorageSync('x-longitude')
-								uni.removeStorageSync('x-latitude')
-					 			that.locationH5()
-					 		} else if (result.cancel) {
+			if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
+				 uni.setStorageSync('x-longitude-new',res.longitude)
+				 uni.setStorageSync('x-latitude-new',res.latitude)
+				 // var  countLO=that.getMapDistanceApi(uni.getStorageSync('x-longitude'),uni.getStorageSync('x-latitude'),res.longitude,res.latitude)					
+				 // if((Math.floor(countLO/1000 * 100) / 100)>3){
+					//  uni.showModal({
+					//  	title: '提示',
+					//  	content: "已经超出初次定位3公里，是否重新定位",
+					//  	success: function(result) {
+					//  		if (result.confirm) {
+					// 			uni.setStorageSync('x-longitude',res.longitude)
+					// 			uni.setStorageSync('x-latitude',res.latitude)
+					//  			that.locationH5()
+					//  		} else if (result.cancel) {
 								
-					 		}
-					 	}
-					 })
-				 }else{
+					//  		}
+					//  	}
+					//  })
+				 // }else{
 					
-				 }
+				 // }
+			}else{
+				uni.setStorageSync('x-longitude',res.longitude)
+				uni.setStorageSync('x-latitude',res.latitude)
+				uni.setStorageSync('flag',true)
 			}
-			uni.setStorageSync('x-longitude',res.longitude)
-			uni.setStorageSync('x-latitude',res.latitude)
 			})
 		}else{
-			that.getLocationData()
+			that.locationMp()
 		}
 	},
 	getLocationData(){  //微信或者APP定位
@@ -54,27 +58,30 @@ export default {
 			type:'gcj02',
 			success(res) {
 				if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
-					 var  countLO=that.getMapDistanceApi(uni.getStorageSync('x-longitude'),uni.getStorageSync('x-latitude'),res.longitude,res.latitude)					
-					 if((Math.floor(countLO/1000 * 100) / 100)>3){
-						 uni.showModal({
-						 	title: '提示',
-						 	content: "已经超出初次定位3公里，是否重新定位",
-						 	success: function(result) {
-						 		if (result.confirm) {									
-									uni.removeStorageSync('x-longitude')
-									uni.removeStorageSync('x-latitude')
-									that.locationMp()
-						 		} else if (result.cancel) {
+						uni.setStorageSync('x-longitude-new',res.longitude)
+						uni.setStorageSync('x-latitude-new',res.latitude)
+					 // var  countLO=that.getMapDistanceApi(uni.getStorageSync('x-longitude'),uni.getStorageSync('x-latitude'),res.longitude,res.latitude)					
+					 // if((Math.floor(countLO/1000 * 100) / 100)>3){
+						//  uni.showModal({
+						//  	title: '提示',
+						//  	content: "已经超出初次定位3公里，是否重新定位",
+						//  	success: function(result) {
+						//  		if (result.confirm) {									
+						// 			uni.setStorageSync('x-longitude',res.longitude)
+						// 			uni.setStorageSync('x-latitude',res.latitude)
+						// 			that.locationMp()
+						//  		} else if (result.cancel) {
 									
-						 		}
-						 	}
-						 })
-					 }else{
+						//  		}
+						//  	}
+						//  })
+					 // }else{
 						
-					 }
+					 // }
 				}else{
 					uni.setStorageSync('x-longitude',res.longitude)
 					uni.setStorageSync('x-latitude',res.latitude)
+					uni.setStorageSync('flag',true)
 				}
 			}
 		})
@@ -101,7 +108,7 @@ export default {
 					this.getLocationData()
 					clearInterval(temp);
 				}else{
-								
+						
 			}
 			},1000)	  
 	},				
