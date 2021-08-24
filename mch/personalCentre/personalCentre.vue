@@ -82,22 +82,24 @@
 				</view>
 			</view>
 		</view>
-		<view class="personalCenter-item">
-			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(1)">
+		<!-- #ifdef MP-WEIXIN || H5 -->
+		<view class="personalCenter-item" @click="href(1)">
+			<jx-list-cell :arrow="true" padding="0" :lineLeft="false">
 				<view class="jx-cell-header" style="height: 100rpx;">
 					<view class="jx-cell-title" style="font-weight: 700;">我的首页</view>
 				</view>
 			</jx-list-cell>
 		</view>
-		<view class="personalCenter-item">
-			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(2)">
+		<!-- #endif -->
+		<view class="personalCenter-item" @click="href(2)">
+			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" >
 				<view class="jx-cell-header" style="height: 100rpx;">
 					<view class="jx-cell-title" style="font-weight: 700;">二维码收款</view>
 				</view>
 			</jx-list-cell>
 		</view>
-		<view class="personalCenter-item" style="margin-bottom: 100rpx;">
-			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(4)">
+		<view class="personalCenter-item"  @click="href(4)" style="margin-bottom: 100rpx;">
+			<jx-list-cell :arrow="true" padding="0" :lineLeft="false">
 				<view class="jx-cell-header" style="height: 100rpx;">
 					<view class="jx-cell-title" style="font-weight: 700;">商户设置</view>
 				</view>
@@ -158,21 +160,22 @@
 				loading: true
 			}
 		},
-		onLoad() {
+		onShow() {
 			this.getBaseInfo();
 		},
 		methods: {
 			getBaseInfo(){
+				let that = this;
 				this.$http.request({  //获取商户基本信息
 					url: this.$api.moreShop.getMchBaseInfo,
 					method: 'POST', 
 					showLoading: true
 				}).then(res => {
 					if(res.code == 0){
-						this.loading = false;
-						this.userMessage = res.data.base_info;
-						this.store=res.data.base_info.store;
-						this.stat=res.data.base_info.stat;
+						that.loading = false;
+						that.userMessage = res.data.base_info;
+						that.store=res.data.base_info.store;
+						that.stat=res.data.base_info.stat;
 						uni.setStorageSync("mchMessage", res.data.base_info);
 						
 						if(res.data.base_info.mch_status=='applying'||res.data.base_info.mch_status=='verifying'||res.data.base_info.mch_status=='refused'){
@@ -181,7 +184,7 @@
 							})
 						}
 					}else{
-						this.$http.toast(res.msg);
+						that.$http.toast(res.msg);
 					}
 				});
 			},
@@ -240,11 +243,10 @@
 				this.loading = true;
 				this.showPoster = true;
 				if (this.poster_url) {
-					setTimeout(() => {
-						this.loading = false;
-					}, 1000)
+					this.loading = false;
 					return;
 				}
+				let that = this;
 				this.$http.request({
 					url: this.$api.moreShop.sharePoster,
 					method: 'POST',
@@ -255,10 +257,8 @@
 				}).then(res => {
 					if (res.code == 0) {
 						console.log(res)
-						this.poster_url = res.data.pic_url;
-						setTimeout(() => {
-							this.loading = false;
-						}, 1000)
+						that.poster_url = res.data.pic_url;
+						that.loading = false;
 					}
 				})
 			},

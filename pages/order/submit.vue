@@ -253,7 +253,21 @@
 				}
 			}
 		},
-		onLoad(options) {		
+		onLoad(options) {	
+			
+			/* uni.chooseAddress({
+				success(res) {
+					console.log(res.userName)
+					console.log(res.postalCode)
+					console.log(res.provinceName)
+					console.log(res.cityName)
+					console.log(res.countyName)
+					console.log(res.detailInfo)
+					console.log(res.nationalCode)
+					console.log(res.telNumber)
+				}
+			}) */
+			
 			this.form.use_score=options.use_score
 			this.form.use_integral=options.use_integral
 			this.form.list=options.list

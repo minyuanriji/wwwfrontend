@@ -93,21 +93,21 @@
             },
             "icons" : {
                 "android" : {
-                    "hdpi" : "C:/Users/Administrator/Desktop/企业微信截图_20201103181802.png",
-                    "xhdpi" : "C:/Users/Administrator/Desktop/企业微信截图_20201103181802.png",
-                    "xxhdpi" : "C:/Users/Administrator/Desktop/企业微信截图_20201103181802.png",
-                    "xxxhdpi" : "C:/Users/Administrator/Desktop/企业微信截图_20201103181802.png"
+                    "hdpi" : "",
+                    "xhdpi" : "",
+                    "xxhdpi" : "",
+                    "xxxhdpi" : ""
                 },
                 "ios" : {
                     "iphone" : {
-                        "app@2x" : "C:/Users/Administrator/Desktop/企业微信截图_20201103181802.png",
-                        "app@3x" : "C:/Users/Administrator/Desktop/企业微信截图_20201103181802.png",
-                        "spotlight@2x" : "C:/Users/Administrator/Desktop/企业微信截图_20201103181802.png",
-                        "spotlight@3x" : "C:/Users/Administrator/Desktop/企业微信截图_20201103181802.png",
-                        "settings@2x" : "C:/Users/Administrator/Desktop/企业微信截图_20201103181802.png",
-                        "settings@3x" : "C:/Users/Administrator/Desktop/企业微信截图_20201103181802.png",
-                        "notification@2x" : "C:/Users/Administrator/Desktop/企业微信截图_20201103181802.png",
-                        "notification@3x" : "C:/Users/Administrator/Desktop/企业微信截图_20201103181802.png"
+                        "app@2x" : "",
+                        "app@3x" : "",
+                        "spotlight@2x" : "",
+                        "spotlight@3x" : "",
+                        "settings@2x" : "",
+                        "settings@3x" : "",
+                        "notification@2x" : "",
+                        "notification@3x" : ""
                     }
                 }
             }
@@ -159,8 +159,8 @@
         "usingComponents" : true
     },
     "h5" : {
-        // "publicPath" : "https://www.mingyuanriji.cn/h5/",
-        "publicPath" : "https://dev.mingyuanriji.cn/h5/",
+        "publicPath" : "https://www.mingyuanriji.cn/h5/",
+        //"publicPath" : "https://dev.mingyuanriji.cn/h5/",
         //"publicPath" : "http://local.mingyuanriji.cn/h5/",
         "router" : {
             "mode" : "hash",
@@ -171,8 +171,8 @@
             "disableHostCheck" : true,
             "proxy" : {
                 "/api" : {
-                    // "target" : "https://www.mingyuanriji.cn/h5/web/index.php",
-                    "target" : "https://dev.mingyuanriji.cn/h5/web/index.php",
+                    "target" : "https://www.mingyuanriji.cn/h5/web/index.php",
+                    //"target" : "https://dev.mingyuanriji.cn/h5/web/index.php",
                     //"target" : "http://local.mingyuanriji.cn/h5/web/index.php",
                     "changeOrigin" : true,
                     "secure" : false,
@@ -183,8 +183,8 @@
             },
             "port" : 80
         },
-        // "domain" : "https://www.mingyuanriji.cn/h5/",
-		"domain" : "https://dev.mingyuanriji.cn/h5/",
+        "domain" : "https://www.mingyuanriji.cn/h5/",
+        //"domain" : "https://dev.mingyuanriji.cn/h5/",
         "title" : "补商汇",
         "template" : "template.h5.html",
         "sdkConfigs" : {

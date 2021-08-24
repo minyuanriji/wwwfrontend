@@ -54,6 +54,7 @@
 			this.name = options.name;
 		},
 		onShow: function() {
+			
 			this.getList();
 		},
 		methods: {
