@@ -4,7 +4,7 @@
 		<view class="index1_content_top" :style="{background:'#FF7104'}" id="index1_content_top">
 			<picker :value="value" mode="multiSelector" @change="picker" @columnchange="columnPicker" :range="multiArray" class="index1_content_top_l">
 				<view style="display: flex;align-items: center;">
-					<view class="index1_content_top_l_name" style="color: white;">{{city}}</view>
+					<view class="index1_content_top_l_name" style="color: white;width: 120rpx;">{{city}}</view>
 					<view class="index1_content_top_l_r"></view>
 				</view>
 			</picker>
@@ -254,12 +254,12 @@
 					this.provice = this.selectList[value[0]].name; //获取省
 					// this.city = this.selectList[value[0]].children[value[1]].name; //获取市
 					// uni.setStorageSync('x-city-name',this.city)
-					this.district = this.selectList[value[0]].children[value[1]].children[value[2]].name; //获取区
-					this.text = this.provice + " " + this.city + " " + this.district;
+					// this.district = this.selectList[value[0]].children[value[1]].children[value[2]].name; //获取区
+					this.text = this.provice + " " + this.city
 					this.proviceId = this.selectList[value[0]].id; //获取省id
 					this.cityId = this.selectList[value[0]].children[value[1]].id; //获取市id
 					uni.setStorageSync('x-city-id',this.cityId)
-					this.districtId = this.selectList[value[0]].children[value[1]].children[value[2]].id; //获取区id
+					// this.districtId = this.selectList[value[0]].children[value[1]].children[value[2]].id; //获取区id
 				}
 				this.shop_list=[]
 				this.page=1
@@ -483,7 +483,7 @@ font-weight: bold;
 color: #131313;
 }
 .index1_content_top_l_r{margin-left: 5px;width: 8px;height: 8px;border-top: 2px #FFF solid;border-right: 2px #fff solid;transform: rotate(135deg);margin-top: 3px;}
-.index1_content_top_r{width: 70%;
+.index1_content_top_r{width: 60%;
 height: 29px;
 background: #F4F4F4;
 border-radius: 14px;
