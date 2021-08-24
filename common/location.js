@@ -20,7 +20,7 @@ export default {
 	getLocationDataH5(){ //公众号定位
 		let that=this
 		if(getPlatform()=='wechat'){
-			that.$wechatSdk.location(function(res){
+			that.$location.location(function(res){
 			if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
 				 uni.setStorageSync('x-longitude-new',res.longitude)
 				 uni.setStorageSync('x-latitude-new',res.latitude)
