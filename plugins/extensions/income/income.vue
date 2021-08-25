@@ -120,8 +120,12 @@
 						type:'addcredit_3r'
 					},
 					{
-						name:'区域分红',
-						type:'region'
+						name:'区域商品分红',
+						type:'region_goods'
+					},
+					{
+						name:'区域门店扫码分红',
+						type:'region_checkout'
 					},
 				],
 				selectIndex:0,
