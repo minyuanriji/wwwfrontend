@@ -20,33 +20,15 @@ export default {
 	getLocationDataH5(){ //公众号定位
 		let that=this
 		if(getPlatform()=='wechat'){
-			that.$location.location(function(res){
-			if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
-				 uni.setStorageSync('x-longitude-new',res.longitude)
-				 uni.setStorageSync('x-latitude-new',res.latitude)
-				 // var  countLO=that.getMapDistanceApi(uni.getStorageSync('x-longitude'),uni.getStorageSync('x-latitude'),res.longitude,res.latitude)					
-				 // if((Math.floor(countLO/1000 * 100) / 100)>3){
-					//  uni.showModal({
-					//  	title: '提示',
-					//  	content: "已经超出初次定位3公里，是否重新定位",
-					//  	success: function(result) {
-					//  		if (result.confirm) {
-					// 			uni.setStorageSync('x-longitude',res.longitude)
-					// 			uni.setStorageSync('x-latitude',res.latitude)
-					//  			that.locationH5()
-					//  		} else if (result.cancel) {
-								
-					//  		}
-					//  	}
-					//  })
-				 // }else{
-					
-				 // }
-			}else{
-				uni.setStorageSync('x-longitude',res.longitude)
-				uni.setStorageSync('x-latitude',res.latitude)
-				uni.setStorageSync('flag',true)
-			}
+			that.$wechatJsSdk.location(function(res){
+				if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
+					 uni.setStorageSync('x-longitude-new',res.longitude)
+					 uni.setStorageSync('x-latitude-new',res.latitude)
+				}else{
+					uni.setStorageSync('x-longitude',res.longitude)
+					uni.setStorageSync('x-latitude',res.latitude)
+					uni.setStorageSync('flag',true)
+				}
 			})
 		}else{
 			that.locationMp()
@@ -60,24 +42,6 @@ export default {
 				if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
 						uni.setStorageSync('x-longitude-new',res.longitude)
 						uni.setStorageSync('x-latitude-new',res.latitude)
-					 // var  countLO=that.getMapDistanceApi(uni.getStorageSync('x-longitude'),uni.getStorageSync('x-latitude'),res.longitude,res.latitude)					
-					 // if((Math.floor(countLO/1000 * 100) / 100)>3){
-						//  uni.showModal({
-						//  	title: '提示',
-						//  	content: "已经超出初次定位3公里，是否重新定位",
-						//  	success: function(result) {
-						//  		if (result.confirm) {									
-						// 			uni.setStorageSync('x-longitude',res.longitude)
-						// 			uni.setStorageSync('x-latitude',res.latitude)
-						// 			that.locationMp()
-						//  		} else if (result.cancel) {
-									
-						//  		}
-						//  	}
-						//  })
-					 // }else{
-						
-					 // }
 				}else{
 					uni.setStorageSync('x-longitude',res.longitude)
 					uni.setStorageSync('x-latitude',res.latitude)

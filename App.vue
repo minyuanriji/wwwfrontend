@@ -5,14 +5,14 @@
 			if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
 				
 			}else{
-				 this.$location.locationH5()	
+				 this.$unifylocation.locationH5()	
 			}   
 			// #endif
 			// #ifndef H5
 			if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
 				
 			}else{
-				this.$location.locationMp()
+				this.$unifylocation.locationMp()
 			}
 			// #endif
 	

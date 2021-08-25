@@ -2,9 +2,6 @@ import Vue from 'vue'
 import App from './App'
 import request from '@/common/request.js';
 import api from '@/common/api.js';
-
-import location from '@/common/location.js';
-Vue.prototype.$location = location;
 // #ifdef H5
 import wechatSdk from '@/common/wechatJsSdk.js';
 import VueClipboard from 'vue-clipboard2'
@@ -15,6 +12,10 @@ import 'video.js/dist/video-js.css'
 Vue.use(VueVideoPlayer).use(VueClipboard);
 Vue.prototype.$wechatSdk = wechatSdk;
 // #endif
+
+import location from '@/common/locationgeneral.js';
+Vue.prototype.$unifylocation = location;
+
 
 // #ifdef MP-WEIXIN
 //挂载全局微信分享
