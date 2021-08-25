@@ -12,14 +12,18 @@
 					    <view class="uni-input">{{date}}</view>
 					 </picker>
 					<image :src="img_url+'/upstrong.png'" mode=""></image>
+					<view style="font-size: 25rpx;color: #A0A0A0;">
+						<text style="margin-right: 20rpx;">收入￥{{detailed_count.income}}</text>
+						<text>支出￥{{detailed_count.expenditure}}</text>
+					</view>
 				</view>
-				<view style="float: right;height: 85rpx;margin-right: 30rpx;" @click="reset">
+				<view style="float: right;height: 85rpx;margin-right: 20rpx;" @click="reset">
 					<text style="display: block;width: 100rpx;height: 60rpx;background:#FF7104;text-align: center;line-height: 60rpx;
-					margin-top: 15rpx;color: #fff;border-radius: 15rpx;">重置</text>
+					margin-top: 25rpx;color: #fff;border-radius: 15rpx;">重置</text>
 				</view>
 				<view style="float: right;height: 85rpx;margin-right: 30rpx;" @click="screening">
 					<text style="display: block;width: 100rpx;height: 60rpx;background:#FF7104;text-align: center;line-height: 60rpx;
-					margin-top: 15rpx;color: #fff;border-radius: 15rpx;">筛选</text>
+					margin-top: 25rpx;color: #fff;border-radius: 15rpx;">筛选</text>
 				</view>
 			</view>
 		</view>
@@ -123,6 +127,10 @@
 				selectIndex:0,
 				updated_at:'',//时间
 				source_type:'',//类型
+				detailed_count:{
+					income:0,
+					expenditure:0
+				},
 			};
 		},
 		onLoad() {
@@ -153,6 +161,7 @@
 					showLoading: true,
 				}).then((res) => {
 					if (res.code == 0) {
+						this.detailed_count=res.data.detailed_count
 						if (res.data.list.length == 0) return false
 						let list = res.data.list
 						var arr = this.list.concat(list)
@@ -235,8 +244,8 @@
 
 	}
 	.income-root{width: 100%;overflow: hidden;}
-	.pick-time{width: 100%;height: 95rpx;background: rgb(244,244,244);}
-	.pick-time-detail{width: 300rpx;height: 60rpx;float: left;margin: 20rpx 30rpx;border-radius: 15rpx;font-weight: bold;color: #000;position: relative;}
+	.pick-time{width: 100%;height: 110rpx;background: rgb(244,244,244);}
+	.pick-time-detail{width: 420rpx;height: 60rpx;float: left;margin: 20rpx 30rpx;border-radius: 15rpx;font-weight: bold;color: #000;position: relative;}
 	.pick-time-detail image{display: block;width: 36rpx;height: 36rpx;position: absolute;top: 7rpx;left: 185rpx;}
 	.popup-detail{width: 100%;background: #fff;min-height: 400rpx;border-radius: 0 0 20rpx 20rpx;padding-bottom: 30rpx;}
 	.popup-detail-header{width: 100%;height: 80rpx;line-height: 80rpx;padding: 0 20rpx;font-size: 30rpx;color: #000;font-weight: bold;}
