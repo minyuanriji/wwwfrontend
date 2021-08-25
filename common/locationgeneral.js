@@ -1,4 +1,7 @@
 import { getPlatform } from '@/common/request.js';
+// #ifdef H5
+import wechatSdk from '@/common/wechatJsSdk.js';
+// #endif
 export default {
 	getMapDistanceApi(lng1,lat1,lng2,lat2){	 //计算两点之间的距离
 	    var radLat1 = lat1*Math.PI / 180.0;
@@ -20,7 +23,7 @@ export default {
 	getLocationDataH5(){ //公众号定位
 		let that=this
 		if(getPlatform()=='wechat'){
-			that.$wechatJsSdk.location(function(res){
+			wechatSdk.location(function(res){
 				if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
 					 uni.setStorageSync('x-longitude-new',res.longitude)
 					 uni.setStorageSync('x-latitude-new',res.latitude)

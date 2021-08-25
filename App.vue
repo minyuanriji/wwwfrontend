@@ -1,6 +1,8 @@
 <script>
 	export default {
 		onLaunch: function() {
+			
+			
 			//#ifdef H5
 			if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
 				
@@ -14,7 +16,13 @@
 			}else{
 				this.$unifylocation.locationMp()
 			}
-			// #endif
+			// #endif  
+
+
+
+
+
+
 	
 			//console.log('App Launch');
 			// 初始化项目就执行自定义分享
