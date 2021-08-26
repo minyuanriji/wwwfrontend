@@ -160,7 +160,7 @@
 				value: [0, 0, 0],
 				selectList: [],
 				provice: "",
-				city: "",
+				city: "定位中..",
 				district: "",
 				proviceId: "",
 				cityId: "",
@@ -485,18 +485,17 @@
 			//    }else{
 			// 	    that.getLocationData()
 			//    }
-
 			// // #endif
 			// // #ifndef H5
 			// 	that.getLocationData()	  
 			// // #endif
 			//-----------------------------------------------------------------------------------新定位			
 			//#ifdef H5
-				that.$location.locationH5()
+				that.$unifylocation.locationH5()
 			setTimeout(() => {
 				if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {
 					let flag=uni.getStorageSync("flag")					
-					var countLO = that.$location.getMapDistanceApi(uni.getStorageSync('x-longitude'), uni
+					var countLO = that.$unifylocation.getMapDistanceApi(uni.getStorageSync('x-longitude'), uni
 						.getStorageSync('x-latitude'), uni.getStorageSync('x-longitude-new'), uni
 						.getStorageSync('x-latitude-new'))
 					if ((Math.floor(countLO / 1000 * 100) / 100) > 3&&flag) {
@@ -523,14 +522,14 @@
 					}
 
 				}
-			}, 1500)
+			}, 1000)
 			// #endif
 			// #ifndef H5
-			that.$location.locationMp()
+			that.$unifylocation.locationMp()
 			setTimeout(() => {
 				if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {
 					let flag=uni.getStorageSync("flag")	
-					var countLO = that.$location.getMapDistanceApi(uni.getStorageSync('x-longitude'), uni
+					var countLO = that.$unifylocation.getMapDistanceApi(uni.getStorageSync('x-longitude'), uni
 						.getStorageSync('x-latitude'), uni.getStorageSync('x-longitude-new'), uni
 						.getStorageSync('x-latitude-new'))
 					if ((Math.floor(countLO / 1000 * 100) / 100) > 3&&flag) {
@@ -557,7 +556,7 @@
 					}
 
 				}
-			}, 3000)
+			}, 1000)
 			// #endif
 			//-----------------------------------------------------------------------------------新定位				
 
@@ -619,6 +618,7 @@
 		border-right: 2px #fff solid;
 		transform: rotate(135deg);
 		margin-top: 3px;
+		margin-bottom: 8px;
 	}
 
 	.index1_content_top_r {
