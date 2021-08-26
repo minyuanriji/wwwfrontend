@@ -494,7 +494,7 @@
 				that.$unifylocation.locationH5()
 			setTimeout(() => {
 				if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {
-					let flag=uni.getStorageSync("flag")					
+					var flag=uni.getStorageSync("flag")					
 					var countLO = that.$unifylocation.getMapDistanceApi(uni.getStorageSync('x-longitude'), uni
 						.getStorageSync('x-latitude'), uni.getStorageSync('x-longitude-new'), uni
 						.getStorageSync('x-latitude-new'))
@@ -528,7 +528,7 @@
 			that.$unifylocation.locationMp()
 			setTimeout(() => {
 				if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {
-					let flag=uni.getStorageSync("flag")	
+					var flag=uni.getStorageSync("flag")	
 					var countLO = that.$unifylocation.getMapDistanceApi(uni.getStorageSync('x-longitude'), uni
 						.getStorageSync('x-latitude'), uni.getStorageSync('x-longitude-new'), uni
 						.getStorageSync('x-latitude-new'))
