@@ -13,6 +13,10 @@ Vue.use(VueVideoPlayer).use(VueClipboard);
 Vue.prototype.$wechatSdk = wechatSdk;
 // #endif
 
+import location from '@/common/locationgeneral.js';
+Vue.prototype.$unifylocation = location;
+
+
 // #ifdef MP-WEIXIN
 //挂载全局微信分享
 import { wxShare } from '@/config/utils'

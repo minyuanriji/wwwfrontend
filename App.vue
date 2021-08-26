@@ -1,8 +1,29 @@
 <script>
 	export default {
 		onLaunch: function() {
+			
+			
+			//#ifdef H5
+			if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
+				
+			}else{
+				 this.$unifylocation.locationH5()	
+			}   
+			// #endif
+			// #ifndef H5
+			if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
+				
+			}else{
+				this.$unifylocation.locationMp()
+			}
+			// #endif  
 
 
+
+
+
+
+	
 			//console.log('App Launch');
 			// 初始化项目就执行自定义分享
 			// this.$wechatSdk.share();
@@ -68,10 +89,6 @@
 		},
 
 		onShow: function(options) {
-			
-			let pages = getCurrentPages();
-			console.log("options", options);
-				
 			// #ifdef MP-WEIXIN
 			if (uni.getUpdateManager) {
 				const updateManager = uni.getUpdateManager();
@@ -135,12 +152,6 @@
 	
 	
 			
-			//#ifdef H5
-			   this.locationH5()	   
-			// #endif
-			// #ifndef H5
-				this.locationMp()
-			// #endif
 		},
 		onHide: function() {
 
@@ -165,114 +176,6 @@
 				});
 
 			},			
-			
-			
-			
-			
-			getLocationDataH5(){ //公众号定位
-				let that=this
-				if(that.$http.getPlatform()=='wechat'){
-					that.$wechatSdk.location(function(res){
-					if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){	
-						 var  countLO=that.getMapDistanceApi(uni.getStorageSync('x-longitude'),uni.getStorageSync('x-latitude'),res.longitude,res.latitude)					
-						 if((Math.floor(countLO/1000 * 100) / 100)>3){
-							 uni.showModal({
-							 	title: '提示',
-							 	content: "系统检测到你已偏离原位置，是否重新定位",
-							 	success: function(result) {
-							 		if (result.confirm) {
-										uni.removeStorageSync('x-longitude')
-										uni.removeStorageSync('x-latitude')
-							 			that.locationH5()
-							 		} else if (result.cancel) {
-										
-							 		}
-							 	}
-							 })
-						 }else{
-							
-						 }
-					}
-					uni.setStorageSync('x-longitude',res.longitude)
-					uni.setStorageSync('x-latitude',res.latitude)
-					})
-				}else{
-					that.getLocationData()
-				}
-			},
-			getLocationData(){  //微信或者APP定位
-				var that=this
-				uni.getLocation({
-					type:'gcj02',
-					success(res) {
-						if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
-							 var  countLO=that.getMapDistanceApi(uni.getStorageSync('x-longitude'),uni.getStorageSync('x-latitude'),res.longitude,res.latitude)					
-							 if((Math.floor(countLO/1000 * 100) / 100)>3){
-								 uni.showModal({
-								 	title: '提示',
-								 	content: "系统检测到你已偏离原位置，是否重新定位",
-								 	success: function(result) {
-								 		if (result.confirm) {
-											uni.removeStorageSync('x-longitude')
-											uni.removeStorageSync('x-latitude')
-								 			that.locationMp()
-								 		} else if (result.cancel) {
-											
-								 		}
-								 	}
-								 })
-							 }else{
-								
-							 }
-						}
-						uni.setStorageSync('x-longitude',res.longitude)
-						uni.setStorageSync('x-latitude',res.latitude)
-					}
-				})
-			},			
-			locationH5(){
-				this.getLocationDataH5()
-				var time=(parseInt(new Date().getTime()/1000)+7200)-parseInt(new Date().getTime()/1000)
-				let temp=setInterval(()=>{
-					time--
-					if(time<=0){
-						this.getLocationDataH5()
-						clearInterval(temp);
-					}else{
-									
-					}
-				},1000)				
-			},
-			locationMp(){
-				this.getLocationData()
-				var time=(parseInt(new Date().getTime()/1000)+7200)-parseInt(new Date().getTime()/1000)
-				let temp=setInterval(()=>{
-					time--
-					if(time<=0){
-						this.getLocationData()
-						clearInterval(temp);
-					}else{
-									
-				}
-				},1000)	  
-			},
-			getMapDistanceApi(lng1,lat1,lng2,lat2){	 //计算两点之间的距离		    
-			    var radLat1 = lat1*Math.PI / 180.0;
-			    var radLat2 = lat2*Math.PI / 180.0;
-			    var a = radLat1 - radLat2;
-			    var  b = lng1*Math.PI / 180.0 - lng2*Math.PI / 180.0;
-			    var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) +
-			    Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
-			    s = s *6378.137 ;// EARTH_RADIUS;
-			    s = Math.round(s * 10000) / 10000;
-			    
-			    s = s * 1000
-			    
-			    if (isNaN(s)) {  
-			        return 0;  
-			    }	    
-			    return s;
-			}
 		}
 	};
 </script>
