@@ -494,7 +494,12 @@
 				that.$unifylocation.locationH5()
 			setTimeout(() => {
 				if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {
-					var flag=uni.getStorageSync("flag")					
+					var flag=uni.getStorageSync("flag")
+					if(uni.getStorageSync('locationTime')){
+						if(parseInt(new Date().getTime()/1000)-uni.getStorageSync('locationTime')>=86400){
+							flag=true
+						}
+					}
 					var countLO = that.$unifylocation.getMapDistanceApi(uni.getStorageSync('x-longitude'), uni
 						.getStorageSync('x-latitude'), uni.getStorageSync('x-longitude-new'), uni
 						.getStorageSync('x-latitude-new'))
@@ -513,6 +518,7 @@
 									that.getData()
 								} else if (result.cancel) {
 									uni.setStorageSync("flag",false)
+									uni.setStorageSync("locationTime",parseInt(new Date().getTime()/1000))
 									that.getData()
 								}
 							}
@@ -528,7 +534,12 @@
 			that.$unifylocation.locationMp()
 			setTimeout(() => {
 				if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {
-					var flag=uni.getStorageSync("flag")	
+					var flag=uni.getStorageSync("flag")
+					if(uni.getStorageSync('locationTime')){
+						if(parseInt(new Date().getTime()/1000)-uni.getStorageSync('locationTime')>=86400){
+							flag=true
+						}
+					}
 					var countLO = that.$unifylocation.getMapDistanceApi(uni.getStorageSync('x-longitude'), uni
 						.getStorageSync('x-latitude'), uni.getStorageSync('x-longitude-new'), uni
 						.getStorageSync('x-latitude-new'))
@@ -547,6 +558,7 @@
 									that.getData()
 								} else if (result.cancel) {
 									uni.setStorageSync("flag",false)
+									uni.setStorageSync("locationTime",parseInt(new Date().getTime()/1000))
 									that.getData()
 								}
 							}
