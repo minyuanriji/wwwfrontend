@@ -171,11 +171,12 @@
 				tomoryTime:'',
 				recommendedForm:{
 					page:1,
-					lng:'',
-					lat:'',
+					lng:String(uni.getStorageSync('x-longitude-new')),
+					lat:String(uni.getStorageSync('x-latitude-new')),
 					city_id:'',
 				},
 				flag:false,
+				timeflag:true,
 			};
 		},
 		onLoad() {
@@ -195,47 +196,157 @@
 			this.form.days=1
 			
 			
-			//#ifdef H5
-			   if(this.$http.getPlatform()=='wechat'){
-				   let that=this
-				   uni.showLoading({
-						title:'正在定位中...'
-				   })
-				   this.$wechatSdk.location(function(res){
-				   		that.recommendedForm.lat=String(res.latitude)
-				   		that.recommendedForm.lng=String(res.longitude)
-				   		uni.setStorageSync('x-longitude',res.longitude)
-				   		uni.setStorageSync('x-latitude',res.latitude)
-						that.getrecommended()
-						setTimeout(function () {
-						    uni.hideLoading();
-						}, 4000)
+			// //#ifdef H5
+			//    if(this.$http.getPlatform()=='wechat'){
+			// 	   let that=this
+			// 	   uni.showLoading({
+			// 			title:'正在定位中...'
+			// 	   })
+			// 	   this.$wechatSdk.location(function(res){
+			// 	   		that.recommendedForm.lat=String(res.latitude)
+			// 	   		that.recommendedForm.lng=String(res.longitude)
+			// 	   		uni.setStorageSync('x-longitude',res.longitude)
+			// 	   		uni.setStorageSync('x-latitude',res.latitude)
+			// 			that.getrecommended()
+			// 			setTimeout(function () {
+			// 			    uni.hideLoading();
+			// 			}, 4000)
 						
-				   })
-			   }else{
-				    this.getLocationData()
-			   }
+			// 	   })
+			//    }else{
+			// 	    this.getLocationData()
+			//    }
 			   
+			// // #endif
+			// // #ifndef H5
+			// 		this.getLocationData()	  
+			// // #endif
+			let that=this
+			//#ifdef H5
+				that.$unifylocation.locationH5()
+			setTimeout(() => {
+				if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {
+					if(uni.getStorageSync('locationTime')){
+						if(parseInt(new Date().getTime()/1000)-uni.getStorageSync('locationTime')>=86400){
+							that.timeflag=uni.getStorageSync("flag")
+						}
+					}else{
+						that.timeflag=true
+					}
+					var countLO = that.$unifylocation.getMapDistanceApi(uni.getStorageSync('x-longitude'), uni
+						.getStorageSync('x-latitude'), uni.getStorageSync('x-longitude-new'), uni
+						.getStorageSync('x-latitude-new'))
+					if ((Math.floor(countLO / 1000 * 100) / 100) > 3&&that.timeflag) {
+						uni.showModal({
+							title: '提示',
+							content: "已经超出初次定位3公里，是否重新定位",
+							success: function(result) {
+								if (result.confirm) {
+									uni.setStorageSync('x-longitude', uni.getStorageSync(
+										'x-longitude-new'))
+									uni.setStorageSync('x-latitude', uni.getStorageSync(
+										'x-latitude-new'))
+									that.recommendedForm.lat =String(uni.getStorageSync('x-latitude-new')) //纬度
+									that.recommendedForm.lng =String(uni.getStorageSync('x-longitude-new'))//经度
+									that.getrecommended()
+								} else if (result.cancel) {
+									uni.setStorageSync("flag",false)
+									uni.setStorageSync("locationTime",parseInt(new Date().getTime()/1000))
+									that.getrecommended()
+								}
+							}
+						})
+					} else {
+						that.getrecommended()
+					}
+			
+				}
+			}, 1000)
 			// #endif
 			// #ifndef H5
-					this.getLocationData()	  
+			uni.getSetting({
+			   success(res) {
+			      if(!res.authSetting['scope.userLocation']){
+					  uni.showModal({
+					  	title:"是否授权当前位置",
+					  	content: '需要获取您的地理位置，请确认授权，否则地图功能将无法使用',
+					  	confirmText: "确认",
+						showCancel:false,
+					  	success: (res) => {
+					  		if (res.confirm) {
+					  			uni.openSetting({
+					  				success: (res) => {
+					  					uni.redirectTo({
+					  						url:'/mch/hotel/hotel'
+					  					})
+					  					that.$unifylocation.locationMp()
+					  				}
+					  			})
+					  		} else {
+					  		
+					  		}
+					  	}
+					  })
+				  }
+			   }
+			})
+			that.$unifylocation.locationMp()
+			setTimeout(() => {
+				if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {
+					if(uni.getStorageSync('locationTime')){
+						if(parseInt(new Date().getTime()/1000)-uni.getStorageSync('locationTime')>=86400){
+							that.timeflag=uni.getStorageSync("flag")
+						}
+					}else{
+						that.timeflag=true
+					}
+					var countLO = that.$unifylocation.getMapDistanceApi(uni.getStorageSync('x-longitude'), uni
+						.getStorageSync('x-latitude'), uni.getStorageSync('x-longitude-new'), uni
+						.getStorageSync('x-latitude-new'))
+					if ((Math.floor(countLO / 1000 * 100) / 100) > 3&&that.timeflag) {
+						uni.showModal({
+							title: '提示',
+							content: "已经超出初次定位3公里，是否重新定位",
+							success: function(result) {
+								if (result.confirm) {
+									uni.setStorageSync('x-longitude', uni.getStorageSync(
+										'x-longitude-new'))
+									uni.setStorageSync('x-latitude', uni.getStorageSync(
+										'x-latitude-new'))
+									that.recommendedForm.lat =String(uni.getStorageSync('x-latitude-new')) //纬度
+									that.recommendedForm.lng =String(uni.getStorageSync('x-longitude-new'))//经度
+									that.getrecommended()
+								} else if (result.cancel) {
+									uni.setStorageSync("flag",false)
+									uni.setStorageSync("locationTime",parseInt(new Date().getTime()/1000))
+									that.getrecommended()
+								}
+							}
+						})
+					} else {
+						that.getrecommended()
+					}
+			
+				}
+			}, 1000)
 			// #endif
+			
 			
 		},
 		methods:{
-			getLocationData(){
-				var that=this
-				uni.getLocation({
-					type:'gcj02',
-					success(res) {
-						that.recommendedForm.lng=String(res.longitude)
-						that.recommendedForm.lat=String(res.latitude)
-						uni.setStorageSync('x-longitude',res.longitude)
-						uni.setStorageSync('x-latitude',res.latitude)
-						that.getrecommended()
-					}
-				})
-			},
+			// getLocationData(){
+			// 	var that=this
+			// 	uni.getLocation({
+			// 		type:'gcj02',
+			// 		success(res) {
+			// 			that.recommendedForm.lng=String(res.longitude)
+			// 			that.recommendedForm.lat=String(res.latitude)
+			// 			uni.setStorageSync('x-longitude',res.longitude)
+			// 			uni.setStorageSync('x-latitude',res.latitude)
+			// 			that.getrecommended()
+			// 		}
+			// 	})
+			// },
 			changeTime(d){
 			     return d.getFullYear() + '-' +((d.getMonth()+1)<10?'0'+(d.getMonth()+1):(d.getMonth()+1)) + '-' + (d.getDate()<10?'0'+d.getDate():d.getDate());
 			},

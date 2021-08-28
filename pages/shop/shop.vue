@@ -108,6 +108,7 @@
 		},
 		data() {
 			return {
+				timeflag:true,
 				img_url: this.$api.img_url,
 				current: 0,
 				background: "#53DEDB",
@@ -494,16 +495,17 @@
 				that.$unifylocation.locationH5()
 			setTimeout(() => {
 				if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {
-					var flag=uni.getStorageSync("flag")
 					if(uni.getStorageSync('locationTime')){
 						if(parseInt(new Date().getTime()/1000)-uni.getStorageSync('locationTime')>=86400){
-							flag=true
+							that.timeflag=uni.getStorageSync("flag")
 						}
+					}else{
+						that.timeflag=true
 					}
 					var countLO = that.$unifylocation.getMapDistanceApi(uni.getStorageSync('x-longitude'), uni
 						.getStorageSync('x-latitude'), uni.getStorageSync('x-longitude-new'), uni
 						.getStorageSync('x-latitude-new'))
-					if ((Math.floor(countLO / 1000 * 100) / 100) > 3&&flag) {
+					if ((Math.floor(countLO / 1000 * 100) / 100) > 3&&that.timeflag) {
 						uni.showModal({
 							title: '提示',
 							content: "已经超出初次定位3公里，是否重新定位",
@@ -560,16 +562,17 @@
 			that.$unifylocation.locationMp()
 			setTimeout(() => {
 				if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {
-					var flag=uni.getStorageSync("flag")
 					if(uni.getStorageSync('locationTime')){
 						if(parseInt(new Date().getTime()/1000)-uni.getStorageSync('locationTime')>=86400){
-							flag=true
+							that.timeflag=uni.getStorageSync("flag")
 						}
+					}else{
+						that.timeflag=true
 					}
 					var countLO = that.$unifylocation.getMapDistanceApi(uni.getStorageSync('x-longitude'), uni
 						.getStorageSync('x-latitude'), uni.getStorageSync('x-longitude-new'), uni
 						.getStorageSync('x-latitude-new'))
-					if ((Math.floor(countLO / 1000 * 100) / 100) > 3&&flag) {
+					if ((Math.floor(countLO / 1000 * 100) / 100) > 3&&that.timeflag) {
 						uni.showModal({
 							title: '提示',
 							content: "已经超出初次定位3公里，是否重新定位",
