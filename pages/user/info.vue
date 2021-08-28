@@ -6,16 +6,13 @@
 					<span>基础资料</span>
 				</view>
 				<view class="content">
-					<view class="item avatar">
+					<view class="avatar-upload">
 						<view class="msg">头像</view>
-						<view class="btn">
-							<view class="edit-avatar">
-								<com-upload v-if="showEditImg" ref="upload" :serverUrl="serverUrl" @complete="result" :limit="1" @remove="remove" :width="120" :height="120"></com-upload>
-								<image v-else class="img" :src="dataForm.avatar || img_url+'images/my/mine_def_touxiang_3x.png'" @click="changAcatar"></image>
-								<!-- #ifdef APP-PLUS || H5-->
-								<view class="iconfont icon-xiala" @click="changAcatar"></view>
-								<!-- #endif -->
-							</view>
+						<view class="">
+							<image class="img" :src="dataForm.avatar?dataForm.avatar:img_url+'images/my/mine_def_touxiang_3x.png'"
+								@tap="chooseImage()"
+								style="width: 120rpx;height: 120rpx;float: right;display: block;border-radius: 50%;">
+							</image>
 						</view>
 					</view>
 					<view class="item phone">
@@ -33,18 +30,21 @@
 						<view class="msg">姓名:</view>
 						<!-- <view v-if="!editNickname">{{userInfo.nickname || '请设置你的昵称'}}</view> -->
 						<view class="btn">
-							<input class="text" type="text" v-model="dataForm.nickname" placeholder="请设置您的姓名" style="width: 440rpx;"/>
+							<input class="text" type="text" v-model="dataForm.nickname" placeholder="请设置您的姓名"
+								style="width: 440rpx;" />
 							<view class="edit"></view>
 						</view>
 					</view>
 					<view class="item birthday">
 						<view class="msg">生日: </view>
-						<view @click="showDateTime" :style="{color: dataForm.birthday ? '' : '#999999'}">{{dataForm.birthday || '点我设置您的生日'}}</view>
+						<view @click="showDateTime" :style="{color: dataForm.birthday ? '' : '#999999'}">
+							{{dataForm.birthday || '点我设置您的生日'}}</view>
 					</view>
 					<view class="item address">
 						<view class="msg">地址: </view>
 						<view class="btn">
-							<view class="text" :style="{color: address ? '' : '#999999'}">{{address || '快去添加第一个地址吧'}}</view>
+							<view class="text" :style="{color: address ? '' : '#999999'}">{{address || '快去添加第一个地址吧'}}
+							</view>
 							<view class="edit">
 								<span @click="openUrl('./address/list')">
 									修改地址
@@ -55,107 +55,44 @@
 
 				</view>
 			</view>
-		<!-- 	<view class="box user-alipay">
-				<view class="title">交易设置</view>
-				<view class="content">
-					<view class="item password">
-						<view class="msg">交易密码:</view>
-						<view>* * * * * *</view>
-						<view class="btn">
-							<view class="edit">
-								<span @click="openUrl('./payment/password')">
-									修改密码
-								</span>
-							</view>
-						</view>
-					</view>
-				</view>
-			</view> -->
-			
-			<!-- <view class="box user-alipay">
-				<view class="title">支付宝账号信息</view>
-				<view class="content">
-					<view class="item alipay-account-num">
-						<view class="msg">支付宝账号: </view>
-						<view class="btn">
-							<input type="text" value="" placeholder="" />
-						</view>
-					</view>
-					<view class="item alipay-account-username">
-						<view class="msg">支付宝账户名: </view>
-						<view class="btn">
-							<input type="text" value="" placeholder="" />
-						</view>
-					</view>
-				</view>
-			</view>
-			<view class="box user-bankcard">
-				<view class="title">银行卡信息</view>
-				<view class="content">
-					<view class="item bankcard-initial">
-						<view class="msg">开户银行: </view>
-						<view class="btn">
-							<input type="text" value="" placeholder="例如 农业银行" />
-						</view>
-					</view>
-					<view class="item bankcard-branch">
-						<view class="msg">开户城市: </view>
-						<view class="btn">
-							<input type="text" value="" placeholder="请选择开户城市" />
-						</view>
-					</view>
-					<view class="item bankcard-branch">
-						<view class="msg">开户支行: </view>
-						<view class="btn">
-							<input type="text" value="" placeholder="例如 广州农业支行" />
-						</view>
-					</view>
-					<view class="item bankcard-account-num">
-						<view class="msg">银行卡账号: </view>
-						<view class="btn">
-							<input type="text" value="" placeholder="" />
-						</view>
-					</view>
-					<view class="item bankcard-username">
-						<view class="msg">银行卡持有人: </view>
-						<view class="btn">
-							<input type="text" value="" placeholder="" />
-						</view>
-					</view>
-				</view>
-			</view> -->
 		</view>
 		<view class="operate">
-			<button class="btn" type="warn" :style="{backgroundColor: '#FF7104' || ''}" @click="dataSubmit" :disabled="editStatic">确认修改</button>
+			<button class="btn" type="warn" :style="{backgroundColor: '#FF7104' || ''}" @click="dataSubmit"
+				:disabled="editStatic">确认修改</button>
 		</view>
-		<main-datetime ref="dateTime" :type="2" :startYear="startYear" :endYear="endYear" cancelColor="#888" color="#5677fc"
-		 :setDateTime="setDateTime" @confirm="changeDateTime"></main-datetime>
-		 
-		 <main-loading :visible="loading"></main-loading>
+		<kps-image-cutter @ok="onok" @cancel="oncancle" :url="url" :fixed="false" :maxWidth="500" :minHeight="300">
+
+		</kps-image-cutter>
+		<main-datetime ref="dateTime" :type="2" :startYear="startYear" :endYear="endYear" cancelColor="#888"
+			color="#5677fc" :setDateTime="setDateTime" @confirm="changeDateTime"></main-datetime>
+		<main-loading :visible="loading"></main-loading>
 	</view>
 </template>
 
 <script>
+	import kpsImageCutter from "@/components/ksp-image-cutter/ksp-image-cutter.vue";
 	export default {
+		components: {
+			kpsImageCutter
+		},
 		data() {
 			return {
+				url: "",
 				img_url: this.$api.img_url,
 				dataForm: {
 					avatar: '',
 					mobile: '',
 					nickname: '',
 					birthday: '',
-					
 				},
 				startYear: 1980,
 				endYear: 2030,
 				setDateTime: "",
 				address: '',
 				serverUrl: this.$api.default.upload,
-				showEditImg: false,
 				editStatic: true,
 				loading: false,
-				textColor:''
+				textColor: '',
 			}
 		},
 		onLoad() {
@@ -164,7 +101,7 @@
 			}
 			this.getUserInfo();
 		},
-		watch:{
+		watch: {
 			dataForm: {
 				deep: true,
 				handler(newVal, val) {
@@ -173,13 +110,52 @@
 			}
 		},
 		methods: {
+			chooseImage() {
+				uni.chooseImage({
+					success: (res) => {
+						// 设置url的值，显示控件						 
+						this.url =res.tempFiles[0].path	
+					}
+				});
+			},
+			onok(ev) {			
+				let that=this
+				that.dataForm.avatar= ev.path;
+				that.url = "";
+				var requestData = {
+					serverUrl: that.$api.default.upload,
+					fileKeyName: "file",
+					file:that.dataForm.avatar
+				}
+				uni.showLoading({
+					title: "正在上传"
+				})
+				that.$http.uploadFile(requestData).then(function(res) {
+					uni.hideLoading()
+					if(res.code==0){
+						that.dataForm.avatar=res.data.thumb_url
+					}else{
+						that.$http.toast(res.msg);
+					}
+				})
+				
+			},
+			oncancle() {
+				// url设置为空，隐藏控件
+				this.url = "";
+			},
+
+
+
+
+
 			dataSubmit() {
 				var nicknameRegExp = /^[\u4e00-\u9fa5a-z0-9]+$/gi;
-				if(!nicknameRegExp.test(this.dataForm.nickname)){
+				if (!nicknameRegExp.test(this.dataForm.nickname)) {
 					this.$http.toast("您输入的姓名格式有误");
 					return;
 				}
-				if(!(this.dataForm.nickname.length >=2 && this.dataForm.nickname.length <= 15)){
+				if (!(this.dataForm.nickname.length >= 2 && this.dataForm.nickname.length <= 15)) {
 					this.$http.toast("字数限制2~15");
 					return;
 				}
@@ -198,8 +174,8 @@
 						this.showEditImg = false;
 						setTimeout(() => {
 							this.navBack();
-						},1000*2)
-					}else{
+						}, 1000 * 2)
+					} else {
 						this.$http.toast(res.msg);
 					}
 				}).catch(err => {
@@ -210,24 +186,6 @@
 				uni.navigateTo({
 					url
 				})
-			},
-			changAcatar() {
-				
-				this.$http.toast("上传头像");
-				this.showEditImg = true;
-				this.$nextTick(() => {
-					//this.$refs['upload'].$el.click()
-					this.$refs['upload'].chooseImage();
-				})
-			},
-			result: function(e) {
-				// 图片上传结果
-				this.dataForm.avatar = e.imgArr[0];
-				this.editStatic = false;
-			},
-			remove: function(e) {
-				//移除图片
-				let index = e.index
 			},
 			changeDateTime(e) {
 				this.$set(this.dataForm, "birthday", e.result)
@@ -256,7 +214,7 @@
 					method: 'POST'
 				}).then(res => {
 					if (res.code === 0) {
-						if(res.data.list && res.data.list.length){
+						if (res.data.list && res.data.list.length) {
 							this.address = res.data.list[0].user_address;
 						}
 					}
@@ -379,5 +337,17 @@
 			background-color: #BC0100;
 			font-size: 12pt;
 		}
+	}
+
+	.avatar-upload {
+		height: 130rpx;
+		line-height: 40rpx;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin: 0 30rpx;
+		box-sizing: border-box;
+		border-bottom: 1rpx solid #E0E0E0;
+		font-size: 11pt;
 	}
 </style>

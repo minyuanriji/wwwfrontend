@@ -12,7 +12,7 @@
 			<view class="shopSetting-title" style="height: 150rpx;line-height: 150rpx;">
 				店铺LOGO：
 			</view>
-			<image :src="params.shop_logo" mode="" class="logo"></image>
+			<image :src="form.cover_url" mode="" class="logo"></image>
 			<view class="upload-logo" @tap="uploadImg">
 				
 			</view>
@@ -65,12 +65,19 @@
 		<view class="sure_btn" @click="sureBtn">
 			确定
 		</view>
+		<kps-image-cutter @ok="onok" @cancel="oncancle" :url="url" :fixed="false" :maxWidth="500" :minHeight="300">
+		
+		</kps-image-cutter>
 	</view>
 </template>
 
 <script>
+	import kpsImageCutter from "@/components/ksp-image-cutter/ksp-image-cutter.vue";
 	import {isEmpty}  from '../../../common/validate.js'
 	export default {
+		components: {
+			kpsImageCutter
+		},
 		data() {
 			return {
 				img_url: this.$api.img_url,
@@ -98,7 +105,8 @@
 					address:''
 				},
 				text:'',
-				userMessage:''
+				userMessage:'',
+				url: "",
 			};
 		},
 		onLoad() {
@@ -115,37 +123,10 @@
 			},
 			uploadImg(){
 				var that = this
-				var params = this.params
 				uni.chooseImage({
 					count: 1,
 					success: function(res) {
-						var file = res.tempFiles[0].path
-						var requestData = {
-							serverUrl: that.$api.default.upload+'&width=3000&height=3000&type=1',
-							fileKeyName: "file",
-							file: file
-						}
-						uni.showLoading({
-							title: "正在上传"
-						})
-						that.$http.uploadFile(requestData).then(function(res) {
-							uni.hideLoading()
-							if(res.code==0){
-								var url = res.data.url
-								params.shop_logo = url
-								that.params = params
-								that.form.cover_url=that.params.shop_logo
-								that.$forceUpdate()
-							}else{
-								uni.showToast({
-									title: '图片太大，请重新上传',
-									icon: 'none'
-								});
-								setTimeout(function() {
-									uni.hideToast();
-								}, 2000);
-							}
-						})
+						that.url =res.tempFiles[0].path	
 					}
 				})
 			},
@@ -357,7 +338,32 @@
 					uni.setStorageSync('imglist',logoList)
 					this.num=logoList.length
 				});
-			}
+			},
+			oncancle() {
+				// url设置为空，隐藏控件
+				this.url = "";
+			},
+			onok(ev) {
+				let that=this
+				that.form.cover_url= ev.path;
+				that.url = "";
+				var requestData = {
+					serverUrl: that.$api.default.upload,
+					fileKeyName: "file",
+					file:that.form.cover_url 
+				}
+				uni.showLoading({
+					title: "正在上传"
+				})
+				that.$http.uploadFile(requestData).then(function(res) {
+					uni.hideLoading()
+					if(res.code==0){
+						that.form.cover_url=res.data.thumb_url
+					}else{
+						that.$http.toast(res.msg);
+					}
+				})
+			},
 		}	
 	}
 </script>

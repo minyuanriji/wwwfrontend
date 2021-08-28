@@ -494,7 +494,12 @@
 				that.$unifylocation.locationH5()
 			setTimeout(() => {
 				if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {
-					let flag=uni.getStorageSync("flag")					
+					var flag=uni.getStorageSync("flag")
+					if(uni.getStorageSync('locationTime')){
+						if(parseInt(new Date().getTime()/1000)-uni.getStorageSync('locationTime')>=86400){
+							flag=true
+						}
+					}
 					var countLO = that.$unifylocation.getMapDistanceApi(uni.getStorageSync('x-longitude'), uni
 						.getStorageSync('x-latitude'), uni.getStorageSync('x-longitude-new'), uni
 						.getStorageSync('x-latitude-new'))
@@ -513,6 +518,7 @@
 									that.getData()
 								} else if (result.cancel) {
 									uni.setStorageSync("flag",false)
+									uni.setStorageSync("locationTime",parseInt(new Date().getTime()/1000))
 									that.getData()
 								}
 							}
@@ -525,10 +531,41 @@
 			}, 1000)
 			// #endif
 			// #ifndef H5
+			uni.getSetting({
+			   success(res) {
+			      if(!res.authSetting['scope.userLocation']){
+					  uni.showModal({
+					  	title:"是否授权当前位置",
+					  	content: '需要获取您的地理位置，请确认授权，否则地图功能将无法使用',
+					  	confirmText: "确认",
+						showCancel:false,
+					  	success: (res) => {
+					  		if (res.confirm) {
+					  			uni.openSetting({
+					  				success: (res) => {
+					  					uni.redirectTo({
+					  						url:'/pages/shop/shop'
+					  					})
+					  					that.$unifylocation.locationMp()
+					  				}
+					  			})
+					  		} else {
+					  		
+					  		}
+					  	}
+					  })
+				  }
+			   }
+			})
 			that.$unifylocation.locationMp()
 			setTimeout(() => {
 				if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {
-					let flag=uni.getStorageSync("flag")	
+					var flag=uni.getStorageSync("flag")
+					if(uni.getStorageSync('locationTime')){
+						if(parseInt(new Date().getTime()/1000)-uni.getStorageSync('locationTime')>=86400){
+							flag=true
+						}
+					}
 					var countLO = that.$unifylocation.getMapDistanceApi(uni.getStorageSync('x-longitude'), uni
 						.getStorageSync('x-latitude'), uni.getStorageSync('x-longitude-new'), uni
 						.getStorageSync('x-latitude-new'))
@@ -547,6 +584,7 @@
 									that.getData()
 								} else if (result.cancel) {
 									uni.setStorageSync("flag",false)
+									uni.setStorageSync("locationTime",parseInt(new Date().getTime()/1000))
 									that.getData()
 								}
 							}

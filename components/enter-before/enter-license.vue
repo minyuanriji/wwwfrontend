@@ -248,13 +248,7 @@
 								}  
 								that.$forceUpdate()
 							}else{
-								uni.showToast({
-									title: '图片太大，请重新上传',
-									icon: 'none'
-								});
-								setTimeout(function() {
-									uni.hideToast();
-								}, 2000);
+								that.$http.toast(res.msg)
 							}
 						})
 					}

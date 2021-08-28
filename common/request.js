@@ -207,7 +207,6 @@ const fetch = {
 	},
 	// 上传头像
 	uploadFile: function(requestData) {
-		console.log(requestData)
 		let {
 			serverUrl,
 			file,
