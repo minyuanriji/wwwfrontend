@@ -1,8 +1,18 @@
 <template>
 	<view class="giftbagDetail-app">
 		<view class="tui-banner-swiper">
-			<image :src="detail.cover_pic" mode="widthFix" style="width: 100%;"></image>
+			<swiper :duration="150" :style="{height:scrollH + 'px'}" @change="bannerChange">
+				<block v-for="(item,b_index) in detail.pic_url" :key="b_index">
+					<swiper-item :data-index="b_index+1">
+						<image :src="item.pic_url" mode="aspectFill" class="tui-slide-image" :style="{height:scrollH+'px'}" />
+					</swiper-item>
+				</block>
+			</swiper>
+			<jx-tag class="tui-tag-class" type="translucent" shape="circle" size="small">{{bannerIndex+1}}/{{bannerLength}}</jx-tag>
 		</view>
+	<!-- 	<view class="tui-banner-swiper">
+			<image :src="detail.cover_pic" mode="widthFix" style="width: 100%;"></image>
+		</view> -->
 		<view class="time-money">
 			<view class="time-money-left">
 				<view style="height: 60rpx;line-height: 60rpx;">
@@ -57,9 +67,8 @@
 			<view class="package-content-title">
 				套餐包括：
 			</view>
-			<view class="package-content-item" v-for="(item,index) in productList" :key='index'>
-				<image :src="item.cover_pic" mode="widthFix"></image>
-				<text>{{index+1}}.{{item.name}}</text>
+			<view class="tui-product-img tui-radius-all" style="margin-bottom: 50rpx;">
+				<jyf-parser :html="detail.detail"></jyf-parser>
 			</view>
 		</view>
 		<view class="Spell-group-records" v-if="selectIndex==1">
@@ -234,7 +243,9 @@
 <style lang="less" scoped>
 	.giftbagDetail-app{width: 100%;overflow: hidden;}
 	.tui-banner-swiper{width: 100%;overflow: hidden;position: relative;}
-	.tui-banner-swiper image{display: block;width: 100%;}
+	.tui-banner-swiper .tui-tag-class {position: absolute;color: #fff;bottom: 40rpx;right: 40rpx;}
+	.tui-slide-image {width: 100%;display: block;}
+	// .tui-banner-swiper image{display: block;width: 100%;}
 	.time-money{width: 100%;height: 140rpx;padding: 10rpx 20rpx;box-sizing: border-box;background: rgb(255,71,83);display: flex;justify-content: space-between;}
 	.time-money-left view:nth-of-type(1){color: rgb(255,255,0);}
 	.time-money-left view text{display: inline-block;}	
@@ -293,7 +304,9 @@
 
 <script>
 	import unipopup from '@/components/uni-popup/uni-popup';
+	import jxTag from "@/components/tag/tag"
 	import jxListCell from '@/components/list-cell/list-cell';
+	import jyfParser from "@/components/jyf-parser/jyf-parser";
 	// #ifdef H5
 	var jweixin = require('jweixin-module');
 	// #endif
@@ -303,7 +316,9 @@
 	export default {
 		components: {
 			unipopup,
-			jxListCell
+			jxListCell,
+			jxTag,
+			jyfParser
 		},
 		data() {
 			return {
@@ -340,6 +355,10 @@
 				group_id:'',//团id
 				popupShare:false,
 				url:'',
+				bannerLength:0,
+				bannerIndex: 0,
+				height:'',
+				scrollH:'',
 			}
 		},
 		onLoad(options) {
@@ -362,6 +381,18 @@
 			if(curParam&&curParam.pack_id){
 				this.packageDetail(curParam.pack_id)
 			}
+			let obj = {};
+			// #ifdef MP-WEIXIN
+			obj = wx.getMenuButtonBoundingClientRect();
+			// #endif
+			setTimeout(() => {
+				uni.getSystemInfo({
+					success: (res) => {
+						this.height = obj.top ? (obj.top + obj.height + 8) : (res.statusBarHeight + 44);
+						this.scrollH = res.windowWidth
+					}
+				})
+			}, 50)
 		},
 		methods:{
 			select(index){ //table切换
@@ -376,6 +407,9 @@
 				uni.navigateTo({
 					url:'../orderList/orderList'
 				})
+			},
+			bannerChange: function(e) {
+				this.bannerIndex = e.detail.current
 			},
 			packageDetail(pack_id){ //获取大礼包详情
 				this.$http.request({
@@ -401,6 +435,7 @@
 							});
 						}
 						this.detail=res.data.detail
+						this.bannerLength=res.data.detail.pic_url.length
 						this.expired_at=res.data.detail.expired_at
 						var timestamp =parseInt( new Date().getTime()/1000)
 						let time=this.expired_at-timestamp
