@@ -10,9 +10,6 @@
 			</swiper>
 			<jx-tag class="tui-tag-class" type="translucent" shape="circle" size="small">{{bannerIndex+1}}/{{bannerLength}}</jx-tag>
 		</view>
-	<!-- 	<view class="tui-banner-swiper">
-			<image :src="detail.cover_pic" mode="widthFix" style="width: 100%;"></image>
-		</view> -->
 		<view class="time-money">
 			<view class="time-money-left">
 				<view style="height: 60rpx;line-height: 60rpx;">
