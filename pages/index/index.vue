@@ -21,7 +21,7 @@
 			<image :src="img_url+'/service_logo.png'" mode=""></image>
 		</view>
 		<!--#endif -->
-		<!-- #ifdef MP-WEIXIN -->
+		<!-- #ifdef MP-WEIXIN -->  
 		<view class="customer_service">
 			<button open-type="contact" :session-from='webapp' class="buttonWeapp" @tap="goService">
 				
