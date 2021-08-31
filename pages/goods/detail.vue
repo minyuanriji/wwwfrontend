@@ -886,7 +886,6 @@
 								obj.app_share_title=res.data.goods.name,
 								obj.app_share_pic=res.data.goods.app_share_pic,
 								obj.app_share_desc=''
-								console.log(obj)
 							this.$wechatSdk.initShareUrl(obj,link);								
 						//#endif
 						if(this.goodsData.video_url){
