@@ -15,9 +15,9 @@
 
 
 // 本地服务器
- let api_root = 'http://local.mingyuanriji.cn/web/index.php?r=';
- let url = 'http://local.mingyuanriji.cn/web/static/'; //图片路径
- let plugins_img_url = 'http://local.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径 
+let api_root = 'http://local.mingyuanriji.cn/web/index.php?r=';
+let url = 'http://local.mingyuanriji.cn/web/static/'; //图片路径
+let plugins_img_url = 'http://local.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径 
 
 //wx493ce82aab45e4da
 //71b93cac952e55289cc5b3a9b03a345d
@@ -61,6 +61,10 @@ let api = {
 		getOrdercodestatus:api_root +'api/clerkCenter/clerk/detail' ,//核销进度
 	//------------------------------------------------------------------------红包
 		getredbagList:api_root +'api/integral/integral-list' ,//核销进度
+	},
+	taolijin:{
+		exchange: api_root + 'plugin/taolijin/api/exchange/integral-to-lj', //红包兑换礼金接口
+		getUrl: api_root + 'plugin/taolijin/api/exchange/get-url' //红包兑换礼金接口
 	},
 	plugin:{
 		// 短视频

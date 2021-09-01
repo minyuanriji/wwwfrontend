@@ -671,6 +671,30 @@
 		}
     ],
 	"subPackages": [{
+		"root": "ali",
+		"pages":[
+			{
+				"path": "taolijin/goods/list/list",
+				"style": {
+					"navigationBarTitleText": "礼金商品区",
+					"navigationBarBackgroundColor": "#F7F7F7",
+					"navigationBarTextStyle": "black",
+					"enablePullDownRefresh": true,
+					"onReachBottomDistance": 50
+				}
+			},{
+				"path" : "taolijin/goods/detail/detail",
+                "style": {
+                	"navigationBarTitleText": "商品详情",
+                	"navigationBarBackgroundColor": "#F7F7F7",
+                	"navigationBarTextStyle": "black",
+                	"enablePullDownRefresh": true,
+                	"onReachBottomDistance": 50
+                }
+           
+			} 
+		]
+	},{
 		"root": "plugins",
 		"pages": [{
 				"path": "extensions/index",

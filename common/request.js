@@ -130,7 +130,13 @@ const fetch = {
 						fetch.toast("服务错误~")
 						reject(res)
 					}
-					showLoading && uni.hideLoading()
+					showLoading && uni.hideLoading();
+					
+					if(typeof res.data['clean_bind_parent'] != "undefined" && 
+						res.data.clean_bind_parent == 1){
+						uni.removeStorageSync("pid");
+					}
+					
 					if (res.data.code == -1) {
 						// #ifdef H5
 						let preUrl = prevPage.$route.fullPath;
