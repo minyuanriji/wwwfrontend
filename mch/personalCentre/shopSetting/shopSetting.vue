@@ -134,14 +134,15 @@
 				let value = e.detail.value;
 				if (this.selectList.length > 0) {
 					this.provice = this.selectList[value[0]].name; //获取省
-					// this.district = this.selectList[value[0]].children[value[1]].children[value[2]].name; //获取区
+					this.district = this.selectList[value[0]].children[value[1]].children[value[2]].name; //获取区
 					this.city = this.selectList[value[0]].children[value[1]].name; //获取区
 					this.proviceId = this.selectList[value[0]].id; //获取省id
 					this.cityId = this.selectList[value[0]].children[value[1]].id; //获取市id
-					// this.districtId = this.selectList[value[0]].children[value[1]].children[value[2]].id; //获取区id
-					this.text = this.provice + " " + this.city;
+					this.districtId = this.selectList[value[0]].children[value[1]].children[value[2]].id; //获取区id
+					this.text = this.provice + " " + this.city+" "+this.district;
 					this.form.province_id=this.proviceId
 					this.form.city_id=this.cityId
+					this.form.district_id=this.districtId
 				}
 				console.log(this.text)
 				console.log(this.proviceId,this.cityId)
@@ -155,14 +156,14 @@
 					this.multiArray = [
 						this.multiArray[0],
 						this.toArr(this.selectList[value].children),
-						
+						this.toArr(this.selectList[value].children[0].children)
 					];
 					this.value = [value, 0, 0]
 				} else if (column === 1) {
 					this.multiArray = [
 						this.multiArray[0],
 						this.multiArray[1],
-						
+						this.toArr(this.selectList[this.value[0]].children[value].children)
 					];
 					this.value = [this.value[0], value, 0]
 				}
@@ -191,7 +192,7 @@
 							districtArr.push(res.data[key])
 						}
 					}
-					this.multiArray = [provinceArr, cityArr];
+					this.multiArray = [provinceArr, cityArr,districtArr];
 					cityArr.forEach((item, index) => {
 						districtArr.forEach((items, index) => {
 							if (item.id == items.parent_id) {
@@ -208,9 +209,11 @@
 						})
 					})
 					this.selectList = provinceArr;
+					console.log(provinceArr)
 					this.multiArray = [
 						this.toArr(this.selectList),
-						this.toArr(this.selectList[0].children),						
+						this.toArr(this.selectList[0].children),
+						this.toArr(this.selectList[0].children[0].children)
 					];	
 				})
 			},
@@ -244,7 +247,7 @@
 					}, 2000);
 					return
 				}	
-				if(isEmpty(this.form.province_id)||isEmpty(this.form.city_id)){
+				if(isEmpty(this.form.province_id)||isEmpty(this.form.city_id)||isEmpty(this.form.district_id)){
 					uni.showToast({
 						title: '请选择店铺地址',
 						icon: 'none'
@@ -288,6 +291,7 @@
 							forms.cover_url=that.form.cover_url
 							forms.city_id=that.form.city_id
 							forms.province_id=that.form.province_id
+							forms.district_id=that.form.district_id
 							forms.latitude=that.form.latitude
 							forms.longitude=that.form.longitude
 							forms.address=that.form.address
