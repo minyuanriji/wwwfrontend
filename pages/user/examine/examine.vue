@@ -140,7 +140,7 @@
 <style lang="less">
 	.examine_app{width: 100%;overflow: hidden;}
 	.search{overflow: hidden;width: 600rpx;margin: 0 auto;}
-	.search input{width: 500rpx;height: 80rpx;display: inline-block;margin: 35rpx 0;border-radius: 30rpx 0 0 30rpx;
+	.search input{width: 450rpx;height: 80rpx;display: inline-block;margin: 35rpx 0;border-radius: 30rpx 0 0 30rpx;
 	padding-left: 30rpx;font-size: 26rpx;background: rgb(242, 242, 242);float: left;}
 	.search_check{float: left;margin: 35rpx 0;display: inline-block;font-size: 28rpx;color: #000;border-radius: 0 30rpx 30rpx 0;
 	background:rgb(255, 113, 4) ;height: 78rpx;width: 100rpx;text-align: center;line-height: 78rpx;color: #fff;}
