@@ -60,7 +60,7 @@
 			<button class="btn" type="warn" :style="{backgroundColor: '#FF7104' || ''}" @click="dataSubmit"
 				:disabled="editStatic">确认修改</button>
 		</view>
-		<kps-image-cutter @ok="onok" @cancel="oncancle" :url="url" :fixed="false" :maxWidth="500" :minHeight="300">
+		<kps-image-cutter @ok="onok" @cancel="oncancle" :url="url" :fixed="true" :Width="300" :Height="300">
 
 		</kps-image-cutter>
 		<main-datetime ref="dateTime" :type="2" :startYear="startYear" :endYear="endYear" cancelColor="#888"
