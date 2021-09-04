@@ -173,6 +173,10 @@
 							<view>红包</view>
 							<view class="jx-price">¥0.00</view>
 						</view>
+						<view class="jx-price-flex  jx-size24">
+							<view>购物券</view>
+							<view class="jx-price">- ¥{{detail.shopping_voucher_decode_price}}</view>
+						</view>
 						<view class="jx-price-flex  jx-size24" v-if="messageShow">
 							<view>运费</view>
 							<view class="jx-price">+ ¥{{detail.express_price}}</view>

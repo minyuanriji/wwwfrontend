@@ -138,6 +138,18 @@
 				</view>
 				<switch :checked="is_integral" @change="useIntegral" color='#FF7104' class="points-switch" />
 			</view>
+			
+			
+			<view class="use-points flex flex-y-center flex-x-between" v-if="shopping_voucher.enable">
+				<view>
+					使用购物券 
+					<view class="xieti">
+						拥有购物券：{{shopping_voucher.total}} 
+						<text class="text" v-if="shopping_voucher.is_use">-{{shopping_voucher.use_num}}</text>
+					</view>
+				</view>
+				<switch v-model="shopping_voucher.is_use" @change="useShoppingVoucher" color='#FF7104' class="points-switch" />
+			</view>
 		</view>
 
 
@@ -255,6 +267,15 @@
 				user_integral: 0, //用户拥有抵扣券
 				user_remaining_integral: 0, //剩余抵扣券
 
+				shopping_voucher: {
+					is_use: false,
+					enable: false,
+					total: 0, //用户拥有购物券
+					remaining: 0, //用户剩余购物券
+					decode_price: 0, //使用购物券抵扣掉的钱
+					use_num:0 //使用了多少抵扣券
+				},
+				
 				is_request: false,
 				textColor: '#bc0100',
 				couponImg: '',
@@ -274,6 +295,7 @@
 					"user_address_id": "",
 					"use_score": 0,
 					"use_integral": 0,
+					"use_shopping_voucher": 0,
 					"list": ""
 				}
 			}
@@ -450,9 +472,6 @@
 				this.is_checked ? this.form.use_score = 1 : this.form.use_score = 0; //是否使用积分(请求用)
 				this.is_integral ? this.form.use_integral = 1 : this.form.use_integral = 0; //是否使用抵扣券(请求用)
 
-
-
-
 				this.is_integral ? this.total_integral_use = this.total_integral_use : this.total_integral_use = 0;
 				let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
 				let curRoute = routes[routes.length - 1].route //获取当前页面路由
@@ -461,6 +480,25 @@
 					// this.form.use_score=curParam.use_score
 					// this.form.use_integral=curParam.use_integral
 					this.form.list = curParam.list
+				this.getData(); //重新获取订单详情
+			},
+			// 使用购物券
+			useShoppingVoucher(e) {
+				this.price = 0;
+				this.shopping_voucher.is_use = e.detail.value;
+				if(this.shopping_voucher.is_use){
+					this.form.use_shopping_voucher = 1;
+				}else{
+					this.form.use_shopping_voucher = 0;
+					this.shopping_voucher.use_num = 0;
+				}
+				
+				let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
+				let curRoute = routes[routes.length - 1].route //获取当前页面路由
+				let curParam = routes[routes.length - 1].options; //获取路由参数
+				
+				this.form.user_address_id = this.addressId,
+				this.form.list = curParam.list
 				this.getData(); //重新获取订单详情
 			},
 			//去重
@@ -564,6 +602,24 @@
 							this.use_integral = 0; //是否使用抵扣券(请求用)
 						}
 
+
+						//购物券处理
+						/**
+						 shopping_voucher: {
+						 	is_use: false,
+						 	enable: true,
+						 	total: 0, //用户拥有购物券
+						 	remaining: 0, //用户剩余购物券
+						 	decode_price: 0, //使用购物券抵扣掉的钱
+						 	use_num:0 //使用了多少抵扣券
+						 },
+						 */
+						this.shopping_voucher.is_use       = res.data.shopping_voucher.use;
+						this.shopping_voucher.enable       = res.data.shopping_voucher.enable;
+						this.shopping_voucher.total        = res.data.shopping_voucher.total;
+						this.shopping_voucher.remaining    = res.data.shopping_voucher.remaining;
+						this.shopping_voucher.decode_price = res.data.shopping_voucher.decode_price;
+						this.shopping_voucher.use_num	   = res.data.shopping_voucher.use_num;
 
 						// 这里是提交订单需要的数据
 						this.subSendData = JSON.parse(JSON.stringify(this.sendData));
