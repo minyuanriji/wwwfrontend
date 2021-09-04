@@ -1968,7 +1968,7 @@
                     "path" : "vouchers/vouchers",
                     "style" :                                                                                    
                 {
-                    "navigationBarTitleText": "",
+                    "navigationBarTitleText": "购物券记录",
                     "enablePullDownRefresh": false
                 }
                 
