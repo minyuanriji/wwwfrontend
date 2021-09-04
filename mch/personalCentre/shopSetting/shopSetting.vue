@@ -65,7 +65,7 @@
 		<view class="sure_btn" @click="sureBtn">
 			确定
 		</view>
-		<kps-image-cutter @ok="onok" @cancel="oncancle" :url="url" :fixed="false" :maxWidth="500" :minHeight="300">
+		<kps-image-cutter @ok="onok" @cancel="oncancle" :url="url" :fixed="true" :maxWidth="300" :minHeight="300">
 		
 		</kps-image-cutter>
 	</view>
