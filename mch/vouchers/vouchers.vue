@@ -12,10 +12,10 @@
 					    <view class="uni-input">{{date}}</view>
 					 </picker>
 					<image :src="img_url+'/upstrong.png'" mode=""></image>
-					<!-- <view style="font-size: 25rpx;color: #A0A0A0;">
+					<view style="font-size: 25rpx;color: #A0A0A0;">
 						<text style="margin-right: 20rpx;">收入：{{detailed_count.income}}</text>
 						<text>支出：{{detailed_count.expenditure}}</text>
-					</view> -->
+					</view>
 				</view>
 				<view style="float: right;height: 85rpx;margin-right: 20rpx;" @click="reset">
 					<text style="display: block;width: 100rpx;height: 60rpx;background:#FF7104;text-align: center;line-height: 60rpx;
