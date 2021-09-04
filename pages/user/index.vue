@@ -62,10 +62,13 @@
 					<view class="jx-btm-num">{{ userInfo.total_score }}</view>
 					<view class="jx-btm-text">积分</view>
 				</view>
-				<!-- <view class="jx-btm-item last" @click="openUrl(`./shopping/shopping`)"> -->
 				<view class="jx-btm-item last" @click="openUrl(`../../mch/redBag/redBag`)">
 					<view class="jx-btm-num">{{ Number(userInfo.dynamic_integral)+Number(userInfo.static_integral) }}</view>
 					<view class="jx-btm-text">红包</view>
+				</view>
+				<view class="jx-btm-item last" @click="openUrl(`../../mch/vouchers/vouchers`)">
+					<view class="jx-btm-num">{{ Number(userInfo.shopping_voucher)}}</view>
+					<view class="jx-btm-text">购物券</view>
 				</view>
 			</view>
 			
@@ -195,7 +198,8 @@ export default {
 				total_score:0,
 				coupon: 0,
 				dynamic_integral:0,
-				static_integral:0
+				static_integral:0,
+				shopping_voucher:0,
 			},
 			img_url: this.$api.img_url,
 			// 社区团购
@@ -432,7 +436,7 @@ export default {
 	text-align: center;
 }
 
-.btns {
+.btns { 
 	display: flex;
 }
 .user_shop{
@@ -767,7 +771,6 @@ export default {
 	color: #000;
 	background: #ffffff;
 	margin-bottom: 20rpx;
-	// box-shadow: 1rpx 1rpx 5rpx #888;
 }
 
 .jx-btm-item {
@@ -776,9 +779,8 @@ export default {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	padding: 40rpx;
+	padding: 40rpx 10rpx;
 	position: relative;
-
 	&::after {
 		content: '';
 		border-right: 1rpx solid #b3b3b3;
@@ -798,7 +800,7 @@ export default {
 }
 
 .jx-btm-num {
-	font-size: 12pt;
+	font-size: 11pt;
 	font-weight: 600;
 	position: relative;
 }

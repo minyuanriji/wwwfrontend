@@ -1964,6 +1964,15 @@
                 }
                 
                 }
+                ,{
+                    "path" : "vouchers/vouchers",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
             ]
 	}],
 	"globalStyle": {

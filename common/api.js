@@ -58,7 +58,9 @@ let api = {
 	//------------------------------------------------------------------------红包
 		getredbagList:api_root +'api/integral/integral-list' ,//核销进度
 	},
-	
+	vouchers:{ //购物券
+		getvouchersList:api_root +'plugin/shopping_voucher/api/user/log' ,//购物券记录
+	},
 //-------------------------------------------------------------------------------------------淘礼金
 	taolijin:{
 		getgoodsList:api_root + 'plugin/taolijin/api/goods/search', //获取淘礼金商品
