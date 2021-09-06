@@ -374,9 +374,9 @@
 		<unipopup ref="popupShareok" type="center">
 			<view class="popupShare-deyail">
 				<image src="https://www.mingyuanriji.cn/web//uploads/images/original/20210904/b10b715ea147d5b447a52735f42fbfc0.jpg" mode=""
-				style="width: 120rpx;height: 120rpx;display: block;margin: 0 auto 30rpx;"></image>
+				style="width: 120rpx;height: 120rpx;display: block;margin: 0 auto 10rpx;"></image>
 				<view style="margin-bottom: 10rpx;text-align: center;font-size: 30rpx;">购物券消耗确认</view>
-				<view style="margin-bottom: 30rpx;text-align: center;color: #9C9C9C;font-size: 26rpx;">需要扣减68购物券,确认兑换此商品吗？</view>
+				<view style="margin-bottom: 30rpx;text-align: center;color: #9C9C9C;font-size: 26rpx;height: 76rpx;padding: 0 10rpx;">需要扣减{{goodsData.min_price}}购物券,确认兑换此商品吗？</view>
 				<view style="width: 100%;overflow: hidden;display: flex;justify-content: space-between;">
 					<button type="default" style="width: 45%;margin: 0 auto;line-height: 70rpx;font-size: 30rpx;background:  #9C9C9C;color: #fff;border-radius: 30rpx;" @click="canclePoup">残忍放弃</button>
 					<button type="default" style="width: 45%;margin: 0 auto;line-height: 70rpx;font-size: 30rpx;background: #FF7104;color: #fff;border-radius: 30rpx;" @click="convert">立即兑换</button>
@@ -389,7 +389,7 @@
 	</view>
 </template>
 <style>
-	.popupShare-deyail{width: 500rpx;height: 400rpx;background: #fff;border-radius: 30rpx;padding-top: 30rpx;}
+	.popupShare-deyail{width: 500rpx;height: 420rpx;background: #fff;border-radius: 30rpx;padding-top: 30rpx;}
 </style>
 <script>
 	import jxRate from "@/components/rate/rate"
