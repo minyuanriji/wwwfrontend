@@ -1,5 +1,6 @@
 <template>
 	<view class="root">
+		<!-- #ifdef H5 -->
 		<view class="foucs_H5" style="width: 100%;height: 96rpx;background:#3e4144;position: fixed;top: 0rpx;left: 0;z-index: 999;" v-if="showFoucs">
 			<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 96rpx;display: block;float: left;"></image>
 			<view class="foucs_H5_messga" style="float: left;">
@@ -13,6 +14,7 @@
 				>关注</button> 
 			</view>
 		</view><strong></strong>
+		<!--#endif -->	
 		<!-- #ifdef H5 -->
 		<view class="status_bar"></view> 
 		 <!--#endif -->

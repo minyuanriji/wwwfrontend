@@ -245,7 +245,7 @@
 					this.modal = false;
 				} else {
 					uni.navigateTo({
-						url:'../../user/payment/password'
+						url:'../../../pages/user/payment/password'
 					})
 				}
 				this.hide();

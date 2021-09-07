@@ -1,7 +1,10 @@
 <template>
 	<view class="container">
-		<view class="foucs_H5" style="width: 100%;height: 96rpx;background:#3e4144;position: fixed;top: 0rpx;left: 0;z-index: 9999;" v-if="showFoucs">
-			<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 96rpx;display: block;float: left;"></image>
+		<view class="foucs_H5"
+			style="width: 100%;height: 96rpx;background:#3e4144;position: fixed;top: 0rpx;left: 0;z-index: 9999;"
+			v-if="showFoucs">
+			<image :src="img_url+'/fillShop.png'" mode=""
+				style="width: 100rpx;height: 96rpx;display: block;float: left;"></image>
 			<view class="foucs_H5_messga" style="float: left;">
 				<text style="display: block;font-size: 25rpx;color: #fff;margin-top: 8rpx;">欢迎访问补商会</text>
 				<text style="display: block;font-size: 25rpx;color: #fff">点击关注我们哦~</text>
@@ -9,8 +12,7 @@
 			<view class="foucs_check" style="float: right;">
 				<button type="default" style="width: 130rpx;height: 50rpx;text-align: center;font-size: 25rpx;
 				background: rgb(255, 113, 4);margin: 20rpx 10rpx 0 0;color: #fff;line-height: 50rpx;"
-				@click='foucusInfo'
-				>关注</button>
+					@click='foucusInfo'>关注</button>
 			</view>
 		</view>
 		<!--header-->
@@ -19,25 +21,30 @@
 				商品详情
 			</view>
 			<view class="tui-header-icon" :style="{marginTop:top+'px'}">
-				<view class="tui-icon iconfont icon-fanhui" :style="{color:opcity>=1?'#000':'#fff',background:'rgba(0, 0, 0,'+iconOpcity+')'}"
-				 @tap.stop="back"></view>
-				<view class="tui-icon iconfont icon-gengduo" :style="{color:opcity>=1?'#000':'#fff',background:'rgba(0, 0, 0,'+iconOpcity+')',fontSize:'20px'}"
-				 @tap.stop="openMenu"></view>
-				
+				<view class="tui-icon iconfont icon-fanhui"
+					:style="{color:opcity>=1?'#000':'#fff',background:'rgba(0, 0, 0,'+iconOpcity+')'}" @tap.stop="back">
+				</view>
+				<view class="tui-icon iconfont icon-gengduo"
+					:style="{color:opcity>=1?'#000':'#fff',background:'rgba(0, 0, 0,'+iconOpcity+')',fontSize:'20px'}"
+					@tap.stop="openMenu"></view>
+
 			</view>
-		</view>		
+		</view>
 		<view class="tui-banner-swiper">
 			<swiper :duration="150" :style="{height:scrollH + 'px'}" @change="bannerChange">
 				<swiper-item :data-index="0" v-if="goodsData.video_url">
-					<video id='swiperVideo' :enable-progress-gesture='false' :src="goodsData.video_url" loop autoplay muted controls style="width: 750rpx;" :style="{height:scrollH+'px'}"></video>
+					<video id='swiperVideo' :enable-progress-gesture='false' :src="goodsData.video_url" loop autoplay
+						muted controls style="width: 750rpx;" :style="{height:scrollH+'px'}"></video>
 				</swiper-item>
 				<block v-for="(item,b_index) in goodsData.pic_list" :key="b_index">
 					<swiper-item :data-index="b_index+1">
-						<image :src="item.pic_url" mode="aspectFill" class="tui-slide-image" :style="{height:scrollH+'px'}" />
+						<image :src="item.pic_url" mode="aspectFill" class="tui-slide-image"
+							:style="{height:scrollH+'px'}" />
 					</swiper-item>
 				</block>
 			</swiper>
-			<jx-tag class="tui-tag-class" type="translucent" shape="circle" size="small">{{bannerIndex+1}}/{{bannerLength}}</jx-tag>
+			<jx-tag class="tui-tag-class" type="translucent" shape="circle" size="small">
+				{{bannerIndex+1}}/{{bannerLength}}</jx-tag>
 		</view>
 		<view class="tui-pro-detail" v-if="goodsData">
 			<view class="tui-product-title">
@@ -46,9 +53,9 @@
 						<view class="price">
 							<text class="cur-price" :style="{color:'#FF7104'}">&yen;{{goodsData.min_price}}</text>
 							<text class="text" :style="{color:'#FF7104'}" v-if="attrGroupsLength != 0">起</text>
-							<text class="original-price" v-if="attrGroupsLength != 0">&yen;{{goodsData.original_price}}</text>
+							<text class="original-price"
+								v-if="attrGroupsLength != 0">&yen;{{goodsData.original_price}}</text>
 						</view>
-						<jx-tag size="small" :plain="true"  type="high-green" shape="circle">新品</jx-tag>
 					</view>
 					<view class="round-btn">
 						<view class="tui-collection tui-size" @click.stop="poster()">
@@ -56,7 +63,9 @@
 							<view class="tui-scale">分享</view>
 						</view>
 						<view class="tui-collection tui-size" @tap="collecting">
-							<view class="tui-icon-collection iconfont" :class="collected ? 'icon-shoucang' : 'icon-shoucang1' " :style="{color:collected?'#FF7104':'#333',fontSize:'20px'}"></view>
+							<view class="tui-icon-collection iconfont"
+								:class="collected ? 'icon-shoucang' : 'icon-shoucang1' "
+								:style="{color:collected?'#FF7104':'#333',fontSize:'20px'}"></view>
 							<view class="tui-scale" :style="{color:collected?'#FF7104':''}">收藏</view>
 						</view>
 					</view>
@@ -70,9 +79,9 @@
 					</view>
 				</view>
 				<view class="tui-padding">
-					
+
 					<view class="tui-sale-info tui-size tui-gray" style="padding: 16rpx 0;">
-						
+
 						<view class="text">销量：{{goodsData.sales}}件</view>
 					</view>
 
@@ -121,15 +130,17 @@
 				</view>
 				<view class="tui-cmt-content tui-padding">
 					<view class="tags">
-						<jx-tag v-for="(item,i) in commentCount" :key="i" class="tag" type="gold" :shape="'circle'">{{item.name}}({{item.count}})</jx-tag>
+						<jx-tag v-for="(item,i) in commentCount" :key="i" class="tag" type="gold" :shape="'circle'">
+							{{item.name}}({{item.count}})</jx-tag>
 					</view>
-				
+
 					<view class="items">
 						<view class="user-assess-item" v-for="(item,i) in _commentsCopy" :key="i">
 							<view class="user">
 								<image :src="item.avatar" class="acatar"></image>
 								<view>{{item.nickname}}</view>
-								<jx-rate class="rate" :current="item.score" :size="14" normal="#ccc" active="#DDB052" :disabled="false"></jx-rate>
+								<jx-rate class="rate" :current="item.score" :size="14" normal="#ccc" active="#DDB052"
+									:disabled="false"></jx-rate>
 							</view>
 							<view class="assess">{{item.content}}</view>
 						</view>
@@ -140,7 +151,7 @@
 					</view>
 				</view>
 			</view>
-			
+
 
 			<view class="nomore-box">
 				<main-nomore text="宝贝详情" :visible="true" bgcolor="#f7f7f7"></main-nomore>
@@ -152,7 +163,8 @@
 				猜你喜欢
 			</view>
 			<view style="padding: 0 20rpx;">
-				<commodity :listStyle='listStyle' key-value='cart' :displayStyle='displayStyle' :productData='productData'></commodity>
+				<commodity :listStyle='listStyle' key-value='cart' :displayStyle='displayStyle'
+					:productData='productData'></commodity>
 			</view>
 			<main-nomore text="已经到最底了" :visible="true" bgcolor="#f7f7f7"></main-nomore>
 
@@ -168,41 +180,33 @@
 				</view>
 				<view class="tui-operation-item" hover-class="opcity" :hover-stay-time="150" @tap='customerService'>
 					<view class="iconfont icon-kefu2"></view>
-					
+
 					<view class="tui-operation-text tui-scale-small">客服</view>
-				</view>
-				<view class="tui-operation-item" hover-class="opcity" @tap="navTo('cart')" :hover-stay-time="150">
-					<view class="iconfont icon-gouwuche"></view>
-					<view class="tui-operation-text tui-scale-small">购物车</view>
-					<view class="red-dots">{{cartList_num}}</view>
 				</view>
 			</view>
 			<view class="tui-operation-right tui-right-flex tui-col-7 tui-btnbox-4">
-				<view class="jx-btn radius-left" style="height: 80%;" :style="{border:'1px solid'+'#FF7104',color:'#FF7104'}"
-				 @click="showPopup(1)" v-if="is_show_cart">
-					加入购物车
-				</view>
-				
-				<view class="jx-btn radius-right" style="height: 80%;" :style="{background:'#FF7104','border-radius':is_show_cart?'':'100rpx'}"
-				 @click="showPopup(2)">
-					立即购买
+				<view class="jx-btn" style="height: 80%;background:#FF7104;border-radius: 100rpx;"
+					@click="showPopup(2)">
+					用购物券下单
 				</view>
 			</view>
 		</view>
 		<view style="height: 100rpx;width: 100%;"></view>
-		
-		<tui-top-dropdown tui-top-dropdown="tui-top-dropdown" bgcolor="rgba(76, 76, 76, 0.95)" :show="menuShow" :height="0"
-		 @close="closeMenu">
+
+		<tui-top-dropdown tui-top-dropdown="tui-top-dropdown" bgcolor="rgba(76, 76, 76, 0.95)" :show="menuShow"
+			:height="0" @close="closeMenu">
 			<view class="tui-menu-box tui-padding tui-ptop">
 				<view class="tui-menu-header" :style="{paddingTop:top+'px'}">
 					功能直达
 				</view>
 				<view class="tui-menu-itembox">
 					<block v-for="(item,index) in topMenu" :key="index">
-						<view class="tui-menu-item" hover-class="tui-opcity" :hover-stay-time="150" @tap="common(index)">
+						<view class="tui-menu-item" hover-class="tui-opcity" :hover-stay-time="150"
+							@tap="common(index)">
 							<view class="tui-badge-box">
 								<tui-icon :name="item.icon" color="#fff" :size="item.size"></tui-icon>
-								<tui-badge type="red" tui-badge-class="tui-menu-badge" size="small" v-if="item.badge">{{item.badge}}</tui-badge>
+								<tui-badge type="red" tui-badge-class="tui-menu-badge" size="small" v-if="item.badge">
+									{{item.badge}}</tui-badge>
 							</view>
 							<view class="tui-menu-text">{{item.text}}</view>
 						</view>
@@ -212,7 +216,7 @@
 			</view>
 
 		</tui-top-dropdown>
-		
+
 		<com-bottom-popup :show="popupShow2" @close="hidePopup">
 			<scroll-view scroll-y="true" style="max-height: 1000rpx;">
 				<view class="coupon-box">
@@ -223,9 +227,9 @@
 					<view style="height: 88rpx;"></view>
 					<view class="coupon-tips"></view>
 					<view class="coupon-content">
-						<view class="coupon-item" :style="{background: 'url('+couponImg+')no-repeat'}" v-for="(Citem,Cindex) in goodsData.coupon_list"
-						 :key="Cindex">
-							
+						<view class="coupon-item" :style="{background: 'url('+couponImg+')no-repeat'}"
+							v-for="(Citem,Cindex) in goodsData.coupon_list" :key="Cindex">
+
 							<view class="coupon-item-left">
 								<view class="coupon-item-price">
 									<block v-if="Citem.type == 2">
@@ -236,7 +240,7 @@
 										<text class="price-int">{{Citem.discount*10}}</text>
 										<text>折</text>
 									</block>
-									
+
 								</view>
 								<view class="coupon-item-condition">
 									满{{Citem.min_price}}可用
@@ -247,22 +251,26 @@
 								<view class="coupon-item-time">
 									<view v-if="Citem.expire_type == 1">领取{{Citem.expire_day}}天后过期</view>
 									<view v-else>{{Citem.begin_at}}~{{Citem.end_at}}</view>
-									
-									<view class="receive" :style="{background:'#FF7104'}" v-if="isReceive(Citem.is_receive)" @tap="receiveCoupon(Cindex,Citem.id)">领取</view>
-									<view class="receive coupon-item-received" :style="{color:'#FF7104',border:'1px solid'+textColor}" v-else>已领取</view>
+
+									<view class="receive" :style="{background:'#FF7104'}"
+										v-if="isReceive(Citem.is_receive)" @tap="receiveCoupon(Cindex,Citem.id)">领取
+									</view>
+									<view class="receive coupon-item-received"
+										:style="{color:'#FF7104',border:'1px solid'+textColor}" v-else>已领取</view>
 								</view>
-								
+
 							</view>
 						</view>
 					</view>
 				</view>
 			</scroll-view>
 		</com-bottom-popup>
-		
+
 		<com-bottom-popup :show="popupShow" @close="hidePopup">
 			<view class="tui-popup-box" style="border-radius: 20rpx;">
 				<view class="tui-product-box tui-padding" v-if="goodsData.use_attr == 1">
-					<image :src="selectData.pic_url?selectData.pic_url:goodsData.cover_pic" class="tui-popup-img"></image>
+					<image :src="selectData.pic_url?selectData.pic_url:goodsData.cover_pic" class="tui-popup-img">
+					</image>
 					<view class="tui-popup-price">
 						<view class="tui-amount tui-bold" :style="{color:'#FF7104'}">¥{{selectData.price}}</view>
 						<view class="tui-number">已选:{{strName}}</view>
@@ -272,17 +280,19 @@
 				<view v-else class="tui-product-box tui-padding">
 					<image :src="goodsData.cover_pic" class="tui-popup-img"></image>
 					<view class="tui-popup-price" v-if="goodsData.attr_list">
-						<view class="tui-amount tui-bold" :style="{color:'#FF7104'}">¥{{goodsData.attr_list[0].price}}</view>
+						<view class="tui-amount tui-bold" :style="{color:'#FF7104'}">¥{{goodsData.attr_list[0].price}}
+						</view>
 						<view class="tui-number">已选:{{goodsData.attr_list[0].attr_list[0].attr_name}}</view>
 					</view>
 				</view>
 				<scroll-view scroll-y class="tui-popup-scroll">
 					<view class="tui-scrollview-box">
-					
+
 						<view>
 							<view v-if="!goodsData.use_attr">
 								<block v-if="goodsData.attr_list">
-									<view class="tui-bold tui-attr-title">{{goodsData.attr_list[0].attr_list[0].attr_group_name}}</view>
+									<view class="tui-bold tui-attr-title">
+										{{goodsData.attr_list[0].attr_list[0].attr_group_name}}</view>
 									<view class="tui-attr-box">
 										<view class="tui-attr-item tui-attr-active" :style="{color:'#FF7104'}">
 											{{goodsData.attr_list[0].attr_list[0].attr_name}}
@@ -293,33 +303,36 @@
 							<view v-for="(item,index) in goodsData.attr_groups" :key='index' v-else>
 								<view class="tui-bold tui-attr-title">{{item.attr_group_name}}</view>
 								<view class="tui-attr-box">
-									<view class="tui-attr-item" @tap="specCol(item.attr_group_id,items.attr_id,items)" :class="queryAttr(items) ?'tui-attr-active':''"
-									 :style="{color:queryAttr(items)?'#FF7104':'',border:queryAttr(items)?'1px solid'+'#FF7104':''}" v-for="(items,indexs) in item.attr_list"
-									 :key='indexs'>
+									<view class="tui-attr-item" @tap="specCol(item.attr_group_id,items.attr_id,items)"
+										:class="queryAttr(items) ?'tui-attr-active':''"
+										:style="{color:queryAttr(items)?'#FF7104':'',border:queryAttr(items)?'1px solid'+'#FF7104':''}"
+										v-for="(items,indexs) in item.attr_list" :key='indexs'>
 										{{items.attr_name}}
 									</view>
 								</view>
 							</view>
 						</view>
-					
+
 						<view class="tui-number-box tui-bold tui-attr-title">
 							<view class="tui-attr-title">数量</view>
-							<tui-numberbox :max="9999999999999999" :min="1" :value="value" @change="change"></tui-numberbox>
+							<tui-numberbox :max="9999999999999999" :min="1" :value="value" @change="change">
+							</tui-numberbox>
 						</view>
 
 					</view>
 				</scroll-view>
 				<view class="tui-operation tui-operation-right tui-right-flex tui-popup-btn">
 					<view class="sure-btn" :style="{background:'#FF7104'}" @tap="determine">确定</view>
-					
+
 				</view>
-				<view class="tui-icon tui-icon-close-fill tui-icon-close" style="color: #999;font-size:16pt" @tap="hidePopup"></view>
+				<view class="tui-icon tui-icon-close-fill tui-icon-close" style="color: #999;font-size:16pt"
+					@tap="hidePopup"></view>
 			</view>
 		</com-bottom-popup>
 
 		<view class="goods-qrcode-modal" v-if="showPoster">
 			<view class="goods-qrcode-body flex-col">
-				
+
 				<view class="goods-qrcode2 flex flex-y-center flex-x-center">
 					<view class="codeImg_box">
 						<!-- #ifdef H5 -->
@@ -327,13 +340,13 @@
 							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
 						</view>
 						<!-- #endif -->
-						
+
 						<!-- #ifdef MP-WEIXIN -->
 						<view class="goods-qrcode-box" @longpress="saveImage(poster_url)">
 							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
 						</view>
 						<!-- #endif -->
-						
+
 						<!-- #ifdef APP-PLUS -->
 						<view class="goods-qrcode-box" @longpress="appSaveImg(poster_url)">
 							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
@@ -342,19 +355,42 @@
 					</view>
 					<view class="saveCode-btn">长按图片保存至本地</view>
 				</view>
-				
+
 				<view class="goods-qrcode-close" @click="poster(-1)">
-					<view style="width: 50rpx;height: 50rpx;text-align: center;background-color: #ADADAD;color: #FFFFFF;border-radius: 50%;line-height: 50rpx;"
-					 class="iconfont icon-guanbi"></view>
+					<view
+						style="width: 50rpx;height: 50rpx;text-align: center;background-color: #ADADAD;color: #FFFFFF;border-radius: 50%;line-height: 50rpx;"
+						class="iconfont icon-guanbi"></view>
 				</view>
 			</view>
 		</view>
+		<unipopup ref="popupShare" type="center">
+			<view class="popupShare-deyail">
+				<image src="https://www.mingyuanriji.cn/web//uploads/images/original/20210904/b10b715ea147d5b447a52735f42fbfc0.jpg" mode=""
+				style="width: 120rpx;height: 120rpx;display: block;margin: 0 auto 40rpx;"></image>
+				<view style="margin-bottom: 60rpx;text-align: center;color: #9C9C9C;font-size: 30rpx;">购物券不足了~</view>
+				<button type="default" style="width: 60%;margin: 0 auto;line-height: 70rpx;font-size: 30rpx;background: #FF7104;color: #fff;border-radius: 30rpx;">去赚购物券</button>
+			</view>
+		</unipopup>
+		<unipopup ref="popupShareok" type="center">
+			<view class="popupShare-deyail">
+				<image src="https://www.mingyuanriji.cn/web//uploads/images/original/20210904/b10b715ea147d5b447a52735f42fbfc0.jpg" mode=""
+				style="width: 120rpx;height: 120rpx;display: block;margin: 0 auto 10rpx;"></image>
+				<view style="margin-bottom: 10rpx;text-align: center;font-size: 30rpx;">购物券消耗确认</view>
+				<view style="margin-bottom: 30rpx;text-align: center;color: #9C9C9C;font-size: 26rpx;height: 76rpx;padding: 0 10rpx;">需要扣减{{goodsData.min_price}}购物券,确认兑换此商品吗？</view>
+				<view style="width: 100%;overflow: hidden;display: flex;justify-content: space-between;">
+					<button type="default" style="width: 45%;margin: 0 auto;line-height: 70rpx;font-size: 30rpx;background:  #9C9C9C;color: #fff;border-radius: 30rpx;" @click="canclePoup">残忍放弃</button>
+					<button type="default" style="width: 45%;margin: 0 auto;line-height: 70rpx;font-size: 30rpx;background: #FF7104;color: #fff;border-radius: 30rpx;" @click="convert">立即兑换</button>
+				</view>
+				
+			</view>
+		</unipopup>
 
-	
 		<main-loading :visible="loading"></main-loading>
 	</view>
 </template>
-
+<style>
+	.popupShare-deyail{width: 500rpx;height: 420rpx;background: #fff;border-radius: 30rpx;padding-top: 30rpx;}
+</style>
 <script>
 	import jxRate from "@/components/rate/rate"
 	import tuiIcon from "@/components/icon/icon"
@@ -365,6 +401,7 @@
 	import tuiNumberbox from "@/components/numberbox/numberbox"
 	import jyfParser from "@/components/jyf-parser/jyf-parser";
 	import info from '@/components/shop/info';
+	import unipopup from '@/components/uni-popup/uni-popup';
 	export default {
 		components: {
 			tuiIcon,
@@ -375,7 +412,8 @@
 			tuiNumberbox,
 			jyfParser,
 			jxRate,
-			info
+			info,
+			unipopup,
 		},
 		data() {
 			return {
@@ -401,23 +439,16 @@
 				bannerIndex: 0,
 				is_show_cart: true,
 				topMenu: [{
-						icon: "home",
-						text: "首页",
-						size: 23,
-						badge: 0
-					}, {
-						icon: "people",
-						text: "我的",
-						size: 26,
-						badge: 0
-					}, {
-						icon: "cart",
-						text: "购物车",
-						size: 23,
-						badge: 0
-					},
-					
-				],
+					icon: "home",
+					text: "首页",
+					size: 23,
+					badge: 0
+				}, {
+					icon: "people",
+					text: "我的",
+					size: 26,
+					badge: 0
+				}, ],
 				menuShow: false,
 				popupShow: false,
 				popupShow2: false, //优惠券弹窗是否显示
@@ -431,7 +462,7 @@
 				poster_url: '',
 				textColor: '#bc0100',
 				couponImg: '',
-				server_img:'',//客服图片
+				server_img: '', //客服图片
 
 				sign: '', // 用来判断是过来的
 				related_user_id: '', //是短视频过来的需要带的参数
@@ -440,19 +471,21 @@
 				productData: [],
 				displayStyle: 1, //1为常规 2为边框 3为居中显示 4为边框居中
 				listStyle: 2, //1为大图 2为一行一个 3为一行两个 4一行三个 5为左右滑动
-				wx_nav_id:'',
-				mch:{},//店铺信息
-				is_mch:0,//是否有店铺 1有
-				mch_baopin_id:'',//爆品id
-				serviceLink:'',
-				showFoucs:false,
-				is_buy_power:''
+				wx_nav_id: '',
+				mch: {}, //店铺信息
+				is_mch: 0, //是否有店铺 1有
+				mch_baopin_id: '', //爆品id
+				serviceLink: '',
+				showFoucs: false,
+				is_buy_power: '',
+				popupShare:false,
+				popupShareok:false,
 			}
 		},
 		onLoad(options) {
-			
+
 			this.beforeOnLoad(options);
-			
+
 			this.getService()
 			this.textColor = this.globalSet('textCol');
 			this.couponImg = this.globalSet('couponImg');
@@ -475,7 +508,7 @@
 				uni.setStorageSync("source", source);
 			}
 
-			this.proId =options.proId;
+			this.proId = options.proId;
 			if (options.attr_id) {
 				this.c_attr_id = options.attr_id;
 			}
@@ -503,27 +536,29 @@
 				uni.getSystemInfo({
 					success: (res) => {
 						this.width = obj.left || res.windowWidth;
-						this.height = obj.top ? (obj.top + obj.height + 8) : (res.statusBarHeight + 44);
-						this.top = obj.top ? (obj.top + (obj.height - 32) / 2) : (res.statusBarHeight + 6);
+						this.height = obj.top ? (obj.top + obj.height + 8) : (res.statusBarHeight +
+						44);
+						this.top = obj.top ? (obj.top + (obj.height - 32) / 2) : (res.statusBarHeight +
+							6);
 						this.scrollH = res.windowWidth
 					}
 				})
 			}, 50)
 			//#ifdef H5
 			var user_id = this.$route.query.pid2 !== undefined ? this.$route.query.pid2 : 0;
-			if(Array.isArray(user_id)){
+			if (Array.isArray(user_id)) {
 				user_id = user_id[0];
-			}else{
+			} else {
 				user_id = this.$route.query.pid2 !== undefined ? this.$route.query.pid2 : 0;
 			}
-			if(this.$route.query.pid2 !== undefined){
-				uni.setStorageSync('user_id',user_id);
+			if (this.$route.query.pid2 !== undefined) {
+				uni.setStorageSync('user_id', user_id);
 			}
 			//#endif
-			if(options.mch_baopin_id){
-				this.mch_baopin_id=options.mch_baopin_id
-			}else{
-				this.mch_baopin_id=0
+			if (options.mch_baopin_id) {
+				this.mch_baopin_id = options.mch_baopin_id
+			} else {
+				this.mch_baopin_id = 0
 			}
 		},
 		onShow() {
@@ -532,12 +567,13 @@
 		//用户点击分享
 		onShareAppMessage(e) {
 			//#ifdef MP-WEIXIN
-			return this.wxShare(this.goodsData.name, `/pages/goods/detail?source=3&proId=${this.proId}`);
+			return this.wxShare(this.goodsData.name, `/coupon/detail?source=3&proId=${this.proId}`);
 			return {
-			      title: this.goodsData.name,	//标题
-			      path: '/pages/goods/detail?source=3&proId='+ this.proId + '&pid=' + uni.getStorageSync("userInfo") ? JSON.parse(uni.getStorageSync("userInfo")).user_id : 0,
-			      imageUrl: ""
-			    }
+				title: this.goodsData.name, //标题
+				path: '/coupon/detail?source=3&proId=' + this.proId + '&pid=' + uni.getStorageSync("userInfo") ? JSON
+					.parse(uni.getStorageSync("userInfo")).user_id : 0,
+				imageUrl: ""
+			}
 			//#endif
 		},
 		computed: {
@@ -562,7 +598,7 @@
 			}
 		},
 		methods: {
-			foucusInfo(){
+			foucusInfo() {
 				uni.navigateTo({
 					url: '/pages/diy/diy?page_id=114'
 				});
@@ -646,14 +682,14 @@
 							success: function() {
 								that.$http.toast('保存成功');
 							},
-							fail(res){
+							fail(res) {
 								that.$http.toast('保存失败,请稍后重试');
 							}
 						});
 					}
 				});
 			},
-			appSaveImg(url){
+			appSaveImg(url) {
 				let that = this;
 				/* 保存图片到相册 */
 				uni.saveImageToPhotosAlbum({
@@ -661,7 +697,7 @@
 					success: function() {
 						that.$http.toast('保存成功');
 					},
-					fail(res){
+					fail(res) {
 						that.$http.toast('保存失败,请稍后重试');
 					}
 				});
@@ -712,7 +748,7 @@
 						setTimeout(() => {
 							this.loading = false;
 						}, 1000)
-					}else{
+					} else {
 						this.loading = false;
 					}
 				})
@@ -748,7 +784,7 @@
 							attr: this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id,
 							num: this.value,
 							mch_id: 0,
-							mch_baopin_id:this.mch_baopin_id
+							mch_baopin_id: this.mch_baopin_id
 						}
 					}).then((res) => {
 						if (res.code == 0) {
@@ -759,65 +795,75 @@
 						}
 					})
 				} else if (this.is_index == 2) { //立即购买
-					this.popupShow = false;
-					var goods_attr_id = this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id;
-					var mch_id=0
-					var is_mch=this.is_mch
-					if(is_mch==1){
-						var mch=this.mch
-						var mch_id=mch['mch_id']
-					}
-					uni.setStorage({
-						key: 'orderData',
-						data: [{
-							num: this.value,
-							goods_attr_id: goods_attr_id,
-							id: this.proId,
-							cart_id: 0,
-							mch_id:mch_id
-						}],
-						fail() {
-							console.log('存入本地失败');
-						}
-					});
-					this.$http.request({
-						url: this.$api.cart.addCart,
-						method: 'post',
-						showLoading: true,
-						data: {
-							goods_id: this.proId,
-							attr: this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id,
-							num: this.value,
-							mch_id: 0,
-							mch_baopin_id:this.mch_baopin_id
-						}
-					}).then((res) => {
-						if (res.code == 0) {
-							
-							var url = '';
-							if (this.sign == 'short_video') {
-								url = `/pages/order/submit?sign=${this.sign}&related_user_id=${this.related_user_id}&mch_id=${mch_id}`;
-							} else {
-								url = '/pages/order/submit';
-							}
-							// #ifdef H5
-							
-							url = url + '?nav_id=' + JSON.stringify([{id:this.$route.query.proId,num:this.value}])+'&mch_id='+mch_id+"&user_address_id=0"+"&use_score=0"+"&use_integral=0"+"&list="+String(res.data.cart_id)
-							     
-							// #endif
-							
-							// #ifdef MP-WEIXIN
-							url = url + '?nav_id=' + this.wx_nav_id.proId+'&mch_id='+mch_id+"&user_address_id=0"+"&use_score=0"+"&use_integral=0"+"&list="+String(res.data.cart_id)
-							// #endif
-							uni.navigateTo({
-								url
-							})
-							
-						} else {
-							
-						}
-					})
+					this.$refs.popupShareok.open()
 				}
+			},
+			convert(){ //立即兑换
+				this.$refs.popupShareok.close()
+				var goods_attr_id = this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id;
+				var mch_id = 0
+				var is_mch = this.is_mch
+				if (is_mch == 1) {
+					var mch = this.mch
+					var mch_id = mch['mch_id']
+				}
+				uni.setStorage({
+					key: 'orderData',
+					data: [{
+						num: this.value,
+						goods_attr_id: goods_attr_id,
+						id: this.proId,
+						cart_id: 0,
+						mch_id: mch_id
+					}],
+					fail() {
+						console.log('存入本地失败');
+					}
+				});
+				this.$http.request({
+					url: this.$api.cart.addCart,
+					method: 'post',
+					showLoading: true,
+					data: {
+						goods_id: this.proId,
+						attr: this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id,
+						num: this.value,
+						mch_id: 0,
+						mch_baopin_id: this.mch_baopin_id
+					}
+				}).then((res) => {
+					if (res.code == 0) {
+				
+						var url = '';
+						if (this.sign == 'short_video') {
+							url =
+								`/coupon/submit?sign=${this.sign}&related_user_id=${this.related_user_id}&mch_id=${mch_id}`;
+						} else {
+							url = '/coupon/submit';
+						}
+						// #ifdef H5
+				
+						url = url + '?nav_id=' + JSON.stringify([{
+								id: this.$route.query.proId,
+								num: this.value
+							}]) + '&mch_id=' + mch_id + "&user_address_id=0" + "&use_score=0" +
+							"&use_integral=0" + "&list=" + String(res.data.cart_id)
+				
+						// #endif
+				
+						// #ifdef MP-WEIXIN
+						url = url + '?nav_id=' + this.wx_nav_id.proId + '&mch_id=' + mch_id +
+							"&user_address_id=0" + "&use_score=0" + "&use_integral=0" + "&list=" + String(res
+								.data.cart_id)
+						// #endif
+						uni.navigateTo({
+							url
+						})
+				
+					} else {
+				
+					}
+				})
 			},
 			getCartList() { //获取购物车列表
 				this.$http.request({
@@ -827,13 +873,13 @@
 					if (res.code == 0) {
 						this.cartList = res.data.list;
 						this.cartList_num = this.cartList.length;
-						if(res.wechat_subscribe==1){
-							this.showFoucs=false
-						}else{
-							this.showFoucs=true
+						if (res.wechat_subscribe == 1) {
+							this.showFoucs = false
+						} else {
+							this.showFoucs = true
 						}
-					}else{
-						this.showFoucs=true
+					} else {
+						this.showFoucs = true
 					}
 				})
 			},
@@ -879,21 +925,21 @@
 					this.loading = false;
 					if (res.code == 0) {
 						this.goodsData = res.data.goods;
-						this.is_buy_power=res.data.is_buy_power
+						this.is_buy_power = res.data.is_buy_power
 						//#ifdef H5
-						let link=window.location.href
-							var obj = {}
-								obj.app_share_title=res.data.goods.name,
-								obj.app_share_pic=res.data.goods.app_share_pic,
-								obj.app_share_desc=''
-							this.$wechatSdk.initShareUrl(obj,link);								
+						let link = window.location.href
+						var obj = {}
+						obj.app_share_title = res.data.goods.name,
+							obj.app_share_pic = res.data.goods.app_share_pic,
+							obj.app_share_desc = ''
+						this.$wechatSdk.initShareUrl(obj, link);
 						//#endif
-						if(this.goodsData.video_url){
+						if (this.goodsData.video_url) {
 							this.bannerLength = this.goodsData.pic_list.length + 1;
-						}else{
+						} else {
 							this.bannerLength = this.goodsData.pic_list.length;
 						}
-						
+
 						if (this.goodsData.collect.is_collect == 1) { //判断商品是否收藏
 							this.collected = true;
 						} else {
@@ -937,8 +983,8 @@
 						})
 						this.strName = arr.join('， ');
 						this.skuCommon();
-						this.mch=res.data.mch
-						this.is_mch=res.data.is_mch
+						this.mch = res.data.mch
+						this.is_mch = res.data.is_mch
 					} else {
 						uni.showModal({
 							content: res.msg,
@@ -1045,11 +1091,11 @@
 				}
 			},
 			bannerChange: function(e) {
-				if(this.goodsData.video_url){
+				if (this.goodsData.video_url) {
 					var ctx = uni.createVideoContext('swiperVideo', this);
-					if(e.detail.current == 0){
+					if (e.detail.current == 0) {
 						ctx.play();
-					}else if(e.detail.current == 1){
+					} else if (e.detail.current == 1) {
 						ctx.pause();
 					}
 				}
@@ -1065,23 +1111,27 @@
 				this.menuShow = false
 			},
 			showPopup(num) {
-				if(this.is_buy_power==0){
+				// this.$refs.popupShare.open()
+				if (this.is_buy_power == 0) {
 					uni.showModal({
-					    title: '提示',
-					    content: '会员等级不够，无法购买此商品',
-						showCancel:false,
-					    success: function (res) {
-					        if (res.confirm) {
-					            
-					        }
-					    }
+						title: '提示',
+						content: '会员等级不够，无法购买此商品',
+						showCancel: false,
+						success: function(res) {
+							if (res.confirm) {
+
+							}
+						}
 					});
-				}else{
+				} else {
 					this.popupShow = true;
 					if (num) {
 						this.is_index = num;
 					}
 				}
+			},
+			canclePoup(){
+				this.$refs.popupShareok.close()
 			},
 			change: function(e) {
 				this.value = e.value;
@@ -1419,20 +1469,23 @@
 		width: 100%;
 		overflow: hidden;
 	}
-	.tui-pro-title-product{
+
+	.tui-pro-title-product {
 		padding-top: 20rpx;
 		color: #808080;
 		font-size: 25rpx;
 		width: 100%;
 		overflow: hidden;
 	}
-	.tui-pro-title text{
+
+	.tui-pro-title text {
 		display: block;
 		user-select: text;
 		-webkit-user-select: text;
 		width: 100%;
 		overflow: hidden;
 	}
+
 	.tui-sub-title {
 		padding: 20rpx 0;
 		line-height: 36rpx;
@@ -2089,18 +2142,21 @@
 		position: relative;
 		box-shadow: 0 0 15rpx rgba(0, 0, 0, 0.15);
 	}
-	.goods-qrcode2{
+
+	.goods-qrcode2 {
 		position: relative;
 		height: 1300rpx;
 		flex-direction: column;
 		margin-top: 40rpx;
 	}
+
 	.codeImg_box {
 		width: 92%;
 		height: 82%;
 		margin-bottom: 20rpx;
 	}
-	.saveCode-btn{
+
+	.saveCode-btn {
 		color: #939292;
 		padding: 10px 20px;
 		border-radius: 10px;

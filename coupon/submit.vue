@@ -122,24 +122,6 @@
 					</view>
 				</tui-list-cell>
 			</view>
-
-			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1">
-				<view>使用积分 <view class="xieti">拥有积分：{{user_score}} <text class="text"
-							v-if="is_checked">-{{total_score_use}}</text>
-					</view>
-				</view>
-				<switch :checked="is_checked" @change="use" color='#FF7104' class="points-switch" />
-			</view>
-
-
-			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1">
-				<view>使用红包 <view class="xieti">拥有红包：{{user_integral}} <text class="text"
-							v-if="is_integral">-{{total_integral_use}}</text></view>
-				</view>
-				<switch :checked="is_integral" @change="useIntegral" color='#FF7104' class="points-switch" />
-			</view>
-			
-			
 			<view class="use-points flex flex-y-center flex-x-between" v-if="shopping_voucher.enable">
 				<view>
 					使用购物券 
@@ -148,7 +130,7 @@
 						<text class="text" v-if="shopping_voucher.is_use">-{{shopping_voucher.use_num}}</text>
 					</view>
 				</view>
-				<switch v-model="shopping_voucher.is_use" @change="useShoppingVoucher" color='#FF7104' class="points-switch" />
+				<switch v-model="shopping_voucher.is_use" @change="useShoppingVoucher" color='#FF7104' class="points-switch" :checked='true'/>
 			</view>
 		</view>
 
@@ -211,7 +193,7 @@
 					<view class="tui-price-large">{{total_price}}</view>
 				</view>
 				<view class="tui-pr25" @tap="btnPay" :style="{background:'#FF7104'}">
-					去支付
+					立即兑换
 				</view>
 			</view>
 		</view>
@@ -268,7 +250,7 @@
 				user_remaining_integral: 0, //剩余抵扣券
 
 				shopping_voucher: {
-					is_use: false,
+					is_use: true,
 					enable: false,
 					total: 0, //用户拥有购物券
 					remaining: 0, //用户剩余购物券
@@ -614,7 +596,7 @@
 						 	use_num:0 //使用了多少抵扣券
 						 },
 						 */
-						this.shopping_voucher.is_use       = res.data.shopping_voucher.use;
+						// this.shopping_voucher.is_use       = res.data.shopping_voucher.use;
 						this.shopping_voucher.enable       = res.data.shopping_voucher.enable;
 						this.shopping_voucher.total        = res.data.shopping_voucher.total;
 						this.shopping_voucher.remaining    = res.data.shopping_voucher.remaining;
