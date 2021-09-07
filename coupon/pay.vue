@@ -16,33 +16,35 @@
 					<view class="numbering">订单编号：{{payData.orderNo}}</view>
 				</view>
 			</view>
-			<view class="down" v-if="payData.amount">
-				<view class="down-item" v-for="(item,index) in payData.supportPayTypes" :key="index">
-					<view class="item-left">
-						<image class="item-img" :src="img_url+'images/pay/'+item+'.png'" mode=""></image>
-						<text v-if="item == 'wechat'">微信支付</text>
-						<text v-if="item == 'alipay'">支付宝支付</text>
-						<text v-if="item == 'balance'">余额支付</text>
-					</view>
-					<view class="item-right-box" @tap="switchIcon(index)">
-						<view v-if="index == switchIndex" class="item-icon iconfont icon-dagou1" :style="{color:'#FF7104'}"></view>
-						<view v-else class="item-right"></view>
-					</view>
-				</view>
-			</view>
-			<view class="down" v-else>
-				<view class="down-item">
-					<view class="item-left">
-						<image class="item-img" :src="img_url+'images/pay/'+'balance'+'.png'" mode=""></image>
-						<text>余额支付</text>
-					</view>
-					<view class="item-right-box">
-						<view class="item-icon iconfont icon-dagou1" :style="{color:'#FF7104'}"></view>
+			<view v-if="payData.amount>0">
+				<view class="down" v-if="payData.amount">
+					<view class="down-item" v-for="(item,index) in payData.supportPayTypes" :key="index">
+						<view class="item-left">
+							<image class="item-img" :src="img_url+'images/pay/'+item+'.png'" mode=""></image>
+							<text v-if="item == 'wechat'">微信支付</text>
+							<text v-if="item == 'alipay'">支付宝支付</text>
+							<text v-if="item == 'balance'">余额支付</text>
+						</view>
+						<view class="item-right-box" @tap="switchIcon(index)">
+							<view v-if="index == switchIndex" class="item-icon iconfont icon-dagou1" :style="{color:'#FF7104'}"></view>
+							<view v-else class="item-right"></view>
+						</view>
 					</view>
 				</view>
+				<view class="down" v-else>
+					<view class="down-item">
+						<view class="item-left">
+							<image class="item-img" :src="img_url+'images/pay/'+'balance'+'.png'" mode=""></image>
+							<text>余额支付</text>
+						</view>
+						<view class="item-right-box">
+							<view class="item-icon iconfont icon-dagou1" :style="{color:'#FF7104'}"></view>
+						</view>
+					</view>
+				</view>
+				
+				<view class="confirmPay" @tap="confirmPay" :style="{background:'#FF7104'}">确认支付</view>
 			</view>
-
-			<view class="confirmPay" @tap="confirmPay" :style="{background:'#FF7104'}">确认支付</view>
 		</view>
 	</view>
 </template>
@@ -113,6 +115,7 @@
 				}).then((res) => {
 					if (res.code == 0) {
 						this.payData = res.data;
+						this.confirmPay()
 					}
 				})
 			},
@@ -135,13 +138,13 @@
 									uni.redirectTo({
 										url: '/pages/order/beused/beused'
 									})
-								},500)
+								},2000)
 							}else{
 								setTimeout(() => {
 									uni.redirectTo({
 										url: '/pages/order/list?status=1'
 									})
-								},500)
+								},2000)
 							}
 							return;
 						}else{
