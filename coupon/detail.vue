@@ -1,5 +1,6 @@
 <template>
 	<view class="container">
+		<!-- #ifdef H5 -->
 		<view class="foucs_H5"
 			style="width: 100%;height: 96rpx;background:#3e4144;position: fixed;top: 0rpx;left: 0;z-index: 9999;"
 			v-if="showFoucs">
@@ -15,6 +16,7 @@
 					@click='foucusInfo'>关注</button>
 			</view>
 		</view>
+		<!-- #endif -->
 		<!--header-->
 		<view class="tui-header-box" :style="{height:height+'px',background:'rgba(255,255,255,'+opcity+')'}">
 			<view class="tui-header" :style="{paddingTop:top+'px', opacity:opcity}">
