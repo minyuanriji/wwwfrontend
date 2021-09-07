@@ -130,7 +130,7 @@
 						<text class="text" v-if="shopping_voucher.is_use">-{{shopping_voucher.use_num}}</text>
 					</view>
 				</view>
-				<switch v-model="shopping_voucher.is_use" @change="useShoppingVoucher" color='#FF7104' class="points-switch" :checked='true'/>
+				<switch v-model="shopping_voucher.is_use" @change="useShoppingVoucher" color='#FF7104' class="points-switch" :checked='true' :disabled="true"/>
 			</view>
 		</view>
 
@@ -197,6 +197,29 @@
 				</view>
 			</view>
 		</view>
+		
+		<unipopup ref="popupShare" type="center">
+			<view class="popupShare-deyail">
+				<image src="https://www.mingyuanriji.cn/web//uploads/images/original/20210904/b10b715ea147d5b447a52735f42fbfc0.jpg" mode=""
+				style="width: 120rpx;height: 120rpx;display: block;margin: 0 auto 40rpx;"></image>
+				<view style="margin-bottom: 60rpx;text-align: center;color: #9C9C9C;font-size: 30rpx;">购物券不足了~</view>
+				<button type="default" style="width: 60%;margin: 0 auto;line-height: 70rpx;font-size: 30rpx;background: #FF7104;color: #fff;border-radius: 30rpx;" @click="earncoupons">去赚购物券</button>
+			</view>
+		</unipopup>
+		<unipopup ref="popupShareok" type="center">
+			<view class="popupShare-deyail">
+				<image src="https://www.mingyuanriji.cn/web//uploads/images/original/20210904/b10b715ea147d5b447a52735f42fbfc0.jpg" mode=""
+				style="width: 120rpx;height: 120rpx;display: block;margin: 0 auto 10rpx;"></image>
+				<view style="margin-bottom: 10rpx;text-align: center;font-size: 30rpx;">购物券消耗确认</view>
+				<view style="margin-bottom: 30rpx;text-align: center;color: #9C9C9C;font-size: 26rpx;height: 76rpx;padding: 0 10rpx;">需要扣减11购物券,确认兑换此商品吗？</view>
+				<view style="width: 100%;overflow: hidden;display: flex;justify-content: space-between;">
+					<button type="default" style="width: 45%;margin: 0 auto;line-height: 70rpx;font-size: 30rpx;background:  #9C9C9C;color: #fff;border-radius: 30rpx;" @click="canclePoup">残忍放弃</button>
+					<button type="default" style="width: 45%;margin: 0 auto;line-height: 70rpx;font-size: 30rpx;background: #FF7104;color: #fff;border-radius: 30rpx;" @click="convert">立即兑换</button>
+				</view>
+				
+			</view>
+		</unipopup>
+		
 
 	</view>
 </template>
@@ -205,13 +228,17 @@
 	//#ifdef H5
 	var jweixin = require('jweixin-module');
 	//#endif
-	import tuiListCell from "@/components/list-cell/list-cell"
+	import tuiListCell from "@/components/list-cell/list-cell";
+	import unipopup from '@/components/uni-popup/uni-popup';
 	export default {
 		components: {
 			tuiListCell,
+			unipopup,
 		},
 		data() {
 			return {
+				popupShare:false,
+				popupShareok:false,
 				url: this.$api.test_url,
 				img_url: this.$api.img_url,
 				hasCoupon: true,
@@ -277,7 +304,7 @@
 					"user_address_id": "",
 					"use_score": 0,
 					"use_integral": 0,
-					"use_shopping_voucher": 0,
+					"use_shopping_voucher": 1,
 					"list": ""
 				}
 			}
@@ -766,41 +793,13 @@
 			},
 			// 2.2 订单提交
 			btnPay() { //getpreviewOrder
-				if (this.is_request) return;
-				this.is_request = true;
-				let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
-				let curRoute = routes[routes.length - 1].route //获取当前页面路由
-				let curParam = routes[routes.length - 1].options; //获取路由参数
-				this.form.user_address_id = this.addressId
-				this.is_checked ? this.form.use_score = 1 : this.form.use_score = 0; //是否使用积分(请求用)
-
-				this.is_integral ? this.form.use_integral = 1 : this.form.use_integral = 0; //是否使用抵扣券(请求用)
-				this.form.list = curParam.list
-
-				if (this.addressShpw) {
-					if (!(this.addressId || this.user_address.id)) {
-						this.$http.toast('请添加收货地址!')
-						this.is_request = false
-						return;
-					} else {
-						this.form.user_address_id = this.user_address.id
-					}
+				if(this.total_price>0){
+					this.$refs.popupShare.open()
+					return
+				}else{
+					this.$refs.popupShareok.open()
+					return
 				}
-				this.$http.request({
-					url: this.$api.moreShop.getpreviewOrder,
-					method: 'post',
-					data: this.form
-				}).then((res) => {
-					this.is_request = false; //防抖(重复请求)
-					if (res.code == 0) {
-						uni.removeStorageSync('orderData');
-						uni.redirectTo({
-							url: `/pages/order/pay?token=${res.data.token}&queue_id=${res.data.queue_id}`
-						})
-					} else {
-						this.$http.toast(res.msg);
-					}
-				})
 			},
 			getWechatAddress() {
 				let that = this
@@ -854,7 +853,51 @@
 						})
 					}
 				})
+			},
+			earncoupons(){
+				alert('去赚购物券')
+			},
+			canclePoup(){
+				this.$refs.popupShareok.close()
+			},
+			convert(){//立即兑换
+				if (this.is_request) return;
+				this.is_request = true;
+				let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
+				let curRoute = routes[routes.length - 1].route //获取当前页面路由
+				let curParam = routes[routes.length - 1].options; //获取路由参数
+				this.form.user_address_id = this.addressId
+				this.is_checked ? this.form.use_score = 1 : this.form.use_score = 0; //是否使用积分(请求用)
+				
+				this.is_integral ? this.form.use_integral = 1 : this.form.use_integral = 0; //是否使用抵扣券(请求用)
+				this.form.list = curParam.list
+				
+				if (this.addressShpw) {
+					if (!(this.addressId || this.user_address.id)) {
+						this.$http.toast('请添加收货地址!')
+						this.is_request = false
+						return;
+					} else {
+						this.form.user_address_id = this.user_address.id
+					}
+				}
+				this.$http.request({
+					url: this.$api.moreShop.getpreviewOrder,
+					method: 'post',
+					data: this.form
+				}).then((res) => {
+					this.is_request = false; //防抖(重复请求)
+					if (res.code == 0) {
+						uni.removeStorageSync('orderData');
+						uni.redirectTo({
+							url: `./pay?token=${res.data.token}&queue_id=${res.data.queue_id}`
+						})
+					} else {
+						this.$http.toast(res.msg);
+					}
+				})
 			}
+			
 		}
 	}
 </script>
@@ -863,7 +906,7 @@
 	.container {
 		padding-bottom: 98rpx;
 	}
-
+	.popupShare-deyail{width: 500rpx;height: 420rpx;background: #fff;border-radius: 30rpx;padding-top: 30rpx;}
 	.tui-box {
 		padding: 20rpx 20rpx 118rpx;
 		box-sizing: border-box;

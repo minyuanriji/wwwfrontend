@@ -882,6 +882,11 @@
 					if (res.code == 0) {
 						this.goodsData = res.data.goods;
 						this.is_buy_power=res.data.is_buy_power
+						if(res.data.goods.shopping_voucher.is_shopping_voucher_goods==1){
+							uni.redirectTo({
+								url:'../../coupon/detail?proId='+this.proId
+							})
+						}
 						//#ifdef H5
 						let link=window.location.href
 							var obj = {}

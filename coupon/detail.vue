@@ -70,6 +70,9 @@
 						</view>
 					</view>
 				</view>
+				<view  style="width: 100%;height: 50rpx;line-height: 50rpx;padding: 0 30rpx;font-size: 30rpx;color: red;">
+					需使用<text style="margin: 0 10rpx;">{{goodsData.shopping_voucher.voucher_price}}</text>购物券
+				</view>
 				<view class="tui-pro-titbox">
 					<view class="tui-pro-title">
 						<text :selectable="true">{{goodsData.name}}</text>
@@ -363,34 +366,9 @@
 				</view>
 			</view>
 		</view>
-		<unipopup ref="popupShare" type="center">
-			<view class="popupShare-deyail">
-				<image src="https://www.mingyuanriji.cn/web//uploads/images/original/20210904/b10b715ea147d5b447a52735f42fbfc0.jpg" mode=""
-				style="width: 120rpx;height: 120rpx;display: block;margin: 0 auto 40rpx;"></image>
-				<view style="margin-bottom: 60rpx;text-align: center;color: #9C9C9C;font-size: 30rpx;">购物券不足了~</view>
-				<button type="default" style="width: 60%;margin: 0 auto;line-height: 70rpx;font-size: 30rpx;background: #FF7104;color: #fff;border-radius: 30rpx;">去赚购物券</button>
-			</view>
-		</unipopup>
-		<unipopup ref="popupShareok" type="center">
-			<view class="popupShare-deyail">
-				<image src="https://www.mingyuanriji.cn/web//uploads/images/original/20210904/b10b715ea147d5b447a52735f42fbfc0.jpg" mode=""
-				style="width: 120rpx;height: 120rpx;display: block;margin: 0 auto 10rpx;"></image>
-				<view style="margin-bottom: 10rpx;text-align: center;font-size: 30rpx;">购物券消耗确认</view>
-				<view style="margin-bottom: 30rpx;text-align: center;color: #9C9C9C;font-size: 26rpx;height: 76rpx;padding: 0 10rpx;">需要扣减{{goodsData.min_price}}购物券,确认兑换此商品吗？</view>
-				<view style="width: 100%;overflow: hidden;display: flex;justify-content: space-between;">
-					<button type="default" style="width: 45%;margin: 0 auto;line-height: 70rpx;font-size: 30rpx;background:  #9C9C9C;color: #fff;border-radius: 30rpx;" @click="canclePoup">残忍放弃</button>
-					<button type="default" style="width: 45%;margin: 0 auto;line-height: 70rpx;font-size: 30rpx;background: #FF7104;color: #fff;border-radius: 30rpx;" @click="convert">立即兑换</button>
-				</view>
-				
-			</view>
-		</unipopup>
-
 		<main-loading :visible="loading"></main-loading>
 	</view>
 </template>
-<style>
-	.popupShare-deyail{width: 500rpx;height: 420rpx;background: #fff;border-radius: 30rpx;padding-top: 30rpx;}
-</style>
 <script>
 	import jxRate from "@/components/rate/rate"
 	import tuiIcon from "@/components/icon/icon"
@@ -478,8 +456,6 @@
 				serviceLink: '',
 				showFoucs: false,
 				is_buy_power: '',
-				popupShare:false,
-				popupShareok:false,
 			}
 		},
 		onLoad(options) {
@@ -795,75 +771,71 @@
 						}
 					})
 				} else if (this.is_index == 2) { //立即购买
-					this.$refs.popupShareok.open()
-				}
-			},
-			convert(){ //立即兑换
-				this.$refs.popupShareok.close()
-				var goods_attr_id = this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id;
-				var mch_id = 0
-				var is_mch = this.is_mch
-				if (is_mch == 1) {
-					var mch = this.mch
-					var mch_id = mch['mch_id']
-				}
-				uni.setStorage({
-					key: 'orderData',
-					data: [{
-						num: this.value,
-						goods_attr_id: goods_attr_id,
-						id: this.proId,
-						cart_id: 0,
-						mch_id: mch_id
-					}],
-					fail() {
-						console.log('存入本地失败');
+					var goods_attr_id = this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id;
+					var mch_id = 0
+					var is_mch = this.is_mch
+					if (is_mch == 1) {
+						var mch = this.mch
+						var mch_id = mch['mch_id']
 					}
-				});
-				this.$http.request({
-					url: this.$api.cart.addCart,
-					method: 'post',
-					showLoading: true,
-					data: {
-						goods_id: this.proId,
-						attr: this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id,
-						num: this.value,
-						mch_id: 0,
-						mch_baopin_id: this.mch_baopin_id
-					}
-				}).then((res) => {
-					if (res.code == 0) {
-				
-						var url = '';
-						if (this.sign == 'short_video') {
-							url =
-								`/coupon/submit?sign=${this.sign}&related_user_id=${this.related_user_id}&mch_id=${mch_id}`;
-						} else {
-							url = '/coupon/submit';
+					uni.setStorage({
+						key: 'orderData',
+						data: [{
+							num: this.value,
+							goods_attr_id: goods_attr_id,
+							id: this.proId,
+							cart_id: 0,
+							mch_id: mch_id
+						}],
+						fail() {
+							console.log('存入本地失败');
 						}
-						// #ifdef H5
-				
-						url = url + '?nav_id=' + JSON.stringify([{
-								id: this.$route.query.proId,
-								num: this.value
-							}]) + '&mch_id=' + mch_id + "&user_address_id=0" + "&use_score=0" +
-							"&use_integral=0" + "&list=" + String(res.data.cart_id)
-				
-						// #endif
-				
-						// #ifdef MP-WEIXIN
-						url = url + '?nav_id=' + this.wx_nav_id.proId + '&mch_id=' + mch_id +
-							"&user_address_id=0" + "&use_score=0" + "&use_integral=0" + "&list=" + String(res
-								.data.cart_id)
-						// #endif
-						uni.navigateTo({
-							url
-						})
-				
-					} else {
-				
-					}
-				})
+					});
+					this.$http.request({
+						url: this.$api.cart.addCart,
+						method: 'post',
+						showLoading: true,
+						data: {
+							goods_id: this.proId,
+							attr: this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id,
+							num: this.value,
+							mch_id: 0,
+							mch_baopin_id: this.mch_baopin_id
+						}
+					}).then((res) => {
+						if (res.code == 0) {
+					
+							var url = '';
+							if (this.sign == 'short_video') {
+								url =
+									`/coupon/submit?sign=${this.sign}&related_user_id=${this.related_user_id}&mch_id=${mch_id}`;
+							} else {
+								url = '/coupon/submit';
+							}
+							// #ifdef H5
+					
+							url = url + '?nav_id=' + JSON.stringify([{
+									id: this.$route.query.proId,
+									num: this.value
+								}]) + '&mch_id=' + mch_id + "&user_address_id=0" + "&use_score=0" +
+								"&use_integral=0" + "&list=" + String(res.data.cart_id)
+					
+							// #endif
+					
+							// #ifdef MP-WEIXIN
+							url = url + '?nav_id=' + this.wx_nav_id.proId + '&mch_id=' + mch_id +
+								"&user_address_id=0" + "&use_score=0" + "&use_integral=0" + "&list=" + String(res
+									.data.cart_id)
+							// #endif
+							uni.navigateTo({
+								url
+							})
+					
+						} else {
+					
+						}
+					})
+				}
 			},
 			getCartList() { //获取购物车列表
 				this.$http.request({
