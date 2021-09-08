@@ -855,7 +855,9 @@
 				})
 			},
 			earncoupons(){
-				alert('去赚购物券')
+				uni.navigateTo({
+					url:'../pages/diy/diy?page_id=132'
+				})
 			},
 			canclePoup(){
 				this.$refs.popupShareok.close()
