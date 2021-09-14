@@ -107,8 +107,6 @@
 				} else {
 					data = JSON.parse(JSON.stringify(this.tabData));
 				}
-				
-				console.log(data)
 				this.tabList = data;
 			},
 			updateConfig() {
