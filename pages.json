@@ -671,62 +671,62 @@
 		}
     ],
 	"subPackages": [
-		{
-			"root":"hotel",
-			"pages":[
-				{
-					"path": "Home/Home",
-					"style": {
-						"navigationBarTitleText": "酒店",
-						"navigationBarBackgroundColor": "#FFFFFF",
-						"navigationBarTextStyle": "black",
-						 "enablePullDownRefresh": false
-					}
-				}
-			    ,{
-                    "path" : "hotelSearch/hotelSearch",
-                    "style" :                                                                                    
-					{
-						"navigationBarTitleText": "酒店搜索",
-						"navigationBarBackgroundColor": "#FFFFFF",
-						"navigationBarTextStyle": "black",
-						"enablePullDownRefresh": false
-					}               
-                }
-                ,{
-                    "path" : "searchList/searchList",
-                    "style" :                                                                                    
-					{
-					   "navigationBarTitleText": "酒店列表",
-					   "navigationBarBackgroundColor": "#FFFFFF",
-					   "navigationBarTextStyle": "black",
-					   "enablePullDownRefresh": false
-					}					
-                }
-                ,{
-                    "path" : "detail/detail",
-                    "style" :                                                                                    
-                {
-                  "navigationBarTitleText": "酒店详情",
-                  "navigationBarBackgroundColor": "#FFFFFF",
-                  "navigationBarTextStyle": "black",
-                  "enablePullDownRefresh": false
-                }
+		// {
+		// 	"root":"hotel",
+		// 	"pages":[
+		// 		{
+		// 			"path": "Home/Home",
+		// 			"style": {
+		// 				"navigationBarTitleText": "酒店",
+		// 				"navigationBarBackgroundColor": "#FFFFFF",
+		// 				"navigationBarTextStyle": "black",
+		// 				 "enablePullDownRefresh": false
+		// 			}
+		// 		}
+		// 	    ,{
+  //                   "path" : "hotelSearch/hotelSearch",
+  //                   "style" :                                                                                    
+		// 			{
+		// 				"navigationBarTitleText": "酒店搜索",
+		// 				"navigationBarBackgroundColor": "#FFFFFF",
+		// 				"navigationBarTextStyle": "black",
+		// 				"enablePullDownRefresh": false
+		// 			}               
+  //               }
+  //               ,{
+  //                   "path" : "searchList/searchList",
+  //                   "style" :                                                                                    
+		// 			{
+		// 			   "navigationBarTitleText": "酒店列表",
+		// 			   "navigationBarBackgroundColor": "#FFFFFF",
+		// 			   "navigationBarTextStyle": "black",
+		// 			   "enablePullDownRefresh": false
+		// 			}					
+  //               }
+  //               ,{
+  //                   "path" : "detail/detail",
+  //                   "style" :                                                                                    
+  //               {
+  //                 "navigationBarTitleText": "酒店详情",
+  //                 "navigationBarBackgroundColor": "#FFFFFF",
+  //                 "navigationBarTextStyle": "black",
+  //                 "enablePullDownRefresh": false
+  //               }
                 
-                }
-                ,{
-                    "path" : "facilities/facilities",
-                    "style" :                                                                                    
-                {
-				   "navigationBarTitleText": "设施服务",
-                   "navigationBarBackgroundColor": "#FFFFFF",
-                   "navigationBarTextStyle": "black",
-                   "enablePullDownRefresh": false
-                }
+  //               }
+  //               ,{
+  //                   "path" : "facilities/facilities",
+  //                   "style" :                                                                                    
+  //               {
+		// 		   "navigationBarTitleText": "设施服务",
+  //                  "navigationBarBackgroundColor": "#FFFFFF",
+  //                  "navigationBarTextStyle": "black",
+  //                  "enablePullDownRefresh": false
+  //               }
                 
-                }
-            ]
-		},
+  //               }
+  //           ]
+		// },
 		{
 			"root":"coupon",
 			"pages":[
