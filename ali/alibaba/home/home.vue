@@ -11,7 +11,8 @@
 		</view>
 		<view class="ali-home-app-product">
 			<view class="product-item" v-for="(item,index) in typeList" :key='index' @click="link()">
-				<image :src="item.img" mode="widthFix" class="product-item-logo"></image>
+				<!-- <image :src="item.img" mode="widthFix" class="product-item-logo"></image> -->
+				<image src="https://liangcang-material.alicdn.com/prod/upload/1ab0ce94f41c4e7ca4126d5d1b6717f6.jpg" mode="widthFix" class="product-item-logo"></image>
 				<view class="product-item-name">{{item.name}}</view>
 				<view class="product-item-money-buy">
 					<view class="product-item-money">
