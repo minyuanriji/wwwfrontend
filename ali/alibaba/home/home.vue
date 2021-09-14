@@ -113,7 +113,7 @@
 			},
 			link(){//进入商品详情页
 				uni.navigateTo({
-					url:'../detail/detail?proId='+102
+					url:'../detail/detail?proId='+2107
 				})
 			}
 		}
