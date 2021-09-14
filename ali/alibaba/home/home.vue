@@ -10,7 +10,7 @@
 			</view>
 		</view>
 		<view class="ali-home-app-product">
-			<view class="product-item" v-for="(item,index) in typeList" :key='index'>
+			<view class="product-item" v-for="(item,index) in typeList" :key='index' @click="link()">
 				<image :src="item.img"
 				 mode="widthFix" class="product-item-logo"></image>
 				<view class="product-item-name">{{item.name}}</view>
@@ -108,8 +108,13 @@
 			};
 		},
 		methods:{
-			tabClick(e){
+			tabClick(e){//点击切换table
 				
+			},
+			link(){//进入商品详情页
+				uni.navigateTo({
+					url:'../detail/detail?proId='+102
+				})
 			}
 		}
 	}

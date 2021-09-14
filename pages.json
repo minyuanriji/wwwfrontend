@@ -792,7 +792,7 @@
                     "path" : "alibaba/home/home",
                     "style" :                                                                                    
                 {
-                    "navigationBarTitleText": "首页",
+                    "navigationBarTitleText": "购物券区",
                    "navigationBarBackgroundColor": "#F7F7F7",
                    "navigationBarTextStyle": "black",
                    "enablePullDownRefresh": true,
@@ -800,6 +800,43 @@
                 }
                 
                 }
+                ,{
+                    "path" : "alibaba/detail/detail",
+                    "style" :                                                                                    
+                {
+                  "navigationBarBackgroundColor": "#fff",
+                  "navigationBarTextStyle": "black",
+                  "backgroundColorTop": "#F7F7F7",
+                  "backgroundColorBottom": "#F7F7F7",
+                  "navigationBarTitleText": "商品详情 ",
+                  "app-plus": {
+                  	"titleNView": false
+                  }
+                }
+                
+                },
+				{
+					"path" : "alibaba/submit/submit",
+				    "style": {
+				    	"navigationBarTitleText": "提交订单",
+				    	"navigationBarBackgroundColor": "#F7F7F7",
+				    	"navigationBarTextStyle": "black",
+				    	"enablePullDownRefresh": true,
+				    	"onReachBottomDistance": 50
+				    }
+				           
+				},
+				{
+					"path" : "alibaba/pay/pay",
+				    "style": {
+				    	"navigationBarTitleText": "支付",
+				    	"navigationBarBackgroundColor": "#F7F7F7",
+				    	"navigationBarTextStyle": "black",
+				    	"enablePullDownRefresh": true,
+				    	"onReachBottomDistance": 50
+				    }
+				           
+				} 
             ]
 	},{
 		"root": "plugins",
