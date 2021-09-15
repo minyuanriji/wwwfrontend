@@ -1,12 +1,12 @@
 <template>
 	<view class="ali-home-app">
 		<view class="ali-home-app-product">
-			<view class="product-item" v-for="(item,index) in goodsList" :key='index' @click="link()">
+			<view class="product-item" v-for="(item,index) in goodsList" :key='index' @click="link(item.id)">
 				<image :src="item.cover_url" mode="widthFix" class="product-item-logo"></image>
 				<view class="product-item-name">{{item.name}}</view>
 				<view class="product-item-money-buy">
 					<view class="product-item-money">
-						<text style="font-size: 28rpx;width: 100%;color: #000000;">原价￥{{item.origin_price}}</text>
+						<text style="font-size: 28rpx;width: 100%;color:#c0c0c0;">原价￥{{item.origin_price}}</text>
 						<text style="color:#FF7104;font-size: 28rpx;width: 100%;">商城价￥{{item.price}}</text>
 						<text
 							style="font-size: 28rpx;width: 100%;margin: 20rpx;background: #FF7104;height: 60rpx;text-align: center;line-height: 60rpx;border-radius: 30rpx;color: #fff;">购物券兑换</text>
@@ -39,9 +39,9 @@
 			}
 		},
 		methods: {
-			link() { //进入商品详情页
+			link(id) { //进入商品详情页
 				uni.navigateTo({
-					url: '../detail/detail?proId=' + 2107
+					url: '../detail/detail?id=' + id
 				})
 			},
 			getHomegoods() { //获取分类商品

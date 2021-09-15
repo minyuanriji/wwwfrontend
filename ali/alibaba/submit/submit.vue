@@ -35,10 +35,9 @@
 			<!-- 0.1 循环出商家 -->
 			<view class="tui-top tui-goods-info" v-for="(item,index) in list" :key='index'>
 				<!-- 0.2 循环出商品 -->
-				<tui-list-cell :hover="false" :lineLeft="false" padding="26rpx 20rpx">
+				<!-- <tui-list-cell :hover="false" :lineLeft="false" padding="26rpx 20rpx">
 					<view class="tui-goods-title">
 						<view class="logo" @tap="toShop(item.mch.id)">
-							<!-- <span :style="`background-image:url(${})`"></span> -->
 							<image class="img" lazy-load="true" :src="img_url+'/shoplogo.png'" mode="aspectFill">
 							</image>
 							<span class="name">{{item.mch.name?item.mch.name:"补商汇官方商城"}}</span>
@@ -53,28 +52,25 @@
 							</view>
 						</view>
 					</view>
-				</tui-list-cell>
-				<view v-for="(its,ids) in item.same_goods_list" class="item-goods" :key='ids'>
-					<!-- 0.3 循环出规格 -->
-					<view v-for="(gItem,gIndex) in its.goods_list" :key='gIndex'>
+				</tui-list-cell> -->
+				<view v-for="(its,ids) in item.goods_list" class="item-goods" :key='ids'>
 						<tui-list-cell :hover="false" padding="0">
 							<view class="tui-goods-item">
-								<image v-if=""
-									:src="gItem.goods_attr.pic_url?gItem.goods_attr.pic_url:gItem.goods_attr.cover_pic"
+								<image 
+									:src="its.cover_url"
 									class="tui-goods-img"></image>
 								<view class="tui-goods-center">
-									<view class="tui-goods-name">{{gItem.name}}</view>
-									<view class="tui-goods-attr">{{groupName(gItem.attr_list)}}</view>
+									<view class="tui-goods-name">{{its.name}}</view>
+								<!-- 	<view class="tui-goods-attr">{{groupName(gItem.attr_list)}}</view> -->
 								</view>
 								<view class="tui-price-right">
-									<view>￥{{gItem.unit_price}}</view>
-									<view>x{{gItem.num}}</view>
+									<view>￥{{its.price}}</view>
+									<view>x{{its.num}}</view>
 								</view>
 							</view>
 						</tui-list-cell>
-					</view>
-					<!-- 0.2.1 该商品对应的优惠券 -->
-					<view style="border-bottom: 2rpx solid #e8e8e8;" v-if="its.coupon_list.length != 0"
+		
+					<!-- <view style="border-bottom: 2rpx solid #e8e8e8;" v-if="its.coupon_list.length != 0"
 						@tap="showPopup(its.coupon_list,index,ids,its.goods_id)">
 						<tui-list-cell :arrow="hasCoupon" :hover="hasCoupon">
 							<view class="tui-padding tui-flex">
@@ -84,10 +80,10 @@
 								</view>
 							</view>
 						</tui-list-cell>
-					</view>
+					</view> -->
 
 				</view>
-				<tui-list-cell :hover="false">
+				<!-- <tui-list-cell :hover="false">
 					<view class="tui-padding tui-flex" v-if="flag">
 						<view>运营费</view>
 						<view v-if="list" :style="{color: '#FF7104'}">+&yen;{{item.express_price}}</view>
@@ -97,21 +93,21 @@
 						<view v-if="list" :style="{color: '#FF7104'}">+&yen;{{ExpressPrice}}</view>
 					</view>
 
-				</tui-list-cell>
-				<tui-list-cell :hover="false" v-if="item.total_full_relief_price != 0">
+				</tui-list-cell> -->
+				<!-- <tui-list-cell :hover="false" v-if="item.total_full_relief_price != 0">
 					<view class="tui-padding tui-flex">
 						<view>满额减免</view>
 						<view v-if="list" :style="{color: textColor}">-&yen;{{item.total_full_relief_price || 0}}</view>
 					</view>
-				</tui-list-cell>
-				<tui-list-cell :hover="false" :lineLeft="false" padding="0">
+				</tui-list-cell> -->
+				<!-- <tui-list-cell :hover="false" :lineLeft="false" padding="0">
 					<view class="tui-remark-box tui-padding tui-flex">
 						<view>订单备注</view>
 						<input type="text" class="tui-remark" placeholder="选填: 请先和商家协商一致"
 							placeholder-class="tui-phcolor" v-model="remark"></input>
 					</view>
-				</tui-list-cell>
-				<tui-list-cell :hover="false" :last="true">
+				</tui-list-cell> -->
+				<!-- <tui-list-cell :hover="false" :last="true">
 					<view class="tui-padding tui-flex tui-total-flex">
 						<view class="tui-flex-end tui-color-red" :style="{color:'#FF7104'}">
 							<view class="tui-black">小计： </view>
@@ -120,23 +116,23 @@
 							<view v-else class="tui-price-large">{{total_price}}</view>
 						</view>
 					</view>
-				</tui-list-cell>
+				</tui-list-cell> -->
 			</view>
-			<view class="use-points flex flex-y-center flex-x-between" v-if="shopping_voucher.enable">
+			<view class="use-points flex flex-y-center flex-x-between">
 				<view>
 					使用购物券 
 					<view class="xieti">
 						拥有购物券：{{shopping_voucher.total}} 
-						<text class="text" v-if="shopping_voucher.is_use">-{{shopping_voucher.use_num}}</text>
+						<text class="text">-{{shopping_voucher.use_num}}</text>
 					</view>
 				</view>
-				<switch v-model="shopping_voucher.is_use" @change="useShoppingVoucher" color='#FF7104' class="points-switch" :checked='true' :disabled="true"/>
+				<switch  @change="useShoppingVoucher" color='#FF7104' class="points-switch" :checked='true' :disabled="true"/>
 			</view>
 		</view>
 
 
 		<!--优惠券底部选择层-->
-		<com-bottom-popup :show="popupShow2" @close="hidePopup">
+		<!-- <com-bottom-popup :show="popupShow2" @close="hidePopup">
 			<scroll-view scroll-y="true" style="max-height: 1000rpx;">
 				<view class="coupon-box">
 					<view class="coupon-title2">
@@ -144,7 +140,6 @@
 						<view class="coupon-icon iconfont icon-guanbi" @tap="hidePopup"></view>
 					</view>
 					<view style="height: 120rpx"></view>
-					<!-- <view class="coupon-tips">领取优惠券购买</view> -->
 					<view class="coupon-content">
 						<view class="coupon-item" :style="{background: 'url('+couponImg+')no-repeat'}"
 							v-for="(cItem,cIndex) in coupon_list" :key="cIndex">
@@ -174,13 +169,12 @@
 									<view class="receive receive-col" @tap="useCoupon('notUse',cIndex,cItem.id)"
 										:style="{border:'1px solid'+'#FF7104',color:'#FF7104'}" v-else>不使用</view>
 								</view>
-								<!-- <view class="received iconfont icon-yilingqu"></view> -->
 							</view>
 						</view>
 					</view>
 				</view>
 			</scroll-view>
-		</com-bottom-popup>
+		</com-bottom-popup> -->
 		<!--优惠券底部选择层-->
 
 		<view class="tui-safe-area"></view>
@@ -196,7 +190,7 @@
 					立即兑换
 				</view>
 			</view>
-		</view>
+		</view> 
 		
 		<unipopup ref="popupShare" type="center">
 			<view class="popupShare-deyail">
@@ -219,7 +213,7 @@
 				
 			</view>
 		</unipopup>
-		
+		</view>
 
 	</view>
 </template>
@@ -277,7 +271,7 @@
 				user_remaining_integral: 0, //剩余抵扣券
 
 				shopping_voucher: {
-					is_use: true,
+					use: true,
 					enable: false,
 					total: 0, //用户拥有购物券
 					remaining: 0, //用户剩余购物券
@@ -311,6 +305,13 @@
 		},
 
 		onLoad(options) {	
+			this.getpreview(options)
+			
+			
+			
+			
+			
+			
 			
 			/* uni.chooseAddress({
 				success(res) {
@@ -343,7 +344,7 @@
 			}
 			this.mch_id = options.mch_id
 			this.sendData = uni.getStorageSync('orderData');
-			this.getData();
+			// this.getData();
 			//#ifdef MP-WEIXIN
 			this.wx_order_id = options.nav_id;
 			//#endif
@@ -382,6 +383,59 @@
 			}
 		},
 		methods: {
+			getpreview(option){
+				this.$http.request({
+					url: this.$api.taolijin.getpreview,
+					method: 'POST',
+					data: {
+						list:option.list,
+						use_shopping_voucher:1,
+						use_address_id:option.use_address_id,
+						remark:option.remark,
+					},
+					showLoading: true
+				}).then(res => {
+					if (res.code == 0) {
+						console.log(res.data)
+						this.list=res.data.list
+						this.total_price=res.data.total_price
+						this.shopping_voucher={
+							is_use: true,
+							enable: res.data.shopping_voucher.enable,
+							total:res.data.shopping_voucher.total, //用户拥有购物券
+							remaining: res.data.shopping_voucher.remaining, //用户剩余购物券
+							decode_price: res.data.shopping_voucher.decode_price, //使用购物券抵扣掉的钱
+							use_num:res.data.shopping_voucher.use_num//使用了多少抵扣券
+						}
+					} else {
+						this.$http.toast(res.msg);
+					}
+				});
+			},
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			toShop(id) {
 				if (id) {
 					uni.navigateTo({
