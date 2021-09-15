@@ -399,6 +399,7 @@
 						console.log(res.data)
 						this.list=res.data.list
 						this.total_price=res.data.total_price
+						this.user_address = res.data.user_address;
 						this.shopping_voucher={
 							is_use: true,
 							enable: res.data.shopping_voucher.enable,
