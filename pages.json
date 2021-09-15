@@ -779,7 +779,17 @@
 						"onReachBottomDistance": 50
 					}
 
-				}, {
+				},{
+					"path": "alibaba/searchList/searchList",
+					"style": {
+						"navigationBarTitleText": "",
+						"navigationBarBackgroundColor": "#F7F7F7",
+						"navigationBarTextStyle": "black",
+						"enablePullDownRefresh": true,
+						"onReachBottomDistance": 50
+					}
+				},  
+				{
 					"path": "alibaba/detail/detail",
 					"style": {
 						"navigationBarBackgroundColor": "#fff",

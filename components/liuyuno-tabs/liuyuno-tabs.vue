@@ -9,7 +9,7 @@
 							:id="'_tab_'+index"
 							:class="{ '_active': tagIndex === index }"
 							:style="{color: tagIndex == index ? defaultConfig.activeColor : defaultConfig.color, 'width': defaultConfig.itemWidth ? defaultConfig.itemWidth + 'rpx' : ''}"
-							@click="tabClick(index)">{{ item[defaultConfig.key] || item }}</view>
+							@click="tabClick(index,item)">{{ item[defaultConfig.key] || item }}</view>
 					</block>
 				</view>
 				<view class="_underline" :style="{
@@ -171,10 +171,14 @@
 				}
 			},
 			
-			tabClick(index) {
+			tabClick(index,item) {
 				this.tagIndex = index;
 				this.tabToIndex(index);
-				this.$emit('tabClick', index);
+				let form={
+					index:index,
+					item:item,
+				}
+				this.$emit('tabClick',form );
 			}
 		}
 	}

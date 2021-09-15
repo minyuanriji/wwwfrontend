@@ -68,6 +68,7 @@ let api = {
 		exchange: api_root + 'plugin/taolijin/api/exchange/integral-to-lj', //红包兑换礼金接口
 		getUrl: api_root + 'plugin/taolijin/api/exchange/get-url', //红包兑换礼金接口
 		getClassify: api_root + 'plugin/alibaba/api/distribution/get-category', //获取1688分类列表
+		getHomegoods: api_root + 'plugin/alibaba/api/distribution/search-goods', //获取1688点击分类变换商品
 	},
 //--------------------------------------------------------------------------------------------		
 	

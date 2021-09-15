@@ -1,14 +1,5 @@
 <template>
 	<view class="ali-home-app">
-		<view class="ali-home-app-header">
-			<liuyuno-tabs :tabData="tabs" :defaultIndex="defaultIndex" @tabClick='tabClick' />
-		</view>
-		<view class="ali-home-app-header-catory-two">
-			<view v-for="(item,index) in typeList" :key='index' v-if="index<10" @click="checkCatory(item)">
-				<image :src="item.cover_url" mode=""></image>
-				<text>{{item.name}}</text>
-			</view>
-		</view>
 		<view class="ali-home-app-product">
 			<view class="product-item" v-for="(item,index) in goodsList" :key='index' @click="link()">
 				<image :src="item.cover_url" mode="widthFix" class="product-item-logo"></image>
@@ -27,60 +18,31 @@
 </template>
 
 <script>
-	import liuyunoTabs from "@/components/liuyuno-tabs/liuyuno-tabs.vue";
 	export default {
-		components: {
-			liuyunoTabs,
-		},
 		data() {
 			return {
-				tabs: [], //一级分类
-				defaultIndex: 0,
-				typeList: [], //二级分类
 				form:{
 					page:1,
-					ali_cat_id:'', 
+					ali_cat_id:'',
 				},
 				goodsList:[],
 				page_count:'',
 			};
 		},
-		onLoad() {
-			this.getclassify()
+		onLoad(options) {
+			if(options&&options.name&&options.ali_cat_id){
+				this.form.ali_cat_id=options.ali_cat_id
+				this.getHomegoods()
+				uni.setNavigationBarTitle({
+					title:options.name
+				})
+			}
 		},
 		methods: {
-			tabClick(e) { //点击切换table
-				for (let i = 0; i < this.tabs.length; i++) {
-					if (e.index == i) {
-						this.typeList = this.tabs[i].children
-					}
-				}
-				this.form.ali_cat_id=e.item.ali_cat_id
-				this.form.page=1
-				this.goodsList=[]
-				this.getHomegoods()
-			},
 			link() { //进入商品详情页
 				uni.navigateTo({
 					url: '../detail/detail?proId=' + 2107
 				})
-			},
-			getclassify() { //获取分类
-				this.$http.request({
-					url: this.$api.taolijin.getClassify,
-					method: 'POST',
-					data: '',
-					showLoading: true
-				}).then(res => {
-					if (res.code == 0) {
-						this.tabs = res.data
-						this.form.ali_cat_id=this.tabs[0].ali_cat_id
-						this.getHomegoods()
-						this.typeList = this.tabs[0].children
-					} else {
-						this.$http.toast(res.msg);
-					}
-				});
 			},
 			getHomegoods() { //获取分类商品
 				this.$http.request({
@@ -99,11 +61,6 @@
 						this.$http.toast(res.msg);
 					}
 				});
-			},
-			checkCatory(item){ //点击二级分类
-				uni.navigateTo({
-					url:'../searchList/searchList?name='+item.name+"&ali_cat_id="+item.ali_cat_id
-				})
 			}
 		},
 		onReachBottom() {
@@ -121,40 +78,6 @@
 		width: 100%;
 		overflow: hidden;
 	}
-
-	.ali-home-app-header {
-		width: 100%;
-		overflow: hidden;
-		background: #fff;
-	}
-	.ali-home-app-header-catory-two{
-		width: 96%;
-		background: #fff;
-		margin: 20rpx auto;
-		overflow: hidden;
-		display: flex;
-		justify-content: space-evenly;
-		flex-wrap: wrap;
-		border-radius: 30rpx;
-	}
-	.ali-home-app-header-catory-two view{
-		width: 17%;
-		overflow: hidden;
-		margin: 10rpx 0 20rpx 0;
-	}
-	.ali-home-app-header-catory-two view image{
-		width: 100%;
-		height: 122rpx;
-	}
-	.ali-home-app-header-catory-two view text{
-		width: 100%;
-		font-size:24rpx;
-		display: block;
-		text-align: center;
-		overflow: hidden;
-		text-overflow:ellipsis;
-		white-space: nowrap;
-	}
 	.ali-home-app-product {
 		width: 95%;
 		overflow: hidden;
@@ -171,11 +94,10 @@
 		box-shadow: 0px 0px 10px #eee;
 		border: 1px solid rgb(239, 239, 239);
 	}
-
+	
 	.product-item-logo {
 		width: 100%;
 	}
-
 	.product-item-name {
 		width: 100%;
 		height: 84rpx;
