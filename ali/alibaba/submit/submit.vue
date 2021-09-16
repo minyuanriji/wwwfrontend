@@ -61,7 +61,7 @@
 									class="tui-goods-img"></image>
 								<view class="tui-goods-center">
 									<view class="tui-goods-name">{{its.name}}</view>
-								<!-- 	<view class="tui-goods-attr">{{groupName(gItem.attr_list)}}</view> -->
+									<view class="tui-goods-attr">{{groupName(its.sku_labels)}}</view>
 								</view>
 								<view class="tui-price-right">
 									<view>￥{{its.price}}</view>
@@ -304,7 +304,8 @@
 			}
 		},
 
-		onLoad(options) {	
+		onLoad(options) {
+			console.log(options)
 			this.getpreview(options)
 			
 			
@@ -375,9 +376,15 @@
 			groupName() {
 				return function(val) {
 					var str = '';
+					console.log(val)
 					val.forEach((item) => {
-						str = str + item.attr_name;
+						if(str.length>0){
+							str = str +"，"+ item
+						}else{
+							str = str + item
+						}
 					})
+					
 					return str;
 				}
 			}
@@ -433,7 +440,6 @@
 						form.use_address_id = this.user_address.id
 					}
 				}
-				console.log(form)
 				this.$http.request({
 					url: this.$api.taolijin.createorder,
 					method: 'post',

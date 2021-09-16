@@ -405,10 +405,17 @@
 					<image :src="goodsData.images[0]" class="tui-popup-img">
 					</image>
 					<view class="tui-popup-price">
-						<view class="tui-amount tui-bold" :style="{color:'#FF7104'}">¥{{goodsData.price}}</view>
-						<view class="tui-number">已选:{{goodsData.name}}</view>
+						<view class="tui-amount tui-bold" :style="{color:'#FF7104'}">¥{{skuprice}}</view>
+						<view class="tui-number">已选:{{skuname}}</view>
 					</view>
 				</view>
+				<scroll-view scroll-y class="tui-popup-scroll-td" style="height: 300rpx!important;">
+				<view class="sku">
+					<view v-for="(item,index) in goodsData.sku_list" :key='index' style="width:42%;margin-top: 10rpx;font-size: 26rpx;line-height: 60rpx;text-align: center;" :class="setINdex==index?'skuActive':''" @click="selectINdex(index,item)">
+						{{item.labels}}
+					</view>
+				</view>
+				</scroll-view>
 				<view class="tui-scrollview-box">
 				
 					<view class="tui-number-box tui-bold tui-attr-title">
@@ -433,6 +440,9 @@
 	.popupattribute-list{width: 100%;overflow: hidden;display: flex;justify-content: space-between;flex-wrap: wrap;padding-bottom: 60rpx;}
 	.popupattribute-item{width: 100%;overflow: hidden;font-size: 24rpx;border-top: 1rpx solid rgb(247,247,247);
 	display: flex;justify-content: space-between;}
+	.sku{width: 100%;overflow: hidden;margin: 10rpx 0;display: flex;justify-content: space-evenly;flex-wrap: wrap;}
+	.tui-popup-scroll-td{width: 100%;height: 550rpx;}
+	.skuActive{border-radius: 20rpx;border: 1px solid rgb(255, 113, 4) ; color: rgb(255, 113, 4);}
 </style>
 <script>
 	import jxRate from "@/components/rate/rate"
@@ -460,6 +470,9 @@
 		},
 		data() {
 			return {
+				setINdex:0,
+				skuprice:'',
+				skuname:'',
 				img_url: this.$api.img_url,
 				is_index: 1, //1是加入购物车，2是立即购买
 				id: 0, //商品id
@@ -526,6 +539,7 @@
 					{
 						goods:'',
 						num:1,
+						sku:''
 					}
 				]
 			}
@@ -658,26 +672,13 @@
 					url:'../submit/submit?list='+JSON.stringify(this.list)+"&use_shopping_voucher="+0+"&use_address_id="+0+"&remark="
 				})
 			},
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			selectINdex(index,item){
+				console.log(item)
+				this.setINdex=index
+				this.skuprice=item.price
+				this.skuname=item.labels
+				this.list[0].sku=item.id
+			},
 			foucusInfo() {
 				uni.navigateTo({
 					url: '/pages/diy/diy?page_id=114'
@@ -1002,6 +1003,9 @@
 					if (res.code == 0) {
 						console.log(res.data)
 						this.goodsData = res.data.detail;
+						this.skuname=res.data.detail.sku_list[0].labels
+						this.skuprice=res.data.detail.sku_list[0].price
+						this.list[0].sku=res.data.detail.sku_list[0].id
 						this.bannerLength = res.data.detail.images.length;
 						this.is_buy_power = res.data.is_buy_power
 						//#ifdef H5
