@@ -208,7 +208,7 @@
 				<view style="margin-bottom: 30rpx;text-align: center;color: #9C9C9C;font-size: 26rpx;height: 76rpx;padding: 0 10rpx;">需要扣减{{shopping_voucher.use_num}}购物券,确认兑换此商品吗？</view>
 				<view style="width: 100%;overflow: hidden;display: flex;justify-content: space-between;">
 					<button type="default" style="width: 45%;margin: 0 auto;line-height: 70rpx;font-size: 30rpx;background:  #9C9C9C;color: #fff;border-radius: 30rpx;" @click="canclePoup">残忍放弃</button>
-					<button type="default" style="width: 45%;margin: 0 auto;line-height: 70rpx;font-size: 30rpx;background: #FF7104;color: #fff;border-radius: 30rpx;" @click="convert">立即兑换</button>
+					<button type="default" style="width: 45%;margin: 0 auto;line-height: 70rpx;font-size: 30rpx;background: #FF7104;color: #fff;border-radius: 30rpx;" @click="convertSure">立即兑换</button>
 				</view>
 				
 			</view>
@@ -383,7 +383,7 @@
 			}
 		},
 		methods: {
-			getpreview(option){
+			getpreview(option){  //获取预览订单
 				this.$http.request({
 					url: this.$api.taolijin.getpreview,
 					method: 'POST',
@@ -413,7 +413,43 @@
 					}
 				});
 			},
-			
+			convertSure(){//立即兑换
+				if (this.is_request) return;
+				this.is_request = true;
+				let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
+				let curRoute = routes[routes.length - 1].route //获取当前页面路由
+				let curParam = routes[routes.length - 1].options; //获取路由参数
+				let  form={
+					list:curParam.list,
+					use_shopping_voucher:1,
+					use_address_id:this.addressId		
+				}					
+				if (this.addressShpw) {
+					if (!(this.addressId || this.user_address.id)) {
+						this.$http.toast('请添加收货地址!')
+						this.is_request = false
+						return;
+					} else {
+						form.use_address_id = this.user_address.id
+					}
+				}
+				console.log(form)
+				this.$http.request({
+					url: this.$api.taolijin.createorder,
+					method: 'post',
+					data: form
+				}).then((res) => {
+					this.is_request = false; //防抖(重复请求)
+					if (res.code == 0) {
+						uni.removeStorageSync('orderData');
+						uni.redirectTo({
+							url: `../pay/pay?token=${res.data.token}`
+						})
+					} else {
+						this.$http.toast(res.msg);
+					}
+				})
+			},
 			
 			
 			

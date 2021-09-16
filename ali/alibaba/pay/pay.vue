@@ -87,10 +87,8 @@
 			this.navCol = this.globalSet('navCol');
 			
 			this.token = options.token;
-			this.queue_id = options.queue_id;
-			let orderId = options.orderId ? options.orderId : '';
 			// 拿到支付信息
-			this.getPayData(orderId);
+			this.getPayData(options.token);
 			// 加多一个是否为拼团支付的标记
 			if(options.is_index){
 				this.is_index = 1;
@@ -103,14 +101,28 @@
 				this.navBack();
 			},
 			// 获取支付信息
-			getPayData(id) {
+			// getPayData(id) {
+			// 	this.$http.request({
+			// 		url: this.$api.order.toPay,
+			// 		showLoading: true,
+			// 		data: {
+			// 			token: this.token || '',
+			// 			queue_id: this.queue_id || '',
+			// 			id
+			// 		}
+			// 	}).then((res) => {
+			// 		if (res.code == 0) {
+			// 			this.payData = res.data;
+			// 			this.confirmPay()
+			// 		}
+			// 	})
+			// },
+			getPayData(token) {
 				this.$http.request({
-					url: this.$api.order.toPay,
+					url: this.$api.taolijin.getPayData,
 					showLoading: true,
 					data: {
-						token: this.token || '',
-						queue_id: this.queue_id || '',
-						id
+						token:token
 					}
 				}).then((res) => {
 					if (res.code == 0) {
@@ -133,19 +145,11 @@
 					}).then(res=>{
 						if(res.code==0){
 							that.$http.toast('支付成功!');
-							if(that.payData.is_send==1){
-								setTimeout(() => {
-									uni.redirectTo({
-										url: '/pages/order/beused/beused'
-									})
-								},2000)
-							}else{
 								setTimeout(() => {
 									uni.redirectTo({
 										url: '/pages/order/list?status=1'
 									})
 								},2000)
-							}
 							return;
 						}else{
 							that.$http.toast(res.msg)
@@ -162,16 +166,8 @@
 								}
 							}).then(res=>{
 								if(res.code==0){
-									if(that.payData.is_send==1){
-										setTimeout(() => {
-											uni.redirectTo({
-												url: '/pages/order/beused/beused'
-											})
-										},500)
-									}else{
 										let url=res.data.codeUrl
 										location.href=url
-									}
 								}else{
 									that.$http.toast(res.msg)
 								}
@@ -190,11 +186,7 @@
 									}
 								}).then(res=>{
 									if(res.code==0){
-										if(that.payData.is_send==1){
-											that.$wechatSdk.pay(res.data,'/pages/order/beused/beused');
-										}else{
 											that.$wechatSdk.pay(res.data,'/pages/order/list?status=1');
-										}
 									}else{
 										that.$http.toast(res.msg);	
 									}
@@ -220,21 +212,11 @@
 												that.$http.toast("未支付")
 												_url = '/pages/order/list?status=0'
 											}
-											
-											
-											if(that.payData.is_send==1){
-												setTimeout(() => {
-													uni.redirectTo({
-														url: '/pages/order/beused/beused'
-													})
-												},500)
-											}else{
 												setTimeout(() => {
 													uni.redirectTo({
 														url: _url
 													})
-												},1000)
-											}																
+												},1000)														
 										});
 									}else{
 										that.$http.toast(res.msg);	
@@ -253,19 +235,11 @@
 						}).then(res=>{
 							if(res.code==0){
 								that.$http.toast('支付成功!');
-								if(that.payData.is_send==1){
-									setTimeout(() => {
-										uni.redirectTo({
-											url: '/pages/order/beused/beused'
-										})
-									},500)
-								}else{
 									setTimeout(() => {
 										uni.redirectTo({
 											url: '/pages/order/list?status=1'
 										})
 									},500)
-								}
 								return;
 							}else{
 								that.$http.toast(res.msg)
