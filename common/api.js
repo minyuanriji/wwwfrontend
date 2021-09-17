@@ -66,7 +66,13 @@ let api = {
 		getgoodsList:api_root + 'plugin/taolijin/api/goods/search', //获取淘礼金商品
 		getgoodsDetail:api_root + 'plugin/taolijin/api/goods/detail', //获取淘礼金商品详情
 		exchange: api_root + 'plugin/taolijin/api/exchange/integral-to-lj', //红包兑换礼金接口
-		getUrl: api_root + 'plugin/taolijin/api/exchange/get-url' //红包兑换礼金接口
+		getUrl: api_root + 'plugin/taolijin/api/exchange/get-url', //红包兑换礼金接口
+		getClassify: api_root + 'plugin/alibaba/api/distribution/get-category', //获取1688分类列表
+		getHomegoods: api_root + 'plugin/alibaba/api/distribution/search-goods', //获取1688点击分类变换商品
+		getDetail: api_root + 'plugin/alibaba/api/distribution/detail', //获取1688点击分类变换商品
+		getpreview: api_root + 'plugin/alibaba/api/distribution-order/preview', //获取1688预览订单
+		createorder: api_root + 'plugin/alibaba/api/distribution-order/do-submit', //1688生成订单
+		getPayData:api_root + 'api/payCenter/payment-order-prepare/alibaba-distribution-order',//预支付获取支付信息接口
 	},
 //--------------------------------------------------------------------------------------------		
 	

@@ -1,0 +1,332 @@
+<template>
+	<view class="searchList-app">
+		<view class="searchList-app-top">
+			<view class="searchList-app-header">
+				<view class="searchList-app-header-city" @click="setCITY">
+					<text style="display: inline-block;width: 78rpx;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{region}}</text>
+					<image :src="img_url+'unmy-hotel.png'" mode="" style="width: 20rpx;height: 20rpx;display: block;float: right;margin: 40rpx 0 0 0;"></image>
+				</view>
+				<view class="searchList-app-header-time"  @click="timeShow=true">
+					<view class="searchList-app-header-time-check" >
+						<view>
+							<text style="margin-right: 5rpx;">住</text>
+							<text>{{timeStaus.startStr.dateStr}}</text>
+						</view>
+						<view>
+							<text style="margin-right: 5rpx;">离</text>
+							<text>{{timeStaus.endStr.dateStr}}</text>
+						</view>
+					</view>
+					<view class="searchList-app-header-time-count" style="line-height: 80rpx;">
+						<text style="color: #FF7104;">{{timeStaus.dayCount}}晚</text>
+						<image :src="img_url+'unmy-hotel.png'" mode="" style="width: 25rpx;height: 25rpx;display: block;float: right;margin: 28rpx 0 0 5rpx;"></image>
+					</view>
+				</view>
+				<view class="searchList-app-header-search" @click="search">
+					<view style="height: 100%;width: 60rpx;float: left;">
+						<image :src="img_url+'search-my-hotel.png'" mode="" style="width: 35rpx;height: 35rpx;display: block;float: left;margin: 35rpx 20rpx 0 10rpx;"></image>
+					</view>
+					<input type="text" value="" placeholder="酒店名称" style="font-size: 28rpx;" v-model="searchText"/>
+				</view>
+			</view>
+			<view class="searchList-app-sorting">
+				<view @click="sorting">
+					<text>{{sortTitle}}</text>
+					<image :src="img_url+'unmy-hotel.png'" mode=""></image>
+				</view>
+				<view @click="typeing">
+					<text>{{typeingTitle}}</text>
+					<image :src="img_url+'unmy-hotel.png'" mode=""></image>
+				</view>
+			</view>
+		</view>
+		<view class="hotel-List">
+			<view class="hotel-item" v-for="item in 5" :key='item'  @click="hoteldetail">
+				<view class="hotel-item-left">
+					<image src="http://imgs.bestwehotel.com/images/inn/19ryaJszIM" mode="aspectFill"></image>
+				</view>
+				<view class="hotel-item-right">
+					<view class="hotel-item-right-name">
+						轻住•悦享酒店(济南长清大学城店)
+					</view>
+					<view class="hotel-item-right-score">
+						<text>5.0超棒</text>
+					</view>
+					<view class="hotel-item-right-distance">
+						<text>距离你300m</text>
+					</view>
+					<view class="hotel-item-right-notice">
+						<text>会员折扣</text>
+						<text>消毒保障</text>
+					</view>
+					<view class="hotel-item-right-money">
+						<text style="font-size: 26rpx;color:#FF7104;">￥</text>
+						<text style="font-weight: bold;color:#FF7104;margin: 0 5rpx;font-size: 34rpx;">132</text>
+						<text style="font-size: 24rpx;margin-right: 20rpx;">起</text>
+					</view>
+				</view>
+			</view>
+		</view>
+		<citySelect @back_city="back_city" v-if="show"></citySelect>
+		<calendar :is-show="timeShow"  :start-date="startDate" :end-date="endDate" mode="2"  @callback="getDate" />
+		<unipopup ref="popupSort" type="top">
+			<view  class="searchList-app-sort">
+				<view @click="sortSec(index,item)" :class="sortIndex==index?'sortClass':''" v-for="(item,index) in sortType" :key='index'>{{item}}</view>
+			</view>
+		</unipopup>
+		<unipopup ref="popupType" type="top">
+			<view  class="searchList-app-sort">
+				<!-- 左边活动选项 -->
+				<scroll-view scroll-y scroll-with-animation class="left-box" >
+					<view v-for="(item,index) in type" :key="index" class="tab-bar-item" @tap.stop="swichNav(index)">
+						<text :class="currentTab==index ? 'active' : ''" >{{item}}</text>
+					</view>
+				</scroll-view>
+				<scroll-view scroll-y scroll-with-animation class="right-box"  v-if="currentTab==0">
+					<view v-for="(item,index) in typeLei" :key="index" class="tab-bar-item" @click="locationSec(index,item)" style="border-bottom: 1rpx solid rgb(242,245,249);">
+						<text :class="currentTabRight==index ? 'actove' : ''" style="width: 100%;height: 100%;text-align: left;margin-left: 30rpx;">{{item}}</text>
+					</view>
+				</scroll-view>
+				<scroll-view scroll-y scroll-with-animation class="right-box"  v-if="currentTab==1">
+					<view v-for="(item,index) in typeLei" :key="index" class="tab-bar-item" @click="accommodationCheck(index,item)" style="border-bottom: 1rpx solid rgb(242,245,249);">
+						<text :class="accommodationTabRight==index ? 'actove' : ''" style="width: 100%;height: 100%;text-align: left;margin-left: 30rpx;">{{item}}</text>
+					</view>
+				</scroll-view>
+				<view class="sure-sort" style="width: 100%;height: 99rpx;background: #fff;margin-top: 600rpx;display: flex;justify-content: space-between;">
+					<view style="width: 30%;text-align: center;line-height: 100rpx;" @click="cancle">重置</view>
+					<view style="width: 70%;text-align: center;line-height: 100rpx;background: #FF7104;color: #fff;" @click="btnSure">确认</view>
+				</view>
+			</view>
+		</unipopup>
+	
+	</view>
+</template>
+
+<script>
+	import citySelect from '@/components/linzq-citySelect/linzq-citySelect.vue';
+	import Calendar from '@/components/mobile-calendar-simple/Calendar.vue';
+	import unipopup from '@/components/uni-popup/uni-popup';
+	export default {
+		components:{
+			citySelect,
+			Calendar,
+			unipopup,
+		},
+		data() {
+			return {
+				img_url: this.$api.img_url,
+				region:'广州市',//默认广州市
+				show:false,//城市选择显示
+				timeShow:false,//入住时间选择
+				timeStaus:{ //入住时间
+					dayCount:'',
+					endStr:{
+						dateStr:'',
+						recent:'',
+						week:''
+					},
+					startStr:{
+						dateStr:'',
+						recent:'',
+						week:''
+					}
+				},
+				startDate:'',//开始时间
+				endDate:'',//结束时间
+				time:'',//当前日期
+				tomoryTime:'',//明天日期
+				searchText:"",//搜索的内容
+				popupSort:false,//排序的弹窗显示
+				popupType:false,//房间的弹窗显示
+				currentTab: 0, //预设左边当前项的值（控制样式）
+				sortIndex:0,//排序的样式
+				sortTitle:'综合排序',
+				typeingTitle:'全日房',
+				sortType:[ //排序的类容
+					"综合排序",
+					"价格由低到高",
+					"距离由近到远"
+				],
+				typeLei:[ //右边展示的类容（默认）
+					"不限",
+					"白云区",
+					"越秀区",
+					"萝岗区",
+					"天河区",
+					"增城区",
+					"花都区",
+					"荔湾区"
+				],
+				type:[ //房间选择左边的类容
+					"位置区域",
+					"住宿类型",
+				],
+				currentTabRight:0, //预设右边位置的值（控制样式）
+				accommodationTabRight:0,//预设右边住宿类型的值（控制样式）
+				typeLocation:[ //房间选择右边区域
+					"不限",
+					"白云区",
+					"越秀区",
+					"萝岗区",
+					"天河区",
+					"增城区",
+					"花都区",
+					"荔湾区"
+				],
+				locationSecTitle:'不限',
+				accommodationSecTitle:'全日房',
+				accommodationType:[ //房间选择右边住宿类型
+					"全日房",
+					"钟点房",
+				],
+			};
+		},
+		onLoad(options) {
+			if(options&&options.searchKey){
+				this.searchText=options.searchKey
+			}
+			if(uni.getStorageSync('timeStaus')){
+				this.timeStaus=uni.getStorageSync('timeStaus')
+				this.startDate=uni.getStorageSync('timeStaus').startStr.dateStr
+				this.endDate=uni.getStorageSync('timeStaus').endStr.dateStr
+			}else{
+				this.getTime()
+			}
+		},
+		methods:{
+			setCITY(){//选择城市
+				this.show=true
+			},
+			back_city(e) {  //获取城市
+				if (e !== 'no') { 
+					this.region = e.cityName ;
+					this.show=false;
+				} 
+				else { 
+					this.show=false;
+				 }
+			},
+			search(){//点击搜索
+				uni.navigateTo({
+					url:'../hotelSearch/hotelSearch'
+				})
+			},
+			getTime(){ //获取时间
+				this.time=this.changeTime(new Date())
+				var day= new Date();
+				day.setTime(day.getTime()+24*60*60*1000);
+				this.tomoryTime = day.getFullYear()+"-" +((day.getMonth()+1)<10?'0'+(day.getMonth()+1):(day.getMonth()+1))+ "-" +(day.getDate()<10?'0'+day.getDate():day.getDate());
+				this.startDate=this.time
+				this.endDate=this.tomoryTime
+				this.timeStaus.startStr.dateStr=this.time
+				this.timeStaus.startStr.recent='今天'
+				this.timeStaus.endStr.dateStr=this.tomoryTime
+				this.timeStaus.endStr.recent='明天'
+				this.timeStaus.dayCount=1
+			},
+			getDate(date){ //获取入住时间
+				this.timeStaus=date				
+				this.startDate=this.timeStaus.startStr.dateStr
+				this.endDate=this.timeStaus.endStr.dateStr
+				this.timeShow=false
+				uni.setStorageSync('timeStaus',this.timeStaus)
+			},
+			changeTime(d){ //获取今日时间
+			     return d.getFullYear() + '-' +((d.getMonth()+1)<10?'0'+(d.getMonth()+1):(d.getMonth()+1)) + '-' + (d.getDate()<10?'0'+d.getDate():d.getDate());
+			},
+			sorting(){ //排序弹窗显示
+				this.$refs.popupSort.open();
+				this.$refs.popupType.close();
+			},
+			sortSec(index,item){//排序内容选择
+				this.sortIndex=index
+				this.sortTitle=item
+				this.$refs.popupSort.close();
+				this.$refs.popupType.close();
+			},
+			typeing(){ //房间类型弹窗显示
+				this.$refs.popupSort.close();
+				this.$refs.popupType.open();
+			},
+			swichNav(index) { //房间左边选择样式变化
+				this.currentTab = index;
+				if(index==0){
+					this.typeLei=this.typeLocation
+				}
+				if(index==1){
+					this.typeLei=this.accommodationType
+				}
+			},
+			locationSec(index,item){//右边位置区域选择
+				this.currentTabRight=index
+				this.locationSecTitle=item
+			},
+			accommodationCheck(index,item){
+				this.accommodationTabRight=index
+				this.accommodationSec=item
+			},
+			btnSure(){ //确认
+				if(this.locationSecTitle=='不限'){
+					this.typeingTitle=this.accommodationSecTitle
+				}else{
+					this.typeingTitle=this.locationSecTitle+'/'+this.accommodationSecTitle
+				}
+				this.$refs.popupSort.close();
+				this.$refs.popupType.close();
+			},
+			cancle(){//重置
+				this.currentTabRight=0
+				this.accommodationTabRight=0
+				this.typeingTitle="全日房"
+				this.$refs.popupSort.close();
+				this.$refs.popupType.close();
+			},
+			hoteldetail(){//跳转到酒店详情页面
+				uni.navigateTo({
+					url:'../detail/detail'
+				})
+			}
+		}
+	}
+</script>
+
+<style lang="less" scoped>
+	.searchList-app{width: 100%;overflow: hidden;position: relative;}
+	/* #ifdef H5 */
+	.searchList-app-top{width: 100%;overflow: hidden;position: fixed;left: 0;top: 88rpx;z-index: 9999;background: #fff;}
+	/* #endif */
+	/* #ifdef  MP  */
+		.searchList-app-top{width: 100%;overflow: hidden;position: fixed;left: 0;top: 0rpx;z-index: 9999;background: #fff;}
+	/* #endif */
+	.searchList-app-header{width: 95%;height: 100rpx;background: rgb(242,245,249);margin: 15rpx auto 0;border-radius: 55rpx;display: flex;justify-content: space-evenly;}
+	.searchList-app-header-city{width: 18%;line-height: 100rpx;text-align: left;padding-left: 10rpx;font-size: 26rpx;}
+	.searchList-app-header-time{width: 40%;height: 80%;margin-top: 1.5%;display: flex;justify-content: space-between;font-size: 24rpx;
+	border-left: 1rpx solid rgb(218,224,230);padding: 0 10rpx;border-right: 1rpx solid rgb(218,224,230);box-sizing: border-box;}
+	.searchList-app-header-search{width: 37%;}
+	.searchList-app-header-search input{height: 100rpx;line-height: 100rpx;padding-right: 10rpx;}
+	.searchList-app-sorting{width: 100%;height: 100rpx;border-bottom: 1rpx solid rgb(242,245,249);display: flex;justify-content: space-between;}
+	.searchList-app-sorting view{width: 50%;text-align: center;line-height: 100rpx;font-size: 28rpx;position: relative;}
+	.searchList-app-sorting view image{width: 35rpx;height: 35rpx;display: block;position: absolute;top: 35rpx;right: 60rpx;}
+	.searchList-app-sort{width: 100%;overflow: hidden;background: #fff;margin-top: 215rpx;}
+	.searchList-app-sort view{width: 100%;height: 100rpx;text-align: center;font-size: 30rpx;line-height: 100rpx;border-bottom: 1rpx solid rgb(242,245,249);}
+	.searchList-app-sort view:nth-of-type(3){border: none!important;}
+	.left-box{width: 30%;position: fixed;left: 0;z-index: 10;background: rgb(242,245,249);height: 600rpx;}
+	.active {color: #FFFFFF;background: #FF7104;width: 100%;height:100%;line-height: 110rpx;}
+	.tab-bar-item {width: 100%;height: 110rpx;box-sizing: border-box;display: flex;align-items: center;justify-content: center;font-size: 9pt;color: #444;font-weight: 400;}
+	.right-box {width: 70%;position: fixed;box-sizing: border-box;left: 30%;background: #fff;height: 600rpx;}
+	.actove{width: 100%;height: 100%;background: url('https://dev.mingyuanriji.cn/web/static/yellow-right.png')no-repeat;background-size: 5%;
+	background-position: 90% 50% ;}
+	.sortClass{color: #FF7104;font-weight: bold;background: url('https://dev.mingyuanriji.cn/web/static/yellow-right.png')no-repeat;background-size: 5%;
+	background-position: 90% 50% ;}
+	.hotel-List{width: 100%;overflow: hidden;margin-top:230rpx ;padding: 0 20rpx;box-sizing: border-box;margin-bottom: 100rpx;}
+	.hotel-item{width: 100%;height: 340rpx;display: flex;justify-content: space-between;border-bottom: 4rpx solid rgb(242,245,249);padding: 20rpx 0;box-sizing: border-box;}
+	.hotel-item-left{width: 30%;}
+	.hotel-item-left image{width: 100%;height: 100%;border-radius: 10rpx;}
+	.hotel-item-right{width: 70%;padding-left: 20rpx;}
+	.hotel-item-right-name{width: 100%;overflow: hidden;font-weight: bold;color: #000;}
+	.hotel-item-right-score{width: 100%;overflow: hidden;font-size: 30rpx;color:  #FF7104;margin: 5rpx 0;}
+	.hotel-item-right-distance{width: 100%;overflow: hidden;font-size: 26rpx;}
+	.hotel-item-right-money{width: 100%;overflow: hidden;text-align: right;margin-top: 10rpx;}
+	.hotel-item-right-notice{width: 100%;overflow: hidden;font-size: 24rpx;margin-top: 10rpx;}
+	.hotel-item-right-notice text{display:inline-block;min-width: 110rpx;text-align: center;margin-right: 5rpx;background: rgb(151,189,227);color: #fff;border-radius: 10rpx;}
+</style>
