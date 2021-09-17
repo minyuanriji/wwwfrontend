@@ -83,17 +83,24 @@
 					</view> -->
 
 				</view>
-				<!-- <tui-list-cell :hover="false">
-					<view class="tui-padding tui-flex" v-if="flag">
+				<tui-list-cell :hover="false">
+					<view class="tui-padding tui-flex" >
 						<view>运营费</view>
-						<view v-if="list" :style="{color: '#FF7104'}">+&yen;{{item.express_price}}</view>
+						<view :style="{color: '#FF7104'}">+&yen;{{list[0].express_price}}</view>
 					</view>
-					<view class="tui-padding tui-flex" v-else>
-						<view>运营费</view>
-						<view v-if="list" :style="{color: '#FF7104'}">+&yen;{{ExpressPrice}}</view>
+				</tui-list-cell>
+				<tui-list-cell :hover="false">
+					<view class="tui-padding tui-flex" >
+						<view>运营费抵扣金额</view>
+						<view :style="{color: '#FF7104'}">-&yen;{{list[0].shopping_voucher_decode_price}}</view>
 					</view>
-
-				</tui-list-cell> -->
+				</tui-list-cell>
+				<tui-list-cell :hover="false">
+					<view class="tui-padding tui-flex" >
+						<view>运营费购物券抵扣</view>
+						<view :style="{color: '#FF7104'}">-&yen;{{list[0].shopping_voucher_decode_price}}</view>
+					</view>
+				</tui-list-cell>
 				<!-- <tui-list-cell :hover="false" v-if="item.total_full_relief_price != 0">
 					<view class="tui-padding tui-flex">
 						<view>满额减免</view>
@@ -305,27 +312,19 @@
 		},
 
 		onLoad(options) {
-			console.log(options)
-			this.getpreview(options)
+			if (uni.getStorageSync("addressID")) { //如果有地址id在请求地址接口，如果没有则用默认的地址
+				options.use_address_id=uni.getStorageSync("addressID")
+				this.getpreview(options)
+				this.addressId = uni.getStorageSync("addressID");
+				this.form.user_address_id = this.addressId
+				this.getAddress();
+			} else {
+				this.getpreview(options)
+				this.addressId = 0;
+				this.form.user_address_id = 0
+			}
 			
 			
-			
-			
-			
-			
-			
-			/* uni.chooseAddress({
-				success(res) {
-					console.log(res.userName)
-					console.log(res.postalCode)
-					console.log(res.provinceName)
-					console.log(res.cityName)
-					console.log(res.countyName)
-					console.log(res.detailInfo)
-					console.log(res.nationalCode)
-					console.log(res.telNumber)
-				}
-			}) */
 			
 			this.form.use_score=options.use_score
 			this.form.use_integral=options.use_integral
@@ -334,14 +333,6 @@
 			if (uni.getStorageSync('mall_config')) {
 				this.textColor = this.globalSet('textCol');
 				this.couponImg = this.globalSet('couponImg');
-			}
-			if (uni.getStorageSync("addressID")) { //如果有地址id在请求地址接口，如果没有则用默认的地址
-				this.addressId = uni.getStorageSync("addressID");
-				this.form.user_address_id = this.addressId
-				this.getAddress();
-			} else {
-				this.addressId = 0;
-				this.form.user_address_id = 0
 			}
 			this.mch_id = options.mch_id
 			this.sendData = uni.getStorageSync('orderData');
@@ -360,11 +351,18 @@
 		},
 		onShow() {
 			this.switcExpressPrice();
+			let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
+			let curRoute = routes[routes.length - 1].route //获取当前页面路由
+			let curParam = routes[routes.length - 1].options; //获取路由参数
+			console.log(curParam)
 			if (uni.getStorageSync("addressID")) { //如果有地址id在请求地址接口，如果没有则用默认的地址
+				curParam.use_address_id=uni.getStorageSync("addressID")
+				this.getpreview(curParam)
 				this.addressId = uni.getStorageSync("addressID");
 				this.form.user_address_id = this.addressId
 				this.getAddress();
 			} else {
+				this.getpreview(curParam)
 				this.addressId = 0;
 				this.form.user_address_id = 0
 			}
@@ -376,7 +374,6 @@
 			groupName() {
 				return function(val) {
 					var str = '';
-					console.log(val)
 					val.forEach((item) => {
 						if(str.length>0){
 							str = str +"，"+ item
@@ -403,7 +400,6 @@
 					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
-						console.log(res.data)
 						this.list=res.data.list
 						this.total_price=res.data.total_price
 						this.user_address = res.data.user_address;
@@ -479,6 +475,32 @@
 			
 			
 			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			toShop(id) {
 				if (id) {
 					uni.navigateTo({
@@ -512,6 +534,15 @@
 					this.scoreswitc = res;
 				}).catch()
 			},
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			//切换地址获取运费
 			switcExpressPrice() {
 				if (this.province == this.user_address.province) {
@@ -520,37 +551,61 @@
 				if (this.user_address.province === undefined) {
 					this.user_address = uni.getStorageSync('user_address_cache');
 				}
-				this.province = this.user_address.province;
-				this.express = 0
-				if (this.user_address.province) {
-					this.$http.request({
-						url: this.$api.order.express_price,
-						method: 'post',
-						showLoading: true,
-						data: {
-							data: this.user_address.province,
-							order_id: JSON.parse(this.wx_order_id)
-						}
-					}).then((res) => {
-						var result = Object.keys(res)
-						this.list.forEach((item) => {
-							if (item.mch.id == 0) {
-								item.goods_list.forEach((ites) => {
-									console.log(ites)
-									if (result.indexOf(String(ites.id)) != -1) {
-										this.express += Number(res[ites.id])
-									}
-								})
-								item.express_price = this.express;
-								item.total_price = Number(item.total_price) + Number(item.express_price);
-							}
-						})
-						this.getData();
-						console.log(this.list)
-					})
-				}
+				// this.province = this.user_address.province;
+				// this.express = 0
+				// if (this.user_address.province) {
+				// 	this.$http.request({
+				// 		url: this.$api.order.express_price,
+				// 		method: 'post',
+				// 		showLoading: true,
+				// 		data: {
+				// 			data: this.user_address.province,
+				// 			order_id: JSON.parse(this.wx_order_id)
+				// 		}
+				// 	}).then((res) => {
+				// 		console.log(res)
+				// 		var result = Object.keys(res)
+				// 		this.list.forEach((item) => {
+				// 			if (item.mch.id == 0) {
+				// 				item.goods_list.forEach((ites) => {
+				// 					console.log(ites)
+				// 					if (result.indexOf(String(ites.id)) != -1) {
+				// 						this.express += Number(res[ites.id])
+				// 					}
+				// 				})
+				// 				item.express_price = this.express;
+				// 				item.total_price = Number(item.total_price) + Number(item.express_price);
+				// 			}
+				// 		})
+				// 		this.getData();
+				// 		console.log(this.list)
+				// 	})
+				// }
 			},
 
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			// 使用积分
 			use(e) {
 				this.price = 0;
