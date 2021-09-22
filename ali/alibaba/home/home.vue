@@ -172,10 +172,12 @@
 		width: 17%;
 		overflow: hidden;
 		margin: 10rpx 0 20rpx 0;
+		border-radius: ;
 	}
 	.ali-home-app-header-catory-two view image{
 		width: 100%;
 		height: 122rpx;
+		border-radius: 50%;
 	}
 	.ali-home-app-header-catory-two view text{
 		width: 100%;
