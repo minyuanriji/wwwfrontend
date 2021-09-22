@@ -147,7 +147,7 @@
 							that.$http.toast('支付成功!');
 								setTimeout(() => {
 									uni.redirectTo({
-										url: '/pages/order/list?status=1'
+										url: '/ali/alibaba/orderList/orderList'
 									})
 								},2000)
 							return;
@@ -186,7 +186,7 @@
 									}
 								}).then(res=>{
 									if(res.code==0){
-											that.$wechatSdk.pay(res.data,'/pages/order/list?status=1');
+											that.$wechatSdk.pay(res.data,'/ali/alibaba/orderList/orderList');
 									}else{
 										that.$http.toast(res.msg);	
 									}
@@ -205,7 +205,7 @@
 								}).then(res=>{
 									if(res.code==0){
 										setPay(res.data, (result) => {
-											let _url = '/pages/order/list?status=1'
+											let _url = '/ali/alibaba/orderList/orderList'
 											if (result.success) {
 												that.$http.toast("支付成功")
 											} else {
@@ -237,7 +237,7 @@
 								that.$http.toast('支付成功!');
 									setTimeout(() => {
 										uni.redirectTo({
-											url: '/pages/order/list?status=1'
+											url: '/ali/alibaba/orderList/orderList'
 										})
 									},500)
 								return;

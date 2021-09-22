@@ -828,7 +828,19 @@
 					}
 
 				}
-			]
+			    ,{
+                    "path" : "alibaba/orderList/orderList",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "订单列表",
+                    "navigationBarBackgroundColor": "#F7F7F7",
+                    "navigationBarTextStyle": "black",
+                    "enablePullDownRefresh": true,
+                    "onReachBottomDistance": 50
+                }
+                
+                }
+            ]
 		},
 		{
 			"root": "plugins",
