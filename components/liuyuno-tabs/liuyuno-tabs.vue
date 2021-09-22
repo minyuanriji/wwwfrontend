@@ -4,7 +4,7 @@
 			<view class="_scroll-content">
 				<view class="_tab-item-box" :class="[defaultConfig.itemWidth ? '_clamp' : '_flex']">
 					<block v-for="(item, index) in tabList" :key="index" >
-						<view 
+						<view  
 							class="_item"
 							:id="'_tab_'+index"
 							:class="{ '_active': tagIndex === index }"
@@ -167,7 +167,7 @@
 				this.slider = {
 					left: _slider.left - scorll_left + (_slider.width - width) / 2,
 					width: width,
-					scrollLeft: _slider.scrollLeft - scorll_left,
+					scrollLeft: _slider.scrollLeft - scorll_left+6,
 				}
 			},
 			
@@ -209,6 +209,7 @@
 						display: flex;
 						._item {
 							flex: 1;
+							font-size: 30rpx;
 						}
 					}
 					&._clamp {

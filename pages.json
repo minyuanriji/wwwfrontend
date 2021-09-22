@@ -1490,7 +1490,7 @@
 					"path": "personalCentre/ercode/ercode",
 					"style": {
 						"navigationBarTitleText": "二维码收款",
-						"navigationBarBackgroundColor": "#FF6B09 ",
+						"navigationBarBackgroundColor": "#FF6B09",
 						"navigationBarTextStyle": "white",
 						"enablePullDownRefresh": false
 					}				

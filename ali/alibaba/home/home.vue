@@ -120,22 +120,52 @@
 		width: 100%;
 		overflow: hidden;
 	}
-
-	.ali-home-app-header {
-		width: 100%;
-		overflow: hidden;
-		background: #fff;
-	}
+	/* #ifdef H5 */
+		.ali-home-app-header {
+			width: 100%;
+			overflow: hidden;
+			background: #fff;
+			position: fixed;
+			top: 88rpx;
+			left: 0;
+			z-index: 999;
+		}
+	/* #endif */
+	/* #ifdef MP */
+		.ali-home-app-header {
+			width: 100%;
+			overflow: hidden;
+			background: #fff;
+			position: fixed;
+			top: 0rpx;
+			left: 0;
+			z-index: 999;
+		}
+	/* #endif */
+	/* #ifdef H5 */
 	.ali-home-app-header-catory-two{
 		width: 96%;
 		background: #fff;
-		margin: 20rpx auto;
+		margin: 108rpx auto 20rpx;
 		overflow: hidden;
 		display: flex;
 		justify-content: space-evenly;
 		flex-wrap: wrap;
 		border-radius: 30rpx;
 	}
+	/* #endif */
+	/* #ifdef MP */
+	.ali-home-app-header-catory-two{
+		width: 96%;
+		background: #fff;
+		margin: 20rpx auto 20rpx;
+		overflow: hidden;
+		display: flex;
+		justify-content: space-evenly;
+		flex-wrap: wrap;
+		border-radius: 30rpx;
+	}
+	/* #endif */
 	.ali-home-app-header-catory-two view{
 		width: 17%;
 		overflow: hidden;
