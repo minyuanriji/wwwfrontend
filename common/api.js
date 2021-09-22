@@ -73,6 +73,8 @@ let api = {
 		getpreview: api_root + 'plugin/alibaba/api/distribution-order/preview', //获取1688预览订单
 		createorder: api_root + 'plugin/alibaba/api/distribution-order/do-submit', //1688生成订单
 		getPayData:api_root + 'api/payCenter/payment-order-prepare/alibaba-distribution-order',//预支付获取支付信息接口
+		getOrderlist:api_root + 'plugin/alibaba/api/distribution-order/order-list',//订单列表
+		getOrderdetail:api_root + 'plugin/alibaba/api/distribution-order/order-details',//订单详情
 	},
 //--------------------------------------------------------------------------------------------		
 	

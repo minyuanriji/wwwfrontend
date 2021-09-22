@@ -1,35 +1,38 @@
 <template>
 	<view class="container">
-		<com-tabs :tabs="tabs" :isFixed="scrollTop>=0" :currentTab="showTab[status]" selectedColor="#FF7104" sliderBgColor="#FF7104" :unlined='true'
-		 :sliderHeight="4" :sliderWidth="50" bgColor="#F7F7F7" @change="change" bottom="10rpx" style="z-index:999;"></com-tabs>
+	<!-- 	<view class="table-list">
+			<text :class="selectINdex==index?'actives':''" v-for="(item,index) in tabs" :key='index' @click="selectINdexCheck(index)">
+				{{item.name}}
+			</text>
+		</view> -->
+		<!-- <com-tabs :tabs="tabs" :isFixed="scrollTop>=0" :currentTab="showTab[status]" selectedColor="#FF7104" sliderBgColor="#FF7104" :unlined='true'
+		 :sliderHeight="4" :sliderWidth="50" bgColor="#F7F7F7" @change="change" bottom="10rpx" style="z-index:999;"></com-tabs> -->
 		<!--选项卡逻辑自己实现即可，此处未做处理-->
-		<view :class="{'tui-order-list':scrollTop>=0}" v-if="dataList && dataList.length">
-			<view class="tui-order-item" v-for="(model,orderIndex) in data_list" :key="orderIndex">
+		<view :class="{'tui-order-list':scrollTop>=0}" v-if="orderList && orderList.length">
+			<view class="tui-order-item" v-for="(item,index) in orderList" :key="index">
 				<view>
 					<tui-list-cell :hover="false" :lineLeft="false" padding="26rpx 20rpx">
 						<view class="tui-goods-title">
 							<view class="logo" @tap="toShop(model.mch_id)">
-								<!-- <span :style="`background-image:url(${})`"></span> -->
 								<image class="img" lazy-load="true" 
 								:src="url+'/shoplogo.png'" 
 								mode="aspectFill"></image>
 								<span class="name">{{'补商汇官方商城'}}</span>
 								<view class="toright"></view>
 							</view>
-							<view class="tui-order-status" style="color:#FF7104">{{model.status_text}}</view>
 						</view>
 					</tui-list-cell>
-					<block v-for="(item,index) in model.detail" :key="index">
-						<tui-list-cell padding="0"  @click="detail(model.id)">
+					<block>
+						<tui-list-cell padding="0"  @click="detail(item.id)">
 							<view class="tui-goods-item">
-								<image :src="item.goods_info.pic_url" lazy-load="true" class="tui-goods-img"></image>
+								<image :src="item.cover_url" lazy-load="true" class="tui-goods-img"></image>
 								<view class="tui-goods-center">
-									<view class="tui-goods-name">{{item.goods_info.name}}</view>
-									<view class="tui-goods-attr">{{item.goods_info.attr_list[0].attr_name}}</view>
+									<view class="tui-goods-name">{{item.name}}</view>
+									<view class="tui-goods-attr">{{item.sku_labels[0]}}</view>
 								</view>
 								<view class="tui-price-right">
-									<view>¥{{item.goods_info.total_original_price}}</view>
-									<view>x{{item.goods_info.num}}</view>
+									<view>¥{{item.unit_price}}</view>
+									<view>x{{item.num}}</view>
 								<!-- 	<view style="margin-top:30rpx;" v-if="item.refund_status == 10">售后待处理</view>
 									<view style="margin-top:30rpx;" v-else-if="item.refund_status == 11">退款已同意</view>
 									<view style="margin-top:30rpx;" v-else-if="item.refund_status == 12">退款退货中</view>
@@ -41,10 +44,9 @@
 					</block>
 					<tui-list-cell :hover="false" :last="true">
 						<view class="tui-goods-price">
-							<view>共{{model.detail | totalNum}}件商品 合计：</view>
+							<view>共{{item.num}}件商品 合计：</view>
 							<view class="tui-size-24">¥</view>
-							<view class="tui-price-large">{{model.total_pay_price.slice(0,-3)}}</view>
-							<view class="tui-size-24">{{model.total_pay_price.slice(-3)}}</view>
+							<view class="tui-price-large">{{item.total_original_price}}</view>
 						</view>
 					</tui-list-cell>
 				</view>
@@ -75,12 +77,12 @@
 		</view>
 		<view class="order-nothing" v-else>
 			<image class="order-nothing-img" :src="img_url+'images/order/order-nothing.png'" mode=""></image>
-			<view class="order-nothing-text">目前没有{{ status ? tabs[status+1].name : ""}}订单哦~</view>
+			<view class="order-nothing-text">目前没有订单哦~</view>
 		</view>
 		<!--加载loadding-->
-		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
+		<!-- <main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
 		<main-nomore :visible="!pullUpOn" bgcolor="#fafafa"></main-nomore>
-		<main-loading :visible="loading"></main-loading>
+		<main-loading :visible="loading"></main-loading> -->
 		<!--加载loadding-->
 
 		<main-tabbar></main-tabbar>
@@ -101,6 +103,7 @@
 				url:this.$api.img_url,
 				textColor:'#bc0100',
 				tabBar: null,
+				selectINdex:0,
 				tabs: [{
 					name: "全部"
 				}, 
@@ -142,6 +145,14 @@
 					page_count: 1,
 					total_count: 0
 				},
+				
+				orderList:[],
+				page_count:'',
+				form:{
+					page:1,
+					limit:5,
+					status:'', 
+				},
 			}
 		},
 		onLoad(options) {
@@ -153,6 +164,8 @@
 				this.status = Number(options.status);
 			}
 			this.getDateList('refresh', options.status)
+			
+			this.getOrderList()
 		},
 		computed:{
 			undone(){
@@ -172,6 +185,53 @@
 			}
 		},
 		methods: {
+			selectINdexCheck(index){ //点击切换
+				this.selectINdex=index
+				this.form={
+					page:1,
+					ali_cat_id:'', 
+				}
+				this.orderList=[],
+				this.page_count=''
+			},
+			getOrderList(){ //获取列表
+				this.$http.request({
+					url: this.$api.taolijin.getOrderlist,
+					method: 'POST',
+					data: this.form,
+					showLoading: true
+				}).then(res => {
+					if (res.code == 0) {
+						console.log(res)
+						if(res.data.list.length==0)return false
+						let list= res.data.list;
+						var arr=this.orderList.concat(list)
+						this.orderList =arr
+						this.page_count = res.data.pagination.page_count;
+					} else {
+						this.$http.toast(res.msg);
+					}
+				});
+			},
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			toShop(id){
 				if(id){
 					uni.navigateTo({
@@ -327,7 +387,7 @@
 			},
 			detail(id) {
 				uni.navigateTo({
-					url: `/pages/order/detail?orderId=${id}`
+					url:'../orderDetail/detail?orderId='+id
 				})
 			}
 		},
@@ -338,23 +398,28 @@
 			}, 1000);
 		},
 		onReachBottom() {
-			//只是测试效果，逻辑以实际数据为准
-			this.loadding = true
-			this.pullUpOn = true
+			if(this.form.page==this.page_count){
+				return false;
+			} 		
+			this.form.page=this.form.page+1
+			this.getOrderList();
+			// //只是测试效果，逻辑以实际数据为准
+			// this.loadding = true
+			// this.pullUpOn = true
 
-			let {
-				current_page,
-				page_count
-			} = this.pages;
-			setTimeout(() => {
-				this.loadding = false
-				if (current_page >= page_count){
-					this.pullUpOn = false;
-					return;
-				}
-				this.pages.current_page++;
-				this.getDateList();
-			}, 1000)
+			// let {
+			// 	current_page,
+			// 	page_count
+			// } = this.pages;
+			// setTimeout(() => {
+			// 	this.loadding = false
+			// 	if (current_page >= page_count){
+			// 		this.pullUpOn = false;
+			// 		return;
+			// 	}
+			// 	this.pages.current_page++;
+			// 	this.getDateList();
+			// }, 1000)
 		},
 		onPageScroll(e) {
 			this.scrollTop = e.scrollTop;
@@ -376,6 +441,9 @@
 	page {
 		background-color: #F7F7F7;
 	}
+	.table-list{width: 100%;height: 80rpx;position: fixed;top: 88rpx;left: 0;display: flex;justify-content: space-evenly;}
+	.table-list text{font-size: 30rpx;display: block;line-height: 80rpx;}
+	.actives{color: #FF7104;font-weight: bold;border-bottom: 4rpx solid #FF7104;}
     .toright{
 		width: 8px;
 		height: 8px;
@@ -392,7 +460,8 @@
 	}
 
 	.tui-order-list {
-		margin-top: 80rpx;
+		margin-top: 30rpx;
+		margin-bottom: 80rpx;
 	}
 
 	.tui-order-item {

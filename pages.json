@@ -839,7 +839,17 @@
                     "onReachBottomDistance": 50
                 }
                 
-                }
+                },
+				{
+					"path": "alibaba/orderDetail/detail",
+					"style": {
+						"navigationBarTitleText": "订单详情",
+						"navigationBarBackgroundColor": "#F7F7F7",
+						"navigationBarTextStyle": "black",
+						"enablePullDownRefresh": true,
+						"onReachBottomDistance": 50
+					}
+				}
             ]
 		},
 		{

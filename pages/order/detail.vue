@@ -7,7 +7,6 @@
 			<image :src="bg_url" class="jx-my-bg"></image>
 			<view class="jx-room" v-if="detail && detail.id">
 				<view class="jx-order-status" v-if="detail.order_type=='offline_baopin'||detail.order_type=='offline_normal'">
-					<!-- <view class="icon iconfont icon-daifahuo"></view> -->
 					<view class="text-container">
 						<view class="text" v-if="is_show"></view>
 						<view class="msg" v-if="detail.status != 0"></view>
