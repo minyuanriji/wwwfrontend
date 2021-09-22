@@ -1475,16 +1475,17 @@
 						"enablePullDownRefresh": false
 					}
 
-				}, {
+				}, 
+				{
 					"path": "personalCentre/ercode/ercode",
 					"style": {
 						"navigationBarTitleText": "二维码收款",
-						"navigationBarBackgroundColor": "#FE830A",
+						"navigationBarBackgroundColor": "#FF6B09 ",
 						"navigationBarTextStyle": "white",
 						"enablePullDownRefresh": false
-					}
-
-				}, {
+					}				
+				}, 							
+				{
 					"path": "personalCentre/invoicingMessage/invoicingMessage",
 					"style": {
 						"navigationBarTitleText": "账单详情",

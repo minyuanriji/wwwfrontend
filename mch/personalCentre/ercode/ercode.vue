@@ -2,22 +2,35 @@
 	<view class="ercode" id="poster">
 		<view class="main">
 			<view class="logo">
-				<image :src="img_url+'/header-logo.png'" mode=""></image>
+				<image :src="img_url+'/logo_logo.png'" mode="widthFix"></image>
 			</view>
-			<view class="main-title">
-				加入补商汇，消费全免费
+			<view class="title">
+				推荐使用补商汇
 			</view>
-			<view class="main-title-english">
-				LET THERE BE NO HARD BUSSINESS IN THE WORLD
+			<view class="ercodeImg">
+				<view class="ercodeImg-img">
+					<image :src="ercodeLogo.qrcode" mode=""></image>
+				</view>
+				<view class="shop-name">
+					{{message.store.name}}
+				</view>
 			</view>
-			<view class="shop-name">
-				{{message.store.name}}
+			<view class="notice">
+				扫码付多少送多少购物券
 			</view>
-			<view class="saosao">
-				收款二维码
+		</view>
+		<view class="type_pay">
+			<view>
+				<image :src="img_url+'/logo_wechat.png'" mode=""></image>
+				<text>微信</text>
 			</view>
-			<view class="code">
-				<image :src="ercodeLogo.qrcode" mode="" class="ercode_code_logo"></image>
+			<view>
+				<image :src="img_url+'/logo_ali.png'" mode=""></image>
+				<text>支付宝</text>
+			</view>
+			<view>
+				<image :src="img_url+'/logo_card.png'" mode=""></image>
+				<text>信用卡</text>
 			</view>
 		</view>
 		<view class="btn" @click="capture">
@@ -49,11 +62,7 @@
 				</view>
 			</view>
 		</view>
-		
-		
-		
-		
-		
+
 	</view>
 </template>
 
@@ -218,94 +227,33 @@
 		width: 100%;
 		height: 100%;
 		position: relative;
-		background: url(https://dev.mingyuanriji.cn/web/static/erqode-img.jpg)no-repeat; 
-		background-size: 100% 100%;
-		padding-top: 70rpx;
 	}
-
-	.main {
-		width: 90%;
-		height: 900rpx;
-		margin: 0rpx auto;
-		background: #fff;
-		box-shadow: 0rpx 0rpx 16rpx 0rpx rgba(62, 65, 79, 0.2);
-		border-radius: 10rpx;
-	}
-
-	.logo {
-		width: 180rpx;
-		height: 180rpx;
-		margin: 0rpx auto;
-		position: relative;
-	}
-
-	.logo image {
-		width: 180rpx;
-		height: 180rpx;
-		display: block;
-		position: absolute;
-		top: -70rpx;
-	}
-
-	.main-title {
-		width: 100%;
-		overflow: hidden;
-		text-align: center;
-		font-size: 30rpx;
-		margin-top: -60rpx;
-		color: #FF7104;
-		font-weight: bold;
-	}
-
-	.main-title-english {
-		width: 100%;
-		overflow: hidden;
-		font-size: 10rpx;
-		text-align: center;
-		transform: scale(0.6)
-	}
-
-	.shop-name {
-		width: 450rpx;
-		background:#FF7104;
-		height: 70rpx;
-		margin: 15rpx auto;
-		border-radius: 40rpx;
-		text-align: center;
-		line-height: 70rpx;
-		color: #fff;
-		font-size: 30rpx;
-	}
-
-	.saosao {
-		width: 100%;
-		overflow: hidden;
-		text-align: center;
-		color:#FF7104;
-		font-size: 28rpx;
-	}
-
-	.code {
-		width: 450rpx;
-		height: 450rpx;
-		margin: 30rpx auto 0;
-		// background: url(../../../plugins/images/kuang.png)no-repeat;
-		// background-size: 100% 100%;
-		position: relative;
-	}
-
-	.ercode_code_logo {
-		width: 420rpx;
-		height: 420rpx;
-		display: block;
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		margin: auto;
-	}
-
+	.main{width: 100%;height:850rpx ;background:#FF6B09 ;padding-top: 30rpx;}
+	.logo{width: 100%;overflow: hidden;}
+	.logo image{width: 164rpx;height: 64rpx;margin: 0 auto;display: block;}
+	.title{width: 100%;overflow: hidden;font-size: 50rpx;color: #fff;text-align: center;font-weight: bold;margin: 25rpx 0 30rpx 0;}
+	.ercodeImg{width: 60%;margin: 0 auto;background: #fff;height: 500rpx;border-radius: 30rpx;}
+	.ercodeImg-img{width: 350rpx;height: 350rpx;margin: 0 auto;padding-top: 40rpx;}
+	.ercodeImg-img image{width: 350rpx;height: 350rpx;}
+	.shop-name{margin-top: 60rpx;width: 100%;overflow: hidden;text-align: center;color: #FF6B09 ;font-weight: bold;font-size: 36rpx;overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;}
+	.notice{width: 100%;overflow: hidden;text-align: center;color: #fff;font-weight: bold;font-size: 36rpx;margin: 40rpx 0 0 0;}
+	.type_pay{width: 100%;height: 184rpx;display: flex;justify-content: space-evenly;}
+	.type_pay view{width: 30%;margin: 50rpx 0 0 0;}
+	.type_pay image{display: block;width: 60rpx;height: 60rpx;margin: 0 auto;}
+	.type_pay text{display: block;width: 100%;text-align: center;font-size: 30rpx;color: #000;}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	.btn {
 		width: 450rpx;
 		background: #FF7104;
@@ -375,3 +323,4 @@
 		padding: 15rpx;
 	}
 </style>
+
