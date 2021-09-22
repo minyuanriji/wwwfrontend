@@ -91,8 +91,14 @@
 				</tui-list-cell>
 				<tui-list-cell :hover="false">
 					<view class="tui-padding tui-flex" >
-						<view>运营费</view>
-						<view :style="{color: '#FF7104'}">+&yen;{{list[0].express_price}}</view>
+						<view>运费</view>
+						<view :style="{color: '#FF7104'}">+&yen;{{list[0].express_origin_price}}</view>
+					</view>
+				</tui-list-cell>
+				<tui-list-cell :hover="false">
+					<view class="tui-padding tui-flex" >
+						<view>购物券抵扣</view>
+						<view :style="{color: '#FF7104'}">-&yen;{{shopping_voucher.decode_price}}</view>
 					</view>
 				</tui-list-cell>
 				<!-- <tui-list-cell :hover="false" v-if="item.total_full_relief_price != 0">
