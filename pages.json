@@ -828,7 +828,29 @@
 					}
 
 				}
-			]
+			    ,{
+                    "path" : "alibaba/orderList/orderList",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "订单列表",
+                    "navigationBarBackgroundColor": "#F7F7F7",
+                    "navigationBarTextStyle": "black",
+                    "enablePullDownRefresh": true,
+                    "onReachBottomDistance": 50
+                }
+                
+                },
+				{
+					"path": "alibaba/orderDetail/detail",
+					"style": {
+						"navigationBarTitleText": "订单详情",
+						"navigationBarBackgroundColor": "#F7F7F7",
+						"navigationBarTextStyle": "black",
+						"enablePullDownRefresh": true,
+						"onReachBottomDistance": 50
+					}
+				}
+            ]
 		},
 		{
 			"root": "plugins",
@@ -1463,16 +1485,17 @@
 						"enablePullDownRefresh": false
 					}
 
-				}, {
+				}, 
+				{
 					"path": "personalCentre/ercode/ercode",
 					"style": {
 						"navigationBarTitleText": "二维码收款",
-						"navigationBarBackgroundColor": "#FE830A",
+						"navigationBarBackgroundColor": "#FF6B09 ",
 						"navigationBarTextStyle": "white",
 						"enablePullDownRefresh": false
-					}
-
-				}, {
+					}				
+				}, 							
+				{
 					"path": "personalCentre/invoicingMessage/invoicingMessage",
 					"style": {
 						"navigationBarTitleText": "账单详情",

@@ -1,12 +1,12 @@
 // 正式服务器
-let api_root = 'https://www.mingyuanriji.cn/web/index.php?r=';
-let url = 'https://www.mingyuanriji.cn/web/static/'; //图片路径
-let plugins_img_url = 'https://www.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
+// let api_root = 'https://www.mingyuanriji.cn/web/index.php?r=';
+// let url = 'https://www.mingyuanriji.cn/web/static/'; //图片路径
+// let plugins_img_url = 'https://www.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
 
 // 测试服务器
-//let api_root = 'https://dev.mingyuanriji.cn/web/index.php?r=';
-//let url = 'https://dev.mingyuanriji.cn/web/static/'; //图片路径
-//let plugins_img_url = 'https://dev.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
+let api_root = 'https://dev.mingyuanriji.cn/web/index.php?r=';
+let url = 'https://dev.mingyuanriji.cn/web/static/'; //图片路径
+let plugins_img_url = 'https://dev.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
 		
 
 
@@ -73,6 +73,8 @@ let api = {
 		getpreview: api_root + 'plugin/alibaba/api/distribution-order/preview', //获取1688预览订单
 		createorder: api_root + 'plugin/alibaba/api/distribution-order/do-submit', //1688生成订单
 		getPayData:api_root + 'api/payCenter/payment-order-prepare/alibaba-distribution-order',//预支付获取支付信息接口
+		getOrderlist:api_root + 'plugin/alibaba/api/distribution-order/order-list',//订单列表
+		getOrderdetail:api_root + 'plugin/alibaba/api/distribution-order/order-details',//订单详情
 	},
 //--------------------------------------------------------------------------------------------		
 	
