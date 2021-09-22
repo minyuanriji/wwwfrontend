@@ -160,7 +160,7 @@
 	.ali-home-app-header-catory-two{
 		width: 96%;
 		background: #fff;
-		margin: 20rpx auto 20rpx;
+		margin: 108rpx auto 20rpx;
 		overflow: hidden;
 		display: flex;
 		justify-content: space-evenly;
