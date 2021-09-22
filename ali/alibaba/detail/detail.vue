@@ -52,9 +52,8 @@
 				<view class="tui-pro-pricebox padding">
 					<view class="tui-pro-price">
 						<view class="price">
-							<text class="cur-price" :style="{color:'#FF7104'}">&yen;{{goodsData.price}}</text>
-							<text class="text" :style="{color:'#FF7104'}">起</text>
-							<text class="original-price">&yen;{{goodsData.origin_price}}</text>
+							<text class="cur-price" :style="{color:'#FF7104'}">&yen;{{goodsData.price}}起</text>
+							<text class="text" :style="{color:'#FF7104'}"></text>
 						</view>
 					</view>
 					<!-- <view class="round-btn">
@@ -69,9 +68,6 @@
 							<view class="tui-scale" :style="{color:collected?'#FF7104':''}">收藏</view>
 						</view>
 					</view> -->
-				</view>
-				<view  style="width: 100%;height: 50rpx;line-height: 50rpx;padding: 0 30rpx;font-size: 30rpx;color: red;">
-					需使用<text style="margin: 0 10rpx;">{{goodsData.shopping_voucher}}</text>购物券
 				</view>
 				<view class="tui-pro-titbox">
 					<view class="tui-pro-title">
@@ -407,7 +403,11 @@
 					<view class="tui-popup-price">
 						<view class="tui-amount tui-bold" :style="{color:'#FF7104'}">¥{{skuprice}}</view>
 						<view class="tui-number">已选:{{skuname}}</view>
+						<view style="width:50%;color:gray;background:#fbfbfb;border-radius:10rpx;margin-top:15rpx;border:1px solid #ddd;padding:5rpx 10rpx;">
+							买两件更优惠哦~
+						</view>
 					</view>
+					
 				</view>
 				<scroll-view scroll-y class="tui-popup-scroll-td" style="height: 300rpx!important;">
 				<view class="sku">
@@ -470,7 +470,7 @@
 		},
 		data() {
 			return {
-				setINdex:0,
+				setINdex:-1,
 				skuprice:'',
 				skuname:'',
 				img_url: this.$api.img_url,
@@ -673,9 +673,8 @@
 				})
 			},
 			selectINdex(index,item){
-				console.log(item)
 				this.setINdex=index
-				this.skuprice=item.price
+				this.skuprice=item.shopping_voucher
 				this.skuname=item.labels
 				this.list[0].sku=item.id
 			},
@@ -1003,8 +1002,9 @@
 					if (res.code == 0) {
 						console.log(res.data)
 						this.goodsData = res.data.detail;
-						this.skuname=res.data.detail.sku_list[0].labels
-						this.skuprice=res.data.detail.sku_list[0].price
+						//this.skuname=res.data.detail.sku_list[0].labels
+						//this.skuprice=res.data.detail.sku_list[0].price
+						this.selectINdex(0, res.data.detail.sku_list[0]);
 						this.list[0].sku=res.data.detail.sku_list[0].id
 						this.bannerLength = res.data.detail.images.length;
 						this.is_buy_power = res.data.is_buy_power

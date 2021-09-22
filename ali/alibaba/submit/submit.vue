@@ -64,7 +64,9 @@
 									<view class="tui-goods-attr">{{groupName(its.sku_labels)}}</view>
 								</view>
 								<view class="tui-price-right">
+									<!--
 									<view>￥{{its.price}}</view>
+									-->
 									<view>x{{its.num}}</view>
 								</view>
 							</view>
@@ -85,10 +87,11 @@
 				</view>
 				<tui-list-cell :hover="false">
 					<view class="tui-padding tui-flex" >
-						<view>商品价格</view>
-						<view :style="{color: '#FF7104'}">+&yen;{{list[0].total_goods_original_price}}</view>
+						<view>需要购物券</view>
+						<view :style="{color: '#FF7104'}">+&yen;{{list[0].if_shopping_voucher_need_total_num}}</view>
 					</view>
 				</tui-list-cell>
+				<!--
 				<tui-list-cell :hover="false">
 					<view class="tui-padding tui-flex" >
 						<view>运费</view>
@@ -101,6 +104,7 @@
 						<view :style="{color: '#FF7104'}">-&yen;{{shopping_voucher.decode_price}}</view>
 					</view>
 				</tui-list-cell>
+				-->
 				<!-- <tui-list-cell :hover="false" v-if="item.total_full_relief_price != 0">
 					<view class="tui-padding tui-flex">
 						<view>满额减免</view>
@@ -453,54 +457,6 @@
 				})
 			},
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			toShop(id) {
 				if (id) {
 					uni.navigateTo({
@@ -534,14 +490,6 @@
 					this.scoreswitc = res;
 				}).catch()
 			},
-			
-			
-			
-			
-			
-			
-			
-			
 			
 			//切换地址获取运费
 			switcExpressPrice() {
@@ -583,29 +531,6 @@
 				// }
 			},
 
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			// 使用积分
 			use(e) {
 				this.price = 0;

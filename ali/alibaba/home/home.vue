@@ -15,8 +15,10 @@
 				<view class="product-item-name">{{item.name}}</view>
 				<view class="product-item-money-buy">
 					<view class="product-item-money">
+						<!--
 						<text style="font-size: 28rpx;width: 100%;color:#c0c0c0;">原价￥{{item.origin_price}}</text>
-						<text style="color:#FF7104;font-size: 28rpx;width: 100%;">商城价￥{{item.price}}</text>
+						-->
+						<text style="color:#FF7104;font-size: 28rpx;width: 100%;">兑换价￥{{item.price}}</text>
 						<text
 							style="font-size: 28rpx;width: 100%;margin: 20rpx;background: #FF7104;height: 60rpx;text-align: center;line-height: 60rpx;border-radius: 30rpx;color: #fff;">购物券兑换</text>
 					</view>
