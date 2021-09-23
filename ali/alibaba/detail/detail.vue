@@ -411,7 +411,7 @@
 				</view>
 				<scroll-view scroll-y class="tui-popup-scroll-td" style="height: 300rpx!important;">
 				<view class="sku">
-					<view v-for="(item,index) in goodsData.sku_list" :key='index' style="width:42%;margin-top: 10rpx;font-size: 26rpx;line-height: 60rpx;text-align: center;" :class="setINdex==index?'skuActive':''" @click="selectINdex(index,item)">
+					<view v-for="(item,index) in goodsData.sku_list" :key='index' style="width:45%;margin-top: 10rpx;font-size: 26rpx;line-height: 60rpx;text-align: center;" :class="setINdex==index?'skuActive':''" @click="selectINdex(index,item)">
 						{{item.labels}}
 					</view>
 				</view>
