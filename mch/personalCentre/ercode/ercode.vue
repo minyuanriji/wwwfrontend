@@ -1,5 +1,5 @@
 <template>
-	<view class="ercode" id="poster">
+	<view :class="show?'ercode':'active'" id="poster">
 		<view class="main">
 			<view class="logo">
 				<image :src="img_url+'/logo_logo.png'" mode="widthFix"></image>
@@ -33,7 +33,7 @@
 				<text>信用卡</text>
 			</view>
 		</view>
-		<view class="btn" @click="capture">
+		<view class="btn" @click="capture" v-if="show">
 			点击生成图片
 		</view>		
 		<view class="goods-qrcode-modal" v-if="showPoster">
@@ -62,7 +62,6 @@
 				</view>
 			</view>
 		</view>
-
 	</view>
 </template>
 
@@ -78,6 +77,7 @@
 				showPoster: false,
 				poster_url:"",
 				img_url: this.$api.img_url,
+				show:true
 			}
 		},
 		onLoad() {
@@ -108,6 +108,7 @@
 		methods: {
 			//#ifdef H5
 			capture() {
+				this.show=false
 				// // let dom = document.querySelector('#poster'); // 获取dom元素
 				// let scale=3
 				// 	html2canvas(dom, {
@@ -125,21 +126,24 @@
 				// 			this.showPoster=true
 				// 		}
 				// 	});
-							window.pageYoffset = 0;
-					        document.documentElement.scrollTop = 0;
-					        document.body.scrollTop = 0;
-					        html2canvas(
-					            document.getElementById('poster'), 
-					            { 
-									scale: 1,
-									useCORS: true
-								 }
-					        ).then( canvas => {
-										this.poster_url = canvas.toDataURL('image/png', 1);
-										if(this.poster_url.length>0){
-											this.showPoster=true
-										}
-					        });
+				setTimeout(()=>{
+					window.pageYoffset = 0;
+					document.documentElement.scrollTop = 0;
+					document.body.scrollTop = 0;
+					html2canvas(
+					    document.getElementById('poster'), 
+					    { 
+							scale: 1,
+							useCORS: true
+						 }
+					).then( canvas => {
+								this.poster_url = canvas.toDataURL('image/png', 1);
+								if(this.poster_url.length>0){								
+									this.showPoster=true
+								}
+					});
+				},500)
+
 			},
 			//#endif
 			saveImg(url) {
@@ -151,7 +155,7 @@
 						/* 保存图片到相册 */
 						uni.saveImageToPhotosAlbum({
 							filePath: image.path,
-							success: function() {
+							success: function() { 
 								that.$http.toast('保存成功');
 							},
 							fail(res){
@@ -217,6 +221,7 @@
 			},
 			closePost(){
 				this.showPoster = false;
+				this.show=true
 			}
 		}
 	}
@@ -226,6 +231,11 @@
 	.ercode {
 		width: 100%;
 		height: 100%;
+		position: relative;
+	}
+	.active{
+		width: 100%;
+		height: 80%;
 		position: relative;
 	}
 	.main{width: 100%;height:850rpx ;background:#FF6B09 ;padding-top: 30rpx;}
