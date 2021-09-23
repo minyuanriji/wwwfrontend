@@ -442,14 +442,16 @@
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
-		}, {
+		}, 
+		{
 			"path": "pages/order/logistics/index",
 			"style": {
 				"navigationBarTitleText": "物流详情",
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
-		}, {
+		}, 
+		{
 			"path": "pages/customerService/customerService",
 			"style": {
 				//"navigationStyle": "custom",
@@ -848,6 +850,14 @@
 						"navigationBarTextStyle": "black",
 						"enablePullDownRefresh": true,
 						"onReachBottomDistance": 50
+					}
+				},
+				{
+					"path": "alibaba/express/index",
+					"style": {
+						"navigationBarTitleText": "物流详情",
+						"navigationBarBackgroundColor": "#FFFFFF",
+						"navigationBarTextStyle": "black"
 					}
 				}
             ]

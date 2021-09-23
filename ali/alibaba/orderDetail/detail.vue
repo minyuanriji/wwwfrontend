@@ -171,6 +171,11 @@
 						</view>
 					</view>
 				</view>
+				<view class="jx-tabbar tui-order-btn">
+					<view class="jx-btn-mr">
+						<view class="btns" style="color:rgb(255, 113, 4),border: 1px solid rgb(255, 113, 4)" @tap="toPage(detail.id)">查看物流</view>
+					</view>
+				</view>
 				<!-- <block v-if="is_show&&detail.order_type!='offline_baopin'&&detail.order_type!='offline_normal'">
 					<view class="jx-tabbar tui-order-btn" v-if="detail.status != 8">
 						<view class="jx-btn-mr" v-if="detail.status == 5">
@@ -397,8 +402,11 @@
 			},
 			toPage(orderId,oddNum){
 				uni.navigateTo({
-					url: `./logistics/index?orderId=${orderId}&odd=${oddNum}`
+					url:'../express/index'
 				})
+				// uni.navigateTo({
+				// 	url: `./logistics/index?orderId=${orderId}&odd=${oddNum}`
+				// })
 			},
 			getRecommend() { //获取推荐商品
 				this.loading = true;
@@ -940,8 +948,8 @@
 		border-radius: 60rpx;
 		text-align: center;
 		line-height: 56rpx;
-		border: 1px solid #8c8c8d;
-		color: #8c8c8d;
+		border: 1px solid rgb(255, 113, 4);
+		color: rgb(255, 113, 4);
 	}
 	/* 猜你喜欢 */
 	.guessLike {
