@@ -6,7 +6,7 @@
 			<!-- 收货地址 -->
 			<tui-list-cell :arrow="true" :last="true" :radius="true" @click="chooseAddr" v-if="addressShpw">
 				<view class="tui-address">
-					<view v-if="user_address.length != 0">
+					<view v-if="user_address&&user_address.length != 0">
 						<view class="tui-userinfo">
 							<text class="tui-name">{{user_address.name}}</text> {{user_address.mobile}}
 						</view>
