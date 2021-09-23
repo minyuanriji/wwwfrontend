@@ -403,8 +403,8 @@
 					<view class="tui-popup-price">
 						<view class="tui-amount tui-bold" :style="{color:'#FF7104'}">¥{{skuprice}}</view>
 						<view class="tui-number">已选:{{skuname}}</view>
-						<view style="width:50%;color:gray;background:#fbfbfb;border-radius:10rpx;margin-top:15rpx;border:1px solid #ddd;padding:5rpx 10rpx;">
-							买两件更优惠哦~
+						<view style="width:80%;color:#FF7104;background:#fbfbfb;border-radius:10rpx;margin-top:15rpx;border:1px solid #ddd;padding:5rpx 10rpx;">
+							建议购买两件以上，更优惠！
 						</view>
 					</view>
 					

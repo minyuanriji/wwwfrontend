@@ -31,7 +31,9 @@
 									<view class="tui-goods-attr">{{item.sku_labels[0]}}</view>
 								</view>
 								<view class="tui-price-right">
+									<!--
 									<view>¥{{item.unit_price}}</view>
+									-->
 									<view>x{{item.num}}</view>
 								<!-- 	<view style="margin-top:30rpx;" v-if="item.refund_status == 10">售后待处理</view>
 									<view style="margin-top:30rpx;" v-else-if="item.refund_status == 11">退款已同意</view>
@@ -46,7 +48,7 @@
 						<view class="tui-goods-price">
 							<view>共{{item.num}}件商品 合计：</view>
 							<view class="tui-size-24">¥</view>
-							<view class="tui-price-large">{{item.total_original_price}}</view>
+							<view class="tui-price-large">{{Number(item.shopping_voucher_use_num) + Number(item.shopping_voucher_express_use_num)}}</view>
 						</view>
 					</tui-list-cell>
 				</view>

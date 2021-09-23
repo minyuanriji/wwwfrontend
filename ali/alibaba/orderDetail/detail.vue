@@ -52,7 +52,9 @@
 									<view class="jx-goods-attr">{{item.sku_labels[0]}}</view>
 								</view>
 								<view class="jx-price-right">
+									<!--
 									<view class="price">¥{{item.unit_price}}</view>
+									-->
 									<view class="num">x{{item.num}}</view>
 									<view class="btn"  v-if="detail.order_type!='offline_baopin'&&detail.order_type!='offline_normal'">
 										<!-- <view v-if="item.refund_status == 0 && !showRefund(detail.status)" @click.stop="goRefund(item.id)">
@@ -124,10 +126,12 @@
 						</view> -->
 					</view>
 					<view class="jx-goods-info jx-radius">
+						<!--
 						<view class="jx-price-flex jx-size24">
 							<view>订单金额</view>
 							<view class="jx-price">¥{{alidetail.total_goods_original_price}}</view>
 						</view>
+						-->
 						<!-- <view class="jx-price-flex jx-size24" v-if="alidetail.member_deduction_price_total != 0">
 							<view>会员抵扣</view>
 							<view class="jx-price">- ¥{{alidetail.member_deduction_price_total}}</view>
@@ -144,6 +148,7 @@
 							<view>红包</view>
 							<view class="jx-price">¥0.00</view>
 						</view> -->
+						<!--
 						<view class="jx-price-flex  jx-size24">
 							<view>购物券</view>
 							<view class="jx-price">- ¥{{alidetail.shopping_voucher_decode_price}}</view>
@@ -156,12 +161,12 @@
 							<view>购物券抵扣运费</view>
 							<view class="jx-price">- ¥{{alidetail.shopping_voucher_express_use_num}}</view>
 						</view>
+						-->
 						<view class="jx-price-flex jx-size32 jx-border-top">
 							<view class="tui-flex-shrink">实付款</view>
 							<view class="jx-goods-price jx-primary-color" :style="{color:textColor}">
 								<view class="jx-size-24">¥</view>
-								<view class="jx-price-large">{{alidetail.total_pay_price.slice(0,-3)}}</view>
-								<view class="jx-size-24">{{alidetail.total_pay_price.slice(-3)}}</view>
+								<view class="jx-price-large">{{Number(alidetail.shopping_voucher_use_num) + Number(alidetail.shopping_voucher_express_use_num)}}</view>
 							</view>
 						</view>
 					</view>
