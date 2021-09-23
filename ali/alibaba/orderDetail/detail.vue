@@ -173,7 +173,7 @@
 				</view>
 				<view class="jx-tabbar tui-order-btn">
 					<view class="jx-btn-mr">
-						<view class="btns" style="color:rgb(255, 113, 4),border: 1px solid rgb(255, 113, 4)" @tap="toPage(detail.id)">查看物流</view>
+						<view class="btns" @tap="toPage(detail.id)">查看物流</view>
 					</view>
 				</view>
 				<!-- <block v-if="is_show&&detail.order_type!='offline_baopin'&&detail.order_type!='offline_normal'">
@@ -400,13 +400,10 @@
 					url:'../verification/canceldetail/canceldetail?id='+id
 				})
 			},
-			toPage(orderId,oddNum){
+			toPage(orderId){
 				uni.navigateTo({
 					url:'../express/index'
 				})
-				// uni.navigateTo({
-				// 	url: `./logistics/index?orderId=${orderId}&odd=${oddNum}`
-				// })
 			},
 			getRecommend() { //获取推荐商品
 				this.loading = true;
