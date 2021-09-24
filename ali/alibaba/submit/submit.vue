@@ -6,7 +6,7 @@
 			<!-- 收货地址 -->
 			<tui-list-cell :arrow="true" :last="true" :radius="true" @click="chooseAddr" v-if="addressShpw">
 				<view class="tui-address">
-					<view v-if="user_address.length != 0">
+					<view v-if="user_address&&user_address.length != 0">
 						<view class="tui-userinfo">
 							<text class="tui-name">{{user_address.name}}</text> {{user_address.mobile}}
 						</view>
@@ -432,7 +432,8 @@
 					use_address_id:this.addressId		
 				}					
 				if (this.addressShpw) {
-					if (!(this.addressId || this.user_address.id)) {
+					if (!this.addressId || !this.user_address.id) {
+						this.$refs.popupShareok.close()
 						this.$http.toast('请添加收货地址!')
 						this.is_request = false
 						return;
