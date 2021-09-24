@@ -46,9 +46,9 @@
 					</block>
 					<tui-list-cell :hover="false" :last="true">
 						<view class="tui-goods-price">
-							<view>共{{item.num}}件商品 合计：</view>
+							<view>合计：</view>
 							<view class="tui-size-24">¥</view>
-							<view class="tui-price-large">{{Number(item.shopping_voucher_use_num) + Number(item.shopping_voucher_express_use_num)}}</view>
+							<view class="tui-price-large">{{Number(item.shopping_voucher_num)+Number(item.shopping_voucher_express_use_num)}}</view>
 						</view>
 					</tui-list-cell>
 				</view>

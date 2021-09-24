@@ -11,25 +11,30 @@
 					</view>
 					 
 				</view> -->
-				<!-- <view class="jx-order-status" v-if="detail.order_type=='express_baopin'||detail.order_type=='express_normal'">
-					<view class="icon iconfont icon-daifukuan3" v-if="detail.status == 0"></view>
-					<view class="icon iconfont icon-fahuo" v-else-if="detail.status == 1"></view>
-					<view class="icon iconfont icon-daifahuo" v-else-if="detail.status == 2"></view>
-					<view class="icon iconfont icon-daipingjia1" v-else-if="detail.status == 3"></view>
-					<view class="icon iconfont icon-yiwancheng" v-else-if="detail.status > 5"></view>
+				 <view class="jx-order-status">
+					<view class="icon iconfont icon-daifukuan3" v-if="alidetail.status == 'waitbuyerpay'"></view>
+					<view class="icon iconfont icon-fahuo" v-else-if="alidetail.status == 'waitsellersend'"></view>
+					<view class="icon iconfont icon-daifahuo" v-else-if="alidetail.status == 'waitbuyerreceive'"></view>
+					<view class="icon iconfont icon-daipingjia1" v-else-if="alidetail.status == 'confirm_goods'"></view>
+					<view class="icon iconfont icon-yiwancheng" v-else-if="alidetail.status == 'success'"></view>
 					<view class="text-container">
+						<view class="text">{{alidetail.status_text}}</view>
+						<!--
 						<view class="text" v-if="is_show">{{detail.status_text}}</view>
 						<view v-else>售后申请</view>
 						<view class="msg" v-if="detail.status != 0">{{statusText[detail.status]}}</view>
 						<view class="msg" v-else>{{detail.cancel_at}}后关闭订单</view>
+						-->
 					</view>
+					<!--
 					<view class="btn" v-if="is_show">
 						<view @click.stop="goComment(detail.id)">
 							<tui-button type="white" width="148rpx" height="56rpx" :size="26" shape="circle" :style="{color: textColor+'!important'}"
 							 v-show="btnText[detail.status]">{{btnText[detail.status]}}</tui-button>
 						</view>
 					</view>
-				</view> -->
+					-->
+				</view>
 
 				<view class="jx-order-user jx-radius">
 					<view class="jx-address view">
@@ -166,7 +171,7 @@
 							<view class="tui-flex-shrink">实付款</view>
 							<view class="jx-goods-price jx-primary-color" :style="{color:textColor}">
 								<view class="jx-size-24">¥</view>
-								<view class="jx-price-large">{{Number(alidetail.shopping_voucher_use_num) + Number(alidetail.shopping_voucher_express_use_num)}}</view>
+								<view class="jx-price-large">{{Number(alidetail.shopping_voucher_num)}}</view>
 							</view>
 						</view>
 					</view>
@@ -267,7 +272,7 @@
 				showCode:false,
 				begin:false,
 				
-				alidetail:'',
+				alidetail:{shopping_voucher_num:0},
 			}
 		},
 		onLoad: function(options) {
@@ -278,13 +283,13 @@
 			// 初始化数据
 			if (options.orderId) {
 				this.getaliDetail(options.orderId)
-				this.getDetail(options.orderId,true);
-				this.getCode(options.orderId)
+				//this.getDetail(options.orderId,true);
+				//this.getCode(options.orderId)
 			}
 			if(options.active_status){
 				this.active_status = options.active_status;
 			}
-			this.getRecommend();
+			//this.getRecommend();
 			let obj = {};
 			// #ifdef MP-WEIXIN
 			obj = wx.getMenuButtonBoundingClientRect();
