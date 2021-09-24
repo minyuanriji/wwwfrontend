@@ -91,17 +91,15 @@ export default {
 		},
 		tabbleCheck(index){
 			this.switchIndex=index
+			this.pullUpOn=true
+			this.dataList=[]
+			this.page=1
+			this.page_count=''
 			if(index==1){
-				this.pullUpOn=true,
-				this.dataList=[],
-				this.pages=1
 				this.type='in'
 				this.getDateList();
 			}
 			if(index==2){
-				this.pullUpOn=true,
-				this.dataList=[],
-				this.pages=1
 				this.type='out'
 				this.getDateList();
 			}
