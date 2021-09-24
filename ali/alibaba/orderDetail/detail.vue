@@ -178,7 +178,7 @@
 				</view>
 				<view class="jx-tabbar tui-order-btn">
 					<view class="jx-btn-mr">
-						<view class="btns" @tap="toPage(detail.id)">查看物流</view>
+						<view class="btns" @tap="toPage(alidetail.detail[0].order_id)">查看物流</view>
 					</view>
 				</view>
 				<!-- <block v-if="is_show&&detail.order_type!='offline_baopin'&&detail.order_type!='offline_normal'">
@@ -278,6 +278,7 @@
 				begin:false,
 				
 				alidetail:{shopping_voucher_num:0},
+				id:''
 			}
 		},
 		onLoad: function(options) {
@@ -288,6 +289,7 @@
 			// 初始化数据
 			if (options.orderId) {
 				this.getaliDetail(options.orderId)
+				this.id=options.orderId
 				//this.getDetail(options.orderId,true);
 				//this.getCode(options.orderId)
 			}
@@ -407,7 +409,7 @@
 			},
 			toPage(orderId){
 				uni.navigateTo({
-					url:'../express/index'
+					url:'../express/index?order_id='+orderId+"&id="+this.id
 				})
 			},
 			getRecommend() { //获取推荐商品

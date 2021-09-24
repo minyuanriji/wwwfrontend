@@ -75,6 +75,7 @@ let api = {
 		getPayData:api_root + 'api/payCenter/payment-order-prepare/alibaba-distribution-order',//预支付获取支付信息接口
 		getOrderlist:api_root + 'plugin/alibaba/api/distribution-order/order-list',//订单列表
 		getOrderdetail:api_root + 'plugin/alibaba/api/distribution-order/order-details',//订单详情
+		getexpress:api_root + 'plugin/alibaba/api/distribution-order/logistics',//物流详情
 	},
 //--------------------------------------------------------------------------------------------		
 	

@@ -1,21 +1,21 @@
 <template>
 	<view class="app">
 		<block v-if="orderData">
-			<view v-for="(item,index) in orderData.order_goods_list" :key="index">
+			<view v-for="(item,index) in orderData.detail" :key="index">
 				<view class="order">
 					<list-cell padding="0">
 						<view class="jx-goods-item">
-							<image :src="item.goods_info.pic_url" lazy-load="true" class="jx-goods-img"></image>
+							<image :src="item.cover_url" lazy-load="true" class="jx-goods-img"></image>
 							<view class="jx-goods-center">
-								<view class="jx-goods-name">{{item.goods_info.name}}</view>
-								<view class="jx-goods-attr">{{item.goods_info.attr_list[0].attr_name}}</view>
+								<view class="jx-goods-name">{{item.name}}</view>
+								<view class="jx-goods-attr">{{item.sku_labels[0]}}</view>
 							</view>
 						</view>
 					</list-cell>
 				</view>
 			</view>
 		
-		<view class="order-num" v-if="orderData.express_no">物流单号：{{orderData.express_no}}</view>
+		<view class="order-num" v-if="expressDate.order">物流单号：{{expressDate.order.express_no}}</view>
 		</block>
 		<!-- <block v-if="orderData.express_no"> -->
 		<block>
@@ -43,11 +43,10 @@
 					</view>
 				</view>
 				<view class="logisticsOrder" v-else>
-					暂不支持查询{{logistics_order.express}}的物流信息
+					暂不支持查询{{expressDate.order.express}}的物流信息
 				</view>
 			</block>
 		</block>
-		
 		<!-- <view class="nomore" v-else>暂无物流信息</view> -->
 		
 	</view>
@@ -67,6 +66,7 @@
 				logistics_data:'',
 				logistics_order:'',
 				textColor:'',
+				expressDate:''
 			}
 		},
 		computed:{
@@ -90,29 +90,60 @@
 		onLoad(options) {
 			this.textColor = this.globalSet('textCol');
 			// 初始化数据
-			if (options.orderId) {
-				this.getDetail(options.orderId)
+			if (options&&options.id) {
+				this.getaliDetail(options.id)
+			}
+			if (options&&options.order_id) {
+				this.getexpress(options.order_id)
 			}
 		},
 		methods: {
-			getDetail(id) {
+			getaliDetail(id){
 				this.$http.request({
-					url: this.$api.order.detail,
+					url: this.$api.taolijin.getOrderdetail,
 					method: 'POST',
-					showLoading:true,
 					data: {
-						id
+						order_id:id
 					},
+					showLoading: true
 				}).then(res => {
-					if (res.code === 0) {
-						this.orderData = res.data.detail;
-						if(this.orderData.express_no.length<=0){
-							this.status_index=0
-						}
-						this.orderData.express_no == '' || this.getlogistics(res.data.detail);
+					if (res.code == 0) {
+						this.orderData=res.data
+					} else {
+						this.$http.toast(res.msg);
 					}
-				})
+				});
 			},
+			getexpress(order_id){
+				this.$http.request({
+					url: this.$api.taolijin.getexpress,
+					method: 'POST',
+					data: {
+						id_1688:7
+					},
+					showLoading: true
+				}).then(res => {
+					if (res.code == 0) {
+						this.expressDate=res.data
+						this.logistics_data = res.data.express.list;
+						if(this.expressDate.order.express_no.length>0){
+							this.status_index=1
+						}
+						if(this.logistics_data.State=='1'){
+							this.status_index=2
+						}
+						if(this.logistics_data.State=='2'){
+							this.status_index=3
+						}
+						if(this.logistics_data.State=='3'){
+							this.status_index=4
+						}
+						this.logistics_data.Traces.reverse();
+					} else {
+						this.$http.toast(res.msg);
+					}
+				});
+			},		
 			getlogistics(obj){
 				this.$http.request({
 					url: this.$api.express.query,
