@@ -176,9 +176,9 @@
 						</view>
 					</view>
 				</view>
-				<view class="jx-tabbar tui-order-btn">
+				<view class="jx-tabbar tui-order-btn" v-if="alidetail.status == 'waitbuyerreceive' || alidetail.status=='confirm_goods' || alidetail.status=='success'">
 					<view class="jx-btn-mr">
-						<view class="btns" @tap="toPage(alidetail.detail[0].order_id)">查看物流</view>
+						<view class="btns" @tap="toPage(alidetail.id)">查看物流</view>
 					</view>
 				</view>
 				<!-- <block v-if="is_show&&detail.order_type!='offline_baopin'&&detail.order_type!='offline_normal'">

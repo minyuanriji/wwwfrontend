@@ -52,7 +52,7 @@
 				<view class="tui-pro-pricebox padding">
 					<view class="tui-pro-price">
 						<view class="price">
-							<text class="cur-price" :style="{color:'#FF7104'}">&yen;{{goodsData.price}}起</text>
+							<text class="cur-price" :style="{color:'#FF7104'}">&yen;{{goodsData.shopping_voucher}}起</text>
 							<text class="text" :style="{color:'#FF7104'}"></text>
 						</view>
 					</view>
