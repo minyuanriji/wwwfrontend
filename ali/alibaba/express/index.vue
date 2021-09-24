@@ -119,7 +119,7 @@
 					url: this.$api.taolijin.getexpress,
 					method: 'POST',
 					data: {
-						id_1688:7
+						id_1688:order_id
 					},
 					showLoading: true
 				}).then(res => {
