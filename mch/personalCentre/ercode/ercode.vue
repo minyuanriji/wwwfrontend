@@ -272,7 +272,7 @@ white-space: nowrap;}
 		text-align: center;
 		color: #fff;
 		line-height: 70rpx;
-		margin: 50rpx auto 100rpx;
+		margin: 50rpx auto 80rpx;
 	}
 	.goods-qrcode-modal {
 		position: fixed;
