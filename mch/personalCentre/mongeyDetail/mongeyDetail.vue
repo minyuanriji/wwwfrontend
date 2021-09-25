@@ -150,6 +150,7 @@ export default {
 	width: 100%;
 	display: flex;
 	padding: 0 30rpx;
+	box-sizing: border-box;
 	flex-direction: column;
 
 	.item {
