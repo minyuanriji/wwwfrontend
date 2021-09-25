@@ -245,9 +245,16 @@
 	.ercodeImg{width: 60%;margin: 0 auto;background: #fff;height: 500rpx;border-radius: 30rpx;}
 	.ercodeImg-img{width: 350rpx;height: 350rpx;margin: 0 auto;padding-top: 40rpx;}
 	.ercodeImg-img image{width: 350rpx;height: 350rpx;}
-	.shop-name{margin-top: 60rpx;width: 100%;overflow: hidden;text-align: center;color: #FF6B09 ;font-weight: bold;font-size: 36rpx;overflow: hidden;
+	/* #ifdef H5 */
+.shop-name{margin-top: 60rpx;width: 100%;overflow: hidden;text-align: center;color: #FF6B09 ;font-weight: bold;font-size: 36rpx;overflow: hidden;
 text-overflow:ellipsis;
 white-space: nowrap;}
+	/* #endif */
+	/* #ifdef  MP  */
+	.shop-name{margin-top: 30rpx;width: 100%;overflow: hidden;text-align: center;color: #FF6B09 ;font-weight: bold;font-size: 36rpx;overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;}
+	/* #endif */
 	.notice{width: 100%;overflow: hidden;text-align: center;color: #fff;font-weight: bold;font-size: 36rpx;margin: 40rpx 0 0 0;}
 	.type_pay{width: 100%;height: 184rpx;display: flex;justify-content: space-evenly;}
 	.type_pay view{width: 30%;margin: 50rpx 0 0 0;}
