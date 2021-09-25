@@ -10,7 +10,7 @@
 						 :hover-class="'jx-'+(item.plain?'outline':(item.type || 'primary'))+'-hover'" :data-index="index" @tap="handleClick">{{item.text || "确定"}}</button> -->
 						 
 						 <button class="jx-modal-btn" :class="[button.length!=2?'jx-btn-width':'',button.length>2?'jx-mbtm':'',shape=='circle'?'jx-circle-btn':'']"
-						 :style="{color:item.plain?item.col:'#ffffff',background:item.plain?'#ffffff':item.col,border:'1px solid'+item.col}"
+						 :style="{color:item.plain?item.col:'#000',background:item.plain?'#ffffff':item.col,border:'1px solid'+item.col}"
 						  hover-class="none" :data-index="index" @tap="handleClick">{{item.text || "确定"}}</button>
 					</block>
 				</view>
