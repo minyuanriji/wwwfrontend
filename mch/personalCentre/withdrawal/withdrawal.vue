@@ -102,13 +102,13 @@
 						// })
 					}, 2000)
 				} else {
-					if (isEmpty(that.information.mobile)) {
+					if (isEmpty(that.information.efps_bank.paper_openBank)||isEmpty(that.information.efps_bank.paper_settleAccount)||isEmpty(that.information.efps_bank.paper_settleAccountNo)) {
 						that.$http.toast('未设置结账信息')
 						setTimeout(function() {
 							uni.navigateTo({
 								url: '../countSet/countSet'
 							})
-						}, 2000)
+						}, 1500)
 					} else {
 						that.show = true
 					}

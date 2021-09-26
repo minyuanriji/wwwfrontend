@@ -12,13 +12,6 @@
 				</view>
 				<input class="content_body_block_input" v-model="params.license_name"></input>
 			</view>
-			<!-- <view class="content_body_block">
-				<view class="content_body_block_t">2、营业执照编号</view>
-				<view class="content_body_block_desc">
-					请填写你的<text :style="{color: background}">营业执照编号</text>
-				</view>
-				<input class="content_body_block_input" v-model="params.license_num"></input>
-			</view> -->
 			<view class="content_body_block">
 				<view class="content_body_block_t">2、营业执照图片</view>
 				<view class="content_body_block_desc">
@@ -61,27 +54,27 @@
 						</view>					
 				</view>
 			</view>		
-			<view class="content_body_block">
+		<!-- 	<view class="content_body_block">
 				<view class="content_body_block_t">6、银行卡号码</view>
 				<view class="content_body_block_desc">
 					请填写你的<text :style="{color: background}">银行卡号码（选填）</text>
 				</view>
 				<input class="content_body_block_input" v-model="params.settle_num"></input>
-			</view>
-			<view class="content_body_block">
+			</view> -->
+		<!-- 	<view class="content_body_block">
 				<view class="content_body_block_t">7、银行卡开户人</view>
 				<view class="content_body_block_desc">
 					请填写你的<text :style="{color: background}">银行卡开户人（选填）</text>
 				</view>
 				<input class="content_body_block_input" v-model="params.settle_realname"></input>
-			</view>
-			<view class="content_body_block">
+			</view> -->
+			<!-- <view class="content_body_block">
 				<view class="content_body_block_t">8、银行名称</view>
 				<view class="content_body_block_desc">
 					请填写你的<text :style="{color: background}">银行名称（选填）</text>
 				</view>
 				<input class="content_body_block_input" v-model="params.settle_bank"></input>
-			</view>
+			</view> -->
 			<view class="content_body_block">
 				<view class="content_body_block_t">9、店铺折扣</view>
 				<view class="content_body_block_desc">
