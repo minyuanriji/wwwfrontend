@@ -15,7 +15,7 @@
 			</view>
 			<view class="int">
 				<text>￥</text>
-				<input type="number" value="" v-model.trim="num"/>
+				<input type="digit" value="" v-model.trim="num"/>
 			</view>
 		</view>
 		<view class="sure-code">
