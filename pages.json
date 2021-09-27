@@ -771,7 +771,8 @@
 						"onReachBottomDistance": 50
 					}
 
-				}, {
+				}, 
+				{
 					"path": "alibaba/home/home",
 					"style": {
 						"navigationBarTitleText": "购物券区",
