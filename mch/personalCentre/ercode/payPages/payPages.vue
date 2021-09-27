@@ -35,7 +35,7 @@
 		},
 	
 		onLoad(options) {
-			
+			console.log(options);
 			this.beforeOnLoad(options);
 			
 			this.id=options.id
