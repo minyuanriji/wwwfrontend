@@ -35,6 +35,7 @@
 		},
 	
 		onLoad(options) {		
+
 			this.beforeOnLoad(options);
 			// #ifdef MP-WEIXIN
 				uni.setStorageSync('pid',options.pid)	
