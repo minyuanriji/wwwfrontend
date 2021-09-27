@@ -141,7 +141,7 @@
 				uni.setStorageSync('pid',options.query.pid)	
 				setTimeout(function(){
 					uni.navigateTo({
-						url:'/pages/user/bindUser/bindUser'
+						url:'/pages/user/bindUser/bindUser?pid='+options.query.pid
 					})
 				},500)						 				
 			}	

@@ -16,14 +16,17 @@
 				img_url: this.$api.img_url,
 			};
 		},
-		onLoad() {
-			this.getBind()
+		onLoad(options) {
+			this.getBind(options.pid)
 		},
 		methods:{
-			getBind(){
+			getBind(pid){
 				this.$http.request({
 					url: this.$api.moreShop.getBindUser,
 					showLoading: true,
+					data:{
+						x_parent_id:pid
+					},
 				}).then(res => {
 					if (res.code == 0) {
 						let page=uni.getStorageSync('page')
