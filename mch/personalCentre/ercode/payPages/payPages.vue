@@ -34,10 +34,11 @@
 			};
 		},
 	
-		onLoad(options) {
-			
+		onLoad(options) {		
 			this.beforeOnLoad(options);
-			
+			// #ifdef MP-WEIXIN
+				uni.setStorageSync('pid',options.pid)	
+			// #endif
 			this.id=options.id
 			this.$http.request({
 						url: this.$api.moreShop.getmchstore,
