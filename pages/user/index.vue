@@ -79,17 +79,18 @@
 			</view>
 			
 			<view class="jx-box jx-order-box" v-if="configData.user_center.is_order_bar_status">
-				<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(4)">
+				<!-- <jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href(4)"> -->
+				<jx-list-cell :arrow="false" padding="0" :lineLeft="false" >
 					<view class="jx-cell-header">
 						<view class="jx-cell-title" style="font-weight: 700;">我的订单</view>
-						<view class="jx-cell-sub">查看全部订单</view>
+						<!-- <view class="jx-cell-sub">查看全部订单</view> -->
 					</view>
 				</jx-list-cell>
 				<view class="jx-order-list">
 					<view class="jx-order-item" @tap="openUrl(item.link_url)" v-for="(item, i) in configData.user_center.order_bar" :key="i">
 						<view class="jx-icon-box">
 							<image :src="item.icon_url" class="jx-order-icon"></image>
-							<view class="jx-badge jx-badge-red" v-if="item.num">{{ item.num }}</view>
+							<!-- <view class="jx-badge jx-badge-red" v-if="item.num">{{ item.num }}</view> -->
 						</view>
 						<view class="jx-order-text">{{ item.name }}</view>
 					</view>
@@ -888,7 +889,7 @@ export default {
 
 .jx-order-item {
 	// flex: 1;
-	width: 20%;
+	width: 25%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

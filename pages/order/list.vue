@@ -114,20 +114,25 @@
 					name: "待收货"
 				}, {
 					name: "待评价"
-				}],
+				},
+				{
+					name: "售后"
+				},
+				],
 				statusObj: {
 					0: -1,
 					1: 0,
 					2: 1,
 					3: 2,
 					4: 3,
+					5: 4,
 				},
 				showTab: {
 					'-1': 0,
 					'0': 1,
 					'1': 2,
 					'2': 3,
-					'3': 4
+					'3': 4,
 				},
 				status: -1,
 				loadding: false,
@@ -320,9 +325,15 @@
 				})
 			},
 			change(e) {
-				this.status = this.statusObj[e.index]
-				let sum = 0;
-				this.getDateList('refresh', this.status)
+				if(this.statusObj[e.index]==4){
+					uni.navigateTo({
+						url:'./refund/list'
+					})
+				}else{
+					this.status = this.statusObj[e.index]
+					let sum = 0;
+					this.getDateList('refresh', this.status)
+				}			
 			},
 			detail(id) {
 				uni.navigateTo({
