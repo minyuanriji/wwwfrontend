@@ -432,14 +432,15 @@
 					use_address_id:this.addressId		
 				}					
 				if (this.addressShpw) {
-					if (!this.addressId || !this.user_address.id) {
+					if (!this.addressId && !this.user_address.id) {
 						this.$refs.popupShareok.close()
 						this.$http.toast('请添加收货地址!')
 						this.is_request = false
 						return;
 					} else {
-						form.use_address_id = this.user_address.id
+						form.use_address_id = this.addressId ? this.addressId : this.user_address.id
 					}
+					
 				}
 				this.$http.request({
 					url: this.$api.taolijin.createorder,
