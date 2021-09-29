@@ -133,8 +133,10 @@
 					html2canvas(
 					    document.getElementById('poster'), 
 					    { 
+							// width: document.getElementById('poster').clientWidth,
+							height: document.getElementById('poster').clientHeight+90,
 							scale: 1,
-							useCORS: true
+							useCORS: true,
 						 }
 					).then( canvas => {
 								this.poster_url = canvas.toDataURL('image/png', 1);
