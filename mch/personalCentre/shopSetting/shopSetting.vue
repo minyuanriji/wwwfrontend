@@ -227,6 +227,7 @@
 				})
 			},
 			sureBtn(){
+				console.log(this.form)
 				if(isEmpty(this.form.name)){
 					uni.showToast({
 						title: '请填写店铺名称',
@@ -325,6 +326,7 @@
 					this.params.shop_logo=this.userMessage.cover_url
 					this.form.city_id=this.userMessage.city_id
 					this.form.province_id=this.userMessage.province_id
+					this.form.district_id=this.userMessage.district_id
 					this.form.latitude=this.userMessage.latitude
 					this.form.longitude=this.userMessage.longitude
 					this.form.address=this.userMessage.address;
