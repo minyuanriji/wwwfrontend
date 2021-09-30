@@ -80,7 +80,7 @@
 				<view class="content_body_block_desc">
 					请填写你的<text :style="{color: background}">店铺折扣（选填）</text>
 				</view>
-				<input type="number" class="content_body_block_input" v-model="params.settle_discount" style="width: 200rpx;text-align: center;"></input>
+				<input type="digit" class="content_body_block_input" v-model="params.settle_discount" style="width: 200rpx;text-align: center;"></input>
 			</view>
 		</view>
 		<view class="content_footer">

@@ -409,21 +409,42 @@
 					</view>
 					
 				</view>
-				<scroll-view scroll-y class="tui-popup-scroll-td" style="height: 300rpx!important;">
+				<!-- <scroll-view scroll-y class="tui-popup-scroll-td" style="height: 300rpx!important;">
 				<view class="sku">
 					<view v-for="(item,index) in goodsData.sku_list" :key='index' style="width:45%;margin-top: 10rpx;font-size: 26rpx;line-height: 60rpx;text-align: center;" :class="setINdex==index?'skuActive':''" @click="selectINdex(index,item)">
 						{{item.labels}}
 					</view>
 				</view>
-				</scroll-view>
-				<view class="tui-scrollview-box">
-				
-					<view class="tui-number-box tui-bold tui-attr-title">
-						<view class="tui-attr-title">数量</view>
-						<tui-numberbox :max="9999999999999999" :min="1" :value="value" @change="change">
-						</tui-numberbox>
+				</scroll-view> -->
+				<scroll-view scroll-x  style="height: 60rpx!important;width: 100%;white-space:nowrap;">
+					<view v-for="(item,index) in goodsData.sku_group_list" :key='index' style="display: inline-block;width:33%;margin-top: 10rpx;font-size: 26rpx;line-height: 60rpx;text-align: center;" :class="setINdex==index?'skuActive':''" @click="selectINdex(index,item)">
+						{{item.value_name}}
 					</view>
-						
+				</scroll-view>
+				<scroll-view scroll-y class="tui-popup-scroll-td" style="height: 200rpx!important;">
+					<view class="sku_group_list_item" v-for="(item,index) in sku_group_list_children" style="display: flex;justify-content: space-evenly;">
+						<view style="width: 60%;height: 100rpx;line-height: 100rpx;">
+							{{item.name}}
+						</view>
+						<view style="width: 30%;display: flex;justify-content: space-evenly;margin-top: 30rpx;">
+	
+								<text style="width: 80rpx;height: 50rpx;text-align: center;background:#FF5D0D ;color: #fff;" @click="count(index,item)">-</text>
+								<input type="number" v-model="item.num" placeholder="1" style="width: 100rpx;height: 50rpx;border: none;text-align: center;background: #F5F5F5;" disabled/>
+								<text style="width: 80rpx;height: 50rpx;;text-align: center;background:#FF5D0D ;color: #fff;" @click="add(index,item)">+</text>
+							<!-- <tui-numberbox :max="9999999999999999" :min="1" :value="value" @change="change">
+							</tui-numberbox> -->
+						</view>
+					</view>
+				</scroll-view>
+				
+				
+				
+				
+				<view style="padding:0 40rpx ;box-sizing: border-box;">			
+					<view class="tui-number-box tui-bold tui-attr-title">
+						<view class="tui-attr-title">总价：</view>
+						<text style="color: red;">{{countmoney}}</text>
+					</view>		
 				</view>
 				<view class="tui-operation tui-operation-right tui-right-flex tui-popup-btn">
 					<view class="sure-btn" :style="{background:'#FF7104'}" @tap="sureBtn">确定</view>
@@ -442,7 +463,7 @@
 	display: flex;justify-content: space-between;}
 	.sku{width: 100%;overflow: hidden;margin: 10rpx 0;display: flex;justify-content: space-evenly;flex-wrap: wrap;}
 	.tui-popup-scroll-td{width: 100%;height: 550rpx;}
-	.skuActive{border-radius: 20rpx;border: 1px solid rgb(255, 113, 4) ; color: rgb(255, 113, 4);}
+	.skuActive{border-bottom: 1px solid rgb(255, 113, 4) ; color: rgb(255, 113, 4);}
 </style>
 <script>
 	import jxRate from "@/components/rate/rate"
@@ -473,6 +494,7 @@
 				setINdex:-1,
 				skuprice:'',
 				skuname:'',
+				sku_group_list_children:'',
 				img_url: this.$api.img_url,
 				is_index: 1, //1是加入购物车，2是立即购买
 				id: 0, //商品id
@@ -535,13 +557,10 @@
 				showFoucs: false,
 				is_buy_power: '',
 				popupattribute:false,
-				list:[
-					{
-						goods:'',
-						num:1,
-						sku:''
-					}
-				]
+				list:[],
+				money:0,
+				countmoney:0,
+				exressPrice:'',
 			}
 		},
 		onLoad(options) {
@@ -571,7 +590,6 @@
 			}
 
 			this.id = options.id;
-			this.list[0].goods=options.id
 			if (options.attr_id) {
 				this.c_attr_id = options.attr_id;
 			}
@@ -672,11 +690,134 @@
 					url:'../submit/submit?list='+JSON.stringify(this.list)+"&use_shopping_voucher="+0+"&use_address_id="+0+"&remark="
 				})
 			},
-			selectINdex(index,item){
+			selectINdex(index,item){ //选择内幕
 				this.setINdex=index
-				this.skuprice=item.shopping_voucher
-				this.skuname=item.labels
-				this.list[0].sku=item.id
+				console.log(item)
+				this.skuname=item.value_name
+				this.sku_group_list_children=item.sku_list
+			},
+			count(index,item){
+				if(item.num<=0){
+					uni.showToast({
+						title: '数量不能小于0',
+						icon: 'none'
+					});
+					setTimeout(function() {
+						uni.hideToast();
+					}, 2000);
+					return
+				}else{
+					item.num--
+					let arr=[]
+					for(let i=0;i<this.list.length;i++){
+						if(this.list[i].sku===item.id){
+							this.list[i]={
+								goods:item.goods_id,
+								num:item.num,
+								sku:item.id,
+								price:item.shopping_voucher*item.num
+							}
+						}
+						if(this.list[i].num!=0){
+							arr.push(this.list[i])
+						}
+					}
+					this.list=arr
+				}			
+				this.countmoney=0
+				for(let i=0;i<this.list.length;i++){
+					this.countmoney=this.list[i].price+this.countmoney
+				}
+				if(this.countmoney==0){
+					this.countmoney=0
+				}else{
+					this.countmoney=this.countmoney+this.exressPrice
+				}
+			},
+			add(index,item){
+				let that=this
+				item.num++;
+				item.price=item.num*item.shopping_voucher
+				let fag=true
+				if(that.list.length>0){
+					for(let i=0;i<that.list.length;i++){
+						if(item.id===that.list[i].sku){
+							that.list[i].num=item.num
+							that.list[i].price=item.shopping_voucher*item.num
+							fag=false
+						}
+					}
+					if(fag){
+						that.list.push({
+							goods:item.goods_id,
+							num:item.num,
+							sku:item.id,
+							price:item.shopping_voucher*item.num
+						})
+					}
+				}else{
+					that.list.push({
+						goods:item.goods_id,
+						num:item.num,
+						sku:item.id,
+						price:item.shopping_voucher*item.num
+					})
+				}
+				that.countmoney=0
+				for(let i=0;i<that.list.length;i++){
+					that.countmoney=that.list[i].price+that.countmoney
+				}
+				that.countmoney=that.countmoney+that.exressPrice
+			},
+			getGoodsDetail() { //请求商品详情数据
+				this.loading = true;
+				this.$http.request({
+					url: this.$api.taolijin.getDetail,
+					data: {
+						id: this.id
+					},
+				}).then((res) => {
+					this.loading = false;
+					if (res.code == 0) {
+						this.goodsData = res.data.detail;
+						this.selectINdex(0, res.data.detail.sku_group_list[0]);
+						this.exressPrice=res.data.detail.freight_price
+						this.bannerLength = res.data.detail.images.length;
+						this.is_buy_power = res.data.is_buy_power
+						this.skuprice=res.data.detail.shopping_voucher
+						this.skuname=res.data.detail.sku_group_list[0].value_name
+						this.sku_group_list_children=res.data.detail.sku_group_list[0].sku_list
+						//#ifdef H5
+						let link = window.location.href
+						var obj = {}
+						obj.app_share_title = res.data.detail.categoryName,
+							obj.app_share_pic = res.data.detail.images[0],
+							obj.app_share_desc = ''
+						this.$wechatSdk.initShareUrl(obj, link);
+						//#endif
+					}
+				})
+			},
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			change: function(e) { //改变数量
+				this.value = e.value;
+				console.log(e)
 			},
 			foucusInfo() {
 				uni.navigateTo({
@@ -990,91 +1131,6 @@
 					}
 				})
 			},
-			getGoodsDetail() { //请求商品详情数据
-				this.loading = true;
-				this.$http.request({
-					url: this.$api.taolijin.getDetail,
-					data: {
-						id: this.id
-					},
-				}).then((res) => {
-					this.loading = false;
-					if (res.code == 0) {
-						console.log(res.data)
-						this.goodsData = res.data.detail;
-						//this.skuname=res.data.detail.sku_list[0].labels
-						//this.skuprice=res.data.detail.sku_list[0].price
-						this.selectINdex(0, res.data.detail.sku_list[0]);
-						this.list[0].sku=res.data.detail.sku_list[0].id
-						this.bannerLength = res.data.detail.images.length;
-						this.is_buy_power = res.data.is_buy_power
-						//#ifdef H5
-						let link = window.location.href
-						var obj = {}
-						obj.app_share_title = res.data.detail.categoryName,
-							obj.app_share_pic = res.data.detail.images[0],
-							obj.app_share_desc = ''
-						this.$wechatSdk.initShareUrl(obj, link);
-						//#endif
-						// if (this.goodsData.collect.is_collect == 1) { //判断商品是否收藏
-						// 	this.collected = true;
-						// } else {
-						// 	this.collected = false;
-						// }
-
-					// 	if (this.goodsData.attr_groups) {
-					// 		this.attrGroupsLength = this.goodsData.attr_groups.length;
-					// 	}
-
-					// 	if (this.c_attr_id == -1) {
-					// 		// 初始化多规格数组,并且判断商品是否是多规格，是才执行
-					// 		if (this.goodsData.attr_groups) {
-					// 			this.goodsData.attr_groups.forEach((item) => {
-					// 				this.selectArr.push({
-					// 					'attr_group_id': item.attr_group_id,
-					// 					...item.attr_list[0]
-					// 				})
-					// 			})
-					// 		}
-					// 	} else {
-					// 		//如果是购物车跳转过来，则默认显示已经选中的多规格
-					// 		var url;
-					// 		if (this.goodsData.attr_groups) {
-					// 			this.goodsData.attr_list.forEach((item) => {
-					// 				if (this.c_attr_id == item.id) {
-					// 					url = item.pic_url;
-					// 					this.selectArr.push(...item.attr_list)
-					// 				}
-					// 			})
-					// 			this.selectArr.forEach((item, index) => {
-					// 				delete item.attr_group_name;
-					// 				this.$set(item, 'pic_url', url);
-					// 			})
-					// 		}
-					// 	}
-
-					// 	var arr = [];
-					// 	this.selectArr.forEach((item) => {
-					// 		arr.push(item.attr_name);
-					// 	})
-					// 	this.strName = arr.join('， ');
-					// 	this.skuCommon();
-					// 	this.mch = res.data.mch
-					// 	this.is_mch = res.data.is_mch
-					// } else {
-					// 	uni.showModal({
-					// 		content: res.msg,
-					// 		showCancel: false,
-					// 		confirmColor: '#BC0100',
-					// 		success: function(res) {
-					// 			if (res.confirm) {
-					// 				this.navBack();
-					// 			}
-					// 		}
-					// 	});
-					}
-				})
-			},
 			queryAttr(items) {
 				let temp = this.selectArr.find(v => v.attr_id == items.attr_id);
 				return temp ? true : false;
@@ -1208,10 +1264,6 @@
 			},
 			canclePoup(){
 				this.$refs.popupShareok.close()
-			},
-			change: function(e) {
-				this.value = e.value;
-				this.list[0].num=e.value
 			},
 			common: function(index) {
 				switch (index) {

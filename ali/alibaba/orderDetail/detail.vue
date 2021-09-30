@@ -155,7 +155,7 @@
 						</view> -->
 						<!--
 						<view class="jx-price-flex  jx-size24">
-							<view>购物券</view>
+							<view>购物券</view> 
 							<view class="jx-price">- ¥{{alidetail.shopping_voucher_decode_price}}</view>
 						</view>
 						<view class="jx-price-flex  jx-size24">
@@ -171,7 +171,7 @@
 							<view class="tui-flex-shrink">实付款</view>
 							<view class="jx-goods-price jx-primary-color" :style="{color:textColor}">
 								<view class="jx-size-24">¥</view>
-								<view class="jx-price-large">{{Number(alidetail.shopping_voucher_num)}}</view>
+								<view class="jx-price-large">{{Number(alidetail.shopping_voucher_use_num)}}</view>
 							</view>
 						</view>
 					</view>
