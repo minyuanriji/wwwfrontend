@@ -421,7 +421,7 @@
 						{{item.value_name}}
 					</view>
 				</scroll-view>
-				<scroll-view scroll-y class="tui-popup-scroll-td" style="height: 200rpx!important;">
+				<scroll-view scroll-y class="tui-popup-scroll-td" style="height: 500rpx!important;">
 					<view class="sku_group_list_item" v-for="(item,index) in sku_group_list_children" style="display: flex;justify-content: space-evenly;">
 						<view style="width: 60%;height: 100rpx;line-height: 100rpx;">
 							{{item.name}}
@@ -685,7 +685,17 @@
 			buyGoods(){//用购物券下单
 				this.popupShow=true
 			},
-			sureBtn(){//跳转到订单预览				
+			sureBtn(){//跳转到订单预览
+				if(this.list.length<=0){
+					uni.showToast({
+						title: '请选择规格数量',
+						icon: 'none'
+					});
+					setTimeout(function() {
+						uni.hideToast();
+					}, 2000);
+					return
+				}
 				uni.navigateTo({
 					url:'../submit/submit?list='+JSON.stringify(this.list)+"&use_shopping_voucher="+0+"&use_address_id="+0+"&remark="
 				})
