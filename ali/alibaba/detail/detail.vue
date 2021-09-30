@@ -424,7 +424,7 @@ white-space: nowrap;;width:30%;margin-top: 10rpx;margin-right: 30rpx;font-size: 
 				</scroll-view>
 				<scroll-view scroll-y class="tui-popup-scroll-td" style="height: 500rpx!important;">
 					<view class="sku_group_list_item" v-for="(item,index) in sku_group_list_children" style="display: flex;justify-content: space-evenly;">
-						<view style="width: 60%;height: 100rpx;line-height: 100rpx;">
+						<view style="width: 60%;height: 100rpx;line-height: 100rpx;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">
 							{{item.name}}
 						</view>
 						<view style="width: 30%;display: flex;justify-content: space-evenly;margin-top: 30rpx;">
