@@ -137,7 +137,7 @@
 						<text class="text">-{{shopping_voucher.use_num}}</text>
 					</view>
 				</view>
-				<switch  @change="useShoppingVoucher" color='#FF7104' class="points-switch" :checked='true' :disabled="true"/>
+			<!-- 	<switch  @change="useShoppingVoucher" color='#FF7104' class="points-switch" :checked='true' :disabled="true"/> -->
 			</view>
 		</view>
 
@@ -192,11 +192,11 @@
 
 		<view class="tui-tabbar">
 			<view class="tui-tabbar-box flex flex-x-between flex-y-center">
-				<view class="tui-flex-end tui-color-red tui-pr-20" :style="{color:'#FF7104'}">
+				<!-- <view class="tui-flex-end tui-color-red tui-pr-20" :style="{color:'#FF7104'}">
 					<view class="tui-black">合计: </view>
 					<view class="tui-size-26">￥</view>
 					<view class="tui-price-large">{{total_price}}</view>
-				</view>
+				</view> -->
 				<view class="tui-pr25" @tap="btnPay" :style="{background:'#FF7104'}">
 					立即兑换
 				</view>
@@ -1284,7 +1284,8 @@
 
 	.tui-pr25 {
 		background: linear-gradient(-30deg, rgba(214, 16, 13, 1), rgba(241, 72, 34, 1));
-		width: 208rpx;
+		width: 65%;
+		margin: 0 auto;
 		height: 78rpx;
 		border-radius: 50rpx;
 		color: #FFFFFF;
