@@ -417,7 +417,8 @@
 				</view>
 				</scroll-view> -->
 				<scroll-view scroll-x  style="height: 60rpx!important;width: 100%;white-space:nowrap;">
-					<view v-for="(item,index) in goodsData.sku_group_list" :key='index' style="display: inline-block;width:33%;margin-top: 10rpx;font-size: 26rpx;line-height: 60rpx;text-align: center;" :class="setINdex==index?'skuActive':''" @click="selectINdex(index,item)">
+					<view v-for="(item,index) in goodsData.sku_group_list" :key='index' style="display: inline-block;overflow: hidden;text-overflow:ellipsis;
+white-space: nowrap;;width:30%;margin-top: 10rpx;margin-right: 30rpx;font-size: 26rpx;line-height: 60rpx;text-align: center;" :class="setINdex==index?'skuActive':''" @click="selectINdex(index,item)">
 						{{item.value_name}}
 					</view>
 				</scroll-view>
