@@ -119,7 +119,7 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
-				selectIndex: 1,
+				selectIndex: 0,
 				list: [],
 				popupShow: false,
 				items: [{
@@ -131,7 +131,8 @@
 					mobile: '',
 					order_price: '',
 					integral_deduction_price:'',
-					plateform_id: 1
+					plateform_id: 1,
+					product_id:10,
 				},
 				creditStatusList:[],//充值记录
 				order_id:'',//订单ID
@@ -145,6 +146,7 @@
 			select(item, index) { //选择充值金额
 				this.selectIndex = index
 				this.form.order_price = item.price
+				this.form.product_id=item.product_id
 				this.form.integral_deduction_price = item.redbag_num
 				this.redbag=item.redbag_num
 			},
@@ -218,9 +220,9 @@
 						this.creditStatusList=res.data
 						this.list=res.money_list
 						if (isEmpty(this.form.order_price)){
-							this.form.order_price=this.list[1].price
-							this.form.integral_deduction_price=this.list[1].redbag_num
-							this.redbag=this.list[1].redbag_num
+							this.form.order_price=this.list[0].price
+							this.form.integral_deduction_price=this.list[0].redbag_num
+							this.redbag=this.list[0].redbag_num
 						}
 					} else {
 						this.$http.toast(res.msg);
