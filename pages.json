@@ -1782,6 +1782,16 @@
 
 				},
 				{
+					"path": "hotel/pay",
+					"style": {
+						"navigationBarTitleText": "订单支付",
+						"navigationStyle": "custom",
+						"app-plus": {
+							"titleNView": false
+						}
+					}
+				},
+				{
 					"path": "giftbag/giftList/giftList",
 					"style": {
 						"navigationBarTitleText": "活动列表",
@@ -1874,7 +1884,7 @@
 				{
 					"path": "moreCredit/moreCredit",
 					"style": {
-						"navigationBarTitleText": "",
+						"navigationBarTitleText": "话费充值",
 						"enablePullDownRefresh": false,
 						"navigationBarTextStyle": "white",
 						"navigationBarBackgroundColor": "#ff7104"

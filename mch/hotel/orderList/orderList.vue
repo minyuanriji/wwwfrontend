@@ -40,13 +40,13 @@
 						</view>
 					</view>
 					<view class="hotel-orderLis-item-detail-price">
-						<text>￥{{item.order_price}}</text>
+						<!-- <text>￥{{item.order_price}}</text> -->
 						<text>x{{item.booking_num}}</text>
 					</view>
 				</view>
 				<view class="hotel-orderLis-item-count">
 					<text>共{{item.booking_num}}间 合计</text>
-					<text>{{item.order_price}}红包</text>
+					<text>{{Number(item.pay_price)+Number(item.integral_deduction_price)}}红包</text>
 				</view>
 				<view class="hotel-orderLis-statusDetail">
 					<text v-if="item.is_payable==1">去支付</text>				
