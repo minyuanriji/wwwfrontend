@@ -1,11 +1,11 @@
 <template>
 	<view class="moreCreadit-app">
 		<view class="moreCreadit_header">
-			<view class="title">
+			<!-- <view class="title">
 				充值中心
-			</view>
+			</view> -->
 			<view class="text">
-				<input type="number" v-model="form.mobile" />
+				<input type="number" v-model="form.mobile" placeholder="请输入电话号码"/>
 			</view>
 		</view>
 		<view class="moreCreadit_detail">
@@ -29,6 +29,21 @@
 			<view class="recharge">
 				<button type="default" @click="checkrecharge">立即充值</button>
 			</view>
+		</view>
+		<view class="notice">
+			<text style="display: block;width: 100%;height: 60rpx;line-height: 60rpx;font-size: 28rpx;color: #000;font-weight: bold;">温馨提示</text>
+			<view class="notice-item">
+				<view>
+					1：慢充<text>72小时内</text>到账，分多批到账
+				</view>
+				<view>
+					2：充值前请核对充值号码
+				</view>
+				<view>
+					3：如对本次充值相关内容有疑问,请联系客服
+				</view>
+			</view>
+		
 		</view>
 		<view class="recharge_list">
 			<jx-list-cell :arrow="false" padding="0" :lineLeft="false" @click="href(4)">
@@ -242,8 +257,8 @@
 	.moreCreadit_header {
 		width: 100%;
 		height: 420rpx;
-		background: rgb(255, 113, 4);
-		border-radius: 0 0 35rpx 35rpx;
+		// background: rgb(255, 113, 4);
+		// border-radius: 0 0 35rpx 35rpx;
 		padding: 20rpx 20rpx 0 20rpx;
 	}
 
@@ -257,25 +272,28 @@
 	.text {
 		color: #fff;
 		font-size: 38rpx;
-		width: 95%;
-		border-bottom: 1rpx solid #fff;
-		margin: 10rpx auto 0;
+		width: 90%;
+		border: 1rpx solid rgb(112,170,214);
+		margin: 40rpx auto 0;
 		height: 80rpx;
 		line-height: 80rpx;
+		border-radius: 20rpx;
+		padding-left: 20rpx;
+		box-sizing: border-box;
 	}
 
 	.text input {
 		width: 100%;
 		height: 80rpx;
 		line-height: 80rpx;
-		font-size: 38rpx;
-		color: #fff;
+		font-size: 32rpx;
+		color: #000;
 	}
 
 	.moreCreadit_detail {
 		width: 90%;
 		overflow: hidden;
-		margin: -180rpx auto 0;
+		margin: -220rpx auto 0;
 		border-radius: 20rpx 20rpx 0 0;
 		background: url('https://dev.mingyuanriji.cn/web/static//Morecredit.png')no-repeat;
 		background-size: 100%;
@@ -310,8 +328,10 @@
 		width: 100%;
 		overflow: hidden;
 		display: flex;
-		justify-content: space-evenly;
+		justify-content: space-between;
 		flex-wrap: wrap;
+		padding: 0 20rpx;
+		box-sizing: border-box;
 	}
 
 	.moreCreadit_detail-num_list-item {
@@ -429,4 +449,7 @@
 		width: 25%;
 		text-align: center;
 	}
+	.notice{width: 100%;overflow: hidden;padding: 0 20rpx;box-sizing: border-box;margin: 20rpx 0;}
+	.notice-item{width: 100%;font-size: 26rpx;}
+	.notice-item view{margin: 5rpx 0;}
 </style>

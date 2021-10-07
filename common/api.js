@@ -433,6 +433,7 @@ let api = {
 		applyrefund:api_root +'plugin/hotel/api/user-center/order-refund-apply',
 		hotelPay:api_root +'plugin/hotel/api/order/integral-direct-pay',
 		getorderStatus:api_root +'plugin/hotel/api/order/query-status',
+		getpaywaite:api_root +'plugin/hotel/api/order/pay-prepare',
 	},
 	merchants:{
 		Fillbasic: api_root +'plugin/mch/api/apply/basic',

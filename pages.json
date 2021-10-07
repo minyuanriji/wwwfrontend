@@ -1782,6 +1782,16 @@
 
 				},
 				{
+					"path": "hotel/pay",
+					"style": {
+						"navigationBarTitleText": "订单支付",
+						"navigationStyle": "custom",
+						"app-plus": {
+							"titleNView": false
+						}
+					}
+				},
+				{
 					"path": "giftbag/giftList/giftList",
 					"style": {
 						"navigationBarTitleText": "活动列表",
