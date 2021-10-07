@@ -24,6 +24,7 @@
 					</view>
 				</view>
 			</view>		
+			<!--
 			<view class="content_body_block">
 				<view class="content_body_block_t">3、法人姓名</view>
 				<view class="content_body_block_desc">
@@ -54,6 +55,7 @@
 						</view>					
 				</view>
 			</view>		
+			-->
 		<!-- 	<view class="content_body_block">
 				<view class="content_body_block_t">6、银行卡号码</view>
 				<view class="content_body_block_desc">
