@@ -24,6 +24,7 @@
 					</view>
 				</view>
 			</view>		
+			<!--
 			<view class="content_body_block">
 				<view class="content_body_block_t">3、法人姓名</view>
 				<view class="content_body_block_desc">
@@ -54,6 +55,7 @@
 						</view>					
 				</view>
 			</view>		
+			-->
 		<!-- 	<view class="content_body_block">
 				<view class="content_body_block_t">6、银行卡号码</view>
 				<view class="content_body_block_desc">
@@ -179,10 +181,10 @@
 				if (isEmpty(this.params.license_name)) return this.alert('请填写企业名称')
 				// if (isEmpty(this.params.license_num)) return this.alert('请填写营业执照编号')
 				if (isEmpty(this.params.license_pic)) return this.alert('请上传营业执照图片')
-				if (isEmpty(this.params.cor_realname)) return this.alert('请填写法人姓名')
-				if (isEmpty(this.params.cor_num)) return this.alert('请填写身份证号码')
-				if (isEmpty(this.params.cor_pic1)) return this.alert('请上传法人身份证正面')
-				if (isEmpty(this.params.cor_pic2)) return this.alert('请上传法人身份证反面')
+				//if (isEmpty(this.params.cor_realname)) return this.alert('请填写法人姓名')
+				//if (isEmpty(this.params.cor_num)) return this.alert('请填写身份证号码')
+				//if (isEmpty(this.params.cor_pic1)) return this.alert('请上传法人身份证正面')
+				//if (isEmpty(this.params.cor_pic2)) return this.alert('请上传法人身份证反面')
 				if(this.status==0)return this.alert('请阅读协议后勾选')
 				var that = this
 				that.$http.request({
