@@ -183,19 +183,17 @@
 				this.typeIndex=index
 				if(item=='快充'){
 					this.list=this.moneyList.FastCharging
-					if (isEmpty(this.form.order_price)){
 						this.form.order_price=this.list[0].price
 						this.form.integral_deduction_price=this.list[0].redbag_num
 						this.redbag=this.list[0].redbag_num
-					}
+						this.form.product_id=10
 				}
 				if(item=='慢充'){
 					this.list=this.moneyList.SlowCharge
-					if (isEmpty(this.form.order_price)){
 						this.form.order_price=this.list[0].price
 						this.form.integral_deduction_price=this.list[0].redbag_num
 						this.redbag=this.list[0].redbag_num
-					}
+						this.form.product_id=86
 				}
 			},
 			select(item, index) { //选择充值金额
@@ -296,8 +294,6 @@
 					}
 				});
 			},
-			
-			
 			// 请求支付接口
 			confirmPay(){
 				let that=this
