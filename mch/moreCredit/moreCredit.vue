@@ -13,13 +13,14 @@
 				<view class="moreCreadit_detail-num_list">
 					<view :class="selectIndex==index?'active':'moreCreadit_detail-num_list-item'"
 						v-for="(item,index) in list" :key='index' @click="select(item,index)">
-						<view style="margin: 15rpx 0 10rpx 0;">
+						<!-- <view style="margin: 15rpx 0 10rpx 0;"> -->
+						<view style="margin: 45rpx 0 10rpx 0;">
 							<text style="color:rgb(255, 113, 4);font-size: 38rpx;font-weight: bold;">{{item.price}}</text>
 							<text style="color:rgb(255, 113, 4);font-size: 25rpx;">元</text>
 						</view>
-						<view style="font-size: 25rpx;color: #9E9E9E;">
+					<!-- 	<view style="font-size: 25rpx;color: #9E9E9E;">
 							送{{item.redbag_num}}购物券
-						</view>
+						</view> -->
 					</view>
 				</view>
 			</view>
@@ -109,7 +110,7 @@
 						style="height: 80rpx;width: 90%;margin: 0 auto;border-bottom: 1rpx solid #F8FAF9;">
 						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: left;">需支付现金</view>
 						<view class="jx-cell-title"
-							style="line-height: 80rpx;font-size: 30rpx;float: right;margin-right: 30rpx;color: rgb(255, 113, 4);">{{redbag}}现金</view>
+							style="line-height: 80rpx;font-size: 30rpx;float: right;margin-right: 30rpx;color: rgb(255, 113, 4);">{{form.order_price}}元</view>
 					</view>
 				</jx-list-cell>
 				<view class="sumbit" v-if="current==0">
@@ -117,7 +118,7 @@
 					<image :src="img_url+'/artice_logo.png'" mode="widthFix"></image>
 				</view>
 				<view class="sumbit" v-if="current==1">
-					<button type="default" @click="pays">立即支付</button>
+					<button type="default" @click="paysubnit">立即支付</button>
 					<image :src="img_url+'/artice_logo.png'" mode="widthFix"></image>
 				</view>
 			</view>
@@ -127,7 +128,15 @@
 
 <script>
 	import jxListCell from '@/components/list-cell/list-cell';
-	import {isEmpty} from '../../common/validate.js'
+	import {isEmpty} from '../../common/validate.js';
+	// #ifdef H5
+	var jweixin = require('jweixin-module');
+	// #endif
+	// #ifdef MP-WEIXIN || APP-PLUS
+	import {
+		setPay
+	} from '@/config/utils.js'
+	// #endif
 	export default {
 		components: {
 			jxListCell
@@ -155,6 +164,7 @@
 					integral_deduction_price:'',
 					plateform_id: 1,
 					product_id:10,
+					pay_type:2,//1  现金 2红包
 				},
 				creditStatusList:[],//充值记录
 				order_id:'',//订单ID
@@ -162,6 +172,7 @@
 				type:["快充","慢充"],
 				typeIndex:0,
 				moneyList:'',
+				payData:'',
 			};
 		},
 		onShow() {
@@ -216,6 +227,7 @@
 				})
 			},
 			sumbit() {//生成充值订单
+				this.form.pay_type=2
 				this.$http.request({ 
 					url: this.$api.morecredit.creditOrder,
 					method: 'POST',
@@ -251,20 +263,94 @@
 					}
 				});
 			},
-			pays(){
-				alert("现金支付")
+			paysubnit(){ //现金支付生成订单
+				this.form.pay_type=1
+				this.$http.request({
+					url: this.$api.morecredit.creditOrder,
+					method: 'POST',
+					data: this.form,
+					showLoading: true
+				}).then(res => {
+					if (res.code == 0) {
+						this.getpaypreiew(res.data.order_no)
+					} else {
+						this.$http.toast(res.msg);
+					}
+				});
+			},
+			getpaypreiew(order_no){//支付预处理
+				this.$http.request({
+					url: this.$api.morecredit.paypreiew,
+					method: 'POST',
+					data:{
+						order_no:order_no,
+					},
+					showLoading: true
+				}).then(res => {
+					if (res.code == 0) {
+						console.log(res)
+						this.payData = res.data;
+						this.confirmPay()
+					} else {
+						this.$http.toast(res.msg);
+					}
+				});
 			},
 			
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			// 请求支付接口
+			confirmPay(){
+				let that=this
+						// #ifdef H5
+								that.$http.request({
+									url: that.$api.moreShop.wechatpay,
+									showLoading: true,
+									method: 'post',
+									data: {
+										union_id: that.payData.union_id,
+										stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
+										wx_type:'wechat'//公众号：wechat  小程序：mp-wx
+									}
+								}).then(res=>{
+									if(res.code==0){
+											that.$wechatSdk.pay(res.data,'/mch/hotel/orderswaiting/orderswaiting?order_no='+this.order_no);
+									}else{
+										that.$http.toast(res.msg);	
+									}
+								})
+						// #endif
+						// #ifdef MP-WEIXIN || APP-PLUS
+								that.$http.request({
+									url: that.$api.moreShop.wechatpay,
+									showLoading: true,
+									method: 'post',
+									data: {
+										union_id: that.payData.union_id,
+										stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
+										wx_type:'mp-wx'//公众号：wechat  小程序：mp-wx
+									}
+								}).then(res=>{
+									if(res.code==0){
+										setPay(res.data, (result) => {
+											let _url = '/mch/hotel/orderswaiting/orderswaiting?order_no='+this.order_no
+											if (result.success) {
+												that.$http.toast("支付成功")
+											} else {
+												that.$http.toast("未支付")
+												_url = '/mch/hotel/orderList/orderList'
+											}
+												setTimeout(() => {
+													uni.redirectTo({
+														url: _url
+													})
+												},1000)														
+										});
+									}else{
+										that.$http.toast(res.msg);	
+									}
+								})
+						// #endif			
+			},			
 			creditStatus(){ //充值记录
 				this.$http.request({
 					url: this.$api.morecredit.creditStatus,
@@ -385,7 +471,7 @@
 		text-align: center;
 		height: 160rpx;
 		background: #F7F7FF;
-		margin: 30rpx 0 30rpx 0;
+		margin: 30rpx 5rpx;
 		box-sizing: border-box;
 	}
 
@@ -394,8 +480,8 @@
 		text-align: center;
 		height: 160rpx;
 		background: #F7F7FF;
-		margin: 30rpx 0 30rpx 0;
-		border: 3px dashed rgb(255, 113, 4);
+		margin: 30rpx 5rpx;
+		border: 4rpx dashed rgb(255, 113, 4);
 		box-sizing: border-box;
 	}
 
