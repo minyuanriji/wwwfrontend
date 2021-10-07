@@ -86,23 +86,7 @@
 						</view>
 					</view>
 				</jx-list-cell>
-				<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
-					<view class="jx-cell-header"
-						style="height: 80rpx;width: 90%;margin: 0 auto;border-bottom: 1rpx solid #F8FAF9;">
-						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: left;">需支付</view>
-						<view class="jx-cell-title"
-							style="line-height: 80rpx;font-size: 30rpx;float: right;margin-right: 30rpx;color: rgb(255, 113, 4);">{{redbag}}红包</view>
-					</view>
-				</jx-list-cell>
-				<jx-list-cell :arrow="true" padding="0" :lineLeft="false">
-					<view class="jx-cell-header"
-						style="height: 80rpx;width: 90%;margin: 0 auto;border-bottom: 1rpx solid #F8FAF9;">
-						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: left;">支付方式</view>
-						<view class="jx-cell-title"
-							style="line-height: 80rpx;font-size: 30rpx;float: right;margin-right: 30rpx;">红包支付</view>
-					</view>
-				</jx-list-cell>
-				<!-- <view class="pay-type">
+				<view class="pay-type">
 					<radio-group @change="radioChange">
 						<view class="lables" v-for="(item, index) in items" :key="item.value">
 							<view style="float: right;height: 60rpx;line-height: 60rpx;">
@@ -111,9 +95,29 @@
 							<view style="float: left;height: 60rpx;line-height: 60rpx;font-size: 30rpx;">{{item.name}}</view>
 						</view>
 					</radio-group>
-				</view> -->
-				<view class="sumbit">
+				</view>
+				<jx-list-cell :arrow="false" padding="0" :lineLeft="false" v-if="current==0">
+					<view class="jx-cell-header"
+						style="height: 80rpx;width: 90%;margin: 0 auto;border-bottom: 1rpx solid #F8FAF9;">
+						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: left;">需支付</view>
+						<view class="jx-cell-title"
+							style="line-height: 80rpx;font-size: 30rpx;float: right;margin-right: 30rpx;color: rgb(255, 113, 4);">{{redbag}}红包</view>
+					</view>
+				</jx-list-cell>
+				<jx-list-cell :arrow="false" padding="0" :lineLeft="false" v-if="current==1">
+					<view class="jx-cell-header"
+						style="height: 80rpx;width: 90%;margin: 0 auto;border-bottom: 1rpx solid #F8FAF9;">
+						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: left;">需支付现金</view>
+						<view class="jx-cell-title"
+							style="line-height: 80rpx;font-size: 30rpx;float: right;margin-right: 30rpx;color: rgb(255, 113, 4);">{{redbag}}现金</view>
+					</view>
+				</jx-list-cell>
+				<view class="sumbit" v-if="current==0">
 					<button type="default" @click="sumbit">立即支付</button>
+					<image :src="img_url+'/artice_logo.png'" mode="widthFix"></image>
+				</view>
+				<view class="sumbit" v-if="current==1">
+					<button type="default" @click="pays">立即支付</button>
 					<image :src="img_url+'/artice_logo.png'" mode="widthFix"></image>
 				</view>
 			</view>
@@ -134,10 +138,16 @@
 				selectIndex: 0,
 				list: [],
 				popupShow: false,
-				items: [{
+				items: [
+					{
 					value: '红包支付',
 					name: '红包支付'
-				}, ],
+					}, 
+					{
+					value: '现金支付',
+					name: '现金支付'
+					}, 
+				],
 				current: 0,
 				form: {
 					mobile: '',
@@ -241,6 +251,20 @@
 					}
 				});
 			},
+			pays(){
+				alert("现金支付")
+			},
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			creditStatus(){ //充值记录
 				this.$http.request({
 					url: this.$api.morecredit.creditStatus,
