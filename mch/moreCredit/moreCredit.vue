@@ -2,7 +2,7 @@
 	<view class="moreCreadit-app">
 		<view class="moreCreadit_header">
 			<view class="text">
-				<input type="number" v-model.trim="form.mobile" placeholder="请输入电话号码"/>
+				<input type="number" v-model.trim ="form.mobile" placeholder="请输入电话号码"/>
 			</view>
 		</view>
 		<view class="moreCreadit_detail">
