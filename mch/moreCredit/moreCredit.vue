@@ -1,9 +1,6 @@
 <template>
 	<view class="moreCreadit-app">
 		<view class="moreCreadit_header">
-			<!-- <view class="title">
-				充值中心
-			</view> -->
 			<view class="text">
 				<input type="number" v-model="form.mobile" placeholder="请输入电话号码"/>
 			</view>
@@ -11,7 +8,7 @@
 		<view class="moreCreadit_detail">
 			<view class="moreCreadit_detail-num">
 				<view class="moreCreadit_detail-num_title">
-					<text>充话费</text>
+					<text v-for="(item,index) in type" :key='index' :class="typeIndex==index?'typeActive':''" @click="typeSelect(index,item)">{{item}}</text>
 				</view>
 				<view class="moreCreadit_detail-num_list">
 					<view :class="selectIndex==index?'active':'moreCreadit_detail-num_list-item'"
@@ -20,8 +17,8 @@
 							<text style="color:rgb(255, 113, 4);font-size: 38rpx;font-weight: bold;">{{item.price}}</text>
 							<text style="color:rgb(255, 113, 4);font-size: 25rpx;">元</text>
 						</view>
-						<view style="font-size: 26rpx;color: #9E9E9E;">
-							红包{{item.redbag_num}}
+						<view style="font-size: 25rpx;color: #9E9E9E;">
+							送{{item.redbag_num}}购物券
 						</view>
 					</view>
 				</view>
@@ -34,13 +31,10 @@
 			<text style="display: block;width: 100%;height: 60rpx;line-height: 60rpx;font-size: 28rpx;color: #000;font-weight: bold;">温馨提示</text>
 			<view class="notice-item">
 				<view>
-					1：慢充<text>72小时内</text>到账，分多批到账
+					1：充值前请核对充值号码
 				</view>
 				<view>
-					2：充值前请核对充值号码
-				</view>
-				<view>
-					3：如对本次充值相关内容有疑问,请联系客服
+					2：如对本次充值相关内容有疑问,请联系客服
 				</view>
 			</view>
 		
@@ -152,12 +146,34 @@
 				creditStatusList:[],//充值记录
 				order_id:'',//订单ID
 				redbag:'',//红包
+				type:["快充","慢充"],
+				typeIndex:0,
+				moneyList:'',
 			};
 		},
 		onShow() {
 			this.creditStatus()
 		},
 		methods: {
+			typeSelect(index,item){//选择快充还是慢充
+				this.typeIndex=index
+				if(item=='快充'){
+					this.list=this.moneyList.FastCharging
+					if (isEmpty(this.form.order_price)){
+						this.form.order_price=this.list[0].price
+						this.form.integral_deduction_price=this.list[0].redbag_num
+						this.redbag=this.list[0].redbag_num
+					}
+				}
+				if(item=='慢充'){
+					this.list=this.moneyList.SlowCharge
+					if (isEmpty(this.form.order_price)){
+						this.form.order_price=this.list[0].price
+						this.form.integral_deduction_price=this.list[0].redbag_num
+						this.redbag=this.list[0].redbag_num
+					}
+				}
+			},
 			select(item, index) { //选择充值金额
 				this.selectIndex = index
 				this.form.order_price = item.price
@@ -233,7 +249,8 @@
 				}).then(res => {
 					if (res.code == 0) {
 						this.creditStatusList=res.data
-						this.list=res.money_list
+						this.moneyList=res.money_list
+						this.list=this.moneyList.FastCharging
 						if (isEmpty(this.form.order_price)){
 							this.form.order_price=this.list[0].price
 							this.form.integral_deduction_price=this.list[0].redbag_num
@@ -286,6 +303,7 @@
 		width: 100%;
 		height: 80rpx;
 		line-height: 80rpx;
+		line-height: 80rpx;
 		font-size: 32rpx;
 		color: #000;
 	}
@@ -311,19 +329,20 @@
 		height: 60rpx;
 		line-height: 60rpx;
 		padding: 0 20rpx;
+		display: flex;justify-content: space-evenly;
+		margin-bottom: 5rpx;
 	}
 
 	.moreCreadit_detail-num_title text {
 		display: block;
 		width: 120rpx;
 		height: 60rpx;
-		border-bottom: 1rpx solid rgb(255, 113, 4);
 		text-align: center;
 		color: #272727;
 		font-size: 30rpx;
 		font-weight: bold;
 	}
-
+	.typeActive{ border-bottom: 4rpx solid rgb(255, 113, 4);}
 	.moreCreadit_detail-num_list {
 		width: 100%;
 		overflow: hidden;
