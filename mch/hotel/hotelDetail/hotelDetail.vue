@@ -284,29 +284,32 @@
 					url:'../selectRoom/selectRoom?id='+this.hotelMessage.id
 				})
 			},
-			payAgain(order_no){//用红包支付 hotelPay
-				this.$http
-					.request({
-						url: this.$api.hotel.hotelPay,
-						method: 'POST',
-						data:{
-							order_no:order_no,
-						},
-						showLoading: true
-					})
-					.then(res => {
-						if(res.code==0){							
-							this.$refs.popup.open()
-							setTimeout(()=>{
-								this.$refs.popup.close()
-								uni.navigateTo({
-									url:'../hotelList/hotelList'
-								})
-							},2000)	
-						}else{
-							this.$http.toast(res.msg);
-						}
-				});
+			payAgain(order_no){//再次支付
+				uni.navigateTo({
+					url:'../pay?order_no='+res.data.order_no
+				})
+				// this.$http
+				// 	.request({
+				// 		url: this.$api.hotel.hotelPay,
+				// 		method: 'POST',
+				// 		data:{
+				// 			order_no:order_no,
+				// 		},
+				// 		showLoading: true
+				// 	})
+				// 	.then(res => {
+				// 		if(res.code==0){							
+				// 			this.$refs.popup.open()
+				// 			setTimeout(()=>{
+				// 				this.$refs.popup.close()
+				// 				uni.navigateTo({
+				// 					url:'../hotelList/hotelList'
+				// 				})
+				// 			},2000)	
+				// 		}else{
+				// 			this.$http.toast(res.msg);
+				// 		}
+				// });
 			}
 		},
 		onUnload() {
