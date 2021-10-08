@@ -211,7 +211,7 @@
 						this.form.order_price=this.list[0].price
 						this.form.integral_deduction_price=this.list[0].redbag_num
 						this.redbag=this.list[0].redbag_num
-						this.form.product_id=10
+						this.form.product_id=123
 				}
 				if(item=='慢充'){
 					this.selectIndex=0
@@ -221,6 +221,7 @@
 						this.redbag=this.list[0].redbag_num
 						this.form.product_id=86
 				}
+				console.log(this.form)
 			},
 			select(item, index) { //选择充值金额
 				this.selectIndex = index
