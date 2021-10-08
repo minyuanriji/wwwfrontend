@@ -1890,7 +1890,8 @@
 						"navigationBarBackgroundColor": "#ff7104"
 					}
 
-				}, {
+				}, 
+				{
 					"path": "moreCredit/creditResults",
 					"style": {
 						"navigationBarTitleText": "",
@@ -1901,6 +1902,17 @@
 					}
 
 				},
+				{
+					"path": "moreCredit/rechargeList",
+					"style": {
+						"navigationBarTitleText": "充值记录",
+						"enablePullDownRefresh": false,
+						"navigationBarTextStyle": "black",
+						"navigationBarBackgroundColor": "#ffffff"
+					}
+				
+				},
+				
 				{
 					"path": "group-buy/list",
 					"style": {

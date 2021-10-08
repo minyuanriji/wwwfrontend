@@ -53,9 +53,12 @@
 		</view>
 		
 		<view class="recharge_list">
-			<jx-list-cell :arrow="false" padding="0" :lineLeft="false" @click="href(4)">
+			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href">
 				<view class="jx-cell-header" style="height: 80rpx;margin: 10rpx 0;">
-					<view class="jx-cell-title" style="font-weight: 700;line-height: 80rpx;font-size: 28rpx;padding-left: 20rpx;">充值记录</view>
+					<view class="jx-cell-title" style="font-weight: 700;line-height: 80rpx;font-size: 28rpx;padding-left: 20rpx;">最近10条充值记录</view>
+				</view>
+				<view class="jx-cell-header" style="height: 80rpx;margin: 10rpx 0;">
+					<view class="jx-cell-title" style="font-weight: 700;line-height: 80rpx;font-size: 28rpx;padding-left: 20rpx;margin-left: 350rpx;color: gray;">全部</view>
 				</view>
 			</jx-list-cell>
 			<view class="recharge_list-title">
@@ -75,7 +78,7 @@
 				<text v-if="item.pay_status=='refunding'" style="color: red;">退款中...</text>
 				<text v-if="item.pay_status=='refund'" style="color: gray;">已退款</text>
 			</view>
-		</view>		
+		</view>	
 		<com-bottom-popup :show="popupShow" @close="hidePopup">
 			<view class="recharge_detail">
 				<view class="recharge_money">
@@ -203,6 +206,7 @@
 			typeSelect(index,item){//选择快充还是慢充
 				this.typeIndex=index
 				if(item=='快充'){
+					this.selectIndex=0
 					this.list=this.moneyList.FastCharging
 						this.form.order_price=this.list[0].price
 						this.form.integral_deduction_price=this.list[0].redbag_num
@@ -210,6 +214,7 @@
 						this.form.product_id=10
 				}
 				if(item=='慢充'){
+					this.selectIndex=0
 					this.list=this.moneyList.SlowCharge
 						this.form.order_price=this.list[0].price
 						this.form.integral_deduction_price=this.list[0].redbag_num
@@ -390,7 +395,12 @@
 						this.$http.toast(res.msg);
 					}
 				});
-			}
+			},
+			// href(){
+			// 	uni.navigateTo({
+			// 		url:'./rechargeList'
+			// 	})
+			// }
 		}
 	}
 </script>
@@ -469,7 +479,7 @@
 		height: 60rpx;
 		text-align: center;
 		color: #272727;
-		font-size: 30rpx;
+		font-size: 35rpx;
 		font-weight: bold;
 	}
 	.typeActive{ border-bottom: 4rpx solid rgb(255, 113, 4);}
@@ -509,7 +519,7 @@
 	.recharge {
 		width: 100%;
 		height: 80rpx;
-		margin: 80rpx auto 0;
+		margin: 50rpx auto 0;
 	}
 
 	.recharge button {
