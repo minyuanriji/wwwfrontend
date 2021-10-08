@@ -73,8 +73,7 @@
 				<text v-if="item.pay_status=='refunding'" style="color: red;">退款中</text>
 				<text v-if="item.pay_status=='refund'" style="color: gray;">已退款</text>
 			</view>
-		</view>
-		
+		</view>		
 		<com-bottom-popup :show="popupShow" @close="hidePopup">
 			<view class="recharge_detail">
 				<view class="recharge_money">
