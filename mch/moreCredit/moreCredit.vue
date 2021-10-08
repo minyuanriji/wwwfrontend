@@ -68,9 +68,11 @@
 				<text style="color: #000;">{{item.mobile}}</text>
 				<text>{{item.order_price}}</text>
 				<text>{{item.created_at}}</text>
-				<text v-if="item.pay_status=='paid'" style="color: green;">已付款</text>
-				<text v-if="item.pay_status=='unpaid'" style="color: gray;">未支付</text>
-				<text v-if="item.pay_status=='refunding'" style="color: red;">退款中</text>
+				<text v-if="item.pay_status=='paid'&&item.order_status=='success'" style="color: green;">充值成功</text>
+				<text v-if="item.pay_status=='paid'&&item.order_status=='processing'" style="color: red;">充值中...</text>
+				<text v-if="item.pay_status=='paid'&&item.order_status=='fail'" style="color: gray;">充值失败</text>
+				<text v-if="item.pay_status=='unpaid'" style="color: gray;">未支付</text>			
+				<text v-if="item.pay_status=='refunding'" style="color: red;">退款中...</text>
 				<text v-if="item.pay_status=='refund'" style="color: gray;">已退款</text>
 			</view>
 		</view>		
