@@ -13,8 +13,7 @@
 				<view class="moreCreadit_detail-num_list">
 					<view :class="selectIndex==index?'active':'moreCreadit_detail-num_list-item'"
 						v-for="(item,index) in list" :key='index' @click="select(item,index)">
-						<!-- <view style="margin: 15rpx 0 10rpx 0;"> -->
-						<view style="margin: 45rpx 0 10rpx 0;">
+						<view style="margin: 15rpx 0 10rpx 0;">
 							<text style="color:rgb(255, 113, 4);font-size: 38rpx;font-weight: bold;">{{item.price}}</text>
 							<text style="color:rgb(255, 113, 4);font-size: 25rpx;">元</text>
 						</view>
