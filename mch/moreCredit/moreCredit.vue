@@ -179,7 +179,7 @@
 					order_price: '',
 					integral_deduction_price:'',
 					plateform_id: 1,
-					product_id:10,
+					product_id:123,
 					pay_type:2,//1  现金 2红包
 				},
 				creditStatusList:[],//充值记录
