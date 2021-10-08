@@ -18,9 +18,9 @@
 							<text style="color:rgb(255, 113, 4);font-size: 38rpx;font-weight: bold;">{{item.price}}</text>
 							<text style="color:rgb(255, 113, 4);font-size: 25rpx;">元</text>
 						</view>
-					<!-- 	<view style="font-size: 25rpx;color: #9E9E9E;">
-							送{{item.redbag_num}}购物券
-						</view> -->
+						<view style="font-size: 25rpx;color: #9E9E9E;">
+							送{{getSendNum(item.price)}}购物券
+						</view>
 					</view>
 				</view>
 			</view>
@@ -30,19 +30,29 @@
 		</view>
 		<view class="notice">
 			<text style="display: block;width: 100%;height: 60rpx;line-height: 60rpx;font-size: 28rpx;color: #000;font-weight: bold;">温馨提示</text>
-			<view class="notice-item">
+			<view class="notice-item" >
 				<view>
 					1：充值前请核对充值号码
 				</view>
-				<view>
+				<view v-if="typeIndex==0">
 					2：充值后1-30分钟内到账，月初稍慢一些
 				</view>
+				<view v-if="typeIndex==1">
+					2：充值72小时内到账，月初稍慢一些
+				</view>
+				<view v-if="typeIndex==0">
+					3：快充赠送充值金额30%购物券
+				</view>
+				<view v-if="typeIndex==1">
+					3：新用户第一次充值送100%购物券，每个用户第一次送购物券上限100，超过上限部分赠送订单金额50%购物券
+				</view>
 				<view>
-					3：如对本次充值相关内容有疑问,请联系客服
+					4：如对本次充值相关内容有疑问,请联系客服
 				</view>
 			</view>
 		
 		</view>
+		
 		<view class="recharge_list">
 			<jx-list-cell :arrow="false" padding="0" :lineLeft="false" @click="href(4)">
 				<view class="jx-cell-header" style="height: 80rpx;margin: 10rpx 0;">
@@ -59,10 +69,13 @@
 				<text style="color: #000;">{{item.mobile}}</text>
 				<text>{{item.order_price}}</text>
 				<text>{{item.created_at}}</text>
-				<text v-if="item.status=='充值成功'" style="color: green;">{{item.status}}</text>
-				<text  style="color: red;" v-if="item.status!='充值成功'">{{item.status}}</text>
+				<text v-if="item.pay_status=='paid'" style="color: green;">已付款</text>
+				<text v-if="item.pay_status=='unpaid'" style="color: gray;">未支付</text>
+				<text v-if="item.pay_status=='refunding'" style="color: red;">退款中</text>
+				<text v-if="item.pay_status=='refund'" style="color: gray;">已退款</text>
 			</view>
 		</view>
+		
 		<com-bottom-popup :show="popupShow" @close="hidePopup">
 			<view class="recharge_detail">
 				<view class="recharge_money">
@@ -175,10 +188,18 @@
 				payData:'',
 			};
 		},
-		onShow() {
+		onShow() { 
 			this.creditStatus()
 		},
 		methods: {
+			getSendNum(val){
+				if(this.typeIndex == 0){
+					val = val * (3/10);
+				}else{
+					val = val <= 100 ? val : 100;
+				}
+				return val.toFixed(0);
+			},
 			typeSelect(index,item){//选择快充还是慢充
 				this.typeIndex=index
 				if(item=='快充'){

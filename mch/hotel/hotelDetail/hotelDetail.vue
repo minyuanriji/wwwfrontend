@@ -2,7 +2,7 @@
 	<view class="hotel-detail-app">
 		<view class="hotel-detai-header">
 			<text>{{orderMessage.status_text}}</text>
-			<text>房间将为您整晚保留，请安心入住</text>
+			<text v-if="orderMessage.real_status == 'confirmed'">房间将为您整晚保留，请安心入住</text>
 		</view>
 		<view class="hotel-detai-setAgain">
 			<text v-if="action.is_payable==1" @click="payAgain(orderMessage.order_no)">去支付</text>
@@ -207,14 +207,13 @@
 				           			hotel_order_id:id
 				           		},
 				           		showLoading: true
-				           	})
-				           	.then(result => {
+				           	}).then(result => {
 				           		if(result.code==0){
-				           			that.$http.toast('退款成功');
-				           			that.orderMessage.status_text='已退款'
-				           			that.is_refundable=0
+									that.$http.toast("申请退款成功！");
+									that.getOrderDetail(that.hotel_order_id);
+									that.isrefund(that.hotel_order_id);
 				           		}else{
-				           			that.$http.toast(res.msg);
+				           			that.$http.toast(result.msg);
 				           		}
 				           });
 				        } else if (res.cancel) {
