@@ -1,6 +1,12 @@
-<!-- <template>
+<template>
 	<view class="recharge_list">
 		<view class="header">
+			<view class="pick-time">
+				<picker mode="date" :value="date"  @change="bindDateChange" fields='day'>
+				    <view class="uni-input">{{date}}</view>
+				 </picker>
+				 <image :src="img_url+'/upstrong.png'" mode=""></image>
+			</view>
 			<view class="recharge_list-title">
 				<text>手机号</text>
 				<text>充值金额</text>
@@ -8,16 +14,18 @@
 				<text>充值状态</text>
 			</view>
 		</view>
-		<view class="recharge-item" v-for="(item,index) in creditStatusList" :key='index'>
-			<text style="color: #000;">{{item.mobile}}</text>
-			<text>{{item.order_price}}</text>
-			<text>{{item.created_at}}</text>
-			<text v-if="item.pay_status=='paid'&&item.order_status=='success'" style="color: green;">充值成功</text>
-			<text v-if="item.pay_status=='paid'&&item.order_status=='processing'" style="color: red;">充值中...</text>
-			<text v-if="item.pay_status=='paid'&&item.order_status=='fail'" style="color: gray;">充值失败</text>
-			<text v-if="item.pay_status=='unpaid'" style="color: gray;">未支付</text>			
-			<text v-if="item.pay_status=='refunding'" style="color: red;">退款中...</text>
-			<text v-if="item.pay_status=='refund'" style="color: gray;">已退款</text>
+		<view class="recharge-list">
+			<view class="recharge-item" v-for="(item,index) in creditStatusList" :key='index'>
+				<text style="color: #000;">{{item.mobile}}</text>
+				<text>{{item.order_price}}</text>
+				<text>{{item.created_at}}</text>
+				<text v-if="item.pay_status=='paid'&&item.order_status=='success'" style="color: green;">充值成功</text>
+				<text v-if="item.pay_status=='paid'&&item.order_status=='processing'" style="color: red;">充值中...</text>
+				<text v-if="item.pay_status=='paid'&&item.order_status=='fail'" style="color: gray;">充值失败</text>
+				<text v-if="item.pay_status=='unpaid'" style="color: gray;">未支付</text>			
+				<text v-if="item.pay_status=='refunding'" style="color: red;">退款中...</text>
+				<text v-if="item.pay_status=='refund'" style="color: gray;">已退款</text>
+			</view>
 		</view>
 	</view>	
 </template>
@@ -26,9 +34,12 @@
 	export default {
 		data() {
 			return{
-				creditStatusList:'',
+				img_url: this.$api.img_url,
+				creditStatusList:[],
 				page_count:'',
-				page:'',
+				page:1,
+				date:'全部',
+				recharge_time:'',
 			}
 		},
 		onLoad() {
@@ -40,7 +51,9 @@
 					url: this.$api.morecredit.creditStatus,
 					method: 'get',
 					data: {
-						plateforms_id:1
+						plateforms_id:1,
+						page:this.page,
+						recharge_time:this.recharge_time,
 					},
 					showLoading: true
 				}).then(res => {
@@ -49,12 +62,21 @@
 						let list= res.data;
 						var arr=this.creditStatusList.concat(list)
 						this.creditStatusList =arr
-						this.page_count= res.data.pagination.page_count;
+						this.page_count= res.pagination.page_count;
 					} else {
 						this.$http.toast(res.msg);
 					}
 				});
 			},
+			bindDateChange: function(e) { //点击选择年月
+				let time=e.target.value	
+				this.recharge_time=time
+			    this.date = time.split('-')[0]+'年'+time.split('-')[1]+'月'+time.split('-')[2]+'日'
+				this.creditStatusList=[];
+				this.page_count='';
+				this.page=1;
+				this.rechagelist()
+			},	
 		},
 		onReachBottom() {
 			if(this.page==this.page_count){
@@ -83,6 +105,14 @@
 	/* #endif */	
 		left: 0;
 	}
+	.pick-time{
+		width: 100%;
+		height: 80rpx;
+		line-height: 80rpx;
+		padding:0 20rpx;
+		box-sizing: border-box;
+	}
+	.pick-time image{display: block;width: 36rpx;height: 36rpx;position: absolute;top: 20rpx;left: 280rpx;}
 	.recharge_list-title{
 		display: flex;
 		justify-content: space-evenly;
@@ -94,6 +124,11 @@
 		width: 25%;
 		text-align: center;
 		color: #ff7104;
+	}
+	.recharge-list{
+		width: 100%;
+		overflow: hidden;
+		margin-top: 100rpx;
 	}
 	.recharge-item{
 		display: flex;
@@ -107,4 +142,3 @@
 		text-align: center;
 	}
 </style>
- -->

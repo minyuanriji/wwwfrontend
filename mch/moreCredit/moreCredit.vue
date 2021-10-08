@@ -179,7 +179,7 @@
 					order_price: '',
 					integral_deduction_price:'',
 					plateform_id: 1,
-					product_id:123,
+					product_id:"",
 					pay_type:2,//1  现金 2红包
 				},
 				creditStatusList:[],//充值记录
@@ -211,7 +211,8 @@
 						this.form.order_price=this.list[0].price
 						this.form.integral_deduction_price=this.list[0].redbag_num
 						this.redbag=this.list[0].redbag_num
-						this.form.product_id=123
+						// this.form.product_id=123
+						this.form.product_id=this.list[0].product_id
 				}
 				if(item=='慢充'){
 					this.selectIndex=0
@@ -219,7 +220,8 @@
 						this.form.order_price=this.list[0].price
 						this.form.integral_deduction_price=this.list[0].redbag_num
 						this.redbag=this.list[0].redbag_num
-						this.form.product_id=86
+						// this.form.product_id=86
+						this.form.product_id=this.list[0].product_id
 				}
 				console.log(this.form)
 			},
@@ -229,6 +231,7 @@
 				this.form.product_id=item.product_id
 				this.form.integral_deduction_price = item.redbag_num
 				this.redbag=item.redbag_num
+				console.log(this.form)
 			},
 			checkrecharge() { //打开弹窗
 				if (isEmpty(this.form.mobile)) return this.alert('请填写充值的号码')
@@ -390,18 +393,20 @@
 						if (isEmpty(this.form.order_price)){
 							this.form.order_price=this.list[0].price
 							this.form.integral_deduction_price=this.list[0].redbag_num
+							this.form.product_id=this.list[0].product_id
 							this.redbag=this.list[0].redbag_num
 						}
+						console.log(this.form)
 					} else {
 						this.$http.toast(res.msg);
 					}
 				});
 			},
-			// href(){
-			// 	uni.navigateTo({
-			// 		url:'./rechargeList'
-			// 	})
-			// }
+			href(){
+				uni.navigateTo({
+					url:'./rechargeList'
+				})
+			}
 		}
 	}
 </script>
