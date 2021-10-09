@@ -434,6 +434,10 @@ let api = {
 		hotelPay:api_root +'plugin/hotel/api/order/integral-direct-pay',
 		getorderStatus:api_root +'plugin/hotel/api/order/query-status',
 		getpaywaite:api_root +'plugin/hotel/api/order/pay-prepare',
+		
+		
+		getcity:api_root +'plugin/hotel/api/hotel/hotel-info',
+		
 	},
 	merchants:{
 		Fillbasic: api_root +'plugin/mch/api/apply/basic',
