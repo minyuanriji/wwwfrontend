@@ -21,7 +21,7 @@
 					<view style="width: 30%;text-align: left;font-size: 28rpx;color: #000;" @tap="chooseAddress">
 						 <image :src="img_url+'location-my-new.png'" mode="" ></image>     我的位置
 					</view>
-				</view>
+				</view>  
 				<view class="hotel-select-date" @click="timeShow=true">
 					<view style="width: 35%;height: 120rpx;">
 						<view style="text-align: center;line-height: 60rpx;font-size: 30rpx;">入住时间</view>
