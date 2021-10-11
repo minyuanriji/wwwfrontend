@@ -148,6 +148,7 @@
 				};
 				var that = this;
 				this.form.keyword=this.key
+				uni.setStorageSync('searchtext',this.key)
 				that.$http
 					.request({
 						url: this.$api.hotel.searchhotel,

@@ -43,8 +43,10 @@
 					</view>
 				</view>
 				<view class="hotel-select-name" @click="hotelsearch">
-					{{hotelName}}	
+					{{hotelName}}
 					<image :src="img_url+'arrow-right-seracher.png'" mode=""></image>
+					<image :src="img_url+'delete_error.png'" mode="" style="width: 30rpx;height: 30rpx;float: right;display: block;margin-top: 32rpx;margin-right: 60rpx;" @click.stop="deletesearch"  
+					v-if="form.keyword.length>0"></image>
 				</view>
 				<view class="hotel-query">
 					<button type="default" @click="checkHotel">查询酒店</button>
@@ -114,13 +116,20 @@
 					days:"",
 					lng:'',
 					lat:'',
+					keyword:'',
 				},
 				citymessage:'',//城市信息			
 			};
 		},
 		onLoad() {
 			this.getTime()
-			this.getmyLOcation()
+			this.getmyLOcation() 
+		},
+		onShow() {
+			if(uni.getStorageSync('searchtext')){
+				this.hotelName=uni.getStorageSync('searchtext')
+				this.form.keyword=uni.getStorageSync('searchtext')
+			}
 		},
 		methods:{
 			changeType(index){ //房间类型
@@ -130,6 +139,11 @@
 			},
 			setCITY(){ //选择城市
 				this.show=true
+			},
+			deletesearch(){
+				uni.removeStorageSync('searchtext');
+				this.form.keyword='';
+				this.hotelName='酒店名称';
 			},
 			back_city(e) {  //获取城市
 				if (e !== 'no') { 
@@ -336,13 +350,25 @@
 						uni.setStorageSync('timeStaus',this.timeStaus)
 						if(res.code==0){
 							if(res.data.history==1){
-								uni.navigateTo({
-									url:'../searchList/searchList?search_id='+res.data.search_id+"&region="+this.region+"&city_id="+this.form.city_id
-								})
+								if(uni.getStorageSync('searchtext')){
+									uni.navigateTo({
+										url:'../searchList/searchList?search_id='+res.data.search_id+"&region="+this.region+"&city_id="+this.form.city_id+"&searchKey="+uni.getStorageSync('searchtext')
+									})
+								}else{
+									uni.navigateTo({
+										url:'../searchList/searchList?search_id='+res.data.search_id+"&region="+this.region+"&city_id="+this.form.city_id
+									})
+								}
 							}else if(res.data.history==0){
-								uni.navigateTo({
-									url:'../searchList/searchList?prepare_id='+res.data.prepare_id+"&region="+this.region+"&city_id="+this.form.city_id
-								})
+								if(uni.getStorageSync('searchtext')){
+									uni.navigateTo({
+										url:'../searchList/searchList?prepare_id='+res.data.prepare_id+"&region="+this.region+"&city_id="+this.form.city_id+"&searchKey="+uni.getStorageSync('searchtext')
+									})
+								}else{
+									uni.navigateTo({
+										url:'../searchList/searchList?prepare_id='+res.data.prepare_id+"&region="+this.region+"&city_id="+this.form.city_id
+									})
+								}
 							}
 						}else{
 							this.$http.toast(res.msg);
