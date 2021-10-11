@@ -111,7 +111,7 @@
 		max-height: 650rpx!important;
 		/* #endif */
 		/* #ifdef  MP  */
-		height: 400rpx!important;
+		height: 350rpx!important;
 		/* #endif */
 		border: 0;
 		margin: 0;
@@ -177,7 +177,7 @@
 		position: absolute;
 		//bottom: 0;
 		// swiper[max-weidth:420rpx]
-		top: 280rpx;
+		top: 250rpx;
 		/* #ifndef APP-NVUE || APP-PLUS-NVUE */
 		display: flex;
 		/* #endif */

@@ -494,12 +494,12 @@
 <style lang="less" scoped>
 	.searchList-app{width: 100%;overflow: hidden;position: relative;}
 	/* #ifdef H5 */
-	.searchList-app-top{width: 100%;overflow: hidden;position: fixed;left: 0;top: 88rpx;z-index: 9999;background: #fff;}
+	.searchList-app-top{width: 100%;overflow: hidden;position: fixed;left: 0;top: 78rpx;z-index: 9999;background: #fff;}
 	/* #endif */
 	/* #ifdef  MP  */
 		.searchList-app-top{width: 100%;overflow: hidden;position: fixed;left: 0;top: 0rpx;z-index: 9999;background: #fff;}
 	/* #endif */
-	.searchList-app-header{width: 95%;height: 100rpx;background: rgb(242,245,249);margin: 0 auto;border-radius: 55rpx;display: flex;justify-content: space-evenly;}
+	.searchList-app-header{width: 95%;height: 100rpx;background: rgb(242,245,249);margin: 15rpx auto 0;border-radius: 55rpx;display: flex;justify-content: space-evenly;}
 	.searchList-app-header-city{width: 18%;line-height: 100rpx;text-align: left;padding-left: 10rpx;font-size: 26rpx;}
 	.searchList-app-header-time{width: 40%;height: 80%;margin-top: 1.5%;display: flex;justify-content: space-between;font-size: 24rpx;
 	border-left: 1rpx solid rgb(218,224,230);padding: 0 10rpx;border-right: 1rpx solid rgb(218,224,230);box-sizing: border-box;}
@@ -508,7 +508,7 @@
 	.searchList-app-sorting{width: 100%;height: 100rpx;border-bottom: 1rpx solid rgb(242,245,249);display: flex;justify-content: space-between;}
 	.searchList-app-sorting view{width: 50%;text-align: center;line-height: 100rpx;font-size: 28rpx;position: relative;}
 	.searchList-app-sorting view image{width: 35rpx;height: 35rpx;display: block;position: absolute;top: 35rpx;right: 60rpx;}
-	.searchList-app-sort{width: 100%;overflow: hidden;background: #fff;margin-top: 200rpx;}
+	.searchList-app-sort{width: 100%;overflow: hidden;background: #fff;margin-top: 215rpx;}
 	.searchList-app-sort view{width: 100%;height: 100rpx;text-align: center;font-size: 30rpx;line-height: 100rpx;border-bottom: 1rpx solid rgb(242,245,249);}
 	.searchList-app-sort view:nth-of-type(3){border: none!important;}
 	.left-box{width: 30%;position: fixed;left: 0;z-index: 10;background: rgb(242,245,249);height: 600rpx;}

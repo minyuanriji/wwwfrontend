@@ -2,7 +2,7 @@
 	<view class="hotel-home">
 		<view class="swiper">
 			<FatFatMeng-Swiper
-			:swiperStyleClass="{'height':'400rpx','background-color':'rgba(0, 0, 0, .2)'}"
+			:swiperStyleClass="{'height':'350rpx','background-color':'rgba(0, 0, 0, .2)'}"
 			:SwiperImglist="citymessage.banner"
 			>
 			</FatFatMeng-Swiper>
@@ -356,7 +356,7 @@
 <style lang="less">
 	.hotel-home {width: 100%;overflow: hidden;}
 	.swiper{width: 100%;overflow: hidden;}
-	.hote-message{width: 100%;overflow: hidden;position: absolute;top: 330rpx;left: 0;z-index: 99;}
+	.hote-message{width: 100%;overflow: hidden;position: absolute;top: 300rpx;left: 0;z-index: 99;}
 	.hotel-Fill{width: 90%;overflow: hidden;background: #fff;margin: 0 auto 20rpx;border-radius: 30rpx;box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.4);}
 	.hotel-type{width: 100%;overflow: hidden;display: flex;justify-content: space-between;}
 	.hotel-type view{width: 50%;height: 80rpx;text-align: center;line-height: 80rpx;}
