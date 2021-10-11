@@ -63,19 +63,19 @@
 </template>
 
 <script>
-	import Citys from '../city.js'
+	// import Citys from '../city.js'
 	export default {
 		components: {},
 		props: {},
 
 		computed: {
-			hotCity() {
-				return Citys.hotCity;
-			},
+			// hotCity() {
+			// 	return Citys.hotCity;
+			// },
 
-			citys() {
-				return Citys.cities;
-			}
+			// citys() {
+			// 	return Citys.cities;
+			// }
 		},
 
 		data() {
@@ -103,6 +103,7 @@
 		created() {
 			//获取存储的最近访问
 			var that = this
+			that.getcity()
 			uni.getStorage({
 				key: 'Visit_key',
 				success: function(res) {
@@ -112,31 +113,66 @@
 			//获取定位 经度纬度
 			that.getWarpweft()
 			//获取city.js 的程序字母
-			var mu = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'w', 'x', 'y',
-				'z'
-			];
-			var tmp = [];
-			for (var i = 0; i < mu.length; i++) {
-				var item = mu[i];
-				for (var j = 0; j < this.citys.length; j++) {
-					var py = this.citys[j].py;
-					if (py.substring(0, 1) == item) {
-						if (tmp.indexOf(item) == -1) {
-							this.list[i] = [this.citys[j]];
-							tmp.push(item);
-							this.letter.push(item.toUpperCase());
-						} else {
-							this.list[i].push(this.citys[j]);
-						}
-					}
-				}
-			}
+			// var mu = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'w', 'x', 'y',
+			// 	'z'
+			// ];
+			// var tmp = [];
+			// for (var i = 0; i < mu.length; i++) {
+			// 	var item = mu[i];
+			// 	for (var j = 0; j < this.citys.length; j++) {
+			// 		var py = this.citys[j].py;
+			// 		if (py.substring(0, 1) == item) {
+			// 			if (tmp.indexOf(item) == -1) {
+			// 				this.list[i] = [this.citys[j]];
+			// 				tmp.push(item);
+			// 				this.letter.push(item.toUpperCase());
+			// 			} else {
+			// 				this.list[i].push(this.citys[j]);
+			// 			}
+			// 		}
+			// 	}
+			// }
 		},
 		methods: {
+			getcity(){
+				this.$http
+					.request({
+						url: this.$api.hotel.getcitylist,
+						method: 'POST',
+						data:'',
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							console.log(res)
+							this.citys=res.data
+							var mu = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'w', 'x', 'y',
+								'z'
+							];
+							var tmp = [];
+							for (var i = 0; i < mu.length; i++) {
+								var item = mu[i];
+								for (var j = 0; j < this.citys.length; j++) {
+									var py = this.citys[j].py.toLowerCase();
+									if (py.substring(0, 1) == item) {
+										if (tmp.indexOf(item) == -1) {
+											this.list[i] = [this.citys[j]];
+											tmp.push(item);
+											this.letter.push(item.toUpperCase());
+										} else {
+											this.list[i].push(this.citys[j]);
+										}
+									}
+								}
+							}
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});	
+			},
 			getId(index) {
 				return this.letter[index];
 			},
-
 			scrollTo(letter) {
 				this.showMask = true
 				this.selectLetter = letter == 'hot' ? '最' : letter
