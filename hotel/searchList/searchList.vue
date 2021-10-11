@@ -306,6 +306,7 @@
 			back_city(e) {  //获取城市
 				if (e !== 'no') { 
 					this.region = e.cityName ;
+					this.searchText=''
 					this.show=false;
 					this.getcityinfo('','',this.region)	
 				} 
