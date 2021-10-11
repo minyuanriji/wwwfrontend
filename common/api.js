@@ -437,7 +437,7 @@ let api = {
 		
 		
 		getcity:api_root +'plugin/hotel/api/hotel/hotel-info',
-		
+		getcitylist:api_root +'plugin/hotel/api/hotel/city-list',
 	},
 	merchants:{
 		Fillbasic: api_root +'plugin/mch/api/apply/basic',

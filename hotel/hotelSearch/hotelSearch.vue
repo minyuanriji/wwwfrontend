@@ -40,8 +40,8 @@
 				<view class="tui-search-title">行政区商圈</view>
 			</view>
 			<view class="tui-history-content">
-				<view v-for="(item,index) in city" :key="index" @tap='linkTo(item)'>
-					<tui-tag type="gray" shape="square">{{item}}</tui-tag>
+				<view v-for="(item,index) in city" :key="index" @tap='linkTo(item.name,item.parent_id)'>
+					<tui-tag type="gray" shape="square">{{item.name}}</tui-tag>
 				</view>
 			</view>
 		</view>
@@ -68,10 +68,12 @@
 				key: "",
 				showActionSheet: false,
 				tips: "确认清空搜索历史吗？",
-				city:["白云区","越秀区","花都区","天河区","正城区"]
+				city:uni.getStorageSync('citymessage'),
+				region:"",
 			}
 		},
 		onLoad(options) {
+			console.log(options)
 			var that = this;
 			this.key = options.key;			
 			uni.getStorage({
@@ -80,37 +82,95 @@
 					that.history.push(...res.data);
 				},
 			})
+			this.form=JSON.parse(options.form)
+			this.region=options.region
 		},
 		onShow() {
 			
 		},
 		methods: {
-			navTo(name){
-				uni.navigateTo({ //跳转到商品列表页
-					url:'../searchList/searchList?searchKey='+name
-				})
+			navTo(name){  //历史搜索
+				let that=this
+				this.form.keyword=name
+				that.$http
+					.request({
+						url: this.$api.hotel.searchhotel,
+						method: 'POST',
+						data:this.form,
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							if(res.data.history==1){
+								uni.navigateTo({
+									url:'../searchList/searchList?search_id='+res.data.search_id+"&searchKey="+name+"&region="+this.region+"&city_id="+this.form.city_id
+								})
+							}else if(res.data.history==0){
+								uni.navigateTo({
+									url:'../searchList/searchList?prepare_id='+res.data.prepare_id+"&searchKey="+name+"&region="+this.region+"&city_id="+this.form.city_id
+								})
+							}
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});	
 			},
-			linkTo(item){
+			linkTo(name,id){ //行政商圈搜索
 				var that = this;
-				uni.navigateTo({ //跳转到商品列表页
-					url:'../searchList/searchList?searchKey='+item
-				})
-				that.history.push(item);
-				that.history = Array.from(new Set(that.history)); //去重
-				uni.setStorage({ //将搜索记录存入缓存
-					key:'search-history',
-					data:that.history
-				})
+				that.form.city_id=id
+				that.$http
+					.request({
+						url: this.$api.hotel.searchhotel,
+						method: 'POST',
+						data:this.form,
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							if(res.data.history==1){
+								uni.navigateTo({
+									url:'../searchList/searchList?search_id='+res.data.search_id+"&searchKey="+name+"&region="+this.region+"&city_id="+this.form.city_id
+								})
+							}else if(res.data.history==0){
+								uni.navigateTo({
+									url:'../searchList/searchList?prepare_id='+res.data.prepare_id+"&searchKey="+name+"&region="+this.region+"&city_id="+this.form.city_id
+								})
+							}
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});	
 			},
-			search(){ //搜索
+			search(){ //输入搜索
 				if(!this.key){
 					this.$http.toast('请输入酒店名');
 					return;
 				};
 				var that = this;
-				uni.navigateTo({ //跳转到商品列表页
-					url:'../searchList/searchList?searchKey='+this.key
-				})
+				this.form.keyword=this.key
+				that.$http
+					.request({
+						url: this.$api.hotel.searchhotel,
+						method: 'POST',
+						data:this.form,
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+
+							if(res.data.history==1){
+								uni.navigateTo({
+									url:'../searchList/searchList?search_id='+res.data.search_id+"&searchKey="+this.key+"&region="+this.region+"&city_id="+this.form.city_id
+								})
+							}else if(res.data.history==0){
+								uni.navigateTo({
+									url:'../searchList/searchList?prepare_id='+res.data.prepare_id+"&searchKey="+this.key+"&region="+this.region+"&city_id="+this.form.city_id
+								})
+							}
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});		
 				this.history.push(this.key);
 				this.history = Array.from(new Set(this.history)); //去重
 				uni.setStorage({ //将搜索记录存入缓存
@@ -139,7 +199,7 @@
 					    key: 'search-history',
 					});
 				}
-			}
+			},
 		}
 	}
 </script>

@@ -29,12 +29,14 @@ export default {
     "pinyin": "akesu",
     "py": "aks",
     "code": "AKU"
-}, {
+}, 
+{
     "cityName": "阿勒泰",
     "pinyin": "aletai",
     "py": "alt",
     "code": "AAT"
-}, {
+}, 
+{
     "cityName": "阿里",
     "pinyin": "ali",
     "py": "al",
