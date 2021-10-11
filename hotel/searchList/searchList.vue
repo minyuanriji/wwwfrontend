@@ -194,7 +194,7 @@
 		onLoad(options) {
 			if(options&&options.searchKey){
 				this.searchText=options.searchKey
-				this.form.keyword=this.searchText
+				// this.form.keyword=this.searchText
 			}
 			if(options&&options.prepare_id){
 				this.heightShow=true
