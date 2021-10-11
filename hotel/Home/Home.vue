@@ -320,6 +320,13 @@
 				// 		that.region=res.name
 				// 	}
 				// })
+				uni.showLoading({
+				    title: '加载中'
+				});
+				
+				setTimeout(function () {
+				    uni.hideLoading();
+				}, 2000);
 				that.getmyLOcation()
 			},
 			hotelsearch(){//点击输入酒店搜索
