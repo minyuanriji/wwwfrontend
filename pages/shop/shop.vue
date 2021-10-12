@@ -53,6 +53,8 @@
 					<image :src="item.store.cover_url" class="index1_content_shop_block_img"></image>
 					<view class="index1_content_shop_block_r">
 						<view class="index1_content_shop_block_r_name">{{item.store.name}}</view>
+						<view class="index1_content_shop_block_r_cad" v-if="item.give_type==1">付100送{{item.give_value}}%购物券</view>
+						<view class="index1_content_shop_block_r_cad" v-if="item.give_type==2">付100送{{item.give_value}}购物券</view>
 						<view class="index1_content_shop_block_r_m">
 							<view class="index1_content_shop_block_r_m_star">
 								<view class="iconfont iconwujiaoxing" v-for="(i,index) in (Number(item.store.score))"
@@ -790,6 +792,17 @@
 		font-size: 14px;
 		font-weight: bold;
 		color: #000000;
+	}
+	.index1_content_shop_block_r_cad {
+		width:270rpx;
+		font-size: 24rpx;
+		color: red;
+		border: 1rpx solid red;
+		text-align: center;
+		box-sizing: border-box;
+		border-radius: 10rpx;
+		margin: 10rpx 0;
+		line-height: 38rpx;
 	}
 
 	.index1_content_shop_block_r_m {
