@@ -270,7 +270,7 @@
 					if (this.currentTwo == 0) {
 						if (this.form.apply_data.settle_discount < 0) {
 							uni.showToast({
-								title: '服务费需在0-8.5之间',
+								title: '服务费需在0-9之间',
 								icon: 'none'
 							});
 							setTimeout(function() {
@@ -278,9 +278,9 @@
 							}, 2000);
 							return
 						}
-						if (this.form.apply_data.settle_discount > 8.5) {
+						if (this.form.apply_data.settle_discount > 9) {
 							uni.showToast({
-								title: '服务费需在0-8.5之间。请去特殊折扣申请',
+								title: '服务费需在0-9之间。请去特殊折扣申请',
 								icon: 'none'
 							});
 							setTimeout(function() {
@@ -292,7 +292,7 @@
 					this.message = {
 						id: this.id,
 						is_special_discount: this.current, //是否特殊折扣申请 0、否 1、是 
-						special_rate: this.form.apply_data.settle_discount, //0-8.5
+						special_rate: this.form.apply_data.settle_discount, //0-9
 						status: this.currentTwo == 0 ? 'passed' : 'refused', //审核状态 passed、通过 refused、不通过 如果传is_special_discount=0 必传 
 						remark: this.form.detail.remark, //不通过原因
 					}
