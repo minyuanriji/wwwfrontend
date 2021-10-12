@@ -3,21 +3,19 @@
 		<view class="ali-home-app-header">
 			<liuyuno-tabs :tabData="tabs" :defaultIndex="defaultIndex" @tabClick='tabClick' />
 		</view>
-		<view class="ali-home-app-header-catory-two">
+		<view class="ali-home-app-header-catory-two" v-if="typeList.length>0">		
 			<view v-for="(item,index) in typeList" :key='index' v-if="index<10" @click="checkCatory(item)">
 				<image :src="item.cover_url" mode=""></image>
 				<text>{{item.name}}</text>
 			</view>
 		</view>
-		<view class="ali-home-app-product">
+		<view :class="typeList.length>0?'ali-home-app-product':'ali-home-app-products'">
 			<view class="product-item" v-for="(item,index) in goodsList" :key='index' @click="link(item.id)">
 				<image :src="item.cover_url" mode="widthFix" class="product-item-logo"></image>
 				<view class="product-item-name">{{item.name}}</view>
 				<view class="product-item-money-buy">
 					<view class="product-item-money">
-						<!--
-						<text style="font-size: 28rpx;width: 100%;color:#c0c0c0;">原价￥{{item.origin_price}}</text>
-						-->
+						
 						<text style="color:#FF7104;font-size: 28rpx;width: 100%;">兑换价￥{{item.price}}</text>
 						<text
 							style="font-size: 28rpx;width: 100%;margin: 20rpx;background: #FF7104;height: 60rpx;text-align: center;line-height: 60rpx;border-radius: 30rpx;color: #fff;">购物券兑换</text>
@@ -41,6 +39,7 @@
 				form:{
 					page:1,
 					ali_cat_id:'', 
+					recommend:'',
 				},
 				goodsList:[],
 				page_count:'',
@@ -51,6 +50,7 @@
 		},
 		methods: {
 			tabClick(e) { //点击切换table
+				console.log(e)
 				for (let i = 0; i < this.tabs.length; i++) {
 					if (e.index == i) {
 						this.typeList = this.tabs[i].children
@@ -58,6 +58,11 @@
 				}
 				this.form.ali_cat_id=e.item.ali_cat_id
 				this.form.page=1
+				if(e.item.name=='每日推荐'){
+					this.form.recommend=1
+				}else{
+					this.form.recommend=0
+				}
 				this.goodsList=[]
 				this.getHomegoods()
 			},
@@ -75,7 +80,15 @@
 				}).then(res => {
 					if (res.code == 0) {
 						this.tabs = res.data
+						this.tabs.unshift({
+							name:"每日推荐",
+							ali_cat_id:'',
+							children:[],
+							cover_url:'',
+						})
+						console.log(this.tabs)
 						this.form.ali_cat_id=this.tabs[0].ali_cat_id
+						this.form.recommend=1
 						this.getHomegoods()
 						this.typeList = this.tabs[0].children
 					} else {
@@ -191,7 +204,15 @@
 	.ali-home-app-product {
 		width: 95%;
 		overflow: hidden;
-		margin: 30rpx auto 80rpx;
+		margin: 50rpx auto 80rpx;
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+	.ali-home-app-products{
+		width: 95%;
+		overflow: hidden;
+		margin: 100rpx auto 80rpx;
 		display: flex;
 		justify-content: space-between;
 		flex-wrap: wrap;
