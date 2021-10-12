@@ -474,7 +474,8 @@
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
-		}, {
+		}, 
+		{
 			"path": "pages/shop/shop",
 			"style": {
 				"navigationBarBackgroundColor": "#FF7104",
@@ -656,6 +657,46 @@
 		}
 	],
 	"subPackages": [
+		{
+			"root":"merchants",
+			"pages":[
+				{
+					"path": "home/home",
+					"style": {
+						"navigationBarBackgroundColor": "#FF7104",
+						"navigationBarTextStyle": "white",
+						"backgroundColorTop": "#F7F7F7",
+						"backgroundColorBottom": "#F7F7F7",
+						"navigationBarTitleText": "门店",
+						"app-plus": {
+							"titleNView": false,
+							"pullToRefresh": {
+								"style": "circle",
+								"color": "#2BD009"
+							}
+						}
+					}
+				}
+			]
+		},
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		{
 			"root":"hotel",
 			"pages":[
