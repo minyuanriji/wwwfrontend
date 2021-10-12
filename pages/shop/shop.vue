@@ -53,7 +53,7 @@
 					<image :src="item.store.cover_url" class="index1_content_shop_block_img"></image>
 					<view class="index1_content_shop_block_r">
 						<view class="index1_content_shop_block_r_name">{{item.store.name}}</view>
-						<view class="index1_content_shop_block_r_cad">付100送{{item.give_value}}购物券</view>
+						<view class="index1_content_shop_block_r_cad" v-if="item.give_value">付100送{{item.give_value}}购物券</view>
 						<view class="index1_content_shop_block_r_m">
 							<view class="index1_content_shop_block_r_m_star">
 								<view class="iconfont iconwujiaoxing" v-for="(i,index) in (Number(item.store.score))"
