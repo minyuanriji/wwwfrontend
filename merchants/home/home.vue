@@ -158,6 +158,9 @@
 				uni.navigateTo({
 					url:'../detail/detail'
 				})
+			},
+			clickItem(e){
+				console.log(e)
 			}
 		}
 	}
