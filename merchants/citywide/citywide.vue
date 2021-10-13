@@ -21,7 +21,7 @@
 		
 		
 		<citySelect @back_city="back_city" v-if="show"></citySelect>
-		<hans-tabber :list="list"  style="position:fixed;bottom:0;width:100%;left:0;right:0;" @tabChange="tabChange"></hans-tabber>
+		<hans-tabber style="position:fixed;bottom:0;width:100%;left:0;right:0;" ></hans-tabber>
 	</view>
 </template>
 
@@ -40,21 +40,6 @@
 				keyword:'',
 				show:false,//城市选择显示或者影藏
 				currentIndex:0,//table默认选项
-				list: [{
-				            "text": "首页",
-				            "iconPath": 'https://www.mingyuanriji.cn/web//uploads/images/original/20210506/dd6672076ec5386b6dc2e06040a0b802.png' ,
-				            "selectedIconPath": 'https://www.mingyuanriji.cn/web//uploads/images/original/20210506/2cacecc12ab4ae6fd6cb233da7089f75.png'
-				        },
-				         {
-				                     "text": "同城",
-				                    "iconPath": 'https://www.mingyuanriji.cn/web//uploads/images/original/20210506/dd6672076ec5386b6dc2e06040a0b802.png' ,
-				                    "selectedIconPath": 'https://www.mingyuanriji.cn/web//uploads/images/original/20210506/2cacecc12ab4ae6fd6cb233da7089f75.png'
-				                     },
-				                     {
-				                       "text": "我的",
-				                       "iconPath": 'https://www.mingyuanriji.cn/web//uploads/images/original/20210506/08ba1fe2754bc566116a39deee8fdd90.png',
-				                       "selectedIconPath": 'https://www.mingyuanriji.cn/web//uploads/images/original/20210506/e6e4ff50b6ef41c1ab17775f676d7b4f.png'
-				                     }],
 			};
 		},
 		onReady() {
@@ -79,25 +64,6 @@
 				else { 
 					this.show=false;
 				 }
-			},
-			tabChange(index) { //切换下面的tabbar
-			   if(index){
-				   if(index==0){
-				   		uni.navigateTo({
-				   			url:'../home/home'
-				   		})
-				   }
-				   if(index==1){
-						uni.navigateTo({
-							url:'../citywide/citywide'
-						})
-				   }
-				   if(index==2){
-					   uni.navigateTo({
-					   	url:'../../pages/user/index'
-					   })
-				   }
-			   }
 			},
 		}
 	}
