@@ -178,8 +178,8 @@
 					mobile: '',
 					order_price: '',
 					integral_deduction_price:'',
-					plateform_id: 1,
 					product_id:"",
+					plateform_id: "",
 					pay_type:2,//1  现金 2红包
 				},
 				creditStatusList:[],//充值记录
@@ -213,6 +213,7 @@
 						this.redbag=this.list[0].redbag_num
 						// this.form.product_id=123
 						this.form.product_id=this.list[0].product_id
+						this.form.plateform_id=this.list[0].plateform_id
 				}
 				if(item=='慢充'){
 					this.selectIndex=0
@@ -222,6 +223,7 @@
 						this.redbag=this.list[0].redbag_num
 						// this.form.product_id=86
 						this.form.product_id=this.list[0].product_id
+						this.form.plateform_id=this.list[0].plateform_id
 				}
 				console.log(this.form)
 			},
@@ -229,6 +231,7 @@
 				this.selectIndex = index
 				this.form.order_price = item.price
 				this.form.product_id=item.product_id
+				this.form.plateform_id=item.plateform_id
 				this.form.integral_deduction_price = item.redbag_num
 				this.redbag=item.redbag_num
 				console.log(this.form)
@@ -394,6 +397,7 @@
 							this.form.order_price=this.list[0].price
 							this.form.integral_deduction_price=this.list[0].redbag_num
 							this.form.product_id=this.list[0].product_id
+							this.form.plateform_id=this.list[0].plateform_id
 							this.redbag=this.list[0].redbag_num
 						}
 						console.log(this.form)
