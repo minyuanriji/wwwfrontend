@@ -141,7 +141,7 @@
 			overflow: hidden;
 			background: #fff;
 			position: fixed;
-			top: 88rpx;
+			top: 78rpx;
 			left: 0;
 			z-index: 999;
 		}
