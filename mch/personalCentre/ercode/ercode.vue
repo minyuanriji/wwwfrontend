@@ -106,7 +106,6 @@
 			}
 		},
 		methods: {
-			//#ifdef H5
 			capture() {
 				this.show=false
 				// // let dom = document.querySelector('#poster'); // 获取dom元素
@@ -147,7 +146,6 @@
 				},500)
 
 			},
-			//#endif
 			saveImg(url) {
 				var that = this;
 				/* 获取图片信息 */

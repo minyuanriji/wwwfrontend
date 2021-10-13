@@ -83,7 +83,6 @@ export default {
 			}else{
 				url = this.$api.default.bindPhone;
 			}
-			
 			if (!isNullOrEmpty(this.dataForm.username) || !isMobile(this.dataForm.username)) {
 				this.$http.toast('请输入正确的手机号');
 				return;
