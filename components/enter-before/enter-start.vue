@@ -155,7 +155,7 @@
 			getCat: function() { //获取店铺消费类型
 				var that = this
 				that.$http.request({
-					url: that.$api.moreShop.getmchscats,
+					url: that.$api.moreShop.getcategory_list,
 					data: {},
 					method: 'post',
 				}).
