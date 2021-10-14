@@ -568,7 +568,7 @@
 
 	.status-radio {
 		float: left;
-		width: 450rpx;
+		width: 475rpx;
 		height: 80rpx;
 		line-height: 80rpx;
 		font-size: 28rpx;
