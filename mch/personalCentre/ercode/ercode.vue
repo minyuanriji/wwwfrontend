@@ -109,23 +109,6 @@
 			//#ifdef H5
 			capture() {
 				this.show=false
-				// // let dom = document.querySelector('#poster'); // 获取dom元素
-				// let scale=3
-				// 	html2canvas(dom, {
-				// 		width: dom.clientWidth, //dom 原始宽度
-				// 		height: dom.clientHeight,
-				// 		scrollY: 0,// html2canvas默认绘制视图内的页面，需要把scrollY，scrollX设置为0
-				// 		scrollX: 0,
-				// 		useCORS: true,//支持跨域，但好像没什么用
-				// 		scale:scale,
-				// 		dpi:300
-				// 	}).then((canvas) => {
-				// 		//成功后调用返回canvas.toDataURL返回图片的base64，H5不支持下载base64，PC浏览器测试没问题，可以正常下载。
-				// 		this.poster_url = canvas.toDataURL('image/png', 1);
-				// 		if(this.poster_url.length>0){
-				// 			this.showPoster=true
-				// 		}
-				// 	});
 				setTimeout(()=>{
 					window.pageYoffset = 0;
 					document.documentElement.scrollTop = 0;
