@@ -72,9 +72,11 @@
 		<unipopup ref="popupSort" type="top">
 			<view class="searchList-app-sort" v-if="currentINdex==0">
 				<scroll-view scroll-y scroll-with-animation class="left-box" >
-					<view v-for="(item,index) in catoryList" :key="index" :class="selectIndexzero==index?'actove':'tab-bar-item'" @click="selectzero(index,item)">
-						<text>{{item.name}}</text>
-					</view>
+					<template v-for="(item,index) in catoryList" >
+						<view :key="index" :class="item.id == form.cat_id ? 'actove' : 'tab-bar-item' " @click="selectzero(index,item)">
+							<text>{{item.name}}</text>
+						</view>
+					</template>
 				</scroll-view>
 					<scroll-view scroll-y scroll-with-animation class="right-box" >
 						<!-- <view v-for="(item,index) in sortlist" :key="index" class="tab-bar-item"  style="border-bottom: 1rpx solid rgb(242,245,249);">
@@ -109,7 +111,7 @@
 		data() {
 			return {
 				loading: true,
-				catory:'全部分类',
+				//catory:'全部分类',
 				ai:'智能排序',
 				addressloc:'距离排序',
 				img_url: this.$api.img_url,
@@ -137,7 +139,7 @@
 				selectIndextwo: 0, //距离排序选择
 				currentINdex: 1, //控制两个筛选条件下的显示
 				form:{
-					cat_id:'',
+					cat_id:'0',
 					city_id:"",
 					region_id:'',
 					keyword:'',
@@ -149,6 +151,18 @@
 				shopList:[],
 				catoryList:[],//分类
 			};
+		},
+		computed: {
+			catory: function () {
+				var i, str = '全部分类';
+				for(i=0; i < this.catoryList.length; i++){
+					if(this.catoryList[i].id == this.form.cat_id){
+						str = this.catoryList[i].name;
+						break;
+					}
+				}
+				return str;
+			}
 		},
 		onLoad(options) {
 			if(uni.getStorageSync("shopCity")){
@@ -203,7 +217,7 @@
 						if(res.code==0){
 							this.catoryList=res.data.list
 							this.catoryList.unshift({
-								id:'',
+								id:'0',
 								mall_id:'',
 								name:'全部分类',
 								pic_url:'',
@@ -282,7 +296,7 @@
 				this.$refs.popupSort.close();
 				this.selectIndexzero = index
 				console.log(item)
-				this.catory=item.name
+				//this.catory=item.name
 				this.city=uni.getStorageSync("shopCity").city
 				if(item.name=='全部分类'){
 					this.form.cat_id=''
