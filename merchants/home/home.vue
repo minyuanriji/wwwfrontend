@@ -373,10 +373,6 @@
 			} 		
 			this.form.page=this.form.page+1
 			this.getshopList()
-		},
-		onUnload() {
-			uni.removeStorageSync('current')
-			uni.removeStorageSync('shopCity')
 		}
 	}
 </script>

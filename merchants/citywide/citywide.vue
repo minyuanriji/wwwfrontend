@@ -151,14 +151,12 @@
 				this.form.city_id=uni.getStorageSync("shopCity").city_id
 				this.form.region_id=uni.getStorageSync("shopCity").region_id
 				this.getshopList()
-			}
-			if(uni.getStorageSync("shopCity")&&!options.cat_id){
+			}else if(uni.getStorageSync("shopCity")&&!options.cat_id){
 				this.city=uni.getStorageSync("shopCity").city
 				this.form.city_id=uni.getStorageSync("shopCity").city_id
 				this.form.region_id=uni.getStorageSync("shopCity").region_id
 				this.getshopList()
-			}
-			if(uni.getStorageSync("shopCity")&&options.cat_id){
+			}else if(uni.getStorageSync("shopCity")&&options.cat_id){
 				this.city=uni.getStorageSync("shopCity").city
 				this.form.cat_id=options.cat_id
 				this.form.city_id=uni.getStorageSync("shopCity").city_id
