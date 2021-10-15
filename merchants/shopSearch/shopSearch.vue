@@ -205,7 +205,12 @@
 						this.$http.toast(res.msg);
 					}
 				});	
-			}		
+			},
+			shopdetail(id){ //店铺详情
+				uni.navigateTo({
+					url:'../detail/detail?store_id='+id
+				})
+			},		
 			
 		}
 	}
