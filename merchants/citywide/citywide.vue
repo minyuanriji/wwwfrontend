@@ -151,15 +151,8 @@
 			};
 		},
 		onLoad(options) {
-			this.getcatory()
-			if(options&&options.keywords){
-				this.keyword=options.keywords
-				this.city=uni.getStorageSync("shopCity").city
-				this.form.keyword=options.keywords
-				this.form.city_id=uni.getStorageSync("shopCity").city_id
-				this.form.region_id=uni.getStorageSync("shopCity").region_id
-				this.getshopList()
-			}else if(uni.getStorageSync("shopCity")&&!options.cat_id){
+			this.getcatory()			
+			if(uni.getStorageSync("shopCity")&&!options.cat_id){
 				this.city=uni.getStorageSync("shopCity").city
 				this.form.city_id=uni.getStorageSync("shopCity").city_id
 				this.form.region_id=uni.getStorageSync("shopCity").region_id
