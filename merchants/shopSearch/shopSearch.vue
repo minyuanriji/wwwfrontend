@@ -22,19 +22,21 @@
 			<view class="tui-cancle" @tap="search">搜索</view>
 		</view>
  
-		<view class="tui-search-history" v-if="history.length>0">
-			<view class="tui-history-header">
-				<view class="tui-search-title">搜索历史</view>
-				<tui-icon name="delete" :size='14' color='#333' @tap="openActionSheet" class="tui-icon-delete"></tui-icon>
-			</view>
-			<view class="tui-history-content">
-				<view v-for="(item,index) in history" :key="index" @tap='navTo(item)'>
-					<tui-tag type="gray" shape="square">{{item}}</tui-tag>
+		<template v-if="shopList.length <= 0">
+			<view class="tui-search-history" v-if="history.length>0">
+				<view class="tui-history-header">
+					<view class="tui-search-title">搜索历史</view>
+					<tui-icon name="delete" :size='14' color='#333' @tap="openActionSheet" class="tui-icon-delete"></tui-icon>
 				</view>
-			</view>
-		</view>	
+				<view class="tui-history-content">
+					<view v-for="(item,index) in history" :key="index" @tap='navTo(item)'>
+						<tui-tag type="gray" shape="square">{{item}}</tui-tag>
+					</view>
+				</view>
+			</view>	
+		</template>
 		
-		<view class="shop_table_list">
+		<view class="shop_table_list" style="margin-top:20rpx;">
 			<view class="shop_table_item" v-for="(item,index) in shopList" :key='index' @click="shopdetail(item.id)"> 
 				<view class="shop_table_item_left">
 					<image :src="item.cover_url" mode="scaleToFill"></image>
@@ -65,19 +67,6 @@
 				<text style="display: block;width: 100%;text-align: center;margin-top: 20rpx;font-size: 30rpx;color: #FF7104;">暂无门店</text>
 			</view>
 		</view>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		<tui-actionsheet :show="showActionSheet" :tips="tips" @click="itemClick" @cancel="closeActionSheet"></tui-actionsheet>
@@ -130,14 +119,16 @@
 		},
 		methods: {
 			navTo(name){  //历史搜索
-				this.page_count=0;//总页数
+				this.key = name;
+				this.search();
+				/* this.page_count=0;//总页数
 				this.shopList=[];
 				this.form.page=1;
 				this.city=uni.getStorageSync("shopCity").city
 				this.form.keyword=name
 				this.form.city_id=uni.getStorageSync("shopCity").city_id
 				this.form.region_id=uni.getStorageSync("shopCity").region_id
-				this.getshopList()
+				this.getshopList() */
 			},
 			search(){ //输入搜索
 				if(!this.key){
@@ -154,17 +145,18 @@
 				this.page_count=0;//总页数
 				this.shopList=[];
 				this.form.page=1;
-				this.city=uni.getStorageSync("shopCity").city
+				//this.city=uni.getStorageSync("shopCity").city
 				this.form.keyword=this.key
-				this.form.city_id=uni.getStorageSync("shopCity").city_id
-				this.form.region_id=uni.getStorageSync("shopCity").region_id
+				//this.form.city_id=uni.getStorageSync("shopCity").city_id
+				//this.form.region_id=uni.getStorageSync("shopCity").region_id
 				this.getshopList()
 			},
 			back: function() {
 				this.navBack();
 			},
 			cleanKey: function() {
-				this.key = ''
+				this.key = '';
+				this.shopList = [];
 			},
 			closeActionSheet: function() {
 				this.showActionSheet = false
