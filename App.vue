@@ -1,8 +1,6 @@
 <script>
 	export default {
-		onLaunch: function() {
-			
-			
+		onLaunch: function() {		
 			//#ifdef H5
 			if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
 				
@@ -17,8 +15,7 @@
 				this.$unifylocation.locationMp()
 			}
 			// #endif  
-
-
+			
 
 
 
@@ -154,7 +151,7 @@
 			
 		},
 		onHide: function() {
-
+		
 		},
 		methods: {
 			initMall() {
@@ -175,7 +172,7 @@
 					}
 				});
 
-			},			
+			},
 		}
 	};
 </script>

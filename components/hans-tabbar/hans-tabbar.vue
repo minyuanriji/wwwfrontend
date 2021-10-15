@@ -25,8 +25,8 @@
 					},
 					{
 						"text": "同城",
-						"iconPath": 'https://www.mingyuanriji.cn/web//uploads/images/original/20210506/dd6672076ec5386b6dc2e06040a0b802.png',
-						"selectedIconPath": 'https://www.mingyuanriji.cn/web//uploads/images/original/20210506/2cacecc12ab4ae6fd6cb233da7089f75.png'
+						"iconPath": 'https://dev.mingyuanriji.cn/web/static/samecity.png',
+						"selectedIconPath": 'https://dev.mingyuanriji.cn/web/static/samecitycheck.png'
 					},
 					{
 						"text": "我的",
@@ -51,6 +51,7 @@
 				}
 				if (index == 2) {
 					uni.removeStorageSync('current',index)
+					uni.removeStorageSync('shopCity')
 					uni.navigateTo({
 						url:'../../pages/user/index'
 					})

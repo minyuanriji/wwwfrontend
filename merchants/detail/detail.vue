@@ -2,32 +2,30 @@
 	<view class="shop_detail_container">
 		<view class="shop_detail_header">
 			<view class="shop_detail_header_name">
-				补商汇广州运营中心
+				{{detail.name}}
 			</view>
 			<view class="shop_table_score">
-				<view class="iconfont iconwujiaoxing" v-for="(i,index) in 5"
+				<view class="iconfont iconwujiaoxing" v-for="(i,index) in Number(detail.score)"
 					style="color: #FFA600;" :key='index'></view>
-				<view class="point" style="font-size: 28rpx;color: red;margin-left: 10rpx;">5.0</view>
+				<view class="point" style="font-size: 28rpx;color: red;margin-left: 10rpx;">{{detail.score}}</view>
 			</view>
 			<scroll-view class="s-c-list-x" scroll-x="true">
-			          <view class="s-c-l-item">01</view>
-			          <view class="s-c-l-item">02</view>
-			         <view class="s-c-l-item">03</view>
+				<image :src="item" mode="aspectFit" class="s-c-l-item" v-for="item in detail.pic_urls" :key='item' style="border-radius: 30rpx;"></image>
 			</scroll-view>
 			<view class="shop_details-hours-detail">
 				<view class="shop_details-hours">
-					营业时间： 00：00-23：59
+					营业时间：{{detail.business_hours}}
 				</view>
-				<view class="shop_details-detail" @click="link">
+				<view class="shop_details-detail" @click="link(detail.business_hours,detail.address,detail.latitude,detail.longitude)">
 					<text style="margin-right: 5rpx;">商户详情</text>		
 					<image :src="img_url+'arrow-right-seracher.png'" mode=""></image>
 				</view>
 			</view>
 			<view class="shop_details-address">
 				<view style="width: 80%;font-size: 30rpx;color: #000;"> 
-					广东省广州市白云区景泰直街31号天津大厦首层，二层
+					{{detail.address}}
 				</view>
-				<view style="width: 20%;text-align: center;font-size: 30rpx;color: #000;">
+				<view style="width: 20%;text-align: center;font-size: 30rpx;color: #000;" @click="location(detail.latitude,detail.longitude,detail.address)">
 					<image :src="img_url+'dao_location.png'" mode="" style="width: 60rpx;height: 60rpx;display: block;margin: 0 auto;"></image>
 					<text>导航</text>
 				</view>
@@ -40,15 +38,15 @@
 			</view>
 		</view>
 		<view class="shop_detail_goods">
-			<view class="shop_detail_goods_item" v-for="item in 3" :key='item'>
+			<view class="shop_detail_goods_item" v-for="(item,index) in shopList" :key='index'>
 				<view class="shop_detail_goods_item_left">
-					<image src="https://www.mingyuanriji.cn/web//uploads/images/original/20210605/c43a5504dbf63e117ff4d8240ddc6ccd.jpg" mode=""></image>
+					<image :src="item.cover_pic" mode=""></image>
 				</view>
 				<view class="shop_detail_goods_item_center">
-					<view style="height: 75%;color: #000;">超值双人餐</view>
-					<view style="height: 25%;">
-						<text style="color:rgb(234,51,63) ;font-weight: bold;margin-right: 10rpx;">￥40.60</text>
-						<text  style="color:rgb(184,183,183) ;font-size: 26rpx;text-decoration: line-through;">￥40.60</text>
+					<view style="height: 48%;color: #000;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{{item.name}}</view>
+					<view style="height: 25%;margin-top: 45rpx;">
+						<text style="color:rgb(234,51,63) ;font-weight: bold;margin-right: 10rpx;">￥{{item.price}}</text>
+						<text  style="color:rgb(184,183,183) ;font-size: 26rpx;text-decoration: line-through;">￥{{item.original_price}}</text>
 					</view>
 				</view>
 				<view class="shop_detail_goods_item_lright">
@@ -64,21 +62,144 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
-				table:["优惠","商品"],
+				table:["展柜商品","店内商品"],
 				tableIndex:0,
-				
+				detail:'',
+				page_count:0,//总页数
+				shopList:[],
+				page:1,
+				store_id:''
 			};
 		},
+		onLoad(options) {
+			if(options&&options.store_id){
+				this.store_id=options.store_id
+				this.getDetail(options.store_id)
+				this.gethotgoods(this.page,options.store_id)
+			}
+		},
 		methods:{
+			getDetail(store_id){ //获取商户详情
+				this.$http
+					.request({
+						url: this.$api.moreShop.getshopnewdetail,
+						method: 'POST',
+						data:{
+							store_id:store_id
+						},
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							this.detail=res.data.detail
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});	
+			},
 			tableSelect(index){//table选择
 				this.tableIndex=index
+				if(index==0){
+					this.page_count=0;//总页数
+					this.shopList=[];
+					this.page=1;
+					this.gethotgoods(this.page,this.store_id)
+				}
+				if(index==1){
+					this.page_count=0;//总页数
+					this.shopList=[];
+					this.page=1;
+					this.getgoods(this.page,this.store_id)
+				}
 			},
-			link(){ //跳转到商户详情页面
+			link(business_hours,address,latitude,longitude){ //跳转到商户详情页面
 				uni.navigateTo({
-					url:'../shopDetail/shopDetail'
+					url:'../shopDetail/shopDetail?business_hours='+business_hours+'&address='+address+'&latitude='+latitude+'&longitude='+longitude
 				})
+			},
+			location(lat, lnt, addrress) {
+			
+				// #ifdef H5
+				window.location.href = 'https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:' + lat + ',' + lnt +
+					';addr:' + addrress + '&referer=myapp&key=O3DBZ-IFH3W-KKIRN-RZPNQ-AOSH3-EGB5N'
+				// #endif
+			
+				// #ifdef MP-WEIXIN || APP-PLUS
+				uni.openLocation({
+					latitude: Number(lat),
+					longitude: Number(lnt),
+					name: addrress,
+					address: addrress,
+					success: function() {
+			
+					}
+				});
+				// #endif
+			},
+			gethotgoods(page,store_id){ //获取爆品商品
+				this.$http
+					.request({
+						url: this.$api.moreShop.gethotListnew,
+						method: 'POST',
+						data:{
+							store_id:store_id,
+							page:page
+						},
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							console.log(res)
+							if(res.data.list.length==0)return false
+							let list= res.data.list;
+							var arr=this.shopList.concat(list)
+							this.shopList=arr
+							this.page_count = res.data.pagination.page_count;
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});	
+			},
+			getgoods(page,store_id){ //获取爆品商品
+				this.$http
+					.request({
+						url: this.$api.moreShop.getgoodsnew,
+						method: 'POST',
+						data:{
+							store_id:store_id,
+							page:page
+						},
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							if(res.data.list.length==0)return false
+							let list= res.data.list;
+							var arr=this.shopList.concat(list)
+							this.shopList=arr
+							this.page_count = res.data.pagination.page_count;
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});	
 			}
-		}
+		},
+		onReachBottom() {
+			if(this.tableIndex==0){
+				if(this.page==this.page_count){
+					return false;
+				} 		
+				this.page=this.form.page+1
+				this.gethotgoods(this.page,this.store_id)
+			}
+			if(this.tableIndex==1){
+				if(this.page==this.page_count){
+					return false;
+				} 		
+				this.page=this.form.page+1
+				this.getgoods(this.page,this.store_id)
+			}
+		},
 	}
 </script>
 
@@ -89,8 +210,7 @@
 	.shop_detail_header_name{width: 100%;overflow: hidden;font-size: 35rpx;color: #000;font-weight: bold;}
 	.shop_table_score{width: 100%;overflow: hidden;flex: 1;display: flex;align-items: center;margin-top: 10rpx;}
 	.s-c-list-x{white-space: nowrap;width: 100%;height: 230rpx;color:#fff;overflow: hidden;margin: 20rpx 0;}
-	.s-c-list-x .s-c-l-item{display: inline-block; width: 350rpx;height: 230rpx;margin-right: 20rpx;background-color:#27ae60;text-align: center; line-height: 230rpx;font-size: 100rpx;border-radius: 20rpx;}
-	.s-c-list-x .s-c-l-item:nth-child(2n){background-color: #e74c3c;}
+	.s-c-list-x .s-c-l-item{display: inline-block; width: 350rpx;height: 230rpx;margin-right: 20rpx;text-align: center; line-height: 230rpx;font-size: 100rpx;border-radius: 20rpx;}
 	.shop_details-hours-detail{width: 100%;overflow: hidden;display: flex;justify-content: space-between;margin: 25rpx 0;padding-right: 10rpx;box-sizing: border-box;}
 	.shop_details-hours{font-size: 28rpx;color: #000;}
 	.shop_details-detail{font-size: 28rpx;display: flex;justify-content: space-evenly;line-height: 44rpx;}
