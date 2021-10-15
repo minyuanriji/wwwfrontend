@@ -14,8 +14,8 @@
 			<swiper-item style="width: 100%;height: 360upx;">
 				<view class="swiper-item">
 					<view class="swiper-item-view" v-for="(item, index) in swiperList" :key="index" v-if="index < 10" @click="clickItem(item)">
-						<image class="swiper-img" :src="item.img"></image>
-						<text>{{ item.text }}</text>
+						<image class="swiper-img" :src="item.pic_url"></image>
+						<text style="font-size: 24rpx;color: #000;">{{ item.name }}</text>
 					</view>
 				</view>
 			</swiper-item>
@@ -23,8 +23,8 @@
 				<swiper-item style="width: 100%;height: 360upx;">
 					<view class="swiper-item">
 						<view class="swiper-item-view" v-for="(item, index) in swiperList" :key="index" v-if="index > 9 && index < 20" @click="clickItem(item)">
-							<image class="swiper-img" :src="item.img"></image>
-							<text>{{ item.text }}</text>
+							<image class="swiper-img" :src="item.pic_url"></image>
+							<text  style="font-size: 24rpx;color: #000;">{{ item.name }}</text>
 						</view>
 					</view>
 				</swiper-item>

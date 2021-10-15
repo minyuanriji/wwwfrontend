@@ -353,7 +353,12 @@
 				uni.setStorageSync('pid', options.pid);
 				uni.setStorageSync("user_id", options.pid);
 			}
-			
+			if(uni.getStorageSync("shopCity")){
+				uni.removeStorageSync("shopCity")
+			}
+			if(uni.getStorageSync("current")){
+				uni.removeStorageSync("current")
+			}
 //---------------------------------------------------------------首页进来绑定上下级
 			this.getCartList()
 //--------------------------------------------------------------------------						

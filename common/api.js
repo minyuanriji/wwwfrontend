@@ -424,12 +424,12 @@ let api = {
 		
 		
 		
-		 getcategory_list:api_root+"plugin/mch/api/category/list",
-		
-		
-		
-		
-		
+		 getcategorylist:api_root+"plugin/mch/api/category/list",
+		 getlocationcity:api_root+"plugin/mch/api/mch-region/get-city-lower",
+		 getshoplistall:api_root+"plugin/mch/api/store/list",
+		 getshopnewdetail:api_root+"plugin/mch/api/store/detail",
+		 gethotListnew:api_root+"plugin/mch/api/goods/recommand-list",
+		 getgoodsnew:api_root+"plugin/mch/api/goods/list",
 	},
 	hotel:{
 		getrecommended: api_root +'plugin/hotel/api/hotel/simple-list',

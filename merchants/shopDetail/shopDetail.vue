@@ -5,23 +5,23 @@
 				<view style="width: 10%;text-align: center;">•</view>
 				<view style="width: 90%;display: flex;justify-content: space-evenly;flex-wrap: wrap;">
 					<text>营业信息</text>
-					<text>周一至周日 00:00-23:59</text>
+					<text>{{form.business_hours}}</text>
 				</view>
 			</view>
 			<view class="shopDetail-message-item">
 				<view style="width: 10%;text-align: center;">•</view>
 				<view style="width: 90%;display: flex;justify-content: space-evenly;flex-wrap: wrap;">
 					<text>地址</text>
-					<text>广东省广州市白云区景直街31号天津大厦首层，二层</text>
+					<text>{{form.address}}</text>
 				</view>
 			</view>
 		</view>
-		<view class="shopDetail_location">
+		<view class="shopDetail_location"  @click="location">
 			<image :src="img_url+'dao_location.png'" mode="" style="width: 60rpx;height: 60rpx;display: block;float: left;"></image>
 			<text style="display: block;float: right;line-height: 60rpx;color: #000;">导航</text>
 		</view>
 		<view class="map">
-			 <map style="width: 100%; height: 200px;" :latitude="latitude" :longitude="longitude" :markers="markers"></map>
+			 <map style="width: 100%; height: 200px;" :latitude="form.latitude" :longitude="form.longitude" :markers="form.markers"></map>
 		</view>
 		<view class="tui-searchbox">
 			<view class="tui-search-input">
@@ -45,26 +45,26 @@
 			<view class="tui-cancle" @tap="search">搜索</view>
 		</view>
 		<view class="shop_table_list">
-			<view class="shop_table_item" v-for="item in 3" :key='item'>
+			<view class="shop_table_item" v-for="(item,index) in shopList" :key='index' @click="link(item.id)">
 				<view class="shop_table_item_left">
-					<image src="http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20210916/f601fd5d7d7eb92e735cd1de31d72325.png" mode="scaleToFill"></image>
+					<image :src="item.cover_url" mode="scaleToFill"></image>
 				</view>
 				<view class="shop_table_item_right">
 					<view class="shop_table_item-name">
-						补商汇广州运营中心
+						{{item.name}}
 					</view>
 					<view class="shop_table_item-score">
-						<view class="iconfont iconwujiaoxing" v-for="(i,index) in 5"
+						<view class="iconfont iconwujiaoxing" v-for="(i,index) in  Number(item.score)"
 							style="color: #FFA600;" :key='index'></view>
-						<view class="point" style="font-size: 28rpx;color: red;margin-left: 10rpx;">5.0</view>
+						<view class="point" style="font-size: 28rpx;color: red;margin-left: 10rpx;">{{item.score}}</view>
 					</view>
 					<view class="shop_table_item_notice">
-						到店支付100送100购物券
+						{{item.remark}}
 					</view>
 					<view class="shop_table_item-location">
 						<image :src="img_url+'dao_location.png'" mode="" style="width: 35rpx;height: 35rpx;"></image>
-						<text style="margin: 0 10rpx;">白云区</text>
-						<text>1.5km</text>
+						<text style="margin: 0 10rpx;">{{item.region_name}}</text>
+						<text>{{item.distance_format}}</text>
 					</view>
 				</view>	
 			</view>	
@@ -84,27 +84,107 @@
 			return {
 				key: "",
 				img_url: this.$api.img_url,
-				latitude: 39.909,
-				longitude: 116.39742,
+				form:{},
+				shopList:[],
+				page_count:'',
+				datas:{
+					cat_id:'',
+					city_id:uni.getStorageSync("shopCity").city_id,
+					region_id:uni.getStorageSync("shopCity").region_id,
+					keyword:'',
+					sort_by:'',
+					distance:'',
+					page:1,
+				}
+			};
+		},
+		onLoad(options) {
+			this.form={
+				business_hours:options.business_hours,
+				address:options.address,
+				latitude:options.latitude,
+				longitude:options.longitude,
 				markers:[
 					{
 						id:1,
-						latitude: 39.909,//纬度
-						longitude:116.39742,//经度
-						iconPath: 'https://dev.mingyuanriji.cn/web/static/dao_location.png'
+						latitude: options.latitude,//纬度
+						longitude:options.longitude,//经度
+						iconPath: 'https://dev.mingyuanriji.cn/web/static/newshop_loca.png'
 					}
 				],
-			};
+			}
+			this.getshopList()
 		},
 		methods:{
 			cleanKey: function() { //清空搜索
 				this.key = ''
 			},
-		}
+			search(){
+				this.shopList=[];
+				this.page_count='',
+				this.datas.page=1
+				this.datas.keyword=this.key
+				this.getshopList()
+			},
+			getshopList(){ //获取门店列表
+				this.$http
+					.request({
+						url: this.$api.moreShop.getshoplistall,
+						method: 'POST',
+						data:this.datas,
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							if(res.data.list.length==0)return false
+							let list= res.data.list;
+							var arr=this.shopList.concat(list)
+							this.shopList=arr
+							this.page_count = res.data.pagination.page_count;
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});	
+			},
+			link(id){
+				uni.navigateTo({
+					url:'../detail/detail?store_id='+id
+				})
+			},
+			location() {
+				let lat=this.form.latitude;
+				let lnt=this.form.longitude;
+				let addrress=this.form.address;
+				// #ifdef H5
+				window.location.href = 'https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:' + lat + ',' + lnt +
+					';addr:' + addrress + '&referer=myapp&key=O3DBZ-IFH3W-KKIRN-RZPNQ-AOSH3-EGB5N'
+				// #endif
+			
+				// #ifdef MP-WEIXIN || APP-PLUS
+				uni.openLocation({
+					latitude: Number(lat),
+					longitude: Number(lnt),
+					name: addrress,
+					address: addrress,
+					success: function() {
+			
+					}
+				});
+				// #endif
+			},
+		},
+		onReachBottom() {
+			if(this.datas.page==this.page_count){
+				return false;
+			} 		
+			this.datas.page=this.datas.page+1
+			this.getshopList()
+		},
 	}
 </script>
 
 <style lang="less" scoped>
+	@import url("../../plugins/font-icon/iconfont1.css");
 	.shopDetail{width: 100%;overflow: hidden;}
 	.shopDetail-message{margin: 10rpx 0 20rpx 0;padding: 20rpx;box-sizing: border-box;}
 	.shopDetail-message-item{width: 100%;overflow: hidden;margin: 30rpx 0;display: flex;justify-content: space-evenly;}

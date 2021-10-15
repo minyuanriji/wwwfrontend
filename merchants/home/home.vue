@@ -9,54 +9,59 @@
 			<view class="index1_content_top_l_r"></view>
 			<view class="index1_content_top_r">
 				<view class="iconfont iconsousuo"></view>
-				<input type="text" placeholder="输入商家名、品类或商圈" class="index1_content_top_r_input" v-model="keyword"
-					@confirm="search"></input>
+				<input type="text" placeholder="输入商家名、品类或商圈" class="index1_content_top_r_input" disabled
+					@click="search"></input>
 			</view>
 		</view>
 		<!---->
 		<view class="shop-type">
-			<cg-swiper :swiperList="swiperList"  :swiperDots='true'  :autoplay='false'
+			<cg-swiper :swiperList="catorylist"  :swiperDots='true'  :autoplay='false'
 			  @clickItem="clickItem"></cg-swiper>
 		</view>
-		<view class="shop-table">
+		<!-- <view class="shop-table">
 			<view v-for="(item,index) in shoptable" :key='index' :class="currentIndex==index?'active':''" @click="selectTable(index)">
 				<text>{{item}}</text>
 				<text></text>
 			</view>
-		</view>
+		</view> -->
 		<view class="shop_table_list">
-			<view class="shop_table_item" v-for="item in 3" :key='item' @click="shopdetail"> 
+			<view class="shop_table_item" v-for="(item,index) in shopList" :key='index' @click="shopdetail(item.id)"> 
 				<view class="shop_table_item_left">
-					<image src="http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20210916/f601fd5d7d7eb92e735cd1de31d72325.png" mode="scaleToFill"></image>
+					<image :src="item.cover_url" mode="scaleToFill"></image>
 				</view>
 				<view class="shop_table_item_right">
 					<view class="shop_table_item-name">
-						补商汇广州运营中心
+						{{item.name}}
 					</view>
 					<view class="shop_table_item-score">
-						<view class="iconfont iconwujiaoxing" v-for="(i,index) in 5"
+						<view class="iconfont iconwujiaoxing" v-for="(i,index) in Number(item.score)"
 							style="color: #FFA600;" :key='index'></view>
-						<view class="point" style="font-size: 28rpx;color: red;margin-left: 10rpx;">5.0</view>
+						<view class="point" style="font-size: 28rpx;color: red;margin-left: 10rpx;">{{item.score}}</view>
 					</view>
 					<view class="shop_table_item_notice">
-						到店支付100送100购物券
+						{{item.remark}}
 					</view>
 					<view class="shop_table_item-location">
 						<image :src="img_url+'dao_location.png'" mode="" style="width: 35rpx;height: 35rpx;"></image>
-						<text style="margin: 0 10rpx;">白云区</text>
-						<text>1.5km</text>
+						<text style="margin: 0 10rpx;">{{item.region_name}}</text>
+						<text>{{item.distance_format}}</text>
 					</view>
 				</view>	
 			</view>
 		</view>
-		
+		<view class="shop_table_list" v-if="shopList.length==0">
+			<view class="logo" style="width: 350rpx;height: 300rpx;margin: 100rpx auto;">
+				<image :src="img_url+'shop_new_home.png'" mode="aspectFit" style="display: block;width: 150rpx;height: 150rpx;margin: 0 auto;"></image>
+				<text style="display: block;width: 100%;text-align: center;margin-top: 20rpx;font-size: 30rpx;color: #FF7104;">暂无商户,赶快入住吧！！</text>
+			</view>
+		</view>
 		<hans-tabber style="position:fixed;bottom:0;width:100%;left:0;right:0;" ></hans-tabber>
 		<citySelect @back_city="back_city" v-if="show"></citySelect>
 	</view>
 </template>
 
 <script>
-	import citySelect from '@/components/linzq-citySelect/linzq-citySelect.vue';
+	import citySelect from '@/components/linzq-city/linzq-city.vue';
 	import cgSwiper from '@/components/cg-swiper/cg-swiper.vue';
 	import hansTabber from '../../components/hans-tabbar/hans-tabbar.vue'
 	export default{
@@ -68,8 +73,7 @@
 		data(){
 			return{
 				img_url: this.$api.img_url,
-				keyword:'',
-				city:'广州市',
+				city:'',
 				show:false,//城市选择显示或者影藏
 				swiperList:[
 					{
@@ -126,6 +130,18 @@
 				],
 				shoptable:['同城好店','同城好店','同城好店'],
 				currentIndex:0,//table默认选项
+				catorylist:[],
+				form:{
+					cat_id:'',
+					city_id:"",
+					region_id:'',
+					keyword:'',
+					sort_by:'',
+					distance:'',
+					page:1,
+				},
+				page_count:0,//总页数
+				shopList:[],
 			}
 		},
 		onReady() {
@@ -138,14 +154,37 @@
 				that.height = view_height
 			}).exec()
 		},
+		onLoad() {
+			if(!uni.getStorageSync("shopCity")){
+				this.getmyLOcation() 
+			}else{	
+				this.getcatory()
+			}
+		},
 		methods:{
+			search(){ //点击搜索
+				uni.navigateTo({
+					url:'../shopSearch/shopSearch'
+				})
+			},
 			setCITY(){ //选择城市
 				this.show=true
 			},
 			back_city(e){ //城市选择回显
 				if (e !== 'no') {
-					this.city = e.cityName ;
+					this.city = e.name ;
 					this.show=false;
+					this.form.page=1
+					this.page_count=''
+					this.shopList=[]
+					this.form.city_id=e.parent_id
+					this.form.region_id=e.id
+					uni.setStorageSync('shopCity',{
+						city:e.name,
+						city_id:e.parent_id,
+						region_id:e.id
+					})							
+					this.getshopList()
 				} 
 				else { 
 					this.show=false;
@@ -154,14 +193,190 @@
 			selectTable(index){ //table切换选择
 				this.currentIndex=index
 			},
-			shopdetail(){
+			shopdetail(id){
 				uni.navigateTo({
-					url:'../detail/detail'
+					url:'../detail/detail?store_id='+id
 				})
 			},
 			clickItem(e){
 				console.log(e)
-			}
+				uni.setStorageSync('current',1)
+				uni.navigateTo({
+					url:'../citywide/citywide?cat_id='+e.id
+				})
+			},
+			getmyLOcation(){
+				let that=this
+				//#ifdef H5
+					that.$unifylocation.locationH5()
+				setTimeout(() => {
+					if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {
+						if(uni.getStorageSync('locationTime')){
+							if(parseInt(new Date().getTime()/1000)-uni.getStorageSync('locationTime')>=86400){
+								that.timeflag=uni.getStorageSync("flag")
+							}
+						}else{
+							that.timeflag=true
+						}
+						var countLO = that.$unifylocation.getMapDistanceApi(uni.getStorageSync('x-longitude'), uni
+							.getStorageSync('x-latitude'), uni.getStorageSync('x-longitude-new'), uni
+							.getStorageSync('x-latitude-new'))
+						if ((Math.floor(countLO / 1000 * 100) / 100) > 3&&that.timeflag) {
+							uni.showModal({
+								title: '提示',
+								content: "已经超出初次定位3公里，是否重新定位",
+								success: function(result) {
+									if (result.confirm) {									
+										uni.setStorageSync('x-longitude', uni.getStorageSync(
+											'x-longitude-new'))
+										uni.setStorageSync('x-latitude', uni.getStorageSync(
+											'x-latitude-new'))
+										this.getcatory()
+									} else if (result.cancel) {
+										uni.setStorageSync("flag",false)
+										uni.setStorageSync("locationTime",parseInt(new Date().getTime()/1000))
+										this.getcatory()
+									}
+								}
+							})
+						} else {
+							this.getcatory()
+						}
+				
+					}
+				}, 1000)
+				// #endif
+				// #ifndef H5
+				uni.getSetting({
+				   success(res) {
+				      if(!res.authSetting['scope.userLocation']){
+						  uni.showModal({
+						  	title:"是否授权当前位置",
+						  	content: '需要获取您的地理位置，请确认授权，否则地图功能将无法使用',
+						  	confirmText: "确认",
+							showCancel:false,
+						  	success: (res) => {
+						  		if (res.confirm) {
+						  			uni.openSetting({
+						  				success: (res) => {
+						  					uni.redirectTo({
+						  						url:'/mch/hotel/hotel'
+						  					})
+						  					that.$unifylocation.locationMp()
+						  				}
+						  			})
+						  		} else {
+						  		
+						  		}
+						  	}
+						  })
+					  }
+				   }
+				})
+				that.$unifylocation.locationMp()
+				setTimeout(() => {
+					if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {
+						if(uni.getStorageSync('locationTime')){
+							if(parseInt(new Date().getTime()/1000)-uni.getStorageSync('locationTime')>=86400){
+								that.timeflag=uni.getStorageSync("flag")
+							}
+						}else{
+							that.timeflag=true
+						}
+						var countLO = that.$unifylocation.getMapDistanceApi(uni.getStorageSync('x-longitude'), uni
+							.getStorageSync('x-latitude'), uni.getStorageSync('x-longitude-new'), uni
+							.getStorageSync('x-latitude-new'))
+						if ((Math.floor(countLO / 1000 * 100) / 100) > 3&&that.timeflag) {
+							uni.showModal({
+								title: '提示',
+								content: "已经超出初次定位3公里，是否重新定位",
+								success: function(result) {
+									if (result.confirm) {
+										uni.setStorageSync('x-longitude', uni.getStorageSync(
+											'x-longitude-new'))
+										uni.setStorageSync('x-latitude', uni.getStorageSync(
+											'x-latitude-new'))
+										this.getcatory()
+									} else if (result.cancel) {
+										uni.setStorageSync("flag",false)
+										uni.setStorageSync("locationTime",parseInt(new Date().getTime()/1000))
+										this.getcatory()
+									}
+								}
+							})
+						} else {
+							this.getcatory()
+						}
+				
+					}
+				}, 1000)
+				// #endif
+			},
+			getcatory(){ //获取分类
+				this.$http
+					.request({
+						url: this.$api.moreShop.getcategorylist,
+						method: 'POST',
+						data:'',
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							if(!uni.getStorageSync("shopCity")){
+								this.catorylist=res.data.list
+								this.city=res.city_data.district
+								this.form.city_id=res.city_data.city_id
+								this.form.region_id=res.city_data.district_id
+								uni.setStorageSync('shopCity',{
+									city:res.city_data.district,
+									city_id:res.city_data.city_id,
+									region_id:res.city_data.district_id
+								})							
+								this.getshopList()
+							}else{
+								console.log(uni.getStorageSync("shopCity"))
+								this.catorylist=res.data.list
+								this.city=uni.getStorageSync("shopCity").city
+								this.form.city_id=uni.getStorageSync("shopCity").city_id
+								this.form.region_id=uni.getStorageSync("shopCity").region_id
+								this.getshopList()
+							}
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});	
+			},
+			getshopList(){ //获取门店列表
+				this.$http
+					.request({
+						url: this.$api.moreShop.getshoplistall,
+						method: 'POST',
+						data:this.form,
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							if(res.data.list.length==0)return false
+							let list= res.data.list;
+							var arr=this.shopList.concat(list)
+							this.shopList=arr
+							this.page_count = res.data.pagination.page_count;
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});	
+			}		
+		},
+		onReachBottom() {
+			if(this.form.page==this.page_count){
+				return false;
+			} 		
+			this.form.page=this.form.page+1
+			this.getshopList()
+		},
+		onUnload() {
+			uni.removeStorageSync('current')
+			uni.removeStorageSync('shopCity')
 		}
 	}
 </script>
