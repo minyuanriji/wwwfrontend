@@ -151,18 +151,23 @@
 			};
 		},
 		onLoad(options) {
-			this.getcatory()			
-			if(uni.getStorageSync("shopCity")&&!options.cat_id){
-				this.city=uni.getStorageSync("shopCity").city
-				this.form.city_id=uni.getStorageSync("shopCity").city_id
-				this.form.region_id=uni.getStorageSync("shopCity").region_id
-				this.getshopList()
-			}else if(uni.getStorageSync("shopCity")&&options.cat_id){
-				this.city=uni.getStorageSync("shopCity").city
-				this.form.cat_id=options.cat_id
-				this.form.city_id=uni.getStorageSync("shopCity").city_id
-				this.form.region_id=uni.getStorageSync("shopCity").region_id
-				this.getshopList()
+			if(uni.getStorageSync("shopCity")){
+				this.getcatory()
+				if(options.cat_id){
+					this.city=uni.getStorageSync("shopCity").city
+					this.form.cat_id=options.cat_id
+					this.form.city_id=uni.getStorageSync("shopCity").city_id
+					this.form.region_id=uni.getStorageSync("shopCity").region_id
+					this.getshopList()
+				}
+				if(!options.cat_id){
+					this.city=uni.getStorageSync("shopCity").city
+					this.form.city_id=uni.getStorageSync("shopCity").city_id
+					this.form.region_id=uni.getStorageSync("shopCity").region_id
+					this.getshopList()
+				}				
+			}else{
+				this.getmyLOcation() 
 			}
 		},
 		onReady() {
@@ -203,6 +208,25 @@
 								name:'全部分类',
 								pic_url:'',
 							})
+							if(!uni.getStorageSync("shopCity")){
+								this.catorylist=res.data.list
+								this.city=res.city_data.district
+								this.form.city_id=res.city_data.city_id
+								this.form.region_id=res.city_data.district_id
+								uni.setStorageSync('shopCity',{
+									city:res.city_data.district,
+									city_id:res.city_data.city_id,
+									region_id:res.city_data.district_id
+								})							
+								this.getshopList()
+							}else{
+								console.log(uni.getStorageSync("shopCity"))
+								this.catorylist=res.data.list
+								this.city=uni.getStorageSync("shopCity").city
+								this.form.city_id=uni.getStorageSync("shopCity").city_id
+								this.form.region_id=uni.getStorageSync("shopCity").region_id
+								this.getshopList()
+							}
 						}else{
 							this.$http.toast(res.msg);
 						}
@@ -213,6 +237,10 @@
 			},
 			back_city(e) { //城市选择回显
 				if (e !== 'no') {
+					this.$refs.popupSort.close();
+					this.selectIndexzero=0;//分类筛选
+					this.selectIndexone=0;//智能排序选择
+					this.selectIndextwo=0; //距离排序选择
 					this.city = e.name ;
 					this.show=false;
 					this.form.page=1
@@ -330,8 +358,114 @@
 						this.$http.toast(res.msg);
 					}
 				});	
-			}		
-			
+			},	
+			getmyLOcation(){
+				let that=this
+				//#ifdef H5
+					that.$unifylocation.locationH5()
+				setTimeout(() => {
+					if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {
+						if(uni.getStorageSync('locationTime')){
+							if(parseInt(new Date().getTime()/1000)-uni.getStorageSync('locationTime')>=86400){
+								that.timeflag=uni.getStorageSync("flag")
+							}
+						}else{
+							that.timeflag=true
+						}
+						var countLO = that.$unifylocation.getMapDistanceApi(uni.getStorageSync('x-longitude'), uni
+							.getStorageSync('x-latitude'), uni.getStorageSync('x-longitude-new'), uni
+							.getStorageSync('x-latitude-new'))
+						if ((Math.floor(countLO / 1000 * 100) / 100) > 3&&that.timeflag) {
+							uni.showModal({
+								title: '提示',
+								content: "已经超出初次定位3公里，是否重新定位",
+								success: function(result) {
+									if (result.confirm) {									
+										uni.setStorageSync('x-longitude', uni.getStorageSync(
+											'x-longitude-new'))
+										uni.setStorageSync('x-latitude', uni.getStorageSync(
+											'x-latitude-new'))
+										this.getcatory()
+									} else if (result.cancel) {
+										uni.setStorageSync("flag",false)
+										uni.setStorageSync("locationTime",parseInt(new Date().getTime()/1000))
+										this.getcatory()
+									}
+								}
+							})
+						} else {
+							this.getcatory()
+						}
+				
+					}
+				}, 1000)
+				// #endif
+				// #ifndef H5
+				uni.getSetting({
+				   success(res) {
+				      if(!res.authSetting['scope.userLocation']){
+						  uni.showModal({
+						  	title:"是否授权当前位置",
+						  	content: '需要获取您的地理位置，请确认授权，否则地图功能将无法使用',
+						  	confirmText: "确认",
+							showCancel:false,
+						  	success: (res) => {
+						  		if (res.confirm) {
+						  			uni.openSetting({
+						  				success: (res) => {
+						  					uni.redirectTo({
+						  						url:'/mch/hotel/hotel'
+						  					})
+						  					that.$unifylocation.locationMp()
+						  				}
+						  			})
+						  		} else {
+						  		
+						  		}
+						  	}
+						  })
+					  }
+				   }
+				})
+				that.$unifylocation.locationMp()
+				setTimeout(() => {
+					if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {
+						if(uni.getStorageSync('locationTime')){
+							if(parseInt(new Date().getTime()/1000)-uni.getStorageSync('locationTime')>=86400){
+								that.timeflag=uni.getStorageSync("flag")
+							}
+						}else{
+							that.timeflag=true
+						}
+						var countLO = that.$unifylocation.getMapDistanceApi(uni.getStorageSync('x-longitude'), uni
+							.getStorageSync('x-latitude'), uni.getStorageSync('x-longitude-new'), uni
+							.getStorageSync('x-latitude-new'))
+						if ((Math.floor(countLO / 1000 * 100) / 100) > 3&&that.timeflag) {
+							uni.showModal({
+								title: '提示',
+								content: "已经超出初次定位3公里，是否重新定位",
+								success: function(result) {
+									if (result.confirm) {
+										uni.setStorageSync('x-longitude', uni.getStorageSync(
+											'x-longitude-new'))
+										uni.setStorageSync('x-latitude', uni.getStorageSync(
+											'x-latitude-new'))
+										this.getcatory()
+									} else if (result.cancel) {
+										uni.setStorageSync("flag",false)
+										uni.setStorageSync("locationTime",parseInt(new Date().getTime()/1000))
+										this.getcatory()
+									}
+								}
+							})
+						} else {
+							this.getcatory()
+						}
+				
+					}
+				}, 1000)
+				// #endif
+			},
 		},
 		onReachBottom() {
 			if(this.form.page==this.page_count){

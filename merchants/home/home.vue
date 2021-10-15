@@ -367,7 +367,8 @@
 						this.$http.toast(res.msg);
 					}
 				});	
-			}		
+			},
+			
 		},
 		onReachBottom() {
 			if(this.form.page==this.page_count){
