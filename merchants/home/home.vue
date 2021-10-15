@@ -4,7 +4,8 @@
 		<view class="index1_content_top" :style="{background:'#FF7104'}" id="index1_content_top">
 			<view style="width: 20%;color: #fff;font-size: 30rpx;font-weight: bold;overflow: hidden;
 			text-overflow:ellipsis;white-space: nowrap;" @click="setCITY">
-				{{city}}
+				<view v-if="city != ''">{{city}}</view>
+				<view v-else>加载中...</view>
 			</view>
 			<view class="index1_content_top_l_r"></view>
 			<view class="index1_content_top_r">
@@ -49,10 +50,10 @@
 				</view>	
 			</view>
 		</view>
-		<view class="shop_table_list" v-if="shopList.length==0">
+		<view class="shop_table_list" v-if="!loading && shopList.length==0">
 			<view class="logo" style="width: 350rpx;height: 300rpx;margin: 100rpx auto;">
 				<image :src="img_url+'shop_new_home.png'" mode="aspectFit" style="display: block;width: 150rpx;height: 150rpx;margin: 0 auto;"></image>
-				<text style="display: block;width: 100%;text-align: center;margin-top: 20rpx;font-size: 30rpx;color: #FF7104;">暂无商户,赶快入住吧！！</text>
+				<text style="display: block;width: 100%;text-align: center;margin-top: 20rpx;font-size: 30rpx;color: #FF7104;">暂无门店</text>
 			</view>
 		</view>
 		<hans-tabber style="position:fixed;bottom:0;width:100%;left:0;right:0;" ></hans-tabber>
@@ -72,6 +73,7 @@
 		},
 		data(){
 			return{
+				loading: true,
 				img_url: this.$api.img_url,
 				city:'',
 				show:false,//城市选择显示或者影藏
@@ -347,23 +349,23 @@
 				});	
 			},
 			getshopList(){ //获取门店列表
-				this.$http
-					.request({
-						url: this.$api.moreShop.getshoplistall,
-						method: 'POST',
-						data:this.form,
-						showLoading: true
-					})
-					.then(res => {
-						if(res.code==0){
-							if(res.data.list.length==0)return false
-							let list= res.data.list;
-							var arr=this.shopList.concat(list)
-							this.shopList=arr
-							this.page_count = res.data.pagination.page_count;
-						}else{
-							this.$http.toast(res.msg);
-						}
+				this.loading = true;
+				this.$http.request({
+					url: this.$api.moreShop.getshoplistall,
+					method: 'POST',
+					data:this.form,
+					showLoading: true
+				}).then(res => {
+					this.loading = false;
+					if(res.code==0){
+						if(res.data.list.length==0) return false
+						let list= res.data.list;
+						var arr=this.shopList.concat(list)
+						this.shopList=arr
+						this.page_count = res.data.pagination.page_count;
+					}else{
+						this.$http.toast(res.msg);
+					}
 				});	
 			}		
 		},
@@ -396,8 +398,8 @@
 	.shop_table_item_left{width: 35%;height: 250rpx;margin: 20rpx 0;}
 	.shop_table_item_left image{width: 100%;display: block;height: 250rpx;}
 	.shop_table_item_right{width: 64%;padding-left: 25rpx;box-sizing: border-box;margin: 20rpx 0;position: relative;}
-	.shop_table_item-name{width: 100%;font-size: 34rpx;color: #000;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;}
-	.shop_table_item_notice{font-size: 28rpx;color: rgb(255,166,0);margin-top: 5rpx;background: rgb(247,236,230);width: 80%;text-align: center;border-radius: 10rpx;}
+	.shop_table_item-name{width: 100%;font-size: 34rpx;color: #000;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;}
+	.shop_table_item_notice{font-size: 28rpx;color: rgb(255,166,0);margin-top: 15rpx;background: rgb(247,236,230);width: 80%;text-align: center;border-radius: 1rpx;}
 	.shop_table_item-score{width: 100%;overflow: hidden;flex: 1;display: flex;align-items: center;margin-top: 10rpx;}
 	.shop_table_item-location{width: 100%;overflow: hidden;position: absolute;left: 0;bottom: 0;text-align: right;line-height: 50rpx;font-size: 28rpx;}
 	.shop_table_item-location image{display: inline-block;position: relative;top: 6rpx;}

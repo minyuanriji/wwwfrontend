@@ -66,7 +66,9 @@
 </template>
 
 <script>
+	//#ifdef H5
 	import html2canvas from 'html2canvas'
+	//#endif
 	export default {
 		data() {
 			return {
@@ -104,37 +106,46 @@
 			}
 		},
 		methods: {
+			//#ifdef H5
 			capture() {
 				this.show=false
-				
-				// #ifdef H5
+				// // let dom = document.querySelector('#poster'); // 获取dom元素
+				// let scale=3
+				// 	html2canvas(dom, {
+				// 		width: dom.clientWidth, //dom 原始宽度
+				// 		height: dom.clientHeight,
+				// 		scrollY: 0,// html2canvas默认绘制视图内的页面，需要把scrollY，scrollX设置为0
+				// 		scrollX: 0,
+				// 		useCORS: true,//支持跨域，但好像没什么用
+				// 		scale:scale,
+				// 		dpi:300
+				// 	}).then((canvas) => {
+				// 		//成功后调用返回canvas.toDataURL返回图片的base64，H5不支持下载base64，PC浏览器测试没问题，可以正常下载。
+				// 		this.poster_url = canvas.toDataURL('image/png', 1);
+				// 		if(this.poster_url.length>0){
+				// 			this.showPoster=true
+				// 		}
+				// 	});
 				setTimeout(()=>{
 					window.pageYoffset = 0;
 					document.documentElement.scrollTop = 0;
 					document.body.scrollTop = 0;
-					var dom = document.getElementById('poster'); // 获取dom元素
-					
-					html2canvas(dom, { 
-						width: dom.clientWidth,
-						height: dom.clientHeight+90,
-						scrollY: 0, // html2canvas默认绘制视图内的页面，需要把scrollY，scrollX设置为0
-						scrollX: 0,
-						scale: 3,
-						useCORS: true
-					 }).then( canvas => {
-						this.poster_url = canvas.toDataURL('image/png', 1);
-						if(this.poster_url.length>0){								
-							this.showPoster=true
-						}
+					html2canvas(
+					    document.getElementById('poster'), 
+					    { 
+							scale: 1,
+							useCORS: true
+						 }
+					).then( canvas => {
+								this.poster_url = canvas.toDataURL('image/png', 1);
+								if(this.poster_url.length>0){								
+									this.showPoster=true
+								}
 					});
-				}, 500);
-				// #endif
+				},500)
 
-				// #ifdef MP-WEIXIN || APP-PLUS
-				this.create("poster");
-				// #endif
-				
 			},
+			//#endif
 			saveImg(url) {
 				var that = this;
 				/* 获取图片信息 */
@@ -215,34 +226,6 @@
 		}
 	}
 </script>
-
-<!-- #ifdef MP-WEIXIN || APP-PLUS -->
-<script module="html2canvas" lang="renderjs">
-export default {
-    methods: {
-        async create(domId) {
-            try {
-				console.log('33333333');
-                /* const timeout = setTimeout(async ()=> {
-                    const shareContent = document.querySelector(domId);
-                    const canvas = await html2canvas(shareContent,{
-                        width: shareContent.offsetWidth,//设置canvas尺寸与所截图尺寸相同，防止白边
-                        height: shareContent.offsetHeight,//防止白边
-                        logging: true,
-                        useCORS: true
-                    });
-                    const base64 = canvas.toDataURL('image/jpeg', 1);
-                    this.$ownerInstance.callMethod('renderFinish', base64);
-                    clearTimeout(timeout);
-                }, 500); */
-            } catch(error){
-                console.log(error)
-            }
-        }
-    }
-}
-</script>
-<!-- #endif -->
 
 <style scoped lang="less">
 	.ercode {

@@ -2,11 +2,18 @@
 	<view class="citywide-container">
 		<!--搜索-->
 		<view class="index1_content_top" :style="{background:'#FF7104'}" id="index1_content_top">
-			<view style="width: 20%;color: #fff;font-size: 30rpx;font-weight: bold;overflow: hidden;
-			text-overflow:ellipsis;white-space: nowrap;" @click="setCITY">
-				{{city}}
-			</view>
-			<view class="index1_content_top_l_r"></view>
+			<template v-if="form.distance == ''">
+				<view style="width: 20%;color: #fff;font-size: 30rpx;font-weight: bold;overflow: hidden;
+				text-overflow:ellipsis;white-space: nowrap;" @click="setCITY">
+					{{city}}
+				</view>
+				<view class="index1_content_top_l_r"></view>
+			</template>
+			<template v-else>
+				<view style="width: 20%;color: #fff;font-size: 30rpx;font-weight: bold;overflow: hidden; text-overflow:ellipsis;white-space: nowrap;" >
+				距离{{form.distance}}公里内
+				</view>
+			</template>
 			<view class="index1_content_top_r">
 				<view class="iconfont iconsousuo"></view>
 				<input type="text" placeholder="输入商家名、品类或商圈" class="index1_content_top_r_input" v-model="keyword" disabled
@@ -55,10 +62,10 @@
 				</view>
 			</view>
 		</view>
-		<view class="citywide_list" v-if="shopList.length==0">
+		<view class="citywide_list" v-if="!loading && shopList.length==0">
 			<view class="logo" style="width: 350rpx;height: 300rpx;margin: 100rpx auto;">
 				<image :src="img_url+'shop_new_home.png'" mode="aspectFit" style="display: block;width: 150rpx;height: 150rpx;margin: 0 auto;"></image>
-				<text style="display: block;width: 100%;text-align: center;margin-top: 20rpx;font-size: 30rpx;color: #FF7104;">暂无商户,赶快入住吧！！</text>
+				<text style="display: block;width: 100%;text-align: center;margin-top: 20rpx;font-size: 30rpx;color: #FF7104;">暂无门店</text>
 			</view>
 		</view>
 		
@@ -101,6 +108,7 @@
 		},
 		data() {
 			return {
+				loading: true,
 				catory:'全部分类',
 				ai:'智能排序',
 				addressloc:'距离排序',
@@ -310,23 +318,24 @@
 				this.getshopList()
 			},
 			getshopList(){ //获取门店列表
+				this.loading = true;
 				this.$http
 					.request({
 						url: this.$api.moreShop.getshoplistall,
 						method: 'POST',
 						data:this.form,
 						showLoading: true
-					})
-					.then(res => {
-						if(res.code==0){
-							if(res.data.list.length==0)return false
-							let list= res.data.list;
-							var arr=this.shopList.concat(list)
-							this.shopList=arr
-							this.page_count = res.data.pagination.page_count;
-						}else{
-							this.$http.toast(res.msg);
-						}
+					}).then(res => {
+					this.loading = false;
+					if(res.code==0){
+						if(res.data.list.length==0)return false
+						let list= res.data.list;
+						var arr=this.shopList.concat(list)
+						this.shopList=arr
+						this.page_count = res.data.pagination.page_count;
+					}else{
+						this.$http.toast(res.msg);
+					}
 				});	
 			}		
 			
@@ -512,18 +521,18 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		display: -webkit-box;
-		-webkit-line-clamp: 2;
+		-webkit-line-clamp: 1;
 		-webkit-box-orient: vertical;
 	}
 
 	.shop_table_item_notice {
 		font-size: 28rpx;
 		color: rgb(255, 166, 0);
-		margin-top: 5rpx;
+		margin-top: 15rpx;
 		background: rgb(247, 236, 230);
 		width: 80%;
 		text-align: center;
-		border-radius: 10rpx;
+		border-radius: 1rpx;
 	}
 
 	.shop_table_item-score {
