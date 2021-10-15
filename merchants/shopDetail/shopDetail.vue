@@ -109,7 +109,7 @@
 						id:1,
 						latitude: options.latitude,//纬度
 						longitude:options.longitude,//经度
-						iconPath: 'https://dev.mingyuanriji.cn/web/static/newshop_loca.png'
+						iconPath: this.$api.plugins_img_url + 'newshop_loca.png'
 					}
 				],
 			}
@@ -147,7 +147,7 @@
 				});	
 			},
 			link(id){
-				uni.navigateTo({
+				uni.redirectTo({
 					url:'../detail/detail?store_id='+id
 				})
 			},
