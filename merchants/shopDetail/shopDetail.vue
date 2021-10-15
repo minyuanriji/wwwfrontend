@@ -99,6 +99,7 @@
 			};
 		},
 		onLoad(options) {
+			let that=this
 			this.form={
 				business_hours:options.business_hours,
 				address:options.address,
@@ -109,7 +110,7 @@
 						id:1,
 						latitude: options.latitude,//纬度
 						longitude:options.longitude,//经度
-						iconPath: 'https://dev.mingyuanriji.cn/web/static/newshop_loca.png'
+						iconPath:that.img_url+'newshop_loca.png'
 					}
 				],
 			}
