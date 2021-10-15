@@ -148,7 +148,7 @@
 				});	
 			},
 			link(id){
-				uni.navigateTo({
+				uni.redirectTo({
 					url:'../detail/detail?store_id='+id
 				})
 			},

@@ -37,7 +37,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="shop_detail_goods">
+		<view class="shop_detail_goods" v-if="shopList.length > 0">
 			<view class="shop_detail_goods_item" v-for="(item,index) in shopList" :key='index' @click="hotlink(item.goods_id,item.id,item.mch_baopin_id,)">
 				<view class="shop_detail_goods_item_left">
 					<image :src="item.cover_pic" mode=""></image>
@@ -53,6 +53,9 @@
 					<text>抢购</text>
 				</view>
 			</view>
+		</view>
+		<view style="text-align:center;" v-else>
+			暂无数据
 		</view>
 	</view>
 </template>
