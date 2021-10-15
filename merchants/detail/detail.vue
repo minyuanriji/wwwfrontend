@@ -38,7 +38,7 @@
 			</view>
 		</view>
 		<view class="shop_detail_goods">
-			<view class="shop_detail_goods_item" v-for="(item,index) in shopList" :key='index'>
+			<view class="shop_detail_goods_item" v-for="(item,index) in shopList" :key='index' @click="hotlink(item.goods_id,item.id,item.mch_baopin_id,)">
 				<view class="shop_detail_goods_item_left">
 					<image :src="item.cover_pic" mode=""></image>
 				</view>
@@ -182,7 +182,19 @@
 							this.$http.toast(res.msg);
 						}
 				});	
-			}
+			},
+			hotlink(goods_id,id,hotid){//点击跳转详情
+				if(goods_id&&hotid){
+					uni.navigateTo({
+						url:'../../pages/goods/detail?proId='+goods_id+"&mch_baopin_id="+hotid
+					})
+				}else{
+					uni.navigateTo({
+						url: "../../pages/goods/detail?proId=" + id
+					})
+				}
+				console.log(goods_id,id,hotid)
+			},
 		},
 		onReachBottom() {
 			if(this.tableIndex==0){
