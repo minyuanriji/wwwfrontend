@@ -58,7 +58,7 @@
 		<view class="citywide_list" v-if="shopList.length==0">
 			<view class="logo" style="width: 350rpx;height: 300rpx;margin: 100rpx auto;">
 				<image :src="img_url+'shop_new_home.png'" mode="aspectFit" style="display: block;width: 150rpx;height: 150rpx;margin: 0 auto;"></image>
-				<text style="display: block;width: 100%;text-align: center;margin-top: 20rpx;font-size: 30rpx;color: #FF7104;">暂无商户,赶快入住吧！！</text>
+				<text style="display: block;width: 100%;text-align: center;margin-top: 20rpx;font-size: 30rpx;color: #FF7104;">暂无门店</text>
 			</view>
 		</view>
 		
@@ -514,18 +514,18 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		display: -webkit-box;
-		-webkit-line-clamp: 2;
+		-webkit-line-clamp: 1;
 		-webkit-box-orient: vertical;
 	}
 
 	.shop_table_item_notice {
 		font-size: 28rpx;
 		color: rgb(255, 166, 0);
-		margin-top: 5rpx;
+		margin-top: 15rpx;
 		background: rgb(247, 236, 230);
 		width: 80%;
 		text-align: center;
-		border-radius: 10rpx;
+		border-radius: 1rpx;
 	}
 
 	.shop_table_item-score {
