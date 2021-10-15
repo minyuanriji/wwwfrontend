@@ -212,6 +212,13 @@
 				})
 			},		
 			
+		},
+		onReachBottom() {
+			if(this.form.page==this.page_count){
+				return false;
+			} 		
+			this.form.page=this.form.page+1
+			this.getshopList()
 		}
 	}
 </script>

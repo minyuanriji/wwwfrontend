@@ -191,12 +191,13 @@
 			href(page) {
 				if (page == 1) {
 					let mch_id = this.userMessage.store.mch_id
+					let that=this
 					uni.setStorage({
 						key: 'mch_id',
 						data: mch_id,
 						success() {
 							uni.navigateTo({
-								url: "/pages/shop/home/home?mch_id=" + mch_id
+								url: "/merchants/detail/detail?store_id=" + that.store.id
 							})
 						}
 					})
