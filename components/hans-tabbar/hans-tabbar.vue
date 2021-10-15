@@ -40,19 +40,22 @@
 			tabChange(index) {
 				uni.setStorageSync('current',index)
 				if (index == 0) {
-					uni.navigateTo({
+					uni.redirectTo({
 						url:'../../merchants/home/home'
 					})
 				}
 				if (index == 1) {
-					uni.navigateTo({
+					// uni.navigateTo({
+					// 	url: '../../merchants/citywide/citywide'
+					// })
+					uni.redirectTo({
 						url: '../../merchants/citywide/citywide'
 					})
 				}
 				if (index == 2) {
 					uni.removeStorageSync('current',index)
 					uni.removeStorageSync('shopCity')
-					uni.navigateTo({
+					uni.redirectTo({
 						url:'../../pages/user/index'
 					})
 				}

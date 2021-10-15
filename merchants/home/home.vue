@@ -4,7 +4,8 @@
 		<view class="index1_content_top" :style="{background:'#FF7104'}" id="index1_content_top">
 			<view style="width: 20%;color: #fff;font-size: 30rpx;font-weight: bold;overflow: hidden;
 			text-overflow:ellipsis;white-space: nowrap;" @click="setCITY">
-				{{city}}
+				<view v-if="city != ''">{{city}}</view>
+				<view v-else>加载中...</view>
 			</view>
 			<view class="index1_content_top_l_r"></view>
 			<view class="index1_content_top_r">
@@ -49,7 +50,7 @@
 				</view>	
 			</view>
 		</view>
-		<view class="shop_table_list" v-if="shopList.length==0">
+		<view class="shop_table_list" v-if="!loading && shopList.length==0">
 			<view class="logo" style="width: 350rpx;height: 300rpx;margin: 100rpx auto;">
 				<image :src="img_url+'shop_new_home.png'" mode="aspectFit" style="display: block;width: 150rpx;height: 150rpx;margin: 0 auto;"></image>
 				<text style="display: block;width: 100%;text-align: center;margin-top: 20rpx;font-size: 30rpx;color: #FF7104;">暂无门店</text>
@@ -72,6 +73,7 @@
 		},
 		data(){
 			return{
+				loading: true,
 				img_url: this.$api.img_url,
 				city:'',
 				show:false,//城市选择显示或者影藏
@@ -347,23 +349,23 @@
 				});	
 			},
 			getshopList(){ //获取门店列表
-				this.$http
-					.request({
-						url: this.$api.moreShop.getshoplistall,
-						method: 'POST',
-						data:this.form,
-						showLoading: true
-					})
-					.then(res => {
-						if(res.code==0){
-							if(res.data.list.length==0)return false
-							let list= res.data.list;
-							var arr=this.shopList.concat(list)
-							this.shopList=arr
-							this.page_count = res.data.pagination.page_count;
-						}else{
-							this.$http.toast(res.msg);
-						}
+				this.loading = true;
+				this.$http.request({
+					url: this.$api.moreShop.getshoplistall,
+					method: 'POST',
+					data:this.form,
+					showLoading: true
+				}).then(res => {
+					this.loading = false;
+					if(res.code==0){
+						if(res.data.list.length==0) return false
+						let list= res.data.list;
+						var arr=this.shopList.concat(list)
+						this.shopList=arr
+						this.page_count = res.data.pagination.page_count;
+					}else{
+						this.$http.toast(res.msg);
+					}
 				});	
 			}		
 		},
@@ -373,10 +375,6 @@
 			} 		
 			this.form.page=this.form.page+1
 			this.getshopList()
-		},
-		onUnload() {
-			uni.removeStorageSync('current')
-			uni.removeStorageSync('shopCity')
 		}
 	}
 </script>
