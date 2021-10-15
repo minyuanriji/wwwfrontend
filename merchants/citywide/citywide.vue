@@ -313,7 +313,7 @@
 			selectone(index,item) { //智能选择
 				this.$refs.popupSort.close();
 				this.selectIndexone = index
-				console.log(item)
+				this.ai=item
 				if(item=='智能排序'){
 					this.form.sort_by=''
 				}else if(item=='好评优先'){
