@@ -11,15 +11,15 @@
 			</view>
 			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
-					<text>银行卡号</text>
-				</view>
-				<input type="text" placeholder="请填写银行卡号" v-model="form.paper_settleAccountNo" />
-			</view>
-			<view class="item">
-				<view class="item_title" style="line-height: 120rpx;">
 					<text>账户姓名</text>
 				</view>
 				<input type="text" placeholder="请填写账户姓名" v-model="form.paper_settleAccount" />
+			</view>
+			<view class="item">
+				<view class="item_title" style="line-height: 120rpx;">
+					<text>银行卡号</text>
+				</view>
+				<input type="text" placeholder="请填写银行卡号" v-model="form.paper_settleAccountNo" />
 			</view>
 			<view class="item">
 				<view class="item_title" style="line-height: 120rpx;">
@@ -167,9 +167,9 @@
 					}, 2000);
 					return
 				}
-				if (isEmpty(this.form.paper_settleAccountNo)) {
+				if (isEmpty(this.form.paper_settleAccount)) {
 					uni.showToast({
-						title: '请填写银行卡号',
+						title: '请填写账户姓名',
 						icon: 'none'
 					});
 					setTimeout(function() {
@@ -177,9 +177,9 @@
 					}, 2000);
 					return
 				}
-				if (isEmpty(this.form.paper_settleAccount)) {
+				if (isEmpty(this.form.paper_settleAccountNo)) {
 					uni.showToast({
-						title: '请填写账户姓名',
+						title: '请填写银行卡号',
 						icon: 'none'
 					});
 					setTimeout(function() {
