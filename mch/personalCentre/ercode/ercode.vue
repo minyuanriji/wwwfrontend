@@ -116,7 +116,8 @@
 					html2canvas(
 					    document.getElementById('poster'), 
 					    { 
-							scale: 1,
+							height: document.getElementById('poster').clientHeight+90,
+							scale: 3,
 							useCORS: true
 						 }
 					).then( canvas => {
