@@ -402,12 +402,22 @@
 				let that = this
 				//#ifdef H5
 				that.$unifylocation.locationH5()
+				if(uni.getStorageSync('x-longitude-new'),uni.getStorageSync('x-latitude-new')){
+					uni.setStorageSync('x-longitude',uni.getStorageSync('x-longitude-new'))
+					uni.setStorageSync('x-latitude',uni.getStorageSync('x-latitude-new'))
+					console.log(uni.getStorageSync('x-longitude'),uni.getStorageSync('x-latitude'))
+				}
 				setTimeout(() => {
 					this.getcatory()
 				}, 1000)
 				// #endif
 				// #ifndef H5
 				that.$unifylocation.locationMp()
+				if(uni.getStorageSync('x-longitude-new'),uni.getStorageSync('x-latitude-new')){
+					uni.setStorageSync('x-longitude',uni.getStorageSync('x-longitude-new'))
+					uni.setStorageSync('x-latitude',uni.getStorageSync('x-latitude-new'))
+					console.log(uni.getStorageSync('x-longitude'),uni.getStorageSync('x-latitude'))
+				}
 				setTimeout(() => {
 					this.getcatory()
 				}, 1000)
