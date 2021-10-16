@@ -117,7 +117,8 @@
 					    document.getElementById('poster'), 
 					    { 
 							height: document.getElementById('poster').clientHeight+90,
-							scale: 3,
+							scale: 4,
+							dpi: window.devicePixelRatio * 4,
 							useCORS: true
 						 }
 					).then( canvas => {
