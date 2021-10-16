@@ -291,7 +291,7 @@
 						if ((Math.floor(countLO / 1000 * 100) / 100) > 3&&that.timeflag) {
 							uni.showModal({
 								title: '提示',
-								content: "已经超出初次定位3公里，是否重新定位",
+								content: "已偏离原位置，是否重新定位",
 								success: function(result) {
 									if (result.confirm) {
 										uni.setStorageSync('x-longitude', uni.getStorageSync(
