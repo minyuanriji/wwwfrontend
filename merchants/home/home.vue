@@ -253,7 +253,6 @@
 								})
 								this.getshopList()
 							} else {
-								console.log(uni.getStorageSync("shopCity"))
 								this.catorylist = res.data.list
 								this.city = uni.getStorageSync("shopCity").city
 								this.form.city_id = uni.getStorageSync("shopCity").city_id
