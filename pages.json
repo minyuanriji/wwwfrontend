@@ -1044,7 +1044,7 @@
 				}, {
 					"path": "extensions/poster",
 					"style": {
-						"navigationBarTitleText": "分销海报",
+						"navigationBarTitleText": "分享海报",
 						"navigationBarBackgroundColor": "#FFFFFF",
 						"navigationBarTextStyle": "black"
 					}
