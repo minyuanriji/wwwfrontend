@@ -802,7 +802,18 @@
 		              }
 
 		              }
-		          ]
+		              ,{
+                    "path" : "hotelImg/hotelImg",
+                    "style" :                                                                                    
+                {
+                   "navigationBarTitleText": "图片",
+                         "navigationBarBackgroundColor": "#FFFFFF",
+                         "navigationBarTextStyle": "black",
+                         "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
 		},
 		{
 			"root": "coupon",

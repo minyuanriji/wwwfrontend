@@ -1,7 +1,11 @@
 <template>
 	<view class="hotel-detail-app">
 		<view class="hotel-detail-img">
-			<image :src="hotelProduct.thumb_url" mode="aspectFill"></image>
+			<image :src="hotelProduct.thumb_url" mode="aspectFill" class="hotel-detail-img_big"></image>
+			<view class="hotel-detail-img_num" @click="lookImg(hotelProduct.id)">
+				<image src="../../mch/img/pic_logo.png" mode="aspectFill" style="width: 30rpx;height: 30rpx;display: block;float: left;margin:8rpx 10rpx 0 0"></image>
+				<text style="display: block;float: left;font-size: 28rpx;">{{diagram_num}}张</text>
+			</view>
 		</view>
 		<view class="hotel-detail-product">
 			<view class="hotel-name">
@@ -117,7 +121,17 @@
 					{{roomdetail.product_name}}
 				</view>
 				<view class="popup-image">
-					<image :src="roomdetail.product_thumb" mode="aspectFill"></image>
+					<view class="tui-banner-swiper" v-if="swiperShow">
+						<swiper :duration="150"  @change="bannerChange" :style="{height:180+'px'}">
+							<block v-for="(item,b_index) in roomdetail.diagram_url" :key="b_index">
+								<swiper-item :data-index="b_index+1">
+									<image :src="item.pic_url" mode="aspectFill" class="tui-slide-image" :style="{height:180+'px'}" />
+								</swiper-item>
+							</block>
+						</swiper>
+						<jx-tag class="tui-tag-class" type="translucent" shape="circle" size="small">{{bannerIndex+1}}/{{roomdetail.diagram_url.length}}</jx-tag>
+					</view>
+					<image :src="roomdetail.product_thumb" mode="aspectFill"  v-if="!swiperShow"  style="display: block;width: 100%;height: 100%;"></image>
 				</view>
 				<!-- <view class="popup-pruc-list">
 					<view>
@@ -176,14 +190,20 @@
 <script>
 	import Calendar from '@/components/mobile-calendar-simple/Calendar.vue';
 	import unipopup from '@/components/uni-popup/uni-popup';
-	import {isEmpty} from '@/common/validate.js'
+	import {isEmpty} from '@/common/validate.js';
+	import jxTag from "@/components/tag/tag"
 	export default {
 		components:{
 			Calendar, 
 			unipopup,
+			jxTag
 		},
 		data() {
 			return {
+				height:'',
+				scrollH:'',
+				// bannerLength:0,
+				bannerIndex: 0,
 				img_url: this.$api.img_url,
 				timeShow:false,//入住时间选择
 				timeStaus:{
@@ -207,6 +227,8 @@
 				hotelroomlist:'',
 				hotelProduct:'',
 				roomdetail:'',
+				swiperShow:false,
+				diagram_num:''
 			};
 		},
 		onLoad(options) {
@@ -223,7 +245,29 @@
 				}
 			}
 		},
+		onShow() {
+			let obj = {};
+			// #ifdef MP-WEIXIN
+			obj = wx.getMenuButtonBoundingClientRect();
+			// #endif
+			setTimeout(() => {
+				uni.getSystemInfo({
+					success: (res) => {
+						this.height = obj.top ? (obj.top + obj.height + 8) : (res.statusBarHeight + 44);
+						this.scrollH = res.windowWidth
+					}
+				})
+			}, 50)
+		},
 		methods:{
+			bannerChange: function(e) {
+				this.bannerIndex = e.detail.current
+			},
+			lookImg(id){ //查看酒店所有图片
+				uni.navigateTo({
+					url:'../hotelImg/hotelImg?hotel_id='+id
+				})
+			},
 			getTime(){
 				this.time=this.changeTime(new Date())
 				var day= new Date();
@@ -256,6 +300,11 @@
 			reservation(item){ //预定弹窗
 				this.$refs.popup.open()
 				this.roomdetail=item
+				if(this.roomdetail.diagram_url.length>0){
+					this.swiperShow=true
+				}else{
+					this.swiperShow=false
+				}
 			},
 			orderSure(){
 				let roominfo=this.roomdetail
@@ -348,6 +397,7 @@
 						if(res.code==0){
 							this.hotelroomlist=res.data.booking_list
 							this.hotelProduct=res.data.hotel_info
+							this.diagram_num=res.data.diagram_num
 						}else{
 							this.$http.toast(res.msg);
 						}
@@ -361,8 +411,9 @@
 
 <style lang="less">
 	.hotel-detail-app{width: 100%;overflow: hidden;}
-	.hotel-detail-img{width: 100%;height: 350rpx;}
-	.hotel-detail-img image{display: block;width: 100%;height: 100%;}
+	.hotel-detail-img{width: 100%;height: 350rpx;position: relative;}
+	.hotel-detail-img_big{display: block;width: 100%;height: 100%;}
+	.hotel-detail-img_num{position: absolute;right: 50rpx;bottom: 20rpx;z-index: 999;color: #fff;}
 	.hotel-detail-product{width: 100%;overflow: hidden;background: #fff;padding: 20rpx 30rpx;box-sizing: border-box;}
 	.hotel-name{width: 100%;overflow: hidden;color: #000;font-weight: bold;}
 	.hotel-detail-address-phone{width: 100%;overflow: hidden;display: flex;justify-content: space-between;margin: 20rpx 0 0 0;}
@@ -388,7 +439,6 @@
 	.hotel-notice-item{font-size: 26rpx;}
 	.popup-title{width: 100%;height: 100rpx;text-align: center;line-height: 100rpx;color: #000;}
 	.popup-image{width: 100%;height: 400rpx;}
-	.popup-image image{display: block;width: 100%;height: 100%;}
 	.popup-pruc-list{width: 100%;overflow: hidden;display: flex;justify-content: space-evenly;flex-wrap: wrap;margin-top:20rpx}
 	.popup-pruc-list view{width: 50%;text-align: center;font-size: 28rpx;margin: 5rpx 0;}
 	.popup-pruc-list view text{display: inline-block;width: 50%;}
@@ -396,4 +446,11 @@
 	.popup-pruc-list view text:nth-of-type(2){text-align: left;color: #000;}
 	.popup-facilities{width: 100%;overflow: hidden;display: flex;justify-content: space-evenly;flex-wrap: wrap;padding: 20rpx;box-sizing: border-box;border-top: 1rpx solid rgb(242,245,249);border-bottom: 1rpx solid rgb(242,245,249);margin-top: 20rpx;font-size: 28rpx;margin-bottom: 40rpx;}
 	.reservationOrder{width: 100%;height: 100rpx;display: flex;justify-content: space-between;line-height: 100rpx;}
+
+
+
+	.tui-banner-swiper{width: 100%;overflow: hidden;position: relative;}
+	.tui-banner-swiper .tui-tag-class {position: absolute;color: #fff;bottom: 25rpx;right: 40rpx;}
+	.tui-slide-image {width: 100%;display: block;}
+
 </style>
