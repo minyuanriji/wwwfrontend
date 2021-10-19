@@ -110,17 +110,27 @@
 				<!-- 图片魔方 -->
 
 				<!-- 商品 -->
-				<view v-if="item.id == 'goods'" style="background: #FFFFFF;border-radius: 10rpx;">
+				<!-- <view v-if="item.id == 'goods'" style="background: #FFFFFF;border-radius: 10rpx;">
 					<commodity :listStyle="item.data.listStyle" :showGoodsName="item.data.showGoodsName" :showGoodsOriginalPrice="item.data.showGoodsOriginalPrice"
 					 :showGoodsPrice="item.data.showGoodsPrice" :showGoodsLevelPrice="item.data.showGoodsLevelPrice"
 					 :originalPriceLabel="item.data.originalPriceLabel" :priceLabel="item.data.priceLabel" :levelPriceLabel="item.data.levelPriceLabel"
 					 :showBuyBtn="item.data.showBuyBtn" :subscriptIcon="item.data.goodsTagPicUrl" :showGoodsTag="item.data.showGoodsTag"
 					 :buyBtnStyle="item.data.buyBtnStyle" :buyBtns="item.data.buyBtn" :buyBtnText="item.data.buyBtnText" :displayStyle="item.data.goodsStyle"
 					 :productData="item.data.list" :buyBtnPic="item.data.buyBtnPic" :buttonColor="item.data.buttonColor"></commodity>
-				</view>
+				</view> -->
 				<!-- 商品 -->
 			</view>
 		</block>
+		
+		
+		
+		<vouchers :list='goods_ist'></vouchers>
+		
+		
+		
+		
+		
+		
 		<!-- 版权 -->
 		<diy-copyright v-if="copyright.status == 1" :value="copyright"></diy-copyright>
 		<view class="ap-link" @click="navToLink()"
@@ -161,6 +171,7 @@
 	import diyCopyright from '@/components/diy/diy-copyright.vue';
 	import diyMap from '@/components/diy/diy-map.vue';
 	import diyModal from '@/components/diy/diy-modal.vue';
+	import vouchers from '@/components/vouchers.vue';
 	//#ifdef H5
 		var jweixin = require('jweixin-module');
 	//#endif
@@ -191,6 +202,7 @@
 			diyCopyright,
 			diyMap,
 			diyModal,
+			vouchers
 		},
 		data() {
 			return {
@@ -342,6 +354,9 @@
 				},
 				modelSHOw:true,
 				showFoucs:false,
+				page_count:'',
+				page:1,
+				goods_ist:[],
 			};
 		},
 		onShow() {
@@ -368,7 +383,7 @@
 			this.t_page++;
 		},
 		onLoad(options) {
-			
+			this.getList()
 			this.beforeOnLoad(options);
 			
 			if (options.pid) {
@@ -653,7 +668,28 @@
 				} else {
 					this.couponData[val.index].receive = 1;
 				}
-			}
+			},
+			getList() { //首页商品
+				this.$http.request({
+					url: this.$api.default.getvoucherList,
+					method: 'GET',
+					data:{
+						page:this.page
+					},
+					showLoading: true
+				}).then((res) => { 
+					if(res.code==0){
+						if(res.data.list.length==0)return false
+						let list= res.data.list;
+						var arr=this.goods_ist.concat(list)
+						this.goods_ist =arr
+						this.page_count = res.data.page_count;
+						console.log(this.page_count )
+					}else{
+						this.$http.toast(res.msg);
+					}
+				})
+			},
 		},
 		onPageScroll(e) {
 			var that = this;
@@ -673,6 +709,13 @@
 			} else {
 				this.styleBool = true;
 			}
+		},
+		onReachBottom() {
+			if(this.page==this.page_count){
+				return false;
+			} 		
+			this.page=this.page+1
+			this.getList();
 		},
 	};
 </script>
