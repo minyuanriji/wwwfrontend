@@ -8,8 +8,8 @@
 				推荐使用补商汇
 			</view>
 			<view class="ercodeImg">
-				<view class="ercodeImg-img">
-					<image :src="ercodeLogo.qrcode" mode=""></image>
+				<view class="ercodeImg-img" >
+					 <image :src="ercodeLogo.qrcode" mode=""></image>
 				</view>
 				<view class="shop-name">
 					{{message.store.name}}
@@ -48,7 +48,7 @@
 						<!-- #endif -->
 						
 						<!-- #ifdef MP-WEIXIN -->
-						<view class="goods-qrcode-box" @longpress="saveImage(poster_url)">
+						<view  class="goods-qrcode-box" @longpress="saveImage(poster_url)">
 							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
 						</view>
 						<!-- #endif -->
@@ -118,6 +118,7 @@
 					    { 
 							height: document.getElementById('poster').clientHeight+90,
 							scale: 3,
+							dpi: window.devicePixelRatio * 3,
 							useCORS: true
 						 }
 					).then( canvas => {
