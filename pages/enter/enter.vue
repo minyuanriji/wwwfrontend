@@ -23,7 +23,7 @@
 		 </view>
 		 <!--开店需要准备材料的内容展示-->
 		 <view class="content_block">
-			  <view class="enter_before" v-show="status==0">
+			 <view class="enter_before" v-show="status==0">
 				  <enter_before :background="background" @returnStatus="getStatus"></enter_before>
 			  </view>
 			  <view class="enter_before" v-show="status==1">

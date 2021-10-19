@@ -1,88 +1,34 @@
 <template>
-	<view>
-		<view class="content_body">
-			<!--
-			 <image :src="this.$api.test_url+'/images/shop/ttzl.png'" class="content_start_title"></image>
-			 -->
-			<view class="content_body_block">
-				<view class="content_body_block_t">1、营业执照名称</view>
-				<view class="content_body_block_desc">
-					请输入您<text :style="{color: background}">营业执照名称</text>
-					的名称
+	<view class="join_container">
+		<view class="jojin_list">
+			<view class="jojin_item">
+				<view style="width: 35%;">
+					<text style="margin: 0 5rpx;color: red;">*</text>
+					<text style="color: #000;">营业执照名称</text>
 				</view>
-				<input class="content_body_block_input" v-model="params.license_name"></input>
+				<view style="width: 64%;">
+					<input type="text" v-model="params.license_name" placeholder="请填写您的营业执照名称"
+						style="line-height: 120rpx;display: block;height: 120rpx;border: none;text-align: right;" />
+				</view>
 			</view>
-			<view class="content_body_block">
-				<view class="content_body_block_t">2、营业执照图片</view>
-				<view class="content_body_block_desc">
-					请上传<text :style="{color: background}">营业执照图片</text>
+			<view class="jojin_item">
+				<view style="width: 35%;line-height: 180rpx;">
+					<text style="margin: 0 5rpx;color: red;">*</text>
+					<text style="color: #000;">营业执照图片</text>
 				</view>
-				<view class="content_body_block_bb1">
-					<view class="content_body_block_bb_l2">
-						<image :src="params.license_pic?params.license_pic:img_url+'/yingye.jpg'" @tap="uploadImg" data-id="0"></image>
-						<view>营业执照（有经营类目的面）</view>
-					</view>
+				<view style="width: 64%;">
+					<image :src="params.license_pic?params.license_pic:plugins_img_url+'/check_created.png'" @tap="uploadImg" data-id="0" style="display: block;width: 250rpx;height: 150rpx;float: right;margin: 20rpx 0;"></image>
 				</view>
-			</view>		
-			<!--
-			<view class="content_body_block">
-				<view class="content_body_block_t">3、法人姓名</view>
-				<view class="content_body_block_desc">
-					请填写<text :style="{color: background}">法人姓名</text>
-				</view>
-				<input class="content_body_block_input" v-model="params.cor_realname"></input>
 			</view>
-			<view class="content_body_block">
-				<view class="content_body_block_t">4、身份证号码</view>
-				<view class="content_body_block_desc">
-					请填写你的<text :style="{color: background}">身份证号码</text>
+			<view class="jojin_item">
+				<view style="width: 35%;">
+					<text style="margin: 0 5rpx;color: red;">*</text>
+					<text style="color: #000;">店铺折扣</text>
 				</view>
-				<input class="content_body_block_input" v-model="params.cor_num"></input>
-			</view>
-			<view class="content_body_block">
-				<view class="content_body_block_t">5、法人身份证照片</view>
-				<view class="content_body_block_desc">
-					请上传<text :style="{color: background}">法人身份证照片</text>
+				<view style="width: 64%;">
+					<input type="text" v-model="params.settle_discount" placeholder="请填写店铺折扣"
+						style="width: 220rpx;margin-top: 20rpx;float: right;line-height: 80rpx;display: block;height: 80rpx;border: none;text-align: center;background: rgb(223, 223, 223);font-size: 28rpx;color: #000;" />
 				</view>
-				<view class="content_body_block_bb1">				
-						<view class="content_body_block_bb_l2">
-							<image :src="params.cor_pic1?params.cor_pic1:img_url+'/positive.png'" @tap="uploadImg" data-id="1"></image>
-							<view>身份证照片（正面）</view>
-						</view>
-						<view class="content_body_block_bb_l2">
-							<image :src="params.cor_pic2?params.cor_pic2:img_url+'/reverse.png'" @tap="uploadImg" data-id="2"></image>
-							<view >身份证照片（反面）</view>
-						</view>					
-				</view>
-			</view>		
-			-->
-		<!-- 	<view class="content_body_block">
-				<view class="content_body_block_t">6、银行卡号码</view>
-				<view class="content_body_block_desc">
-					请填写你的<text :style="{color: background}">银行卡号码（选填）</text>
-				</view>
-				<input class="content_body_block_input" v-model="params.settle_num"></input>
-			</view> -->
-		<!-- 	<view class="content_body_block">
-				<view class="content_body_block_t">7、银行卡开户人</view>
-				<view class="content_body_block_desc">
-					请填写你的<text :style="{color: background}">银行卡开户人（选填）</text>
-				</view>
-				<input class="content_body_block_input" v-model="params.settle_realname"></input>
-			</view> -->
-			<!-- <view class="content_body_block">
-				<view class="content_body_block_t">8、银行名称</view>
-				<view class="content_body_block_desc">
-					请填写你的<text :style="{color: background}">银行名称（选填）</text>
-				</view>
-				<input class="content_body_block_input" v-model="params.settle_bank"></input>
-			</view> -->
-			<view class="content_body_block">
-				<view class="content_body_block_t">9、店铺折扣</view>
-				<view class="content_body_block_desc">
-					请填写你的<text :style="{color: background}">店铺折扣（选填）</text>
-				</view>
-				<input type="digit" class="content_body_block_input" v-model="params.settle_discount" style="width: 200rpx;text-align: center;"></input>
 			</view>
 		</view>
 		<view class="content_footer">
@@ -105,7 +51,67 @@
 		</uni-popup>
 	</view>
 </template>
-
+<style>
+	@import url("../../plugins/font-icon/iconfont1.css");
+	.join_container{width: 100%;overflow: hidden;}
+	.jojin_list {width: 100%;overflow: hidden;}
+	.jojin_item {
+		width: 98%;
+		overflow: hidden;
+		margin: 10rpx auto 0;
+		padding: 0 20rpx;
+		line-height: 120rpx;
+		background: #fff;
+		box-sizing: border-box;
+		display: flex;
+		justify-content: space-between;
+	}
+	.content_footer {
+		width: 98%;
+		margin: 5px auto;
+		background: #FFFFFF;
+		box-shadow: 0px 1px 1px 1px rgba(2, 58, 63, 0.16);
+		border-radius: 3px;
+		padding: 20px 5px 50px;
+	}
+	
+	.sumbit {
+		width: 40%;
+		margin: 15rpx auto;
+		height: 80rpx;
+		border: 0px solid rgba(4, 0, 0, 0.39);
+		box-shadow: 0px 1px 2px 0px rgba(4, 76, 102, 0.71);
+		border-radius: 30px;
+		line-height: 80rpx;
+		color: #fff;
+		font-size: 14px;
+		font-weight: bold;
+	}
+	.content_footer_top {
+		font-size: 14px;
+		display: flex;
+		color: #6B6B6B;
+		padding: 0px 0px 10px 15px;
+	}
+	.btncheck{width: 100%;overflow: hidden;display: flex;justify-content: space-evenly;}
+	.scroll-Ys {
+		width: 80%;
+		overflow: hidden;
+		margin: 0 auto;
+		background: #fff;
+		border-radius: 20rpx;
+	}
+	.html {
+		width: 100%;
+		height: 500rpx;
+		margin: 0 auto;
+		border-radius: 20rpx;
+		font-size: 30rpx;
+		text-align: center;
+		line-height: 60rpx;
+		padding: 20rpx;
+	}
+</style>
 <script>
 	import {isEmpty} from '../../common/validate.js'
 	export default {
@@ -118,6 +124,7 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
+				plugins_img_url:this.$api.plugins_img_url,
 				background: 'rgb(255, 113, 4)',
 				status: 0, //0 未同意,1 同意
 				agreement:'',
@@ -253,187 +260,3 @@
 		},
 	}
 </script>
-
-<style>
-	@import url("../../plugins/font-icon/iconfont1.css");
-
-	.scroll-Ys {
-		width: 80%;
-		overflow: hidden;
-		margin: 0 auto;
-		background: #fff;
-		border-radius: 20rpx;
-	}
-
-	.html {
-		width: 100%;
-		height: 500rpx;
-		margin: 0 auto;
-		border-radius: 20rpx;
-		font-size: 30rpx;
-		text-align: center;
-		line-height: 60rpx;
-		padding: 20rpx;
-	}
-
-	.content_body {
-		width: 98%;
-		margin: 5px auto;
-		background: #FFFFFF;
-		box-shadow: 0px 1px 1px 1px rgba(2, 58, 63, 0.16);
-		border-radius: 3px;
-		padding: 12px 5px 5px;
-	}
-
-	.content_start_title {
-		width: 168px;
-		height: 28px;
-
-	}
-
-	.content_footer {
-		width: 98%;
-		margin: 5px auto;
-		background: #FFFFFF;
-		box-shadow: 0px 1px 1px 1px rgba(2, 58, 63, 0.16);
-		border-radius: 3px;
-		padding: 20px 5px 50px;
-	}
-
-	.sumbit {
-		width: 40%;
-		margin: 0px auto;
-		height: 32px;
-		border: 0px solid rgba(4, 0, 0, 0.39);
-		box-shadow: 0px 1px 2px 0px rgba(4, 76, 102, 0.71);
-		border-radius: 13px;
-		line-height: 32px;
-		color: #fff;
-		font-size: 14px;
-		font-weight: bold;
-	}
-
-	.content_body_block {
-		width: 90%;
-		margin: 0px auto;
-		padding: 15px 0px;
-		border-bottom: 1px dotted #CDCBCB;
-
-	}
-
-	.content_body_block_t {
-		font-size: 15px;
-		font-weight: bold;
-		color: #000000;
-		opacity: 0.9;
-
-	}
-
-	.content_body_block_desc {
-		font-size: 10px;
-		font-weight: 400;
-		color: #6B6B6B;
-
-	}
-	.content_body_block_input {
-		width: 70%;
-		margin-top: 10px;
-		height: 40px;
-		line-height: 38px;
-		border: 3px solid #eee;
-		border-radius: 3px;
-		font-size: 14px;
-		color: #333
-	}
-	.content_body_block_b {
-		width: 40%;
-		height: 35px;
-		margin-top: 10px;
-		line-height: 35px;
-		border: 3px solid #eee;
-		border-radius: 3px;
-		border-radius: 12px;
-		display: flex;
-		align-items: center;
-		font-size: 14px;
-		color: #333;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-	}
-	.content_body_block_bb1 {
-		display: flex;
-		margin-top: 10px;
-	}
-	.content_body_block_bb_l {
-		flex: 1;
-		text-align: center;
-	}
-
-	.content_body_block_bb_l image {
-		width: 80%;
-		height: 88px;
-	}
-
-	.content_body_block_bb_l view {
-		font-size: 13px;
-		font-weight: bold;
-		color: #6B6B6B;
-	}
-
-	.content_body_block_bb_l2 {
-		flex: 1;
-	}
-
-	.content_body_block_bb_l2 image {
-		width: 80%;
-		height: 113px;
-	}
-
-	.content_body_block_bb_l2 view {
-		font-size: 13px;
-		font-weight: bold;
-		color: #6B6B6B;
-		text-align: center;
-		width: 50%;
-	}
-
-	.block_bb1_r {
-		margin-top: 10px;
-		border-right: 10px solid transparent;
-		border-bottom: 10px solid transparent;
-		border-left: 10px solid transparent;
-	}
-
-	.content_body_block_bb2 {
-		margin-top: 10px;
-		width: 70%;
-		height: 35px;
-		border: 3px solid #eee;
-		border-radius: 3px;
-		display: flex;
-	}
-
-	.content_body_block_bb2_l {
-		flex: 1;
-		font-size: 15px;
-		line-height: 29px;
-	}
-
-	.content_footer_top {
-		font-size: 14px;
-		display: flex;
-		color: #6B6B6B;
-		padding: 0px 0px 10px 15px;
-	}
-
-	.location {
-		width: 60rpx;
-		height: 60rpx;
-		display: block;
-		position: absolute;
-		right: 100rpx;
-		top: 130rpx;
-	}
-	.btncheck{width: 100%;overflow: hidden;display: flex;justify-content: space-evenly;}
-</style>

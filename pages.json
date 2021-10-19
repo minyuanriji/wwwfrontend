@@ -7,7 +7,7 @@
 				"backgroundColorTop": "#F7F7F7",
 				"backgroundColorBottom": "#F7F7F7",
 				"navigationBarTitleText": "首页",
-				"enablePullDownRefresh": true,
+				"enablePullDownRefresh": false,
 				"onReachBottomDistance": 50,
 				// "navigationStyle": "custom",
 				"app-plus": {
@@ -51,7 +51,7 @@
 				"backgroundColorTop": "#F7F7F7",
 				"backgroundColorBottom": "#F7F7F7",
 				"navigationBarTitleText": "商品详情 ",
-				//"navigationStyle": "custom",
+				"navigationStyle": "custom",
 				"app-plus": {
 					"titleNView": false
 				}
@@ -655,7 +655,7 @@
 			}
 
 		}
-	],
+    ],
 	"subPackages": [
 		{
 			"root":"merchants",
@@ -802,7 +802,18 @@
 		              }
 
 		              }
-		          ]
+		              ,{
+                    "path" : "hotelImg/hotelImg",
+                    "style" :                                                                                    
+                {
+                   "navigationBarTitleText": "图片",
+                         "navigationBarBackgroundColor": "#FFFFFF",
+                         "navigationBarTextStyle": "black",
+                         "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
 		},
 		{
 			"root": "coupon",

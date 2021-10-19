@@ -150,6 +150,10 @@
 				</view>
 				<switch v-model="shopping_voucher.is_use" @change="useShoppingVoucher" color='#FF7104' class="points-switch" />
 			</view>
+			<view class="use-points" style="overflow: hidden;line-height: 60rpx;" v-if="got_shopping_voucher_num>0">
+				<image :src="plugins_img_url+'/new_red_bags.png'" mode="aspectFill" style="display: block;float: left;width: 60rpx;height: 60rpx;margin:0 30rpx;"></image>
+				确认收货完成，即可获得<text style="color: red;margin: 0 3rpx;">{{got_shopping_voucher_num}}</text>购物券
+			</view>
 		</view>
 
 
@@ -232,6 +236,7 @@
 			return {
 				url: this.$api.test_url,
 				img_url: this.$api.img_url,
+				plugins_img_url: this.$api.plugins_img_url,
 				hasCoupon: true,
 				insufficient: false,
 				list: '', //商品数据
@@ -297,7 +302,8 @@
 					"use_integral": 0,
 					"use_shopping_voucher": 0,
 					"list": ""
-				}
+				},
+				got_shopping_voucher_num:''
 			}
 		},
 
@@ -527,6 +533,7 @@
 					data: this.form
 				}).then((res) => {
 					if (res.code == 0) {
+						this.got_shopping_voucher_num=res.data.got_shopping_voucher_num
 						console.log(res)
 						if (res.data.is_need_address == 0) {
 							this.addressShpw = false

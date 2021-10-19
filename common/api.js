@@ -51,6 +51,11 @@ let api = {
 		subscribe:api_root + 'api/identity/subscribe-status',
 		getwxaddress:api_root + 'api/user/wx-user-address-save',
 		
+		
+		getvoucherList:api_root + 'plugin/shopping_voucher/api/from-goods/list',
+		
+		
+		
 	//---------------------------------------------------------------统一核销	
 		verification:api_root + 'api/clerkCenter/clerk/get-logs', //核销记录
 		verificationProgress:api_root +'api/clerkCenter/clerk/do-clerk', //核销
@@ -451,6 +456,7 @@ let api = {
 		
 		getcity:api_root +'plugin/hotel/api/hotel/hotel-info',
 		getcitylist:api_root +'plugin/hotel/api/hotel/city-list',
+		getimgList:api_root +'plugin/hotel/api/hotel/hotel-diagram',
 	},
 	merchants:{
 		Fillbasic: api_root +'plugin/mch/api/apply/basic',
