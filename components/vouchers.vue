@@ -56,12 +56,12 @@
 	.vouchers-type view text{display: block;width: 80%;margin: 0 auto;height: 60rpx;margin: 0 auto;text-align: center;line-height: 60rpx;}
 	.active{color: rgb(255, 113, 4);font-weight: bold;border-bottom: 5rpx solid rgb(255, 113, 4);}
 	.goods{width: 94%;background: #fff;display: flex;justify-content: space-between;flex-wrap: wrap;margin: 0 auto;}
-	.goods_item{width: 49%;border:1rpx solid rgb(239,239,239) ;height: 560rpx;border-radius: 15rpx;margin-top: 15rpx;}
+	.goods_item{width: 49%;border:1rpx solid rgb(239,239,239) ;height: 510rpx;border-radius: 15rpx;margin-top: 15rpx;}
 	.goods_item image{width: 100%;height: 300rpx;display: block;}
 	.item_name{font-size: 29rpx;color: #000;padding: 0 10rpx;box-sizing: border-box; overflow: hidden;margin: 10rpx 0;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;}
   .money_num{width: 100%;padding: 0 10rpx;box-sizing: border-box;display: flex;justify-content: space-between;}
   .send{padding: 0 10rpx;box-sizing: border-box;}
