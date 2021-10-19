@@ -1226,9 +1226,14 @@
 	.tui-menu-header {
 		font-size: 12pt;
 		color: #fff;
-		height: 32px;
+		height: 50px;
+		padding-top: 10rpx;
 		display: flex;
 		align-items: center;
+			/* #ifdef MP */
+		margin-top: 60rpx;
+		/* #endif */
+		margin-bottom: 20rpx;
 	}
 
 	.tui-top-dropdown {
@@ -1237,7 +1242,7 @@
 
 	.tui-menu-itembox {
 		color: #fff;
-		padding: 40rpx 10rpx 0 10rpx;
+		padding: 0 10rpx;
 		box-sizing: border-box;
 		display: flex;
 		flex-wrap: wrap;
@@ -1279,7 +1284,7 @@
 	}
 
 	.tui-menu-text {
-		padding-top: 12rpx;
+		padding-top: 0rpx;
 	}
 
 	.tui-opcity .tui-menu-text,
