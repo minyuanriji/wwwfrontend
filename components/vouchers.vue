@@ -12,11 +12,11 @@
 						{{item.name}}
 					</view>
 					<view class="money_num">
-						<view class="money" style="width: 55%;color: rgb(255, 113, 4);">
+						<view class="money" style="width: 50%;color: rgb(255, 113, 4);">
 							<text style="font-size: 26rpx;">￥</text>
 							<text style="font-size: 28rpx;">{{item.price}}</text>
 						</view>
-						<view style="width: 45%;font-size: 24rpx;line-height: 50rpx;text-align: right;">
+						<view style="width: 50%;font-size: 24rpx;line-height: 50rpx;text-align: right;">
 							<text>{{item.sales}}</text>
 						</view>
 					</view>
