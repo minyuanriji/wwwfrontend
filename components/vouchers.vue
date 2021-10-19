@@ -6,7 +6,7 @@
 			</view>
 		</view> -->
 		<view class="goods">
-				<view v-for="(item,index) in list" :key="index" class="goods_item">
+				<view v-for="(item,index) in list" :key="index" class="goods_item" @click="linkurl(item.id)">
 					<image :src="item.cover_pic" mode="scaleToFill"></image>
 					<view class="item_name">
 						{{item.name}}
@@ -44,7 +44,11 @@
 			};
 		},
 		methods:{
-			
+			linkurl(id){
+				uni.navigateTo({
+					url:'../../pages/goods/detail?proId='+id
+				})
+			}
 		},
 	}
 </script>
