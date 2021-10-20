@@ -35,6 +35,10 @@
 		</view>
 		<view class="btn" @click="capture" v-if="show">
 			点击生成图片
+		</view>	
+		<view class="btn" @click="download" v-if="show" style="background: none;border: 1rpx solid #FF7104;color: #000;
+		width: 450rpx;height: 70rpx;border-radius: 40rpx;text-align: center;line-height: 70rpx;margin: 50rpx auto 120rpx;">
+			点击下载二维码
 		</view>		
 		<view class="goods-qrcode-modal" v-if="showPoster">
 			<view class="goods-qrcode-body flex-col">
@@ -62,6 +66,14 @@
 				</view>
 			</view>
 		</view>
+		<view class="cover" v-if="coverShow">
+			<view>
+				<image :src="cover_url" mode="widthFix"></image>
+				<text style="display: block;width: 100%;font-size: 30rpx;text-align: center;margin-top: 50rpx;">长按图片保存至本地</text>
+				<text style="display: block;width: 40%;font-size: 30rpx;line-height: 60rpx;text-align: center;margin: 50rpx auto 0;border-radius: 20rpx;
+				border: 1rpx solid #FF7104;" @click="cancle">取消</text>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -77,7 +89,9 @@
 				showPoster: false,
 				poster_url:"",
 				img_url: this.$api.img_url,
-				show:true
+				show:true,
+				coverShow:false,
+				cover_url:''
 			}
 		},
 		onLoad() {
@@ -207,6 +221,47 @@
 			closePost(){
 				this.showPoster = false;
 				this.show=true
+			},
+			download(){ //下载图片
+				// #ifdef H5
+				var route = '/h5/#/mch/personalCentre/ercode/payPages/payPages';
+				// #endif
+				
+				// #ifdef MP-WEIXIN || APP-PLUS
+				var route = 'mch/personalCentre/ercode/payPages/payPages';
+				// #endif
+				this.$http.request({
+					url: this.$api.moreShop.downloadCode,
+					method: 'POST',
+					data: {
+						route: route
+					},
+					showLoading: true
+				}).then(res => {
+					if (res.code == 0) {
+						let that=this
+						// #ifdef H5
+							that.cover_url=res.data.pic_url
+							if(that.cover_url.length>0){
+								that.coverShow=true
+							}
+						// #endif
+						// #ifdef MP-WEIXIN || APP-PLUS
+						uni.downloadFile({
+							    url:res.data.pic_url,
+							    success: (res) => {
+							        if (res.statusCode === 200) {
+										that.saveImage(res.tempFilePath)
+									}
+								}
+						});
+							// #endif
+						
+					}
+				})
+			},
+			cancle(){
+				this.coverShow=false
 			}
 		}
 	}
@@ -311,8 +366,8 @@ white-space: nowrap;}
 	.goods-qrcode {
 		width: 100%;
 		height: 100%;
-		background: #fffffff;
-		background-size: 100%;
+		background: #ffffff;
+		background-size: cover;
 	}
 	
 	.goods-qrcode-close {
@@ -324,5 +379,32 @@ white-space: nowrap;}
 		right: 40rpx;
 		padding: 15rpx;
 	}
+	
+	
+	
+	
+	
+	
+	
+	.cover{
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 999;
+		background: #fff;
+	}
+	.cover view{
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 600rpx;
+		margin: auto;
+		width: 500rpx;
+	}
+	.cover image{width: 320rpx;display: block;height: 350rpx;margin: 0 auto;}
 </style>
 

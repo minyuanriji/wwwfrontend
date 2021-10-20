@@ -684,7 +684,6 @@
 						var arr=this.goods_ist.concat(list)
 						this.goods_ist =arr
 						this.page_count = res.data.page_count;
-						console.log(this.page_count )
 					}else{
 						this.$http.toast(res.msg);
 					}

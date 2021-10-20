@@ -42,15 +42,13 @@
 			// #endif
 			this.id=options.id
 			this.$http.request({
-						url: this.$api.moreShop.getmchstore,
+						url: this.$api.moreShop.getMchBaseInfo,
 						method: 'POST',
-						data: {
-							mch_id:this.id,
-						},
+						data:"",
 						showLoading: true
 					}).then(res => {
 						if(res.code==0){
-							this.message=res.data.store
+							this.message=res.data.base_info.store
 						}
 			})
 		},
