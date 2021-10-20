@@ -7,7 +7,7 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;">
-					{{detail.name}}丰日欧诺个免费蓉儿来个你可瑞康老年团湖南人挺凉快赶快来让他拿人头带车位款立方米呢热了呢人力
+					{{detail.name}}
 				</text>
 			</view>
 			<view class="shop_table_score">
