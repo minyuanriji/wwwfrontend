@@ -2,7 +2,13 @@
 	<view class="shop_detail_container">
 		<view class="shop_detail_header">
 			<view class="shop_detail_header_name">
-				{{detail.name}}
+				<image :src="detail.logo" mode="scaleToFill" style="display: block;width: 150rpx;height: 150rpx;float: left;"></image>
+				<text style="display: block;overflow: hidden;float: left;padding-left: 20rpx;width: 500rpx; text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;">
+					{{detail.name}}丰日欧诺个免费蓉儿来个你可瑞康老年团湖南人挺凉快赶快来让他拿人头带车位款立方米呢热了呢人力
+				</text>
 			</view>
 			<view class="shop_table_score">
 				<view class="iconfont iconwujiaoxing" v-for="(i,index) in Number(detail.score)"
@@ -22,10 +28,18 @@
 				</view>
 			</view>
 			<view class="shop_details-address">
-				<view style="width: 80%;font-size: 30rpx;color: #000;"> 
+				<view style="width: 65%;font-size: 30rpx;color: #000; overflow: hidden;padding-top: 10rpx;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;"> 
 					{{detail.address}}
 				</view>
-				<view style="width: 20%;text-align: center;font-size: 30rpx;color: #000;" @click="location(detail.latitude,detail.longitude,detail.address)">
+				<view style="width: 15%;text-align: center;font-size: 30rpx;color: #000;" @click="callphone(detail.phone)">
+					<image :src="img_url+'iphone-my-new.png'" mode="" style="width: 60rpx;height: 60rpx;display: block;margin: 0 auto;"></image>
+					<text>电话</text>
+				</view>
+				<view style="width: 15%;text-align: center;font-size: 30rpx;color: #000;" @click="location(detail.latitude,detail.longitude,detail.address)">
 					<image :src="img_url+'dao_location.png'" mode="" style="width: 60rpx;height: 60rpx;display: block;margin: 0 auto;"></image>
 					<text>导航</text>
 				</view>
@@ -139,6 +153,20 @@
 				});
 				// #endif
 			},
+			callphone(phone){ //联系电话
+				uni.makePhoneCall({
+				 	// 手机号
+				    phoneNumber: phone, 				
+					// 成功回调
+					success: (res) => {
+						console.log('调用成功!')	
+					},				
+					// 失败回调
+					fail: (res) => {
+						console.log('调用失败!')
+					}					
+				 })
+			},	
 			gethotgoods(page,store_id){ //获取爆品商品
 				this.$http
 					.request({
@@ -223,7 +251,7 @@
 	.shop_detail_container{width: 100%;overflow: hidden;}
 	.shop_detail_header{width: 95%;overflow: hidden;background: #fff;margin: 20rpx auto;border-radius: 20rpx;padding: 20rpx;box-sizing: border-box;}
 	.shop_detail_header_name{width: 100%;overflow: hidden;font-size: 35rpx;color: #000;font-weight: bold;}
-	.shop_table_score{width: 100%;overflow: hidden;flex: 1;display: flex;align-items: center;margin-top: 10rpx;}
+	.shop_table_score{width: 100%;overflow: hidden;flex: 1;display: flex;align-items: center;margin:15rpx 0;}
 	.s-c-list-x{white-space: nowrap;width: 100%;height: 230rpx;color:#fff;overflow: hidden;margin: 20rpx 0;}
 	.s-c-list-x .s-c-l-item{display: inline-block; width: 350rpx;height: 230rpx;margin-right: 20rpx;text-align: center; line-height: 230rpx;font-size: 100rpx;border-radius: 20rpx;}
 	.shop_details-hours-detail{width: 100%;overflow: hidden;display: flex;justify-content: space-between;margin: 25rpx 0;padding-right: 10rpx;box-sizing: border-box;}
