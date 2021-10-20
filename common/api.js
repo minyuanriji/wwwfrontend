@@ -436,6 +436,7 @@ let api = {
 		 getshopnewdetail:api_root+"plugin/mch/api/store/detail",
 		 gethotListnew:api_root+"plugin/mch/api/goods/recommand-list",
 		 getgoodsnew:api_root+"plugin/mch/api/goods/list",
+		 downloadCode:api_root+"mch/api/checkout-order/synthetic-qr-code ",
 	},
 	hotel:{
 		getrecommended: api_root +'plugin/hotel/api/hotel/simple-list',

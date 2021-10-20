@@ -35,6 +35,9 @@
 		</view>
 		<view class="btn" @click="capture" v-if="show">
 			点击生成图片
+		</view>	
+		<view class="btn" @click="download" v-if="show" style="background: none;border: 1rpx solid #FF7104;color: #000;">
+			点击下载二维码
 		</view>		
 		<view class="goods-qrcode-modal" v-if="showPoster">
 			<view class="goods-qrcode-body flex-col">
@@ -207,6 +210,36 @@
 			closePost(){
 				this.showPoster = false;
 				this.show=true
+			},
+			download(){ //下载图片
+				// #ifdef H5
+				var route = '/h5/#/mch/personalCentre/ercode/payPages/payPages';
+				// #endif
+				
+				// #ifdef MP-WEIXIN || APP-PLUS
+				var route = 'mch/personalCentre/ercode/payPages/payPages';
+				// #endif
+				this.$http.request({
+					url: this.$api.moreShop.checkOrder,
+					method: 'POST',
+					data: {
+						route: route
+					},
+					showLoading: true
+				}).then(res => {
+					if (res.code == 0) {
+						let that=this
+						console.log(res.data.qrcode)
+						uni.downloadFile({
+							    url:res.data.qrcode,
+							    success: (res) => {
+							        if (res.statusCode === 200) {
+										that.saveImage(res.tempFilePath)
+									}
+								}
+							});
+					}
+				})
 			}
 		}
 	}
