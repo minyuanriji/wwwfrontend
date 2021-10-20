@@ -10,45 +10,45 @@
 		<!--选项卡逻辑自己实现即可，此处未做处理-->
 		<view :class="{'tui-order-list':scrollTop>=0}" v-if="orderList && orderList.length">
 			<view class="tui-order-item" v-for="(item,index) in orderList" :key="index">
-				<view>
+				<view @click="detail(item.id)">
 					<tui-list-cell :hover="false" :lineLeft="false" padding="26rpx 20rpx">
 						<view class="tui-goods-title">
-							<view class="logo" @tap="toShop(model.mch_id)">
-								<image class="img" lazy-load="true" 
-								:src="url+'/shoplogo.png'" 
-								mode="aspectFill"></image>
-								<span class="name">{{'补商汇官方商城'}}</span>
+							<view class="logo">
+								<image class="img" lazy-load="true"  :src="url+'/shoplogo.png'"  mode="aspectFill"></image>
+								<span class="name">补商汇官方商城</span>
 								<view class="toright"></view>
 							</view>
 						</view>
 					</tui-list-cell>
-					<block>
-						<tui-list-cell padding="0"  @click="detail(item.id)">
-							<view class="tui-goods-item">
-								<image :src="item.cover_url" lazy-load="true" class="tui-goods-img"></image>
-								<view class="tui-goods-center">
-									<view class="tui-goods-name">{{item.name}}</view>
-									<view class="tui-goods-attr">{{item.sku_labels[0]}}</view>
+					<view v-for="(detail, index) in item.details">
+						<block>
+							<tui-list-cell padding="0">
+								<view class="tui-goods-item">
+									<image :src="detail.cover_url" lazy-load="true" class="tui-goods-img"></image>
+									<view class="tui-goods-center">
+										<view class="tui-goods-name">{{detail.name}}</view>
+										<view class="tui-goods-attr">{{detail.sku_labels}}</view>
+									</view>
+									<view class="tui-price-right">
+										<!--
+										<view>¥{{item.unit_price}}</view>
+										--> 
+										<view>x{{detail.num}}</view>
+									<!-- 	<view style="margin-top:30rpx;" v-if="item.refund_status == 10">售后待处理</view>
+										<view style="margin-top:30rpx;" v-else-if="item.refund_status == 11">退款已同意</view>
+										<view style="margin-top:30rpx;" v-else-if="item.refund_status == 12">退款退货中</view>
+										<view style="margin-top:30rpx;" v-else-if="item.refund_status == 20">已退款</view>
+										<view style="margin-top:30rpx;" v-else-if="item.refund_status == 21">退款已拒绝</view> -->
+									</view>
 								</view>
-								<view class="tui-price-right">
-									<!--
-									<view>¥{{item.unit_price}}</view>
-									--> 
-									<view>x{{item.num}}</view>
-								<!-- 	<view style="margin-top:30rpx;" v-if="item.refund_status == 10">售后待处理</view>
-									<view style="margin-top:30rpx;" v-else-if="item.refund_status == 11">退款已同意</view>
-									<view style="margin-top:30rpx;" v-else-if="item.refund_status == 12">退款退货中</view>
-									<view style="margin-top:30rpx;" v-else-if="item.refund_status == 20">已退款</view>
-									<view style="margin-top:30rpx;" v-else-if="item.refund_status == 21">退款已拒绝</view> -->
-								</view>
-							</view>
-						</tui-list-cell>
-					</block>
+							</tui-list-cell>
+						</block>
+					</view>
 					<tui-list-cell :hover="false" :last="true">
 						<view class="tui-goods-price">
 							<view>合计：</view>
 							<view class="tui-size-24">¥</view>
-							<view class="tui-price-large">{{Number(item.shopping_voucher_num)}}</view>
+							<view class="tui-price-large">{{item.shopping_voucher_total_use_num}}</view>
 						</view>
 					</tui-list-cell>
 				</view>
@@ -207,6 +207,7 @@
 						console.log(res)
 						if(res.data.list.length==0)return false
 						let list= res.data.list;
+						console.log(list);
 						var arr=this.orderList.concat(list)
 						this.orderList =arr
 						this.page_count = res.data.pagination.page_count;
@@ -215,25 +216,6 @@
 					}
 				});
 			},
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			toShop(id){
 				if(id){
 					uni.navigateTo({
@@ -510,20 +492,20 @@
 	}
 
 	.tui-goods-img {
-		width: 180rpx;
-		height: 180rpx;
+		width: 120rpx;
+		height: 120rpx;
 		display: block;
 		flex-shrink: 0;
 	}
 
 	.tui-goods-center {
 		flex: 1;
-		padding: 20rpx;
+		padding: 0 20rpx 0rpx 20rpx;
 		box-sizing: border-box;
 	}
 
 	.tui-goods-name {
-		max-width: 310rpx;
+		max-width: 380rpx;
 		word-break: break-all;
 		overflow: hidden;
 		text-overflow: ellipsis;
