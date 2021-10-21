@@ -89,11 +89,10 @@
 			};
 		},
 		onLoad(options) {
-			if(options&&options.store_id){
-				this.store_id=options.store_id
-				this.getDetail(options.store_id)
-				this.gethotgoods(this.page,options.store_id)
-			}
+			this.beforeOnLoad(options);
+			this.store_id=options.store_id
+			this.getDetail(options.store_id)
+			this.gethotgoods(this.page,options.store_id)
 		},
 		methods:{
 			getDetail(store_id){ //获取商户详情
