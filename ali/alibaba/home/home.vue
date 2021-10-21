@@ -11,7 +11,7 @@
 		</view>
 		<view :class="typeList.length>0?'ali-home-app-product':'ali-home-app-products'">
 			<view class="product-item" v-for="(item,index) in goodsList" :key='index' @click="link(item.id)">
-				<image :src="item.cover_url" mode="widthFix" class="product-item-logo"></image>
+				<image :src="item.cover_url" mode="scaleToFill" class="product-item-logo"></image>
 				<view class="product-item-name">{{item.name}}</view>
 				<view class="product-item-money-buy">
 					<view class="product-item-money">
@@ -228,6 +228,8 @@
 
 	.product-item-logo {
 		width: 100%;
+		height: 320rpx;
+		display: block;
 	}
 
 	.product-item-name {

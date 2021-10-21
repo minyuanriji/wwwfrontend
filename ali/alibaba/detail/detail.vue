@@ -40,7 +40,7 @@
 				<block v-for="(item,b_index) in goodsData.images" :key="b_index">
 					<swiper-item :data-index="b_index+1">
 						<image :src="item" mode="aspectFill" class="tui-slide-image"
-							:style="{height:scrollH+'px'}" />
+							:style="{height:scrollH+'px'}"  @click="enlarge(index)"/>
 					</swiper-item>
 				</block>
 			</swiper>
@@ -1311,6 +1311,16 @@ white-space: nowrap;;width:30%;margin-top: 10rpx;margin-right: 30rpx;font-size: 
 			},
 			coupon() {
 				this.popupShow2 = true;
+			},
+			enlarge(index){ //点击主图放大
+				  let photoList = this.goodsData.images.map(item => {
+				                    return item;
+				      });
+				                uni.previewImage({
+				                    current: index,     // 当前显示图片的链接/索引值
+				                    urls: photoList,    // 需要预览的图片链接列表，photoList要求必须是数组
+				                    loop:true   // 是否可循环预览
+				                });
 			}
 		},
 		onPageScroll(e) {
