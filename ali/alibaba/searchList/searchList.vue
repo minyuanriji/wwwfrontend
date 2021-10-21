@@ -16,6 +16,7 @@
 				</view>
 			</view>
 		</view>
+		<main-nomore :visible="!pullUpOn" bgcolor="#fafafa"></main-nomore>
 	</view>
 </template>
 
@@ -29,6 +30,7 @@
 				},
 				goodsList:[],
 				page_count:'',
+				pullUpOn:true
 			};
 		},
 		onLoad(options) {
@@ -59,6 +61,7 @@
 						var arr=this.goodsList.concat(list)
 						this.goodsList =arr
 						this.page_count = res.data.pagination.page_count;
+						this.pullUpOn=true
 					} else {
 						this.$http.toast(res.msg);
 					}
@@ -67,6 +70,7 @@
 		},
 		onReachBottom() {
 			if(this.form.page==this.page_count){
+				this.pullUpOn=false
 				return false;
 			} 		
 			this.form.page=this.form.page+1
