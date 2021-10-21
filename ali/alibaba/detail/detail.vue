@@ -40,7 +40,7 @@
 				<block v-for="(item,b_index) in goodsData.images" :key="b_index">
 					<swiper-item :data-index="b_index+1">
 						<image :src="item" mode="aspectFill" class="tui-slide-image"
-							:style="{height:scrollH+'px'}"  @click="enlarge(index)"/>
+							:style="{height:scrollH+'px'}"  @click="enlarge(b_index)"/>
 					</swiper-item>
 				</block>
 			</swiper>
