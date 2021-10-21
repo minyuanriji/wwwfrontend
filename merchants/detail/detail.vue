@@ -16,7 +16,7 @@
 				<view class="point" style="font-size: 28rpx;color: red;margin-left: 10rpx;">{{detail.score}}</view>
 			</view>
 			<scroll-view class="s-c-list-x" scroll-x="true">
-				<image :src="item" mode="aspectFit" class="s-c-l-item" v-for="item in detail.pic_urls" :key='item' style="border-radius: 30rpx;"></image>
+				<image :src="item" mode="aspectFit" class="s-c-l-item" v-for="(item,index) in detail.pic_urls" :key='item' style="border-radius: 30rpx;" @click="pricewImg(index)"></image>
 			</scroll-view>
 			<view class="shop_details-hours-detail">
 				<view class="shop_details-hours">
@@ -226,6 +226,16 @@
 				}
 				console.log(goods_id,id,hotid)
 			},
+			pricewImg(index){  //点击放大图片
+				let photoList = this.detail.pic_urls.map(item => {
+				                  return item;
+				    });
+				              uni.previewImage({
+				                  current: index,     // 当前显示图片的链接/索引值
+				                  urls: photoList,    // 需要预览的图片链接列表，photoList要求必须是数组
+				                  loop:true   // 是否可循环预览
+				              });
+			}
 		},
 		onReachBottom() {
 			if(this.tableIndex==0){
