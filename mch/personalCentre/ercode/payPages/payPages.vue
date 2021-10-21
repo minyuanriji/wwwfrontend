@@ -39,16 +39,16 @@
 			this.beforeOnLoad(options);
 			// #ifdef MP-WEIXIN
 				uni.setStorageSync('pid',options.pid)	
-			// #endif
+			// #endif 
 			this.id=options.id
 			this.$http.request({
-						url: this.$api.moreShop.getMchBaseInfo,
+						url: this.$api.moreShop.getshopnewdetail,
 						method: 'POST',
-						data:"",
+						data:{mch_id:this.id,store_id:0},
 						showLoading: true
 					}).then(res => {
 						if(res.code==0){
-							this.message=res.data.base_info.store
+							this.message=res.data.detail
 						}
 			})
 		},

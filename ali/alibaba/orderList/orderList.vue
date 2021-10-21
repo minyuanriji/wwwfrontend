@@ -20,7 +20,7 @@
 							</view>
 						</view>
 					</tui-list-cell>
-					<view v-for="(detail, index) in item.details">
+					<view v-for="(detail, index2) in item.details">
 						<block>
 							<tui-list-cell padding="0">
 								<view class="tui-goods-item">
