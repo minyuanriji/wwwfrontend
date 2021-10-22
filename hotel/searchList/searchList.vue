@@ -14,7 +14,23 @@
 					<text style="display: inline-block;width: 78rpx;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{region}}</text>
 					<image :src="img_url+'unmy-hotel.png'" mode="" style="width: 20rpx;height: 20rpx;display: block;float: right;margin: 40rpx 0 0 0;"></image>
 				</view>
-				<view class="searchList-app-header-time"  @click="timeShow=true">
+				<view class="searchList-app-header-time"  @click="showHoteltime_1" v-if="checkTimeSHow">
+					<view class="searchList-app-header-time-check" >
+						<view>
+							<text style="margin-right: 5rpx;">住</text>
+							<text>{{timeStaus.startStr.dateStr}}</text>
+						</view>
+						<view>
+							<text style="margin-right: 5rpx;">离</text>
+							<text>{{timeStaus.endStr.dateStr}}</text>
+						</view>
+					</view>
+					<view class="searchList-app-header-time-count" style="line-height: 80rpx;">
+						<text style="color: #FF7104;">{{timeStaus.dayCount}}晚</text>
+						<image :src="img_url+'unmy-hotel.png'" mode="" style="width: 25rpx;height: 25rpx;display: block;float: right;margin: 28rpx 0 0 5rpx;"></image>
+					</view>
+				</view>
+				<view class="searchList-app-header-time"  @click="showHoteltime_2" v-if="!checkTimeSHow">
 					<view class="searchList-app-header-time-check" >
 						<view>
 							<text style="margin-right: 5rpx;">住</text>
@@ -188,7 +204,8 @@
 					lat:'',
 				},
 				city_id:'',
-				sorttype:''
+				sorttype:'',
+				checkTimeSHow:true
 			};
 		},
 		onLoad(options) {
@@ -225,6 +242,14 @@
 			this.getcitymessage()
 		},
 		methods:{
+			showHoteltime_1(){
+				this.timeShow=true
+				this.checkTimeSHow=false
+			},
+			showHoteltime_2(){
+				this.timeShow=false
+				this.checkTimeSHow=true
+			},
 			getcitymessage(){
 				if(uni.getStorageSync('citymessage')){
 					let arr=[
