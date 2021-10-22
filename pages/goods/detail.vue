@@ -115,7 +115,7 @@
 			<info :params="mch" v-if="is_mch==1"></info>
 			<view class="assess-content tui-mtop" v-if="commentsData && commentsData.length">
 				<view class="tui-list-cell last tui-between">
-					<view class="tui-bold user-assess-title">用户评价({{commentsData.length}})</view>
+					<view class="tui-bold user-assess-title">用户评价({{commentCount[0].count}})</view>
 					<view class="user-assess" @click="common(4)">
 						<text class="tui-cmt-all">{{goodRate}}%满意</text>
 						<view class="iconfont icon-xiala"></view>
