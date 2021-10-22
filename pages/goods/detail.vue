@@ -35,7 +35,7 @@
 				</swiper-item>
 				<block v-for="(item,b_index) in goodsData.pic_list" :key="b_index">
 					<swiper-item :data-index="b_index+1">
-						<image :src="item.pic_url" mode="aspectFill" class="tui-slide-image" :style="{height:scrollH+'px'}" />
+						<image :src="item.pic_url" mode="aspectFill" class="tui-slide-image" :style="{height:scrollH+'px'}"  @click="enlarge(b_index)"/>
 					</swiper-item>
 				</block>
 			</swiper>
@@ -565,6 +565,16 @@
 			}
 		},
 		methods: {
+			enlarge(index){ //点击主图放大
+				  let photoList = this.goodsData.pic_list.map(item => {
+				                    return item.pic_url;
+				      });
+				                uni.previewImage({
+				                    current: index,     // 当前显示图片的链接/索引值
+				                    urls: photoList,    // 需要预览的图片链接列表，photoList要求必须是数组
+				                    loop:true   // 是否可循环预览
+				                });
+			},
 			foucusInfo(){
 				uni.navigateTo({
 					url: '/pages/diy/diy?page_id=114'
