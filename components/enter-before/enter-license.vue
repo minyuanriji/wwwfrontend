@@ -185,7 +185,7 @@
 				})
 			},
 			sumbit: function() {
-				if (isEmpty(this.params.license_name)) return this.alert('请填写企业名称')
+				if (isEmpty(this.params.license_name)) return this.alert('请填写营业执照名称')
 				// if (isEmpty(this.params.license_num)) return this.alert('请填写营业执照编号')
 				if (isEmpty(this.params.license_pic)) return this.alert('请上传营业执照图片')
 				//if (isEmpty(this.params.cor_realname)) return this.alert('请填写法人姓名')
