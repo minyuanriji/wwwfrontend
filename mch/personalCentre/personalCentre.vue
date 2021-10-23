@@ -230,7 +230,7 @@
 					})
 				}
 				if (page == 7) {
-					let mch_id = this.userMessage.store.mch_id
+					let mch_id = this.userMessage.store.id
 					uni.navigateTo({
 						url: './productList/productList?mch_id=' + mch_id
 					})
@@ -253,7 +253,7 @@
 					method: 'POST',
 					showLoading: true,
 					data: {
-						route: 'pages/shop/home/home',
+						route: 'merchants/detail/detail?store_id='+ that.store.id,
 					}
 				}).then(res => {
 					if (res.code == 0) {

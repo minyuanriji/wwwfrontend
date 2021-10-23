@@ -35,7 +35,7 @@
 				</swiper-item>
 				<block v-for="(item,b_index) in goodsData.pic_list" :key="b_index">
 					<swiper-item :data-index="b_index+1">
-						<image :src="item.pic_url" mode="aspectFill" class="tui-slide-image" :style="{height:scrollH+'px'}" />
+						<image :src="item.pic_url" mode="aspectFill" class="tui-slide-image" :style="{height:scrollH+'px'}"  @click="enlarge(b_index)"/>
 					</swiper-item>
 				</block>
 			</swiper>
@@ -115,7 +115,7 @@
 			<info :params="mch" v-if="is_mch==1"></info>
 			<view class="assess-content tui-mtop" v-if="commentsData && commentsData.length">
 				<view class="tui-list-cell last tui-between">
-					<view class="tui-bold user-assess-title">用户评价({{commentsData.length}})</view>
+					<view class="tui-bold user-assess-title">用户评价({{commentCount[0].count}})</view>
 					<view class="user-assess" @click="common(4)">
 						<text class="tui-cmt-all">{{goodRate}}%满意</text>
 						<view class="iconfont icon-xiala"></view>
@@ -448,7 +448,8 @@
 				mch_baopin_id:'',//爆品id
 				serviceLink:'',
 				showFoucs:false,
-				is_buy_power:''
+				is_buy_power:'',
+				foucsID:''//关注ID
 			}
 		},
 		onLoad(options) {
@@ -564,6 +565,16 @@
 			}
 		},
 		methods: {
+			enlarge(index){ //点击主图放大
+				  let photoList = this.goodsData.pic_list.map(item => {
+				                    return item.pic_url;
+				      });
+				                uni.previewImage({
+				                    current: index,     // 当前显示图片的链接/索引值
+				                    urls: photoList,    // 需要预览的图片链接列表，photoList要求必须是数组
+				                    loop:true   // 是否可循环预览
+				                });
+			},
 			foucusInfo(){
 				uni.navigateTo({
 					url: '/pages/diy/diy?page_id=114'
@@ -881,6 +892,7 @@
 					this.loading = false;
 					if (res.code == 0) {
 						this.goodsData = res.data.goods;
+						this.foucsID=this.goodsData.collect.collect_id
 						this.is_buy_power=res.data.is_buy_power
 						if(res.data.goods.shopping_voucher.is_shopping_voucher_goods==1){
 							uni.redirectTo({
@@ -1018,8 +1030,9 @@
 						url: this.$api.collect.deletes,
 						method: 'post',
 						data: {
-							type: 'goods',
-							id: this.goodsData.collect.collect_id
+							// type: 'goods',
+							// id: this.goodsData.collect.collect_id
+							id:this.foucsID
 						}
 					}).then((res) => {
 						if (res.code == 0) {
@@ -1041,7 +1054,8 @@
 					}).then(res => {
 						if (res.code == 0) {
 							this.collected = !this.collected;
-							this.getGoodsDetail();
+							// this.getGoodsDetail();
+							this.foucsID=res.data.id
 							this.loading = false;
 							this.$http.toast(res.msg);
 						} else {

@@ -81,7 +81,7 @@
 				"navigationBarTitleText": "我的",
 				"navigationBarBackgroundColor": "#fff",
 				"navigationBarTextStyle": "black",
-				"enablePullDownRefresh": true,
+				"enablePullDownRefresh": false,
 				"onReachBottomDistance": 50,
 				//"navigationStyle": "custom",
 				"app-plus": {
@@ -146,7 +146,7 @@
 				"navigationBarTitleText": "商城订单",
 				"navigationBarBackgroundColor": "#F7F7F7",
 				"navigationBarTextStyle": "black",
-				"enablePullDownRefresh": true,
+				"enablePullDownRefresh": false,
 				"onReachBottomDistance": 50,
 				"app-plus": {
 					"pullToRefresh": {
@@ -362,7 +362,7 @@
 				"navigationBarTitleText": "退款/售后",
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black",
-				"enablePullDownRefresh": true,
+				"enablePullDownRefresh": false,
 				"onReachBottomDistance": 50
 			}
 		}, {
@@ -404,7 +404,7 @@
 				"navigationBarTitleText": "余额明细",
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black",
-				"enablePullDownRefresh": true,
+				"enablePullDownRefresh": false,
 				"onReachBottomDistance": 50,
 				"navigationStyle": "custom"
 			}
@@ -414,7 +414,7 @@
 				"navigationBarTitleText": "积分明细",
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black",
-				"enablePullDownRefresh": true,
+				"enablePullDownRefresh": false,
 				"onReachBottomDistance": 50,
 				"navigationStyle": "custom"
 			}
@@ -424,7 +424,7 @@
 				"navigationBarTitleText": "全部评价",
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black",
-				"enablePullDownRefresh": true,
+				"enablePullDownRefresh": false,
 				"onReachBottomDistance": 50
 			}
 		}, {
@@ -500,7 +500,7 @@
 				"backgroundColorTop": "#F7F7F7",
 				"backgroundColorBottom": "#F7F7F7",
 				"navigationBarTitleText": "商品列表",
-				"enablePullDownRefresh": true,
+				"enablePullDownRefresh": false,
 				"onReachBottomDistance": 50,
 				"navigationStyle": "custom"
 			}
@@ -513,7 +513,7 @@
 				"backgroundColorTop": "#F7F7F7",
 				"backgroundColorBottom": "#F7F7F7",
 				"navigationBarTitleText": "商品列表",
-				"enablePullDownRefresh": true,
+				"enablePullDownRefresh": false,
 				"onReachBottomDistance": 50
 			}
 		},
@@ -524,7 +524,7 @@
 				"navigationBarTitleText": "门店主页",
 				"navigationBarBackgroundColor": "#FF7104",
 				"navigationBarTextStyle": "white",
-				"enablePullDownRefresh": true,
+				"enablePullDownRefresh": false,
 				"onReachBottomDistance": 50
 			}
 		}, {
@@ -568,7 +568,7 @@
 				"navigationBarTitleText": "核销订单",
 				"navigationBarBackgroundColor": "#F7F7F7",
 				"navigationBarTextStyle": "black",
-				"enablePullDownRefresh": true,
+				"enablePullDownRefresh": false,
 				"onReachBottomDistance": 50,
 				"app-plus": {
 					"pullToRefresh": {
@@ -861,7 +861,7 @@
 						"navigationBarTitleText": "礼金商品区",
 						"navigationBarBackgroundColor": "#F7F7F7",
 						"navigationBarTextStyle": "black",
-						"enablePullDownRefresh": true,
+						"enablePullDownRefresh": false,
 						"onReachBottomDistance": 50
 					}
 				}, {
@@ -870,7 +870,7 @@
 						"navigationBarTitleText": "商品详情",
 						"navigationBarBackgroundColor": "#F7F7F7",
 						"navigationBarTextStyle": "black",
-						"enablePullDownRefresh": true,
+						"enablePullDownRefresh": false,
 						"onReachBottomDistance": 50
 					}
 
@@ -881,7 +881,7 @@
 						"navigationBarTitleText": "购物券区",
 						"navigationBarBackgroundColor": "#F7F7F7",
 						"navigationBarTextStyle": "black",
-						"enablePullDownRefresh": true,
+						"enablePullDownRefresh": false,
 						"onReachBottomDistance": 50
 					}
 
@@ -891,7 +891,7 @@
 						"navigationBarTitleText": "",
 						"navigationBarBackgroundColor": "#F7F7F7",
 						"navigationBarTextStyle": "black",
-						"enablePullDownRefresh": true,
+						"enablePullDownRefresh": false,
 						"onReachBottomDistance": 50
 					}
 				},  
@@ -916,7 +916,7 @@
 						"navigationBarTitleText": "提交订单",
 						"navigationBarBackgroundColor": "#F7F7F7",
 						"navigationBarTextStyle": "black",
-						"enablePullDownRefresh": true,
+						"enablePullDownRefresh": false,
 						"onReachBottomDistance": 50,
 						"navigationStyle": "custom"
 					}
@@ -928,7 +928,7 @@
 						"navigationBarTitleText": "支付",
 						"navigationBarBackgroundColor": "#F7F7F7",
 						"navigationBarTextStyle": "black",
-						"enablePullDownRefresh": true,
+						"enablePullDownRefresh": false,
 						"onReachBottomDistance": 50,
 						"navigationStyle": "custom"
 					}
@@ -941,7 +941,7 @@
                     "navigationBarTitleText": "购物券订单",
                     "navigationBarBackgroundColor": "#F7F7F7",
                     "navigationBarTextStyle": "black",
-                    "enablePullDownRefresh": true,
+                    "enablePullDownRefresh": false,
                     "onReachBottomDistance": 50
                 }
                 
@@ -952,7 +952,7 @@
 						"navigationBarTitleText": "订单详情",
 						"navigationBarBackgroundColor": "#F7F7F7",
 						"navigationBarTextStyle": "black",
-						"enablePullDownRefresh": true,
+						"enablePullDownRefresh": false,
 						"onReachBottomDistance": 50
 					}
 				},
@@ -974,7 +974,7 @@
 						"navigationBarTitleText": "我的资产",
 						"navigationBarTextStyle": "black",
 						"navigationBarBackgroundColor": "#FFFFFF",
-						"enablePullDownRefresh": true,
+						"enablePullDownRefresh": false,
 						"onReachBottomDistance": 50,
 						"navigationStyle": "custom"
 					}
@@ -985,7 +985,7 @@
 						"navigationBarTextStyle": "black",
 						"navigationBarBackgroundColor": "#FFFFFF",
 						"navigationStyle": "custom",
-						"enablePullDownRefresh": true,
+						"enablePullDownRefresh": false,
 						"onReachBottomDistance": 50
 					}
 				}, {
@@ -995,7 +995,7 @@
 						"navigationBarTextStyle": "black",
 						"navigationBarBackgroundColor": "#FFFFFF",
 						"navigationStyle": "custom",
-						"enablePullDownRefresh": true,
+						"enablePullDownRefresh": false,
 						"onReachBottomDistance": 50
 					}
 				}, {
@@ -1005,7 +1005,7 @@
 						"navigationBarTextStyle": "black",
 						"navigationBarBackgroundColor": "#FFFFFF",
 						"navigationStyle": "custom",
-						"enablePullDownRefresh": true,
+						"enablePullDownRefresh": false,
 						"onReachBottomDistance": 50
 					}
 				}, {
@@ -1015,7 +1015,7 @@
 						"navigationBarTextStyle": "black",
 						"navigationBarBackgroundColor": "#FFFFFF",
 						"navigationStyle": "custom",
-						"enablePullDownRefresh": true,
+						"enablePullDownRefresh": false,
 						"onReachBottomDistance": 50
 					}
 				}, {
@@ -1044,7 +1044,7 @@
 					"navigationBarTitleText": "客户分佣订单",
 					"navigationBarBackgroundColor": "#F7F7F7",
 					"navigationBarTextStyle": "black",
-					"enablePullDownRefresh": true,
+					"enablePullDownRefresh": false,
 					"onReachBottomDistance": 50,
 					"app-plus": {
 						"pullToRefresh": {
@@ -2071,7 +2071,7 @@
 						"navigationBarTitleText": "拼团订单",
 						"navigationBarBackgroundColor": "#FFF",
 						"navigationBarTextStyle": "black",
-						"enablePullDownRefresh": true,
+						"enablePullDownRefresh": false,
 						"onReachBottomDistance": 50
 					}
 				},
@@ -2144,7 +2144,7 @@
 						"navigationBarTitleText": "直播",
 						"navigationBarBackgroundColor": "#fff",
 						"navigationBarTextStyle": "black",
-						"enablePullDownRefresh": true,
+						"enablePullDownRefresh": false,
 						"onReachBottomDistance": 50
 					}
 				}, {

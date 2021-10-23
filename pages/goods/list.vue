@@ -37,7 +37,7 @@
 					<!--商品列表-->
 					<view class="tui-pro-item" :class="[isList?'tui-flex-list':'']" hover-class="hover" :hover-start-time="150" @tap="detail(item.id)">
 						<image :src="item.cover_pic" class="tui-pro-img" :class="[isList?'tui-proimg-list':'']"
-						 mode="widthFix" />
+						 mode="scaleToFill" />
 						<view class="tui-pro-content">
 							<view class="tui-pro-tit">{{item.name}}</view>
 							<view>
@@ -45,7 +45,7 @@
 									<view class="tui-sale-price" :style="{color:textColor}">￥{{item.price}}</view>
 									<view class="tui-factory-price">￥{{item.original_price}}</view>
 								</view>
-								<view class="tui-pro-pay" v-if="item.is_show_sales == 1">{{item.sales || 0}}人付款</view>
+								<view class="tui-pro-pay" >{{item.sales || 0}}人付款</view>
 							</view>
 						</view>
 					</view>
@@ -58,7 +58,7 @@
 					<!--商品列表-->
 					<view class="tui-pro-item" :class="[isList?'tui-flex-list':'']" hover-class="hover" :hover-start-time="150" @tap="detail(item.id)">
 						<image :src="item.cover_pic" class="tui-pro-img" :class="[isList?'tui-proimg-list':'']"
-						 mode="widthFix" />
+						 mode="scaleToFill" />
 						<view class="tui-pro-content">
 							<view class="tui-pro-tit">{{item.name}}</view>
 							<view>
@@ -66,7 +66,7 @@
 									<view class="tui-sale-price" :style="{color:textColor}">￥{{item.price}}</view>
 									<view class="tui-factory-price">￥{{item.original_price}}</view>
 								</view>
-								<view class="tui-pro-pay" v-if="item.is_show_sales == 1">{{item.sales || 0}}人付款</view>
+								<view class="tui-pro-pay" >{{item.sales || 0}}人付款</view>
 							</view>
 						</view>
 					</view>
@@ -358,6 +358,7 @@
 
 	.tui-pro-img {
 		width: 100%;
+		height: 360rpx;
 		display: block;
 	}
 
@@ -379,6 +380,7 @@
 	.tui-pro-tit {
 		color: #2e2e2e;
 		font-size: 9pt;
+		height: 72rpx;
 		word-break: break-all;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -409,6 +411,7 @@
 		padding-top: 10rpx;
 		font-size: 9pt;
 		color: #656565;
+		height: 46rpx;
 	}
 
 	/* 商品列表*/

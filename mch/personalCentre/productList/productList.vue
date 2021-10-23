@@ -15,7 +15,7 @@
 			return {
 				list:[],
 				form:{
-					mch_id:'',
+					store_id:'',
 					cat_id:'',
 					keyword:'',
 					label:'',
@@ -32,7 +32,7 @@
 				let routes = getCurrentPages(); // 获取当前打开过的页面路由数组			
 				let curRoute = routes[routes.length - 1].route //获取当前页面路由				
 				let curParam = routes[routes.length - 1].options; //获取路由参数
-				this.form.mch_id=curParam.mch_id
+				this.form.store_id=curParam.mch_id
 				this.$http
 					.request({
 						url: this.$api.moreShop.getmchgods,
