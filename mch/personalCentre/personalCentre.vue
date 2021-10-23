@@ -230,7 +230,7 @@
 					})
 				}
 				if (page == 7) {
-					let mch_id = this.userMessage.store.mch_id
+					let mch_id = this.userMessage.store.id
 					uni.navigateTo({
 						url: './productList/productList?mch_id=' + mch_id
 					})
