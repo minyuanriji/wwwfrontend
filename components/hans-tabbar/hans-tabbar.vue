@@ -20,7 +20,7 @@
 				current: uni.getStorageSync('current')?uni.getStorageSync('current'):0,
 				list: [
 					{
-						"text": "首页",
+						"text": "商户首页",
 						"iconPath": 'https://www.mingyuanriji.cn/web//uploads/images/original/20210506/dd6672076ec5386b6dc2e06040a0b802.png',
 						"selectedIconPath": 'https://www.mingyuanriji.cn/web//uploads/images/original/20210506/2cacecc12ab4ae6fd6cb233da7089f75.png'
 					},
@@ -30,7 +30,7 @@
 						"selectedIconPath": 'https://dev.mingyuanriji.cn/web/static/samecitycheck.png'
 					},
 					{
-						"text": "商城",
+						"text": "商城首页",
 						"iconPath": 'https://www.mingyuanriji.cn/web/plugins/mall_gry.png',
 						"selectedIconPath": 'https://www.mingyuanriji.cn/web/plugins/mall.png'
 					},
