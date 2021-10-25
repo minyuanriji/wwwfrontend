@@ -392,7 +392,8 @@
 					url: this.$api.morecredit.creditStatus,
 					method: 'get',
 					data: {
-						plateforms_id:1
+						plateforms_id:1,
+						is_list:1
 					},
 					showLoading: true
 				}).then(res => {
