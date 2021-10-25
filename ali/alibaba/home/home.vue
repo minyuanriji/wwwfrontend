@@ -23,14 +23,17 @@
 				</view>
 			</view>
 		</view>
+		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
 		<main-nomore :visible="!pullUpOn" bgcolor="#fafafa"></main-nomore>
 	</view>
 </template>
 <script>
 	import liuyunoTabs from "@/components/liuyuno-tabs/liuyuno-tabs.vue";
+	import backTop from '@/components/back-top/back-top.vue';
 	export default {
 		components: {
 			liuyunoTabs,
+			backTop
 		},
 		data() {
 			return {
@@ -44,7 +47,11 @@
 				},
 				goodsList:[],
 				page_count:'',
-				pullUpOn:true
+				pullUpOn:true,
+				backTop: {
+					src: '../../../static/back-top/top.png',
+					scrollTop: 0
+				},
 			};
 		},
 		onLoad() {
@@ -122,6 +129,9 @@
 					url:'../searchList/searchList?name='+item.name+"&ali_cat_id="+item.ali_cat_id
 				})
 			}
+		},
+		onPageScroll(e) {
+			this.backTop.scrollTop = e.scrollTop;
 		},
 		onReachBottom() {
 			if(this.form.page==this.page_count){

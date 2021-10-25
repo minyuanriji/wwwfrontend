@@ -129,7 +129,7 @@
 		
 		
 		
-		
+		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
 		
 		<!-- 版权 -->
 		<diy-copyright v-if="copyright.status == 1" :value="copyright"></diy-copyright>
@@ -172,6 +172,8 @@
 	import diyMap from '@/components/diy/diy-map.vue';
 	import diyModal from '@/components/diy/diy-modal.vue';
 	import vouchers from '@/components/vouchers.vue';
+	
+	import backTop from '@/components/back-top/back-top.vue';
 	//#ifdef H5
 		var jweixin = require('jweixin-module');
 	//#endif
@@ -202,7 +204,8 @@
 			diyCopyright,
 			diyMap,
 			diyModal,
-			vouchers
+			vouchers,
+			backTop
 		},
 		data() {
 			return {
@@ -356,7 +359,12 @@
 				showFoucs:false,
 				page_count:'',
 				page:1,
+				
 				goods_ist:[],
+				backTop: {
+					src: '../../static/back-top/top.png',
+					scrollTop: 0
+				},
 			};
 		},
 		onShow() {
@@ -691,6 +699,7 @@
 			},
 		},
 		onPageScroll(e) {
+			this.backTop.scrollTop = e.scrollTop;
 			var that = this;
 			let info = uni.createSelectorQuery().select('.ceiling-box');
 			info.boundingClientRect(function(data) {

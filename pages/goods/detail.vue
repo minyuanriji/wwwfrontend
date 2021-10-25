@@ -766,7 +766,7 @@
 						}
 					}).then((res) => {
 						if (res.code == 0) {
-							this.cartList_num = this.cartList_num + this.value;
+							this.cartList_num = res.data.cart_num
 							this.$http.toast('购物车加入成功');
 						} else {
 							this.$http.toast(res.msg);
