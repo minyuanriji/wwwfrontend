@@ -58,7 +58,7 @@
 									<view style="margin-top:10rpx;display:flex;justify-content:space-between;">
 										<view style="height:56rpx;line-height:56rpx;">{{item.ali_info.status_text}}</view>
 										<view  v-if="item.ali_info.status == 'waitbuyerreceive' || item.ali_info.status=='confirm_goods' || item.ali_info.status=='success'" class="express-btn">
-											<view class="btns" @tap="toPage(alidetail.id)">查看物流</view>
+											<view class="btns" @tap="toPage(item.od1688_id)">查看物流</view>
 										</view>
 									</view>
 								</view>
