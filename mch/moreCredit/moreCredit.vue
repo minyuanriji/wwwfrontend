@@ -61,7 +61,7 @@
 		<view class="recharge_list">
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href">
 				<view class="jx-cell-header" style="height: 80rpx;margin: 10rpx 0;">
-					<view class="jx-cell-title" style="font-weight: 700;line-height: 80rpx;font-size: 28rpx;padding-left: 20rpx;">最近10条充值记录</view>
+					<view class="jx-cell-title" style="font-weight: 700;line-height: 80rpx;font-size: 28rpx;padding-left: 20rpx;">当天充值记录</view>
 				</view>
 				<view class="jx-cell-header" style="height: 80rpx;margin: 10rpx 0;">
 					<view class="jx-cell-title" style="font-weight: 700;line-height: 80rpx;font-size: 28rpx;padding-left: 20rpx;margin-left: 350rpx;color: gray;">全部</view>
@@ -77,12 +77,13 @@
 				<text style="color: #000;">{{item.mobile}}</text>
 				<text>{{item.order_price}}</text>
 				<text>{{item.created_at}}</text>
-				<text v-if="item.pay_status=='paid'&&item.order_status=='success'" style="color: green;">充值成功</text>
+				<!-- <text v-if="item.pay_status=='paid'&&item.order_status=='success'" style="color: green;">充值成功</text>
 				<text v-if="item.pay_status=='paid'&&item.order_status=='processing'" style="color: red;">充值中...</text>
-				<text v-if="item.pay_status=='paid'&&item.order_status=='fail'" style="color: gray;">充值失败</text>
-				<text v-if="item.pay_status=='unpaid'" style="color: gray;">未支付</text>			
-				<text v-if="item.pay_status=='refunding'" style="color: red;">退款中...</text>
-				<text v-if="item.pay_status=='refund'" style="color: gray;">已退款</text>
+				<text v-if="item.pay_status=='paid'&&item.order_status=='fail'" style="color: gray;">充值失败</text> -->
+				<!-- <text v-if="item.pay_status=='refunding'" style="color: red;">退款中...</text>
+				<text v-if="item.pay_status=='refund'" style="color: gray;">已退款</text> -->		
+				<text v-if="item.pay_status=='unpaid'" style="color: gray;">未支付</text>
+				<text v-else style="color: green;">充值成功</text>	
 			</view>
 		</view>	
 		<com-bottom-popup :show="popupShow" @close="hidePopup">
