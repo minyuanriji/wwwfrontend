@@ -18,7 +18,8 @@
 			return {
 				extClass: '',
 				current: uni.getStorageSync('current')?uni.getStorageSync('current'):0,
-				list: [{
+				list: [
+					{
 						"text": "首页",
 						"iconPath": 'https://www.mingyuanriji.cn/web//uploads/images/original/20210506/dd6672076ec5386b6dc2e06040a0b802.png',
 						"selectedIconPath": 'https://www.mingyuanriji.cn/web//uploads/images/original/20210506/2cacecc12ab4ae6fd6cb233da7089f75.png'
@@ -27,6 +28,11 @@
 						"text": "同城",
 						"iconPath": 'https://dev.mingyuanriji.cn/web/static/samecity.png',
 						"selectedIconPath": 'https://dev.mingyuanriji.cn/web/static/samecitycheck.png'
+					},
+					{
+						"text": "商城",
+						"iconPath": 'https://www.mingyuanriji.cn/web/plugins/mall_gry.png',
+						"selectedIconPath": 'https://www.mingyuanriji.cn/web/plugins/mall.png'
 					},
 					{
 						"text": "我的",
@@ -45,14 +51,18 @@
 					})
 				}
 				if (index == 1) {
-					// uni.navigateTo({
-					// 	url: '../../merchants/citywide/citywide'
-					// })
 					uni.redirectTo({
 						url: '../../merchants/citywide/citywide'
 					})
 				}
 				if (index == 2) {
+					uni.removeStorageSync('current',index)
+					uni.removeStorageSync('shopCity')
+					uni.redirectTo({
+						url:'../../pages/index/index'
+					})
+				}
+				if (index == 3) {
 					uni.removeStorageSync('current',index)
 					uni.removeStorageSync('shopCity')
 					uni.redirectTo({

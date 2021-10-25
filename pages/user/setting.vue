@@ -32,18 +32,18 @@
 					</view>
 				</tui-list-cell>
 			</view>
-			<view class="tui-mtop">
+			<!-- <view class="tui-mtop">
 				<tui-list-cell padding="0" :lineLeft="false" :arrow="true" @tap="href(4)">
 					<view class="tui-list-cell">
 						关于我们
 					</view>
 				</tui-list-cell>
-				<!-- <tui-list-cell padding="0" :lineLeft="false" :arrow="true">
+				<tui-list-cell padding="0" :lineLeft="false" :arrow="true">
 					<view class="tui-list-cell">
 						意见反馈
 					</view>
-				</tui-list-cell> -->
-			</view>
+				</tui-list-cell>
+			</view> -->
 
 			<view class="tui-exit" v-if="is_login">
 				<view class="exit-btn" :style="{background:'#FF7104'}" @click="logout">
