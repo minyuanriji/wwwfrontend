@@ -17,10 +17,15 @@
 		data() {
 			return {
 				extClass: '',
-				current: uni.getStorageSync('current')?uni.getStorageSync('current'):0,
+				current: uni.getStorageSync('current')?uni.getStorageSync('current'):1,
 				list: [
 					{
-						"text": "商户首页",
+						"text": "返回",
+						"iconPath": 'https://dev.mingyuanriji.cn/web/static//new_bac.png',
+						"selectedIconPath": 'https://dev.mingyuanriji.cn/web/static//new_bac.png'
+					},										
+					{
+						"text": "首页",
 						"iconPath": 'https://www.mingyuanriji.cn/web//uploads/images/original/20210506/dd6672076ec5386b6dc2e06040a0b802.png',
 						"selectedIconPath": 'https://www.mingyuanriji.cn/web//uploads/images/original/20210506/2cacecc12ab4ae6fd6cb233da7089f75.png'
 					},
@@ -28,11 +33,6 @@
 						"text": "同城",
 						"iconPath": 'https://dev.mingyuanriji.cn/web/static/samecity.png',
 						"selectedIconPath": 'https://dev.mingyuanriji.cn/web/static/samecitycheck.png'
-					},
-					{
-						"text": "商城首页",
-						"iconPath": 'https://www.mingyuanriji.cn/web/plugins/mall_gry.png',
-						"selectedIconPath": 'https://www.mingyuanriji.cn/web/plugins/mall.png'
 					},
 					{
 						"text": "我的",
@@ -45,21 +45,21 @@
 		methods: {
 			tabChange(index) {
 				uni.setStorageSync('current',index)
-				if (index == 0) {
-					uni.redirectTo({
-						url:'../../merchants/home/home'
-					})
-				}
-				if (index == 1) {
-					uni.redirectTo({
-						url: '../../merchants/citywide/citywide'
-					})
-				}
-				if (index == 2) {
+				if (index == 0){
 					uni.removeStorageSync('current',index)
 					uni.removeStorageSync('shopCity')
 					uni.redirectTo({
 						url:'../../pages/index/index'
+					})
+				}
+				if (index == 1) {
+					uni.redirectTo({
+						url:'../../merchants/home/home'
+					})
+				}
+				if (index == 2) {
+					uni.redirectTo({
+						url: '../../merchants/citywide/citywide'
 					})
 				}
 				if (index == 3) {
