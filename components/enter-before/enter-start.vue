@@ -232,7 +232,7 @@
 				this.params.realname = this.applyInfo.realname
 				this.params.mobile = this.applyInfo.mobile
 				this.addresss = this.applyInfo.store_address
-				this.addresss = this.applyInfo.store_address
+				this.params.store_address =this.applyInfo.store_address
 				this.text=this.applyInfo.province_name+this.applyInfo.city_name+this.applyInfo.district_name
 			}, 1000)
 			this.getCity()
