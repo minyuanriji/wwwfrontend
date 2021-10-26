@@ -126,6 +126,7 @@
 			</view>
 		</unipopup>
 		</view>
+		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
 	</view>
 </template>
 
@@ -133,11 +134,13 @@
 	import citySelect from '@/components/linzq-citySelect/linzq-citySelect.vue';
 	import Calendar from '@/components/mobile-calendar-simple/Calendar.vue';
 	import unipopup from '@/components/uni-popup/uni-popup';
+	import backTop from '@/components/back-top/back-top.vue';
 	export default {
 		components:{
 			citySelect,
 			Calendar,
 			unipopup,
+			backTop
 		},
 		data() {
 			return {
@@ -205,7 +208,11 @@
 				},
 				city_id:'',
 				sorttype:'',
-				checkTimeSHow:true
+				checkTimeSHow:true,
+				backTop: {
+					src: '../../static/back-top/top.png',
+					scrollTop: 0
+				},
 			};
 		},
 		onLoad(options) {
@@ -503,6 +510,9 @@
 						}
 				});	
 			}
+		},
+		onPageScroll(e) {
+			this.backTop.scrollTop = e.scrollTop;
 		},
 		onReachBottom() {
 			if(this.page==this.page_count){

@@ -29,17 +29,26 @@
 			<image :src="img_url+'/giftOrder_logo.png'" mode=""></image>
 			<text>暂无服务内容</text>
 		</view>
+		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
 	</view>
 </template>
 
 <script>
+	import backTop from '@/components/back-top/back-top.vue';
 	export default {
+		components: {
+			backTop
+		},
 		data() {
 			return {
 				img_url: this.$api.img_url,
 				page:1,
 				productList:[],
 				page_count:'',
+				backTop: {
+					src: '../../../static/back-top/top.png',
+					scrollTop: 0
+				},
 			};
 		},
 		onLoad() {
@@ -71,6 +80,10 @@
 					}
 				});
 			}
+		},
+		onPageScroll(e) {
+			console.log(e)
+			this.backTop.scrollTop = e.scrollTop;
 		},
 		onReachBottom() {
 			if(this.page==this.page_count){
