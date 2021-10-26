@@ -35,6 +35,28 @@
 						style="display: block;width: 60rpx;height: 60rpx;margin: 30rpx 0 0 5rpx;"></image>
 				</view>
 			</view>
+			
+			
+			
+			<view class="jojin_item">
+				<view style="width: 35%;">
+					<text style="margin: 0 5rpx;color: red;">*</text>
+					<text style="color: #000;">选择省市区</text>
+				</view>
+				<view style="width: 64%;">
+					<picker  mode="multiSelector" @change="picker"  :value="value" @columnchange="columnPicker" :range="multiArray"
+					style="float: left;">	
+						<view style="width: 450rpx;height: 120rpx;">
+							<view class="index1_content_top_l_name" style="height: 120rpx;line-height: 120rpx;text-align: right;">{{text.length<=0?'请选择':text}}</view>
+						</view>
+					</picker>
+				</view>
+			</view>
+			
+			
+			
+			
+			
 			<view class="jojin_item">
 				<view style="width: 35%;">
 					<text style="margin: 0 5rpx;color: red;">*</text>
@@ -173,6 +195,9 @@
 					captcha: '', //短信验证码
 					realname: '', //申请人姓名
 					mobile: '', //申请人手机号
+					store_province_id:'',//省ID
+					store_city_id:"",//市id
+					store_district_id:''//区id
 				},
 				cats: [], //分类列表
 				cats_arr1: [], //分类列表
@@ -181,6 +206,16 @@
 				countDown: '',
 				cat_name: '',
 				addresss: '', //商铺地址
+				text:'',
+				value:[0,0,0],
+				multiArray: [], //picker数据
+				selectList:[],
+				provice: "",
+				city: "",
+				district: "",
+				proviceId: "",
+				cityId: "",
+				districtId: "",
 			}
 		},
 		created() {
@@ -190,10 +225,16 @@
 				this.params.store_mch_common_cat_id = this.applyInfo.store_mch_common_cat_id
 				this.params.store_longitude = this.applyInfo.store_longitude
 				this.params.store_latitude = this.applyInfo.store_latitude
+				this.params.store_province_id=this.applyInfo.store_province_id
+				this.params.store_city_id=this.applyInfo.store_city_id
+				this.params.store_district_id=this.applyInfo.store_district_id
 				this.params.realname = this.applyInfo.realname
 				this.params.mobile = this.applyInfo.mobile
 				this.addresss = this.applyInfo.store_address
+				this.addresss = this.applyInfo.store_address
+				this.text=this.applyInfo.province_name+this.applyInfo.city_name+this.applyInfo.district_name
 			}, 1000)
+			this.getCity()
 		},
 		methods: {
 			alert(txt) { //弹窗提示
@@ -205,7 +246,10 @@
 			sumbit: function() {
 				if (!this.params.store_name) return this.alert('请输入店铺名称')
 				if (!this.params.realname) return this.alert('请填写您的真实姓名')
-				if (!this.addresss) return this.alert('请选择地址')
+				if (!this.addresss) return this.alert('请选择地址')				
+				if (!this.params.store_province_id) return this.alert('请选择省市区')
+				if (!this.params.store_city_id) return this.alert('请选择省市区')
+				if (!this.params.store_district_id) return this.alert('请选择省市区')
 				if (!this.params.mobile) return this.alert('请填写您的手机号')
 				if (!this.params.mobile.match(/1\d{10}/)) return this.alert('手机号错误')
 				if (!this.params.captcha) return this.alert('请填写验证码')
@@ -296,6 +340,100 @@
 					console.log(err);
 				})
 			},
+			picker(e){
+				let value = e.detail.value;
+				if (this.selectList.length > 0) {
+					this.provice = this.selectList[value[0]].name; //获取省
+					this.district = this.selectList[value[0]].children[value[1]].children[value[2]].name; //获取区
+					this.city = this.selectList[value[0]].children[value[1]].name; //获取区
+					this.proviceId = this.selectList[value[0]].id; //获取省id
+					this.cityId = this.selectList[value[0]].children[value[1]].id; //获取市id
+					this.districtId = this.selectList[value[0]].children[value[1]].children[value[2]].id; //获取区id
+					this.text = this.provice + " " + this.city+" "+this.district;
+					this.params.store_province_id=this.proviceId
+					this.params.store_city_id=this.cityId
+					this.params.store_district_id=this.districtId
+				}
+			},
+			columnPicker(e){
+				//第几列 下标从0开始
+				let column = e.detail.column;
+				//第几行 下标从0开始
+				let value = e.detail.value;
+				if (column === 0) {
+					this.multiArray = [
+						this.multiArray[0],
+						this.toArr(this.selectList[value].children),
+						this.toArr(this.selectList[value].children[0].children)
+					];
+					this.value = [value, 0, 0]
+				} else if (column === 1) {
+					this.multiArray = [
+						this.multiArray[0],
+						this.multiArray[1],
+						this.toArr(this.selectList[this.value[0]].children[value].children)
+					];
+					this.value = [this.value[0], value, 0]
+				}
+			},
+			getCity() { //请求省市区数据
+				this.$http.request({
+					url: this.$api.moreShop.getCity,
+					method: 'post',
+					showLoading:true,
+				}).then((res) => {
+					// 处理数据
+					var provinceArr = [];
+					var cityArr = [];
+					var districtArr = [];
+					for (var key in res.data) { //分为三个数组
+						if (res.data[key].level == 'province' || res.data[key].level == 'city') {
+							this.$set(res.data[key], 'children', [])
+						}
+						if (res.data[key].level == 'province') {
+							provinceArr.push(res.data[key])
+						}
+						if (res.data[key].level == 'city') {
+							cityArr.push(res.data[key])
+						}
+						if (res.data[key].level == 'district') {
+							districtArr.push(res.data[key])
+						}
+					}
+					this.multiArray = [provinceArr, cityArr,districtArr];
+					cityArr.forEach((item, index) => {
+						districtArr.forEach((items, index) => {
+							if (item.id == items.parent_id) {
+								item.children.push(items);
+							}
+						})
+					})
+			
+					provinceArr.forEach((item, index) => {
+						cityArr.forEach((items, indexs) => {
+							if (item.id == items.parent_id) {
+								item.children.push(items);
+							}
+						})
+					})
+					this.selectList = provinceArr;
+					this.multiArray = [
+						this.toArr(this.selectList),
+						this.toArr(this.selectList[0].children),
+						this.toArr(this.selectList[0].children[0].children)
+					];	
+				})
+			},
+			toArr(object) {
+				let arr = [];
+				for (let i in object) {
+					arr.push(object[i].name);
+				}
+				return arr;
+			},
+		
+		
+		
 		},
 		mounted() {
 			this.getCat()
