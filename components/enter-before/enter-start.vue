@@ -197,7 +197,8 @@
 					mobile: '', //申请人手机号
 					store_province_id:'',//省ID
 					store_city_id:"",//市id
-					store_district_id:''//区id
+					store_district_id:'',//区id
+					store_address:'',//具体地址
 				},
 				cats: [], //分类列表
 				cats_arr1: [], //分类列表
@@ -279,6 +280,7 @@
 				uni.chooseLocation({
 					success: function(res) {
 						that.addresss = res.name
+						that.params.store_address = res.name
 						that.params.store_latitude = res.latitude
 						that.params.store_longitude = res.longitude
 					}
