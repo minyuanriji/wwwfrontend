@@ -98,6 +98,7 @@
 		</unipopup>
 		<citySelect @back_city="back_city" v-if="show"></citySelect>
 		<hans-tabber style="position:fixed;bottom:0;width:100%;left:0;right:0;"></hans-tabber>
+		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
 	</view>
 </template>
 
@@ -105,11 +106,13 @@
 	import citySelect from '@/components/linzq-city/linzq-city.vue';
 	import hansTabber from '../../components/hans-tabbar/hans-tabbar.vue';
 	import unipopup from '@/components/uni-popup/uni-popup';
+	import backTop from '@/components/back-top/back-top.vue';
 	export default {
 		components: {
 			citySelect,
 			hansTabber,
-			unipopup
+			unipopup,
+			backTop
 		},
 		data() {
 			return {
@@ -153,6 +156,10 @@
 				page_count: 0, //总页数
 				shopList: [],
 				catoryList: [], //分类
+				backTop: {
+					src: '../../static/back-top/top.png',
+					scrollTop: 0
+				},
 			};
 		},
 		computed: {
@@ -429,6 +436,9 @@
 				}, 1000)
 				// #endif
 			},
+		},
+		onPageScroll(e) {
+			this.backTop.scrollTop = e.scrollTop;
 		},
 		onReachBottom() {
 			if (this.form.page == this.page_count) {

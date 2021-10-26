@@ -60,18 +60,21 @@
 		</view>
 		<hans-tabber style="position:fixed;bottom:0;width:100%;left:0;right:0;"></hans-tabber>
 		<citySelect @back_city="back_city" v-if="show"></citySelect>
+		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
 	</view>
 </template>
 
 <script>
 	import citySelect from '@/components/linzq-city/linzq-city.vue';
 	import cgSwiper from '@/components/cg-swiper/cg-swiper.vue';
-	import hansTabber from '../../components/hans-tabbar/hans-tabbar.vue'
+	import hansTabber from '../../components/hans-tabbar/hans-tabbar.vue';
+	import backTop from '@/components/back-top/back-top.vue';
 	export default {
 		components: {
 			citySelect,
 			cgSwiper,
-			hansTabber
+			hansTabber,
+			backTop
 		},
 		data() {
 			return {
@@ -144,6 +147,10 @@
 				},
 				page_count: 0, //总页数
 				shopList: [],
+				backTop: {
+					src: '../../static/back-top/top.png',
+					scrollTop: 0
+				},
 			}
 		},
 		onReady() {
@@ -293,6 +300,9 @@
 				});
 			},
 
+		},
+		onPageScroll(e) {
+			this.backTop.scrollTop = e.scrollTop;
 		},
 		onReachBottom() {
 			if (this.form.page == this.page_count) {
