@@ -123,25 +123,25 @@
 				<jx-list-cell :arrow="false" padding="0" :lineLeft="false" v-if="current==0">
 					<view class="jx-cell-header"
 						style="height: 80rpx;width: 90%;margin: 0 auto;border-bottom: 1rpx solid #F8FAF9;">
-						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: left;">需支付</view>
-						<view class="jx-cell-title"
-							style="line-height: 80rpx;font-size: 30rpx;float: right;margin-right: 30rpx;color: rgb(255, 113, 4);">{{redbag}}红包</view>
-					</view>
-				</jx-list-cell>
-				<jx-list-cell :arrow="false" padding="0" :lineLeft="false" v-if="current==1">
-					<view class="jx-cell-header"
-						style="height: 80rpx;width: 90%;margin: 0 auto;border-bottom: 1rpx solid #F8FAF9;">
 						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: left;">需支付现金</view>
 						<view class="jx-cell-title"
 							style="line-height: 80rpx;font-size: 30rpx;float: right;margin-right: 30rpx;color: rgb(255, 113, 4);">{{form.order_price}}元</view>
 					</view>
 				</jx-list-cell>
+				<jx-list-cell :arrow="false" padding="0" :lineLeft="false" v-if="current==1">
+					<view class="jx-cell-header"
+						style="height: 80rpx;width: 90%;margin: 0 auto;border-bottom: 1rpx solid #F8FAF9;">
+						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: left;">需支付</view>
+						<view class="jx-cell-title"
+							style="line-height: 80rpx;font-size: 30rpx;float: right;margin-right: 30rpx;color: rgb(255, 113, 4);">{{redbag}}红包</view>
+					</view>
+				</jx-list-cell>
 				<view class="sumbit" v-if="current==0">
-					<button type="default" @click="sumbit">立即支付</button>
+					<button type="default" @click="paysubnit">立即支付</button>
 					<image :src="img_url+'/artice_logo.png'" mode="widthFix"></image>
 				</view>
 				<view class="sumbit" v-if="current==1">
-					<button type="default" @click="paysubnit">立即支付</button>
+					<button type="default" @click="sumbit">立即支付</button>
 					<image :src="img_url+'/artice_logo.png'" mode="widthFix"></image>
 				</view>
 			</view>
@@ -172,13 +172,13 @@
 				popupShow: false,
 				items: [
 					{
-					value: '红包支付',
-					name: '红包支付'
-					}, 
-					{
 					value: '现金支付',
 					name: '现金支付'
 					}, 
+					{
+					value: '红包支付',
+					name: '红包支付'
+					},
 				],
 				current: 0,
 				form: {
