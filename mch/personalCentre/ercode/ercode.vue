@@ -15,9 +15,9 @@
 					{{message.store.name}}
 				</view>
 			</view>
-			<view class="notice">
+			<!-- <view class="notice">
 				扫码付多少送多少购物券
-			</view>
+			</view> -->
 		</view>
 		<view class="type_pay">
 			<view>
@@ -278,7 +278,7 @@
 		height: 80%;
 		position: relative;
 	}
-	.main{width: 100%;height:850rpx ;background:#FF6B09 ;padding-top: 30rpx;}
+	.main{width: 100%;height:800rpx ;background:#FF6B09 ;padding-top: 30rpx;}
 	.logo{width: 100%;overflow: hidden;}
 	.logo image{width: 164rpx;height: 64rpx;margin: 0 auto;display: block;}
 	.title{width: 100%;overflow: hidden;font-size: 50rpx;color: #fff;text-align: center;font-weight: bold;margin: 25rpx 0 30rpx 0;}
