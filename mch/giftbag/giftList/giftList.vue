@@ -201,7 +201,7 @@
 		padding: 15px 15px 10px 15px;
 		position: fixed;	
 		/* #ifdef H5 */
-			top: 88rpx;
+			top: 78rpx;
 		/* #endif */
 		/* #ifdef  MP  */
 			top: 0rpx;
