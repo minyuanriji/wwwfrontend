@@ -11,7 +11,7 @@
 			<view class="withdrawal-money-input-num">
 				<view class="withdrawal-money-icon">￥</view>
 				<view class="withdrawal-money-num">
-					<input type="number" value="" v-model.trim="money" />
+					<input type="digit" value="" v-model.trim="money" />
 				</view>
 				<view class="withdrawal-money-num-all" @click="checkAll">
 					全部提现

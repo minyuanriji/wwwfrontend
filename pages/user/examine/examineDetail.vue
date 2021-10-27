@@ -97,7 +97,7 @@
 					<view class="special-discount-detail" style="margin-bottom: 20rpx;" v-if="seviceCount">
 						<view>
 							<text>服务费</text>
-							<input type="number" value="" placeholder="请输入折扣" v-model="form.apply_data.settle_discount"
+							<input type="digit" value="" placeholder="请输入折扣" v-model="form.apply_data.settle_discount"
 								style="margin-left: 45rpx;" :disabled='countdisabled'/>
 							<text>折</text>
 						</view>
@@ -115,7 +115,7 @@
 					<view class="special-discount-detail">
 						<view>
 							<text>特殊折扣申请</text>
-							<input type="number" value="" placeholder="请输入折扣" v-model="form.apply_data.settle_discount" :disabled='countdisabled'/>
+							<input type="digit" value="" placeholder="请输入折扣" v-model="form.apply_data.settle_discount" :disabled='countdisabled'/>
 							<text>折</text>
 						</view>
 					</view>

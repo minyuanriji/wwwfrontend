@@ -26,7 +26,7 @@
 					<text style="color: #000;">店铺折扣</text>
 				</view>
 				<view style="width: 64%;">
-					<input type="text" v-model="params.settle_discount" placeholder="请填写店铺折扣"
+					<input type="digit" v-model="params.settle_discount" placeholder="请填写店铺折扣"
 						style="width: 220rpx;margin-top: 20rpx;float: right;line-height: 80rpx;display: block;height: 80rpx;border: none;text-align: center;background: rgb(223, 223, 223);font-size: 28rpx;color: #000;" />
 				</view>
 			</view>
