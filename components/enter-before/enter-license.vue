@@ -26,7 +26,7 @@
 					<text style="color: #000;">店铺折扣</text>
 				</view>
 				<view style="width: 64%;">
-					<input type="digit" v-model="params.settle_discount" placeholder="请填写店铺折扣"
+					<input type="digit" v-model.trim="params.settle_discount" placeholder="请填写店铺折扣"
 						style="width: 220rpx;margin-top: 20rpx;float: right;line-height: 80rpx;display: block;height: 80rpx;border: none;text-align: center;background: rgb(223, 223, 223);font-size: 28rpx;color: #000;" />
 				</view>
 			</view>
@@ -186,12 +186,8 @@
 			},
 			sumbit: function() {
 				if (isEmpty(this.params.license_name)) return this.alert('请填写营业执照名称')
-				// if (isEmpty(this.params.license_num)) return this.alert('请填写营业执照编号')
 				if (isEmpty(this.params.license_pic)) return this.alert('请上传营业执照图片')
-				//if (isEmpty(this.params.cor_realname)) return this.alert('请填写法人姓名')
-				//if (isEmpty(this.params.cor_num)) return this.alert('请填写身份证号码')
-				//if (isEmpty(this.params.cor_pic1)) return this.alert('请上传法人身份证正面')
-				//if (isEmpty(this.params.cor_pic2)) return this.alert('请上传法人身份证反面')
+				if (isEmpty(this.params.settle_discount)) return this.alert('请输入折扣数')
 				if(this.status==0)return this.alert('请阅读协议后勾选')
 				var that = this
 				that.$http.request({
