@@ -10,8 +10,8 @@
 			<view class="index1_content_top_l_r"></view>
 			<view class="index1_content_top_r">
 				<view class="iconfont iconsousuo"></view>
-				<input type="text" placeholder="输入商家名、品类或商圈" class="index1_content_top_r_input" disabled
-					@click="search"></input>
+				<input type="text" placeholder="输入大礼包名" class="index1_content_top_r_input" v-model="keywords"
+					@confirm="search"></input>
 			</view>
 		</view>
 		<!---->
@@ -75,6 +75,7 @@
 				show:false,
 				city_id:'',
 				keywords:'',
+				district_id:'',
 			};
 		},
 		onReady() {
@@ -99,8 +100,13 @@
 			back_city(e) { //城市选择回显
 			console.log(e)
 				if (e !== 'no') {
+					this.city_id=e.parent_id
+					this.district_id=e.id
+					this.page=1
+					this.productList=[]
+					this.page_count=''
+					this.packageList()
 					this.city = e.name;
-					
 					this.show = false;
 				} else {
 					this.show = false;
@@ -117,12 +123,13 @@
 						page:this.page,
 						city_id:this.city_id,
 						keywords:this.keywords,
+						district_id:this.district_id
 					},
 					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
-						this.city=res.city_data.district
-						uni.setStorageSync("giftCity",res.city_data.district)
+						this.city=res.data.city_name
+						uni.setStorageSync("giftCity",res.data.city_name)
 						if(res.data.list.length==0)return false
 						let list= res.data.list;
 						var arr=this.productList.concat(list)
@@ -161,6 +168,14 @@
 				}, 1000)
 				// #endif
 			},
+			search() { //搜索
+				this.page = 1
+				this.productList = []
+				this.page_count=''
+				this.packageList()
+			},
+		
+		
 		},
 		onPageScroll(e) {
 			console.log(e)
