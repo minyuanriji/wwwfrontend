@@ -214,6 +214,9 @@
 			typeSelect(index,item){//选择快充还是慢充
 				console.log(item)
 				this.typeIndex=index
+				if(this.moneyList.enable_fast==0){
+					this.typeIndex=1
+				}
 				if(item=='快充'){
 					this.selectIndex=0
 					this.list=this.moneyList.FastCharging
