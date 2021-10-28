@@ -6,7 +6,7 @@
 			</view>
 		</view>
 		<view class="moreCreadit_detail">
-			<view class="moreCreadit_detail-num">
+			<view class="moreCreadit_detail-num" v-if="show">
 				<view class="moreCreadit_detail-num_title">
 					<text v-for="(item,index) in type" :key='index' :class="typeIndex==index?'typeActive':''" @click="typeSelect(index,item)">{{item}}</text>
 				</view>
@@ -23,11 +23,11 @@
 					</view>
 				</view>
 			</view>
-			<view class="recharge">
+			<view class="recharge" v-if="show">
 				<button type="default" @click="checkrecharge">立即充值</button>
 			</view>
 		</view>
-		<view class="notice">
+		<view class="notice" v-if="show">
 			<text style="display: block;width: 100%;height: 60rpx;line-height: 60rpx;font-size: 28rpx;color: #000;font-weight: bold;">温馨提示</text>
 			<view class="notice-item" >
 				<view>
@@ -167,10 +167,10 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
-				selectIndex: 0,
-				list: [],
+				selectIndex: 0, //默认选中快充或者慢充金额列表的第一个
+				list: [], //快充或者慢充金额列表
 				popupShow: false,
-				items: [
+				items: [ //支付方式选择
 					{
 					value: '现金支付',
 					name: '现金支付'
@@ -180,7 +180,7 @@
 					name: '红包支付'
 					},
 				],
-				current: 0,
+				current: 0, //支付选择
 				form: {
 					mobile: '',
 					order_price: '',
@@ -192,10 +192,11 @@
 				creditStatusList:[],//充值记录
 				order_id:'',//订单ID
 				redbag:'',//红包
-				type:["快充","慢充"],
-				typeIndex:0,
-				moneyList:'',
-				payData:'',
+				type:[],
+				typeIndex:0,//tabble的切换样式
+				moneyList:'',//快充和慢充的详情
+				payData:'',//支付信息
+				show:true,//显示影藏
 			};
 		},
 		onShow() { 
@@ -211,6 +212,7 @@
 				return val.toFixed(0);
 			},
 			typeSelect(index,item){//选择快充还是慢充
+				console.log(item)
 				this.typeIndex=index
 				if(item=='快充'){
 					this.selectIndex=0
@@ -218,7 +220,6 @@
 						this.form.order_price=this.list[0].price
 						this.form.integral_deduction_price=this.list[0].redbag_num
 						this.redbag=this.list[0].redbag_num
-						// this.form.product_id=123
 						this.form.product_id=this.list[0].product_id
 						this.form.plateform_id=this.list[0].plateform_id
 				}
@@ -228,7 +229,6 @@
 						this.form.order_price=this.list[0].price
 						this.form.integral_deduction_price=this.list[0].redbag_num
 						this.redbag=this.list[0].redbag_num
-						// this.form.product_id=86
 						this.form.product_id=this.list[0].product_id
 						this.form.plateform_id=this.list[0].plateform_id
 				}
@@ -400,7 +400,30 @@
 					if (res.code == 0) {
 						this.creditStatusList=res.data
 						this.moneyList=res.money_list
-						this.list=this.moneyList.FastCharging
+						if(this.moneyList.enable_fast==1){
+							this.typeIndex=0
+							if(this.moneyList.enable_slow==1){
+								this.list=this.moneyList.FastCharging
+								this.type=["快充","慢充"]
+								this.show=true
+							}else{
+								this.list=this.moneyList.FastCharging
+								this.type=["快充"]
+								this.show=true
+							}
+						}
+						if(this.moneyList.enable_fast==0){
+							this.typeIndex=1
+							if(this.moneyList.enable_slow==1){							
+								this.list=this.moneyList.SlowCharge
+								this.type=["慢充"]
+								this.show=true
+							}else{
+								this.list=[]
+								this.type=[]
+								this.show=false
+							}
+						}
 						if (isEmpty(this.form.order_price)){
 							this.form.order_price=this.list[0].price
 							this.form.integral_deduction_price=this.list[0].redbag_num
