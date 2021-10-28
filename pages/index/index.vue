@@ -731,7 +731,7 @@
 	};
 </script>
 
-<style>
+<style lang="less">
 	.root {
 		background: #f7f7f7;
 	}
@@ -745,7 +745,12 @@
 		position: fixed;
 		z-index: 999;
 		right: 40rpx;
-		bottom: 200rpx;
+		/* #ifdef H5 */
+			bottom: 180rpx;
+		/* #endif */
+		/* #ifdef  MP  */
+			bottom: 260rpx;
+		/* #endif */
 		border-radius: 50%
 	}
 
