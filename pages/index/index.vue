@@ -659,8 +659,11 @@
 			//路由跳转
 			navTo(url) {
 				uni.navigateTo({
-					url
-				});
+					url:'../search/search'
+				})
+				// uni.navigateTo({
+				// 	url
+				// });
 			},
 			//优惠券路由跳转
 			navTo2() {

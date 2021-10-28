@@ -23,7 +23,12 @@
 								<view class="item-status green" v-if="item.status == 1">已充值</view>
 								<view class="item-status red" v-if="item.status == 2">已过期</view>
 								<view class="item-status red" v-if="item.status == -1">禁用</view>
+								<!-- #ifdef H5 -->
 								<view class="item-button" v-clipboard:copy="'卡号：'+item.serialize_no+',卡密：'+item.use_code" v-clipboard:success="(type) => paste('success')" v-clipboard:error="(type) => paste('error')">复制兑换码</view>
+								 <!--#endif -->
+								 <!-- #ifdef MP-WEIXIN -->
+								<view class="item-button" @tap="copy(item.serialize_no,item.use_code)">复制兑换码</view>
+								 <!--#endif -->
 							</view>
 						</view>
 					</view>
@@ -140,6 +145,19 @@
 				} else {
 					uni.showToast({ title:'复制失败' })
 				}
+			},
+			copy(serialize_no,use_code){
+				uni.showToast({ title:'复制成功' })
+				wx.setClipboardData({
+					data:"卡号："+serialize_no+"  "+"卡密："+use_code,
+					success:function(res){
+						wx.getClipboardData({
+							success:function(result){
+								console.log(result.data)
+							}
+						})
+					}
+				})
 			},
 			// 封装请求数据--获取列表数据
 			getList(){
