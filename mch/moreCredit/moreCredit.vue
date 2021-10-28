@@ -349,7 +349,7 @@
 									}
 								}).then(res=>{
 									if(res.code==0){
-											that.$wechatSdk.pay(res.data,'/mch/hotel/orderswaiting/orderswaiting?order_no='+this.order_no);
+											that.$wechatSdk.pay(res.data,'/pages/index/index');
 									}else{
 										that.$http.toast(res.msg);	
 									}
@@ -368,12 +368,12 @@
 								}).then(res=>{
 									if(res.code==0){
 										setPay(res.data, (result) => {
-											let _url = '/mch/hotel/orderswaiting/orderswaiting?order_no='+this.order_no
+											let _url = '/pages/index/index'
 											if (result.success) {
 												that.$http.toast("支付成功")
 											} else {
 												that.$http.toast("未支付")
-												_url = '/mch/hotel/orderList/orderList'
+												_url = '/mch/moreCredit/moreCredit'
 											}
 												setTimeout(() => {
 													uni.redirectTo({
