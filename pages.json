@@ -658,6 +658,20 @@
     ],
 	"subPackages": [
 		{
+			"root":"aggregation",
+			"pages":[
+				{
+					"path": "sellingHot/sellingHot",
+					"style": {
+						"navigationBarTitleText": "热卖爆品",
+						"navigationBarBackgroundColor": "#FFFFFF",
+						"navigationBarTextStyle": "black",
+						 "enablePullDownRefresh": false
+					}
+				}
+			]
+		},
+		{
 			"root":"merchants",
 			"pages":[
 				{
