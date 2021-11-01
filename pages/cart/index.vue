@@ -398,9 +398,20 @@
 				this.selectArr.forEach((item) => {
 					item.num = 0;
 				})
-				this.changeData('goods_id', 'attr', 'delete');
-				this.modify(this.finallyObj);
-				this.selectArr = [];
+				let that=this
+				uni.showModal({
+				    title: '提示',
+				    content: '确定要删除吗？',
+				    success: function (res) {
+				        if (res.confirm) {
+						   that.changeData('goods_id', 'attr', 'delete');
+				           that.modify(that.finallyObj);
+				           that.selectArr = [];
+				        } else if (res.cancel) {
+				          
+				        }
+				    }
+				});
 			},
 			getCartList() { //获取购物车列表
 				this.loading = true;
