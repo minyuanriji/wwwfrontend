@@ -49,13 +49,19 @@
 				file_path:'',
 				order_id:'',
 				pack_item_id:'',
+				timer:'',
+				flag:true
 			};
 		},
 		onLoad(options) {
+			let that=this
 			if(options&&options.order_id&&options.pack_item_id){
-				this.getDetail(options.order_id,options.pack_item_id)
-				this.order_id=options.order_id
-				this.pack_item_id=options.pack_item_id
+				
+				that.timer=setInterval(() => {
+					that.getDetail(options.order_id,options.pack_item_id)
+				},500);
+				that.order_id=options.order_id
+				that.pack_item_id=options.pack_item_id
 			}
 		},
 		methods:{
@@ -110,25 +116,35 @@
 				});
 			},
 			getDetail(order_id,pack_item_id){//点击展示二维码
-				let that=this
-				that.$http
-					.request({
-						url: that.$api.package.getitemdetail,
-						method: 'POST',
-						data:{
-							order_id:order_id,//订单ID
-							pack_item_id:pack_item_id,//大礼包物品ID
-						},
-						showLoading: true
-					})
-					.then(res => {
-						if(res.code==0){
-							this.seviceDetail=res.data.detail
-						}else{
-							that.$http.toast(res.msg);
-						}
-				});
+			    if(this.flag){
+					let that=this
+					that.$http
+						.request({
+							url: that.$api.package.getitemdetail,
+							method: 'POST',
+							data:{
+								order_id:order_id,//订单ID
+								pack_item_id:pack_item_id,//大礼包物品ID
+							},
+						})
+						.then(res => {
+							if(res.code==0){
+								this.seviceDetail=res.data.detail
+								if(this.seviceDetail.is_available==0){
+									this.flag=false
+								}
+							}else{
+								that.$http.toast(res.msg);
+							}
+					});
+				}
 			}
+		},
+		onUnload() {
+			if(this.timer!=null) {  
+			    clearInterval(this.timer);  
+			    this.timer = null;  
+			}  
 		}
 	}
 </script>

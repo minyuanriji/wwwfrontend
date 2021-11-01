@@ -190,6 +190,8 @@
 							},2000)
 						} else {
 							this.$http.toast(res.msg);
+							this.paymentPwd=''
+							this.$refs.paymentPassword.modalFun('hide');
 						}
 					});
 				}
@@ -213,6 +215,8 @@
 							},2000)
 						} else {
 							this.$http.toast(res.msg);
+							this.paymentPwd=''
+							this.$refs.paymentPassword.modalFun('hide');
 						}
 					});
 				}

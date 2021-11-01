@@ -100,7 +100,8 @@
 				moreData : true,	//假设有更多评论列表数据
 				status : 0,		//默认获取全部数据
 				page : 1,		//默认请求第一列数据
-				tIndex:0//索引
+				tIndex:0,//索引
+				page_count:'',
 			}
 		},
 		onLoad: function(options) {
@@ -119,9 +120,9 @@
 			this.proId = proId;
 			
 			// 初始化一下数据
-			this.status = 0;
-			this.page = 1;
-			this.moreData = true;
+			// this.status = 0;
+			// this.page = 1;
+			// this.moreData = true;
 			this.commentsData = []; //评论数据
 			this.commentCount = []; //评论类型数据
 			this.getComment(this.status,this.page);
@@ -175,14 +176,12 @@
 		},
 		
 		/* 监听一下页面的上拉触底事件 */
-		onReachBottom(){
-			let _this = this;
-			if (!_this.moreData) {		//没有更多数据了
-				console.log('乜有更多数据了');
+		onReachBottom() {
+			if(this.page==this.page_count){
 				return false;
-			}
-			_this.page +=1;
-			_this.getComment(_this.page,_this.status);
+			} 		
+			this.page=this.page+1
+			this.getComment(this.status,this.page);
 		},
 		
 		methods: {
@@ -222,14 +221,14 @@
 			// 1.0 tab的点击事件
 			countState(status){
 				// console.log(status);
-				if(status==this.status){	//如果status不变，直接返回
-					return false;
-				}
+				// if(status==this.status){	//如果status不变，直接返回
+				// 	return false;
+				// }
 				// 状态赋值，其他初始化
 				this.tIndex=status
 				this.status = status;
-				this.moreData = true;
 				this.page = 1;
+				this.page_count=''
 				this.commentsData = []; //评论数据
 				// this.commentCount = []; //评论类型数据
 				// 发请求
@@ -250,10 +249,19 @@
 				}).then((res) => {
 					if (res.code == 0) {
 						// this.commentsData = res.data.comments;		//评论列表
-						this.commentsData.push(...res.data.comments);	//es6数组添加
+						// this.commentsData.push(...res.data.comments);	//es6数组添加
 						this.commentCount = res.data.comment_count;	//tab-list
-						this.moreData = res.data.comments.length<10?false:true;	//数据小于10条就没有更多数据了
-						this.goodRate = res.data.good_rate;
+						if(res.data.comments.length==0)return false
+						let list= res.data.comments;
+						var arr=this.commentsData.concat(list)
+						this.commentsData =arr
+						this.page_count = res.data.pagination.page_count;
+						
+						
+						
+						
+						// this.moreData = res.data.comments.length<10?false:true;	//数据小于10条就没有更多数据了
+						// this.goodRate = res.data.good_rate;
 					}
 				})
 			},

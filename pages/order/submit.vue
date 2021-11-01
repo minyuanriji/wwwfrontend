@@ -301,7 +301,8 @@
 					"use_score": 0,
 					"use_integral": 0,
 					"use_shopping_voucher": 0,
-					"list": ""
+					"list": "",
+					"remark":'',
 				},
 				got_shopping_voucher_num:''
 			}
@@ -797,6 +798,7 @@
 				let curRoute = routes[routes.length - 1].route //获取当前页面路由
 				let curParam = routes[routes.length - 1].options; //获取路由参数
 				this.form.user_address_id = this.addressId
+				this.form.remark=this.remark
 				this.is_checked ? this.form.use_score = 1 : this.form.use_score = 0; //是否使用积分(请求用)
 
 				this.is_integral ? this.form.use_integral = 1 : this.form.use_integral = 0; //是否使用抵扣券(请求用)
