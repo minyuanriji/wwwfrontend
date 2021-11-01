@@ -25,9 +25,41 @@
 					<text style="margin: 0 5rpx;color: red;">*</text>
 					<text style="color: #000;">店铺折扣</text>
 				</view>
-				<view style="width: 64%;">
+				<!-- <view style="width: 64%;">
 					<input type="digit" v-model.trim="params.settle_discount" placeholder="请填写店铺折扣"
-						style="width: 220rpx;margin-top: 20rpx;float: right;line-height: 80rpx;display: block;height: 80rpx;border: none;text-align: center;background: rgb(223, 223, 223);font-size: 28rpx;color: #000;" />
+						style="width: 200rpx;margin-top: 20rpx;float: right;line-height: 80rpx;display: block;height: 80rpx;border: none;text-align: center;background: rgb(223, 223, 223);font-size: 28rpx;color: #000;" />
+				</view> -->
+				<view style="width: 64%;">
+					<text style="display: block;height: 80rpx;float: right;font-size: 30rpx;font-weight: bold;color: #000;text-align: center;width: 30rpx;
+					margin: 20rpx 20rpx 0 20rpx;">折</text>
+					<picker :range="count_2"  @change="changecount_2" style="
+						width: 100rpx;
+						margin-top: 20rpx;
+						float: right;
+						line-height: 80rpx;
+						display: block;
+						height: 80rpx;
+						border: none;text-align: center;background: rgb(223, 223, 223);
+						font-size: 30rpx;color: #000;
+						font-weight: bold;
+					">
+										{{count_2_set?count_2_set:"请选择"}}
+									</picker>
+					<text style="display: block;height: 80rpx;float: right;font-size: 50rpx;font-weight: bold;color: #000;text-align: center;width: 30rpx;
+					margin-top: 10rpx;">.</text>
+					<picker :range="count_1"  @change="changecount_1" style="
+						width: 100rpx;
+						margin-top: 20rpx;
+						float: right;
+						line-height: 80rpx;
+						display: block;
+						height: 80rpx;
+						border: none;text-align: center;background: rgb(223, 223, 223);
+						font-size: 30rpx;color: #000;
+						font-weight: bold;
+					">
+										{{count_1_set?count_1_set:"请选择"}}
+									</picker>
 				</view>
 			</view>
 		</view>
@@ -147,6 +179,10 @@
 					cor_pic1: this.$api.test_url + "/images/shop/cor_pic1.png",
 					cor_pic2: this.$api.test_url + "/images/shop/cor_pic2.png",
 				},
+				count_1:[1,2,3,4,5,6,7,8,9],
+				count_2:[0,2,3,4,5,6,7,8,9],
+				count_1_set:'',
+				count_2_set:''
 			}
 		},
 		created() {
@@ -174,10 +210,29 @@
 				this.params.settle_num=this.applyInfo.settle_num
 				this.params.settle_realname=this.applyInfo.settle_realname
 				this.params.settle_bank=this.applyInfo.settle_bank
-				this.params.settle_discount=this.applyInfo.settle_discount
+				// this.params.settle_discount=this.applyInfo.settle_discount
+				
+				
+				
+				this.count_1_set=String(this.applyInfo.settle_discount).split('.')[0]
+				this.count_2_set=String(this.applyInfo.settle_discount).split('.')[1]
 			},1000)
+			
+			
 		},
 		methods: {
+			changecount_1(e) { //下拉选择商户分类
+				var index = e.detail.value
+				this.count_1_set = this.count_1[index]
+			},
+			changecount_2(e) { //下拉选择商户分类
+				var index = e.detail.value
+				this.count_2_set = this.count_2[index]
+			},
+			
+			
+			
+			
 			alert(txt) { //弹窗提示
 				uni.showToast({
 					title: txt,
@@ -187,7 +242,14 @@
 			sumbit: function() {
 				if (isEmpty(this.params.license_name)) return this.alert('请填写营业执照名称')
 				if (isEmpty(this.params.license_pic)) return this.alert('请上传营业执照图片')
-				if (isEmpty(this.params.settle_discount)) return this.alert('请输入折扣数')
+				
+				// if (isEmpty(this.params.settle_discount)) return this.alert('请输入折扣数')
+				
+				
+				if (isEmpty(this.count_1_set)) return this.alert('请选择折扣数')
+				if (isEmpty(this.count_2_set)) return this.alert('请选择折扣数')
+				this.params.settle_discount=this.count_1_set+"."+this.count_2_set
+				
 				if(this.status==0)return this.alert('请阅读协议后勾选')
 				var that = this
 				that.$http.request({

@@ -54,7 +54,7 @@
 </script>
 
 <style lang="less" scoped>
-	.productList-app{width: 100%;overflow: hidden;display: flex;justify-content: space-between;
+	.productList-app{width: 100%;overflow: hidden;display: flex;justify-content: space-between;flex-wrap: wrap;
 	padding: 0 30rpx;box-sizing: border-box;}
 	.none{width: 100%;}
 </style>
