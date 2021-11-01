@@ -102,7 +102,7 @@ export default {
 	share: function(param, diy) {
 
 		if (!this.isWechat()) {
-			return;
+			//return;
 		}
 		let title = '补商汇全新上线',
 			desc = '优惠多多',
@@ -116,10 +116,14 @@ export default {
 
 		// 获取当前 URL
 		let url = window.location.href.split("#")[0];
+		
 		// 截取 URL ?code 前面 URL
 		url = url.split('?code')[0];
 		// 获取 当前商城id
 		let mall_id = uni.getStorageSync("mall_id");
+		if(mall_id.length <= 0 || isNaN(mall_id)){
+			mall_id = 5;
+		}
 
 		// 获取当前用户
 		let user = uni.getStorageSync("userInfo") ? JSON.parse(uni.getStorageSync("userInfo")) : {};
@@ -139,7 +143,7 @@ export default {
 		// console.log(url,"分享url");
 		//每需要重新初始化
 		this.initJssdk(function(sdk) {
-		
+		console.log(url);
 			jweixin.ready(() => {
 				// 分享到朋友圈
 				// jweixin.updateTimelineShareData({

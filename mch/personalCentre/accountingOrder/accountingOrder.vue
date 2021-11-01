@@ -10,7 +10,7 @@
 		<view class="accountingOrder_scan" @click='ercodeBtn'>
 			<image :src="img_url+'/shop-scan.png'" mode=""></image>
 		</view>
-		<view class="personalCenter-item">
+		<view class="personalCenter-item" style="background:white;">
 			<jx-list-cell  padding="0" :lineLeft="false">
 				<view class="jx-cell-header">
 					<view class="jx-cell-title">最近核销记录</view>
@@ -32,15 +32,13 @@
 					</view>
 				</view>				
 			</view> -->
-			<view class="hexiao-list" v-for="(item,index) in list" :key='index'>
-				<view style="width: 60%;height: 110rpx;font-size: 30rpx;padding: 15rpx 0;overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;">
-					{{item.descript}}		
+			<view class="hexiao-list" v-for="(item,index) in list" :key='index' style="padding-left:20rpx;width:100%;font-size:25rpx;height:150rpx;">
+				<view style="width: 60%;">
+					<view style="height: 50rpx;line-height: 50rpx;">{{item.descript}}</view>
+					<view style="height: 50rpx;line-height: 50rpx;">用户：{{item.pay_user_name}}</view>
+					<view style="height: 50rpx;line-height: 50rpx;">手机：{{item.mobile}}</view>
 				</view>
-				<view style="width: 40%;height: 125rpx;font-size: 25rpx;text-align: right;line-height: 110rpx;">
+				<view style="width:40%;line-height:150rpx">
 					{{item.created_at}}
 				</view>	
 			</view>
@@ -219,7 +217,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		border-bottom: 1rpx solid #f3f3f3;
+		border-bottom: 1rpx solid #ddd;
 	}
 	.jx-cell-title {
 		font-size: 30rpx;
@@ -248,6 +246,6 @@
 	.personalCenter-item-list-message-time{font-size: 25rpx;}
 	
 	
-	.hexiao-list{width: 100%;overflow: hidden;display: flex;justify-content: space-evenly;padding: 0 20rpx;box-sizing: border-box;margin-bottom: 20rpx;
-	border-bottom: 1rpx solid #C0C4CC;}
+	.hexiao-list{width: 100%;overflow: hidden;display: flex;justify-content: space-evenly;box-sizing: border-box;border-bottom: 1rpx solid #F1F1F1;}
+	.hexiao-list:last-child{border-bottom:none;}
 </style>

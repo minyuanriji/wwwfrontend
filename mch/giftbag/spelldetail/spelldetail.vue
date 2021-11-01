@@ -1,5 +1,13 @@
 <template>
 	<view class="giftbagDetail-app">
+		
+		<!--分享引导框开始-->
+		<view v-if="guide_enable" id="guide_box"  @touchmove.stop.prevent="moveHandle">
+		    <image :src="plugins_img_url+'/live_weixin.png'" mode="aspectFit" style="position:absolute;right:-130rpx;"></image>
+			<image @click="guide_enable=false" :src="plugins_img_url+'/live_weixin_btn.png'" mode="aspectFit" style="width:400rpx;position:absolute;right:0rpx;top:310rpx;"></image>
+		</view>
+		<!--分享引导框结束-->
+		
 		<view class="tui-banner-swiper">
 			<image :src="detail.cover_pic" mode="widthFix" style="width: 100%;"></image>
 		</view>
@@ -74,7 +82,7 @@
 				</button>
 			</view>
 		</view>
-		<view class="bottom" v-if="show && canPay">
+		<view class="bottom" v-if="canShow && canPay">
 			<view class="bottom-back" @click="back">
 				<image :src="img_url+'/new_bac.png'" mode=""></image>
 				<text>返回</text>
@@ -96,7 +104,7 @@
 				<!-- #endif -->
 			</view>
 		</view>
-		<view class="bottom" v-if="!show && canPay">
+		<view class="bottom" v-if="!canShow && canPay">
 			<view class="bottom-back" @click="back">
 				<image :src="img_url+'/new_bac.png'" mode=""></image>
 				<text>返回</text>
@@ -191,6 +199,7 @@
 	</view>
 </template>
 <style lang="less" scoped>
+	#guide_box{z-index:999999;left:0rpx;top:0rpx;background:black;filter:alpha(Opacity=90);-moz-opacity:0.9;opacity: 0.9;position:fixed;width:100%;height:100%;}
 	.giftbagDetail-app{width: 100%;overflow: hidden;}
 	.tui-banner-swiper{width: 100%;overflow: hidden;position: relative;}
 	.tui-banner-swiper image{display: block;width: 100%;}
@@ -260,7 +269,9 @@
 		},
 		data() {
 			return {
+				guide_enable:false,
 				pack_id:'',
+				plugins_img_url: this.$api.plugins_img_url,
 				img_url: this.$api.img_url,
 				selectIndex:0,//table选项
 				table:['活动介绍'],
@@ -291,12 +302,16 @@
 				show:true,//控制底部的显示
 				url:'',
 				join_list:[],//参团人员
+				is_joiner: false,
 				group_info: {status: ''} //拼团详情
 			}
 		},
 		computed:{
 			canPay:function(){
 				return this.group_info.status == 'sharing';
+			},
+			canShow:function(){
+				return this.is_joiner;
 			}
 		},
 		onLoad(options) {
@@ -322,16 +337,17 @@
 				this.selectIndex=index
 			},
 			home(){ //点击返回首页
-				uni.navigateTo({
-					url:'../../../pages/index/index'
-				})
+				uni.redirectTo({
+					url:'/pages/index/index'
+				});
 			},
 			back(){ //点击返回按钮
-				uni.navigateBack({
-					delta:1
-				})
+				uni.redirectTo({
+					url:'/mch/giftbag/gifebagDetail/newgifebagDetail?pack_id='+this.pack_id
+				});
 			},
 			packageDetail(pack_id){ //获取大礼包详情
+			
 				this.$http.request({
 					url: this.$api.package.packageDetail,
 					method: 'POST',
@@ -341,6 +357,15 @@
 					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
+						
+						// #ifdef H5
+						this.$wechatSdk.share("mch/giftbag/spelldetail/spelldetail?pack_id="+this.pack_id+"&group_id="+this.group_id+"&type=1", {
+							app_share_title: res.data.detail.title,
+							app_share_desc: res.data.detail.descript,
+							app_share_pic: res.data.detail.cover_pic
+						});
+						// #endif
+						
 						this.detail=res.data.detail
 						this.expired_at=res.data.detail.expired_at
 						var timestamp =parseInt( new Date().getTime()/1000)
@@ -577,9 +602,10 @@
 				// #endif
 			},		
 			invitation(){ //邀请好友
-				this.$refs.popupShare.open()
-				let pid=JSON.parse(uni.getStorageSync('userInfo')).user_id
-				this.url=window.location.href+"&pid="+pid+"&type="+1
+				//this.$refs.popupShare.open()
+				//let pid=JSON.parse(uni.getStorageSync('userInfo')).user_id
+				//this.url=window.location.href+"&pid="+pid+"&type="+1
+				this.guide_enable = true;
 			},	
 			deleted(){
 				 this.$refs.popupShare.close()
@@ -602,6 +628,7 @@
 					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
+						this.is_joiner=res.data.is_joiner == 1 ? true : false;
 						this.join_list=res.data.join_list
 						this.group_info=res.data.group_info;
 					} else {

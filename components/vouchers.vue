@@ -22,7 +22,7 @@
 					</view>
 					<view class="send" style="position: relative;">
 						<view class="send_imag"></view>
-						<text style="font-size: 24rpx;position: absolute;top: 10rpx;left: 78rpx;color: #fff;">{{item.got_shopping_voucher_num}}购物券</text>	
+						<text style="font-size: 27rpx;position: absolute;top: 11rpx;left: 80rpx;color: #fff;">{{item.got_shopping_voucher_num}}购物券</text>	
 					</view>
 				</view>
 		</view>

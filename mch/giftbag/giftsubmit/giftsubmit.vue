@@ -185,7 +185,7 @@
 							this.$http.toast('支付成功');
 							setTimeout(()=>{
 								uni.navigateTo({
-									url:'../orderList/orderList'
+									url:'../giftOrderDetail/giftOrderDetail?order_id=' + order_id
 								})
 							},2000)
 						} else {
@@ -208,7 +208,7 @@
 							this.$http.toast('支付成功');
 							setTimeout(()=>{
 								uni.navigateTo({
-									url:'../orderList/orderList'
+									url:'../giftOrderDetail/giftOrderDetail?order_id=' + order_id
 								})
 							},2000)
 						} else {

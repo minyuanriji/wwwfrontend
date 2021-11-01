@@ -1,243 +1,309 @@
 <template>
-	<view class="giftbagDetail-app">
-		<view class="tui-banner-swiper">
-			<swiper :duration="150" :style="{height:scrollH + 'px'}" @change="bannerChange">
-				<block v-for="(item,b_index) in detail.pic_url" :key="b_index">
-					<swiper-item :data-index="b_index+1">
-						<image :src="item.pic_url" mode="aspectFill" class="tui-slide-image" :style="{height:scrollH+'px'}" />
-					</swiper-item>
-				</block>
-			</swiper>
-			<jx-tag class="tui-tag-class" type="translucent" shape="circle" size="small">{{bannerIndex+1}}/{{bannerLength}}</jx-tag>
+	
+	<view >
+		
+		<!--分享引导框开始-->
+		<view v-if="guide_enable" id="guide_box"  @touchmove.stop.prevent="moveHandle">
+		    <image :src="plugins_img_url+'/live_weixin.png'" mode="aspectFit" style="position:absolute;right:-130rpx;"></image>
+			<image @click="guide_enable=false" :src="plugins_img_url+'/live_weixin_btn.png'" mode="aspectFit" style="width:400rpx;position:absolute;right:0rpx;top:310rpx;"></image>
 		</view>
-		<view class="time-money">
-			<view class="time-money-left">
-				<view style="height: 60rpx;line-height: 60rpx;">
-					<text style="font-weight: bold;">￥</text>
-					<text style="font-size: 48rpx;font-weight: bold;">{{detail.group_price}}</text>
+		<!--分享引导框结束-->
+		
+		<view class="giftbagDetail-app">
+			<view class="tui-banner-swiper">
+				<swiper :duration="150" :style="{height:scrollH + 'px'}" @change="bannerChange">
+					<block v-for="(item,b_index) in detail.pic_url" :key="b_index">
+						<swiper-item :data-index="b_index+1">
+							<image :src="item.pic_url" mode="aspectFill" class="tui-slide-image" :style="{height:scrollH+'px'}" />
+						</swiper-item>
+					</block>
+				</swiper>
+				<jx-tag class="tui-tag-class" type="translucent" shape="circle" size="small">{{bannerIndex+1}}/{{bannerLength}}</jx-tag>
+			</view>
+			<view class="time-money">
+				<view class="time-money-left">
+					<view style="height: 60rpx;line-height: 60rpx;">
+						<text style="font-weight: bold;">￥</text>
+						<text style="font-size: 48rpx;font-weight: bold;">{{detail.group_price}}</text>
+					</view>
+					<view>
+						<text style="font-size: 30rpx;color: #fff;width: 120rpx;background: #007AFF;line-height: 44rpx;text-align: center;border-radius: 30rpx;">拼团价</text>
+						<text style="font-size: 28rpx;color: #fff;margin-left: 10rpx;">原价</text>
+						<text style="font-size: 28rpx;color: #fff;text-decoration: line-through;">￥{{detail.price}}</text>
+					</view>
 				</view>
-				<view>
-					<text style="font-size: 30rpx;color: #fff;width: 120rpx;background: #007AFF;line-height: 44rpx;text-align: center;border-radius: 30rpx;">拼团价</text>
-					<text style="font-size: 28rpx;color: #fff;margin-left: 10rpx;">原价</text>
-					<text style="font-size: 28rpx;color: #fff;text-decoration: line-through;">￥{{detail.price}}</text>
+				<view class="time-money-right">
+					<view style="margin-top: 10rpx;" v-if="!detail.is_finished">距离活动结束</view>
+					<view style="margin-top: 10rpx;" v-if="detail.is_finished">活动已结束</view>
+					<view>{{expired_at}}</view>
 				</view>
 			</view>
-			<view class="time-money-right">
-				<view style="margin-top: 10rpx;" v-if="!detail.is_finished">距离活动结束</view>
-				<view style="margin-top: 10rpx;" v-if="detail.is_finished">活动已结束</view>
-				<view>{{expired_at}}</view>
+			<view class="giftbag-title">
+				<view style="width: 80%;color: #000;font-weight: bold;padding: 0 20rpx;font-size: 31rpx;border-right:1rpx solid rgb(238,238,238);">
+					<text style="display: inline-block;;width: 120rpx;height: 50rpx;line-height: 48rpx;color: rgb(255,71,121);text-align: center;border: 1rpx solid rgb(255,71,121);border-radius: 30rpx;margin-right: 10rpx;">{{detail.group_num}}人团</text>
+					{{detail.title}}
+				</view>
+				<!-- #ifdef H5 -->
+				<view style="width: 20%;font-size: 30rpx;" @click="invitation">
+					<image :src="img_url+'/new-share.png'" mode="" style="display: block;width: 50rpx;height: 50rpx;margin: 0 auto;"></image>
+					<text style="display: block;width: 100%;text-align: center;color:rgb(255,71,83);">分享</text>
+				</view>
+				<!-- #endif -->
+				<!-- #ifdef MP-WEIXIN || APP-PLUS -->
+				<button open-type="share" style="width: 20%;font-size: 30rpx;">
+					<image :src="img_url+'/new-share.png'" mode="" style="display: block;width: 50rpx;height: 50rpx;margin: 0 auto;"></image>
+					<text style="display: block;width: 100%;text-align: center;color:rgb(255,71,83);">分享</text>
+				</button>
+				<!-- #endif -->
 			</view>
-		</view>
-		<view class="giftbag-title">
-			<view style="width: 80%;color: #000;font-weight: bold;padding: 0 20rpx;font-size: 31rpx;border-right:1rpx solid rgb(238,238,238);">
-				<text style="display: inline-block;;width: 120rpx;height: 50rpx;line-height: 48rpx;color: rgb(255,71,121);text-align: center;border: 1rpx solid rgb(255,71,121);border-radius: 30rpx;margin-right: 10rpx;">{{detail.group_num}}人团</text>
-				{{detail.title}}
+			<view class="giftbag-describe">
+				{{detail.descript}}
+				有<text style="background: rgb(217,217,217);color: #000;border-radius: 30rpx;display: inline-block;min-width: 90rpx;text-align: center;">{{detail.view_num}}</text>人浏览，
+				<text style="background: rgb(221,82,77);color: #fff;border-radius: 30rpx;display: inline-block;min-width: 90rpx;text-align: center;">{{detail.sold_num}}</text>人参与
 			</view>
-			<!-- #ifdef H5 -->
-			<view style="width: 20%;font-size: 30rpx;" @click="invitation">
-				<image :src="img_url+'/new-share.png'" mode="" style="display: block;width: 50rpx;height: 50rpx;margin: 0 auto;"></image>
-				<text style="display: block;width: 100%;text-align: center;color:rgb(255,71,83);">分享</text>
+			<view class="warm-prompt">
+				<text style="display: block;color: rgb(255,71,83);padding-left: 10rpx;position: absolute;z-index: 1;background: #fff;right: 50rpx;top:-26rpx;height: 50rpx;border: 1rpx solid rgb(255,71,83);border-radius: 10rpx;text-align: center;line-height: 52rpx;">友情提示！</text>
+				拼团发起后，<text style="color: rgb(255,68,0);">{{detail.group_hour_expired}}小时内</text>完成<text  style="color: rgb(255,68,0);">{{detail.group_num}}人</text>组团即拼团成功，否则拼团失败，拼团金额返回用户支付帐户
 			</view>
-			<!-- #endif -->
-			<!-- #ifdef MP-WEIXIN || APP-PLUS -->
-			<button open-type="share" style="width: 20%;font-size: 30rpx;">
-				<image :src="img_url+'/new-share.png'" mode="" style="display: block;width: 50rpx;height: 50rpx;margin: 0 auto;"></image>
-				<text style="display: block;width: 100%;text-align: center;color:rgb(255,71,83);">分享</text>
-			</button>
-			<!-- #endif -->
-		</view>
-		<view class="giftbag-describe">
-			{{detail.descript}}
-			有<text style="background: rgb(217,217,217);color: #000;border-radius: 30rpx;display: inline-block;min-width: 90rpx;text-align: center;">{{detail.view_num}}</text>人浏览，
-			<text style="background: rgb(221,82,77);color: #fff;border-radius: 30rpx;display: inline-block;min-width: 90rpx;text-align: center;">{{detail.sold_num}}</text>人参与
-		</view>
-		<view class="warm-prompt">
-			<text style="display: block;color: rgb(255,71,83);padding-left: 10rpx;position: absolute;z-index: 1;background: #fff;right: 50rpx;top:-26rpx;height: 50rpx;border: 1rpx solid rgb(255,71,83);border-radius: 10rpx;text-align: center;line-height: 52rpx;">友情提示！</text>
-			拼团发起后，<text style="color: rgb(255,68,0);">{{detail.group_hour_expired}}小时内</text>完成<text  style="color: rgb(255,68,0);">{{detail.group_num}}人</text>组团即拼团成功，否则拼团失败，拼团金额返回用户支付帐户
-		</view>
-		<view class="select-check">
-			<text v-for="(item,index) in table" :key='index' :class="selectIndex==index?'active':'actove'" @click="select(index)">
-				{{item}}
-			</text>
-		</view>
-		<view class="package-content" v-if="selectIndex==0">
-			<view class="package-content-title">
-				套餐包括：
+			
+			<view class="spellgroup-list" v-if="join_groups.length > 0">
+				
+				<view class="spellgroup-item" v-for="(item, index) in join_groups" :key='index'>
+					<image :src="item.avatar_url" mode="" style="border-radius: 50%;"></image>
+					<view class="spellgroup-item-name">
+						{{item.nickname}}
+					</view>
+					<view class="spellgroup-item-peopeliNum">
+						<view style="text-align: right;width: 100%;height: 50rpx;line-height: 50rpx;">
+							还差<text style="color: red;">{{item.need_num}}</text>人拼成</view>
+						<text style="text-align: right;display: block;">{{item.expired_text}}</text>
+					</view>
+					<view class="go-spellgroup" @click="jumpToGroup(item.group_id)">
+						拼
+					</view>
+				</view>
+				
 			</view>
-			<view class="tui-product-img tui-radius-all" style="margin-bottom: 50rpx;">
-				<jyf-parser :html="detail.detail"></jyf-parser>
-			</view>
-		</view>
-		<view class="Spell-group-records" v-if="selectIndex==1">
-			<view class="Spell-group-records-header">
-				<text style="color: #000;font-size: 30rpx;">最近拼团记录</text>
-				<text style="float: right;font-size: 25rpx;min-width: 120rpx;background:rgb(0,122,255);height: 45rpx;line-height: 45rpx;color: #fff;text-align: center;
-				margin-top: 20rpx;border-radius: 30rpx;">
-					共{{detail.sold_num}}
+			
+			<view class="select-check">
+				<text v-for="(item,index) in table" :key='index' :class="selectIndex==index?'active':'actove'" @click="select(index)">
+					{{item}}
 				</text>
 			</view>
-			<view class="Spell-group-records-item" v-for="(item,index) in spellgroup" :key='index'>
-				<image :src="item.avatar_url" mode=""></image>
-				<view style="width: 65%;">
-					<text style="color: #000;font-size: 28rpx;margin: 5rpx 0;">{{item.nickname}}</text>
-					<text style="color: rgb(255,153,0);font-size: 28rpx;">{{item.created_at}}发起</text>
+			<view class="package-content" v-if="selectIndex==0">
+				<view class="package-content-title">
+					套餐包括：
 				</view>
-				<view>
-					<text style="width: 120rpx;margin-top: 30rpx;height: 45rpx;font-size: 25rpx;line-height: 45rpx;text-align: center;background: rgb(76,217,100);color: #fff;border-radius: 30rpx;">
-						已完成
+				<view class="tui-product-img tui-radius-all" style="margin-bottom: 50rpx;">
+					<jyf-parser :html="detail.detail"></jyf-parser>
+				</view>
+			</view>
+			<view class="Spell-group-records" v-if="selectIndex==1">
+				<!--<view class="Spell-group-records-header">
+					
+					<text style="color: #000;font-size: 30rpx;">最近拼团记录</text>
+					<text style="float: right;font-size: 25rpx;min-width: 120rpx;background:rgb(0,122,255);height: 45rpx;line-height: 45rpx;color: #fff;text-align: center;
+					margin-top: 20rpx;border-radius: 30rpx;">
+						共{{detail.sold_num}}
 					</text>
-				</view>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+				</view>-->
+				<view class="Spell-group-records-item" v-for="(item,index) in spellgroup" :key='index'>
+					<image :src="item.avatar_url" mode=""></image>
+					<view style="width: 65%;">
+						<text style="color: #000;font-size: 28rpx;margin: 5rpx 0;">{{item.nickname}}</text>
+						<text style="color: rgb(255,153,0);font-size: 28rpx;">{{item.created_at}}发起</text>
+					</view>
+					<view>
+						<text v-if="item.status == 'success'" class="Spell-group-item-finished" style="">
+							已完成
+						</text>
+						<text @click="jumpToGroup(item.id)" v-if="item.status == 'sharing'" class="Spell-group-item-sharing" style="">
+							去拼团
+						</text>
+						<text v-if="item.status == 'closed'" class="Spell-group-item-closed" style="">
+							已关闭
+						</text>
+					</view>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+				</view>
 			</view>
-		</view>
-		<!-- <view class="Spell-group-polite" v-if="selectIndex==2">
-			<view class="Spell-group-polite-header">
-				发起拼团可得以下礼品：
-			</view>
-			<view class="Spell-group-polite-item" v-for="item in 3" :key=''>
-				<view class="Spell-group-polite-item-detail">
-					<image src="http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20210802/98d72971fdda19357649d7e0ab24a589.jpeg" class="logo"></image>
-					<view class="Spell-group-polite-item-detail-price">
-						<view class="Spell-group-polite-item-detail-price-num">
-							<text style="font-size: 45rpx;font-weight: bold;">￥21</text>
-							<text style="font-size: 30rpx;">x11</text>
-						</view>
-						<view class="Spell-group-polite-item-detail-name">
-							果汁
+			<!-- <view class="Spell-group-polite" v-if="selectIndex==2">
+				<view class="Spell-group-polite-header">
+					发起拼团可得以下礼品：
+				</view>
+				<view class="Spell-group-polite-item" v-for="item in 3" :key=''>
+					<view class="Spell-group-polite-item-detail">
+						<image src="http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20210802/98d72971fdda19357649d7e0ab24a589.jpeg" class="logo"></image>
+						<view class="Spell-group-polite-item-detail-price">
+							<view class="Spell-group-polite-item-detail-price-num">
+								<text style="font-size: 45rpx;font-weight: bold;">￥21</text>
+								<text style="font-size: 30rpx;">x11</text>
+							</view>
+							<view class="Spell-group-polite-item-detail-name">
+								果汁
+							</view>
 						</view>
 					</view>
-				</view>
-				<view class="Spell-group-polite-item-title">
-					<view style="font-size: 30rpx;color: #000;font-weight: bold;">
-						<image :src="img_url+'/dao_location.png'"  mode=""></image>
-						<text>亚马逊食人鱼</text>
+					<view class="Spell-group-polite-item-title">
+						<view style="font-size: 30rpx;color: #000;font-weight: bold;">
+							<image :src="img_url+'/dao_location.png'"  mode=""></image>
+							<text>亚马逊食人鱼</text>
+						</view>
+						<view style="font-size: 30rpx;color: #000;">
+							<image :src="img_url+'/cell-phone_new.png'" mode=""></image>
+							<text>18888888888</text>
+						</view>
 					</view>
-					<view style="font-size: 30rpx;color: #000;">
-						<image :src="img_url+'/cell-phone_new.png'" mode=""></image>
-						<text>18888888888</text>
+					<view class="Spell-group-polite-item-describe">
+						到店核销领取
 					</view>
 				</view>
-				<view class="Spell-group-polite-item-describe">
-					到店核销领取
-				</view>
-			</view>
-		</view> -->
-		
-		<com-modal :button="button" :show="modal" @click="handleClick" @cancel="hide" title="提示" content="您没有设置支付密码,是否需要跳转设置？"></com-modal>
-		
-		<unipopup ref="popup" type="bottom">
-			<view class="spell-pay-type" >
-				<view class="spell-pay-type-title">支付方式</view>
-				<view class="giftbagDetail-service" v-if="detail.allow_currency=='integral'" >
-					<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
-						<view class="jx-cell-header" style="height: 80rpx;">
-							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用红包支付</view>
-						</view>
-						<view class="jx-cell-header" style="margin-left: 350rpx;color: #FF5A0E;height: 80rpx;">
-							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">{{moneyMessage.integral_deduction_price}}红包</view>
-						</view>
-					</jx-list-cell>		
-				</view>
-				<view class="popup-bottom"  v-if="detail.allow_currency=='integral'">
-					<text>剩余红包：{{moneyMessage.user_integral}}</text>
-					<text @click="buy">去支付</text>
-				</view>
-				<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'">
-					<radio-group @change="radioChange">
-				        <view  v-for="(item, index) in payitems" :key="index" style="width: 100%;height: 100rpx;line-height: 100rpx;padding: 0 20rpx;box-sizing: border-box;">
-							<view style="float: left;">{{item.name}}</view>
-							<view style="float: right;">
-				                <radio :value="item.value" :checked="index === current" />
-				            </view>
-				        </view>
-				    </radio-group>
-				</view>
-				<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'&&current==0">
-					<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
-						<view class="jx-cell-header" style="height: 80rpx;">
-							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用余额支付</view>
-						</view>
-						<view class="jx-cell-header" style="margin-left: 350rpx;color: #FF5A0E;height: 80rpx;">
-							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">{{moneyMessage.group_price}}元</view>
-						</view>
-					</jx-list-cell>		
-				</view>
-				<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'&&current==1">
-					<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
-						<view class="jx-cell-header" style="height: 80rpx;">
-							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用微信支付</view>
-						</view>
-						<view class="jx-cell-header" style="margin-left: 350rpx;color: #FF5A0E;height: 80rpx;">
-							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">{{moneyMessage.group_price}}元</view>
-						</view>
-					</jx-list-cell>		
-				</view>
-				<view class="popup-bottom"  v-if="detail.allow_currency=='money'&&current==0">
-					<text>剩余余额：{{moneyMessage.balance}}</text>
-					<text @click="buy">去支付</text>
-				</view>
-				<view class="popup-bottom"  v-if="detail.allow_currency=='money'&&current==1">
-					<text   style="width: 360rpx;height: 80rpx;background: red;text-align: center;line-height: 80rpx;border-radius: 30rpx;
-							margin-left: 240rpx;color: #fff;margin-top: 10rpx;"  @click="buy">去支付</text>
-				</view>
-			</view>
-		</unipopup>
-		
-		<com-payment-password :H5Bottom="h5Bottom" ref="paymentPassword" :show="cashFlag" :value="paymentPwd" :digits="6"
-			@submit="checkPwd" @cancel="togglePayment" @checkSafePwd="safePasswork"></com-payment-password>
+			</view> -->
 			
-		<unipopup ref="popupShare" type="center">
-			<view class="popup-detail">
-				<view class="popup-detail-title">
-					分享链接
+			<com-modal :button="button" :show="modal" @click="handleClick" @cancel="hide" title="提示" content="您没有设置支付密码,是否需要跳转设置？"></com-modal>
+			
+			<unipopup ref="popup" type="bottom">
+				<view class="spell-pay-type" >
+					<view class="spell-pay-type-title">支付方式</view>
+					<view class="giftbagDetail-service" v-if="detail.allow_currency=='integral'" >
+						<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
+							<view class="jx-cell-header" style="height: 80rpx;">
+								<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用红包支付</view>
+							</view>
+							<view class="jx-cell-header" style="margin-left: 350rpx;color: #FF5A0E;height: 80rpx;">
+								<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">{{moneyMessage.integral_deduction_price}}红包</view>
+							</view>
+						</jx-list-cell>		
+					</view>
+					<view class="popup-bottom"  v-if="detail.allow_currency=='integral'">
+						<text>剩余红包：{{moneyMessage.user_integral}}</text>
+						<text @click="buy">去支付</text>
+					</view>
+					<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'">
+						<radio-group @change="radioChange">
+					        <view  v-for="(item, index) in payitems" :key="index" style="width: 100%;height: 100rpx;line-height: 100rpx;padding: 0 20rpx;box-sizing: border-box;">
+								<view style="float: left;">{{item.name}}</view>
+								<view style="float: right;">
+					                <radio :value="item.value" :checked="index === current" />
+					            </view>
+					        </view>
+					    </radio-group>
+					</view>
+					<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'&&current==0">
+						<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
+							<view class="jx-cell-header" style="height: 80rpx;">
+								<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用余额支付</view>
+							</view>
+							<view class="jx-cell-header" style="margin-left: 350rpx;color: #FF5A0E;height: 80rpx;">
+								<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">{{moneyMessage.group_price}}元</view>
+							</view>
+						</jx-list-cell>		
+					</view>
+					<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'&&current==1">
+						<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
+							<view class="jx-cell-header" style="height: 80rpx;">
+								<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用微信支付</view>
+							</view>
+							<view class="jx-cell-header" style="margin-left: 350rpx;color: #FF5A0E;height: 80rpx;">
+								<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">{{moneyMessage.group_price}}元</view>
+							</view>
+						</jx-list-cell>		
+					</view>
+					<view class="popup-bottom"  v-if="detail.allow_currency=='money'&&current==0">
+						<text>剩余余额：{{moneyMessage.balance}}</text>
+						<text @click="buy">去支付</text>
+					</view>
+					<view class="popup-bottom"  v-if="detail.allow_currency=='money'&&current==1">
+						<text   style="width: 360rpx;height: 80rpx;background: red;text-align: center;line-height: 80rpx;border-radius: 30rpx;
+								margin-left: 240rpx;color: #fff;margin-top: 10rpx;"  @click="buy">去支付</text>
+					</view>
 				</view>
-				<view class="popup-detail-link">
-					{{url}}
+			</unipopup>
+			
+			<com-payment-password :H5Bottom="h5Bottom" ref="paymentPassword" :show="cashFlag" :value="paymentPwd" :digits="6"
+				@submit="checkPwd" @cancel="togglePayment" @checkSafePwd="safePasswork"></com-payment-password>
+				
+			<unipopup ref="popupShare" type="center">
+				<view class="popup-detail">
+					<view class="popup-detail-title">
+						分享链接
+					</view>
+					<view class="popup-detail-link">
+						{{url}}
+					</view>
+					<view class="select-type">
+						<button type="default" @click="deleted">取消</button>
+						<button type="default"  style="background: red;color: #fff;"  v-clipboard:copy="url" v-clipboard:success="(type) => paste('success')" v-clipboard:error="(type) => paste('error')">复制链接</button>
+					</view>
 				</view>
-				<view class="select-type">
-					<button type="default" @click="deleted">取消</button>
-					<button type="default"  style="background: red;color: #fff;"  v-clipboard:copy="url" v-clipboard:success="(type) => paste('success')" v-clipboard:error="(type) => paste('error')">复制链接</button>
+			</unipopup>
+			
+			<view class="bottom" v-if="!detail.is_finished">
+				<view class="bottom-back" @click="back">
+					<image :src="img_url+'/new_bac.png'" mode=""></image>
+					<text>返回</text>
+				</view>
+				<view class="bottom-order" @click="order">
+					<image :src="img_url+'/new_ord.png'" mode=""></image>
+					<text>订单</text>
+				</view>
+				<view class="bottom-buy">
+					<view style="background: rgb(253,188,2);width: 50%;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx 0 0 50rpx;" @click="singleBuy">
+						<text style="font-size: 30rpx;font-weight: bold;">￥{{detail.price}}</text>
+						<text style="font-size: 28rpx;">单独购买</text>
+					</view>
+					<view style="background: rgb(255,71,83);width: 50%;height: 85rpx;margin-top: 25rpx;border-radius: 0 50rpx 50rpx 0;" @click="gospellbuy">
+						<text style="font-size: 30rpx;font-weight: bold;">￥{{detail.group_price}}</text>
+						<text style="font-size: 28rpx;">我要开团</text>
+					</view>
 				</view>
 			</view>
-		</unipopup>
+			<view class="bottom" v-if="detail.is_finished">
+				<view class="bottom-back" @click="back">
+					<image :src="img_url+'/new_bac.png'" mode=""></image>
+					<text>返回</text>
+				</view>
+				<view class="bottom-order" @click="order">
+					<image :src="img_url+'/new_ord.png'" mode=""></image>
+					<text>订单</text>
+				</view>
+				<view class="bottom-buy">
+					<view style="background: #ddd;width: 100%;text-align:center;line-height:85rpx;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx;">
+						已结束
+					</view>
+				</view>
+			</view>
+		</view>
 		
-		<view class="bottom" v-if="!detail.is_finished">
-			<view class="bottom-back" @click="back">
-				<image :src="img_url+'/new_bac.png'" mode=""></image>
-				<text>返回</text>
-			</view>
-			<view class="bottom-order" @click="order">
-				<image :src="img_url+'/new_ord.png'" mode=""></image>
-				<text>订单</text>
-			</view>
-			<view class="bottom-buy">
-				<view style="background: rgb(253,188,2);width: 50%;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx 0 0 50rpx;" @click="singleBuy">
-					<text style="font-size: 30rpx;font-weight: bold;">￥{{detail.price}}</text>
-					<text style="font-size: 28rpx;">单独购买</text>
-				</view>
-				<view style="background: rgb(255,71,83);width: 50%;height: 85rpx;margin-top: 25rpx;border-radius: 0 50rpx 50rpx 0;" @click="gospellbuy">
-					<text style="font-size: 30rpx;font-weight: bold;">￥{{detail.group_price}}</text>
-					<text style="font-size: 28rpx;">我要开团</text>
-				</view>
-			</view>
-		</view>
-		<view class="bottom" v-if="detail.is_finished">
-			<view class="bottom-back" @click="back">
-				<image :src="img_url+'/new_bac.png'" mode=""></image>
-				<text>返回</text>
-			</view>
-			<view class="bottom-order" @click="order">
-				<image :src="img_url+'/new_ord.png'" mode=""></image>
-				<text>订单</text>
-			</view>
-			<view class="bottom-buy">
-				<view style="background: #ddd;width: 100%;text-align:center;line-height:85rpx;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx;">
-					已结束
-				</view>
-			</view>
-		</view>
 	</view>
+	
 </template>
 <style lang="less" scoped>
+	.Spell-group-item-finished,.Spell-group-item-sharing,.Spell-group-item-closed{
+		width: 120rpx;margin-top: 30rpx;height: 45rpx;font-size: 25rpx;line-height: 45rpx;text-align: center;border-radius: 30rpx;
+	}
+	.Spell-group-item-finished{background: rgb(76,217,100);color: #fff;}
+	.Spell-group-item-sharing{background: #007AFF;color: #fff;}
+	.Spell-group-item-closed{background: #aaa;color: #fff;}
+	
+	.spellgroup-list{width: 100%;overflow: hidden;background: #fff;padding: 0 20rpx;}
+	.spellgroup-item{width: 100%;overflow: hidden;border-bottom: 2rpx dashed #f2f2f2;margin-top:30rpx;}
+	.spellgroup-item image{width: 60rpx;height: 60rpx;float: left;margin-top: 20rpx;margin-right: 20rpx;}
+	.spellgroup-item-name{float: left;height: 100rpx;line-height: 100rpx;font-size: 25rpx;width: 200rpx;
+	overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+	.spellgroup-item-peopeliNum{height: 100rpx;float: left;font-size: 25rpx;width: 250rpx;margin-left: 60rpx;}
+	.spellgroup-item-peopeliNum text:nth-of-type(2){display: block;width: 100%;height: 50rpx;text-align: right;line-height: 50rpx;}
+	.go-spellgroup{
+		float: right;
+		background: #ff4753;
+		color:white;
+		width: 100rpx;
+		text-align: center;
+		height: 100rpx;
+		line-height:100rpx;
+		border-radius:3rpx;
+	}
+	
+	#guide_box{z-index:999999;left:0rpx;top:0rpx;background:black;filter:alpha(Opacity=90);-moz-opacity:0.9;opacity: 0.9;position:fixed;width:100%;height:100%;}
 	.giftbagDetail-app{width: 100%;overflow: hidden;}
 	.tui-banner-swiper{width: 100%;overflow: hidden;position: relative;}
 	.tui-banner-swiper .tui-tag-class {position: absolute;color: #fff;bottom: 40rpx;right: 40rpx;}
@@ -261,7 +327,8 @@
 	.Spell-group-records{width: 95%;overflow: hidden;margin: 0 auto 150rpx;}
 	.Spell-group-records-header{width: 100%;height: 80rpx;line-height: 80rpx;}
 	.Spell-group-records-header text{display: inline-block;}
-	.Spell-group-records-item{width: 100%;height: 140rpx;padding: 20rpx 0;display: flex;justify-content: space-evenly;border-top: 1rpx dashed rgb(221,221,221);}
+	.Spell-group-records-item{width: 100%;height: 140rpx;padding: 20rpx 0;display: flex;justify-content: space-evenly;border-bottom: 1rpx dashed rgb(221,221,221);}
+	.Spell-group-records-item:last-child{border-bottom: none;}
 	.Spell-group-records-item image{display: block;width: 100rpx;height: 100rpx;border-radius: 50%;}
 	.Spell-group-records-item view text{display: block;}
 	.Spell-group-polite{width: 95%;overflow: hidden;margin: 0 auto 150rpx;}
@@ -310,6 +377,24 @@
 	// #ifdef MP-WEIXIN || APP-PLUS
 	import {setPay} from '@/config/utils.js'
 	// #endif
+	var iTimer = null, iTimer2 = null;
+	var countdownFun = function(expired_at){
+		var date = new Date();
+		var timestamp =parseInt(date.getTime()/1000);
+		var text = "", time = (expired_at-timestamp);
+		if(time <= 0){
+			text = '0'+'天'+'0'+"时"+'0'+'分'+'0'+'秒';
+		}else{
+			let days, hours, minutes, seconds;
+			days 	= parseInt(time / 60 / 60 / 24 , 10); //计算剩余的天数
+			hours 	= parseInt(time / 60 / 60 % 24 , 10) < 10 ? "0" + parseInt(time / 60 / 60 % 24 , 10) : parseInt(time  / 60 / 60 % 24 , 10); //计算剩余的小时 
+			minutes = parseInt(time / 60 % 60, 10)<10 ? "0" + parseInt(time / 60 % 60, 10) : parseInt(time / 60 % 60, 10);//计算剩余的分钟 
+			seconds = parseInt(time % 60, 10)<10 ? "0" + parseInt(time  % 60, 10) : parseInt(time  % 60, 10);//计算剩余的秒数 								
+			text = days + "天" + hours + "时" + minutes + '分' + seconds + "秒";
+		}
+		return text;
+	};
+	
 	export default {
 		components: {
 			unipopup,
@@ -319,8 +404,10 @@
 		},
 		data() {
 			return {
+				guide_enable: false,
 				h5Bottom:true,
 				pack_id:'',
+				plugins_img_url: this.$api.plugins_img_url,
 				img_url: this.$api.img_url,
 				selectIndex:0,//table选项
 				table:['活动介绍','拼团记录'],
@@ -356,6 +443,7 @@
 				bannerIndex: 0,
 				height:'',
 				scrollH:'',
+				join_groups: []
 			}
 		},
 		onLoad(options) {
@@ -367,6 +455,7 @@
 			this.button = this.globalSet('btnCol','确定');
 		},
 		onShow() {
+			
 			/* uni.redirectTo({
 				url:"../spelldetail/spelldetail?pack_id=4&group_id=198&type=1"
 			}); */
@@ -392,16 +481,24 @@
 			}, 50)
 		},
 		methods:{
+			moveHandle(){
+				return null;
+			},
+			jumpToGroup(group_id){
+				uni.navigateTo({
+					url:"../spelldetail/spelldetail?pack_id="+this.pack_id+"&type=1&group_id="+group_id
+				});
+			},
 			select(index){ //table切换
 				this.selectIndex=index
 			},
 			back(){ //点击返回按钮
-				uni.navigateBack({
-					delta:1
+				uni.redirectTo({
+					url:"../giftList/giftList"
 				})
 			},
 			order(){ //点击订单按钮
-				uni.navigateTo({
+				uni.redirectTo({
 					url:'../orderList/orderList'
 				})
 			},
@@ -409,6 +506,8 @@
 				this.bannerIndex = e.detail.current
 			},
 			packageDetail(pack_id){ //获取大礼包详情
+				let i=0,  that = this;
+				
 				this.$http.request({
 					url: this.$api.package.packageDetail,
 					method: 'POST',
@@ -417,42 +516,46 @@
 					},
 					showLoading: true
 				}).then(res => {
+					
 					if (res.code == 0) {
+						
+						// #ifdef H5
+						this.$wechatSdk.share("mch/giftbag/gifebagDetail/newgifebagDetail?pack_id=12", {
+							app_share_title: res.data.detail.title,
+							app_share_desc: res.data.detail.descript,
+							app_share_pic: res.data.detail.cover_pic
+						});
+						// #endif
+						
 						if(res.data.my_group.has_group==1){
 							var my_group = res.data.my_group;
 							uni.showModal({
 							    content: '你正在参与活动，去邀请好友吧',
 							    success: function (res) {
 							        if (res.confirm) {
-							            uni.redirectTo({
-							            	url:"../spelldetail/spelldetail?pack_id="+pack_id+"&group_id="+my_group.group_id
-							            });
+										that.jumpToGroup(my_group.group_id);
 							        }
 							    }
 							});
 						}
 						this.detail=res.data.detail
 						this.bannerLength=res.data.detail.pic_url.length
-						this.expired_at=res.data.detail.expired_at
-						var timestamp =parseInt( new Date().getTime()/1000)
-						let time=this.expired_at-timestamp
-						let days=''
-						let hours=''
-						let minutes=''
-						let seconds=''
-						let timers=setInterval(()=>{
-							time--
-							if(time<=0){
-								this.expired_at='00'+'天'+'00'+"时"+'00'+'分'+'00'+'秒'
-								clearInterval(timers)
-								return 
+						this.expired_at=res.data.detail.expired_at;
+						let expired_time = this.expired_at;
+						this.join_groups = res.data.join_groups;
+						for(i=0; i < this.join_groups.length; i++){
+							this.join_groups[i]['expired_text'] = '0天0时0分0秒';
+						}
+						if(iTimer != null){
+							clearInterval(iTimer);
+						}
+						iTimer = setInterval(function(){
+							that.expired_at= countdownFun(expired_time);
+							
+							for(i=0; i < that.join_groups.length; i++){
+								that.join_groups[i]['expired_text'] = countdownFun(that.join_groups[i]['expired_at']);
 							}
-							days = parseInt(time / 60 / 60 / 24 , 10); //计算剩余的天数
-							hours = parseInt(time / 60 / 60 % 24 , 10)<10?"0"+parseInt(time / 60 / 60 % 24 , 10):parseInt(time  / 60 / 60 % 24 , 10); //计算剩余的小时 
-							minutes = parseInt(time / 60 % 60, 10)<10?"0"+parseInt(time / 60 % 60, 10):parseInt(time / 60 % 60, 10);//计算剩余的分钟 
-							seconds = parseInt(time % 60, 10)<10?"0"+parseInt(time  % 60, 10):parseInt(time  % 60, 10);//计算剩余的秒数 								
-							this.expired_at=days+'天'+hours+"时"+minutes+'分'+seconds+"秒"
-						},1000)
+						}, 1000);
 					} else {
 						this.$http.toast(res.msg);
 					}
@@ -590,11 +693,15 @@
 						if (res.code == 0) {
 							this.$refs.paymentPassword.modalFun('hide');
 							this.$http.toast('支付成功');
-							setTimeout(()=>{
-								uni.navigateTo({
-									url:'../spelldetail/spelldetail?pack_id='+this.pack_id+"&group_id="+group_id
-								})
-							},2000)
+							var jumpUrl = "";
+							if(res.data.finished == 1){
+								jumpUrl = '../giftOrderDetail/giftOrderDetail?order_id=' + res.data.order_id;
+							}else{
+								jumpUrl = '../spelldetail/spelldetail?pack_id='+this.pack_id+"&group_id="+group_id;
+							}
+							uni.navigateTo({
+								url:jumpUrl
+							});
 						} else {
 							this.$http.toast(res.msg);
 						}
@@ -613,11 +720,15 @@
 						if (res.code == 0) {
 							this.$refs.paymentPassword.modalFun('hide');
 							this.$http.toast('支付成功');
-							setTimeout(()=>{
-								uni.navigateTo({
-									url:'../spelldetail/spelldetail?pack_id='+this.pack_id+"&group_id="+group_id
-								})
-							},2000)
+							var jumpUrl = "";
+							if(res.data.finished == 1){
+								jumpUrl = '../giftOrderDetail/giftOrderDetail?order_id=' + res.data.order_id;
+							}else{
+								jumpUrl = '../spelldetail/spelldetail?pack_id='+this.pack_id+"&group_id="+group_id;
+							}
+							uni.navigateTo({
+								url:jumpUrl
+							});
 						} else {
 							this.$http.toast(res.msg);
 						}
@@ -698,9 +809,10 @@
 			invitation(){ //分享
 				
 				// #ifdef H5
-				this.$refs.popupShare.open()
-				let pid=JSON.parse(uni.getStorageSync('userInfo')).user_id
-				this.url=window.location.href+"&pid="+pid+"&type="+1
+				this.guide_enable = true;
+				//this.$refs.popupShare.open()
+				//let pid=JSON.parse(uni.getStorageSync('userInfo')).user_id
+				//this.url=window.location.href+"&pid="+pid+"&type="+1
 				// #endif
 				
 			},

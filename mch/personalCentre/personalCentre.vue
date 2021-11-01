@@ -63,8 +63,8 @@
 				</view>
 			</view>
 		</view>		
-		<view class="personalCenter-item">
-			<jx-list-cell  padding="0" :lineLeft="false">
+		<view class="personalCenter-item" @click="myOrder">
+			<jx-list-cell padding="0" :lineLeft="false">
 				<view class="jx-cell-header">
 					<view class="jx-cell-title" style="font-weight: 700;">我的订单</view>
 				</view>
@@ -187,6 +187,11 @@
 						that.$http.toast(res.msg);
 					}
 				});
+			},
+			myOrder(){
+				uni.navigateTo({
+					url: './myOrder/myOrder'
+				})
 			},
 			href(page) {
 				if (page == 1) {
