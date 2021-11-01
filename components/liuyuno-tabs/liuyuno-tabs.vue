@@ -167,7 +167,7 @@
 				this.slider = {
 					left: _slider.left - scorll_left + (_slider.width - width) / 2,
 					width: width,
-					scrollLeft: _slider.scrollLeft - scorll_left+6,
+					scrollLeft: _slider.scrollLeft - scorll_left-10,
 				}
 			},
 			
