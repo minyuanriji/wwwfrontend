@@ -41,11 +41,11 @@
 			return {
 				img_url: this.$api.img_url,
 				list:[
-					// {
-					// 	title:'待付款',
-					// },
 					{
 						title:'待使用',
+					},
+					{
+						title:'已使用',
 					},
 					{
 						title:'售后',
@@ -55,7 +55,7 @@
 				orderList:[],
 				page_count:"",
 				form:{
-					status:'paid',//状态：unpaid待付款，paid待使用， refund售后
+					status:'paid',//状态：unpaid待付款，paid待使用， refund售后，completed已使用
 					page:1,
 				}
 			};
@@ -70,7 +70,7 @@
 					this.orderList=[]
 					this.page_count='',
 					this.form={
-						status:'paid',//状态：unpaid待付款，paid待使用， refund售后
+						status:'paid',//状态：unpaid待付款，paid待使用， refund售后，completed已使用
 						page:1,
 					}
 				}
@@ -78,7 +78,15 @@
 					this.orderList=[]
 					this.page_count='',
 					this.form={
-						status:'refund',//状态：unpaid待付款，paid待使用， refund售后
+						status:'completed',//状态：unpaid待付款，paid待使用， refund售后，completed已使用
+						page:1,
+					}
+				}
+				if(index==2){
+					this.orderList=[]
+					this.page_count='',
+					this.form={
+						status:'refund',//状态：unpaid待付款，paid待使用， refund售后，completed已使用
 						page:1,
 					}
 				}

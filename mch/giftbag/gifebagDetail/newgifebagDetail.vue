@@ -14,7 +14,7 @@
 				<swiper :duration="150" :style="{height:scrollH + 'px'}" @change="bannerChange">
 					<block v-for="(item,b_index) in detail.pic_url" :key="b_index">
 						<swiper-item :data-index="b_index+1">
-							<image :src="item.pic_url" mode="aspectFill" class="tui-slide-image" :style="{height:scrollH+'px'}" />
+							<image :src="item.pic_url" mode="aspectFill" class="tui-slide-image" :style="{height:scrollH+'px'}" @click="enlarge(b_index)"/>
 						</swiper-item>
 					</block>
 				</swiper>
@@ -481,6 +481,16 @@
 			}, 50)
 		},
 		methods:{
+			enlarge(index){ //点击主图放大
+				  let photoList = this.detail.pic_url.map(item => {
+				                    return item.pic_url;
+				      });
+				                uni.previewImage({
+				                    current: index,     // 当前显示图片的链接/索引值
+				                    urls: photoList,    // 需要预览的图片链接列表，photoList要求必须是数组
+				                    loop:true   // 是否可循环预览
+				                });
+			},
 			moveHandle(){
 				return null;
 			},
