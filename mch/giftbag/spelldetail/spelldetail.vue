@@ -495,11 +495,19 @@
 						if (res.code == 0) {
 							this.$refs.paymentPassword.modalFun('hide');
 							this.$http.toast('支付成功');
-							setTimeout(()=>{
-								uni.navigateTo({
-									url:'../spelldetail/spelldetail?pack_id='+this.pack_id
-								})
-							},2000)
+							if(res.data.finished==1){
+								setTimeout(()=>{
+									uni.navigateTo({
+										url:'../giftOrderDetail/giftOrderDetail?order_id='+res.data.order_id
+									})
+								},2000)
+							}else{
+								setTimeout(()=>{
+									uni.navigateTo({
+										url:'../spelldetail/spelldetail?pack_id='+this.pack_id
+									})
+								},2000)
+							}
 						} else {
 							this.$http.toast(res.msg);
 						}
@@ -518,11 +526,19 @@
 						if (res.code == 0) {
 							this.$refs.paymentPassword.modalFun('hide');
 							this.$http.toast('支付成功');
-							setTimeout(()=>{
-								uni.navigateTo({
-									url:'../spelldetail/spelldetail?pack_id='+this.pack_id
-								})
-							},2000)
+							if(res.data.finished==1){
+								setTimeout(()=>{
+									uni.navigateTo({
+										url:'../giftOrderDetail/giftOrderDetail?order_id='+res.data.order_id
+									})
+								},2000)
+							}else{
+								setTimeout(()=>{
+									uni.navigateTo({
+										url:'../spelldetail/spelldetail?pack_id='+this.pack_id
+									})
+								},2000)
+							}
 						} else {
 							this.$http.toast(res.msg);
 						}
