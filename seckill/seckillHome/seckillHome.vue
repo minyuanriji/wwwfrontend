@@ -91,7 +91,7 @@
 	.item_right{width: 470rpx;position: relative;}
 	.item_name{font-size: 32rpx;color: #000;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 	.item_tag{width: 130rpx;color: rgb(255,79,17);font-size: 24rpx;border: 1rpx solid rgb(255,79,17);border-radius: 10rpx;text-align: center;margin-top: 5rpx;}
-	.price_go{width: 100%;display: flex;justify-content: space-between;margin-top: 25rpx;height: 95rpx;}
+	.price_go{width: 100%;display: flex;justify-content: space-between;margin-top: 25rpx;height: 75rpx;}
 	.go_buy{width: 160rpx;background: rgb(253,174,9);border-radius: 10rpx;position: absolute;top: 80rpx;right: 0;height: 60rpx;}
 
 
