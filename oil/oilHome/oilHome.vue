@@ -14,7 +14,7 @@
 				<input type="number" v-model.trim="form.phone"  placeholder="请输入手机号码" maxlength="11"/>
 			</view>
 			<view class="phonenotice">
-				该手机号用来关联电子加油卷账户
+				该手机号用来关联电子加油劵账户
 			</view>
 			<view class="select_num">
 				<view class="select_num_header">
