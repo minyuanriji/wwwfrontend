@@ -95,7 +95,7 @@
 			},
 			getPayData(order_no) { //获取支付信息
 				this.$http.request({
-					url: this.$api.hotel.getpaywaite,
+					url: this.$api.oil.getpayInfo,
 					showLoading: true,
 					data: {
 						order_no:order_no
