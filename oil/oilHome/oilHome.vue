@@ -60,7 +60,7 @@
 		<unipopup ref="popup" type="bottom">
 			<view class="popup_view">
 				<view class="popup_view_header">
-					<image src="../../plugins/images/extensions/o2o/shuiguotu.png" mode="" style="width: 120rpx;height: 80rpx;display: block;float: left;margin: 10rpx 20rpx 0 20rpx;"></image>
+					<image :src="plugins_img_url+'/jiayou.jpg'" mode="" style="width: 120rpx;height: 80rpx;display: block;float: left;margin: 10rpx 20rpx 0 20rpx;"></image>
 					<view>
 						<text style="display: block;font-size: 30rpx;margin-bottom: 10rpx;">兑换手机号码</text>
 						<text style="display: block;color: #000;font-weight: bold;">{{form.mobile}}</text>
@@ -101,6 +101,7 @@
 		},
 		data(){
 			return{
+				plugins_img_url: this.$api.plugins_img_url,
 				addressName:'定位中...',//定位的省市区名字
 				form:{ //请求的参数
 					mobile:'',//电话
