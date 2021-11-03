@@ -33,12 +33,14 @@
 		},
 		methods:{
 			toDetail(id){
+				let that=this
+				console.log(this.params)
 				uni.setStorage({
 					key:'mch_id',
 					data:id,
 					success(){
 						uni.navigateTo({
-							url:"/pages/shop/home/home?mch_id="+id
+							url:'/merchants/detail/detail?store_id='+that.params.id
 						})
 					}
 				})
