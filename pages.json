@@ -678,8 +678,8 @@
 					"path": "oilHome/oilHome",
 					"style": {
 						"navigationBarTitleText": "油卡充值",
-						"navigationBarBackgroundColor": "#FFFFFF",
-						"navigationBarTextStyle": "black",
+						"navigationBarBackgroundColor": "rgb(255, 113, 4)",
+						"navigationBarTextStyle": "white",
 						 "enablePullDownRefresh": false
 					}
 				},

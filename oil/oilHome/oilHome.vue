@@ -22,7 +22,7 @@
 				</view>
 				<view class="num_list">
 					<view class="item" v-for="(item,index) in produceList" :key='index' @click="selectNum(item)">
-						<view style="text-align: center;margin: 65rpx 0 0 0;color: rgb(37,130,234);">
+						<view style="text-align: center;margin: 65rpx 0 0 0;color: rgb(255, 113, 4);">
 							<text style="font-size: 26rpx;font-weight: bold;">￥</text>
 							<text  style="font-size: 40rpx;font-weight: bold;">{{item.price}}</text>
 						</view>
@@ -82,7 +82,7 @@
 						<text style="color: #000;">合计：</text>
 						<text style="color: rgb(255,129,71);">￥{{previewDetail.total_price}}</text>
 					</view>
-					<view style="line-height:120rpx;background: rgb(37,130,234);width: 180rpx;color: #fff;text-align: center;border-radius: 0 60rpx 60rpx 0;" @click="gopay">
+					<view style="line-height:120rpx;background: rgb(255, 113, 4);width: 180rpx;color: #fff;text-align: center;border-radius: 0 60rpx 60rpx 0;" @click="gopay">
 						去支付
 					</view>
 				</view>
@@ -239,7 +239,7 @@
 
 <style lang="less" scoped>
 	.oilHome-container{width: 100%;overflow: hidden;background: rgb(248,248,248);}
-	.header{width: 100%;height: 200rpx;border-radius: 0 0 30rpx 30rpx;background: rgb(63,107,244);padding: 35rpx 30rpx;box-sizing: border-box;
+	.header{width: 100%;height: 200rpx;border-radius: 0 0 30rpx 30rpx;background: rgb(255, 113, 4);padding: 35rpx 30rpx;box-sizing: border-box;
 	display: flex;justify-content: space-between;color: #fff;font-size: 30rpx;}
 	.main{width: 90%;overflow: hidden;z-index: 99;position:relative ;top: -80rpx;left: 5%;}
 	.rechargePhone{width: 100%;height: 150rpx;background: #fff;border-radius: 20rpx;}
@@ -248,7 +248,7 @@
 	.select_num{width: 100%;overflow: hidden;}
 	.select_num_header{width: 100%;overflow: hidden;margin: 30rpx 0 20rpx;color: #000;}
 	.num_list{width: 100%;overflow: hidden;display: flex;justify-content: space-between;flex-wrap: wrap;}
-	.item{width: 48%;border: 4rpx solid rgb(37,130,234);height: 200rpx;border-radius: 20rpx;margin-bottom: 20rpx;}
+	.item{width: 48%;border: 4rpx solid rgb(255, 113, 4);height: 200rpx;border-radius: 20rpx;margin-bottom: 20rpx;}
 	.remeber_notice{width: 100%;overflow: hidden;}
 	.remeber_notice_header{width: 100%;overflow: hidden;margin: 30rpx 0 20rpx;color: #000;}
 	.remeber_notice_detail {width: 100%;overflow: hidden;font-size: 26rpx;}
