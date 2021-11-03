@@ -33,10 +33,10 @@
 						</view>
 						<view class="price_go">
 							<view class="kill_price" style="width:100%;display: flex;justify-content: space-between;" >
-								<view style="font-size: 30rpx;color: rgb(254,0,0);width: 30%;">
+								<view style="font-size: 30rpx;color: rgb(254,0,0);width: 28%;">
 									秒杀价：
 								</view>
-								<view style="font-size: 30rpx;color: rgb(254,0,0);font-weight: bold;width: 70%;">
+								<view style="font-size: 30rpx;color: rgb(254,0,0);font-weight: bold;width: 72%;">
 									<text>12200积分+25运营费</text>
 								</view>
 							</view>
