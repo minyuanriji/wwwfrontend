@@ -46,7 +46,7 @@
 						</view>
 						<view class="go_buy">
 							<!-- <view class="zhezhao"></view> -->
-							<view class="buy">
+							<view class="buy" @click.stop="linkTo(item.goods_id)">
 								<view style="text-align: center;color: #fff;font-size: 30rpx;line-height: 40rpx;">
 									去抢购
 								</view>
@@ -107,6 +107,11 @@
 					}
 				});
 			},
+			linkTo(id){ //跳转到商品详情页
+				uni.navigateTo({
+					url:'../../pages/goods/detail?proId='+id
+				})
+			}
 		},
 		// onReachBottom() {
 		// 	if(this.form.page==this.page_count){
