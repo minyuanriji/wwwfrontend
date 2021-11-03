@@ -179,8 +179,8 @@
 					cor_pic1: this.$api.test_url + "/images/shop/cor_pic1.png",
 					cor_pic2: this.$api.test_url + "/images/shop/cor_pic2.png",
 				},
-				count_1:[1,2,3,4,5,6,7,8,9],
-				count_2:[0,2,3,4,5,6,7,8,9],
+				count_1:['1','2','3','4','5','6','7','8','9'],
+				count_2:['0','1','2','3','4','5','6','7','8','9'],
 				count_1_set:'',
 				count_2_set:''
 			}
@@ -226,6 +226,7 @@
 				this.count_1_set = this.count_1[index]
 			},
 			changecount_2(e) { //下拉选择商户分类
+			console.log(e)
 				var index = e.detail.value
 				this.count_2_set = this.count_2[index]
 			},

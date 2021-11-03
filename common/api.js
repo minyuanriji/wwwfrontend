@@ -498,6 +498,14 @@ let api = {
 		paywechatcreatedbag:api_root +'api/payCenter/payment-order-prepare/giftpacks-group',
 		paywechatbag:api_root +'api/payCenter/efps-wechat-pay/giftpacks-group',
 		
+	},
+	oil:{
+		getoilproduct:api_root +'plugin/oil/api/product/list',
+		getoilpreview:api_root +'plugin/oil/api/order/submit-preview',
+		submite:api_root +'plugin/oil/api/order/do-submit',
+		getpayInfo:api_root +'plugin/oil/api/order/pay-prepare',
+		getpayInfo:api_root +'plugin/oil/api/order/pay-prepare',
+		getoilOrderlist:api_root +'plugin/oil/api/order/list',
 	}
 };
 module.exports = api; 
