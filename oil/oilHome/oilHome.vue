@@ -39,7 +39,8 @@
 					注意事项
 				</view>
 				<view class="remeber_notice_detail">
-					<view>
+					<jyf-parser :html="descript"></jyf-parser>
+					<!-- <view>
 						1：充值前请核对充值号码
 					</view>
 					<view>
@@ -53,7 +54,7 @@
 					</view>
 					<view>
 						5：暂不支持携号转网的手机号充值
-					</view>
+					</view> -->
 				</view>
 			</view>
 		</view>
@@ -95,9 +96,11 @@
 <script>
 	import {isEmpty} from '../../common/validate.js';
 	import unipopup from '@/components/uni-popup/uni-popup';
+	import jyfParser from "@/components/jyf-parser/jyf-parser";
 	export default{
 		components:{
 			unipopup,
+			jyfParser
 		},
 		data(){
 			return{
@@ -114,6 +117,7 @@
 				produceList:[],//加油产品
 				price:'',//加油面额
 				previewDetail:'',//预览详情
+				descript:'',//描述
 			}
 		},
 		onLoad() {
@@ -194,6 +198,7 @@
 				}).then(res => {
 					if (res.code == 0) {
 						this.addressName=res.city_data.district
+						this.descript=res.data.descript
 						this.form.lng=res.city_data.longitude
 						this.form.lat=res.city_data.latitude
 						this.produceList=res.data.list
