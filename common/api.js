@@ -507,6 +507,10 @@ let api = {
 		getpayInfo:api_root +'plugin/oil/api/order/pay-prepare',
 		getpayInfo:api_root +'plugin/oil/api/order/pay-prepare',
 		getoilOrderlist:api_root +'plugin/oil/api/order/list',
+		getoilcode:api_root +'plugin/oil/api/order/use',
+	},
+	seckill:{
+		getseckillList:api_root +'plugin/seckill/api/seckill-list',
 	}
 };
 module.exports = api; 

@@ -22,7 +22,7 @@
 				</view>
 				<view class="num_list">
 					<view class="item" v-for="(item,index) in produceList" :key='index' @click="selectNum(item)">
-						<view style="text-align: center;margin: 65rpx 0 0 0;color: rgb(37,130,234);">
+						<view style="text-align: center;margin: 65rpx 0 0 0;color: rgb(255, 113, 4);">
 							<text style="font-size: 26rpx;font-weight: bold;">￥</text>
 							<text  style="font-size: 40rpx;font-weight: bold;">{{item.price}}</text>
 						</view>
@@ -39,7 +39,8 @@
 					注意事项
 				</view>
 				<view class="remeber_notice_detail">
-					<view>
+					<jyf-parser :html="descript"></jyf-parser>
+					<!-- <view>
 						1：充值前请核对充值号码
 					</view>
 					<view>
@@ -53,14 +54,14 @@
 					</view>
 					<view>
 						5：暂不支持携号转网的手机号充值
-					</view>
+					</view> -->
 				</view>
 			</view>
 		</view>
 		<unipopup ref="popup" type="bottom">
 			<view class="popup_view">
 				<view class="popup_view_header">
-					<image src="../../plugins/images/extensions/o2o/shuiguotu.png" mode="" style="width: 120rpx;height: 80rpx;display: block;float: left;margin: 10rpx 20rpx 0 20rpx;"></image>
+					<image :src="plugins_img_url+'/jiayou.jpg'" mode="" style="width: 120rpx;height: 80rpx;display: block;float: left;margin: 10rpx 20rpx 0 20rpx;"></image>
 					<view>
 						<text style="display: block;font-size: 30rpx;margin-bottom: 10rpx;">兑换手机号码</text>
 						<text style="display: block;color: #000;font-weight: bold;">{{form.mobile}}</text>
@@ -82,7 +83,7 @@
 						<text style="color: #000;">合计：</text>
 						<text style="color: rgb(255,129,71);">￥{{previewDetail.total_price}}</text>
 					</view>
-					<view style="line-height:120rpx;background: rgb(37,130,234);width: 180rpx;color: #fff;text-align: center;border-radius: 0 60rpx 60rpx 0;" @click="gopay">
+					<view style="line-height:120rpx;background: rgb(255, 113, 4);width: 180rpx;color: #fff;text-align: center;border-radius: 0 60rpx 60rpx 0;" @click="gopay">
 						去支付
 					</view>
 				</view>
@@ -95,12 +96,15 @@
 <script>
 	import {isEmpty} from '../../common/validate.js';
 	import unipopup from '@/components/uni-popup/uni-popup';
+	import jyfParser from "@/components/jyf-parser/jyf-parser";
 	export default{
 		components:{
 			unipopup,
+			jyfParser
 		},
 		data(){
 			return{
+				plugins_img_url: this.$api.plugins_img_url,
 				addressName:'定位中...',//定位的省市区名字
 				form:{ //请求的参数
 					mobile:'',//电话
@@ -113,6 +117,7 @@
 				produceList:[],//加油产品
 				price:'',//加油面额
 				previewDetail:'',//预览详情
+				descript:'',//描述
 			}
 		},
 		onLoad() {
@@ -193,6 +198,7 @@
 				}).then(res => {
 					if (res.code == 0) {
 						this.addressName=res.city_data.district
+						this.descript=res.data.descript
 						this.form.lng=res.city_data.longitude
 						this.form.lat=res.city_data.latitude
 						this.produceList=res.data.list
@@ -226,7 +232,7 @@
 					if (res.code == 0) {
 						this.$refs.popup.close()
 						uni.navigateTo({
-							url:'../pay?order_no='+res.data.order_no
+							url:'../pay?order_no='+res.data.order_no+"&order_id="+res.data.order_id
 						})
 					} else {
 						this.$http.toast(res.msg);
@@ -239,7 +245,7 @@
 
 <style lang="less" scoped>
 	.oilHome-container{width: 100%;overflow: hidden;background: rgb(248,248,248);}
-	.header{width: 100%;height: 200rpx;border-radius: 0 0 30rpx 30rpx;background: rgb(63,107,244);padding: 35rpx 30rpx;box-sizing: border-box;
+	.header{width: 100%;height: 200rpx;border-radius: 0 0 30rpx 30rpx;background: rgb(255, 113, 4);padding: 35rpx 30rpx;box-sizing: border-box;
 	display: flex;justify-content: space-between;color: #fff;font-size: 30rpx;}
 	.main{width: 90%;overflow: hidden;z-index: 99;position:relative ;top: -80rpx;left: 5%;}
 	.rechargePhone{width: 100%;height: 150rpx;background: #fff;border-radius: 20rpx;}
@@ -248,7 +254,7 @@
 	.select_num{width: 100%;overflow: hidden;}
 	.select_num_header{width: 100%;overflow: hidden;margin: 30rpx 0 20rpx;color: #000;}
 	.num_list{width: 100%;overflow: hidden;display: flex;justify-content: space-between;flex-wrap: wrap;}
-	.item{width: 48%;border: 4rpx solid rgb(37,130,234);height: 200rpx;border-radius: 20rpx;margin-bottom: 20rpx;}
+	.item{width: 48%;border: 4rpx solid rgb(255, 113, 4);height: 200rpx;border-radius: 20rpx;margin-bottom: 20rpx;}
 	.remeber_notice{width: 100%;overflow: hidden;}
 	.remeber_notice_header{width: 100%;overflow: hidden;margin: 30rpx 0 20rpx;color: #000;}
 	.remeber_notice_detail {width: 100%;overflow: hidden;font-size: 26rpx;}
