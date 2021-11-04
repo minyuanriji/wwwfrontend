@@ -3,6 +3,7 @@
 		<view class="ali-home-app-header">
 			<liuyuno-tabs :tabData="tabs" :defaultIndex="defaultIndex" @tabClick='tabClick' />
 		</view>
+		<!-- <seckill></seckill> -->
 		<view class="ali-home-app-header-catory-two" v-if="typeList.length>0">		
 			<view v-for="(item,index) in typeList" :key='index' v-if="index<10" @click="checkCatory(item)">
 				<image :src="item.cover_url" mode=""></image>
@@ -30,10 +31,12 @@
 <script>
 	import liuyunoTabs from "@/components/liuyuno-tabs/liuyuno-tabs.vue";
 	import backTop from '@/components/back-top/back-top.vue';
+	import seckill from '@/components/seckill.vue';
 	export default {
 		components: {
 			liuyunoTabs,
-			backTop
+			backTop,
+			seckill
 		},
 		data() {
 			return {

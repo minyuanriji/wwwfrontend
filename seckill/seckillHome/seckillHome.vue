@@ -22,7 +22,8 @@
 				<view class="item" v-for="(item,index) in list" :key='index'>
 					<view class="logo" style="width: 210rpx;height: 210rpx;margin-top: 10rpx;position: relative;">
 						<image :src="item.cover_pic" mode=""></image>
-						<!-- <image :src="plugins_img_url+'/qiangg.png'" mode="" style="position: absolute;top: 0;left: 0;"></image> -->
+						<image :src="plugins_img_url+'/qiangg.png'" mode=""  v-if="item.count==1"
+						style="position: absolute;top: 0;left: 0;"></image>
 					</view>
 					<view class="item_right">
 						<view class="item_name">
@@ -45,17 +46,17 @@
 							</view>
 						</view>
 						<view class="go_buy">
-							<!-- <view class="zhezhao"></view> -->
+							<view class="zhezhao" v-if="item.count==1"></view>
 							<view class="buy" @click.stop="linkTo(item.goods_id)">
 								<view style="text-align: center;color: #fff;font-size: 30rpx;line-height: 40rpx;">
 									去抢购
 								</view>
 								<view style="width: 90%;margin: 0 auto;display: flex;justify-content: space-between;">
-									<view style="width: 65%;padding: 15rpx 0;">
-										 <progress :percent="percent" :show-info='false' stroke-width="5" font-size='10' activeColor="red" />
+									<view style="width: 60%;padding: 15rpx 0;">
+										 <progress :percent="item.count*100" :show-info='false' stroke-width="5" font-size='10' activeColor="red" />
 									</view>
-									<view style="width: 30%;font-size: 24rpx;color: #fff;">
-										0%
+									<view style="width: 36%;font-size: 24rpx;color: #fff;">
+										{{item.count*100}}%
 									</view>
 								</view>
 							</view>
@@ -71,7 +72,6 @@
 	export default{
 		data(){
 			return{
-				percent:"0",
 				plugins_img_url: this.$api.plugins_img_url,
 				form:{
 					page:1,
@@ -97,6 +97,9 @@
 						this.list=res.data.seckillGoods
 						this.start_time=res.data.start_time
 						this.pic_url=res.data.pic_url
+						for(let i=0;i<this.list.length;i++){
+							this.list[i].count=Number(this.list[i].buyNum)/Number(this.list[i].virtual_seckill_num)							
+						}
 						// if(res.data.list.length==0)return false
 						// let list= res.data.list;
 						// var arr=this.list.concat(list)

@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<!-- #ifdef H5 -->
-		<view class="foucs_H5" style="width: 100%;height: 96rpx;background:#3e4144;position: fixed;top: 0rpx;left: 0;z-index: 9999;" v-if="showFoucs">
+		<view class="foucs_H5" style="width: 100%;height: 96rpx;background:#3e4144;position: fixed;top: 0rpx;left: 0;z-index: 9999;" v-if="is_seckill==0&&showFoucs">
 			<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 96rpx;display: block;float: left;"></image>
 			<view class="foucs_H5_messga" style="float: left;">
 				<text style="display: block;font-size: 25rpx;color: #fff;margin-top: 8rpx;">欢迎访问补商汇</text>
@@ -41,6 +41,34 @@
 			</swiper>
 			<jx-tag class="tui-tag-class" type="translucent" shape="circle" size="small">{{bannerIndex+1}}/{{bannerLength}}</jx-tag>
 		</view>
+		<view class="seckill-time" v-if="is_seckill!=0">
+			<view style="width: 42%;display: flex;justify-content: space-between;">
+				<view style="width: 30%;text-align: center;">
+					<image :src="plugins_img_url+'/sss.jpg'" mode="widthFix" style="width: 120rpx;display: block;height: 116rpx;margin-top: 5rpx;"></image>
+				</view>
+				<view style="width: 45%">
+					<view  style="width: 100%;display: block;text-align: center;margin-top: 15rpx;font-size: 30rpx;color: #fff;">热卖中</view>
+					<view  style="width: 100%;display: block;text-align: center;font-size: 30rpx;color: #fff;">不能错过</view>
+				</view>
+			</view>
+			<view style="width: 58%;display: flex;justify-content: space-evenly;flex-wrap: wrap;">
+				<view style="margin-top: 5rpx;color: #fff;width: 100%;text-align: right;">距离秒杀结束</view>
+				<!-- <view style="margin-top: 10rpx;color: #fff;width: 100%;">活动已结束</view> -->
+				<view  style="margin-top: 10rpx;color: #fff;width: 100%;text-align: right;">{{expired_at}}</view>
+			</view>
+		</view>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		<view class="tui-pro-detail" v-if="goodsData">
 			<view class="tui-product-title">
 				<view class="tui-pro-pricebox padding">
@@ -50,9 +78,9 @@
 							<text class="text" :style="{color:'#FF7104'}" v-if="attrGroupsLength != 0">起</text>
 							<text class="original-price" v-if="attrGroupsLength != 0">&yen;{{goodsData.original_price}}</text>
 						</view>
-						<jx-tag size="small" :plain="true"  type="high-green" shape="circle">新品</jx-tag>
+						<jx-tag size="small" :plain="true"  type="high-green" shape="circle" v-if="is_seckill==0">新品</jx-tag>
 					</view>
-					<view class="round-btn">
+					<view class="round-btn" v-if="is_seckill==0">
 						<view class="tui-collection tui-size" @click.stop="poster()">
 							<view class="tui-icon-collection iconfont icon-qrcode"></view>
 							<view class="tui-scale">分享</view>
@@ -113,7 +141,7 @@
 				</view>
 			</view>
 			<info :params="mch" v-if="is_mch==1"></info>
-			<view class="assess-content tui-mtop" v-if="commentsData && commentsData.length">
+			<view class="assess-content tui-mtop" v-if="commentsData && commentsData.length&&is_seckill==0">
 				<view class="tui-list-cell last tui-between">
 					<view class="tui-bold user-assess-title">用户评价({{commentCount[0].count}})</view>
 					<view class="user-assess" @click="common(4)">
@@ -173,13 +201,13 @@
 					
 					<view class="tui-operation-text tui-scale-small">客服</view>
 				</view>
-				<view class="tui-operation-item" hover-class="opcity" @tap="navTo('cart')" :hover-stay-time="150">
+				<view class="tui-operation-item" hover-class="opcity" @tap="navTo('cart')" :hover-stay-time="150" v-if="is_seckill==0">
 					<view class="iconfont icon-gouwuche"></view>
 					<view class="tui-operation-text tui-scale-small">购物车</view>
 					<view class="red-dots">{{cartList_num}}</view>
 				</view>
 			</view>
-			<view class="tui-operation-right tui-right-flex tui-col-7 tui-btnbox-4">
+			<view class="tui-operation-right tui-right-flex tui-col-7 tui-btnbox-4" v-if="is_seckill==0">
 				<view class="jx-btn radius-left" style="height: 80%;" :style="{border:'1px solid'+'#FF7104',color:'#FF7104'}"
 				 @click="showPopup(1)" v-if="is_show_cart">
 					加入购物车
@@ -188,6 +216,12 @@
 				<view class="jx-btn radius-right" style="height: 80%;" :style="{background:'#FF7104','border-radius':is_show_cart?'':'100rpx'}"
 				 @click="showPopup(2)">
 					立即购买
+				</view>
+			</view>
+			<view class="tui-operation-right tui-right-flex tui-col-7 tui-btnbox-4" v-if="is_seckill!=0">
+				<view class="jx-btn radius-right" style="height: 80%;" :style="{background:'#FF7104','border-radius':'100rpx'}"
+				 @click="showPopup(2)">
+					立即抢购
 				</view>
 			</view>
 		</view>
@@ -268,7 +302,7 @@
 					<view class="tui-popup-price">
 						<view class="tui-amount tui-bold" :style="{color:'#FF7104'}">¥{{selectData.price}}</view>
 						<view class="tui-number">已选:{{strName}}</view>
-						<view class="tui-number">库存:{{selectData.stock}}</view>
+						<view class="tui-number" v-if="is_seckill==0">库存:{{selectData.stock}}</view>
 					</view>
 				</view>
 				<view v-else class="tui-product-box tui-padding">
@@ -382,6 +416,7 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
+				plugins_img_url: this.$api.plugins_img_url,
 				is_index: 1, //1是加入购物车，2是立即购买
 				proId: 0, //商品id
 				goodRate: '', // 商品好评率
@@ -449,7 +484,9 @@
 				serviceLink:'',
 				showFoucs:false,
 				is_buy_power:'',
-				foucsID:''//关注ID
+				foucsID:'',//关注ID
+				is_seckill:0,
+				expired_at:'89天13时55分08秒'
 			}
 		},
 		onLoad(options) {
@@ -585,7 +622,6 @@
 					.request({
 						url: this.$api.moreShop.getservice,
 						method: 'POST',
-						showLoading: true
 					})
 					.then(res => {
 						if (res.code == 0) {
@@ -894,6 +930,56 @@
 					this.loading = false;
 					if (res.code == 0) {
 						this.goodsData = res.data.goods;
+						
+						this.is_seckill=this.goodsData.is_seckill
+						console.log(this.is_seckill)
+						if(this.is_seckill==0){
+							this.topMenu= [{
+								icon: "home",
+								text: "首页",
+								size: 23,
+								badge: 0
+							}, {
+								icon: "people",
+								text: "我的",
+								size: 26,
+								badge: 0
+							}, {
+								icon: "cart",
+								text: "购物车",
+								size: 23,
+								badge: 0
+							},
+							
+							]
+						}else{
+							this.topMenu= [{
+								icon: "home",
+								text: "首页",
+								size: 23,
+								badge: 0
+							}, {
+								icon: "people",
+								text: "我的",
+								size: 26,
+								badge: 0
+							}							
+							]
+						}
+					
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
 						this.foucsID=this.goodsData.collect.collect_id
 						this.is_buy_power=res.data.is_buy_power
 						if(res.data.goods.shopping_voucher.is_shopping_voucher_goods==1){
@@ -1144,6 +1230,22 @@
 			},
 			coupon() {
 				this.popupShow2 = true;
+			},
+			countdownFun(expired_at){
+				var date = new Date();
+				var timestamp =parseInt(date.getTime()/1000);
+				var text = "", time = (expired_at-timestamp);
+				if(time <= 0){
+					text = '0'+'天'+'0'+"时"+'0'+'分'+'0'+'秒';
+				}else{
+					let days, hours, minutes, seconds;
+					days 	= parseInt(time / 60 / 60 / 24 , 10); //计算剩余的天数
+					hours 	= parseInt(time / 60 / 60 % 24 , 10) < 10 ? "0" + parseInt(time / 60 / 60 % 24 , 10) : parseInt(time  / 60 / 60 % 24 , 10); //计算剩余的小时 
+					minutes = parseInt(time / 60 % 60, 10)<10 ? "0" + parseInt(time / 60 % 60, 10) : parseInt(time / 60 % 60, 10);//计算剩余的分钟 
+					seconds = parseInt(time % 60, 10)<10 ? "0" + parseInt(time  % 60, 10) : parseInt(time  % 60, 10);//计算剩余的秒数 								
+					text = days + "天" + hours + "时" + minutes + '分' + seconds + "秒";
+				}
+				return text;
 			}
 		},
 		onPageScroll(e) {
@@ -2159,4 +2261,7 @@
 		color: #000000;
 		padding: 50rpx 0;
 	}
+	.seckill-time{width: 100%;height: 140rpx;padding: 10rpx 20rpx;
+	box-sizing: border-box;background: rgb(255,71,83);
+	display: flex;justify-content: space-between;}
 </style>
