@@ -486,7 +486,8 @@
 				is_buy_power:'',
 				foucsID:'',//关注ID
 				is_seckill:0,
-				expired_at:'89天13时55分08秒'
+				expired_at:'',
+				// iTimer:null
 			}
 		},
 		onLoad(options) {
@@ -865,7 +866,7 @@
 							})
 							
 						} else {
-							
+							this.$http.toast(res.msg);
 						}
 					})
 				}
@@ -931,6 +932,15 @@
 					if (res.code == 0) {
 						this.goodsData = res.data.goods;
 						
+						// if(iTimer != null){
+						// 	clearInterval(iTimer);
+						// }
+						let that=this
+						this.iTimer = setInterval(function(){
+							that.expired_at= that.countdownFun(res.data.goods.surplus_time);
+						}, 1000);
+						
+			
 						this.is_seckill=this.goodsData.is_seckill
 						console.log(this.is_seckill)
 						if(this.is_seckill==0){
@@ -1234,7 +1244,8 @@
 			countdownFun(expired_at){
 				var date = new Date();
 				var timestamp =parseInt(date.getTime()/1000);
-				var text = "", time = (expired_at-timestamp);
+				var text = "";
+				let time =(expired_at-timestamp);;
 				if(time <= 0){
 					text = '0'+'天'+'0'+"时"+'0'+'分'+'0'+'秒';
 				}else{
