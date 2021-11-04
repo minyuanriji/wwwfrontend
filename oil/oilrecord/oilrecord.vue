@@ -13,13 +13,17 @@
 					<text style="display: block;width: 100%;font-size: 26rpx;">{{item.created_at}}</text>
 				</view>
 				<view style="width: 30%;text-align: right;line-height: 140rpx;">
-					<text v-if="item.order_status=='unconfirmed'" style="color: #0066FF;">{{item.status_text}}</text>
-					<text v-if="item.order_status=='wait'" style="color: #227700;">{{item.status_text}}</text>
+					<text v-if="item.order_status=='unconfirmed'" style="display: inline-block;width: 120rpx;height: 60rpx;background: rgb(255, 113, 4);line-height: 60rpx;text-align: center;font-size: 30rpx;color: #fff;border-radius: 15rpx;" @click="linkTO(item.id)">查看</text>
+					<text v-if="item.order_status=='wait'" style="display: inline-block;width: 120rpx;height: 60rpx;background: rgb(255, 113, 4);line-height: 60rpx;text-align: center;font-size: 30rpx;color: #fff;border-radius: 15rpx;"@click="linkTO(item.id)">查看</text>
+					<text v-if="item.order_status=='finished'" style="display: inline-block;width: 120rpx;height: 60rpx;background: rgb(255, 113, 4);line-height: 60rpx;text-align: center;font-size: 30rpx;color: #fff;border-radius: 15rpx;" @click="linkTO(item.id)">查看</text>				
 					<text v-if="item.order_status=='fail'" style="color:  #CC000;">{{item.status_text}}</text>
 					<text v-if="item.order_status=='refund'" style="color:  #CC000;">{{item.status_text}}</text>
 					<text v-if="item.order_status=='refunding'" style="color:  #CC000;">{{item.status_text}}</text>
+					
+					
+					
 					<text 
-					v-if="item.order_status!='unconfirmed'&&item.order_status!='wait'&&item.order_status!='fail'&&item.order_status!='refund'&&item.order_status!='refunding'">
+					v-if="item.order_status!='unconfirmed'&&item.order_status!='wait'&&item.order_status!='fail'&&item.order_status!='refund'&&item.order_status!='refunding'&&item.order_status!='finished'">
 					{{item.status_text}}
 					</text>
 				</view>
@@ -69,6 +73,11 @@
 					}
 				});
 			},
+			linkTO(id){
+				uni.navigateTo({
+					url:'../ercode/ercode?id='+id
+				})
+			}
 		},
 		onReachBottom() {
 			if(this.form.page==this.page_count){
@@ -86,5 +95,5 @@
 	.oilrecord_type{width: 100%;height: 100rpx;background: #fff;display: flex;justify-content: space-evenly;}
 	.active{color:rgb(37,130,234) ;border-bottom: 4rpx solid rgb(37,130,234);}
 	.oilrecord_list{width: 100%;overflow: hidden;}
-	.oilrecord_item{width: 100%;overflow: hidden;display: flex;justify-content: space-evenly;padding: 30rpx ;background: #fff;}
+	.oilrecord_item{width: 100%;overflow: hidden;margin-bottom: 10rpx;display: flex;justify-content: space-evenly;padding: 30rpx ;background: #fff;}
 </style>

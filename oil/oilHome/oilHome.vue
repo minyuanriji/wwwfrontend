@@ -232,7 +232,7 @@
 					if (res.code == 0) {
 						this.$refs.popup.close()
 						uni.navigateTo({
-							url:'../pay?order_no='+res.data.order_no
+							url:'../pay?order_no='+res.data.order_no+"&order_id="+res.data.order_id
 						})
 					} else {
 						this.$http.toast(res.msg);

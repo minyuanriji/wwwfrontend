@@ -76,12 +76,14 @@
 				navCol:'',
 				goods_id : '',
 				order_no:'',
+				order_id:''
 			}
 		},
 		onLoad(options) {
-			if(options.order_no){
+			if(options.order_no&&options.order_id){
 				this.order_no = options.order_no;
-				this.getPayData(options.order_no);	
+				this.order_id = options.order_id;
+				this.getPayData(options.order_no,options.order_id);	
 			}
 			this.textColor = this.globalSet('textCol');
 			this.bg_url = this.globalSet('imgUrl');
@@ -93,7 +95,7 @@
 			back() {
 				this.navBack();
 			},
-			getPayData(order_no) { //获取支付信息
+			getPayData(order_no,order_id) { //获取支付信息
 				this.$http.request({
 					url: this.$api.oil.getpayInfo,
 					showLoading: true,
@@ -118,7 +120,7 @@
 									that.$http.toast('支付成功!');
 										setTimeout(() => {
 											uni.redirectTo({
-												url:'./oilrecord/oilrecord'
+												url:'./ercode/ercode?id='+order_id
 											})
 										},2000)
 									return;
@@ -163,7 +165,7 @@
 									}
 								}).then(res=>{
 									if(res.code==0){
-											that.$wechatSdk.pay(res.data,'/oil/oilrecord/oilrecord');
+											that.$wechatSdk.pay(res.data,'/oil/ercode/ercode?id='+that.order_id);
 									}else{
 										that.$http.toast(res.msg);	
 									}
@@ -182,7 +184,7 @@
 								}).then(res=>{
 									if(res.code==0){
 										setPay(res.data, (result) => {
-											let _url = '/oil/oilrecord/oilrecord'
+											let _url = '/oil/ercode/ercode?id='+that.order_id
 											if (result.success) {
 												that.$http.toast("支付成功")
 											} else {
@@ -214,7 +216,7 @@
 								that.$http.toast('支付成功!');
 									setTimeout(() => {
 										uni.redirectTo({
-											url:'/oil/oilrecord/oilrecord'
+											url:'./ercode/ercode?id='+that.order_id
 										})
 									},500)
 								return;
