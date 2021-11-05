@@ -40,21 +40,6 @@
 				</view>
 				<view class="remeber_notice_detail">
 					<jyf-parser :html="descript"></jyf-parser>
-					<!-- <view>
-						1：充值前请核对充值号码
-					</view>
-					<view>
-						2：充值后1-30分钟内到账，月初稍慢一些
-					</view>
-					<view>
-						3：红包充值不返购物券
-					</view>
-					<view>
-						4：如对本次充值相关内容有疑问,请联系客服
-					</view>
-					<view>
-						5：暂不支持携号转网的手机号充值
-					</view> -->
 				</view>
 			</view>
 		</view>
