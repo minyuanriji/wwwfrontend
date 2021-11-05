@@ -10,9 +10,16 @@
 			<!-- #ifdef MP-WEIXIN -->
 			<view class="btn" @tap="copy(detail.couponCode)">复制兑换码</view>
 			 <!--#endif -->
+			 <!-- #ifdef H5 -->
 			<view class="codeImg">
 				<image :src="detail.mpwx_pic" mode="" style="width: 100%;height: 100%;display: blo;"></image>
 			</view>
+			 <!--#endif -->
+			 <!-- #ifdef MP-WEIXIN -->
+			 <view class="codeImg">
+			 	<image :src="detail.mpwx_pic" mode="" style="width: 100%;height: 100%;display: blo;" @click="goTowp"></image>
+			 </view>
+			  <!--#endif -->
 		</view>
 	</view>
 </template>
@@ -68,6 +75,23 @@
 					uni.showToast({ title:'复制失败' })
 				}
 			},
+			goTowp(){ //跳到小程序
+				let appId=this.detail.mpwx_app_id
+				let path=this.detail.mpwx_path
+				//#ifdef MP-WEIXIN
+					 wx.navigateToMiniProgram({
+						appId: appId,
+						path: path,
+						envVersion: 'release',// 打开正式版
+						success(res) {
+							   // 打开成功
+						},
+						fail: function (err) {
+							console.log(err);
+					    }
+					})
+				//#endif
+			}
 		}
 	}
 </script>

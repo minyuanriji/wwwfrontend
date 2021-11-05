@@ -2,7 +2,7 @@
 	<view class="oilHome-container">
 		<view class="header">
 			<view class="location">
-				<image src="https://dev.mingyuanriji.cn/web/static/samecitycheck.png" mode="" style="display: block;width: 30rpx;height: 30rpx;float: left;margin-top: 10rpx;"></image>
+				<image :src="plugins_img_url+'/oil_loc.png'" mode="" style="display: block;width: 30rpx;height: 30rpx;float: left;margin-top: 8rpx;margin-right: 5rpx;"></image>
 				<text>{{addressName}}</text>
 			</view>
 			<view class="location" @click="linkTo">
@@ -40,21 +40,6 @@
 				</view>
 				<view class="remeber_notice_detail">
 					<jyf-parser :html="descript"></jyf-parser>
-					<!-- <view>
-						1：充值前请核对充值号码
-					</view>
-					<view>
-						2：充值后1-30分钟内到账，月初稍慢一些
-					</view>
-					<view>
-						3：红包充值不返购物券
-					</view>
-					<view>
-						4：如对本次充值相关内容有疑问,请联系客服
-					</view>
-					<view>
-						5：暂不支持携号转网的手机号充值
-					</view> -->
 				</view>
 			</view>
 		</view>

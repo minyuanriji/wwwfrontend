@@ -95,5 +95,5 @@
 	.oilrecord_type{width: 100%;height: 100rpx;background: #fff;display: flex;justify-content: space-evenly;}
 	.active{color:rgb(37,130,234) ;border-bottom: 4rpx solid rgb(37,130,234);}
 	.oilrecord_list{width: 100%;overflow: hidden;}
-	.oilrecord_item{width: 100%;overflow: hidden;margin-bottom: 10rpx;display: flex;justify-content: space-evenly;padding: 30rpx ;background: #fff;}
+	.oilrecord_item{width: 100%;overflow: hidden;margin-bottom: 10rpx;display: flex;justify-content: space-evenly;padding: 30rpx ;background: #fff;box-sizing: border-box;}
 </style>

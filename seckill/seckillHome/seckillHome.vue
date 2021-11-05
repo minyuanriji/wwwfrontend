@@ -1,5 +1,9 @@
 <template>
 	<view class="seckillHome-container">
+		<view class="down" v-if="show">
+			<text style="display: block;width: 100%;height: 120rpx;color: #fff;font-size: 40rpx;text-align: center;position: absolute;
+			top: 0;left: 0;right: 0;bottom: 0;margin: auto;font-weight: bold;">秒杀活动已结束,敬待下次开启</text>
+		</view>
 		<view class="seckillHome_header">
 			<image :src="pic_url" mode="widthFix" style="width: 100%;display: block;"></image>
 		</view>
@@ -47,15 +51,15 @@
 						</view>
 						<view class="go_buy">
 							<view class="zhezhao" v-if="item.count==1"></view>
-							<view class="buy" @click.stop="linkTo(item.goods_id)">
+							<view class="buy" @click.prevent="linkTo(item.goods_id)">
 								<view style="text-align: center;color: #fff;font-size: 30rpx;line-height: 40rpx;">
 									去抢购
 								</view>
 								<view style="width: 90%;margin: 0 auto;display: flex;justify-content: space-between;">
-									<view style="width: 60%;padding: 15rpx 0;">
+									<view style="width: 55%;padding: 15rpx 0;">
 										 <progress :percent="item.count*100" :show-info='false' stroke-width="5" font-size='10' activeColor="red" />
 									</view>
-									<view style="width: 36%;font-size: 24rpx;color: #fff;">
+									<view style="width: 40%;font-size: 24rpx;color: #fff;">
 										{{item.count*100}}%
 									</view>
 								</view>
@@ -80,6 +84,7 @@
 				list:[],
 				start_time:'',
 				pic_url:'',//图片
+				show:false
 			}
 		},
 		onLoad() {
@@ -94,11 +99,19 @@
 					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
+						if(res.data.length==0){
+							this.show=true
+							return
+						}
 						this.list=res.data.seckillGoods
 						this.start_time=res.data.start_time
 						this.pic_url=res.data.pic_url
 						for(let i=0;i<this.list.length;i++){
-							this.list[i].count=Number(this.list[i].falseNum)/Number(this.list[i].virtual_seckill_num)							
+							if(Number(this.list[i].virtual_stock)==0){
+								this.list[i].count=0
+							}else{
+								this.list[i].count=this.list[i].surplus_percentage
+							}						
 						}
 						// if(res.data.list.length==0)return false
 						// let list= res.data.list;
@@ -131,7 +144,7 @@
 	.seckillHome_header{width: 100%;overflow: hidden;}
 	.main{width: 100%;overflow: hidden;background:rgb(240,240,240);position: relative;top: -40rpx;z-index: 99;border-radius: 25rpx 25rpx 0 0;}
 	.main_top{width: 100%;height: 160rpx;display: flex;justify-content: space-between;}
-	.list{width: 100%;overflow: hidden;margin-top: 10rpx;}
+	.list{width: 100%;overflow: hidden;margin-top: 10rpx;margin-bottom: 50rpx;}
 	.item{width: 95%;overflow: hidden;background: #fff;border-radius: 15rpx;margin: 0 auto 15rpx;display: flex;justify-content: space-between;padding: 25rpx 10rpx;}
 	.logo image{width: 210rpx;height: 210rpx;display: block;}
 	.item_right{width: 470rpx;position: relative;}
@@ -142,5 +155,6 @@
 	.buy{width: 180rpx;border-radius: 10rpx;height: 80rpx;}
 	.zhezhao{width: 180rpx;background: rgba(0, 0, 0, 0.4);border-radius: 10rpx;
 	position: absolute;top:0rpx;left: 0;height: 80rpx;text-align: center;line-height: 80rpx;color: #fff;}
+	.down{width: 100%;height: 100%;position: fixed;top: 0;left: 0;background: rgba(0, 0, 0, 0.5);z-index: 999;}
 
 </style>
