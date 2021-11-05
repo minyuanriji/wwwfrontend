@@ -12,7 +12,7 @@
 			 <!--#endif -->
 			 <!-- #ifdef H5 -->
 			<view class="codeImg">
-				<image :src="detail.mpwx_pic" mode="" style="width: 100%;height: 100%;display: blo;"></image>
+				<image :src="detail.mpwx_pic" mode="" style="width: 100%;height: 100%;display: blo;" @click="goToH5"></image>
 			</view>
 			 <!--#endif -->
 			 <!-- #ifdef MP-WEIXIN -->
@@ -91,7 +91,10 @@
 					    }
 					})
 				//#endif
-			}
+			},
+			goToH5(){ //H5跳转
+				location.href='https://wxaurl.cn/x6IsgCUIvYj'
+			},
 		}
 	}
 </script>
