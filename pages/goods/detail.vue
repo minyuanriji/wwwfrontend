@@ -300,7 +300,8 @@
 				<view class="tui-product-box tui-padding" v-if="goodsData.use_attr == 1">
 					<image :src="selectData.pic_url?selectData.pic_url:goodsData.cover_pic" class="tui-popup-img"></image>
 					<view class="tui-popup-price">
-						<view class="tui-amount tui-bold" :style="{color:'#FF7104'}">¥{{selectData.price}}</view>
+						<view class="tui-amount tui-bold" :style="{color:'#FF7104'}" v-if="is_seckill==0">¥{{selectData.price}}</view>
+						<view class="tui-amount tui-bold" :style="{color:'#FF7104'}" v-if="is_seckill==1">¥{{selectData.operating_expenses_price}}</view>
 						<view class="tui-number">已选:{{strName}}</view>
 						<view class="tui-number" v-if="is_seckill==0">库存:{{selectData.stock}}</view>
 					</view>
