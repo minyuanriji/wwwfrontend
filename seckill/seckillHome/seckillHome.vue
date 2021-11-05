@@ -57,10 +57,10 @@
 								</view>
 								<view style="width: 90%;margin: 0 auto;display: flex;justify-content: space-between;">
 									<view style="width: 55%;padding: 15rpx 0;">
-										 <progress :percent="item.count" :show-info='false' stroke-width="5" font-size='10' activeColor="red" />
+										 <progress :percent="item.count*100" :show-info='false' stroke-width="5" font-size='10' activeColor="red" />
 									</view>
 									<view style="width: 40%;font-size: 24rpx;color: #fff;">
-										{{item.count}}%
+										{{item.count*100}}%
 									</view>
 								</view>
 							</view>
