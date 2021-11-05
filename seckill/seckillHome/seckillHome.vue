@@ -107,7 +107,11 @@
 						this.start_time=res.data.start_time
 						this.pic_url=res.data.pic_url
 						for(let i=0;i<this.list.length;i++){
-							this.list[i].count=Number(this.list[i].falseNum)/Number(this.list[i].virtual_seckill_num)							
+							if(Number(this.list[i].virtual_seckill_num)==0){
+								this.list[i].count=0
+							}else{
+								this.list[i].count=Number(this.list[i].falseNum)/Number(this.list[i].virtual_seckill_num)	
+							}						
 						}
 						// if(res.data.list.length==0)return false
 						// let list= res.data.list;
