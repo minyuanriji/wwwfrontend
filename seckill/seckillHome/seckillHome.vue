@@ -51,7 +51,7 @@
 						</view>
 						<view class="go_buy">
 							<view class="zhezhao" v-if="item.count==1"></view>
-							<view class="buy" @click.stop="linkTo(item.goods_id)">
+							<view class="buy" @click.prevent="linkTo(item.goods_id)">
 								<view style="text-align: center;color: #fff;font-size: 30rpx;line-height: 40rpx;">
 									去抢购
 								</view>
