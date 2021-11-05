@@ -56,11 +56,11 @@
 									去抢购
 								</view>
 								<view style="width: 90%;margin: 0 auto;display: flex;justify-content: space-between;">
-									<view style="width: 60%;padding: 15rpx 0;">
-										 <progress :percent="item.count*100" :show-info='false' stroke-width="5" font-size='10' activeColor="red" />
+									<view style="width: 55%;padding: 15rpx 0;">
+										 <progress :percent="item.count" :show-info='false' stroke-width="5" font-size='10' activeColor="red" />
 									</view>
-									<view style="width: 36%;font-size: 24rpx;color: #fff;">
-										{{item.count*100}}%
+									<view style="width: 40%;font-size: 24rpx;color: #fff;">
+										{{item.count}}%
 									</view>
 								</view>
 							</view>
@@ -107,11 +107,10 @@
 						this.start_time=res.data.start_time
 						this.pic_url=res.data.pic_url
 						for(let i=0;i<this.list.length;i++){
-							if(Number(this.list[i].virtual_seckill_num)==0){
+							if(Number(this.list[i].virtual_stock)==0){
 								this.list[i].count=0
 							}else{
-								this.list[i].count=Number(this.list[i].falseNum)/Number(this.list[i].virtual_stock)
-								console.log(this.list[i].count)
+								this.list[i].count=this.list[i].surplus_percentage
 							}						
 						}
 						// if(res.data.list.length==0)return false
