@@ -110,7 +110,8 @@
 							if(Number(this.list[i].virtual_seckill_num)==0){
 								this.list[i].count=0
 							}else{
-								this.list[i].count=Number(this.list[i].falseNum)/Number(this.list[i].virtual_seckill_num)	
+								this.list[i].count=Number(this.list[i].falseNum)/Number(this.list[i].virtual_stock)
+								console.log(this.list[i].count)
 							}						
 						}
 						// if(res.data.list.length==0)return false
