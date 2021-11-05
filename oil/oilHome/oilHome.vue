@@ -2,7 +2,7 @@
 	<view class="oilHome-container">
 		<view class="header">
 			<view class="location">
-				<image src="https://dev.mingyuanriji.cn/web/static/samecitycheck.png" mode="" style="display: block;width: 30rpx;height: 30rpx;float: left;margin-top: 10rpx;"></image>
+				<image :src="plugins_img_url+'/oil_loc.png'" mode="" style="display: block;width: 30rpx;height: 30rpx;float: left;margin-top: 8rpx;margin-right: 5rpx;"></image>
 				<text>{{addressName}}</text>
 			</view>
 			<view class="location" @click="linkTo">
