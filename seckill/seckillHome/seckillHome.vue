@@ -1,5 +1,9 @@
 <template>
 	<view class="seckillHome-container">
+		<view class="down" v-if="show">
+			<text style="display: block;width: 100%;height: 120rpx;color: #fff;font-size: 40rpx;text-align: center;position: absolute;
+			top: 0;left: 0;right: 0;bottom: 0;margin: auto;font-weight: bold;">秒杀活动已结束,敬待下次开启</text>
+		</view>
 		<view class="seckillHome_header">
 			<image :src="pic_url" mode="widthFix" style="width: 100%;display: block;"></image>
 		</view>
@@ -80,6 +84,7 @@
 				list:[],
 				start_time:'',
 				pic_url:'',//图片
+				show:false
 			}
 		},
 		onLoad() {
@@ -94,6 +99,10 @@
 					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
+						if(res.data.length==0){
+							this.show=true
+							return
+						}
 						this.list=res.data.seckillGoods
 						this.start_time=res.data.start_time
 						this.pic_url=res.data.pic_url
@@ -142,5 +151,6 @@
 	.buy{width: 180rpx;border-radius: 10rpx;height: 80rpx;}
 	.zhezhao{width: 180rpx;background: rgba(0, 0, 0, 0.4);border-radius: 10rpx;
 	position: absolute;top:0rpx;left: 0;height: 80rpx;text-align: center;line-height: 80rpx;color: #fff;}
+	.down{width: 100%;height: 100%;position: fixed;top: 0;left: 0;background: rgba(0, 0, 0, 0.5);z-index: 999;}
 
 </style>
