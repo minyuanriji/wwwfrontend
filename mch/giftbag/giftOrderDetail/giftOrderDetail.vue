@@ -65,9 +65,11 @@
 				severList:[],
 				page:1,
 				page_count:'',
+				order_id:""
 			};
 		},
 		onLoad(options) {
+			this.order_id=options.order_id
 			if(options&&options.order_id){
 				this.orderDetail(options.order_id)
 				this.severcieList(options.order_id)
@@ -147,7 +149,7 @@
 				return false;
 			} 		
 			this.page=this.page+1
-			this.severcieList();
+			this.severcieList(this.order_id);
 		},
 	}
 </script>
