@@ -144,7 +144,7 @@
 	.seckillHome_header{width: 100%;overflow: hidden;}
 	.main{width: 100%;overflow: hidden;background:rgb(240,240,240);position: relative;top: -40rpx;z-index: 99;border-radius: 25rpx 25rpx 0 0;}
 	.main_top{width: 100%;height: 160rpx;display: flex;justify-content: space-between;}
-	.list{width: 100%;overflow: hidden;margin-top: 10rpx;}
+	.list{width: 100%;overflow: hidden;margin-top: 10rpx;margin-bottom: 50rpx;}
 	.item{width: 95%;overflow: hidden;background: #fff;border-radius: 15rpx;margin: 0 auto 15rpx;display: flex;justify-content: space-between;padding: 25rpx 10rpx;}
 	.logo image{width: 210rpx;height: 210rpx;display: block;}
 	.item_right{width: 470rpx;position: relative;}
