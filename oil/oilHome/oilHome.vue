@@ -230,7 +230,9 @@
 
 <style lang="less" scoped>
 	.oilHome-container{width: 100%;overflow: hidden;background: rgb(248,248,248);}
-	.header{width: 100%;height: 200rpx;border-radius: 0 0 30rpx 30rpx;background: rgb(255, 113, 4);padding: 35rpx 30rpx;box-sizing: border-box;
+	.header{width: 100%;height: 400rpx;
+	background: url(../../mch/img/logo_oil.png)no-repeat;
+	padding: 35rpx 30rpx;box-sizing: border-box;
 	display: flex;justify-content: space-between;color: #fff;font-size: 30rpx;}
 	.main{width: 90%;overflow: hidden;z-index: 99;position:relative ;top: -80rpx;left: 5%;}
 	.rechargePhone{width: 100%;height: 150rpx;background: #fff;border-radius: 20rpx;}
