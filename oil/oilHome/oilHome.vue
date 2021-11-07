@@ -22,15 +22,13 @@
 				</view>
 				<view class="num_list">
 					<view class="item" v-for="(item,index) in produceList" :key='index' @click="selectNum(item)">
-						<view style="text-align: center;margin: 65rpx 0 0 0;color: rgb(255, 113, 4);">
+						<view style="text-align: center;margin: 45rpx 0 0 0;color: rgb(255, 113, 4);">
 							<text style="font-size: 26rpx;font-weight: bold;">￥</text>
 							<text  style="font-size: 40rpx;font-weight: bold;">{{item.price}}</text>
 						</view>
-						<!-- <view style="text-align: center;font-size: 28rpx;color: rgb(37,130,234);">
-							<text>会员权益</text>
-							<text style="font-size: 26rpx;">100.00</text>
-							<text>元</text>
-						</view> -->
+						<view style="text-align: center;font-size: 28rpx;color: rgb(255, 113, 4);">
+							<text>{{item.info}}</text>
+						</view>
 					</view>
 				</view>
 			</view>

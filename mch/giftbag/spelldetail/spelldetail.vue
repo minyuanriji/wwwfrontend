@@ -36,6 +36,10 @@
 				<text style="display: inline-block;;width: 120rpx;height: 50rpx;line-height: 48rpx;color: rgb(255,71,121);text-align: center;border: 1rpx solid rgb(255,71,121);border-radius: 30rpx;margin-right: 10rpx;">{{detail.group_num}}人团</text>
 				{{detail.title}}
 			</view>
+			<view style="width: 20%;font-size: 30rpx;" @click="poster(1)">
+				<image :src="img_url+'/new-share.png'" mode="" style="display: block;width: 50rpx;height: 50rpx;margin: 0 auto;"></image>
+				<text style="display: block;width: 100%;text-align: center;color:rgb(255,71,83);">分享</text>
+			</view>
 		</view>
 		<view class="giftbag-describe">
 			{{detail.descript}}
@@ -92,16 +96,9 @@
 				<text>首页</text>
 			</view>
 			<view class="bottom-buy">
-				<!-- #ifdef H5 -->
-				<view style="background: rgb(54,207,54);width: 100%;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx;" @click="invitation">
+				<view style="background: rgb(54,207,54);width: 100%;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx;" @click="poster(1)">
 					<text style="font-size: 30rpx;font-weight: bold;line-height: 85rpx;">邀请好友拼团</text>
 				</view>
-				<!-- #endif -->
-				<!-- #ifdef MP-WEIXIN || APP-PLUS -->
-				<button open-type="share" style="background: rgb(54,207,54);width: 100%;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx;">
-					<text style="font-size: 30rpx;font-weight: bold;line-height: 85rpx;">邀请好友拼团</text>
-				</button>
-				<!-- #endif -->
 			</view>
 		</view>
 		<view class="bottom" v-if="!canShow && canPay">
@@ -196,9 +193,98 @@
 		</unipopup>
 		<!-- #endif -->
 		
+		<view class="goods-qrcode-modal" v-if="showPoster">
+			<view class="goods-qrcode-body flex-col">
+				
+				<view class="goods-qrcode2 flex flex-y-center flex-x-center">
+					<view class="codeImg_box">
+						<!-- #ifdef H5 -->
+						<view class="goods-qrcode-box">
+							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
+						</view>
+						<!-- #endif -->
+						
+						<!-- #ifdef MP-WEIXIN -->
+						<view class="goods-qrcode-box" @longpress="saveImage(poster_url)">
+							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
+						</view>
+						<!-- #endif -->
+						
+						<!-- #ifdef APP-PLUS -->
+						<view class="goods-qrcode-box" @longpress="appSaveImg(poster_url)">
+							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
+						</view>
+						<!-- #endif -->
+					</view>
+					<view class="saveCode-btn">长按图片保存至本地</view>
+				</view>
+				
+				<view class="goods-qrcode-close" @click="poster(-1)">
+					<view style="width: 50rpx;height: 50rpx;text-align: center;background-color: #ADADAD;color: #FFFFFF;border-radius: 50%;line-height: 50rpx;"
+					 class="iconfont icon-guanbi"></view>
+				</view>
+			</view>
+		</view>
+		
 	</view>
 </template>
 <style lang="less" scoped>
+	.goods-qrcode-modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1000;
+		background: rgba(0, 0, 0, 0.5);
+		opacity: 1;
+		transition: opacity 250ms;
+		z-index: 9999;
+	}
+	.goods-qrcode-body {
+		background: #ffffff;
+		height: 100%;
+		border-radius: 10rpx;
+		padding: 30rpx;
+	}
+	.goods-qrcode-body .goods-qrcode-box {
+		height: 100%;
+		position: relative;
+		box-shadow: 0 0 15rpx rgba(0, 0, 0, 0.15);
+	}
+	.goods-qrcode2{
+		position: relative;
+		height: 1300rpx;
+		flex-direction: column;
+		margin-top: 40rpx;
+	}
+	.codeImg_box {
+		width: 92%;
+		height: 82%;
+		margin-bottom: 20rpx;
+	}
+	.saveCode-btn{
+		color: #939292;
+		padding: 10px 20px;
+		border-radius: 10px;
+	}
+	
+	.goods-qrcode {
+		width: 100%;
+		height: 100%;
+		background: #fffffff;
+		background-size: 100%;
+	}
+	.goods-qrcode-close {
+		position: absolute;
+		top: 40rpx;
+		/* #ifdef MP-WEIXIN */
+		top: 150rpx;
+		/* #endif */
+		right: 40rpx;
+		padding: 15rpx;
+	}
+	
 	#guide_box{z-index:999999;left:0rpx;top:0rpx;background:black;filter:alpha(Opacity=90);-moz-opacity:0.9;opacity: 0.9;position:fixed;width:100%;height:100%;}
 	.giftbagDetail-app{width: 100%;overflow: hidden;}
 	.tui-banner-swiper{width: 100%;overflow: hidden;position: relative;}
@@ -303,7 +389,9 @@
 				url:'',
 				join_list:[],//参团人员
 				is_joiner: false,
-				group_info: {status: ''} //拼团详情
+				group_info: {status: ''} ,//拼团详情
+				showPoster: false,
+				poster_url: ''
 			}
 		},
 		computed:{
@@ -333,6 +421,32 @@
 			this.initSetting()
 		},
 		methods:{
+			poster(key) {
+				if (key == -1) {
+					this.showPoster = false;
+					return;
+				}
+				if (this.poster_url) {
+					this.showPoster = true;
+					return;
+				}
+				this.$http.request({
+					url: this.$api.package.getPackageGroupDetailShare,
+					method: 'POST',
+					data: {
+						pack_id:this.pack_id,
+						group_id:this.group_id
+					},
+					showLoading: true
+				}).then(res => {
+					if (res.code == 0) {
+						this.showPoster = true;
+						this.poster_url = res.data.pic_url;
+					} else {
+						this.$http.toast(res.msg);
+					}
+				});
+			},
 			select(index){ //table切换
 				this.selectIndex=index
 			},

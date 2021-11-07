@@ -43,18 +43,10 @@
 					<text style="display: inline-block;;width: 120rpx;height: 50rpx;line-height: 48rpx;color: rgb(255,71,121);text-align: center;border: 1rpx solid rgb(255,71,121);border-radius: 30rpx;margin-right: 10rpx;">{{detail.group_num}}人团</text>
 					{{detail.title}}
 				</view>
-				<!-- #ifdef H5 -->
-				<view style="width: 20%;font-size: 30rpx;" @click="invitation">
+				<view style="width: 20%;font-size: 30rpx;" @click="poster(1)">
 					<image :src="img_url+'/new-share.png'" mode="" style="display: block;width: 50rpx;height: 50rpx;margin: 0 auto;"></image>
 					<text style="display: block;width: 100%;text-align: center;color:rgb(255,71,83);">分享</text>
 				</view>
-				<!-- #endif -->
-				<!-- #ifdef MP-WEIXIN || APP-PLUS -->
-				<button open-type="share" style="width: 20%;font-size: 30rpx;">
-					<image :src="img_url+'/new-share.png'" mode="" style="display: block;width: 50rpx;height: 50rpx;margin: 0 auto;"></image>
-					<text style="display: block;width: 100%;text-align: center;color:rgb(255,71,83);">分享</text>
-				</button>
-				<!-- #endif -->
 			</view>
 			<view class="giftbag-describe">
 				{{detail.descript}}
@@ -66,23 +58,26 @@
 				拼团发起后，<text style="color: rgb(255,68,0);">{{detail.group_hour_expired}}小时内</text>完成<text  style="color: rgb(255,68,0);">{{detail.group_num}}人</text>组团即拼团成功，否则拼团失败，拼团金额返回用户支付帐户
 			</view>
 			
-			<view class="spellgroup-list" v-if="join_groups.length > 0">
-				
-				<view class="spellgroup-item" v-for="(item, index) in join_groups" :key='index'>
-					<image :src="item.avatar_url" mode="" style="border-radius: 50%;"></image>
-					<view class="spellgroup-item-name">
-						{{item.nickname}}
+			<!-- 定时器滚动拼单记录 -->
+			<view style="padding-top:10rpx;height:290rpx;overflow: auto;">
+				<view :animation="animationData" class="spellgroup-list" v-if="join_groups.length > 0">
+					
+					<view class="spellgroup-item" v-for="(item, index) in join_groups" :key='index'>
+						<image :src="item.avatar_url" mode="" style="border-radius: 50%;"></image>
+						<view class="spellgroup-item-name">
+							{{item.nickname}}
+						</view>
+						<view class="spellgroup-item-peopeliNum">
+							<view style="text-align: right;width: 100%;height: 50rpx;line-height: 50rpx;">
+								还差<text style="color: red;">{{item.need_num}}</text>人拼成</view>
+							<text style="text-align: right;display: block;">{{item.expired_text}}</text>
+						</view>
+						<view class="go-spellgroup" @click="jumpToGroup(item.group_id)">
+							去拼单
+						</view>
 					</view>
-					<view class="spellgroup-item-peopeliNum">
-						<view style="text-align: right;width: 100%;height: 50rpx;line-height: 50rpx;">
-							还差<text style="color: red;">{{item.need_num}}</text>人拼成</view>
-						<text style="text-align: right;display: block;">{{item.expired_text}}</text>
-					</view>
-					<view class="go-spellgroup" @click="jumpToGroup(item.group_id)">
-						拼
-					</view>
+					
 				</view>
-				
 			</view>
 			
 			<view class="select-check">
@@ -274,10 +269,99 @@
 			</view>
 		</view>
 		
+		<view class="goods-qrcode-modal" v-if="showPoster">
+			<view class="goods-qrcode-body flex-col">
+				
+				<view class="goods-qrcode2 flex flex-y-center flex-x-center">
+					<view class="codeImg_box">
+						<!-- #ifdef H5 -->
+						<view class="goods-qrcode-box">
+							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
+						</view>
+						<!-- #endif -->
+						
+						<!-- #ifdef MP-WEIXIN -->
+						<view class="goods-qrcode-box" @longpress="saveImage(poster_url)">
+							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
+						</view>
+						<!-- #endif -->
+						
+						<!-- #ifdef APP-PLUS -->
+						<view class="goods-qrcode-box" @longpress="appSaveImg(poster_url)">
+							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
+						</view>
+						<!-- #endif -->
+					</view>
+					<view class="saveCode-btn">长按图片保存至本地</view>
+				</view>
+				
+				<view class="goods-qrcode-close" @click="poster(-1)">
+					<view style="width: 50rpx;height: 50rpx;text-align: center;background-color: #ADADAD;color: #FFFFFF;border-radius: 50%;line-height: 50rpx;"
+					 class="iconfont icon-guanbi"></view>
+				</view>
+			</view>
+		</view>
+		
 	</view>
 	
 </template>
 <style lang="less" scoped>
+	.goods-qrcode-modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1000;
+		background: rgba(0, 0, 0, 0.5);
+		opacity: 1;
+		transition: opacity 250ms;
+		z-index: 9999;
+	}
+	.goods-qrcode-body {
+		background: #ffffff;
+		height: 100%;
+		border-radius: 10rpx;
+		padding: 30rpx;
+	}
+	.goods-qrcode-body .goods-qrcode-box {
+		height: 100%;
+		position: relative;
+		box-shadow: 0 0 15rpx rgba(0, 0, 0, 0.15);
+	}
+	.goods-qrcode2{
+		position: relative;
+		height: 1300rpx;
+		flex-direction: column;
+		margin-top: 40rpx;
+	}
+	.codeImg_box {
+		width: 92%;
+		height: 82%;
+		margin-bottom: 20rpx;
+	}
+	.saveCode-btn{
+		color: #939292;
+		padding: 10px 20px;
+		border-radius: 10px;
+	}
+	
+	.goods-qrcode {
+		width: 100%;
+		height: 100%;
+		background: #fffffff;
+		background-size: 100%;
+	}
+	.goods-qrcode-close {
+		position: absolute;
+		top: 40rpx;
+		/* #ifdef MP-WEIXIN */
+		top: 150rpx;
+		/* #endif */
+		right: 40rpx;
+		padding: 15rpx;
+	}
+	
 	.Spell-group-item-finished,.Spell-group-item-sharing,.Spell-group-item-closed{
 		width: 120rpx;margin-top: 30rpx;height: 45rpx;font-size: 25rpx;line-height: 45rpx;text-align: center;border-radius: 30rpx;
 	}
@@ -286,9 +370,9 @@
 	.Spell-group-item-closed{background: #aaa;color: #fff;}
 	
 	.spellgroup-list{width: 100%;overflow: hidden;background: #fff;padding: 0 20rpx;}
-	.spellgroup-item{width: 100%;overflow: hidden;border-bottom: 2rpx dashed #f2f2f2;margin-top:30rpx;}
+	.spellgroup-item{width: 100%;overflow: hidden;border-bottom: 2rpx dashed #f2f2f2;height:130rpx;margin-top:15rpx;}
 	.spellgroup-item image{width: 60rpx;height: 60rpx;float: left;margin-top: 20rpx;margin-right: 20rpx;}
-	.spellgroup-item-name{float: left;height: 100rpx;line-height: 100rpx;font-size: 25rpx;width: 200rpx;
+	.spellgroup-item-name{float: left;height: 100rpx;line-height: 100rpx;font-size: 25rpx;width: 170rpx;
 	overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 	.spellgroup-item-peopeliNum{height: 100rpx;float: left;font-size: 25rpx;width: 250rpx;margin-left: 60rpx;}
 	.spellgroup-item-peopeliNum text:nth-of-type(2){display: block;width: 100%;height: 50rpx;text-align: right;line-height: 50rpx;}
@@ -296,11 +380,13 @@
 		float: right;
 		background: #ff4753;
 		color:white;
-		width: 100rpx;
+		width: 130rpx;
 		text-align: center;
-		height: 100rpx;
-		line-height:100rpx;
+		height: 70rpx;
+		line-height:70rpx;
+		margin-top:13rpx;
 		border-radius:3rpx;
+		font-size:25rpx
 	}
 	
 	#guide_box{z-index:999999;left:0rpx;top:0rpx;background:black;filter:alpha(Opacity=90);-moz-opacity:0.9;opacity: 0.9;position:fixed;width:100%;height:100%;}
@@ -377,7 +463,7 @@
 	// #ifdef MP-WEIXIN || APP-PLUS
 	import {setPay} from '@/config/utils.js'
 	// #endif
-	var iTimer = null, iTimer2 = null;
+	var iTimer = null, animTimer = null, iTimer2 = null;
 	var countdownFun = function(expired_at){
 		var date = new Date();
 		var timestamp =parseInt(date.getTime()/1000);
@@ -404,6 +490,8 @@
 		},
 		data() {
 			return {
+				animationData: [],
+				
 				guide_enable: false,
 				h5Bottom:true,
 				pack_id:'',
@@ -443,7 +531,12 @@
 				bannerIndex: 0,
 				height:'',
 				scrollH:'',
-				join_groups: []
+				join_groups: [],
+				anim_groups: [],
+				anim_poi: 0,
+				pos_i:0,
+				showPoster: false,
+				poster_url: ''
 			}
 		},
 		onLoad(options) {
@@ -479,8 +572,61 @@
 					}
 				})
 			}, 50)
+			
+			var animation = uni.createAnimation({
+			  duration: 1000,
+				timingFunction: 'ease',
+			})
+			this.animation = animation
+			let that = this;
+			
+			let i = 0, x = 1;
+			setInterval(function() {
+				i = i + 146 * 2;
+				let H = that.join_groups.length * 146;
+				if(i >= H){
+					return;
+				}
+				animation.translateY("-" + i + "rpx").step();
+				that.animationData = animation.export();
+			}, 3000);
 		},
 		methods:{
+			poster(key) {
+				if (key == -1) {
+					this.showPoster = false;
+					return;
+				}
+				if (this.poster_url) {
+					this.showPoster = true;
+					return;
+				}
+				this.$http.request({
+					url: this.$api.package.getPackageDetailShare,
+					method: 'POST',
+					data: {
+						pack_id:this.pack_id
+					},
+					showLoading: true
+				}).then(res => {
+					if (res.code == 0) {
+						this.showPoster = true;
+						this.poster_url = res.data.pic_url;
+					} else {
+						this.$http.toast(res.msg);
+					}
+				});
+			},
+			invitation(){ //分享
+				
+				// #ifdef H5
+				//this.guide_enable = true;
+				//this.$refs.popupShare.open()
+				//let pid=JSON.parse(uni.getStorageSync('userInfo')).user_id
+				//this.url=window.location.href+"&pid="+pid+"&type="+1
+				// #endif
+				
+			},
 			enlarge(index){ //点击主图放大
 				  let photoList = this.detail.pic_url.map(item => {
 				                    return item.pic_url;
@@ -530,7 +676,7 @@
 					if (res.code == 0) {
 						
 						// #ifdef H5
-						this.$wechatSdk.share("mch/giftbag/gifebagDetail/newgifebagDetail?pack_id=12", {
+						this.$wechatSdk.share("mch/giftbag/gifebagDetail/newgifebagDetail?pack_id=" + pack_id, {
 							app_share_title: res.data.detail.title,
 							app_share_desc: res.data.detail.descript,
 							app_share_pic: res.data.detail.cover_pic
@@ -558,6 +704,9 @@
 						}
 						if(iTimer != null){
 							clearInterval(iTimer);
+						}
+						if(animTimer != null){
+							clearInterval(animTimer );
 						}
 						iTimer = setInterval(function(){
 							that.expired_at= countdownFun(expired_time);
@@ -600,7 +749,7 @@
 				 }).then(res => {
 				 	if (res.code == 0) {
 						if(res.data.list.length==0)return false
-						let list= res.data.list;
+						let list= res.data.list, i;
 						var arr=this.spellgroup.concat(list)
 						this.spellgroup =arr
 						this.page_count = res.data.pagination.page_count;
@@ -816,16 +965,7 @@
 					});
 				// #endif	
 			},
-			invitation(){ //分享
-				
-				// #ifdef H5
-				this.guide_enable = true;
-				//this.$refs.popupShare.open()
-				//let pid=JSON.parse(uni.getStorageSync('userInfo')).user_id
-				//this.url=window.location.href+"&pid="+pid+"&type="+1
-				// #endif
-				
-			},
+			
 			deleted(){
 				// #ifdef H5
 				 this.$refs.popupShare.close()

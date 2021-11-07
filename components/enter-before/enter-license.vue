@@ -30,36 +30,24 @@
 						style="width: 200rpx;margin-top: 20rpx;float: right;line-height: 80rpx;display: block;height: 80rpx;border: none;text-align: center;background: rgb(223, 223, 223);font-size: 28rpx;color: #000;" />
 				</view> -->
 				<view style="width: 64%;">
-					<text style="display: block;height: 80rpx;float: right;font-size: 30rpx;font-weight: bold;color: #000;text-align: center;width: 30rpx;
-					margin: 20rpx 20rpx 0 20rpx;">折</text>
-					<picker :range="count_2"  @change="changecount_2" style="
-						width: 100rpx;
-						margin-top: 20rpx;
-						float: right;
-						line-height: 80rpx;
-						display: block;
-						height: 80rpx;
-						border: none;text-align: center;background: rgb(223, 223, 223);
-						font-size: 30rpx;color: #000;
-						font-weight: bold;
-					">
-										{{count_2_set?count_2_set:"请选择"}}
-									</picker>
-					<text style="display: block;height: 80rpx;float: right;font-size: 50rpx;font-weight: bold;color: #000;text-align: center;width: 30rpx;
-					margin-top: 10rpx;">.</text>
-					<picker :range="count_1"  @change="changecount_1" style="
-						width: 100rpx;
-						margin-top: 20rpx;
-						float: right;
-						line-height: 80rpx;
-						display: block;
-						height: 80rpx;
-						border: none;text-align: center;background: rgb(223, 223, 223);
-						font-size: 30rpx;color: #000;
-						font-weight: bold;
-					">
-										{{count_1_set?count_1_set:"请选择"}}
-									</picker>
+					
+					<view style="display:flex;float:right;height:118rpx;line-height:118rpx;">
+						
+						<picker :range="count_1"  @change="changecount_1" style="
+							width: 100rpx;
+							border: none;text-align: center;
+							font-size: 30rpx;color: #000;font-weight:bold">
+							{{count_1_set?count_1_set:"设置"}}
+						</picker>
+						<text style="font-size: 50rpx;height:118rpx;line-height:90rpx;color: gray;text-align: center;width: 30rpx;">.</text>
+						<picker :range="count_2"  @change="changecount_2" style="
+							width: 100rpx;
+							border: none;text-align: center;
+							font-size: 30rpx;color: #000;">
+							{{count_2_set?count_2_set:"设置"}}
+						</picker>
+					</view>
+					
 				</view>
 			</view>
 		</view>
@@ -181,8 +169,8 @@
 				},
 				count_1:['1','2','3','4','5','6','7','8','9'],
 				count_2:['0','1','2','3','4','5','6','7','8','9'],
-				count_1_set:'',
-				count_2_set:''
+				count_1_set:'8',
+				count_2_set:'0'
 			}
 		},
 		created() {
@@ -207,7 +195,7 @@
 				this.params.cor_num=this.applyInfo.cor_num
 				this.params.cor_pic1=this.applyInfo.cor_pic1
 				this.params.cor_pic2=this.applyInfo.cor_pic2
-				this.params.settle_num=this.applyInfo.settle_num
+				this.params.settle_num=this.applyInfo.settle_num 
 				this.params.settle_realname=this.applyInfo.settle_realname
 				this.params.settle_bank=this.applyInfo.settle_bank
 				// this.params.settle_discount=this.applyInfo.settle_discount
@@ -216,6 +204,12 @@
 				
 				this.count_1_set=String(this.applyInfo.settle_discount).split('.')[0]
 				this.count_2_set=String(this.applyInfo.settle_discount).split('.')[1]
+				if(!this.count_1_set){
+					this.count_1_set = "8";
+				}
+				if(!this.count_2_set){
+					this.count_2_set = "0";
+				}
 			},1000)
 			
 			
@@ -230,9 +224,6 @@
 				var index = e.detail.value
 				this.count_2_set = this.count_2[index]
 			},
-			
-			
-			
 			
 			alert(txt) { //弹窗提示
 				uni.showToast({
