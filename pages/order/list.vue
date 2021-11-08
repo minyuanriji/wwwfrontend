@@ -1,5 +1,7 @@
 <template>
 	<view class="container">
+		
+
 		<com-tabs :tabs="tabs" :isFixed="scrollTop>=0" :currentTab="showTab[status]" selectedColor="#FF7104" sliderBgColor="#FF7104"
 		 :sliderHeight="4" :sliderWidth="50" bgColor="#F7F7F7" @change="change" bottom="10rpx" style="z-index:999;"></com-tabs>
 		<!--选项卡逻辑自己实现即可，此处未做处理-->
@@ -91,15 +93,20 @@
 </template>
 
 <script>
+	import tuiIcon from "@/components/icon/icon";
+	import tuiTag from "@/components/tag/tag";
 	import tuiButton from "@/components/extend/button/button"
 	import tuiListCell from "@/components/list-cell/list-cell"
 	export default {
 		components: {
 			tuiButton,
 			tuiListCell,
+			tuiIcon,
+			tuiTag,
 		},
 		data() {
 			return {
+				key: "",
 				img_url: this.$api.img_url,
 				url:this.$api.img_url,
 				textColor:'#bc0100',
@@ -176,6 +183,12 @@
 			}
 		},
 		methods: {
+			cleanKey: function() { //清空搜索
+				this.key = ''
+			},
+			search(){
+				
+			},
 			toShop(id){
 				if(id){
 					uni.navigateTo({
@@ -562,5 +575,78 @@
 	.btn-gary{
 		color: #8F8D8E !important;
 		border: 1px solid #8F8D8E !important;
+	}
+	.tui-searchbox {
+		width: 100%;
+		padding: 30rpx;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		position: fixed;
+		top: 88rpx;
+		left: 0;
+		z-index: 9999;
+	}
+	
+	.tui-search-input {
+		width: 90%;
+		height: 66rpx;
+		border-radius: 35rpx;
+		padding: 0 30rpx;
+		box-sizing: border-box;
+		background: #f2f2f2;
+		display: flex;
+		align-items: center;
+		flex-wrap: nowrap;
+	}
+	
+	.tui-input {
+		flex: 1;
+		color: #333;
+		padding: 0 16rpx;
+		font-size: 11pt;
+	}
+	
+	.tui-input-plholder {
+		font-size: 11pt;
+		color: #b2b2b2;
+	}
+	
+	.tui-cancle {
+		color: #888;
+		font-size: 11pt;
+		padding-left: 30rpx;
+		flex-shrink: 0;
+	}
+	
+	.tui-history-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 30rpx 0;
+	}
+	
+	.tui-icon-delete {
+		padding: 10rpx;
+	}
+	
+	.tui-search-title {
+		font-size: 11pt;
+		font-weight: bold;
+	}
+	
+	.tui-hot-header {
+		padding: 30rpx 0;
+	}
+	
+	.tui-tag-class {
+		display: inline-block;
+		margin-bottom: 20rpx;
+		margin-right: 20rpx;
+		font-size: 9pt !important;
+	}
+	.tui-history-content{
+		display: flex;
+		flex-wrap: wrap;
 	}
 </style>

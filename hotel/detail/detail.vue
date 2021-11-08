@@ -133,10 +133,10 @@
 					</view>
 					<image :src="roomdetail.product_thumb" mode="aspectFill"  v-if="!swiperShow"  style="display: block;width: 100%;height: 100%;"></image>
 				</view>
-				<!-- <view class="popup-pruc-list">
+				<view class="popup-pruc-list">
 					<view>
 						<text>楼层</text>
-						<text>1,2层</text>
+						<text>{{roomdetail.floor}}层</text>
 					</view>
 					<view>
 						<text>窗户</text>
@@ -146,9 +146,9 @@
 						<text  v-if="roomdetail.window=='inner'" >内窗</text>
 						<text  v-if="roomdetail.window=='part_inner'" >部分内窗</text>
 					</view>
-					<view>
+					<view v-if="Number(roomdetail.bed_width)>0">
 						<text>床型</text>
-						<text>1.0X2.0米</text>
+						<text>{{roomdetail.bed_width}}米</text>
 					</view>
 					<view>
 						<text>面积</text>
@@ -156,13 +156,13 @@
 					</view>
 					<view>
 						<text>人数</text>
-						<text>2人</text>
+						<text>{{roomdetail.people_num}}人</text>
 					</view>
 					<view>
 						<text>网络</text>
 						<text>WIFI</text>
 					</view>
-				</view> -->
+				</view>
 				<view class="popup-facilities">
 					<view class="popup-facilities-title" style="width: 100%;margin-bottom: 15rpx;color: #000;font-size: 36rpx;">
 						设施信息
@@ -439,7 +439,7 @@
 	.hotel-notice-item{font-size: 26rpx;}
 	.popup-title{width: 100%;height: 100rpx;text-align: center;line-height: 100rpx;color: #000;}
 	.popup-image{width: 100%;height: 400rpx;}
-	.popup-pruc-list{width: 100%;overflow: hidden;display: flex;justify-content: space-evenly;flex-wrap: wrap;margin-top:20rpx}
+	.popup-pruc-list{width: 100%;overflow: hidden;display: flex;justify-content: space-between;flex-wrap: wrap;margin-top:20rpx}
 	.popup-pruc-list view{width: 50%;text-align: center;font-size: 28rpx;margin: 5rpx 0;}
 	.popup-pruc-list view text{display: inline-block;width: 50%;}
 	.popup-pruc-list view text:nth-of-type(1){text-align: right;padding-right: 30rpx;box-sizing: border-box;}

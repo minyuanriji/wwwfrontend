@@ -6,6 +6,9 @@
 					<view class="tui-title">收货人</view>
 					<input placeholder-class="tui-phcolor" v-model="userName" class="tui-input" name="name" placeholder="请输入收货人姓名"
 					 maxlength="15" type="text" />
+					 <image :src="img_url+'delete_error.png'" mode="" style="width: 30rpx;height: 30rpx;
+					 display: block;position: absolute;right: 50rpx;top: 30rpx;" @click.stop="deleteint('userName')"
+					 v-if="userName.length>0"></image>
 				</view>
 			</tui-list-cell>
 			<tui-list-cell :hover="false" padding="0">
@@ -13,6 +16,9 @@
 					<view class="tui-title">手机号码</view>
 					<input placeholder-class="tui-phcolor" v-model="phone" class="tui-input" name="mobile" placeholder="请输入收货人手机号码"
 					 maxlength="11" type="number" />
+					 <image :src="img_url+'delete_error.png'" mode="" style="width: 30rpx;height: 30rpx;
+					 display: block;position: absolute;right: 50rpx;top: 30rpx;" @click.stop="deleteint('phone')"
+					 v-if="phone.length>0"></image>
 				</view>
 			</tui-list-cell>
 
@@ -41,8 +47,16 @@
 			<tui-list-cell :hover="false" padding="0">
 				<view class="tui-line-cell">
 					<view class="tui-title">收货地址</view>
-					<input placeholder-class="tui-phcolor" v-model="detailed" class="tui-input" name="address" placeholder="请输入详细的收货地址"
-					 maxlength="50" type="text" />
+					<textarea placeholder-class="tui-phcolor" v-model="detailed" class="tui-input" name="address" placeholder="请输入详细的收货地址"
+					 type="text" style="height: 120rpx;width: 400rpx;padding: 5rpx 60rpx 0 5rpx;box-sizing: border-box;"/>
+					 
+					 <image src="../../../mch/img/arrder_loc.png" mode="" style="width: 50rpx;height: 50rpx;
+					 display: block;position: absolute;right: 150rpx;top: 60rpx;" @click.stop="chooseAddress"
+					 ></image>
+					 
+					 <image :src="img_url+'delete_error.png'" mode="" style="width: 30rpx;height: 30rpx;
+					 display: block;position: absolute;right: 30rpx;top: 70rpx;" @click.stop="deleteint('detailed')"
+					 v-if="detailed.length>0"></image>
 				</view>
 			</tui-list-cell>
 			<!-- 默认地址 -->
@@ -78,7 +92,7 @@
 		data() {
 			return {
 				lists: ["公司", "家", "学校", "其他"],
-
+				img_url: this.$api.img_url,
 				userName: '', //用户名
 				phone: '', //电话
 				detailed: '', //详细地址
@@ -140,11 +154,30 @@
 			// 	this.town_text = this.town_data[this.index].name;
 			// 	this.town_id = this.town_data[this.index].id;
 			// },
+			chooseAddress(){
+				var that = this
+				uni.chooseLocation({
+					success: function(res) {
+						that.detailed = res.name
+					}
+				})
+			},
 			switchChange(e) { //切换是否是默认地址
 				if (e.detail.value) {
 					this.is_default = 1;
 				} else {
 					this.is_default = 0;
+				}
+			},
+			deleteint(item){
+				if(item=='userName'){
+					this.userName=''
+				}
+				if(item=='phone'){ 
+					this.phone=''
+				}
+				if(item=='detailed'){ 
+					this.detailed=''
 				}
 			},
 			// getDistrict() { //获取乡镇数据
@@ -369,6 +402,7 @@
 		box-sizing: border-box;
 		display: flex;
 		align-items: center;
+		position: relative;
 	}
 
 	.tui-title {

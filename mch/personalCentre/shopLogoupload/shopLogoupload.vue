@@ -34,60 +34,106 @@
 		methods:{
 			uploadImg(){
 				var that = this
-				// var params = this.params
 				uni.chooseImage({
-					// count: 1,
 					success: function(res) {
-						var file = res.tempFiles[0].path
-						var requestData = {
-							serverUrl: that.$api.default.upload+'&width=6000&height=6000&type=1',
-							fileKeyName: "file",
-							file: file
-						}
-						uni.showLoading({
-							title: "正在上传"
-						})
-						that.$http.uploadFile(requestData).then(function(res) {
-							uni.hideLoading()
-							if(res.code==0){
-								var url = res.data.url
-								that.$http
-									.request({
-										url: that.$api.moreShop.setShopLogo,
-										method: 'POST',
-										showLoading: true,
-										data:{
-											act:'add',
-											pic_url:url,
-										}
-									})
-									.then(result => {
-										if(result.code==0){
-											console.log(result.data.pic_urls)
-											let List=result.data.pic_urls
-											let logoList=[]
-											List.forEach((item)=>{
-												if(typeof(item)!='object'){
-													logoList.push(item)
-												}
-											})										
-											uni.setStorageSync('imglist',logoList)
-											that.imgList=logoList
-										}else{
-											that.$http.toast(result.msg);
-										}
+						var file = res.tempFilePaths
+						for (let i = 0; i < file.length; i++) {
+						    var requestData = {
+						    	serverUrl: that.$api.default.upload+'&width=6000&height=6000&type=1',
+						    	fileKeyName: "file",
+						    	file: file[i]
+						    }
+							that.$http.uploadFile(requestData).then(function(res) {
+								if(res.code==0){
+									var url = res.data.url
+									that.$http
+										.request({
+											url: that.$api.moreShop.setShopLogo,
+											method: 'POST',
+											showLoading: true,
+											data:{
+												act:'add',
+												pic_url:url,
+											}
+										})
+										.then(result => {
+											if(result.code==0){
+												console.log(result.data.pic_urls)
+												let List=result.data.pic_urls
+												let logoList=[]
+												List.forEach((item)=>{
+													if(typeof(item)!='object'){
+														logoList.push(item)
+													}
+												})										
+												uni.setStorageSync('imglist',logoList)
+												that.imgList=logoList
+											}else{
+												that.$http.toast(result.msg);
+											}
+										});
+									// that.$forceUpdate()
+								}else{
+									uni.showToast({
+										title: '图片太大，请重新上传',
+										icon: 'none'
 									});
-								// that.$forceUpdate()
-							}else{
-								uni.showToast({
-									title: '图片太大，请重新上传',
-									icon: 'none'
-								});
-								setTimeout(function() {
-									uni.hideToast();
-								}, 2000);
-							}
-						})
+									setTimeout(function() {
+										uni.hideToast();
+									}, 2000);
+								}
+							})						
+						}
+						// var file = res.tempFiles[0].path	
+						// var requestData = {
+						// 	serverUrl: that.$api.default.upload+'&width=6000&height=6000&type=1',
+						// 	fileKeyName: "file",
+						// 	file: file
+						// }
+						// uni.showLoading({
+						// 	title: "正在上传"
+						// })
+						// that.$http.uploadFile(requestData).then(function(res) {
+						// 	uni.hideLoading()
+						// 	if(res.code==0){
+						// 		var url = res.data.url
+						// 		that.$http
+						// 			.request({
+						// 				url: that.$api.moreShop.setShopLogo,
+						// 				method: 'POST',
+						// 				showLoading: true,
+						// 				data:{
+						// 					act:'add',
+						// 					pic_url:url,
+						// 				}
+						// 			})
+						// 			.then(result => {
+						// 				if(result.code==0){
+						// 					console.log(result.data.pic_urls)
+						// 					let List=result.data.pic_urls
+						// 					let logoList=[]
+						// 					List.forEach((item)=>{
+						// 						if(typeof(item)!='object'){
+						// 							logoList.push(item)
+						// 						}
+						// 					})										
+						// 					uni.setStorageSync('imglist',logoList)
+						// 					that.imgList=logoList
+						// 				}else{
+						// 					that.$http.toast(result.msg);
+						// 				}
+						// 			});
+						// 		// that.$forceUpdate()
+						// 	}else{
+						// 		uni.showToast({
+						// 			title: '图片太大，请重新上传',
+						// 			icon: 'none'
+						// 		});
+						// 		setTimeout(function() {
+						// 			uni.hideToast();
+						// 		}, 2000);
+						// 	}
+						// })
 					}
 				})
 			},

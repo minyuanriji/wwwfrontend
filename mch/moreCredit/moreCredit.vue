@@ -3,6 +3,9 @@
 		<view class="moreCreadit_header">
 			<view class="text">
 				<input type="number" v-model.trim ="form.mobile" placeholder="请输入电话号码"/>
+				<image :src="img_url+'delete_error.png'" mode="" style="width: 30rpx;height: 30rpx;
+				display: block;position: absolute;right: 30rpx;top: 25rpx;" @click.stop="deleteint"
+				 v-if="form.mobile.length>0"></image>
 			</view>
 		</view>
 		<view class="moreCreadit_detail">
@@ -203,6 +206,9 @@
 			this.creditStatus()
 		},
 		methods: {
+			deleteint(){//删除输入号码
+				this.form.mobile=''
+			},
 			getSendNum(val){
 				if(this.typeIndex == 0){
 					val = val * (3/10);
@@ -403,6 +409,7 @@
 					if (res.code == 0) {
 						this.creditStatusList=res.data
 						this.moneyList=res.money_list
+						this.form.mobile=res.mobile.mobile
 						if(this.moneyList.enable_fast==1){
 							this.typeIndex=0
 							if(this.moneyList.enable_slow==1){
@@ -481,6 +488,7 @@
 		border-radius: 20rpx;
 		padding-left: 20rpx;
 		box-sizing: border-box;
+		position: relative;
 	}
 
 	.text input {
