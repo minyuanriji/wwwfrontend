@@ -468,6 +468,7 @@
 		// background: rgb(255, 113, 4);
 		// border-radius: 0 0 35rpx 35rpx;
 		padding: 20rpx 20rpx 0 20rpx;
+		box-sizing: border-box;
 	}
 
 	.title {
