@@ -37,12 +37,6 @@
 					<view>{{privewMessage.hotel_info.address}}</view>
 				</view>
 			</view>
-			<!-- <view class="order_hotel_notice">
-				<view v-for="item in 5" :key='item'>
-					<text></text>
-					<text>仅接待大陆客人</text>
-				</view>
-			</view> -->
 		</view>
 		<view class="check_in_message">
 			<view class="check_in_message_title">
@@ -250,7 +244,11 @@
 						if(res.code==0){
 							this.privewMessage=res.data
 							if(this.privewMessage.hotel_order_info.length>0){
-								this.form.passengers=this.privewMessage.hotel_order_info
+								for(let i=0;i<this.form.passengers.length;i++){
+									if(isEmpty(this.form.passengers[i].name)){
+										this.form.passengers=this.privewMessage.hotel_order_info
+									}
+								}
 							}
 							// if(this.privewMessage.user_integral<this.privewMessage.integral_price){
 							// 	this.disabled=false
