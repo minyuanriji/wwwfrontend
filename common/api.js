@@ -458,6 +458,7 @@ let api = {
 		getcity:api_root +'plugin/hotel/api/hotel/hotel-info',
 		getcitylist:api_root +'plugin/hotel/api/hotel/city-list',
 		getimgList:api_root +'plugin/hotel/api/hotel/hotel-diagram',
+		editeroom:api_root +'plugin/hotel/api/user-center/save-order-resident',
 	},
 	merchants:{
 		Fillbasic: api_root +'plugin/mch/api/apply/basic',
