@@ -75,7 +75,7 @@
 			</view>
 		</view>
 		<!--list-->
-
+		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
 		<!--加载loadding-->
 		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
 		<main-nomore :visible="pullUpOn" bgcolor="#f7f7f7"></main-nomore>
@@ -89,11 +89,13 @@
 	import tuiIcon from "@/components/icon/icon";
 	import tuiDrawer from "@/components/drawer/drawer";
 	import tuiTopDropdown from "@/components/top-dropdown/top-dropdown";
+	import backTop from '@/components/back-top/back-top.vue';
 	export default {
 		components: {
 			tuiIcon,
 			tuiDrawer,
-			tuiTopDropdown
+			tuiTopDropdown,
+			backTop
 		},
 		data() {
 			return {
@@ -114,7 +116,11 @@
 				page_count:0,//总页数
 				carryOut:true,//请求完成
 				searchKey:'',//搜索内容的字段
-				textColor:'#bc0100'
+				textColor:'#bc0100',
+				backTop: {
+					src: '../../static/back-top/top.png',
+					scrollTop: 0
+				},
 			}
 		},
 		onLoad: function(options) {
@@ -215,6 +221,9 @@
 					url: '/pages/goods/detail?proId='+id
 				})
 			}
+		},
+		onPageScroll(e) {
+			this.backTop.scrollTop = e.scrollTop;
 		},
 		onReachBottom() {
 			this.page++;

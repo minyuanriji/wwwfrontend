@@ -101,9 +101,15 @@
 				})
 			},
 			editAddr(id) {
-				uni.navigateTo({
-					url: "/pages/user/address/edit?id=" + id
-				})
+				if(id==0){
+					uni.navigateTo({
+						url: "/pages/user/address/edit?id=" + id+"&type="+1
+					})
+				}else{
+					uni.navigateTo({
+						url: "/pages/user/address/edit?id=" + id+"&type="+0
+					})
+				}
 			}
 		}
 	}
