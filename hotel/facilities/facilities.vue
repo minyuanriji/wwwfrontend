@@ -33,7 +33,8 @@
 			<text style="font-weight: bold;color: #000;">联系电话</text>
 			<text style="font-size: 28rpx;" v-if="hotelProduct.contact_phone.length>0">{{hotelProduct.contact_phone}}</text>
 			<text style="font-size: 28rpx;" v-if="hotelProduct.contact_mobile.length>0">{{hotelProduct.contact_mobile}}</text>
-			<image :src="img_url+'hotel-my-phone-new.png'" mode=""></image>
+			<image :src="img_url+'hotel-my-phone-new.png'" mode="" v-if="hotelProduct.contact_phone.length>0"  @click="callphone(hotelProduct.contact_phone)"></image>
+				<image :src="img_url+'hotel-my-phone-new.png'" mode="" v-if="hotelProduct.contact_mobile.length>0"  @click="callphone(hotelProduct.contact_mobile)"></image>
 		</view>
 	</view>
 </template>
@@ -45,6 +46,22 @@
 				img_url: this.$api.img_url,
 				hotelProduct:uni.getStorageSync('hotelProduct')
 			};
+		},
+		methods:{
+			callphone(phone){ //联系电话
+				uni.makePhoneCall({
+				 	// 手机号
+				    phoneNumber: phone, 				
+					// 成功回调
+					success: (res) => {
+						console.log('调用成功!')	
+					},				
+					// 失败回调
+					fail: (res) => {
+						console.log('调用失败!')
+					}					
+				 })
+			},	
 		}
 	}
 </script>
