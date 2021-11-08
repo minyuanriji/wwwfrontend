@@ -30,6 +30,7 @@
 			</view>
 		</view>
 		<main-nomore :visible="!pullUpOn" bgcolor="#fafafa"></main-nomore>
+		
 	</view>
 </template>
 

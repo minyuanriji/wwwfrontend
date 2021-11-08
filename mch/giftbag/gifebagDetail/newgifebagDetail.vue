@@ -59,7 +59,7 @@
 			</view>
 			
 			<!-- 定时器滚动拼单记录 -->
-			<view style="padding-top:10rpx;height:290rpx;overflow: auto;">
+			<view style="padding-top:10rpx;height:290rpx;overflow: hidden;">
 				<view :animation="animationData" class="spellgroup-list" v-if="join_groups.length > 0">
 					
 					<view class="spellgroup-item" v-for="(item, index) in join_groups" :key='index'>
@@ -585,7 +585,8 @@
 				i = i + 146 * 2;
 				let H = that.join_groups.length * 146;
 				if(i >= H){
-					return;
+					//return;
+					i = 0;
 				}
 				animation.translateY("-" + i + "rpx").step();
 				that.animationData = animation.export();

@@ -2,25 +2,64 @@
 	<view class="more-shop">
 		<com-nav-bar left-icon="back" :title="title" @clickLeft="back"></com-nav-bar>
 		
-		<view v-if="result == 1" class="success_message">
-			<view class="zhanwei"></view>
-			<view class="success_logo">
-				<image :src="img_url+'/success_logo.png'" mode=""></image>				
-			</view>
-			<view class="success_message_title">
-				核销成功
-			</view>
-			<view class="sure_btn" @click="gointo">
-				完成
-			</view>
-		</view>
 		
+		<!--
+		<view v-if="result == 1" class="success_message">
 		<view v-if="result == 2" class="faile_message" >
 			
 			<view class="faile_message_title">
 				<view style="font-size: 42rpx;font-weight: bold;margin-bottom:10rpx;">出错啦</view>
 				{{msg}}
 			</view>
+		</view>
+		-->
+		
+		<view v-if="status == 'success'" style="text-align: center;color:green;margin-top:100rpx;">
+			<text class="iconfont icon-dagou3" style="font-size:190rpx;"></text>
+			<view style="font-size:60rpx;">核销成功</view>
+		</view>
+		
+		<view v-if="status == 'fail'" style="text-align: center;color:red;margin-top:100rpx;">
+			<text class="iconfont icon-gantan" style="font-size:130rpx;"></text>
+			<view style="font-size:60rpx;">核销失败</view>
+		</view>
+		
+		<view v-if="status == 'invalid'" style="text-align: center;color:red;margin-top:100rpx;">
+			<text class="iconfont icon-gantan" style="font-size:130rpx;"></text>
+			<view style="font-size:60rpx;">订单不存在</view>
+		</view>
+		
+		<view v-if="status == 'normal'">
+			
+			<view style="background:white;margin-top:20rpx;padding:20rpx;color:#333;">
+				<view style="border-bottom:1px solid #ddd;padding-bottom:10rpx;">产品信息</view>
+				<view style="display:flex;margin-top:10rpx;padding:15rpx;">
+					<image style="width:200rpx;height:140rpx;" src="http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20211105/7fd259a7bcb71a96832c12d739883249.jpg" mode="aspectFill"></image>
+					<view style="padding-left:20rpx;display:flex;flex-direction:column;justify-content:space-around">
+						<view style="font-size: 26rpx;">
+							凭此卡到店享78元经络点穴推拿 并送500元会员卡（每次消费抵扣20元）
+						</view>
+						<view style="color:red;">100.00元</view>
+					</view>
+				</view>
+			</view>
+			
+			<view style="background:white;margin-top:20rpx;padding:20rpx;color:#333;">
+				<view style="border-bottom:1px solid #ddd;padding-bottom:10rpx;">产品类型</view>
+				<view style="display:flex;margin-top:10rpx;font-size: 26rpx;padding:15rpx;">
+					本地生活|店内产品
+				</view>
+			</view>
+			
+			
+			<view style="background:white;margin-top:20rpx;padding:20rpx;color:#333;">
+				<view style="border-bottom:1px solid #ddd;padding-bottom:10rpx;">状态</view>
+				<view style="display:flex;margin-top:10rpx;font-size: 26rpx;padding:15rpx;">
+					剩余1次，永久有效
+				</view>
+			</view>
+			<view style="height:130rpx;line-height:130rpx;font-size:40rpx;color:white;text-align:center;width:100%;background:#ff7104;position:absolute;left:0rpx;bottom:0rpx;">确认核销</view>
+			
 		</view>
 	</view>
 </template>
@@ -31,9 +70,10 @@
 			return {
 				img_url: this.$api.img_url,
 				id:'',
-				title:'核销进度',
+				title:'产品核销',
 				msg:'',
-				result: 0
+				result: 0,
+				status: 'fail' //invalid|success|fail|normal
 			}
 		},
 		onLoad(options) {
@@ -42,6 +82,7 @@
 			
 			let that=this
 			
+			/*
 			// #ifdef H5
 			that.id=options.id
 			// #endif
@@ -61,14 +102,9 @@
 					that.result = 1;
 				}else{
 					that.result = 2;
-					that.msg=res.msg					
-					// setTimeout(function(){
-					// 	uni.navigateBack({
-					// 		delta:1
-					// 	})
-					// },2000)
+					that.msg=res.msg
 				}
-			})		
+			})*/
 		},
 		methods: {
 			gointo(){
@@ -86,6 +122,7 @@
 </script>
 
 <style scoped lang="less">
+	@import url("../../plugins/font-icon/iconfont1.css");
 	.more-shop{width: 100%;height: 100%;}
 	.success_message_goods {
 		width: 100%;

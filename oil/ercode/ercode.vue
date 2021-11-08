@@ -10,9 +10,9 @@
 			<!-- #ifdef MP-WEIXIN -->
 			<view class="btn" @tap="copy(detail.couponCode)">复制兑换码</view>
 			 <!--#endif -->
-			 <!-- #ifdef H5 -->
+			<!-- #ifdef H5 -->
 			<view class="codeImg">
-				<image :src="detail.mpwx_pic" mode="" style="width: 100%;height: 100%;display: blo;"></image>
+				<image :src="detail.mpwx_pic" mode="" style="width: 100%;height: 100%;"></image>
 			</view>
 			 <!--#endif -->
 			 <!-- #ifdef MP-WEIXIN -->
@@ -20,6 +20,9 @@
 			 	<image :src="detail.mpwx_pic" mode="" style="width: 100%;height: 100%;display: blo;" @click="goTowp"></image>
 			 </view>
 			  <!--#endif -->
+		</view>
+		<view style="padding-top:60rpx;background:white;width:100%;position:absolute;bottom:0rpx;height:280rpx;text-align:center;">
+			<text @click="openLa" style="border-radius:8rpx;width: 100rpx;color:#ff7104;border:1px solid #ff7104;padding:15rpx 50rpx;">打开加油小程序</text>
 		</view>
 	</view>
 </template>
@@ -75,21 +78,47 @@
 					uni.showToast({ title:'复制失败' })
 				}
 			},
-			goTowp(){ //跳到小程序
+			openLa(){
+				// #ifdef H5
+				this.$http.toast('请使用小程序打开本页面')
+				// #endif
+				//#ifdef MP-WEIXIN
+				 wx.navigateToMiniProgram({
+					appId: "wx32fe2eb8b2fa221f",
+					path: "/",
+					envVersion: 'release',// 打开正式版
+					success(res) {
+						   // 打开成功
+					},
+					fail: function (err) {
+						console.log(err);
+					}
+				})
+				//#endif
+			},
+			goTowp(){ //跳到兑换小程序
+				// #ifdef H5
+				this.$http.toast('请使用小程序打开本页面')
+				// #endif
+				
+				//#ifdef MP-WEIXIN
 				let appId=this.detail.mpwx_app_id
 				let path=this.detail.mpwx_path
-				//#ifdef MP-WEIXIN
-					 wx.navigateToMiniProgram({
-						appId: appId,
-						path: path,
-						envVersion: 'release',// 打开正式版
-						success(res) {
-							   // 打开成功
-						},
-						fail: function (err) {
-							console.log(err);
-					    }
-					})
+				 wx.navigateToMiniProgram({
+					appId: appId,
+					path: path,
+					extraData: {
+						mobile: this.detail.mobile,
+						couponCode: this.detail.couponCode
+					},
+					envVersion: 'release',// 打开正式版
+					success(res) {
+						   // 打开成功
+					},
+					fail: function (err) {
+						console.log(err);
+					}
+				})
 				//#endif
 			}
 		}
