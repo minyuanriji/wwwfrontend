@@ -409,6 +409,7 @@
 					if (res.code == 0) {
 						this.creditStatusList=res.data
 						this.moneyList=res.money_list
+						this.form.mobile=res.mobile.mobile
 						if(this.moneyList.enable_fast==1){
 							this.typeIndex=0
 							if(this.moneyList.enable_slow==1){
