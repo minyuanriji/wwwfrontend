@@ -13,9 +13,9 @@
 				@click='foucusInfo'
 				>关注</button> 
 			</view>
-		</view><strong></strong>
+		</view><strong></strong> 
 		<!--#endif -->	
-		<!-- #ifdef H5 -->
+		<!-- #ifdef H5 --> 
 		<view class="status_bar"></view> 
 		 <!--#endif -->
 		<!-- #ifdef H5 -->

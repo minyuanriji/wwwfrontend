@@ -1,7 +1,7 @@
 <template>
 	<view class="oilHome-container">
 		<view class="header">
-			<view class="location">
+			<view class="location" @tap="chooseAddress">
 				<image :src="plugins_img_url+'/oil_loc.png'" mode="" style="display: block;width: 30rpx;height: 30rpx;float: left;margin-top: 8rpx;margin-right: 5rpx;"></image>
 				<text>{{addressName}}</text>
 			</view>
@@ -107,6 +107,16 @@
 			this.getmyLOcation()
 		},
 		methods:{
+			chooseAddress(){ 
+				var that = this
+				uni.chooseLocation({
+					success: function(res) {
+						that.addressName = res.name
+						that.form.lat = res.latitude
+						that.form.lng = res.longitude
+					}
+				})
+			},
 			selectNum(item){ //点击面额
 			    this.price=item.price
 				if(isEmpty(this.form.mobile)){

@@ -27,7 +27,7 @@
 				<view>已结束</view>
 			</view>
 			<view class="time-money-right" v-if="group_info.status == 'sharing'">
-				<view style="margin-top: 10rpx;">距离活动结束</view>
+				<view style="margin-top: 10rpx;">距离拼团结束</view>
 				<view>{{expired_at}}</view>
 			</view>
 		</view>
@@ -481,26 +481,6 @@
 						// #endif
 						
 						this.detail=res.data.detail
-						this.expired_at=res.data.detail.expired_at
-						var timestamp =parseInt( new Date().getTime()/1000)
-						let time=this.expired_at-timestamp
-						let days=''
-						let hours=''
-						let minutes=''
-						let seconds=''
-						let timers=setInterval(()=>{
-							time--
-							if(time<=0){
-								this.expired_at='00'+'天'+'00'+"时"+'00'+'分'+'00'+'秒'
-								clearInterval(timers)
-								return 
-							}
-							days = parseInt(time / 60 / 60 / 24 , 10); //计算剩余的天数
-							hours = parseInt(time / 60 / 60 % 24 , 10)<10?"0"+parseInt(time / 60 / 60 % 24 , 10):parseInt(time  / 60 / 60 % 24 , 10); //计算剩余的小时 
-							minutes = parseInt(time / 60 % 60, 10)<10?"0"+parseInt(time / 60 % 60, 10):parseInt(time / 60 % 60, 10);//计算剩余的分钟 
-							seconds = parseInt(time % 60, 10)<10?"0"+parseInt(time  % 60, 10):parseInt(time  % 60, 10);//计算剩余的秒数 								
-							this.expired_at=days+'天'+hours+"时"+minutes+'分'+seconds+"秒"
-						},1000)
 					} else {
 						this.$http.toast(res.msg);
 					}
@@ -760,7 +740,28 @@
 					if (res.code == 0) {
 						this.is_joiner=res.data.is_joiner == 1 ? true : false;
 						this.join_list=res.data.join_list
-						this.group_info=res.data.group_info;
+						this.group_info=res.data.group_info;						
+						this.expired_at=this.group_info.expired_at
+						var timestamp =parseInt( new Date().getTime()/1000)
+						let time=this.expired_at-timestamp
+						let days=''
+						let hours=''
+						let minutes=''
+						let seconds=''
+						let timers=setInterval(()=>{
+							time--
+							if(time<=0){
+								this.expired_at='00'+'天'+'00'+"时"+'00'+'分'+'00'+'秒'
+								clearInterval(timers)
+								return 
+							}
+							days = parseInt(time / 60 / 60 / 24 , 10); //计算剩余的天数
+							hours = parseInt(time / 60 / 60 % 24 , 10)<10?"0"+parseInt(time / 60 / 60 % 24 , 10):parseInt(time  / 60 / 60 % 24 , 10); //计算剩余的小时 
+							minutes = parseInt(time / 60 % 60, 10)<10?"0"+parseInt(time / 60 % 60, 10):parseInt(time / 60 % 60, 10);//计算剩余的分钟 
+							seconds = parseInt(time % 60, 10)<10?"0"+parseInt(time  % 60, 10):parseInt(time  % 60, 10);//计算剩余的秒数 								
+							this.expired_at=days+'天'+hours+"时"+minutes+'分'+seconds+"秒"
+						},1000)
+						
 					} else {
 						this.$http.toast(res.msg);
 					}

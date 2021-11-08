@@ -118,10 +118,20 @@
 			this.is_town = this.mall_config.mall_setting.setting.is_town;
 
 			this.id = options.id;
+			this.type=options.type
 			this.form = options.form;
 			this.getCity();
 			if (this.id != 0) {
 				this.detailAddress();
+			}
+			if(options.type==0){
+				uni.setNavigationBarTitle({
+					title:'编辑地址'
+				})
+			}else{
+				uni.setNavigationBarTitle({
+					title:'新增地址'
+				})
 			}
 		},
 		methods: {
@@ -251,7 +261,11 @@
 					}
 				}).then((res) => {
 					if (res.code == 0) {
-						this.$http.toast('添加成功');
+						if(this.type==0){
+							this.$http.toast('保存成功');
+						}else{
+							this.$http.toast('添加成功');
+						}
 						setTimeout(() => {
 							if(this.form == 'submit'){
 								uni.redirectTo({
