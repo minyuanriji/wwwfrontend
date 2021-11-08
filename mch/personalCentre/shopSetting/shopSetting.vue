@@ -135,11 +135,13 @@
 		},
 		onLoad() {
 			this.getCity()
-			this.getBaseInfo()
 			let that=this
 			setTimeout(() => {
 				this.getCat()
 			}, 500)
+		},
+		onShow() {
+			this.getBaseInfo()
 		},
 		methods: {
 			toArr(object) {
