@@ -86,7 +86,16 @@
 					<input type="text" v-model="item.mobile"  placeholder="请填写联系手机" />
 				</view>	
 			</view>
-		</view>		
+		</view>	
+		<view class="check_in_message" style="margin-bottom: 20rpx;">
+			<view class="check_in_message_form">
+				<view>
+					<text>发票说明：</text>
+					<text style="width:450rpx ;color: #EF4A1A;">如需发票请向酒店前台索取（酒店可提供普票，无法提供专票）</text>
+				</view>
+			</view>
+		
+		</view>	
 		<view class="check_in_message" style="margin-bottom: 200rpx;">
 			<view class="check_in_message_title">
 				<text style="color: #FF5D0D;font-weight: bold;margin-right: 10rpx;">|</text>
