@@ -455,7 +455,7 @@
 <script>
 	import unipopup from '@/components/uni-popup/uni-popup';
 	import jxTag from "@/components/tag/tag"
-	import jxListCell from '@/components/list-cell/list-cell';
+	import jxListCell from '@/components/list-cell/list-cell'; 
 	import jyfParser from "@/components/jyf-parser/jyf-parser";
 	// #ifdef H5
 	var jweixin = require('jweixin-module');
