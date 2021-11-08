@@ -133,7 +133,7 @@
 					</view>
 					<image :src="roomdetail.product_thumb" mode="aspectFill"  v-if="!swiperShow"  style="display: block;width: 100%;height: 100%;"></image>
 				</view>
-				<!-- <view class="popup-pruc-list">
+				<view class="popup-pruc-list">
 					<view>
 						<text>楼层</text>
 						<text>1,2层</text>
@@ -162,7 +162,7 @@
 						<text>网络</text>
 						<text>WIFI</text>
 					</view>
-				</view> -->
+				</view>
 				<view class="popup-facilities">
 					<view class="popup-facilities-title" style="width: 100%;margin-bottom: 15rpx;color: #000;font-size: 36rpx;">
 						设施信息
