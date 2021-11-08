@@ -59,7 +59,7 @@
 			</view>
 			
 			<!-- 定时器滚动拼单记录 -->
-			<view style="padding-top:10rpx;height:290rpx;overflow: auto;">
+			<view style="padding-top:10rpx;height:290rpx;overflow: hidden;">
 				<view :animation="animationData" class="spellgroup-list" v-if="join_groups.length > 0">
 					
 					<view class="spellgroup-item" v-for="(item, index) in join_groups" :key='index'>
@@ -78,8 +78,7 @@
 					</view>
 					
 				</view>
-			</view>
-			
+			</view>			
 			<view class="select-check">
 				<text v-for="(item,index) in table" :key='index' :class="selectIndex==index?'active':'actove'" @click="select(index)">
 					{{item}}
@@ -574,18 +573,18 @@
 			}, 50)
 			
 			var animation = uni.createAnimation({
-			  duration: 1000,
+				duration: 1000,
 				timingFunction: 'ease',
 			})
 			this.animation = animation
 			let that = this;
 			
 			let i = 0, x = 1;
-			setInterval(function() {
+			let timeflah= setInterval(()=> {
 				i = i + 146 * 2;
 				let H = that.join_groups.length * 146;
 				if(i >= H){
-					return;
+					i=0,x=1;
 				}
 				animation.translateY("-" + i + "rpx").step();
 				that.animationData = animation.export();
