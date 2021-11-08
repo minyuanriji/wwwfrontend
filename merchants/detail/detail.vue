@@ -1,9 +1,32 @@
 <template>
 	<view class="shop_detail_container">
+		
 		<view class="shop_detail_header">
+			<view  style="display:flex">
+				<image :src="detail.logo" mode="scaleToFill" style="width: 150rpx;height: 150rpx;"></image>
+				<view class="shop_detail_header_name" style="flex-grow:1;">
+					<view style="margin-left:20rpx;display:flex;flex-direction:column;justify-content:center">
+						{{detail.name}}
+						<view class="shop_table_score">
+							<view class="iconfont iconwujiaoxing" v-for="(i,index) in Number(detail.score)"
+								style="color: #FFA600;" :key='index'></view>
+							<view class="point" style="font-size: 28rpx;color: red;margin-left: 10rpx;">{{detail.score}}</view>
+						</view>
+					</view>
+				</view>
+				<view @click="jumpToPay" style="text-align:right;padding: 0 20rpx;display:flex; justify-content:flex-end;line-height:150rpx">
+					<image :src="img_url+'pay_mch.png'" mode="scaleToFill" style="margin-top:57rpx;width: 39rpx;height:39rpx;"></image>
+					<view style="margin-left:10rpx;color:rgb(255, 166, 0);font-size:30rpx;">付款</view>
+				</view>
+			</view>
+			
+		</view>
+		
+		<view class="shop_detail_header">
+			<!--
 			<view class="shop_detail_header_name">
 				<image :src="detail.logo" mode="scaleToFill" style="display: block;width: 150rpx;height: 150rpx;float: left;"></image>
-				<text style="display: block;overflow: hidden;float: left;padding-left: 20rpx;width: 500rpx; text-overflow: ellipsis;
+				<text style="display: block;overflow: hidden;padding-left: 20rpx;width: 500rpx; text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;">
@@ -15,25 +38,28 @@
 					style="color: #FFA600;" :key='index'></view>
 				<view class="point" style="font-size: 28rpx;color: red;margin-left: 10rpx;">{{detail.score}}</view>
 			</view>
-			<scroll-view class="s-c-list-x" scroll-x="true">
+			-->
+			
+			
+			<scroll-view class="s-c-list-x" scroll-x="true" v-if="detail.pic_urls.length > 0" >
 				<image :src="item" mode="aspectFit" class="s-c-l-item" v-for="(item,index) in detail.pic_urls" :key='item' style="border-radius: 30rpx;" @click="pricewImg(index)"></image>
 			</scroll-view>
-			<view class="shop_details-hours-detail">
+			<view class="shop_details-hours-detail" >
 				<view class="shop_details-hours">
 					营业时间：{{detail.business_hours}}
 				</view>
-				<view class="shop_details-detail" @click="link(detail.business_hours,detail.address,detail.latitude,detail.longitude)">
+				<view class="shop_details-detail"  @click="link(detail.business_hours,detail.address,detail.latitude,detail.longitude)">
 					<text style="margin-right: 5rpx;">商户详情</text>		
 					<image :src="img_url+'arrow-right-seracher.png'" mode=""></image>
 				</view>
 			</view>
-			<view class="shop_details-address">
+			<view class="shop_details-address" >
 				<view style="width: 65%;font-size: 30rpx;color: #000; overflow: hidden;padding-top: 10rpx;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;"> 
-					{{detail.address}}
+					地址：{{detail.address}}
 				</view>
 				<view style="width: 15%;text-align: center;font-size: 30rpx;color: #000;" @click="callphone(detail.phone)">
 					<image :src="img_url+'iphone-my-new.png'" mode="" style="width: 60rpx;height: 60rpx;display: block;margin: 0 auto;"></image>
@@ -127,6 +153,11 @@
 					this.page=1;
 					this.getgoods(this.page,this.store_id)
 				}
+			},
+			jumpToPay(){ //跳到付款页
+				uni.navigateTo({
+					url:'../../mch/personalCentre/ercode/payPages/payPages?id=' + this.detail.mch_id
+				})
 			},
 			link(business_hours,address,latitude,longitude){ //跳转到商户详情页面
 				uni.navigateTo({
@@ -259,7 +290,7 @@
 	@import url("../../plugins/font-icon/iconfont1.css");
 	.shop_detail_container{width: 100%;overflow: hidden;}
 	.shop_detail_header{width: 95%;overflow: hidden;background: #fff;margin: 20rpx auto;border-radius: 20rpx;padding: 20rpx;box-sizing: border-box;}
-	.shop_detail_header_name{width: 100%;overflow: hidden;font-size: 35rpx;color: #000;font-weight: bold;}
+	.shop_detail_header_name{overflow: hidden;font-size: 35rpx;color: #000;font-weight: bold;}
 	.shop_table_score{width: 100%;overflow: hidden;flex: 1;display: flex;align-items: center;margin:15rpx 0;}
 	.s-c-list-x{white-space: nowrap;width: 100%;height: 230rpx;color:#fff;overflow: hidden;margin: 20rpx 0;}
 	.s-c-list-x .s-c-l-item{display: inline-block; width: 350rpx;height: 230rpx;margin-right: 20rpx;text-align: center; line-height: 230rpx;font-size: 100rpx;border-radius: 20rpx;}
