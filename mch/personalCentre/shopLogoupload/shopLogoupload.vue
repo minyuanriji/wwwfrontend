@@ -35,6 +35,7 @@
 			uploadImg(){
 				var that = this
 				uni.chooseImage({
+					sourceType:['album','camera'], 
 					success: function(res) {
 						var file = res.tempFilePaths
 						console.log(file)
