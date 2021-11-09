@@ -1,19 +1,7 @@
 <template>
 	<view class="more-shop">
 		<com-nav-bar left-icon="back" :title="title" @clickLeft="back"></com-nav-bar>
-		
-		
-		<!--
-		<view v-if="result == 1" class="success_message">
-		<view v-if="result == 2" class="faile_message" >
-			
-			<view class="faile_message_title">
-				<view style="font-size: 42rpx;font-weight: bold;margin-bottom:10rpx;">出错啦</view>
-				{{msg}}
-			</view>
-		</view>
-		-->
-		
+	
 		<view v-if="status == 'success'" style="text-align: center;color:green;margin-top:100rpx;">
 			<text class="iconfont icon-dagou3" style="font-size:190rpx;"></text>
 			<view style="font-size:60rpx;">核销成功</view>
@@ -34,12 +22,12 @@
 			<view style="background:white;margin-top:20rpx;padding:20rpx;color:#333;">
 				<view style="border-bottom:1px solid #ddd;padding-bottom:10rpx;">产品信息</view>
 				<view style="display:flex;margin-top:10rpx;padding:15rpx;">
-					<image style="width:200rpx;height:140rpx;" src="http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20211105/7fd259a7bcb71a96832c12d739883249.jpg" mode="aspectFill"></image>
+					<image style="width:200rpx;height:140rpx;display: block;" :src="detail.cover_pic" mode="aspectFill"></image>
 					<view style="padding-left:20rpx;display:flex;flex-direction:column;justify-content:space-around">
 						<view style="font-size: 26rpx;">
-							凭此卡到店享78元经络点穴推拿 并送500元会员卡（每次消费抵扣20元）
+							{{detail.name}}
 						</view>
-						<view style="color:red;">100.00元</view>
+						<view style="color:red;">{{detail.goods_price}}元</view>
 					</view>
 				</view>
 			</view>
@@ -50,15 +38,15 @@
 					本地生活|店内产品
 				</view>
 			</view>
-			
-			
+
+
 			<view style="background:white;margin-top:20rpx;padding:20rpx;color:#333;">
 				<view style="border-bottom:1px solid #ddd;padding-bottom:10rpx;">状态</view>
 				<view style="display:flex;margin-top:10rpx;font-size: 26rpx;padding:15rpx;">
-					剩余1次，永久有效
+					{{detail.infos}}
 				</view>
 			</view>
-			<view style="height:130rpx;line-height:130rpx;font-size:40rpx;color:white;text-align:center;width:100%;background:#ff7104;position:absolute;left:0rpx;bottom:0rpx;">确认核销</view>
+			<view style="height:130rpx;line-height:130rpx;font-size:40rpx;color:white;text-align:center;width:100%;background:#ff7104;position:absolute;left:0rpx;bottom:0rpx;" @click="doclerkCode">确认核销</view>
 			
 		</view>
 	</view>
@@ -73,38 +61,31 @@
 				title:'产品核销',
 				msg:'',
 				result: 0,
-				status: 'fail' //invalid|success|fail|normal
+				status: 'normal' ,//invalid|success|fail|normal  
+				detail:''
 			}
 		},
-		onLoad(options) {
+		onLoad(options) { 
 			
-			this.beforeOnLoad(options);
-			
+			this.beforeOnLoad(options);		
 			let that=this
-			
-			/*
-			// #ifdef H5
-			that.id=options.id
-			// #endif
-			
-			uni.showLoading({
-			    title: '核销中'
-			});
+			// that.id=options.id  
+			that.id= 85  
 			that.$http.request({
-				url: that.$api.default.verificationProgress,
+				url: that.$api.moreShop.getHcodedetail,
 				method: 'POST',
 				data: {
-					id:options.id,
-				}
+					id:that.id,
+					
+				},
 			}).then(res => {
-				uni.hideLoading();
 				if(res.code==0){
-					that.result = 1;
+					this.status=res.data.status
+					this.detail=res.data
 				}else{
-					that.result = 2;
-					that.msg=res.msg
+					this.$http.toast(res.msg);
 				}
-			})*/
+			})
 		},
 		methods: {
 			gointo(){
@@ -115,6 +96,22 @@
 			back(){
 				uni.navigateBack({
 					delta:1
+				})
+			},
+			doclerkCode(){ //核销
+				this.$http.request({
+					url: this.$api.default.verificationProgress,
+					method: 'POST',
+					data: {
+						id:this.id,
+					},
+					showLoading: true
+				}).then(res => {
+					if(res.code==0){
+						this.status=res.data.status
+					}else{
+						this.$http.toast(res.msg);
+					}
 				})
 			}
 		}
