@@ -368,7 +368,7 @@
 	.Spell-group-item-sharing{background: #007AFF;color: #fff;}
 	.Spell-group-item-closed{background: #aaa;color: #fff;}
 	
-	.spellgroup-list{width: 100%;overflow: hidden;background: #fff;padding: 0 20rpx;}
+	.spellgroup-list{width: 100%;overflow: hidden;background: #fff;padding: 0 20rpx;box-sizing: border-box;}
 	.spellgroup-item{width: 100%;overflow: hidden;border-bottom: 2rpx dashed #f2f2f2;height:130rpx;margin-top:15rpx;}
 	.spellgroup-item image{width: 60rpx;height: 60rpx;float: left;margin-top: 20rpx;margin-right: 20rpx;}
 	.spellgroup-item-name{float: left;height: 100rpx;line-height: 100rpx;font-size: 25rpx;width: 170rpx;

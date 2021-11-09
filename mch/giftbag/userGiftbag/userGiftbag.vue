@@ -3,12 +3,12 @@
 	<view class="userGiftbag-app">
 		
 		<view class="userGiftbag-product-detail">
-			<image src="http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20211105/7fd259a7bcb71a96832c12d739883249.jpg" mode="aspectFill"></image>
+			<image :src="seviceDetail.cover_pic" mode="aspectFill"></image>
 			<view style="padding-left:20rpx;display:flex;flex-direction:column;justify-content:space-around">
 				<view style="font-size: 26rpx;">
-					凭此卡到店享78元经络点穴推拿 并送500元会员卡（每次消费抵扣20元）
+					{{seviceDetail.name}}
 				</view>
-				<view style="color:red;">100.00元</view>
+				<view style="color:red;">{{seviceDetail.goods_price}}元</view>
 			</view>
 		</view>
 		
@@ -29,20 +29,17 @@
 		<view class="userGiftbag-store-detail">
 			<view style="border-bottom:1px solid #ddd;padding-bottom: 20rpx;">门店信息</view>
 			<view style="display:flex;margin-top:20rpx;">
-				<image src="http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20211107/9407ba9dc092a64bd0333199a7362e8a.png" mode=""></image>
+				<image :src="seviceDetail.cover_url" mode=""></image>
 				<view class="giftOrderDetail-detail-product">
-					<text>金小腿火锅烧烤配送</text>
+					<text>{{seviceDetail.store_name}}</text>
 					<view class="shop_table_score">
-						<view class="iconfont iconwujiaoxing" style="color: #FFA600;"></view>
-						<view class="iconfont iconwujiaoxing" style="color: #FFA600;"></view>
-						<view class="iconfont iconwujiaoxing" style="color: #FFA600;"></view>
-						<view class="iconfont iconwujiaoxing" style="color: #FFA600;"></view>
-						<view class="iconfont iconwujiaoxing" style="color: #FFA600;"></view>
-						<view class="point" style="font-size: 28rpx;color: red;margin-left: 10rpx;">5.0</view>
+						<view class="iconfont iconwujiaoxing" style="color: #FFA600;" v-for="item in  Number(seviceDetail.score)"></view>
+						<view class="point" style="font-size: 28rpx;color: red;margin-left: 10rpx;">{{seviceDetail.score}}</view>
 					</view>
-					<view style="font-size:30rpx;color:#1582AD">访问门店 > </view>
+					<view style="font-size:30rpx;color:#1582AD" @click="gotoShop(seviceDetail.store_id)">访问门店 > </view>
 				</view>
-				<image style="margin-top:70rpx;margin-right:60rpx;width:55rpx;height:50rpx;" :src="img_url+'/samecitycheck.png'" mode=""></image>
+				<image style="margin-top:70rpx;margin-right:60rpx;width:55rpx;height:50rpx;" :src="img_url+'/samecitycheck.png'" mode=""
+				@click="location(seviceDetail.latitude,seviceDetail.longitude,seviceDetail.address)"></image>
 				
 			</view>
 			
@@ -141,6 +138,11 @@
 				 });
 				 // #endif
 			},
+			gotoShop(store_id){
+				uni.navigateTo({
+					url:'../../../merchants/detail/detail?store_id='+store_id
+				})
+			},
 			showQrde(){//点击展示二维码
 			
 				
@@ -222,10 +224,10 @@
 .shop_table_score{width: 100%;overflow: hidden;flex: 1;display: flex;align-items: center;margin:15rpx 0;}
 
 .userGiftbag-product-detail{display:flex;margin:20rpx;padding:20rpx;background:white;}
-.userGiftbag-product-detail image{width: 240rpx;height: 150rpx;}
+.userGiftbag-product-detail image{width: 200rpx;height: 150rpx;}
 
 .userGiftbag-qrcode{}
-.userGiftbag-qrcode .info{display:inline-block;width:350rpx;padding:16rpx 0;font-size:10rpx;color:gray;margin-top:10rpx;border-radius:26rpx;}
+.userGiftbag-qrcode .info{display:inline-block;width:350rpx;padding:16rpx 0;font-size:28rpx;color:gray;margin-top:10rpx;border-radius:26rpx;}
 </style>	
 
 	
