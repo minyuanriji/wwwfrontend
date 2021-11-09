@@ -69,14 +69,12 @@
 			
 			this.beforeOnLoad(options);		
 			let that=this
-			// that.id=options.id  
-			that.id= 85  
+			that.id=options.id  
 			that.$http.request({
 				url: that.$api.moreShop.getHcodedetail,
 				method: 'POST',
 				data: {
-					id:that.id,
-					
+					id:options.id,					
 				},
 			}).then(res => {
 				if(res.code==0){
