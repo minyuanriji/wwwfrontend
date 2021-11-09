@@ -3,7 +3,7 @@
 	<view class="userGiftbag-app">
 		
 		<view class="userGiftbag-product-detail">
-			<image :src="seviceDetail.cover_pic" mode="aspectFill"></image>
+			<image :src="seviceDetail.cover_pic" mode="aspectFill" @click="pricewImg(seviceDetail.cover_pic)"></image>
 			<view style="padding-left:20rpx;display:flex;flex-direction:column;justify-content:space-around">
 				<view style="font-size: 26rpx;">
 					{{seviceDetail.name}}
@@ -142,6 +142,15 @@
 				uni.navigateTo({
 					url:'../../../merchants/detail/detail?store_id='+store_id
 				})
+			},
+			pricewImg(url){  //点击放大图片
+				let that=this
+				let photoList=[]
+				photoList[0]=url
+				uni.previewImage({
+				    current: 0,     // 当前显示图片的链接/索引值
+				    urls: photoList,    // 需要预览的图片链接列表，photoList要求必须是数组
+				});            
 			},
 			showQrde(){//点击展示二维码
 			
