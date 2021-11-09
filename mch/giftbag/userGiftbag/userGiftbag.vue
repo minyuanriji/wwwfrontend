@@ -33,7 +33,7 @@
 				<view class="giftOrderDetail-detail-product">
 					<text>{{seviceDetail.store_name}}</text>
 					<view class="shop_table_score">
-						<view class="iconfont iconwujiaoxing" style="color: #FFA600;" v-for="item in  Number(seviceDetail.score)"></view>
+						<view class="iconfont iconwujiaoxing" style="color: #FFA600;" v-for="item in  Number(seviceDetail.score)" :key='item'></view>
 						<view class="point" style="font-size: 28rpx;color: red;margin-left: 10rpx;">{{seviceDetail.score}}</view>
 					</view>
 					<view style="font-size:30rpx;color:#1582AD" @click="gotoShop(seviceDetail.store_id)">访问门店 > </view>
@@ -110,14 +110,12 @@
 		onLoad(options) {
 			let that=this
 			if(options&&options.order_id&&options.pack_item_id){
-				
-				//that.timer=setInterval(() => {
-				//	that.getDetail(options.order_id,options.pack_item_id)
-				//},500);
 				that.order_id=options.order_id
 				that.pack_item_id=options.pack_item_id
+				that.timer=setInterval(() => {
+					that.getDetail(options.order_id,options.pack_item_id);
+				},500);
 				
-				that.getDetail(options.order_id,options.pack_item_id);
 			}
 		},
 		methods:{
@@ -174,7 +172,6 @@
 							pack_item_id:that.pack_item_id,//大礼包物品ID
 							route_with_param:route,//带参数的前端路由
 						},
-						showLoading: true
 					})
 					.then(res => {
 						if(res.code==0){

@@ -132,7 +132,6 @@
 					})
 					.then(res => {
 						if(res.code==0){
-							console.log(res)
 							if(res.data.list.length==0)return false
 							let list= res.data.list;
 							var arr=that.severList.concat(list)
