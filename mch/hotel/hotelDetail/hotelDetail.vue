@@ -89,7 +89,7 @@
 					<text>联系手机</text>
 					<input type="text" value=""  v-model.trim="item.mobile"  style="width: 300rpx;font-size: 28rpx;color: #000;height: 70rpx;display: inline-block;background: #fafafa;"/>
 				</view>
-				<view class="tui-address-imgbox" style="position: absolute;top: 60rpx;right: 0rpx;width: 80rpx;" @click="savePeople(item,index)"  >
+				<view class="tui-address-imgbox" style="position: absolute;top: 60rpx;right: 0rpx;width: 80rpx;" @click="savePeople(item,index)" >
 					<image src="../../img/save.png" mode="" style="display: block;width: 50rpx;height: 50rpx;"></image>
 				</view>
 			</view>
@@ -319,7 +319,7 @@
 						method: 'POST',
 						data:{
 							hotel_order_id:this.hotel_order_id,
-							booking_passengers:this.roomePeopl,
+							booking_passengers:this.roomePeople,
 						},
 					})
 					.then(res => {

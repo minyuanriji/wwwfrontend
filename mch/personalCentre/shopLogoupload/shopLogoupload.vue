@@ -37,6 +37,7 @@
 				uni.chooseImage({
 					success: function(res) {
 						var file = res.tempFilePaths
+						console.log(file)
 						for (let i = 0; i < file.length; i++) {
 						    var requestData = {
 						    	serverUrl: that.$api.default.upload+'&width=6000&height=6000&type=1',
