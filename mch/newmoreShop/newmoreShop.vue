@@ -69,7 +69,7 @@
 			
 			this.beforeOnLoad(options);		
 			let that=this
-			that.id=options.id  
+			that.id= options.id
 			that.$http.request({
 				url: that.$api.moreShop.getHcodedetail,
 				method: 'POST',
@@ -106,7 +106,7 @@
 					showLoading: true
 				}).then(res => {
 					if(res.code==0){
-						this.status=res.data.status
+						this.status=res.data
 					}else{
 						this.$http.toast(res.msg);
 					}
