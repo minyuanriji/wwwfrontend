@@ -53,7 +53,11 @@
 					// #endif
 					// #ifdef H5
 					,
-				default: 44
+				default: 105
+				// #endif
+				// #ifdef MP
+					,
+				default: 60
 				// #endif
 			},
 			//是否去掉底部线条

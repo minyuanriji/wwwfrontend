@@ -1,5 +1,34 @@
 <template>
 	<view class="container">
+		<view class="tui-searchbox">
+			<view class="tui-search-input">
+				<!-- #ifdef APP-PLUS || MP -->
+				<icon type="search" :size='13' color='#333'></icon>
+				<!-- #endif -->
+				<!-- #ifdef H5 -->
+				<view>
+					<com-icons type="search" :size='16' color='#333333'></com-icons>
+				</view>
+				<!-- #endif -->
+				<input confirm-type="search" placeholder="请输入商品名" :focus="true" auto-focus placeholder-class="tui-input-plholder"
+				 class="tui-input" v-model.trim="key" @confirm='search'/>
+				<!-- #ifdef APP-PLUS || MP -->
+				<icon type="clear" :size='13' color='#bcbcbc' @tap="cleanKey" v-show="key"></icon>
+				<!-- #endif -->
+				<!-- #ifdef H5 -->
+				<view @tap="cleanKey" v-show="key"><tui-icon name="close-fill" :size='16' color='#bcbcbc'></tui-icon></view>
+				<!-- #endif -->
+			</view>
+			<view class="tui-cancle" @tap="search">搜索</view>
+		</view>
+		
+		
+		
+		
+		
+		
+		
+		
 		
 
 		<com-tabs :tabs="tabs" :isFixed="scrollTop>=0" :currentTab="showTab[status]" selectedColor="#FF7104" sliderBgColor="#FF7104"
@@ -187,7 +216,7 @@
 				this.key = ''
 			},
 			search(){
-				
+				this.getDateList('refresh', this.status)
 			},
 			toShop(id){
 				if(id){
@@ -321,7 +350,8 @@
 					data: {
 						status,
 						page: current_page,
-						limit: pageSize
+						limit: pageSize,
+						keywords:this.key
 					}
 				}).then(res => {
 					this.loading = false;
@@ -415,7 +445,7 @@
 	}
 
 	.tui-order-list {
-		margin-top: 80rpx;
+		margin-top: 200rpx;
 	}
 
 	.tui-order-item {
@@ -547,7 +577,7 @@
 
 	// 缺省页
 	.order-nothing {
-		margin-top: 200rpx;
+		margin-top: 300rpx;
 		height: 100%;
 		display: flex;
 		flex-direction: column;
@@ -579,11 +609,17 @@
 	.tui-searchbox {
 		width: 100%;
 		padding: 30rpx;
+		background: #fff;
 		box-sizing: border-box;
 		display: flex;
 		align-items: center;
 		position: fixed;
+		/* #ifdef H5 */
 		top: 88rpx;
+		/* #endif */
+		/* #ifdef  MP  */
+		top: 0rpx;
+		/* #endif */
 		left: 0;
 		z-index: 9999;
 	}
