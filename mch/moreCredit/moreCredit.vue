@@ -5,7 +5,7 @@
 				<input type="number" v-model.trim ="form.mobile" placeholder="请输入电话号码"/>
 				<image :src="img_url+'delete_error.png'" mode="" style="width: 30rpx;height: 30rpx;
 				display: block;position: absolute;right: 30rpx;top: 25rpx;" @click.stop="deleteint"
-				 v-if="form.mobile.length>0"></image>
+				 v-if="mobileShow"></image>
 			</view>
 		</view>
 		<view class="moreCreadit_detail">
@@ -200,6 +200,7 @@
 				moneyList:'',//快充和慢充的详情
 				payData:'',//支付信息
 				show:true,//显示影藏
+				mobileShow:false,
 			};
 		},
 		onShow() { 
@@ -410,6 +411,11 @@
 						this.creditStatusList=res.data
 						this.moneyList=res.money_list
 						this.form.mobile=res.mobile.mobile
+						if (isEmpty(this.form.mobile)){
+							this.mobileShow=false
+						}else{
+							this.mobileShow=true
+						}
 						if(this.moneyList.enable_fast==1){
 							this.typeIndex=0
 							if(this.moneyList.enable_slow==1){
