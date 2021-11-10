@@ -116,7 +116,7 @@
 				show:false
 			}
 		},
-		onLoad() {
+		onShow() {
 			this.getseckilllist()
 		},
 		methods:{
