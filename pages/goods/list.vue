@@ -359,7 +359,7 @@
 	}
 </script>
 
-<style>
+<style lang="less">
 	page {
 		background: #f7f7f7;
 	}
@@ -565,7 +565,17 @@
 	}
 	.actove{color: rgb(255, 113, 4)}
 	.sort{width: 100%;height: 100rpx;display: flex;justify-content: space-evenly;line-height: 100rpx;}
-	.goods_sort{width: 100%;height: 300rpx;z-index: 999;background: #fff;margin-top: 180rpx;}
+	.goods_sort{width: 100%;z-index: 999;background: #fff;
+	/* #ifdef H5 */
+	height: 300rpx;
+	margin-top: 180rpx;
+	/* #endif */
+	/* #ifdef  MP  */
+	height: 310rpx;
+	margin-top: 220rpx;
+	/* #endif */
+	
+	}
 	.sortClass{color: #FF7104;font-weight: bold;background: url('https://dev.mingyuanriji.cn/web/static/yellow-right.png')no-repeat;background-size: 5%;
 	background-position: 90% 50% ;}
 </style>
