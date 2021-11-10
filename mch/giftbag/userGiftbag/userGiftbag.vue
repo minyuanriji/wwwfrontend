@@ -4,9 +4,9 @@
 		
 		<view class="userGiftbag-product-detail">
 			<image :src="seviceDetail.cover_pic" mode="aspectFill" @click="pricewImg(seviceDetail.cover_pic)"></image>
-			<view style="padding-left:20rpx;display:flex;flex-direction:column;justify-content:space-around">
+			<view style="padding-left:20rpx;display:flex;flex-direction:column;justify-content:space-around;width:420rpx ;" @click="linkgoods(seviceDetail.goods_id)">
 				<view style="font-size: 26rpx;">
-					{{seviceDetail.name}}
+					{{seviceDetail.name}} 介么入口分狗肉呢就kg你让他赶快来你给客人调了你让她
 				</view>
 				<view style="color:red;">{{seviceDetail.goods_price}}元</view>
 			</view>
@@ -114,7 +114,7 @@
 				that.pack_item_id=options.pack_item_id
 				that.timer=setInterval(() => {
 					that.getDetail(options.order_id,options.pack_item_id);
-				},500);
+				},1500);
 				
 			}
 		},
@@ -135,6 +135,11 @@
 					}
 				 });
 				 // #endif
+			},
+			linkgoods(id){ //去到商品详情
+				uni.navigateTo({
+					url:'../../../pages/goods/detail?proId='+id
+				})
 			},
 			gotoShop(store_id){
 				uni.navigateTo({
