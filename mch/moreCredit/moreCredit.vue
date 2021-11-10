@@ -422,7 +422,7 @@
 					if (res.code == 0) {
 						this.creditStatusList=res.data
 						this.moneyList=res.money_list
-						this.form.mobile=res.mobile.mobile
+						this.form.mobile=res.mobile
 						if (isEmpty(this.form.mobile)){
 							this.mobileShow=false
 						}else{
