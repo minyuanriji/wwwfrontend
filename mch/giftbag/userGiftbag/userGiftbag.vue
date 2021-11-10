@@ -112,10 +112,10 @@
 			if(options&&options.order_id&&options.pack_item_id){
 				that.order_id=options.order_id
 				that.pack_item_id=options.pack_item_id
-				that.timer=setInterval(() => {
-					that.getDetail(options.order_id,options.pack_item_id);
-				},1500);
-				
+				// that.timer=setInterval(() => {
+				// 	that.getDetail(options.order_id,options.pack_item_id);
+				// },1500);
+				that.getDetail(options.order_id,options.pack_item_id);
 			}
 		},
 		methods:{

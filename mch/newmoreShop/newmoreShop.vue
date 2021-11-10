@@ -34,8 +34,21 @@
 			
 			<view style="background:white;margin-top:20rpx;padding:20rpx;color:#333;">
 				<view style="border-bottom:1px solid #ddd;padding-bottom:10rpx;">产品类型</view>
-				<view style="display:flex;margin-top:10rpx;font-size: 26rpx;padding:15rpx;">
-					本地生活|店内产品
+				<view style="display:flex;margin-top:10rpx;font-size: 26rpx;padding:15rpx;" v-if="detail.type==0"></view>
+				<view style="display:flex;margin-top:10rpx;font-size: 26rpx;padding:15rpx;" v-if="detail.type==1">
+					本地生活
+				</view>
+				<view style="display:flex;margin-top:10rpx;font-size: 26rpx;padding:15rpx;" v-if="detail.type==2">
+					平台订单
+				</view>
+				<view style="display:flex;margin-top:10rpx;font-size: 26rpx;padding:15rpx;" v-if="detail.type==3">
+					爆品订单
+				</view>
+				<view style="display:flex;margin-top:10rpx;font-size: 26rpx;padding:15rpx;" v-if="detail.type==4">
+					商户普通订单
+				</view>
+				<view style="display:flex;margin-top:10rpx;font-size: 26rpx;padding:15rpx;" v-if="detail.type==5">
+					商户爆品订单
 				</view>
 			</view>
 
@@ -61,7 +74,7 @@
 				title:'产品核销',
 				msg:'',
 				result: 0,
-				status: 'normal' ,//invalid|success|fail|normal  
+				status: '' ,//invalid|success|fail|normal  
 				detail:''
 			}
 		},
