@@ -180,6 +180,7 @@
 					page:1,
 					limit:5,
 					status:'', 
+					keywords:''
 				},
 			}
 		},
@@ -215,9 +216,13 @@
 		methods: {
 			cleanKey: function() { //清空搜索
 				this.key = ''
+				this.form.keywords = ''
 			},
 			search(){
-				
+				this.form.keywords=this.key
+				this.form.page=1
+				this.orderList=[];
+				this.getOrderList()
 			},
 			selectINdexCheck(index){ //点击切换
 				this.selectINdex=index
