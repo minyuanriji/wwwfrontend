@@ -86,6 +86,9 @@
 		},
 
 		onShow: function(options) {
+			
+			this.beforeOnLoad(options);
+			
 			// #ifdef MP-WEIXIN
 			if (uni.getUpdateManager) {
 				const updateManager = uni.getUpdateManager();
@@ -111,44 +114,17 @@
 				});
 			}
 			// #endif
-			
+
 			// #ifdef H5
-			let location=window.location.href
-			let currentOne=''
-			let currentTwo=''
-			let currentLink=''
-			if(location.indexOf('pid=')!=-1){
-				 currentOne=location.split('&pid=')[0]				 				 
-				 currentLink=location.split('&pid=')[1].split("&")				 
-				 let arr=[]
-				 for(let i= 0;i<currentLink.length;i++){
-				 	if(i>0){
-				 		arr.push(currentLink[i])
-				 	}
-				 }
-				 if(arr.length>0){
-					  currentTwo= arr.join("&")
-					  let page=currentOne+"&"+currentTwo
-					  uni.setStorageSync('page',page)
-				 }else{
-					   uni.setStorageSync('page',currentOne)
-				 }
-			}
 			if(options.query.pid){
-				uni.setStorageSync('pid',options.query.pid)	
 				setTimeout(function(){
 					uni.navigateTo({
-						url:'/pages/user/bindUser/bindUser?pid='+options.query.pid
-					})
-				},500)						 				
-			}	
+						url:'/pages/user/bindUser/bindUser?pid=' + options.query.pid
+					});
+				}, 500);
+			}
 			// #endif
 	
-	
-	
-	
-	
-			
 		},
 		onHide: function() {
 		

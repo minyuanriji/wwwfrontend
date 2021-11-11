@@ -1,6 +1,6 @@
 <template>
 	<view @touchmove.stop.prevent>
-		<view class="jx-popup-class jx-bottom-popup" :class="[show?'jx-popup-show':'']" :style="{'z-index':z_index,background:bgcolor,'border-radius':borderRadius,height:height?height+'rpx':'auto'}">
+		<view class="jx-popup-class jx-bottom-popup" :class="[show ? 'jx-popup-show' : '']" :style="{'z-index':z_index,background:bgcolor,'border-radius':borderRadius,height:height?height+'rpx':'auto'}">
 			<slot></slot>
 		</view>
 		<view class="jx-popup-mask" :style="{'z-index':z_index2}" :class="[show?'jx-mask-show':'']" v-if="mask" @tap="handleClose"></view>
