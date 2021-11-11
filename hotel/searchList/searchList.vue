@@ -532,7 +532,7 @@
 	/* #ifdef H5 */
 	.searchList-app-top{width: 100%;overflow: hidden;position: fixed;left: 0;top: 78rpx;z-index: 9999;background: #fff;}
 	/* #endif */
-	/* #ifdef  MP  */
+	/* #ifdef  MP ||APP-PLUS */
 		.searchList-app-top{width: 100%;overflow: hidden;position: fixed;left: 0;top: 0rpx;z-index: 9999;background: #fff;}
 	/* #endif */
 	.searchList-app-header{width: 95%;height: 100rpx;background: rgb(242,245,249);margin: 15rpx auto 0;border-radius: 55rpx;display: flex;justify-content: space-evenly;}
