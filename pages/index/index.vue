@@ -18,12 +18,12 @@
 		<!-- #ifdef H5 --> 
 		<view class="status_bar"></view> 
 		 <!--#endif -->
-		<!-- #ifdef H5 -->
+		<!-- #ifdef H5 || APP-PLUS -->
 		<view class="customer_service" @click="linkService">
 			<image :src="img_url+'/service_logo.png'" mode=""></image>
 		</view>
 		<!--#endif -->
-		<!-- #ifdef MP-WEIXIN -->  
+		<!-- #ifdef MP-WEIXIN -->
 		<view class="customer_service">
 			<button open-type="contact" :session-from='webapp' class="buttonWeapp" @tap="goService">
 				
@@ -174,7 +174,7 @@
 	import vouchers from '@/components/vouchers.vue';
 	
 	import backTop from '@/components/back-top/back-top.vue';
-	//#ifdef H5
+	//#ifdef H5 
 		var jweixin = require('jweixin-module');
 	//#endif
 	import {
@@ -421,7 +421,7 @@
 					}
 				)
 			}
-			//#ifdef H5
+			//#ifdef H5 || APP-PLUS
 				this.$wechatSdk.initJssdk(function(signData){
 					
 				});
@@ -516,7 +516,12 @@
 				// #endif
 			},
 			linkService() {
+				//#ifdef H5
 				location.href = this.serviceLink
+				//#endif
+				// #ifdef APP-PLUS
+				plus.runtime.openURL(this.serviceLink);//成功跳转了
+				//#endif
 			},
 			// 判断微信版本是否 兼容小程序更新机制API的使用
 			checkUpdateVersion() {
@@ -742,9 +747,13 @@
 		position: fixed;
 		z-index: 999;
 		right: 40rpx;
-		/* #ifdef H5 */
+		/* #ifdef H5*/
 			bottom: 180rpx;
 		/* #endif */
+		/* #ifdef APP-PLUS*/
+			bottom: 260rpx;
+		/* #endif */
+		
 		/* #ifdef  MP  */
 			bottom: 260rpx;
 		/* #endif */
