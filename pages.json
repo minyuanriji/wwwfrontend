@@ -9,7 +9,6 @@
 				"navigationBarTitleText": "首页",
 				"enablePullDownRefresh": false,
 				"onReachBottomDistance": 50
-				// "navigationStyle": "custom",
 			}
 		}, {
 			"path": "pages/cat/cat",

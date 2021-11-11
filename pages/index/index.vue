@@ -1,7 +1,7 @@
 <template>
 	<view class="root">
 		<!-- #ifdef H5 -->
-		<view class="foucs_H5" style="width: 100%;height: 96rpx;background:#3e4144;position: fixed;top: 0rpx;left: 0;z-index: 999;" v-if="showFoucs">
+		<!-- <view class="foucs_H5" style="width: 100%;height: 96rpx;background:#3e4144;position: fixed;top: 0rpx;left: 0;z-index: 999;" v-if="showFoucs">
 			<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 96rpx;display: block;float: left;"></image>
 			<view class="foucs_H5_messga" style="float: left;">
 				<text style="display: block;font-size: 25rpx;color: #fff;margin-top: 8rpx;">欢迎访问补商汇</text>
@@ -13,7 +13,7 @@
 				@click='foucusInfo'
 				>关注</button> 
 			</view>
-		</view><strong></strong> 
+		</view><strong></strong> -->
 		<!--#endif -->	
 		<!-- #ifdef H5 || APP-PLUS--> 
 		<view class="status_bar"></view> 
@@ -730,7 +730,7 @@
 			this.page=this.page+1
 			this.getList();
 		},
-	};
+	}; 
 </script>
 
 <style lang="less">
@@ -785,6 +785,7 @@
 		height: var(--status-bar-height);
 		width: 100%;
 		position: fixed;
+		
 		top: 0px;
 		z-index: 99;
 		background-color: #ffffff;
@@ -797,7 +798,12 @@
 		display: flex;
 	}
 	.search_box {
-		top: var(--status-bar-height);
+		/* #ifdef H5||MP*/
+			top: 88rpx;
+		/* #endif */
+		/* #ifdef APP-PLUS*/
+			top: 40rpx;
+		/* #endif */
 		width: 100%;
 		z-index: 99;
 		display: flex;
