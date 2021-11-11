@@ -152,7 +152,7 @@
 		width: 100%;
 		overflow: hidden;
 	}
-	/* #ifdef H5 */
+	/* #ifdef H5*/
 		.ali-home-app-header {
 			width: 100%;
 			overflow: hidden;
@@ -163,13 +163,13 @@
 			z-index: 999;
 		}
 	/* #endif */
-	/* #ifdef MP */
+	/* #ifdef MP|| APP-PLUS */
 		.ali-home-app-header {
 			width: 100%;
 			overflow: hidden;
 			background: #fff;
 			position: fixed;
-			top: 0rpx;
+			top: 0rpx;  
 			left: 0;
 			z-index: 999;
 		}
@@ -229,7 +229,12 @@
 	.ali-home-app-products{
 		width: 95%;
 		overflow: hidden;
+		/* #ifdef H5||MP*/
 		margin: 100rpx auto 80rpx;
+		/* #endif */
+		/* #ifdef APP-PLUS*/
+			margin: 100rpx auto 80rpx;
+		/* #endif */
 		display: flex;
 		justify-content: space-between;
 		flex-wrap: wrap;
