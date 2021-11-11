@@ -762,7 +762,8 @@
 							attr: this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id,
 							num: this.value,
 							mch_id: 0,
-							mch_baopin_id: this.mch_baopin_id
+							mch_baopin_id: this.mch_baopin_id,
+							buy_now:0,//加入购物车传0
 						}
 					}).then((res) => {
 						if (res.code == 0) {
@@ -802,7 +803,8 @@
 							attr: this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id,
 							num: this.value,
 							mch_id: 0,
-							mch_baopin_id: this.mch_baopin_id
+							mch_baopin_id: this.mch_baopin_id,
+							buy_now:1,//立即购买传1
 						}
 					}).then((res) => {
 						if (res.code == 0) {
@@ -824,7 +826,7 @@
 					
 							// #endif
 					
-							// #ifdef MP-WEIXIN
+							// #ifdef MP-WEIXIN || APP-PLUS
 							url = url + '?nav_id=' + this.wx_nav_id.proId + '&mch_id=' + mch_id +
 								"&user_address_id=0" + "&use_score=0" + "&use_integral=0" + "&list=" + String(res
 									.data.cart_id)
@@ -899,6 +901,7 @@
 					this.loading = false;
 					if (res.code == 0) {
 						this.goodsData = res.data.goods;
+						this.foucsID=this.goodsData.collect.collect_id
 						this.is_buy_power = res.data.is_buy_power
 						//#ifdef H5
 						let link = window.location.href
@@ -1031,8 +1034,7 @@
 						url: this.$api.collect.deletes,
 						method: 'post',
 						data: {
-							type: 'goods',
-							id: this.goodsData.collect.collect_id
+							id:this.foucsID
 						}
 					}).then((res) => {
 						if (res.code == 0) {
@@ -1054,7 +1056,7 @@
 					}).then(res => {
 						if (res.code == 0) {
 							this.collected = !this.collected;
-							this.getGoodsDetail();
+							this.foucsID=res.data.id
 							this.loading = false;
 							this.$http.toast(res.msg);
 						} else {
@@ -1246,6 +1248,13 @@
 		height: 32px;
 		display: flex;
 		align-items: center;
+		/* #ifdef MP*/
+		margin-top: 60rpx;
+		/* #endif */
+		/* #ifdef APP-PLUS */
+		margin-top: 90rpx;
+		/* #endif */
+		margin-bottom: 20rpx;
 	}
 
 	.tui-top-dropdown {

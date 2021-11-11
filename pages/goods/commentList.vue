@@ -118,13 +118,6 @@
 			}
 
 			this.proId = proId;
-			
-			// 初始化一下数据
-			// this.status = 0;
-			// this.page = 1;
-			// this.moreData = true;
-			this.commentsData = []; //评论数据
-			this.commentCount = []; //评论类型数据
 			this.getComment(this.status,this.page);
 			
 			let obj = {};
@@ -207,7 +200,6 @@
 						source: 2
 					}
 				}).then(res => {
-					// console.log(res);
 					if (res.code == 0) {
 						this.poster_url = res.data.pic_url;
 						setTimeout(() => {
@@ -220,48 +212,34 @@
 
 			// 1.0 tab的点击事件
 			countState(status){
-				// console.log(status);
-				// if(status==this.status){	//如果status不变，直接返回
-				// 	return false;
-				// }
-				// 状态赋值，其他初始化
+				console.log(status)
 				this.tIndex=status
 				this.status = status;
 				this.page = 1;
 				this.page_count=''
 				this.commentsData = []; //评论数据
-				// this.commentCount = []; //评论类型数据
-				// 发请求
 				this.getComment(this.status,this.page);
 			},
 			
 			
 			//请求评论列表数据
 			getComment(status,page) { 
-				// this.page = this.page + 1;	//每次调用不管请求是否完成，页面数加1
 				this.$http.request({
 					url: this.$api.goods.comment,
 					data: {
 						goods_id: this.proId,
 						status : status,
 						page : page
-					}
+					},
+					showLoading: true
 				}).then((res) => {
 					if (res.code == 0) {
-						// this.commentsData = res.data.comments;		//评论列表
-						// this.commentsData.push(...res.data.comments);	//es6数组添加
 						this.commentCount = res.data.comment_count;	//tab-list
 						if(res.data.comments.length==0)return false
 						let list= res.data.comments;
 						var arr=this.commentsData.concat(list)
 						this.commentsData =arr
 						this.page_count = res.data.pagination.page_count;
-						
-						
-						
-						
-						// this.moreData = res.data.comments.length<10?false:true;	//数据小于10条就没有更多数据了
-						// this.goodRate = res.data.good_rate;
 					}
 				})
 			},

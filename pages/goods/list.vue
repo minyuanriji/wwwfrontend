@@ -570,7 +570,7 @@
 	height: 300rpx;
 	margin-top: 180rpx;
 	/* #endif */
-	/* #ifdef  MP  */
+	/* #ifdef  MP||APP-PLUS  */
 	height: 310rpx;
 	margin-top: 220rpx;
 	/* #endif */
