@@ -141,6 +141,16 @@
 				></toolbar>
 			</view>
 			<!--#endif -->
+			<!-- #ifdef APP-PLUS -->
+			<view v-if="configData.user_center.menus && configData.user_center.menus.length">
+				<toolbar
+					v-if="configData.user_center.is_menu_status != 0"
+					:toolbarTitle="configData.user_center.menu_title"
+					:flex="configData.user_center.menu_style"
+					:toolbarData="configData.user_center.menus"
+				></toolbar>
+			</view>
+			<!--#endif -->
 		</view>
 		<placeholder :placeholderHeight="placeholderHeight3"></placeholder>
 		<jx-tips ref="toast"></jx-tips>
@@ -261,7 +271,7 @@ export default {
 				}
 			});
 		}
-		this.initData(false);
+		//this.initData(false);
 	},
 	onShow() {
 		this.$http.isLogin() && this.getUser(false);

@@ -29,10 +29,8 @@
 					},
 				}).then(res => {
 					if (res.code == 0) {
-						let page=uni.getStorageSync('page')
-						setTimeout(function(){
-							window.location.href=page						 
-						},500)
+						uni.setStorageSync('is_pid_bind', 1);
+						uni.navigateBack();
 					}else{
 						this.$http.toast(res.msg);
 					}

@@ -156,11 +156,7 @@ const fetch = {
 							confirmText: "去登录",
 							showCancel:false,
 							success: (res) => {
-								
-								
-								
 								if (res.confirm) {
-	
 									uni.navigateTo({
 										url: '/pages/public/login'
 									});
@@ -282,6 +278,7 @@ module.exports = {
 	toast: fetch.toast,
 	isLogin: fetch.isLogin,
 	setToken: fetch.setToken,
+	getToken: fetch.getToken,
 	getUrlParam: fetch.getUrlParam,
 	logout: fetch.logout,
 	setUserInfo: fetch.setUserInfo,
