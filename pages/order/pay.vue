@@ -167,7 +167,7 @@
 										},500)
 									}else{
 										uni.navigateTo({
-											url: './alipayWeb?url=' + res.data.codeUrl
+											url: '/pages/order/alipayWeb?url=' + res.data.codeUrl
 										})
 										//let url=res.data.codeUrl
 										//location.href=url
