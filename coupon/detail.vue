@@ -901,6 +901,7 @@
 					this.loading = false;
 					if (res.code == 0) {
 						this.goodsData = res.data.goods;
+						this.foucsID=this.goodsData.collect.collect_id
 						this.is_buy_power = res.data.is_buy_power
 						//#ifdef H5
 						let link = window.location.href
@@ -1033,8 +1034,7 @@
 						url: this.$api.collect.deletes,
 						method: 'post',
 						data: {
-							type: 'goods',
-							id: this.goodsData.collect.collect_id
+							id:this.foucsID
 						}
 					}).then((res) => {
 						if (res.code == 0) {
@@ -1056,7 +1056,7 @@
 					}).then(res => {
 						if (res.code == 0) {
 							this.collected = !this.collected;
-							this.getGoodsDetail();
+							this.foucsID=res.data.id
 							this.loading = false;
 							this.$http.toast(res.msg);
 						} else {
