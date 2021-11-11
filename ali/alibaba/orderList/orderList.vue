@@ -653,7 +653,7 @@
 		align-items: center;
 		position: fixed;
 		/* #ifdef H5 */
-		top: 84rpx;
+		top: 80rpx;
 		/* #endif */
 		/* #ifdef  MP  */
 		top: 0rpx;
