@@ -799,7 +799,7 @@
 	}
 	.search_box {
 		/* #ifdef H5||MP*/
-			top: 88rpx;
+			top: 84rpx;
 		/* #endif */
 		/* #ifdef APP-PLUS*/
 			top: 40rpx;
