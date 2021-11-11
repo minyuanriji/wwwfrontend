@@ -184,7 +184,7 @@
 			},
 			getmyLOcation(){
 				let that=this
-				//#ifdef H5
+				//#ifdef H5||APP-PLUS
 					that.$unifylocation.locationH5()
 				setTimeout(() => {
 					if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {

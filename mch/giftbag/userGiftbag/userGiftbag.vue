@@ -6,7 +6,7 @@
 			<image :src="seviceDetail.cover_pic" mode="aspectFill" @click="pricewImg(seviceDetail.cover_pic)"></image>
 			<view style="padding-left:20rpx;display:flex;flex-direction:column;justify-content:space-around;width:420rpx ;" @click="linkgoods(seviceDetail.goods_id)">
 				<view style="font-size: 26rpx;">
-					{{seviceDetail.name}} 介么入口分狗肉呢就kg你让他赶快来你给客人调了你让她
+					{{seviceDetail.name}}
 				</view>
 				<view style="color:red;">{{seviceDetail.goods_price}}元</view>
 			</view>
