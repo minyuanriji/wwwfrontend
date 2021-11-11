@@ -15,12 +15,7 @@
 				this.$unifylocation.locationMp()
 			}
 			// #endif  
-			
 
-
-
-
-	
 			//console.log('App Launch');
 			// 初始化项目就执行自定义分享
 			// this.$wechatSdk.share();

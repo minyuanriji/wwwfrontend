@@ -492,13 +492,13 @@
 			}
 		},
 		onLoad(options) {
-			
+
 			this.beforeOnLoad(options);
 			
 			this.getService()
 			this.textColor = this.globalSet('textCol');
 			this.couponImg = this.globalSet('couponImg');
-			// #ifdef MP-WEIXIN
+			// #ifdef MP-WEIXIN || APP-PLUS
 			this.wx_nav_id = options;
 			// #endif
 			this.server_img = JSON.parse(uni.getStorageSync('mall_config')).mall_setting.setting.web_service_pic;
@@ -859,9 +859,10 @@
 							     
 							// #endif
 							
-							// #ifdef MP-WEIXIN
+							// #ifdef MP-WEIXIN || APP-PLUS
 							url = url + '?nav_id=' + this.wx_nav_id.proId+'&mch_id='+mch_id+"&user_address_id=0"+"&use_score=0"+"&use_integral=0"+"&list="+String(res.data.cart_id)
 							// #endif
+							
 							uni.navigateTo({
 								url
 							})

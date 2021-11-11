@@ -15,6 +15,7 @@
 							<text>{{user_address.province}}{{user_address.city}}{{user_address.district}}{{user_address.detail}}</text>
 						</view>
 					</view>
+					
 					<view class="tui-none-addr" v-else>
 						<text>请添加收货地址</text>
 						<!-- #ifdef H5 -->
@@ -22,12 +23,13 @@
 							style="width: 250rpx;font-size: 25rpx;margin-left: 140rpx;background: rgb(255, 113, 4);color: #fff;"
 							@click.stop="getWechatAddress">获取微信收货地址</button>
 						<!--#endif -->
-						<!-- #ifdef MP-WEIXIN || APP-PLUS -->
+						<!-- #ifdef MP-WEIXIN-->
 						<button type="default"
 							style="width: 250rpx;font-size: 25rpx;margin-left: 140rpx;background: rgb(255, 113, 4);color: #fff;"
 							@click.stop="getMPAddress">获取微信收货地址</button>
 						<!--#endif -->
 					</view>
+					
 				</view>
 			</tui-list-cell>
 			<!-- 收货地址 -->
@@ -309,7 +311,7 @@
 		},
 
 		onLoad(options) {	
-			
+
 			/* uni.chooseAddress({
 				success(res) {
 					console.log(res.userName)
@@ -342,7 +344,8 @@
 			this.mch_id = options.mch_id
 			this.sendData = uni.getStorageSync('orderData');
 			this.getData();
-			//#ifdef MP-WEIXIN
+
+			//#ifdef MP-WEIXIN || APP-PLUS
 			this.wx_order_id = options.nav_id;
 			//#endif
 
@@ -398,7 +401,7 @@
 				//#ifdef H5
 				var order_id = this.$route.query.nav_id !== undefined ? this.$route.query.nav_id : 0;
 				//#endif
-				//#ifdef MP-WEIXIN
+				//#ifdef MP-WEIXIN || APP-PLUS
 				var order_id = this.wx_order_id;
 				//#endif
 
@@ -535,7 +538,6 @@
 				}).then((res) => {
 					if (res.code == 0) {
 						this.got_shopping_voucher_num=res.data.got_shopping_voucher_num
-						console.log(res)
 						if (res.data.is_need_address == 0) {
 							this.addressShpw = false
 						}
