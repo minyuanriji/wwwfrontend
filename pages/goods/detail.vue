@@ -80,12 +80,12 @@
 						</view>
 						<jx-tag size="small" :plain="true"  type="high-green" shape="circle" v-if="is_seckill==0">新品</jx-tag>
 					</view>
-					<view class="round-btn" v-if="is_seckill==0">
+					<view class="round-btn">
 						<view class="tui-collection tui-size" @click.stop="poster()">
 							<view class="tui-icon-collection iconfont icon-qrcode"></view>
 							<view class="tui-scale">分享</view>
 						</view>
-						<view class="tui-collection tui-size" @tap="collecting">
+						<view class="tui-collection tui-size" @tap="collecting" v-if="is_seckill==0">
 							<view class="tui-icon-collection iconfont" :class="collected ? 'icon-shoucang' : 'icon-shoucang1' " :style="{color:collected?'#FF7104':'#333',fontSize:'20px'}"></view>
 							<view class="tui-scale" :style="{color:collected?'#FF7104':''}">收藏</view>
 						</view>
