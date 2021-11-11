@@ -370,7 +370,12 @@
 	.shop-type {
 		width: 100%;
 		overflow: hidden;
-		margin-top: 108rpx;
+		/* #ifdef H5*/
+			margin-top: 40rpx;
+		/* #endif */
+		/* #ifdef APP-PLUS||MP */
+			margin-top: 108rpx;
+		/* #endif */
 	}
 
 	.shop-table {
