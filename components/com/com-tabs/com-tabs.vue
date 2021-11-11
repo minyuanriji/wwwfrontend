@@ -55,9 +55,9 @@
 					,
 				default: 105
 				// #endif
-				// #ifdef MP
+				// #ifdef MP||APP-PLUS
 					,
-				default: 60
+				default: 58
 				// #endif
 			},
 			//是否去掉底部线条
