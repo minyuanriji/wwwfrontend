@@ -1246,6 +1246,13 @@
 		height: 32px;
 		display: flex;
 		align-items: center;
+		/* #ifdef MP*/
+		margin-top: 60rpx;
+		/* #endif */
+		/* #ifdef APP-PLUS */
+		margin-top: 80rpx;
+		/* #endif */
+		margin-bottom: 20rpx;
 	}
 
 	.tui-top-dropdown {
