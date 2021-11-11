@@ -3,7 +3,7 @@
 		<view class="swiper">
 			<FatFatMeng-Swiper
 			:swiperStyleClass="{'height':'350rpx','background-color':'rgba(0, 0, 0, .2)'}"
-			:SwiperImglist="citymessage.banner"
+			:SwiperImglist="banner"
 			>
 			</FatFatMeng-Swiper>
 		</view>
@@ -54,7 +54,7 @@
 			</view>
 			<view class="hotel-advertising">
 				<view class="hotel-advertising-image">
-					<image :src="citymessage.advert.image" mode=""></image>
+					<image :src="advert" mode=""></image>
 				</view>
 			</view>
 		</view>
@@ -75,16 +75,6 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
-				list: [{
-				        image: 'https://liangcang-material.alicdn.com/prod/upload/3916be5165cb4d4aadae49a5a34400e6.jpg',
-				    },
-				    {
-				        image: 'https://liangcang-material.alicdn.com/prod/upload/1ab0ce94f41c4e7ca4126d5d1b6717f6.jpg',
-				    },
-				    {
-				        image: 'https://liangcang-material.alicdn.com/prod/upload/7438aaf338ce4a90b30a2806a3fee785.jpg',
-				    }
-				],
 				changeTypeIndex:1,//房间类型选择
 				show:false,//市区选择影藏和显示
 				region:'定位中...',//默认给广州
@@ -118,7 +108,9 @@
 					lat:'',
 					keyword:'',
 				},
-				citymessage:'',//城市信息			
+				citymessage:'',//城市信息
+				banner:[],
+				advert:''
 			};
 		},
 		onLoad() {
@@ -223,7 +215,8 @@
 					}
 				}, 1000)
 				// #endif
-				// #ifndef H5
+				// #ifdef MP||APP-PLUS
+				// #ifdef MP
 				uni.getSetting({
 				   success(res) {
 				      if(!res.authSetting['scope.userLocation']){
@@ -250,6 +243,7 @@
 					  }
 				   }
 				})
+				// #endif
 				that.$unifylocation.locationMp()
 				setTimeout(() => {
 					if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {
@@ -304,6 +298,8 @@
 					.then(res => {
 						if(res.code==0){
 							this.citymessage=res.data
+							this.banner=this.citymessage.banner
+							this.advert=this.citymessage.advert.image
 							this.region=res.data.city_name
 							this.form.city_id=res.data.city_id
 							uni.setStorageSync("citymessage",this.citymessage.district)

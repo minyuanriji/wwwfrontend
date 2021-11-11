@@ -8,15 +8,7 @@
 				"backgroundColorBottom": "#F7F7F7",
 				"navigationBarTitleText": "首页",
 				"enablePullDownRefresh": false,
-				"onReachBottomDistance": 50,
-				// "navigationStyle": "custom",
-				"app-plus": {
-					"titleNView": false,
-					"pullToRefresh": {
-						"style": "circle",
-						"color": "#2BD009"
-					}
-				}
+				"onReachBottomDistance": 50
 			}
 		}, {
 			"path": "pages/cat/cat",
@@ -748,14 +740,7 @@
 						"navigationBarTextStyle": "white",
 						"backgroundColorTop": "#F7F7F7",
 						"backgroundColorBottom": "#F7F7F7",
-						"navigationBarTitleText": "门店",
-						"app-plus": {
-							"titleNView": false,
-							"pullToRefresh": {
-								"style": "circle",
-								"color": "#2BD009"
-							}
-						}
+						"navigationBarTitleText": "门店"
 					}
 				}
 			    ,{
@@ -787,14 +772,7 @@
 						"navigationBarTextStyle": "white",
 						"backgroundColorTop": "#F7F7F7",
 						"backgroundColorBottom": "#F7F7F7",
-						"navigationBarTitleText": "",
-						"app-plus": {
-							"titleNView": false,
-							"pullToRefresh": {
-								"style": "circle",
-								"color": "#2BD009"
-							}
-						}
+						"navigationBarTitleText": ""
 					}                
                 }
                 ,{

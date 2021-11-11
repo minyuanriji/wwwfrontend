@@ -152,7 +152,7 @@
 		width: 100%;
 		overflow: hidden;
 	}
-	/* #ifdef H5 */
+	/* #ifdef H5*/
 		.ali-home-app-header {
 			width: 100%;
 			overflow: hidden;
@@ -163,13 +163,13 @@
 			z-index: 999;
 		}
 	/* #endif */
-	/* #ifdef MP */
+	/* #ifdef MP|| APP-PLUS */
 		.ali-home-app-header {
 			width: 100%;
 			overflow: hidden;
 			background: #fff;
 			position: fixed;
-			top: 0rpx;
+			top: 0rpx;  
 			left: 0;
 			z-index: 999;
 		}
@@ -186,14 +186,19 @@
 		border-radius: 30rpx;
 	}
 	/* #endif */
-	/* #ifdef MP */
+	/* #ifdef MP || APP-PLUS*/
 	.ali-home-app-header-catory-two{
 		width: 96%;
 		background: #fff;
 		margin: 108rpx auto 20rpx;
 		overflow: hidden;
 		display: flex;
+		/* #ifdef H5 || MP */
 		justify-content: space-evenly;
+		/* #endif */
+		/* #ifdef APP-PLUS */
+		justify-content: space-between;
+		/* #endif */
 		flex-wrap: wrap;
 		border-radius: 30rpx;
 	}
@@ -202,7 +207,6 @@
 		width: 17%;
 		overflow: hidden;
 		margin: 10rpx 0 20rpx 0;
-		border-radius: ;
 	}
 	.ali-home-app-header-catory-two view image{
 		width: 100%;
@@ -229,7 +233,12 @@
 	.ali-home-app-products{
 		width: 95%;
 		overflow: hidden;
+		/* #ifdef H5||MP*/
 		margin: 100rpx auto 80rpx;
+		/* #endif */
+		/* #ifdef APP-PLUS*/
+			margin: 100rpx auto 80rpx;
+		/* #endif */
 		display: flex;
 		justify-content: space-between;
 		flex-wrap: wrap;

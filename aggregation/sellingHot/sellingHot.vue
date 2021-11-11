@@ -1,20 +1,27 @@
 <template>
 	<view class="sellingHot_container">
 		<vouchers :list='goods_ist'></vouchers>
+		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
 	</view>
 </template>
 
 <script>
 	import vouchers from '@/components/vouchers.vue';
+	import backTop from '@/components/back-top/back-top.vue';
 	export default{
 		components: {
-			vouchers
+			vouchers,
+			backTop
 		},
 		data(){
 			return{
 				goods_ist:[],
 				page_count:'',
 				page:1,
+				backTop: {
+					src: '../../static/back-top/top.png',
+					scrollTop: 0
+				},
 			}
 		},
 		onLoad() {
@@ -41,6 +48,9 @@
 					}
 				})
 			},
+		},
+		onPageScroll(e) {
+			this.backTop.scrollTop = e.scrollTop;
 		},
 		onReachBottom() {
 			if(this.page==this.page_count){

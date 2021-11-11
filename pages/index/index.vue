@@ -13,9 +13,9 @@
 				@click='foucusInfo'
 				>关注</button> 
 			</view>
-		</view><strong></strong> 
+		</view><strong></strong>
 		<!--#endif -->	
-		<!-- #ifdef H5 --> 
+		<!-- #ifdef H5 || APP-PLUS--> 
 		<view class="status_bar"></view> 
 		 <!--#endif -->
 		<!-- #ifdef H5 || APP-PLUS -->
@@ -32,7 +32,7 @@
 		<!--#endif -->
 		<block v-for="(item, index) in indexData" :key="index">
 			<view class="header" v-if="item.id == 'search'">
-				<!-- #ifdef H5 -->
+				<!-- #ifdef H5 || APP-PLUS -->
 				<view class="search_box" :style="{ position: is_fixed == 1 ? 'relative' : 'fixed' }">
 					<!-- 搜索 -->
 					<view class="checksao" style="width: 15%;background: #fff;">
@@ -730,7 +730,7 @@
 			this.page=this.page+1
 			this.getList();
 		},
-	};
+	}; 
 </script>
 
 <style lang="less">
@@ -785,6 +785,7 @@
 		height: var(--status-bar-height);
 		width: 100%;
 		position: fixed;
+		
 		top: 0px;
 		z-index: 99;
 		background-color: #ffffff;
@@ -797,7 +798,12 @@
 		display: flex;
 	}
 	.search_box {
-		top: var(--status-bar-height);
+		/* #ifdef H5||MP*/
+			top: 88rpx;
+		/* #endif */
+		/* #ifdef APP-PLUS*/
+			top: 40rpx;
+		/* #endif */
 		width: 100%;
 		z-index: 99;
 		display: flex;
