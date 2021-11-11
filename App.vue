@@ -16,7 +16,6 @@
 			}
 			// #endif  
 
-			uni.setStorageSync("token", "RgBph1wfBdfrHUL_IunJGGGeg87JejAg");
 
 			//console.log('App Launch');
 			// 初始化项目就执行自定义分享
