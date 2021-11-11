@@ -15,7 +15,7 @@
 			</view>
 		</view><strong></strong> 
 		<!--#endif -->	
-		<!-- #ifdef H5 --> 
+		<!-- #ifdef H5 || APP-PLUS--> 
 		<view class="status_bar"></view> 
 		 <!--#endif -->
 		<!-- #ifdef H5 || APP-PLUS -->
@@ -32,7 +32,7 @@
 		<!--#endif -->
 		<block v-for="(item, index) in indexData" :key="index">
 			<view class="header" v-if="item.id == 'search'">
-				<!-- #ifdef H5 -->
+				<!-- #ifdef H5 || APP-PLUS -->
 				<view class="search_box" :style="{ position: is_fixed == 1 ? 'relative' : 'fixed' }">
 					<!-- 搜索 -->
 					<view class="checksao" style="width: 15%;background: #fff;">
