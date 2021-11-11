@@ -186,14 +186,19 @@
 		border-radius: 30rpx;
 	}
 	/* #endif */
-	/* #ifdef MP */
+	/* #ifdef MP || APP-PLUS*/
 	.ali-home-app-header-catory-two{
 		width: 96%;
 		background: #fff;
 		margin: 108rpx auto 20rpx;
 		overflow: hidden;
 		display: flex;
+		/* #ifdef H5 || MP */
 		justify-content: space-evenly;
+		/* #endif */
+		/* #ifdef APP-PLUS */
+		justify-content: space-between;
+		/* #endif */
 		flex-wrap: wrap;
 		border-radius: 30rpx;
 	}
@@ -202,7 +207,6 @@
 		width: 17%;
 		overflow: hidden;
 		margin: 10rpx 0 20rpx 0;
-		border-radius: ;
 	}
 	.ali-home-app-header-catory-two view image{
 		width: 100%;
