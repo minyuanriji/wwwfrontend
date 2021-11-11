@@ -166,8 +166,11 @@
 											})
 										},500)
 									}else{
-										let url=res.data.codeUrl
-										location.href=url
+										uni.navigateTo({
+											url: './alipayWeb?url=' + res.data.codeUrl
+										})
+										//let url=res.data.codeUrl
+										//location.href=url
 									}
 								}else{
 									that.$http.toast(res.msg)
