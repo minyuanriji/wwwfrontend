@@ -415,6 +415,9 @@
 			},
 			getCartList() { //获取购物车列表
 				this.loading = true;
+				if(this.cartList.length==0){
+					this.isEdit=true
+				}
 				this.$http.request({
 					url: this.$api.cart.list,
 					method: 'GET'
@@ -440,7 +443,7 @@
 						this.cartList.forEach((item) => {
 							this.$set(item, 'isSelect', false);
 						})
-
+						
 						this.isAllSelect = false;
 					}
 				})
