@@ -214,7 +214,7 @@
 			</unipopup>
 			
 			<com-payment-password :H5Bottom="h5Bottom" ref="paymentPassword" :show="cashFlag" :value="paymentPwd" :digits="6"
-				@submit="checkPwd" @cancel="togglePayment" @checkSafePwd="safePasswork"></com-payment-password>
+				@submit="checkPwd" @checkSafePwd="safePasswork"></com-payment-password>
 				
 			<unipopup ref="popupShare" type="center">
 				<view class="popup-detail">
@@ -616,6 +616,92 @@
 					}
 				});
 			},
+			saveImage(url) { //保存图片
+				var that = this;
+				uni.authorize({
+					/* 这个就是保存相册的 */
+					scope: 'scope.writePhotosAlbum',
+					success() {
+						/* 保存图片方法 */
+						that.saveImg(url);
+					},
+					complete(res) {
+						/* 这里判断一下如果没有授权重新打开设置选项 */
+						uni.getSetting({
+							success(res) {
+								if (!res.authSetting['scope.writePhotosAlbum']) {
+									/* 打开设置的方法 */
+									that.opensit();
+								}
+							}
+						});
+					}
+				});
+			},
+			opensit() {
+				uni.showModal({
+					content: '由于您还没有允许保存图片到您相册里,请点击确定去允许授权',
+					success: function(res) {
+						if (res.confirm) {
+							/* 这个就是打开设置的API*/
+							uni.openSetting({
+								success(res) {
+									console.log(res.authSetting);
+								}
+							});
+						} else if (res.cancel) {
+							uni.showModal({
+								cancelText: '依然取消',
+								confirmText: '重新授权',
+								content: '很遗憾你点击了取消，请慎重考虑',
+								success: function(res) {
+									if (res.confirm) {
+										uni.openSetting({
+											success(res) {
+												console.log(res.authSetting);
+											}
+										});
+									} else if (res.cancel) {
+										console.log('用户不授权');
+									}
+								}
+							});
+						}
+					}
+				});
+			},
+			saveImg(url) {
+				var that = this;
+				/* 获取图片信息 */
+				uni.getImageInfo({
+					src: url,
+					success: function(image) {
+						/* 保存图片到相册 */
+						uni.saveImageToPhotosAlbum({
+							filePath: image.path,
+							success: function() {
+								that.$http.toast('保存成功');
+							},
+							fail(res){
+								that.$http.toast('保存失败,请稍后重试');
+							}
+						});
+					}
+				});
+			},
+			appSaveImg(url){
+				let that = this;
+				/* 保存图片到相册 */
+				uni.saveImageToPhotosAlbum({
+					filePath: url,
+					success: function() {
+						that.$http.toast('保存成功');
+					},
+					fail(res){
+						that.$http.toast('保存失败,请稍后重试');
+					}
+				});
+			},			
 			invitation(){ //分享
 				
 				// #ifdef H5
