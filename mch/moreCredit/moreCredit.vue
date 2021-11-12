@@ -350,7 +350,12 @@
 					if (res.code == 0) {
 						console.log(res)
 						this.payData = res.data;
-						this.confirmPay()
+						// #ifdef H5 ||MP
+							this.confirmPay()
+						// #endif
+						// #ifdef APP-PLUS
+						    this.getalipay()
+						// #endif
 					} else {
 						this.$http.toast(res.msg);
 					}
@@ -409,6 +414,26 @@
 								})
 						// #endif			
 			},			
+			getalipay(){
+				let that=this
+				that.$http.request({
+					url: that.$api.moreShop.alipay,
+					showLoading: true,
+					method: 'post',
+					data: {
+						union_id:that.payData.union_id,
+						stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
+					}
+				}).then(res=>{
+					if(res.code==0){
+						uni.navigateTo({
+							url: '/pages/order/alipayWeb?url=' + res.data.codeUrl
+						})
+					}else{
+						that.$http.toast(res.msg)
+					}
+				})
+			},
 			creditStatus(){ //充值记录
 				this.$http.request({
 					url: this.$api.morecredit.creditStatus,
