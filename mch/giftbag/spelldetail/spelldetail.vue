@@ -598,7 +598,7 @@
 							}else{
 								setTimeout(()=>{
 									uni.navigateTo({
-										url:'../spelldetail/spelldetail?pack_id='+this.pack_id
+										url:'../spelldetail/spelldetail?pack_id='+this.pack_id+"&group_id="+this.group_id
 									})
 								},2000)
 							}
@@ -629,7 +629,7 @@
 							}else{
 								setTimeout(()=>{
 									uni.navigateTo({
-										url:'../spelldetail/spelldetail?pack_id='+this.pack_id
+										url:'../spelldetail/spelldetail?pack_id='+this.pack_id+"&group_id="+this.group_id
 									})
 								},2000)
 							}
