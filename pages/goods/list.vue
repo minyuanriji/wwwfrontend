@@ -58,7 +58,7 @@
 									<view class="tui-sale-price" :style="{color:textColor}">￥{{item.price}}</view>
 									<view class="tui-factory-price">￥{{item.original_price}}</view>
 								</view>
-								<view class="tui-pro-pay" >{{item.sales || 0}}人付款</view>
+								<view class="tui-pro-pay" >{{item.sales || 0}}</view>
 							</view>
 						</view>
 					</view>
@@ -79,7 +79,7 @@
 									<view class="tui-sale-price" :style="{color:textColor}">￥{{item.price}}</view>
 									<view class="tui-factory-price">￥{{item.original_price}}</view>
 								</view>
-								<view class="tui-pro-pay" >{{item.sales || 0}}人付款</view>
+								<view class="tui-pro-pay" >{{item.sales || 0}}</view>
 							</view>
 						</view>
 					</view>
