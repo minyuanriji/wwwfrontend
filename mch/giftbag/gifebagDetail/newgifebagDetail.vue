@@ -194,9 +194,16 @@
 					</view>
 					<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'&&current==1">
 						<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
+						<!-- #ifdef H5||MP -->
 							<view class="jx-cell-header" style="height: 80rpx;">
 								<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用微信支付</view>
 							</view>
+						<!-- #endif -->	
+						<!-- #ifdef APP-PLUS -->
+							<view class="jx-cell-header" style="height: 80rpx;">
+								<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用支付宝支付</view>
+							</view>
+						<!-- #endif -->	
 							<view class="jx-cell-header" style="margin-left: 350rpx;color: #FF5A0E;height: 80rpx;">
 								<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">{{moneyMessage.group_price}}元</view>
 							</view>
@@ -206,9 +213,9 @@
 						<text>剩余余额：{{moneyMessage.balance}}</text>
 						<text @click="buy">去支付</text>
 					</view>
-					<view class="popup-bottom"  v-if="detail.allow_currency=='money'&&current==1">
+					<view class="popup-bottom"  v-if="detail.allow_currency=='money'&&current==1">				
 						<text   style="width: 360rpx;height: 80rpx;background: red;text-align: center;line-height: 80rpx;border-radius: 30rpx;
-								margin-left: 240rpx;color: #fff;margin-top: 10rpx;"  @click="buy">去支付</text>
+								margin-left: 240rpx;color: #fff;margin-top: 10rpx;"  @click="buy">去支付</text>	
 					</view>
 				</view>
 			</unipopup>
@@ -516,10 +523,18 @@
 				        value: '余额支付',
 				        name: '余额支付'
 				    },
+					// #ifdef H5 ||MP
 				    {
 				        value: '微信支付',
 				        name: '微信支付'
 				    }
+					// #endif
+					// #ifdef APP-PLUS
+					{
+					    value: '支付宝支付',
+					    name: '支付宝支付'
+					}
+					// #endif
 				],
 				current: 0,
 				moneyMessage:"",
@@ -911,7 +926,6 @@
 				}
 			},
 			buy(){ //点击去支付弹出输入密码框
-		
 				if(this.current==0){
 					if(!this.is_transaction_password){
 						this.modal = true;
@@ -977,8 +991,8 @@
 							this.$http.toast(res.msg);
 						}
 					});
-				}
-				if(this.detail.allow_currency=='money'&&this.current==1){ //微信支付
+				}			
+				if(this.detail.allow_currency=='money'&&this.current==1){ //第三方支付
 					this.$http.request({
 						url: this.$api.package.paywechatcreatedbag,
 						method: 'POST',
@@ -988,7 +1002,12 @@
 					}).then(res => {
 						if (res.code == 0) {
 							var union_id=res.data.union_id
+							// #ifdef H5 ||MP							
 							this.getWchat(union_id)
+							// #endif
+							// #ifdef APP-PLUS
+							this.getalipay(union_id)
+							// #endif
 						} else {
 							this.$http.toast(res.msg);
 						}
@@ -996,7 +1015,7 @@
 				}
 			},
 			getWchat(union_id){ //第三方支付
-				// #ifdef H5
+				// #ifdef H5 
 				var url="https://dev.mingyuanriji.cn/h5/#/mch/spelldetail/spelldetail?pack_id="+this.pack_id+"&group_id="+this.group_id
 				this.$http.request({
 					url: this.$api.package.paywechatbag,
@@ -1050,7 +1069,26 @@
 					});
 				// #endif	
 			},
-			
+			getalipay(union_id){
+				let that=this
+				that.$http.request({
+					url: that.$api.moreShop.alipay,
+					showLoading: true,
+					method: 'post',
+					data: {
+						union_id:union_id,
+						stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
+					}
+				}).then(res=>{
+					if(res.code==0){
+						uni.navigateTo({
+							url: '/pages/order/alipayWeb?url=' + res.data.codeUrl
+						})
+					}else{
+						that.$http.toast(res.msg)
+					}
+				})
+			},
 			deleted(){
 				// #ifdef H5
 				 this.$refs.popupShare.close()
