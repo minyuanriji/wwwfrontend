@@ -158,9 +158,16 @@
 				</view>
 				<view class="giftbagDetail-service" v-if='current==1'>
 					<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
-						<view class="jx-cell-header" style="height: 80rpx;">
-							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用微信支付</view>
-						</view>
+						<!-- #ifdef H5||MP -->
+							<view class="jx-cell-header" style="height: 80rpx;">
+								<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用微信支付</view>
+							</view>
+						<!-- #endif -->	
+						<!-- #ifdef APP-PLUS -->
+							<view class="jx-cell-header" style="height: 80rpx;">
+								<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用支付宝支付</view>
+							</view>
+						<!-- #endif -->	
 						<view class="jx-cell-header" style="margin-left: 350rpx;color: #FF5A0E;height: 80rpx;">
 							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">{{moneyMessage.group_price}}元</view>
 						</view>
@@ -376,10 +383,18 @@
 				        value: '余额支付',
 				        name: '余额支付'
 				    },
-				    {
-				        value: '微信支付',
-				        name: '微信支付'
-				    }
+				  // #ifdef H5 ||MP
+				  {
+				      value: '微信支付',
+				      name: '微信支付'
+				  }
+				  // #endif
+				  // #ifdef APP-PLUS
+				  {
+				      value: '支付宝支付',
+				      name: '支付宝支付'
+				  }
+				  // #endif
 				],
 				current: 0,
 				moneyMessage:"",
@@ -638,7 +653,7 @@
 						}
 					});
 				}
-				if(this.detail.allow_currency=='money'&&this.current==1){ //微信支付
+				if(this.detail.allow_currency=='money'&&this.current==1){ //第三方支付
 					this.$http.request({
 						url: this.$api.package.paywechatcreatedbag,
 						method: 'POST',
@@ -648,7 +663,12 @@
 					}).then(res => {
 						if (res.code == 0) {
 							var union_id=res.data.union_id
+							// #ifdef H5 ||MP
 							this.getWchat(union_id)
+							// #endif
+							// #ifdef APP-PLUS
+							this.getalipay(union_id)
+							// #endif
 						} else {
 							this.$http.toast(res.msg);
 						}
@@ -710,6 +730,26 @@
 				
 				
 				// #endif
+			},
+			getalipay(union_id){
+				let that=this
+				that.$http.request({
+					url: that.$api.moreShop.alipay,
+					showLoading: true,
+					method: 'post',
+					data: {
+						union_id:union_id,
+						stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
+					}
+				}).then(res=>{
+					if(res.code==0){
+						uni.navigateTo({
+							url: '/pages/order/alipayWeb?url=' + res.data.codeUrl
+						})
+					}else{
+						that.$http.toast(res.msg)
+					}
+				})
 			},		
 			invitation(){ //邀请好友
 				//this.$refs.popupShare.open()
