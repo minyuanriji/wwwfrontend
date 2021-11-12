@@ -552,7 +552,7 @@
 		/* #ifdef H5 */
 		margin-top: 195rpx;
 		/* #endif */
-		/* #ifdef MP */
+		/* #ifdef MP||APP-PLUS */
 		margin-top: 205rpx;
 		/* #endif */
 	}

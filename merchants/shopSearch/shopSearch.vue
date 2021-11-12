@@ -23,7 +23,7 @@
 		</view>
  
 		<template v-if="shopList.length <= 0">
-			<view class="tui-search-history" v-if="history.length>0">
+			<view class="tui-search-history" v-if="history.length>0" style="padding: 30rpx;box-sizing: border-box;">
 				<view class="tui-history-header">
 					<view class="tui-search-title">搜索历史</view>
 					<tui-icon name="delete" :size='14' color='#333' @tap="openActionSheet" class="tui-icon-delete"></tui-icon>
@@ -222,12 +222,12 @@
 	}
 
 	.container {
-		padding: 0 30rpx 30rpx 30rpx;
+		/* padding: 0 30rpx 30rpx 30rpx; */
 		box-sizing: border-box;
 	}
 
 	.tui-searchbox {
-		padding: 30rpx 0;
+		padding: 30rpx;
 		box-sizing: border-box;
 		display: flex;
 		align-items: center;
@@ -281,7 +281,8 @@
 	}
 
 	.tui-hot-header {
-		padding: 30rpx 0;
+		padding: 30rpx;
+		box-sizing: border-box;
 	}
 
 	.tui-tag-class {
@@ -294,8 +295,10 @@
 		display: flex;
 		flex-wrap: wrap;
 	}
-	.shop_table_list{width: 100%;overflow: hidden;margin-bottom: 116rpx;}
-	.shop_table_item{width: 95%;margin: 15rpx auto;background: #fff;display: flex;justify-content: space-evenly;overflow: hidden;}
+	.shop_table_list{width: 100%;overflow: hidden;margin-bottom: 116rpx;
+		background-color: #f2f2f2;
+	}
+	.shop_table_item{width: 95%;margin: 15rpx auto;background: #fff;display: flex;justify-content: space-evenly;overflow: hidden;border-radius: 20rpx;}
 	.shop_table_item_left{width: 30%;height: 200rpx;margin: 25rpx 0;}
 	.shop_table_item_left image{width: 100%;display: block;height: 180rpx;}
 	.shop_table_item_right{width: 64%;padding-left: 25rpx;box-sizing: border-box;margin: 15rpx 0 20rpx 0;position: relative;}
