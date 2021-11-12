@@ -1421,6 +1421,13 @@ white-space: nowrap;;width:30%;margin-top: 10rpx;margin-right: 30rpx;font-size: 
 		height: 32px;
 		display: flex;
 		align-items: center;
+		/* #ifdef MP*/
+		margin-top: 70rpx;
+		/* #endif */
+		/* #ifdef APP-PLUS */
+		margin-top: 100rpx;
+		/* #endif */
+		margin-bottom: 20rpx;
 	}
 
 	.tui-top-dropdown {
