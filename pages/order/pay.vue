@@ -25,7 +25,7 @@
 						<text v-if="item == 'balance'">余额支付</text>
 					</view>
 					<view class="item-right-box" @tap="switchIcon(index)">
-						<view v-if="index == switchIndex" class="item-icon iconfont icon-dagou1" :style="{color:'#FF7104'}"></view>
+						<view v-if="switchIndex == index" class="item-icon iconfont icon-dagou1" :style="{color:'#FF7104'}"></view>
 						<view v-else class="item-right"></view>
 					</view>
 				</view>
@@ -67,7 +67,7 @@
 				token: '',
 				queue_id: '',
 				payData: '',
-				switchIndex: 0,
+				switchIndex: 1,
 				textColor:"#BC0100",
 				bg_url:'',
 				navBg:'',
