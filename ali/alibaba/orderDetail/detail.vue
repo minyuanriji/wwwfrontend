@@ -59,6 +59,7 @@
 										<view style="height:56rpx;line-height:56rpx;">{{item.ali_info.status_text}}</view>
 										<view  v-if="item.ali_info.status == 'waitbuyerreceive' || item.ali_info.status=='confirm_goods' || item.ali_info.status=='success'" class="express-btn">
 											<view class="btns" @tap="toPage(item.od1688_id)">查看物流</view>
+											
 										</view>
 									</view>
 								</view>
@@ -68,6 +69,16 @@
 									-->
 									<view class="num">x{{item.num}}</view>
 									<view class="btn">
+										
+										<tui-button @click="goRefund(item.id)" v-if="alidetail.is_pay==1 && item.is_refund==0 && item.refund_status=='none'" type="black" :plain="true" width="80rpx" height="32rpx" :size="24" shape="circle" style="color: #808080 !important;margin-left: 30rpx;">
+											退款
+										</tui-button>
+										
+										<view v-if="alidetail.is_pay==1 && item.refund_status=='apply'">退款中</view>
+										<view v-if="alidetail.is_pay==1 && item.refund_status=='refused'">拒绝退款</view>
+										<view v-if="alidetail.is_pay==1 && item.refund_status=='agree'">同意退款</view>
+										<view v-if="alidetail.is_pay==1 && item.is_refund==1">已退款</view>
+										
 										<!-- <view v-if="item.refund_status == 0 && !showRefund(detail.status)" @click.stop="goRefund(item.id)">
 											<tui-button type="black" :plain="true" width="80rpx" height="32rpx" :size="24" shape="circle" style="color: #808080 !important;margin-left: 30rpx;">
 												{{detail.status > 1 ? '退换' : item.goods_info.is_refund ? '退款中' : '退款'}}
@@ -174,9 +185,9 @@
 						</view>
 						-->
 						<view class="jx-price-flex jx-size32 jx-border-top">
-							<view class="tui-flex-shrink">实付款</view>
+							<view class="tui-flex-shrink">购物券</view>
 							<view class="jx-goods-price jx-primary-color" :style="{color:textColor}">
-								<view class="jx-size-24">¥</view>
+								<view class="jx-size-24">-¥</view>
 								<view class="jx-price-large">{{alidetail.shopping_voucher_total_use_num}}</view>
 							</view>
 						</view>
@@ -483,7 +494,7 @@
 			},
 			goRefund(id) {
 				uni.navigateTo({
-					url: `./refund/type?id=${id}`
+					url: `../refund/apply?id=${id}`
 				})
 			},
 			confirm(id) {

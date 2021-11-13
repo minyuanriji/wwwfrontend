@@ -967,7 +967,20 @@
 							"titleNView": false
 						}
 					}
-
+				},
+				{
+					"path": "alibaba/refund/apply",
+					"style": {
+						"navigationBarBackgroundColor": "#fff",
+						"navigationBarTextStyle": "black",
+						"backgroundColorTop": "#F7F7F7",
+						"backgroundColorBottom": "#F7F7F7",
+						"navigationBarTitleText": "退款详情 ",
+						"navigationStyle": "custom",
+						"app-plus": {
+							"titleNView": false
+						}
+					}
 				},
 				{
 					"path": "alibaba/submit/submit",

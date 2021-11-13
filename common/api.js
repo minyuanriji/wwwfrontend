@@ -81,6 +81,8 @@ let api = {
 		getOrderlist:api_root + 'plugin/alibaba/api/distribution-order/order-list',//订单列表
 		getOrderdetail:api_root + 'plugin/alibaba/api/distribution-order/order-details',//订单详情
 		getexpress:api_root + 'plugin/alibaba/api/distribution-order/logistics',//物流详情
+		refundData: api_root + 'plugin/alibaba/api/distribution-order-refund/to-refund-submit'
+		
 	},
 //--------------------------------------------------------------------------------------------		
 	
