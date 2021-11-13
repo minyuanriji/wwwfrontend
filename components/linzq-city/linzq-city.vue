@@ -59,7 +59,9 @@
 		<view class="mask" v-if="showMask">
 			<view class="mask-r">{{selectLetter}}</view>
 		</view>
-		
+		<view class="bottomclose" @click="close">
+			关闭
+		</view>
 		<unipopup ref="popupcity" type="bottom">
 			<view class="searchList-app-sort">
 				<scroll-view scroll-y scroll-with-animation style="white-space:nowrap;height: 600rpx;">
@@ -263,6 +265,9 @@
 				}
 
 			},
+			close(){
+				this.$emit('back_city', 'no');
+			},
 			selectCountry(item){ //选择县区
 				if(item.name=='全部'){
 					item.name=this.parentname
@@ -388,6 +393,7 @@
 		bottom: 0upx;
 		width: 100%;
 		background-color: #FFFFFF;
+		margin-bottom: 100rpx;
 	}
 
 	.letters {
@@ -509,4 +515,6 @@
 		line-height: 80rpx;
 		border-bottom: 1rpx solid rgb(235,237,239);
 	}
+	.bottomclose{width: 100%;height: 100rpx;position: fixed;bottom: 0;left: 0;text-align: center;line-height: 100rpx;
+	font-size: 34rpx;font-weight: bold;color: #fff;background: rgb(255, 113, 4);}
 </style>
