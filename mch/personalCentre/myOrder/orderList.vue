@@ -1,12 +1,6 @@
 <template>
 	<view class="installCenter-app">
-		<view class="installCenter-set" @click="link">
-			<view >
-				<image :src="img_url+'/accountSettings.png'" mode=""></image>
-				<text>本地生活</text>
-				<image :src="img_url+'/arrow-right.png'" mode=""></image>
-			</view>
-		</view>
+		1
 	</view>
 </template>
 
@@ -21,11 +15,7 @@
 
 		},
 		methods:{
-			link(){ //跳转到订单
-				uni.navigateTo({
-					url:'./orderList'
-				})
-			}
+			
 		}
 	}
 </script>

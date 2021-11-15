@@ -1868,6 +1868,16 @@
 				
 				},
 				{
+					"path": "personalCentre/myOrder/orderList",
+					"style": {
+						"navigationBarTitleText": "订单列表",
+						"navigationBarTextStyle": "black",
+						"navigationBarBackgroundColor": "#fff",
+						"enablePullDownRefresh": false
+					}
+				
+				},
+				{
 					"path": "newmoreShop/newmoreShop",
 					"style": {
 						"navigationBarTitleText": "核销进度",
