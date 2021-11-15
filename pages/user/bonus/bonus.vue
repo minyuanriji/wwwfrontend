@@ -2,7 +2,7 @@
 	<view class="bonus_app">
 		<view class="bonus_header">
 			<view class="bonus_header_right-che">
-				<!-- #ifdef H5  -->
+				<!-- #ifdef H5 ||APP-PLUS -->
 				<view @click="linkSevice">客服</view>
 					<!--#endif -->
 				<!-- #ifdef MP-WEIXIN -->
@@ -131,7 +131,13 @@
 					});
 			},
 			linkSevice(){ //跳转H5客服链接
+				//#ifdef H5
 				location.href = this.serviceLink
+				//#endif
+				// #ifdef APP-PLUS
+				plus.runtime.openURL(this.serviceLink);//成功跳转了
+				//#endif
+				
 			},
 			goService(){ //跳转小程序客服链接
 				if(uni.getStorageSync('userInfo')){

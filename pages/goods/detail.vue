@@ -718,7 +718,12 @@
 				});
 			},
 			customerService() { //跳转客服
+				//#ifdef H5
 				location.href = this.serviceLink
+				//#endif
+				// #ifdef APP-PLUS
+				plus.runtime.openURL(this.serviceLink);//成功跳转了
+				//#endif
 			},
 			getRecommend() { //获取推荐商品
 				this.loading = true;

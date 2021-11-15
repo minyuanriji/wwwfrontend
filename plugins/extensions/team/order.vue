@@ -215,7 +215,7 @@
 	}
 
 	.tui-order-list {
-		margin-top: 80rpx;
+		margin-top: 220rpx;
 		display: flex;
 		flex-direction: column;
 		.item {
