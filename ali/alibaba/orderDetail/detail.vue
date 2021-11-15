@@ -56,11 +56,18 @@
 									<view class="jx-goods-name">{{item.name}}</view>
 									<view class="jx-goods-attr">{{item.sku_labels}}</view>
 									<view style="margin-top:10rpx;display:flex;justify-content:space-between;">
-										<view style="height:56rpx;line-height:56rpx;">{{item.ali_info.status_text}}</view>
-										<view  v-if="item.ali_info.status == 'waitbuyerreceive' || item.ali_info.status=='confirm_goods' || item.ali_info.status=='success'" class="express-btn">
-											<view class="btns" @tap="toPage(item.od1688_id)">查看物流</view>
-											
-										</view>
+										
+										<template v-if="alidetail.is_pay == 1">
+											<template v-if="item.ali_info.status == 'waitbuyerpay'">
+												<view style="color:#bc0100;font-size:25rpx;height:56rpx;line-height:56rpx;">订单异常！请联系客服</view>
+											</template>
+											<view v-else style="height:56rpx;line-height:56rpx;">{{item.ali_info.status_text}}</view>
+											<view  v-if="item.ali_info.status == 'waitbuyerreceive' || item.ali_info.status=='confirm_goods' || item.ali_info.status=='success'" class="express-btn">
+												<view class="btns" @tap="toPage(item.od1688_id)">查看物流</view>
+											</view>
+										</template>
+										<view v-else style="height:56rpx;line-height:56rpx;">{{item.ali_info.status_text}}</view>
+										
 									</view>
 								</view>
 								<view class="jx-price-right">
@@ -70,15 +77,15 @@
 									<view class="num">x{{item.num}}</view>
 									<view class="btn">
 										
-										<tui-button @click="goRefund(item.id)" v-if="alidetail.is_pay==1 && item.is_refund==0 && item.refund_status=='none'" type="black" :plain="true" width="80rpx" height="32rpx" :size="24" shape="circle" style="color: #808080 !important;margin-left: 30rpx;">
+										<tui-button @click="goRefund(item.id, item.ali_info.status)" v-if="alidetail.is_pay==1 && item.is_refund==0 && item.refund_status=='none'" type="black" :plain="true" width="80rpx" height="32rpx" :size="24" shape="circle" style="color: #808080 !important;margin-left: 30rpx;">
 											退款
 										</tui-button>
-										
-										<view v-if="alidetail.is_pay==1 && item.refund_status=='apply'">退款中</view>
-										<view v-if="alidetail.is_pay==1 && item.refund_status=='refused'">拒绝退款</view>
-										<view v-if="alidetail.is_pay==1 && item.refund_status=='agree'">同意退款</view>
-										<view v-if="alidetail.is_pay==1 && item.is_refund==1">已退款</view>
-										
+										<view @click="goRefund(item.id, item.ali_info.status)" v-if="alidetail.is_pay==1">
+											<view v-if="alidetail.is_pay==1 && item.refund_status=='apply'">退款中</view>
+											<view v-if="alidetail.is_pay==1 && item.refund_status=='refused'">拒绝退款</view>
+											<view v-if="alidetail.is_pay==1 && item.refund_status=='agree'">同意退款</view>
+											<view v-if="alidetail.is_pay==1 && item.is_refund==1">已退款</view>
+										</view>
 										<!-- <view v-if="item.refund_status == 0 && !showRefund(detail.status)" @click.stop="goRefund(item.id)">
 											<tui-button type="black" :plain="true" width="80rpx" height="32rpx" :size="24" shape="circle" style="color: #808080 !important;margin-left: 30rpx;">
 												{{detail.status > 1 ? '退换' : item.goods_info.is_refund ? '退款中' : '退款'}}
@@ -492,9 +499,9 @@
 					url: `./comment/edit?id=${id}`
 				})
 			},
-			goRefund(id) {
+			goRefund(id, ali_st) {
 				uni.navigateTo({
-					url: `../refund/apply?id=${id}`
+					url: `../refund/apply?id=${id}&ali_status=${ali_st}`
 				})
 			},
 			confirm(id) {

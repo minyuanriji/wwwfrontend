@@ -1,46 +1,64 @@
 <template>
 	<view class="app">
 		<view class="container" v-if="data">
+			
 			<view class="image-text">
 				<image class="image" :src="data.goods_info.pic_url" mode="aspectFit"></image>
 				<view class="goods-info">
 					<view class="goods-name">{{ data.goods_info.name }}</view>
-					<view class="goods-attr-name">规格:属性</view>
+					<view class="goods-attr-name">{{data.goods_info.sku_labels}}</view>
 				</view>
 			</view>
+			
 			<view class="drawers">
 				<view class="drawer">
 					<view class="select">
 						<view class="name">货物状态</view>
-						<view class="text">待收货</view>
+						<view class="text">{{aliStatusText}}</view>
 					</view>
 				</view>
 				<view class="drawer">
 					<view class="select">
 						<view class="name">退款原因</view>
-						<view class="text" @click="showModal('reason')">
+						<view v-if="data.refund_status == 'none'" class="text" @click="showModal('reason')">
 							<view class="msg" :class="dataForm.reason > -1 ? 'checked' : ''">
-								{{reasonText}}
+								{{ reasonStatus[dataForm.reason] ? reasonStatus[dataForm.reason].value : '请选择' }}
 							</view>
 							<view class="iconfont icon-xiala right"></view>
 						</view>
+						<view v-else class="text">{{data.refund_data.description}}</view>
+					</view>
+				</view>
+				<view class="drawer"  v-if="data.is_refund == 1 || data.refund_status != 'none'">
+					<view class="select">
+						<view class="name">退款状态</view>
+						<view class="text" v-if="data.is_refund == 1 " style="color:green">{{refundStatusText}}</view>
+						<view class="text" v-else-if="data.refund_status == 'apply'" style="color:red">{{refundStatusText}}</view>
+						<view class="text" v-else-if="data.refund_status == 'agree'" style="color:#00428a">{{refundStatusText}}</view>
+						<view class="text" v-else>{{refundStatusText}}</view>
 					</view>
 				</view>
 			</view>
-
+			
 			<view class="refund-info">
 				<view class="price">
 					<view>退购物券:</view>
 					<view class="red" :style="{'--textColor':textColor}">¥{{ dataForm.refund_shopping_voucher_num }}</view>
 				</view>
 			</view>
-
+			
 			<view class="explain" style="">
 				<view>退款说明:</view>
-				<view class="input"><input type="text" v-model="dataForm.remark" maxlength="100" placeholder="选填" /></view>
+				<view class="input">
+					<input v-if="data.refund_status == 'none'" type="text" v-model="dataForm.remark" maxlength="100" placeholder="选填" />
+					<text v-else>{{data.refund_data.remark}}</text>
+				</view>
 			</view>
-
-			<view class="btn-text submit" :style="{'background':'#07BEB4'}" @click="dataFormSubmit">提交</view>
+			
+			<!-- 退款状态 -->
+			<template v-if="data.is_refund == 0 && data.refund_status=='none'">
+				<view class="btn-text submit" :style="{'background':'#07BEB4'}" @click="dataFormSubmit">提交</view>
+			</template>
 		</view>
 
 		<com-bottom-popup :show="bottomPopup" :radius="false" @close="hideModal">
@@ -67,6 +85,7 @@
 export default {
 	data() {
 		return {
+			order_detail_id: 0,
 			data: '',
 			serverUrl: this.$api.default.upload,
 			images: [],
@@ -74,6 +93,7 @@ export default {
 			items: null,
 			dataForm: {
 				order_detail_id: 0,
+				ali_status: '',
 				is_receipt: -1,
 				reason: -1,
 				refund_shopping_voucher_num: '',
@@ -88,10 +108,42 @@ export default {
 	onLoad(options) {
 		this.textColor = this.globalSet('textCol');
 		if (options.id) {
+			this.order_detail_id = options.id;
 			this.getDetail(options.id, true);
+		}
+		if(options.ali_status){
+			this.dataForm.ali_status = options.ali_status;
 		}
 	},
 	methods: {
+		
+		dataFormSubmit() {
+			let temp = JSON.parse(JSON.stringify(this.dataForm));
+			// temp.reason 修改数字为 退款原因数组对应数据
+			if(isEmpty(this.reasonStatus[temp.reason])){
+				return this.$http.toast('未选择退款原因');
+			}
+			temp['order_detail_id'] = this.order_detail_id;
+			temp.reason = this.reasonStatus[temp.reason].value;
+			this.$http
+				.request({
+					url: this.$api.taolijin.refundApply,
+					method: 'POST',
+					data: temp,
+					showLoading: true
+				})
+				.then(res => {
+					this.$http.toast(res.msg);
+					/* if (res.code == 0) {
+						setTimeout(() => {
+							uni.redirectTo({
+								url: './success'
+							});
+						}, 1000);
+					} */
+					this.getDetail(this.order_detail_id, true);
+				});
+		},
 		getDetail(id, bool) {
 			this.loading = bool;
 			this.$http.request({
@@ -140,6 +192,37 @@ export default {
 		},
 	},
 	computed: {
+		refundStatusText(){
+			let statusText = '';
+			if(this.data.is_refund == 1){
+				statusText = '已退款';
+			}else{
+				if(this.data.refund_status == 'apply'){
+					statusText = '申请中';
+				}else if(this.data.refund_status == 'refused'){
+					statusText = '拒绝退款';
+				}else if(this.data.refund_status == 'agree'){
+					statusText = '已同意，待打款';
+				}else if(this.data.refund_status == 'finished'){
+					statusText = '已完成';
+				}
+			}
+			return statusText;
+		},
+		aliStatusText(){
+			let statusText = '', allStatus = {};
+			allStatus = {
+				//waitbuyerpay: '未付款',
+				waitbuyerpay: '异常',
+				waitsellersend: '待发货',
+				waitbuyerreceive: '待收货',
+				confirm_goods: '已收货',
+				success: '交易成功',
+				cancel: '已取消',
+				terminated: '交易终止'
+			};
+			return typeof allStatus[this.dataForm.ali_status] != "undefined" ? allStatus[this.dataForm.ali_status] : '';
+		},
 		reasonText(){
 			let text = '请选择';
 			if(this.dataForm.reason > -1){
@@ -157,13 +240,14 @@ export default {
 			if(!this.data){
 				return ''
 			}
-			let i, temp = [];
-			for(i=0; i < this.data.refund_reason_list.length; i++){
+			let temp = [];
+			let statusTexts = this.data.refund_reason_list;
+			statusTexts.forEach((item, i) => {
 				temp.push({
-					key: this.data.refund_reason_list[i].id,
-					value: this.data.refund_reason_list[i].name
+					key: `${i}`,
+					value: item
 				});
-			}
+			});
 			return temp;
 		},
 	}

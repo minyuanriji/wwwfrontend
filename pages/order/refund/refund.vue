@@ -196,7 +196,6 @@ export default {
 					this.loading = false;
 					if (res.code === 0) {
 						let { detail } = res.data;
-						console.log(detail.use_score);
 						this.data = detail;
 						this.dataForm.order_detail_id = detail.order_detail_id;
 						this.dataForm.refund_price = detail.refund_price;

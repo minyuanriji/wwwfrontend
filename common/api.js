@@ -5,15 +5,15 @@
 
 
 // 测试服务器
-let api_root = 'https://dev.mingyuanriji.cn/web/index.php?r=';
-let url = 'https://dev.mingyuanriji.cn/web/static/'; //图片路径
-let plugins_img_url = 'https://dev.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
+//let api_root = 'https://dev.mingyuanriji.cn/web/index.php?r=';
+//let url = 'https://dev.mingyuanriji.cn/web/static/'; //图片路径
+//let plugins_img_url = 'https://dev.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
 
 
 // 本地服务器
-//let api_root = 'http://local.mingyuanriji.cn/web/index.php?r=';
-//let url = 'http://local.mingyuanriji.cn/web/static/'; //图片路径
-//let plugins_img_url = 'http://local.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径 
+let api_root = 'http://local.mingyuanriji.cn/web/index.php?r=';
+let url = 'http://local.mingyuanriji.cn/web/static/'; //图片路径
+let plugins_img_url = 'http://local.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径 
 
 //wx493ce82aab45e4da
 //71b93cac952e55289cc5b3a9b03a345d
@@ -81,8 +81,8 @@ let api = {
 		getOrderlist:api_root + 'plugin/alibaba/api/distribution-order/order-list',//订单列表
 		getOrderdetail:api_root + 'plugin/alibaba/api/distribution-order/order-details',//订单详情
 		getexpress:api_root + 'plugin/alibaba/api/distribution-order/logistics',//物流详情
-		refundData: api_root + 'plugin/alibaba/api/distribution-order-refund/to-refund-submit'
-		
+		refundData: api_root + 'plugin/alibaba/api/distribution-order-refund/to-refund-submit', //获取退款详情
+		refundApply: api_root + 'plugin/alibaba/api/distribution-order-refund/apply' //提交退款申请
 	},
 //--------------------------------------------------------------------------------------------		
 	
