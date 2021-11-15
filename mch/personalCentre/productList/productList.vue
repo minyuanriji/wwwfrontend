@@ -19,9 +19,10 @@
 					cat_id:'',
 					keyword:'',
 					label:'',
-					page:'',
+					page:1,
 					limit:''
-				}
+				},
+				page_count:'',
 			};
 		},
 		onLoad() {
@@ -42,14 +43,24 @@
 					})
 					.then(res => {
 						if(res.code==0){
-							console.log(res)
-							this.list=res.data.list
+							if(res.data.list.length==0)return false
+							let list= res.data.list;
+							var arr=this.list.concat(list)
+							this.list =arr
+							this.page_count = res.data.pagination.page_count;
 						}else{
 							this.$http.toast(res.msg);
 						}
 					});
 			}
-		}
+		},
+		onReachBottom() {
+			if(this.form.page==this.page_count){
+				return false;
+			} 		
+			this.form.page=this.form.page+1
+			this.getGoodsList();
+		},
 	}
 </script>
 
