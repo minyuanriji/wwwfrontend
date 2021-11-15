@@ -607,7 +607,7 @@
 					}
 				}).then(res => {
 					if (res.code === 0) {
-						this.$http.toast(res.msg);
+						this.$http.toast("延长收货时间成功");
 						this.getDetail(id, false);
 					}else{
 						this.$http.toast(res.msg);
