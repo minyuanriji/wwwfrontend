@@ -133,7 +133,7 @@
 							<view class="jx-info-text">发货时间</view>
 							<view class="jx-text">{{detail.send_at}}</view>
 						</view>
-						<view class="jx-info-flex jx-size24" v-if="detail.confirm_at">
+						<view class="jx-info-flex jx-size24" v-if="detail.status == 3">
 							<view class="jx-info-text">确认收货</view>
 							<view class="jx-text">{{detail.confirm_at}}</view>
 						</view>
@@ -287,7 +287,7 @@
 				poup:'',
 				timer:'',
 				showCode:false,
-				begin:false
+				begin:false,
 			}
 		},
 		onLoad: function(options) {
