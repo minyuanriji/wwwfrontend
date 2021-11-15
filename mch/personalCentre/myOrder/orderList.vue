@@ -32,8 +32,12 @@
 			<view class="item" v-for="(item,index) in orderList" :key='index'>
 				<view class="item_header">
 					<image :src="item.avatar_url" mode=""
-						style="width: 50rpx;height: 50rpx;display: block;float: left;"></image>
-					<view style="float: left;">
+						style="width: 50rpx;height: 50rpx;display: block;float: left;border-radius: 50%;"></image>
+					<view style="float: left;margin-left: 20rpx;
+			overflow: hidden;text-overflow:ellipsis;white-space: nowrap;width: 50%;">
+						{{item.nickname}}
+					</view>
+					<view style="float: right;">
 						{{item.mobile}}
 					</view>
 				</view>
