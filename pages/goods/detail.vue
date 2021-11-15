@@ -859,13 +859,28 @@
 								url = '/pages/order/submit';
 							}
 							// #ifdef H5
+							if(this.is_seckill==0){
+									url = url + '?nav_id=' + JSON.stringify([{id:this.$route.query.proId,num:this.value}])+'&mch_id='+mch_id+"&user_address_id=0"+"&use_score=0"+"&use_integral=0"+"&list="+String(res.data.cart_id)
+							}
+							if(this.is_seckill!=0){
+									url = url + '?nav_id=' + JSON.stringify([{id:this.$route.query.proId,num:this.value}])+'&mch_id='+mch_id+"&user_address_id=0"+"&use_score=1"+"&use_integral=0"+"&list="+String(res.data.cart_id)
+							}
 							
-							url = url + '?nav_id=' + JSON.stringify([{id:this.$route.query.proId,num:this.value}])+'&mch_id='+mch_id+"&user_address_id=0"+"&use_score=0"+"&use_integral=0"+"&list="+String(res.data.cart_id)
+							// url = url + '?nav_id=' + JSON.stringify([{id:this.$route.query.proId,num:this.value}])+'&mch_id='+mch_id+"&user_address_id=0"+"&use_score=0"+"&use_integral=0"+"&list="+String(res.data.cart_id)
 							     
 							// #endif
 							
 							// #ifdef MP-WEIXIN || APP-PLUS
-							url = url + '?nav_id=' + this.wx_nav_id.proId+'&mch_id='+mch_id+"&user_address_id=0"+"&use_score=0"+"&use_integral=0"+"&list="+String(res.data.cart_id)
+							
+							if(this.is_seckill==0){
+								url = url + '?nav_id=' + this.wx_nav_id.proId+'&mch_id='+mch_id+"&user_address_id=0"+"&use_score=0"+"&use_integral=0"+"&list="+String(res.data.cart_id)	
+							}
+							if(this.is_seckill!=0){
+								url = url + '?nav_id=' + this.wx_nav_id.proId+'&mch_id='+mch_id+"&user_address_id=0"+"&use_score=1"+"&use_integral=0"+"&list="+String(res.data.cart_id)
+							}
+							
+							
+							// url = url + '?nav_id=' + this.wx_nav_id.proId+'&mch_id='+mch_id+"&user_address_id=0"+"&use_score=0"+"&use_integral=0"+"&list="+String(res.data.cart_id)
 							// #endif
 							
 							uni.navigateTo({

@@ -5,15 +5,16 @@
 
 
 // 测试服务器
-let api_root = 'https://dev.mingyuanriji.cn/web/index.php?r=';
-let url = 'https://dev.mingyuanriji.cn/web/static/'; //图片路径
-let plugins_img_url = 'https://dev.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
+//let api_root = 'https://dev.mingyuanriji.cn/web/index.php?r=';
+//let url = 'https://dev.mingyuanriji.cn/web/static/'; //图片路径
+//let plugins_img_url = 'https://dev.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
 
 
 // 本地服务器
-//let api_root = 'http://local.mingyuanriji.cn/web/index.php?r=';
-//let url = 'http://local.mingyuanriji.cn/web/static/'; //图片路径
-//let plugins_img_url = 'http://local.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径 
+let api_root = 'http://local.mingyuanriji.cn/web/index.php?r=';
+let url = 'http://local.mingyuanriji.cn/web/static/'; //图片路径
+let plugins_img_url = 'http://local.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径 
+
 
 //wx493ce82aab45e4da
 //71b93cac952e55289cc5b3a9b03a345d
@@ -296,6 +297,9 @@ let api = {
 		express_price:api_root + 'api/order/get-express-price',
 		getscore:api_root + 'api/order/get-flag',
 		refundOrider: api_root + 'api/order/del-refund-order',
+		extendedOrider: api_root + 'api/order/order-extended-receiving-time',
+		
+		
 	},
 	category:{
 		leftlist: api_root+'api/cat/list',
@@ -442,6 +446,9 @@ let api = {
 		 
 		 
 		 getHcodedetail:api_root+"api/clerkCenter/clerk/sweep-jump",
+		 
+		 
+		 getlifeOrderH:api_root+"mch/api/order/giftpacks",
 	},
 	hotel:{
 		getrecommended: api_root +'plugin/hotel/api/hotel/simple-list',

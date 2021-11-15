@@ -64,7 +64,7 @@
 			</view>
 		</view>		
 		<view class="personalCenter-item" @click="myOrder">
-			<jx-list-cell padding="0" :lineLeft="false">
+			<jx-list-cell padding="0" :lineLeft="false" :arrow="true">
 				<view class="jx-cell-header">
 					<view class="jx-cell-title" style="font-weight: 700;">我的订单</view>
 				</view>
