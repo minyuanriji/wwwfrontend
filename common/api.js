@@ -445,6 +445,10 @@ let api = {
 		 
 		 
 		 getHcodedetail:api_root+"api/clerkCenter/clerk/sweep-jump",
+		 
+		 
+		 getlifeOrderH:api_root+"mch/api/order/giftpacks",
+		 getlifeOrderAPP:api_root+"plugin/mch/api/mana/order/giftpacks",
 	},
 	hotel:{
 		getrecommended: api_root +'plugin/hotel/api/hotel/simple-list',

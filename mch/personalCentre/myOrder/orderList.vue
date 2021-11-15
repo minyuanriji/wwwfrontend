@@ -21,48 +21,51 @@
 			</view>
 			<view class="tui-cancle" @tap="search">搜索</view>
 		</view>
-		<com-tabs :tabs="tabs" :isFixed="scrollTop>=0" :currentTab="showTab[status]" selectedColor="#FF7104" sliderBgColor="#FF7104"
-		 :sliderHeight="4" :sliderWidth="50" bgColor="#F7F7F7" @change="change" bottom="10rpx" style="z-index:999;"></com-tabs>
-	
+		<view class="order_status">
+			<view v-for="(item,index) in table" :key='index' @click="change(index)">
+				<text :class="selecIndex==index?'active':''">{{item}}</text>
+			</view>
+		</view>
 		<view class="goods_list">
-			<view class="item">
+			<view class="item" v-for="(item,index) in orderList" :key='index'>
 				<view class="item_header">
-					<image src="../../../plugins/images/extensions/community/map-location.png" mode="" style="width: 50rpx;height: 50rpx;display: block;float: left;"></image>
+					<image :src="item.avatar_url" mode="" style="width: 50rpx;height: 50rpx;display: block;float: left;"></image>
 					<view style="float: left;">
-						18824708843
-					</view>
-					<view style="float: right;">
-						<text>待收货</text>
+						{{item.mobile}}
 					</view>
 				</view>
 				<view class="ordermessage">
 					<view style="margin: 20rpx 0;font-size: 30rpx;">
 						<text>订单编号：</text>
-						<text style="color: #000;">415615646415164565489</text>
-						<text style="display: inline-block;float: right;border: 1rpx solid rgb(237,237,237);width: 100rpx;text-align: center;border-radius: 10rpx;">复制</text>
+						<text style="color: #000;">{{item.order_sn}}</text>
+						<text style="display: inline-block;float: right;border: 1rpx solid rgb(237,237,237);width: 100rpx;text-align: center;border-radius: 10rpx;"
+						@click="copyText(item.order_sn)">复制</text>
 					</view>
 					<view style="font-size: 30rpx;margin: 0 0 20rpx 0;">
 						<text>下单时间：</text>
-						<text  style="color: #000;">165156445</text>
+						<text  style="color: #000;">{{item.created_at}}</text>
 					</view>
 				</view>
 				<view class="goods_detail">
 					<view class="goods_detail_message">
-						<image src="../../img/logo_oil.png" mode=""></image>
+						<image :src="item.item_pic" mode=""></image>
 						<view class="goods_detail_message_right">
-							<view>
-								的君威of呢热辽宁高考来个你
+							<view style="overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;">
+								{{item.item_name}}
 							</view>
-							<view>
-								ckerpgmkerl;mgrtl; 
+							<view style="font-size: 28rpx;color: #000;margin-top: 10rpx;">
+								{{item.remarks}}
 							</view>
 						</view>
 					</view>
 					<view class="goods_detail_price">
 						<view style="float: right;">
 							<text>实付款：</text>
-							<text>￥0</text>
-							<text>共1件</text>
+							<text style="color: red;">￥{{item.order_price}}</text>
 						</view>
 					</view>
 				</view>
@@ -83,58 +86,111 @@
 			return {
 				img_url: this.$api.img_url,
 				key: "",
-				tabs: [{
-					name: "全部"
-				}, {
-					name: "待付款"
-				}, {
-					name: "待发货"
-				}, {
-					name: "待收货"
-				}, {
-					name: "待评价"
-				},
-				{
-					name: "售后"
-				},
-				],
-				showTab: {
-					'0': 0,
-					'1': 1,
-					'2': 2,
-					'3': 3,
-					'4': 4,
-					'5': 5,
-				},
 				scrollTop: 0,
 				status: 0,
-				statusObj: {
-					0: 0,
-					1: 1,
-					2: 2,
-					3: 3,
-					4: 4,
-					5: 5,
+				table:[
+					"待使用",
+					"待支付",
+					"已完成"
+				],
+				selecIndex:0,
+				form:{
+					status:'paid',//状态：paid待使用，finished已结束，unpaid待支付
+					page:1,
+					keyword:'',
 				},
+				orderList:[],
+				page_count:'',
 			};
 		},
 		onLoad() {
-
+			this.getorderList()
 		},
 		methods:{
 			cleanKey: function() { //清空搜索
 				this.key = ''
+				this.form.keyword=''
 			},
 			search(){ //搜索
-				
+				this.form.keyword=this.key
+				this.form.page=1
+				this.orderList=[]
+				this.getorderList()
 			},
-			change(e) {
-				this.status = this.statusObj[e.index]
-				console.log(this.status)
+			change(index){
+				this.selecIndex=index
+				if(index==0){
+					this.form.status="paid"
+				}
+				if(index==1){
+					this.form.status="unpaid"
+				}
+				if(index==2){
+					this.form.status="finished"
+				}
+				this.form.page=1
+				this.orderList=[]
+				this.getorderList()
 			},
+			getorderList(){
+				let that = this;
+				this.$http.request({  //获取订单列表
+				//#ifdef MP-WEIXIN||H5
+					url: this.$api.moreShop.getlifeOrderH,
+				//#endif
+				//#ifdef APP-PLUS
+					url: this.$api.moreShop.getlifeOrderAPP,
+				//#endif	
+					method: 'POST',
+					data:this.form,
+					showLoading: true
+				}).then(res => {
+					if(res.code == 0){
+						if(res.data.list.length==0)return false
+						let list= res.data.list;
+						var arr=this.orderList.concat(list)
+						this.orderList =arr
+						this.page_count = res.data.pagination.page_count;
+					}else{
+						that.$http.toast(res.msg);
+					}
+				});
+			},
+			copyText(text) {		
+				let _self = this;
+				// #ifdef H5
+				return new Promise((resolve, reject) => {
+					let copy = document.createElement("input"); // 创建一个input框获取需要复制的文本内容
+					copy.value = text;
+					let appDiv = document.getElementsByClassName('order_lisat_container')[0];
+					appDiv.appendChild(copy);
+					copy.select();
+					document.execCommand("Copy");
+					_self.$http.toast("复制成功")
+					copy.remove()
+					resolve(true);
+				})
+				// #endif
+			
+				// #ifndef H5
+				uni.setClipboardData({
+					data: text,
+					success: function() {
+						_self.$http.toast("复制成功")
+					}
+				});
+				// #endif
+			}	
 		},
 		onPageScroll(e) {
 			this.scrollTop = e.scrollTop;
+		},
+		onReachBottom() {
+			if(this.form.page==this.page_count){
+				return false;
+			} 		
+			this.form.page=this.form.page+1
+			this.getorderList();
 		},
 	}
 </script>
@@ -220,8 +276,10 @@
 		display: flex;
 		flex-wrap: wrap;
 	}
-	.goods_list{width: 100%;overflow: hidden;margin-top: 220rpx;}
-	.item{width: 100%;overflow: hidden;padding:20rpx;box-sizing: border-box;background: #fff;}
+	.order_status{width: 100%;height: 100rpx;background: #fff;position: fixed;top: 205rpx;display: flex;justify-content: space-evenly;z-index: 999;}
+	.order_status view text{display: block;width: 100%;height: 90rpx;line-height: 90rpx;}
+	.goods_list{width: 100%;overflow: hidden;margin-top: 220rpx;margin-bottom: 100rpx;}
+	.item{width: 100%;overflow: hidden;padding:20rpx;box-sizing: border-box;background: #fff;margin-top: 20rpx;}
 	.item_header{width: 100%;overflow: hidden;margin-bottom: 20rpx;}
 	.ordermessage{width: 100%;overflow: hidden;border:1rpx solid rgb(237,237,237) ;border-left: none;border-right: none;}
 	.goods_detail{width: 100%;overflow: hidden;margin: 15rpx 0;}
@@ -229,5 +287,6 @@
 	.goods_detail_message image{width: 200rpx;height: 200rpx;display: block;float: left;}
 	.goods_detail_message_right{width: 70%;float: left;padding: 0 0 0 10rpx;box-sizing: border-box;}
 	.goods_detail_price{width: 100%;overflow: hidden;margin: 10rpx 0;}
+	.active{color:rgb(255, 113, 4);border-bottom: 5rpx solid rgb(255, 113, 4);}
 </style>
 
