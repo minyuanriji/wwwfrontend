@@ -208,6 +208,9 @@
 							<view class="btns" style="color:#8F8D8E,border: 1px solid #8F8D8E" @tap="toPage(detail.id)">查看物流</view>
 						</view>
 						<view class="jx-btn-mr" v-if="detail.status == 2">
+							<view class="btns" style="color:#8F8D8E,border: 1px solid #8F8D8E" @tap="extended(detail.id)">延长收货</view>
+						</view>
+						<view class="jx-btn-mr" v-if="detail.status == 2">
 							<view class="btns" @click="confirm(detail.id)" :style="{color:textColor,border: '1px solid '+textColor}">确认收货</view>
 						</view>
 						<view class="jx-btn-mr" v-if="detail.status == 3">
@@ -593,6 +596,22 @@
 			href(id){ //进入核销页面
 				uni.navigateTo({
 					url:'./verification/verification?id='+id
+				})
+			},
+			extended(id){ //延长收货
+				this.$http.request({
+					url: this.$api.order.extendedOrider,
+					method: 'POST',
+					data: {
+						id: id
+					}
+				}).then(res => {
+					if (res.code === 0) {
+						this.$http.toast(res.msg);
+						this.getDetail(id, false);
+					}else{
+						this.$http.toast(res.msg);
+					}
 				})
 			}
 		},

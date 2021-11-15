@@ -296,6 +296,9 @@ let api = {
 		express_price:api_root + 'api/order/get-express-price',
 		getscore:api_root + 'api/order/get-flag',
 		refundOrider: api_root + 'api/order/del-refund-order',
+		extendedOrider: api_root + 'api/order/order-extended-receiving-time',
+		
+		
 	},
 	category:{
 		leftlist: api_root+'api/cat/list',
