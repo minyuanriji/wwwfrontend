@@ -18,6 +18,23 @@
 		<view class="jx-content-box" style="margin-top: 20rpx;">
 			<view class="jx-header-btm">
 				<view class="jx-btm-item">
+					商户后台地址
+				</view>
+				<view class="linkcopy" style="font-size: 24rpx;width: 30%;overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap">
+					{{link}}
+				</view>
+				<view class="jx-btm-item last">
+					<text
+						style="background:  #FF7104;width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;"
+						@click="copyText(link)">点击复制</text>
+				</view>
+			</view>
+		</view>
+		<view class="jx-content-box" style="margin-top: 20rpx;">
+			<view class="jx-header-btm">
+				<view class="jx-btm-item">
 					当前商品
 				</view>
 				<view class="jx-btm-item">
@@ -157,7 +174,8 @@
 				poster_url: "",
 				store:'',
 				stat:'',
-				loading: true
+				loading: true,
+				link:'https://www.mingyuanriji.cn/web/index.php?r=mch%2Fadmin%2Flogin'
 			}
 		},
 		onShow() {
@@ -354,6 +372,31 @@
 					}
 				});
 			},
+			copyText(text) {
+				let _self = this;
+				// #ifdef H5
+				return new Promise((resolve, reject) => {
+					let copy = document.createElement("input"); // 创建一个input框获取需要复制的文本内容
+					copy.value = text;
+					let appDiv = document.getElementsByClassName('personalCenter')[0];
+					appDiv.appendChild(copy);
+					copy.select();
+					document.execCommand("Copy");
+					_self.$http.toast("复制成功")
+					copy.remove()
+					resolve(true);
+				})
+				// #endif
+			
+				// #ifndef H5
+				uni.setClipboardData({
+					data: text,
+					success: function() {
+						_self.$http.toast("复制成功")
+					}
+				});
+				// #endif
+			},
 		}
 	}
 </script>
@@ -363,7 +406,7 @@
 		width: 100%;
 		overflow: hidden;
 		background: url(https://dev.mingyuanriji.cn/web/static/personalCenter_logo.jpg)no-repeat; 
-		background-size: cover;
+		background-size: 100%;
 		padding-top: 40rpx;
 	}
 
