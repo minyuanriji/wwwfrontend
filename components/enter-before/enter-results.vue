@@ -73,7 +73,7 @@
 				}
 				if(index==3){
 					uni.navigateTo({
-						url:'../../pages/personalCentre/personalCentre'
+						url:'../../mch/personalCentre/personalCentre'
 					})
 				}
 			}
