@@ -65,9 +65,11 @@
   -webkit-box-orient: vertical;">
 								{{item.item_name}}
 							</view>
-							<view style="font-size: 28rpx;color: #000;margin-top: 10rpx;">
+							<view style="font-size: 28rpx;color: #000;margin-top: 10rpx;margin-bottom: 20rpx;">
 								{{item.remarks}}
 							</view>
+							<view style="font-size: 28rpx;color: #000;margin-top: 10rpx;width: 200rpx;text-align: center;line-height: 60rpx;
+							border: 1rpx solid rgb(237,237,237);border-radius: 20rpx;" @click="checkpour(item.clerk_log)">查看核销记录</view>
 						</view>
 					</view>
 					<view class="goods_detail_price">
@@ -79,16 +81,34 @@
 				</view>
 			</view>
 		</view>
+		<unipopup ref="popup" type="center">
+			<scroll-view scroll-y="true"  class="scroll-Ys">
+				<view class="popup-more">
+					<view class="popup-more-title">
+						核销记录
+					</view>
+					<view class="popup-more-popup-list">
+						<view class="popup-more-popup-item" v-for="(item,index) in clerk_log" :key='index'>
+							<view class="popup-more-popup-item-name">
+								在{{item.updated_at}}核销
+							</view>
+						</view>
+					</view>
+				</view>
+			</scroll-view>
+		</unipopup>
 	</view>
 </template>
 
 <script>
 	import tuiIcon from "@/components/icon/icon";
 	import tuiTag from "@/components/tag/tag";
+	import unipopup from '@/components/uni-popup/uni-popup';
 	export default {
 		components: {
 			tuiIcon,
 			tuiTag,
+			unipopup
 		},
 		data() {
 			return {
@@ -109,6 +129,8 @@
 				},
 				orderList: [],
 				page_count: '',
+				popup:false,
+				clerk_log:[],
 			};
 		},
 		onLoad() {
@@ -183,6 +205,10 @@
 					}
 				});
 				// #endif
+			},
+			checkpour(item){
+				this.$refs.popup.open()
+				this.clerk_log=item
 			}
 		},
 		onPageScroll(e) {
@@ -376,4 +402,14 @@
 		color: rgb(255, 113, 4);
 		border-bottom: 5rpx solid rgb(255, 113, 4);
 	}
+	.scroll-Ys {width: 700rpx;overflow: hidden;margin: 0 auto;background: #fff;border-radius: 20rpx;}
+	.popup-more{width: 700rpx;height: 500rpx;background: #fff;border-radius: 30rpx;}
+	.popup-more-title{width: 100%;height: 80rpx;text-align: center;line-height: 80rpx;font-size: 30rpx;color: #000;border-bottom: 1rpx solid rgb(181,181,181);}
+	.popup-more-popup-list{width: 100%;overflow: hidden;padding: 0 10rpx;margin-bottom: 20rpx;}
+	.popup-more-popup-item{width: 100%;overflow: hidden;border-top: 2rpx solid #f2f2f2;margin: 5rpx 0;}
+	.popup-more-popup-item image{width: 60rpx;height: 60rpx;float: left;margin-top: 20rpx;margin-right: 20rpx;}
+	.popup-more-popup-item-name{float: left;height: 100rpx;line-height: 100rpx;font-size: 25rpx;width: 100%;text-align: center;font-size: 30rpx;}
+	.popup-more-popup-item-peopeliNum{height: 100rpx;float: left;font-size: 25rpx;width: 250rpx;margin-left: 30rpx;}
+	.popup-more-popup-item-peopeliNum text:nth-of-type(2){display: block;width: 100%;height: 50rpx;text-align: center;line-height: 50rpx;}
+	.popup-more-go-popup{height: 60rpx;float: right;background: rgb(255, 51, 11);width: 130rpx;color: #fff;text-align: center;line-height: 60rpx;font-size: 28rpx;margin-top: 20rpx;}
 </style>
