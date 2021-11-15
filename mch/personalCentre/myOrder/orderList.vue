@@ -10,13 +10,15 @@
 					<com-icons type="search" :size='16' color='#333333'></com-icons>
 				</view>
 				<!-- #endif -->
-				<input type="search" placeholder="请输入商品名"  placeholder-class="tui-input-plholder"
-				 class="tui-input" v-model.trim="key" @confirm='search'/>
+				<input type="search" placeholder="请输入商品名" placeholder-class="tui-input-plholder" class="tui-input"
+					v-model.trim="key" @confirm='search' />
 				<!-- #ifdef APP-PLUS || MP -->
 				<icon type="clear" :size='13' color='#bcbcbc' @tap="cleanKey" v-show="key"></icon>
 				<!-- #endif -->
 				<!-- #ifdef H5 -->
-				<view @tap="cleanKey" v-show="key"><tui-icon name="close-fill" :size='16' color='#bcbcbc'></tui-icon></view>
+				<view @tap="cleanKey" v-show="key">
+					<tui-icon name="close-fill" :size='16' color='#bcbcbc'></tui-icon>
+				</view>
 				<!-- #endif -->
 			</view>
 			<view class="tui-cancle" @tap="search">搜索</view>
@@ -29,7 +31,8 @@
 		<view class="goods_list">
 			<view class="item" v-for="(item,index) in orderList" :key='index'>
 				<view class="item_header">
-					<image :src="item.avatar_url" mode="" style="width: 50rpx;height: 50rpx;display: block;float: left;"></image>
+					<image :src="item.avatar_url" mode=""
+						style="width: 50rpx;height: 50rpx;display: block;float: left;"></image>
 					<view style="float: left;">
 						{{item.mobile}}
 					</view>
@@ -38,12 +41,13 @@
 					<view style="margin: 20rpx 0;font-size: 30rpx;">
 						<text>订单编号：</text>
 						<text style="color: #000;">{{item.order_sn}}</text>
-						<text style="display: inline-block;float: right;border: 1rpx solid rgb(237,237,237);width: 100rpx;text-align: center;border-radius: 10rpx;"
-						@click="copyText(item.order_sn)">复制</text>
+						<text
+							style="display: inline-block;float: right;border: 1rpx solid rgb(237,237,237);width: 100rpx;text-align: center;border-radius: 10rpx;"
+							@click="copyText(item.order_sn)">复制</text>
 					</view>
 					<view style="font-size: 30rpx;margin: 0 0 20rpx 0;">
 						<text>下单时间：</text>
-						<text  style="color: #000;">{{item.created_at}}</text>
+						<text style="color: #000;">{{item.created_at}}</text>
 					</view>
 				</view>
 				<view class="goods_detail">
@@ -88,75 +92,70 @@
 				key: "",
 				scrollTop: 0,
 				status: 0,
-				table:[
+				table: [
 					"待使用",
 					"待支付",
 					"已完成"
 				],
-				selecIndex:0,
-				form:{
-					status:'paid',//状态：paid待使用，finished已结束，unpaid待支付
-					page:1,
-					keyword:'',
+				selecIndex: 0,
+				form: {
+					status: 'paid', //状态：paid待使用，finished已结束，unpaid待支付
+					page: 1,
+					keyword: '',
 				},
-				orderList:[],
-				page_count:'',
+				orderList: [],
+				page_count: '',
 			};
 		},
 		onLoad() {
 			this.getorderList()
 		},
-		methods:{
+		methods: {
 			cleanKey: function() { //清空搜索
 				this.key = ''
-				this.form.keyword=''
+				this.form.keyword = ''
 			},
-			search(){ //搜索
-				this.form.keyword=this.key
-				this.form.page=1
-				this.orderList=[]
+			search() { //搜索
+				this.form.keyword = this.key
+				this.form.page = 1
+				this.orderList = []
 				this.getorderList()
 			},
-			change(index){
-				this.selecIndex=index
-				if(index==0){
-					this.form.status="paid"
+			change(index) {
+				this.selecIndex = index
+				if (index == 0) {
+					this.form.status = "paid"
 				}
-				if(index==1){
-					this.form.status="unpaid"
+				if (index == 1) {
+					this.form.status = "unpaid"
 				}
-				if(index==2){
-					this.form.status="finished"
+				if (index == 2) {
+					this.form.status = "finished"
 				}
-				this.form.page=1
-				this.orderList=[]
+				this.form.page = 1
+				this.orderList = []
 				this.getorderList()
 			},
-			getorderList(){
+			getorderList() {
 				let that = this;
-				this.$http.request({  //获取订单列表
-				//#ifdef MP-WEIXIN||H5
+				this.$http.request({ //获取订单列表
 					url: this.$api.moreShop.getlifeOrderH,
-				//#endif
-				//#ifdef APP-PLUS
-					url: this.$api.moreShop.getlifeOrderAPP,
-				//#endif	
 					method: 'POST',
-					data:this.form,
+					data: this.form,
 					showLoading: true
 				}).then(res => {
-					if(res.code == 0){
-						if(res.data.list.length==0)return false
-						let list= res.data.list;
-						var arr=this.orderList.concat(list)
-						this.orderList =arr
+					if (res.code == 0) {
+						if (res.data.list.length == 0) return false
+						let list = res.data.list;
+						var arr = this.orderList.concat(list)
+						this.orderList = arr
 						this.page_count = res.data.pagination.page_count;
-					}else{
+					} else {
 						that.$http.toast(res.msg);
 					}
 				});
 			},
-			copyText(text) {		
+			copyText(text) {
 				let _self = this;
 				// #ifdef H5
 				return new Promise((resolve, reject) => {
@@ -171,7 +170,7 @@
 					resolve(true);
 				})
 				// #endif
-			
+
 				// #ifndef H5
 				uni.setClipboardData({
 					data: text,
@@ -180,23 +179,27 @@
 					}
 				});
 				// #endif
-			}	
+			}
 		},
 		onPageScroll(e) {
 			this.scrollTop = e.scrollTop;
 		},
 		onReachBottom() {
-			if(this.form.page==this.page_count){
+			if (this.form.page == this.page_count) {
 				return false;
-			} 		
-			this.form.page=this.form.page+1
+			}
+			this.form.page = this.form.page + 1
 			this.getorderList();
 		},
 	}
 </script>
 
 <style lang="less" scoped>
-	.order_lisat_container{width: 100%;height: 100%;}
+	.order_lisat_container {
+		width: 100%;
+		height: 100%;
+	}
+
 	.tui-searchbox {
 		width: 100%;
 		padding: 30rpx;
@@ -214,7 +217,7 @@
 		left: 0;
 		z-index: 9999;
 	}
-	
+
 	.tui-search-input {
 		width: 90%;
 		height: 66rpx;
@@ -226,67 +229,147 @@
 		align-items: center;
 		flex-wrap: nowrap;
 	}
-	
+
 	.tui-input {
 		flex: 1;
 		color: #333;
 		padding: 0 16rpx;
 		font-size: 11pt;
 	}
-	
+
 	.tui-input-plholder {
 		font-size: 11pt;
 		color: #b2b2b2;
 	}
-	
+
 	.tui-cancle {
 		color: #888;
 		font-size: 11pt;
 		padding-left: 30rpx;
 		flex-shrink: 0;
 	}
-	
+
 	.tui-history-header {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		padding: 30rpx 0;
 	}
-	
+
 	.tui-icon-delete {
 		padding: 10rpx;
 	}
-	
+
 	.tui-search-title {
 		font-size: 11pt;
 		font-weight: bold;
 	}
-	
+
 	.tui-hot-header {
 		padding: 30rpx 0;
 	}
-	
+
 	.tui-tag-class {
 		display: inline-block;
 		margin-bottom: 20rpx;
 		margin-right: 20rpx;
 		font-size: 9pt !important;
 	}
-	.tui-history-content{
+
+	.tui-history-content {
 		display: flex;
 		flex-wrap: wrap;
 	}
-	.order_status{width: 100%;height: 100rpx;background: #fff;position: fixed;top: 205rpx;display: flex;justify-content: space-evenly;z-index: 999;}
-	.order_status view text{display: block;width: 100%;height: 90rpx;line-height: 90rpx;}
-	.goods_list{width: 100%;overflow: hidden;margin-top: 220rpx;margin-bottom: 100rpx;}
-	.item{width: 100%;overflow: hidden;padding:20rpx;box-sizing: border-box;background: #fff;margin-top: 20rpx;}
-	.item_header{width: 100%;overflow: hidden;margin-bottom: 20rpx;}
-	.ordermessage{width: 100%;overflow: hidden;border:1rpx solid rgb(237,237,237) ;border-left: none;border-right: none;}
-	.goods_detail{width: 100%;overflow: hidden;margin: 15rpx 0;}
-	.goods_detail_message{width: 100%;overflow: hidden;}
-	.goods_detail_message image{width: 200rpx;height: 200rpx;display: block;float: left;}
-	.goods_detail_message_right{width: 70%;float: left;padding: 0 0 0 10rpx;box-sizing: border-box;}
-	.goods_detail_price{width: 100%;overflow: hidden;margin: 10rpx 0;}
-	.active{color:rgb(255, 113, 4);border-bottom: 5rpx solid rgb(255, 113, 4);}
-</style>
 
+	.order_status {
+		width: 100%;
+		height: 100rpx;
+		background: #fff;
+		position: fixed;
+		/* #ifdef H5*/
+			top: 205rpx;
+		/* #endif */
+		/* #ifdef APP-PLUS*/
+			top: 105rpx;
+		/* #endif */		
+		/* #ifdef  MP  */
+			top: 125rpx;
+		/* #endif */
+		display: flex;
+		justify-content: space-evenly;
+		z-index: 999;
+	}
+
+	.order_status view text {
+		display: block;
+		width: 100%;
+		height: 90rpx;
+		line-height: 90rpx;
+	}
+
+	.goods_list {
+		width: 100%;
+		overflow: hidden;
+		margin-top: 220rpx;
+		margin-bottom: 100rpx;
+	}
+
+	.item {
+		width: 100%;
+		overflow: hidden;
+		padding: 20rpx;
+		box-sizing: border-box;
+		background: #fff;
+		margin-top: 20rpx;
+	}
+
+	.item_header {
+		width: 100%;
+		overflow: hidden;
+		margin-bottom: 20rpx;
+	}
+
+	.ordermessage {
+		width: 100%;
+		overflow: hidden;
+		border: 1rpx solid rgb(237, 237, 237);
+		border-left: none;
+		border-right: none;
+	}
+
+	.goods_detail {
+		width: 100%;
+		overflow: hidden;
+		margin: 15rpx 0;
+	}
+
+	.goods_detail_message {
+		width: 100%;
+		overflow: hidden;
+	}
+
+	.goods_detail_message image {
+		width: 200rpx;
+		height: 200rpx;
+		display: block;
+		float: left;
+	}
+
+	.goods_detail_message_right {
+		width: 70%;
+		float: left;
+		padding: 0 0 0 10rpx;
+		box-sizing: border-box;
+	}
+
+	.goods_detail_price {
+		width: 100%;
+		overflow: hidden;
+		margin: 10rpx 0;
+	}
+
+	.active {
+		color: rgb(255, 113, 4);
+		border-bottom: 5rpx solid rgb(255, 113, 4);
+	}
+</style>
