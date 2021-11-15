@@ -211,7 +211,7 @@
 		/* #ifdef H5 */
 		top: 80rpx;
 		/* #endif */
-		/* #ifdef  MP  */
+		/* #ifdef  MP ||APP-PLUS */
 		top: 0rpx;
 		/* #endif */
 		left: 0;
