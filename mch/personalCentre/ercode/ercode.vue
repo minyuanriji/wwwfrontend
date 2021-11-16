@@ -15,9 +15,6 @@
 					{{message.store.name}}
 				</view>
 			</view>
-			<!-- <view class="notice">
-				扫码付多少送多少购物券
-			</view> -->
 		</view>
 		<view class="type_pay">
 			<view>
@@ -285,12 +282,12 @@
 	.ercodeImg{width: 60%;margin: 0 auto;background: #fff;height: 500rpx;border-radius: 30rpx;}
 	.ercodeImg-img{width: 350rpx;height: 350rpx;margin: 0 auto;padding-top: 40rpx;}
 	.ercodeImg-img image{width: 350rpx;height: 350rpx;}
-	/* #ifdef H5 */
+	/* #ifdef H5 ||APP-PLUS*/
 .shop-name{margin-top: 60rpx;width: 100%;overflow: hidden;text-align: center;color: #FF6B09 ;font-weight: bold;font-size: 36rpx;overflow: hidden;
 text-overflow:ellipsis;
 white-space: nowrap;}
 	/* #endif */
-	/* #ifdef  MP  */
+	/* #ifdef  MP */
 	.shop-name{margin-top: 30rpx;width: 100%;overflow: hidden;text-align: center;color: #FF6B09 ;font-weight: bold;font-size: 36rpx;overflow: hidden;
 	text-overflow:ellipsis;
 	white-space: nowrap;}
@@ -373,7 +370,7 @@ white-space: nowrap;}
 	.goods-qrcode-close {
 		position: absolute;
 		top: 40rpx;
-		/* #ifdef MP-WEIXIN */
+		/* #ifdef MP-WEIXIN ||APP-PLUS */
 		top: 150rpx;
 		/* #endif */
 		right: 40rpx;
