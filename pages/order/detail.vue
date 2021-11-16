@@ -23,7 +23,7 @@
 					<view class="text-container">
 						<view class="text" v-if="is_show">{{detail.status_text}}</view>
 						<view v-else>售后申请</view>
-						<view class="msg" v-if="detail.status != 0">{{statusText[detail.status]}}</view>
+						<view class="msg" v-if="detail.status != 0">{{detail.status==2&&detail.expand_num==1?'14天后自动收货':statusText[detail.status]}}</view>
 						<view class="msg" v-else>{{detail.cancel_at}}后关闭订单</view>
 					</view>
 					<view class="btn" v-if="is_show">
@@ -262,7 +262,7 @@
 				statusText: {
 					'0': '30分钟后订单自动关闭',
 					'1': '买家已付款',
-					'2': '14天后自动收货',
+					'2': '7天后自动收货',
 					'3': '交易完成',
 					'5': '订单已取消'
 				},
@@ -588,7 +588,7 @@
 				// });
 			},
 			getStatusText: function(status) {
-				return ["等待买家付款", "买家已付款", "14天后自动收货", "交易完成", ""][status - 1]
+				return ["等待买家付款", "买家已付款", "7天后自动收货", "交易完成", ""][status - 1]
 			},
 			getReason: function(status) {
 				return ["剩余时间", "等待卖家发货", "还剩X天XX小时自动确认", "", "超时未付款，订单自动取消"][status - 1]
