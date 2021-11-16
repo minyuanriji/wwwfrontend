@@ -258,6 +258,9 @@
 							}).then(res => {
 								if (res.code == 0) {
 									that.$http.toast(res.msg);
+									if(uni.getStorageSync('addressID')==that.id){
+										uni.removeStorageSync('addressID')
+									}
 									setTimeout(() => {
 										uni.navigateBack();
 									}, 1000)
