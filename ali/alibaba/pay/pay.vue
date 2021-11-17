@@ -146,9 +146,16 @@
 						if(res.code==0){
 							that.$http.toast('支付成功!');
 								setTimeout(() => {
-									uni.redirectTo({
-										url: '/ali/alibaba/orderList/orderList'
-									})
+									// #ifdef APP-PLUS
+										uni.navigateTo({
+											url: '/ali/alibaba/orderList/orderList'
+										})
+									// #endif
+									// #ifdef H5||MP-WEIXIN
+										uni.redirectTo({
+											url: '/ali/alibaba/orderList/orderList'
+										})
+									// #endif
 								},2000)
 							return;
 						}else{
@@ -216,9 +223,16 @@
 												_url = '/pages/order/list?status=0'
 											}
 												setTimeout(() => {
-													uni.redirectTo({
-														url: _url
-													})
+													// #ifdef APP-PLUS
+														uni.navigateTo({
+															url: _url
+														})
+													// #endif
+													// #ifdef H5||MP-WEIXIN
+														uni.redirectTo({
+															url: _url
+														})
+													// #endif
 												},1000)														
 										});
 									}else{
@@ -239,9 +253,16 @@
 							if(res.code==0){
 								that.$http.toast('支付成功!');
 									setTimeout(() => {
-										uni.redirectTo({
-											url: '/ali/alibaba/orderList/orderList'
-										})
+										// #ifdef APP-PLUS
+											uni.navigateTo({
+												url: '/ali/alibaba/orderList/orderList'
+											})
+										// #endif
+										// #ifdef H5||MP-WEIXIN
+											uni.redirectTo({
+												url: '/ali/alibaba/orderList/orderList'
+											})
+										// #endif
 									},500)
 								return;
 							}else{

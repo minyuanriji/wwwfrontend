@@ -231,7 +231,6 @@
 				return val.toFixed(0);
 			},
 			typeSelect(index,item){//选择快充还是慢充
-				console.log(item)
 				this.typeIndex=index
 				if(this.moneyList.enable_fast==0){
 					this.typeIndex=1
@@ -403,9 +402,16 @@
 												_url = '/mch/moreCredit/moreCredit'
 											}
 												setTimeout(() => {
-													uni.redirectTo({
-														url: _url
-													})
+													// #ifdef APP-PLUS
+														uni.navigateTo({
+															url: _url
+														})
+													// #endif
+													// #ifdef H5||MP-WEIXIN
+														uni.redirectTo({
+															url: _url
+														})
+													// #endif
 												},1000)														
 										});
 									}else{

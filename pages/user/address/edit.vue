@@ -50,7 +50,7 @@
 					<textarea placeholder-class="tui-phcolor" v-model="detailed" class="tui-input" name="address" placeholder="请输入详细的收货地址"
 					 type="text" style="height: 120rpx;width: 400rpx;padding: 5rpx 60rpx 0 5rpx;box-sizing: border-box;"/>
 					 
-					 <image src="../../../mch/img/arrder_loc.png" mode="" style="width: 50rpx;height: 50rpx;
+					 <image :src="plugins_img_url+'/arrder_loc.png'" mode="" style="width: 50rpx;height: 50rpx;
 					 display: block;position: absolute;right: 150rpx;top: 60rpx;" @click.stop="chooseAddress"
 					 ></image>
 					 
@@ -92,6 +92,7 @@
 		data() {
 			return {
 				lists: ["公司", "家", "学校", "其他"],
+				plugins_img_url: this.$api.plugins_img_url,
 				img_url: this.$api.img_url,
 				userName: '', //用户名
 				phone: '', //电话
@@ -258,6 +259,9 @@
 							}).then(res => {
 								if (res.code == 0) {
 									that.$http.toast(res.msg);
+									if(uni.getStorageSync('addressID')==that.id){
+										uni.removeStorageSync('addressID')
+									}
 									setTimeout(() => {
 										uni.navigateBack();
 									}, 1000)

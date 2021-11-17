@@ -239,7 +239,7 @@
 <style lang="less" scoped>
 	.oilHome-container{width: 100%;overflow: hidden;background: rgb(248,248,248);}
 	.header{width: 100%;height: 400rpx;
-	background: url(../../mch/img/logo_oil.png)no-repeat;
+	background: url('https://www.mingyuanriji.cn/web/plugins//logo_oil.png')no-repeat;
 	padding: 35rpx 30rpx;box-sizing: border-box;
 	display: flex;justify-content: space-between;color: #fff;font-size: 30rpx;}
 	.main{width: 90%;overflow: hidden;z-index: 99;position:relative ;top: -80rpx;left: 5%;}

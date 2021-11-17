@@ -7,12 +7,14 @@
 				<view class="personal_id">ID:{{store.mch_id}}</view>
 			</view>
 			<!-- 分享的店铺  -->
+			<!-- #ifdef MP-WEIXIN || H5 -->
 			<view class="share-shop">
 				<view class="tui-collection tui-size" @click.stop="poster()">
 					<view class="tui-icon-collection iconfont icon-qrcode"></view>
 					<view class="tui-scale">分享</view>
 				</view>
 			</view>
+			<!-- #endif -->
 			<!-- 分享店铺  -->
 		</view>
 		<view class="jx-content-box" style="margin-top: 20rpx;">
@@ -87,7 +89,7 @@
 				</view>
 			</jx-list-cell>
 		</view>
-		<view class="jx-content-box">
+		<!-- <view class="jx-content-box">
 			<view class="jx-header-btm">
 				<view class="jx-btm-item">
 					<view class="jx-btm-num">0笔</view>
@@ -98,7 +100,7 @@
 					<view class="jx-btm-text">历史订单</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<!-- #ifdef MP-WEIXIN || H5 -->
 		<view class="personalCenter-item" @click="href(1)">
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false">

@@ -119,9 +119,16 @@
 								if(res.code==0){
 									that.$http.toast('支付成功!');
 										setTimeout(() => {
-											uni.redirectTo({
-												url:'./ercode/ercode?id='+order_id
-											})
+											// #ifdef APP-PLUS
+												uni.navigateTo({
+													url:'./ercode/ercode?id='+order_id
+												})
+											// #endif
+											// #ifdef H5||MP-WEIXIN
+												uni.redirectTo({
+													url:'./ercode/ercode?id='+order_id
+												})
+											// #endif
 										},2000)
 									return;
 								}else{
@@ -195,9 +202,16 @@
 												_url = '/oil/oilrecord/oilrecord'
 											}
 												setTimeout(() => {
-													uni.redirectTo({
-														url: _url
-													})
+													// #ifdef APP-PLUS
+														uni.navigateTo({
+															url:_url
+														})
+													// #endif
+													// #ifdef H5||MP-WEIXIN
+														uni.redirectTo({
+															url:_url
+														})
+													// #endif
 												},1000)														
 										});
 									}else{
@@ -218,9 +232,16 @@
 							if(res.code==0){
 								that.$http.toast('支付成功!');
 									setTimeout(() => {
-										uni.redirectTo({
-											url:'./ercode/ercode?id='+that.order_id
-										})
+										// #ifdef APP-PLUS
+											uni.navigateTo({
+												url:'./ercode/ercode?id='+that.order_id
+											})
+										// #endif
+										// #ifdef H5||MP-WEIXIN
+											uni.redirectTo({
+												url:'./ercode/ercode?id='+that.order_id
+											})
+										// #endif
 									},500)
 								return;
 							}else{
