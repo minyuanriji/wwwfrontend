@@ -56,19 +56,19 @@
 		</view>
 		<view class="jx-content-box" v-if="configData.user_center">
 			<view class="jx-header-btm">
-				<view class="jx-btm-item" @click="openUrl(`./balance/details`)">
+				<view class="jx-btm-item" @click="openUrl('balance')">
 					<view class="jx-btm-num">{{ userInfo.balance }}</view>
 					<view class="jx-btm-text">余额</view>
 				</view>
-				<view class="jx-btm-item" @click="openUrl(`./integral/integral`)">
+				<view class="jx-btm-item" @click="openUrl('total_score')">
 					<view class="jx-btm-num">{{ userInfo.total_score }}</view>
 					<view class="jx-btm-text">积分</view>
 				</view>
-				<view class="jx-btm-item last" @click="openUrl(`../../mch/redBag/redBag`)">
+				<view class="jx-btm-item last" @click="openUrl('redBag')">
 					<view class="jx-btm-num">{{ Number(userInfo.dynamic_integral)+Number(userInfo.static_integral) }}</view>
 					<view class="jx-btm-text">红包</view>
 				</view>
-				<view class="jx-btm-item last" @click="openUrl(`../../mch/vouchers/vouchers`)">
+				<view class="jx-btm-item last" @click="openUrl('shopping_voucher')">
 					<view class="jx-btm-num">{{ Number(userInfo.shopping_voucher)}}</view>
 					<view class="jx-btm-text">购物券</view>
 				</view>
@@ -87,7 +87,7 @@
 					</view>
 				</jx-list-cell>
 				<view class="jx-order-list">
-					<view class="jx-order-item" @tap="openUrl(item.link_url)" v-for="(item, i) in configData.user_center.order_bar" :key="i">
+					<view class="jx-order-item" @tap="openlink(item.link_url)" v-for="(item, i) in configData.user_center.order_bar" :key="i">
 						<view class="jx-icon-box">
 							<image :src="item.icon_url" class="jx-order-icon"></image>
 							<!-- <view class="jx-badge jx-badge-red" v-if="item.num">{{ item.num }}</view> -->
@@ -353,10 +353,25 @@ export default {
 					}
 				});
 		},
-		openUrl(url) {
+		openUrl(name) {
+			let url=''
+			if(name=='balance'){
+				url='./balance/details'
+			}else if(name=='total_score'){
+				url='./integral/integral'
+			}else if(name=='redBag'){
+				url='../../mch/redBag/redBag'
+			}else if(name=='shopping_voucher'){
+				url='../../mch/vouchers/vouchers'
+			}			
 			uni.navigateTo({
-				url: url,
+				url: url+"?name="+name,
 			});
+		},
+		openlink(url){
+			uni.navigateTo({
+				url:url
+			})
 		},
 		href(page) {
 			let url = '';

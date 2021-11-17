@@ -406,8 +406,7 @@
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black",
 				"enablePullDownRefresh": false,
-				"onReachBottomDistance": 50,
-				"navigationStyle": "custom"
+				"onReachBottomDistance": 50
 			}
 		}, {
 			"path": "pages/user/score/details",
