@@ -89,7 +89,7 @@
 						that.codeDetail = res.data
 						that.timer=setInterval(() => {
 							that.getResult(that.codeDetail.id)
-						},1500);
+						},1000);
 					} else {
 						that.$http.toast(res.msg);
 					}
