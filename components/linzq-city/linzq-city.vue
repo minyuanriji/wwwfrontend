@@ -94,7 +94,7 @@
 				showMask: false,
 				disdingwei: true,
 				Visit: [], //最近访问
-				position: uni.getStorageSync("shopCity").city,
+				position: uni.getStorageSync("shopCity").city?uni.getStorageSync("shopCity").city:'附近的',
 				// longitude: '', //经度
 				// latitude: '', //纬度
 				seconds: 3,

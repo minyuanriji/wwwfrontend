@@ -5,7 +5,7 @@
 			<template v-if="form.distance == ''">
 				<view style="width: 20%;color: #fff;font-size: 30rpx;font-weight: bold;overflow: hidden;
 				text-overflow:ellipsis;white-space: nowrap;" @click="setCITY">
-					{{city}}
+					{{city != ''?city:'加载中...'}}
 				</view>
 				<view class="index1_content_top_l_r"></view>
 			</template>
@@ -257,17 +257,19 @@
 							})
 							if (!uni.getStorageSync("shopCity")) {
 								this.catorylist = res.data.list
-								this.city = res.city_data.district
-								this.form.city_id = res.city_data.city_id
-								this.form.region_id = res.city_data.district_id
-								uni.setStorageSync('shopCity', {
-									city: res.city_data.district,
-									city_id: res.city_data.city_id,
-									region_id: res.city_data.district_id
-								})
+								// this.city = res.city_data.district
+								// this.form.city_id = res.city_data.city_id
+								// this.form.region_id = res.city_data.district_id
+								// uni.setStorageSync('shopCity', {
+								// 	city: res.city_data.district,
+								// 	city_id: res.city_data.city_id,
+								// 	region_id: res.city_data.district_id
+								// })
+								this.city = '附近的'
+								this.form.city_id = ''
+								this.form.region_id = ''
 								this.getshopList()
 							} else {
-								console.log(uni.getStorageSync("shopCity"))
 								this.catorylist = res.data.list
 								this.city = uni.getStorageSync("shopCity").city
 								this.form.city_id = uni.getStorageSync("shopCity").city_id
@@ -338,8 +340,15 @@
 				this.page_count = 0
 				this.form.page = 1
 				this.shopList = []
-				this.form.city_id = uni.getStorageSync("shopCity").city_id
-				this.form.region_id = uni.getStorageSync("shopCity").region_id
+				if(uni.getStorageSync("shopCity")){
+					this.form.city_id = uni.getStorageSync("shopCity").city_id
+					this.form.region_id = uni.getStorageSync("shopCity").region_id
+					this.city = uni.getStorageSync("shopCity").city
+				}else{
+					this.form.city_id = ''
+					this.form.region_id = ''
+					this.city = '附近的'
+				}
 				this.getshopList()
 			},
 			selectone(index, item) { //智能选择
@@ -356,8 +365,13 @@
 				this.page_count = 0
 				this.form.page = 1
 				this.shopList = []
-				this.form.city_id = uni.getStorageSync("shopCity").city_id
-				this.form.region_id = uni.getStorageSync("shopCity").region_id
+				if(uni.getStorageSync("shopCity")){
+					this.form.city_id = uni.getStorageSync("shopCity").city_id
+					this.form.region_id = uni.getStorageSync("shopCity").region_id
+				}else{
+					this.form.city_id = ''
+					this.form.region_id = ''
+				}
 				this.getshopList()
 			},
 			selecttwo(index, item) { //距离选择
@@ -380,8 +394,13 @@
 				this.page_count = 0
 				this.form.page = 1
 				this.shopList = []
-				this.form.city_id = uni.getStorageSync("shopCity").city_id
-				this.form.region_id = uni.getStorageSync("shopCity").region_id
+				if(uni.getStorageSync("shopCity")){
+					this.form.city_id = uni.getStorageSync("shopCity").city_id
+					this.form.region_id = uni.getStorageSync("shopCity").region_id
+				}else{
+					this.form.city_id = ''
+					this.form.region_id = ''
+				}
 				this.getshopList()
 			},
 			getshopList() { //获取门店列表
@@ -550,7 +569,7 @@
 		overflow: hidden;
 		background: #fff;
 		/* #ifdef H5 */
-		margin-top: 195rpx;
+		margin-top: 105rpx;
 		/* #endif */
 		/* #ifdef MP||APP-PLUS */
 		margin-top: 205rpx;
@@ -576,7 +595,12 @@
 	.citywide_list {
 		width: 100%;
 		overflow: hidden;
+		/* #ifdef H5 */
+		margin: 105rpx 0 116rpx 0;
+		/* #endif */
+		/* #ifdef MP||APP-PLUS */
 		margin: 210rpx 0 116rpx 0;
+		/* #endif */
 	}
 
 	.shop_table_list {
