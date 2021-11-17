@@ -183,6 +183,8 @@
 					this.form.cat_id = options.cat_id
 					this.form.city_id = uni.getStorageSync("shopCity").city_id
 					this.form.region_id = uni.getStorageSync("shopCity").region_id
+					
+					
 					this.getshopList()
 				}
 				if (!options.cat_id) {
@@ -192,6 +194,13 @@
 					this.getshopList()
 				}
 			} else {
+				if (options.cat_id) {
+					this.form.cat_id = options.cat_id
+					this.getshopList()
+				}
+				if (!options.cat_id) {
+					this.getshopList()
+				}
 				this.getmyLOcation()
 			}
 		},
@@ -331,7 +340,7 @@
 				this.selectIndexzero = index
 				console.log(item)
 				//this.catory=item.name
-				this.city = uni.getStorageSync("shopCity").city
+				// this.city = uni.getStorageSync("shopCity").city
 				if (item.name == '全部分类') {
 					this.form.cat_id = ''
 				} else {
