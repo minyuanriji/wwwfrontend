@@ -258,14 +258,17 @@
 						if (res.code == 0) {
 							if (!uni.getStorageSync("shopCity")) {
 								this.catorylist = res.data.list
-								this.city = res.city_data.district
-								this.form.city_id = res.city_data.city_id
-								this.form.region_id = res.city_data.district_id
-								uni.setStorageSync('shopCity', {
-									city: res.city_data.district,
-									city_id: res.city_data.city_id,
-									region_id: res.city_data.district_id
-								})
+								// this.city = res.city_data.district
+								// this.form.city_id = res.city_data.city_id
+								// this.form.region_id = res.city_data.district_id
+								// uni.setStorageSync('shopCity', {
+								// 	city: res.city_data.district,
+								// 	city_id: res.city_data.city_id,
+								// 	region_id: res.city_data.district_id
+								// })
+								this.city = '附近的'
+								this.form.city_id = ''
+								this.form.region_id = ''
 								this.getshopList()
 							} else {
 								this.catorylist = res.data.list

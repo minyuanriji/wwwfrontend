@@ -544,7 +544,8 @@
 	.searchList-app-sorting{width: 100%;height: 100rpx;border-bottom: 1rpx solid rgb(242,245,249);display: flex;justify-content: space-between;}
 	.searchList-app-sorting view{width: 50%;text-align: center;line-height: 100rpx;font-size: 28rpx;position: relative;}
 	.searchList-app-sorting view image{width: 35rpx;height: 35rpx;display: block;position: absolute;top: 35rpx;right: 60rpx;}
-	.searchList-app-sort{width: 100%;overflow: hidden;background: #fff;margin-top: 215rpx;}
+	.searchList-app-sort{width: 100%;overflow: hidden;background: #fff;
+	margin-top: 205rpx;}
 	.searchList-app-sort view{width: 100%;height: 100rpx;text-align: center;font-size: 30rpx;line-height: 100rpx;border-bottom: 1rpx solid rgb(242,245,249);}
 	.searchList-app-sort view:nth-of-type(3){border: none!important;}
 	.left-box{width: 30%;position: fixed;left: 0;z-index: 10;background: rgb(242,245,249);height: 600rpx;}
