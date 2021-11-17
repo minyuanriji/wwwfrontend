@@ -7,12 +7,14 @@
 				<view class="personal_id">ID:{{store.mch_id}}</view>
 			</view>
 			<!-- 分享的店铺  -->
+			<!-- #ifdef MP-WEIXIN || H5 -->
 			<view class="share-shop">
 				<view class="tui-collection tui-size" @click.stop="poster()">
 					<view class="tui-icon-collection iconfont icon-qrcode"></view>
 					<view class="tui-scale">分享</view>
 				</view>
 			</view>
+			<!-- #endif -->
 			<!-- 分享店铺  -->
 		</view>
 		<view class="jx-content-box" style="margin-top: 20rpx;">
