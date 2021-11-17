@@ -37,8 +37,8 @@
 		},
 		methods: {
 			linkTo() { //点击确定跳转页面
-				uni.navigateBack({
-					delta:1
+				uni.redirectTo({
+					url:'./moreCredit'
 				})
 			},
 			// getStatus(order_id) {//查询充值状态 
