@@ -47,7 +47,7 @@
 		<view class="shop_table_list">
 			<view class="shop_table_item" v-for="(item,index) in shopList" :key='index' @click="link(item.id)">
 				<view class="shop_table_item_left">
-					<image :src="item.cover_url" mode="scaleToFill"></image>
+					<image :src="item.cover_url" mode="aspectFit"></image>
 				</view>
 				<view class="shop_table_item_right">
 					<view class="shop_table_item-name">
