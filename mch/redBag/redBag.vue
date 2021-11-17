@@ -64,7 +64,7 @@
 			</view>
 		</view>
 		<view v-if="list.length == 0" class="nothing">没有更多记录~</view>
-		<unipopup ref="popup" type="top">
+		<unipopup ref="popup" type="bottom">
 			<view class="popup-detail">
 				<view class="popup-detail-header">
 					请选择收益类型 
