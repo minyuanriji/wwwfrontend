@@ -117,9 +117,16 @@
 								if(res.code==0){
 									that.$http.toast('支付成功!');
 										setTimeout(() => {
-											uni.redirectTo({
-												url:'/mch/hotel/orderswaiting/orderswaiting?order_no='+this.order_no
-											})
+											// #ifdef APP-PLUS
+												uni.navigateTo({
+													url:'/mch/hotel/orderswaiting/orderswaiting?order_no='+this.order_no
+												})
+											// #endif
+											// #ifdef H5||MP-WEIXIN
+												uni.redirectTo({
+													url:'/mch/hotel/orderswaiting/orderswaiting?order_no='+this.order_no
+												})
+											// #endif
 										},2000)
 									return;
 								}else{
@@ -193,9 +200,16 @@
 												_url = '/mch/hotel/orderList/orderList'
 											}
 												setTimeout(() => {
-													uni.redirectTo({
-														url: _url
-													})
+													// #ifdef APP-PLUS
+														uni.navigateTo({
+															url: _url
+														})
+													// #endif
+													// #ifdef H5||MP-WEIXIN
+														uni.redirectTo({
+															url: _url
+														})
+													// #endif
 												},1000)														
 										});
 									}else{
@@ -216,9 +230,16 @@
 							if(res.code==0){
 								that.$http.toast('支付成功!');
 									setTimeout(() => {
-										uni.redirectTo({
-											url:'/mch/hotel/orderswaiting/orderswaiting?order_no='+this.order_no
-										})
+										// #ifdef APP-PLUS
+											uni.navigateTo({
+												url:'/mch/hotel/orderswaiting/orderswaiting?order_no='+this.order_no
+											})
+										// #endif
+										// #ifdef H5||MP-WEIXIN
+											uni.redirectTo({
+												url:'/mch/hotel/orderswaiting/orderswaiting?order_no='+this.order_no
+											})
+										// #endif
 									},500)
 								return;
 							}else{
