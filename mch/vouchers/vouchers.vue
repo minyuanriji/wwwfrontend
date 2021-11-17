@@ -1,7 +1,7 @@
 <template>
 	<view class="income-root">
 		<!-- #ifdef H5 -->
-		<view class="asset_types" style="width: 100%;height: 120rpx;background: #f4f4f4;position: fixed;top: 88rpx;left: 0;z-index: 999;">
+		<view class="asset_types" style="width: 100%;height: 120rpx;background: #f4f4f4;position: fixed;top: 80rpx;left: 0;z-index: 999;">
 		<!--#endif -->
 		<!-- #ifdef MP-WEIXIN || APP-PLUS -->
 		<view class="asset_types" style="width: 100%;height: 120rpx;background: #f4f4f4;position: fixed;top: 0rpx;left: 0;z-index: 999;">
@@ -22,7 +22,7 @@
 		
 		
 		<!-- #ifdef H5 -->
-			<view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 208rpx;left: 0;">
+			<view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 200rpx;left: 0;">
 		<!--#endif -->
 		<!-- #ifdef MP-WEIXIN || APP-PLUS -->
 			 <view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 118rpx;left: 0;">
