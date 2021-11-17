@@ -210,10 +210,8 @@
 			},
 			assetlink(item,index){
 				this.$refs.asset.close()
-				this.asseText=item.name
-				this.selectassetIndex=index
 				if(item.type=='balance'){
-					uni.redirectTo({
+					uni.navigateTo({
 						url:'../balance/details?name='+item.type
 					})
 				}
@@ -221,12 +219,12 @@
 					return
 				}
 				if(item.type=='redBag'){
-					uni.redirectTo({
+					uni.navigateTo({
 						url:'../../../mch/redBag/redBag?name='+item.type
 					})
 				}
 				if(item.type=='shopping_voucher'){
-					uni.redirectTo({
+					uni.navigateTo({
 						url:'../../../mch/vouchers/vouchers?name='+item.type
 					})
 				}

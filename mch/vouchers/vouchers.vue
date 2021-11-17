@@ -217,20 +217,18 @@
 			},
 			assetlink(item,index){
 				this.$refs.asset.close()
-				this.asseText=item.name
-				this.selectassetIndex=index
 				if(item.type=='balance'){
-					uni.redirectTo({
+					uni.navigateTo({
 						url:'../../pages/user/balance/details?name='+item.type
 					})
 				}
 				if(item.type=='total_score'){
-					uni.redirectTo({
+					uni.navigateTo({
 						url:'../../pages/user/integral/integral?name='+item.type
 					})
 				}
 				if(item.type=='redBag'){
-					uni.redirectTo({
+					uni.navigateTo({
 						url:'../redBag/redBag?name='+item.type
 					})
 				}
