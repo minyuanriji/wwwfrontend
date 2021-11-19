@@ -243,7 +243,7 @@
 								that.coverShow=true
 							}
 						// #endif
-						// #ifdef MP-WEIXIN || APP-PLUS
+						// #ifdef MP-WEIXIN
 						uni.downloadFile({
 							    url:res.data.pic_url,
 							    success: (res) => {
@@ -253,6 +253,16 @@
 								}
 						});
 							// #endif
+						// #ifdef APP-PLUS
+						uni.downloadFile({
+							    url:res.data.pic_url,
+							    success: (res) => {
+							        if (res.statusCode === 200) {
+										that.saveImg(res.tempFilePath); 
+									}
+								}
+						});
+							// #endif	
 						
 					}
 				})
