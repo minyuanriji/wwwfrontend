@@ -124,6 +124,10 @@
 						name:'订单取消返还',
 						type:'from_order_cancel'
 					},
+					{
+						name:'退款返还',
+						type:'from_order_refund'
+					},
 
 				],
 				selectIndex:0,
