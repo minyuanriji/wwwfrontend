@@ -10,7 +10,7 @@
 				<view>
 					<tui-list-cell :hover="false" :lineLeft="false" padding="26rpx 20rpx">
 						<view class="tui-goods-title">
-							<view class="logo" @tap="toShop(model.mch_id)">
+							<view class="logo" @tap="toShop(model.mch_info.id)">
 								<!-- <span :style="`background-image:url(${})`"></span> -->
 								<image class="img" lazy-load="true" 
 								:src="model.mch_info.cover_url?model.mch_info.cover_url:url+'/shoplogo.png'" 
@@ -159,16 +159,10 @@
 				this.getDateList('refresh')
 			},
 			toShop(id){
-					if(id){
-						uni.navigateTo({
-							url:"/pages/shop/home/home?mch_id="+id
-						})
-					}else{
-						uni.navigateTo({
-							url:"pages/shop/shop"
-						})
-					}
-				},
+				uni.navigateTo({
+					url:'../../../merchants/detail/detail?store_id='+id
+				})
+			},
 			toPage(orderId,oddNum){
 					uni.navigateTo({
 						url: `./logistics/index?orderId=${orderId}&odd=${oddNum}`
