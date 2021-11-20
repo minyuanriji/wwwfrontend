@@ -490,12 +490,9 @@
 	.shop_table_item-location {
 		width: 100%;
 		overflow: hidden;
-		position: absolute;
-		left: 0;
-		bottom: 0;
 		text-align: right;
-		line-height: 50rpx;
 		font-size: 28rpx;
+		margin-top: 20rpx;
 	}
 
 	.shop_table_item-location image {
