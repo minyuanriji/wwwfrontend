@@ -64,7 +64,7 @@
 				showBool: false, // 固定定位状态栏占位
 				opacity: 0,
 				payData: '',
-				switchIndex: 0,
+				switchIndex: 1,
 				textColor: "#BC0100",
 				bg_url: '',
 				navBg: '',

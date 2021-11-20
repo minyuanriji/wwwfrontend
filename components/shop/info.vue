@@ -4,7 +4,7 @@
 		<view class="info_r">
 			<view class="info_r_top">
 				<view class="info_r_top_name">{{params.name}}</view>
-				<view class="info_r_top_right" @tap="toDetail(params.mch_id)">
+				<view class="info_r_top_right" @tap="toDetail(params.mch_id,params.store_id)">
 					<view>进店看看</view>
 					<view class="info_r_top_right_r"></view>
 				</view>
@@ -30,17 +30,16 @@
 			return {
 				
 			};
-		},
+		}, 
 		methods:{
-			toDetail(id){
+			toDetail(id,store_id){
 				let that=this
-				console.log(this.params)
 				uni.setStorage({
 					key:'mch_id',
 					data:id,
 					success(){
 						uni.navigateTo({
-							url:'/merchants/detail/detail?store_id='+that.params.id
+							url:'/merchants/detail/detail?store_id='+store_id
 						})
 					}
 				})

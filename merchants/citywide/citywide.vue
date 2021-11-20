@@ -194,14 +194,14 @@
 					this.getshopList()
 				}
 			} else {
+				// this.getmyLOcation()
 				if (options.cat_id) {
 					this.form.cat_id = options.cat_id
-					this.getshopList()
+					this.getmyLOcation()
 				}
 				if (!options.cat_id) {
-					this.getshopList()
+					this.getmyLOcation()
 				}
-				this.getmyLOcation()
 			}
 		},
 		onReady() {
