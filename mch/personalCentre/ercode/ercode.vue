@@ -264,6 +264,8 @@
 						});
 							// #endif	
 						
+					}else{
+						that.$http.toast(res.msg);
 					}
 				})
 			},
