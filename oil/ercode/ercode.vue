@@ -20,10 +20,16 @@
 			 	<image :src="detail.mpwx_pic" mode="" style="width: 100%;height: 100%;display: blo;" @click="goTowp"></image>
 			 </view>
 			  <!--#endif -->
+		</view> 
+		<view style="padding-top:60rpx;background:white;width:100%;position:absolute;bottom:0rpx;height:300rpx;text-align:center;">
+			<view style="">
+				<text @click="goTowp" style="display:inline-block;border-radius:8rpx;color:#ff7104;border:1px solid #ff7104;width:300rpx;padding:15rpx 0rpx;">打开兑换小程序</text>
+			</view>
+			<view style="margin-top:30rpx;">
+				<text @click="openLa" style="display:inline-block;border-radius:8rpx;width: 100rpx;color:#ff7104;border:1px solid #ff7104;width:300rpx;padding:15rpx 0rpx;">打开中石化小程序</text>
+			</view>
 		</view>
-		<view style="padding-top:60rpx;background:white;width:100%;position:absolute;bottom:0rpx;height:280rpx;text-align:center;">
-			<text @click="openLa" style="border-radius:8rpx;width: 100rpx;color:#ff7104;border:1px solid #ff7104;padding:15rpx 50rpx;">打开加油小程序</text>
-		</view>
+		
 	</view>
 </template>
 

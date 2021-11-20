@@ -114,7 +114,10 @@
 					}
 				],
 			}
-			this.getshopList()
+			uni.setNavigationBarTitle({
+			　　title:options.name
+			});
+			this.getshopList();
 		},
 		methods:{
 			cleanKey: function() { //清空搜索

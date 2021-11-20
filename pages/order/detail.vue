@@ -14,24 +14,34 @@
 					</view>
 					
 				</view>
+				
 				<view class="jx-order-status" v-if="detail.order_type=='express_baopin'||detail.order_type=='express_normal'">
-					<view class="icon iconfont icon-daifukuan3" v-if="detail.status == 0"></view>
-					<view class="icon iconfont icon-fahuo" v-else-if="detail.status == 1"></view>
-					<view class="icon iconfont icon-daifahuo" v-else-if="detail.status == 2"></view>
-					<view class="icon iconfont icon-daipingjia1" v-else-if="detail.status == 3"></view>
-					<view class="icon iconfont icon-yiwancheng" v-else-if="detail.status > 5"></view>
-					<view class="text-container">
-						<view class="text" v-if="is_show">{{detail.status_text}}</view>
-						<view v-else>售后申请</view>
-						<view class="msg" v-if="detail.status != 0">{{detail.status==2&&detail.expand_num==1?'14天后自动收货':statusText[detail.status]}}</view>
-						<view class="msg" v-else>{{detail.cancel_at}}后关闭订单</view>
-					</view>
-					<view class="btn" v-if="is_show">
-						<!-- <view @click.stop="goComment(detail.id)">
-							<tui-button type="white" width="148rpx" height="56rpx" :size="26" shape="circle" :style="{color: textColor+'!important'}"
-							 v-show="btnText[detail.status]">{{btnText[detail.status]}}</tui-button>
-						</view> -->
-					</view>
+					<template v-if="detail.cancel_status == 1">
+						<view class="icon iconfont icon-47guanbi"></view>
+						<view class="text-container">
+							<view class="text">已关闭</view>
+							<view class="msg">{{detail.cancel_at}}</view>
+						</view>
+					</template>
+					<template v-else>
+						<view class="icon iconfont icon-daifukuan3" v-if="detail.status == 0"></view>
+						<view class="icon iconfont icon-fahuo" v-else-if="detail.status == 1"></view>
+						<view class="icon iconfont icon-daifahuo" v-else-if="detail.status == 2"></view>
+						<view class="icon iconfont icon-daipingjia1" v-else-if="detail.status == 3"></view>
+						<view class="icon iconfont icon-yiwancheng" v-else-if="detail.status > 5"></view>
+						<view class="text-container">
+							<view class="text" v-if="is_show">{{detail.status_text}}</view>
+							<view v-else>售后申请</view>
+							<view class="msg" v-if="detail.status != 0">{{detail.status==2&&detail.expand_num==1?'14天后自动收货':statusText[detail.status]}}</view>
+							<view class="msg" v-else>{{detail.cancel_at}}后关闭订单</view>
+						</view>
+						<view class="btn" v-if="is_show">
+							<!-- <view @click.stop="goComment(detail.id)">
+								<tui-button type="white" width="148rpx" height="56rpx" :size="26" shape="circle" :style="{color: textColor+'!important'}"
+								 v-show="btnText[detail.status]">{{btnText[detail.status]}}</tui-button>
+							</view> -->
+						</view>
+					</template>
 				</view>
 
 				<view class="jx-order-user jx-radius" v-if="messageShow">
@@ -190,7 +200,7 @@
 						</view>
 					</view>
 				</view>
-				<block v-if="is_show&&detail.order_type!='offline_baopin'&&detail.order_type!='offline_normal'">
+				<block v-if="detail.cancel_status==0&&is_show&&detail.order_type!='offline_baopin'&&detail.order_type!='offline_normal'">
 					<view class="jx-tabbar tui-order-btn" v-if="detail.status != 8">
 						<view class="jx-btn-mr" v-if="detail.status == 5">
 							<view class="btns" @click="deleteOrderById(detail.id)">删除订单</view>

@@ -42,7 +42,7 @@
 					<view class="shop_table_item_notice">
 						{{item.remark}}
 					</view>
-					<view class="shop_table_item-location">
+					<view @click.stop="toAddr(item)" class="shop_table_item-location">
 						<image :src="img_url+'dao_location.png'" mode="" style="width: 35rpx;height: 35rpx;"></image>
 						<text style="margin: 0 10rpx;">{{item.region_name}}</text>
 						<text>{{item.distance_format}}</text>
@@ -171,6 +171,11 @@
 			}
 		},
 		methods: {
+			toAddr(item){
+				uni.navigateTo({
+					url:'../shopDetail/shopDetail?name='+item.name+'&business_hours='+item.business_hours+'&address='+item.address+'&latitude='+item.latitude+'&longitude='+item.longitude
+				});
+			},
 			search() { //点击搜索
 				uni.navigateTo({
 					url: '../shopSearch/shopSearch'

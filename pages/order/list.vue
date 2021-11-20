@@ -47,7 +47,8 @@
 								<span class="name">{{model.mch_info.name?model.mch_info.name:'补商汇官方商城'}}</span>
 								<view class="toright"></view>
 							</view>
-							<view class="tui-order-status" style="color:#FF7104">{{model.status_text}}</view>
+							<view v-if="model.cancel_status == 0" class="tui-order-status" style="color:#FF7104">{{model.status_text}}</view>
+							<view v-else class="tui-order-status" style="color:gray">已取消</view>
 						</view>
 					</tui-list-cell>
 					<block v-for="(item,index) in model.detail" :key="index">
@@ -79,7 +80,7 @@
 						</view>
 					</tui-list-cell>
 				</view>
-				<view class="tui-order-btn">
+				<view class="tui-order-btn" v-if="model.cancel_status == 0">
 					<view class="tui-btn-ml" v-if="model.status == 5">
 						<view class="btn-style" :style="{color:'#FF7104',border:'1px solid '+'#FF7104'}" @click.stop="deleteOrderById(model.id)">删除订单</view>
 					</view>

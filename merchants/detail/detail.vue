@@ -134,6 +134,9 @@
 					.then(res => {
 						if(res.code==0){
 							this.detail=res.data.detail
+							uni.setNavigationBarTitle({
+							　　title:this.detail.name
+							});
 						}else{
 							this.$http.toast(res.msg);
 						}
@@ -161,7 +164,7 @@
 			},
 			link(business_hours,address,latitude,longitude){ //跳转到商户详情页面
 				uni.navigateTo({
-					url:'../shopDetail/shopDetail?business_hours='+business_hours+'&address='+address+'&latitude='+latitude+'&longitude='+longitude
+					url:'../shopDetail/shopDetail?name='+this.detail.name+'&business_hours='+business_hours+'&address='+address+'&latitude='+latitude+'&longitude='+longitude
 				})
 			},
 			location(lat, lnt, addrress) {
