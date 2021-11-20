@@ -128,6 +128,38 @@
 						name:'退款返还',
 						type:'from_order_refund'
 					},
+					{
+						name:'管理员操作',
+						type:'admin'
+					},
+					{
+						name:'1688订单支付',
+						type:'target_alibaba_distribution_order'
+					},
+					{
+						name:'1688订单退款',
+						type:'1688_distribution_order_detail_refund'
+					},
+					{
+						name:'酒店订单',
+						type:'from_hotel_order'
+					},
+					{
+						name:'话费订单',
+						type:'from_addcredit_order'
+					},
+					{
+						name:'大礼包订单',
+						type:'from_giftpacks_order'
+					},
+					{
+						name:'商品订单获得购物券',
+						type:'from_order_detail'
+					},
+					{
+						name:'加油订单',
+						type:'from_oil_order'
+					},
 
 				],
 				selectIndex:0,
