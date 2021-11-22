@@ -1867,6 +1867,16 @@
 				
 				},
 				{
+					"path": "personalCentre/myOrder/collectionlist",
+					"style": {
+						"navigationBarTitleText": "收款记录",
+						"navigationBarTextStyle": "black",
+						"navigationBarBackgroundColor": "#fff",
+						"enablePullDownRefresh": false
+					}
+				
+				},
+				{
 					"path": "personalCentre/myOrder/orderList",
 					"style": {
 						"navigationBarTitleText": "订单列表",

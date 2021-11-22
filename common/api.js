@@ -449,6 +449,7 @@ let api = {
 		 
 		 
 		 getlifeOrderH:api_root+"mch/api/order/giftpacks",
+		 getcollectionlist:api_root+"mch/api/order/bill",
 	},
 	hotel:{
 		getrecommended: api_root +'plugin/hotel/api/hotel/simple-list',
