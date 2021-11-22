@@ -17,7 +17,7 @@
 			</view>
 			<view class="main">
 				<view class="main_top">
-					<view style="width: 42%;display: flex;justify-content: space-evenly;">
+					<view style="width: 45%;display: flex;justify-content: space-evenly;margin-left: 50rpx;">
 						<view style="width: 37%;text-align: center;">
 							<image :src="plugins_img_url+'/sss.jpg'" mode="widthFix" style="width: 120rpx;display: block;height: 116rpx;margin-top: 30rpx;"></image>
 						</view>
@@ -41,8 +41,6 @@
 					<view  v-if="status==0" style="margin-top:45rpx;width: 58%;font-size: 30rpx;color: #000;">
 						<view>{{start_time}}开始</view>
 					</view>
-					
-					
 				</view>
 				<view class="list">
 					<view class="item" v-for="(item,index) in list" :key='index'>
@@ -183,7 +181,7 @@
 	.seckillHome-container{width: 100%;overflow: hidden;}
 	.seckillHome_header{width: 100%;overflow: hidden;}
 	.main{width: 100%;overflow: hidden;background:rgb(240,240,240);position: relative;top: -40rpx;z-index: 99;border-radius: 25rpx 25rpx 0 0;}
-	.main_top{width: 100%;height: 160rpx;display: flex;justify-content: space-between;}
+	.main_top{width: 100%;height: 120rpx;display: flex;justify-content: space-between;}
 	.list{width: 100%;overflow: hidden;margin-top: 10rpx;margin-bottom: 50rpx;}
 	.item{width: 95%;overflow: hidden;background: #fff;border-radius: 15rpx;margin: 0 auto 15rpx;display: flex;justify-content: space-between;padding: 25rpx 10rpx;}
 	.logo image{width: 210rpx;height: 210rpx;display: block;}

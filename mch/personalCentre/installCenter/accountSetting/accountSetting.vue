@@ -6,12 +6,12 @@
 				<input type="text" value="" placeholder="请填写" v-model="form.username" />
 			</view>
 			<view>
-				<text>密码：</text>
+			<text style="text-align: right;padding-right: 40rpx;box-sizing: border-box;">密码：</text>
 				<input type="password" value="" placeholder="密码" v-model="form.password" />
 			</view>
 			<view>
 				<text>重新输入：</text>
-				<input type="password" value="" placeholder="再次输入" v-model="againpassword" />
+				<input type="password" value="" placeholder="再次输入密码" v-model="againpassword" />
 			</view>
 			<view>
 				<button type="default" class="btn" @click="sureBtn">确定</button>

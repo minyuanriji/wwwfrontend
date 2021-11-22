@@ -9,7 +9,7 @@
 			<view class="asset_types_select" style="width: 220rpx;background: #fff;height: 70rpx;border-radius: 15rpx;line-height: 70rpx;padding-left: 50rpx;margin-top: 25rpx;margin-left: 20rpx;color: #000;box-sizing: border-box;"
 			@click="selectasset" >
 			     {{asseText}}
-				<image :src="img_url+'/upstrong.png'" mode="" style="display: block;width: 36rpx;height: 36rpx;position: absolute;top: 45rpx;left: 205rpx;"></image>
+				<image :src="img_url+'/upstrong.png'" mode="" style="display: block;width: 36rpx;height: 36rpx;position: absolute;top: 45rpx;left: 190rpx;"></image>
 			</view>
 		</view>
 		
@@ -89,7 +89,11 @@ export default {
 				{
 					name:'购物券',
 					type:'shopping_voucher'
-				},	
+				},
+				{
+					name:'收益明细',
+					type:'income'
+				},
 			],
 			asseText:'',
 			selectassetIndex:0
@@ -127,6 +131,11 @@ export default {
 			if(item.type=='shopping_voucher'){
 				uni.navigateTo({
 					url:'../../../mch/vouchers/vouchers?name='+item.type
+				})
+			}
+			if(item.type=='income'){
+				uni.navigateTo({
+					url:'../../../plugins/extensions/income/income?name='+item.type
 				})
 			}
 		},

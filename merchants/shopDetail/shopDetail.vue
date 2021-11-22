@@ -1,5 +1,9 @@
 <template>
 	<view class="shopDetail">
+		<view class="map">
+			<map style="width: 100%; height: 200px;" :latitude="form.latitude" :longitude="form.longitude"
+				:markers="form.markers"></map>
+		</view>
 		<view class="shopDetail-message">
 			<view class="shopDetail-message-item">
 				<view style="width: 10%;text-align: center;">•</view>
@@ -20,10 +24,6 @@
 			<image :src="img_url+'dao_location.png'" mode=""
 				style="width: 60rpx;height: 60rpx;display: block;float: left;"></image>
 			<text style="display: block;float: right;line-height: 60rpx;color: #000;">导航</text>
-		</view>
-		<view class="map">
-			<map style="width: 100%; height: 200px;" :latitude="form.latitude" :longitude="form.longitude"
-				:markers="form.markers"></map>
 		</view>
 		<view class="tui-searchbox">
 			<view class="tui-search-input">

@@ -30,9 +30,11 @@
 				<text>信用卡</text>
 			</view>
 		</view>
+		<!-- #ifdef H5 -->
 		<view class="btn" @click="capture" v-if="show">
 			点击生成图片
 		</view>	
+		<!-- #endif -->
 		<view class="btn" @click="download" v-if="show" style="background: none;border: 1rpx solid #FF7104;color: #000;
 		width: 450rpx;height: 70rpx;border-radius: 40rpx;text-align: center;line-height: 70rpx;margin: 50rpx auto 120rpx;">
 			点击下载二维码

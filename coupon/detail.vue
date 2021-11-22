@@ -1252,9 +1252,9 @@
 		margin-top: 60rpx;
 		/* #endif */
 		/* #ifdef APP-PLUS */
-		margin-top: 90rpx;
+		margin-top: 110rpx;
 		/* #endif */
-		margin-bottom: 20rpx;
+		margin-bottom: 30rpx;
 	}
 
 	.tui-top-dropdown {

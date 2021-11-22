@@ -150,11 +150,6 @@
 
 
 			dataSubmit() {
-				var nicknameRegExp = /^[\u4e00-\u9fa5a-z0-9]+$/gi;
-				if (!nicknameRegExp.test(this.dataForm.nickname)) {
-					this.$http.toast("您输入的姓名格式有误");
-					return;
-				}
 				if (!(this.dataForm.nickname.length >= 2 && this.dataForm.nickname.length <= 15)) {
 					this.$http.toast("字数限制2~15");
 					return;

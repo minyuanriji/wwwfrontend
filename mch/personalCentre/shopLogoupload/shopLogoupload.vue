@@ -9,6 +9,10 @@
 				
 			</view>
 		</view>
+		<view class="btn" style="width: 100%;height: 100rpx;text-align: center;line-height: 100rpx;background:#FF7104;
+		position: fixed;left: 0;bottom: 0;color: #fff;font-size: 36rpx;" @click="sure">
+			确定
+		</view>
 	</view>
 </template>
 
@@ -117,13 +121,18 @@
 						}
 					});
 			},
+			sure(){
+				uni.navigateBack({
+					delta:1
+				})
+			}
 		}
 	}
 </script>
 
 <style lang="less">
 	.shopLogoupload-app{width: 100%;overflow: hidden;}
-	.main{width: 100%;overflow:hidden;padding: 0 30rpx;}
+	.main{width: 100%;overflow:hidden;padding: 0 30rpx;margin-bottom: 120rpx;}
 	.img-item{width: 200rpx;height: 200rpx;position: relative;float: left;margin: 30rpx 30rpx 20rpx 0rpx;}
 	.img{width: 200rpx;height: 200rpx;display: block;}
 	.delete{width: 40rpx;height: 40rpx;display: block;position: absolute;right: -10rpx;top: -20rpx;z-index: 999;}

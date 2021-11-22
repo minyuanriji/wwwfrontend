@@ -1,10 +1,27 @@
 <template>
 	<view class="income-root">
+		<!-- #ifdef H5 -->
+		<view class="asset_types" style="width: 100%;height: 120rpx;background: #f4f4f4;position: fixed;top: 80rpx;left: 0;z-index: 999;">
+		<!--#endif -->
+		<!-- #ifdef MP-WEIXIN || APP-PLUS -->
+		<view class="asset_types" style="width: 100%;height: 120rpx;background: #f4f4f4;position: fixed;top: 0rpx;left: 0;z-index: 999;">
+		<!--#endif -->	
+			<view class="asset_types_select" style="width: 220rpx;background: #fff;height: 70rpx;border-radius: 15rpx;line-height: 70rpx;padding-left: 40rpx;margin-top: 25rpx;margin-left: 20rpx;color: #000;box-sizing: border-box;"
+			@click="selectasset" >
+			     {{asseText}}
+				<image :src="img_url+'/upstrong.png'" mode="" style="display: block;width: 36rpx;height: 36rpx;position: absolute;top: 45rpx;left: 190rpx;"></image>
+			</view>
+		</view>
+		
+		
+		
+		
+		
 	<!-- #ifdef H5 -->
-		<view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 88rpx;left: 0;">
+		<view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 200rpx;left: 0;">
 	<!--#endif -->
 	<!-- #ifdef MP-WEIXIN || APP-PLUS -->
-		 <view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 0;left: 0;">
+		 <view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 118rpx;left: 0;">
 	 <!--#endif -->
 			<view class="pick-time">
 				<view class="pick-time-detail">
@@ -27,7 +44,7 @@
 				</view>
 			</view>
 		</view>
-		<view style="margin-top: 130rpx;margin-bottom: 30rpx;">
+		<view style="margin-top: 250rpx;margin-bottom: 30rpx;">
 			<view class="detail-box" v-for="(item,index) in list" :key='index'>
 				<view class="detail-item-box">
 					<view class="price flex flex-x-between">
@@ -43,13 +60,25 @@
 			</view>
 		</view>
 		<view v-if="list.length == 0" class="nothing">没有更多记录~</view>
-		<unipopup ref="popup" type="top">
+		<unipopup ref="popup" type="bottom">
 			<view class="popup-detail">
 				<view class="popup-detail-header">
 					请选择收益类型
 				</view>
 				<view class="popup-detail-list">
 					<view :class="selectIndex==index?'active':''" v-for="(item,index) in incomeList" :key='index'  @click="select(index,item.type)">
+						{{item.name}}
+					</view>
+				</view>
+			</view>
+		</unipopup>
+		<unipopup ref="asset" type="bottom">
+			<view class="popup-detail">
+				<view class="popup-detail-header">
+					请选择资产类型
+				</view>
+				<view class="popup-detail-list">
+					<view :class="selectassetIndex==index?'actove':''" v-for="(item,index) in assetList" :key='index'  @click="assetlink(item,index)">
 						{{item.name}}
 					</view>
 				</view>
@@ -135,15 +164,73 @@
 					income:0,
 					expenditure:0
 				},
+				asset:false,
+				assetList:[
+					{
+						name:'余额',
+						type:'balance'
+					},
+					{
+						name:'积分',
+						type:'total_score'
+					},
+					{
+						name:'红包',
+						type:'redBag'
+					},
+					{
+						name:'购物券',
+						type:'shopping_voucher'
+					},	
+					{
+						name:'收益明细',
+						type:'income'
+					},
+				],
+				asseText:'',
+				selectassetIndex:0
 			};
 		},
-		onLoad() {
+		onLoad(options) {
+			if(options&&options.name=='income'){
+				this.asseText="收益明细"
+				this.selectassetIndex=4
+			}
 			if (uni.getStorageSync('mall_config')) {
 				this.textColor = this.globalSet('textCol');
 			}
 			this.getList()
 		},
 		methods: {
+			selectasset(){
+				this.$refs.asset.open()
+			},
+			assetlink(item,index){
+				this.$refs.asset.close()
+				if(item.type=='balance'){
+					uni.navigateTo({
+						url:'../../../pages/user/balance/details?name='+item.type
+					})
+				}
+				if(item.type=='total_score'){
+					uni.navigateTo({
+						url:'../../../pages/user/integral/integral?name='+item.type
+					})
+				}
+				if(item.type=='redBag'){
+					uni.navigateTo({						
+						url:'../../../mch/redBag/redBag?name='+item.type
+					})
+				}
+				if(item.type=='shopping_voucher'){
+					uni.navigateTo({
+						url:'../../../mch/vouchers/vouchers?name='+item.type
+					})
+				}
+				if(item.type=='income'){
+					return
+				}
+			},
 			bindDateChange: function(e) { //点击选择年月
 				let time=e.target.value		
 			    this.date = time.split('-')[0]+'年'+time.split('-')[1]+'月'
@@ -257,4 +344,5 @@
 	.popup-detail-list view{min-width: 180rpx;height: 70rpx;line-height: 70rpx;text-align: center;
 	float: left;margin: 20rpx 0rpx 0 50rpx;border-radius: 10rpx;font-size: 26rpx;font-weight: bold;}
 	.active{background: rgb(222,59,45);color: #fff;}
+	.actove{background: rgb(222,59,45);color: #fff;}
 </style>
