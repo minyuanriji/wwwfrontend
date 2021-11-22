@@ -35,16 +35,19 @@
 				<!-- #ifdef H5 || APP-PLUS -->
 				<view class="search_box" :style="{ position: is_fixed == 1 ? 'relative' : 'fixed' }">
 					<!-- 搜索 -->
-					<view class="checksao" style="width: 25%;background: #fff;position: relative;">
-						<view style="width: 100%;color: #000;font-size: 30rpx;font-weight: bold;overflow: hidden;
+					<view class="checksao" style="width: 30%;background: #fff;position: relative;">
+						<view style="width: 90%;color: #000;font-size: 30rpx;font-weight: bold;overflow: hidden;
 						text-overflow:ellipsis;white-space: nowrap;" @click="setCITY">
 							<view v-if="city != ''" style="padding-top: 30rpx;padding-left: 30rpx;box-sizing: border-box;overflow: hidden;
 						text-overflow:ellipsis;white-space: nowrap;">{{city}}</view>
 							<view v-else style="padding-top: 30rpx;padding-left: 30rpx;box-sizing: border-box;overflow: hidden;
 						text-overflow:ellipsis;white-space: nowrap;">加载中...</view>
 						</view>
+						<view class="citiLOGO" style="width: 50rpx;height: 96rpx;position: absolute;top: 0;right: 0;z-index:999">
+							<image :src="plugins_img_url+'/hone_logo.png'" mode="" style="width: 40rpx;height: 40rpx;display: block;margin-top: 35rpx;"></image>
+						</view>
 					</view>	
-					<view class="search" @tap="navTo('/pages/search/search')" style="width: 75%;">
+					<view class="search" @tap="navTo('/pages/search/search')" style="width: 70%;">
 						<search :message="item.data.placeholder" :textAlign="item.data.textPosition" :frameColor="item.data.background"
 						 :innerFrameColor="item.data.color" :textColor="item.data.textColor" :borderRadius="item.data.radius"></search>
 						<!-- :frameColor="scrollTop>0?item.data.background:receiveColor" 用来做渐变 -->
@@ -209,6 +212,7 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
+				plugins_img_url: this.$api.plugins_img_url,
 				loading: false,
 
 				left: 0,
