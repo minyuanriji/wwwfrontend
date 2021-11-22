@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App'
 import request from '@/common/request.js';
 import api from '@/common/api.js';
+import bridge from '@/common/bridge.js';
+
 // #ifdef H5
 import wechatSdk from '@/common/wechatJsSdk.js';
 import VueClipboard from 'vue-clipboard2'
@@ -31,6 +33,7 @@ Vue.prototype.dateFormat = dateFormat;
 Vue.prototype.checkHttpUrl = checkHttpUrl;
 Vue.prototype.beforeOnLoad = beforeOnLoad;
 
+Vue.prototype.$bridge = bridge;
 Vue.prototype.$http = request;
 Vue.prototype.$api = api;
 Vue.prototype.$eventHub = Vue.prototype.$eventHub || new Vue();

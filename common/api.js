@@ -1,7 +1,7 @@
 // 正式服务器
-// let api_root = 'https://www.mingyuanriji.cn/web/index.php?r=';
-// let url = 'https://www.mingyuanriji.cn/web/static/'; //图片路径
-// let plugins_img_url = 'https://www.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
+//let api_root = 'https://www.mingyuanriji.cn/web/index.php?r=';
+//let url = 'https://www.mingyuanriji.cn/web/static/'; //图片路径
+//let plugins_img_url = 'https://www.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
 
 
 // 测试服务器
@@ -35,6 +35,8 @@ let api = {
 	index2: api_root + 'api/index/index',
 	get_setting: api_root + 'api/user-setting/get-one',
 	update_setting: api_root + 'api/user-setting/update',
+	
+	
 	default: {
 		login: api_root + 'api/identity/login',
 		mini_login: api_root + 'api/identity/mini-login',
@@ -66,6 +68,9 @@ let api = {
 	},
 	vouchers:{ //购物券
 		getvouchersList:api_root +'plugin/shopping_voucher/api/user/log' ,//购物券记录
+	},
+	app:{
+		version_info: api_root + 'plugin/bsh_app/api/version/detail' 
 	},
 //-------------------------------------------------------------------------------------------淘礼金
 	taolijin:{
