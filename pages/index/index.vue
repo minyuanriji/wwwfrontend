@@ -38,16 +38,12 @@
 					<view class="checksao" style="width: 15%;background: #fff;">
 						<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 90rpx;display: block;margin: 5rpx auto 0;"></image>
 					</view>
-					<view class="search" @tap="navTo('/pages/search/search')" style="width: 70%;">
+					<view class="search" @tap="navTo('/pages/search/search')" style="width: 80%;">
 						<search :message="item.data.placeholder" :textAlign="item.data.textPosition" :frameColor="item.data.background"
 						 :innerFrameColor="item.data.color" :textColor="item.data.textColor" :borderRadius="item.data.radius"></search>
 						<!-- :frameColor="scrollTop>0?item.data.background:receiveColor" 用来做渐变 -->
 					</view>
 					<!-- 搜索 -->
-					<view class="checksao" style="width: 15%;background: #fff;" @click="scanSome">
-						<image :src="img_url+'/scan.png'" mode="" style="width: 50rpx;height: 50rpx;display: block;margin: 5rpx auto 0;"></image>
-						 <text style="display: block;font-size: 24rpx;width: 100%;text-align: center;">扫一扫</text>
-					</view>
 				</view>
 				<!--#endif -->
 				<!-- #ifdef MP-WEIXIN -->
@@ -56,16 +52,12 @@
 					<view class="checksao" style="width: 15%;background: #fff;">
 						<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 90rpx;display: block;margin: 5rpx auto 0;"></image>
 					</view>
-					<view class="search" @tap="navTo('/pages/search/search')" style="width: 70%;">
+					<view class="search" @tap="navTo('/pages/search/search')" style="width: 80%;">
 						<search :message="item.data.placeholder" :textAlign="item.data.textPosition" :frameColor="item.data.background"
 						 :innerFrameColor="item.data.color" :textColor="item.data.textColor" :borderRadius="item.data.radius"></search>
 						<!-- :frameColor="scrollTop>0?item.data.background:receiveColor" 用来做渐变 -->
 					</view>
 					<!-- 搜索 -->
-					<view class="checksao" style="width: 15%;background: #fff;" @click="scanSome">
-						<image :src="img_url+'/scan.png'" mode="" style="width: 50rpx;height: 50rpx;display: block;margin: 5rpx auto 0;"></image>
-						 <text style="display: block;font-size: 24rpx;width: 100%;text-align: center;">扫一扫</text>
-					</view>
 				</view>
 				<!--#endif -->
 			</view>
@@ -496,25 +488,6 @@
 					console.log(this.webapp)
 				}
 			},
-			scanSome(){//扫一扫
-				//#ifdef H5
-					jweixin.scanQRCode({
-					  needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-					  scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
-					  success: function (res) {
-						var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-					  }
-					});
-				//#endif
-				// #ifdef MP-WEIXIN || APP-PLUS
-						uni.scanCode({
-							onlyFromCamera: true,
-						    success: function (res) {
-						      
-						    }
-						});
-				// #endif
-			},
 			linkService() {
 				//#ifdef H5
 				location.href = this.serviceLink
@@ -807,6 +780,7 @@
 		width: 100%;
 		z-index: 99;
 		display: flex;
+		background: #fff;
 	}
 
 	.navIcon_style {
