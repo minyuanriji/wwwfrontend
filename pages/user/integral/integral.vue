@@ -63,14 +63,14 @@
 					<view v-for="item in list" class="coupon-list-item">
 						<view class="item-time">{{item.created_at|formatDate}}</view>
 						<view class="coupon-list-item-main">
-							<view class="item-left">
+							<view class="item-left" style="width: 50%;">
 								<view class="item-income">收入：¥{{item.money}}</view>
 								<view :class="[currentTab==0?'item-explain':'item-time']">{{item.desc}}</view>
 								<view v-if="currentTab==1" class="item-expire-time">过期时间:{{item.expire_time|formatDate}}</view>
 							</view>
-							<view class="item-right">
+							<view class="item-right" style="width: 40%;">
 								<!-- 详情也要相加 -->
-								<view class="item-money">积分券：¥{{item.before_money*1 + item.money*1}}</view>
+								<view class="item-money" style="text-align: left;">积分券：¥{{item.total_money}}</view>
 								<view v-if="currentTab==1" class="item-button" @click="todetailed(item.id)">查看详情</view>
 							</view>
 						</view>
@@ -431,7 +431,7 @@
 							.item-right{
 								display: flex;
 								flex-direction: column;
-								align-items: center;
+								// align-items: center;
 								.item-button{
 									width: 145rpx;
 									height: 40rpx;
