@@ -7,7 +7,7 @@
 		</view> -->
 		<view class="goods">
 				<view v-for="(item,index) in list" :key="index" class="goods_item" @click="linkurl(item.id)">
-					<image :src="item.cover_pic" mode="scaleToFill"></image>
+					<image :src="item.cover_pic" mode="aspectFill"></image>
 					<view class="item_name">
 						{{item.name}}
 					</view>
