@@ -159,6 +159,7 @@
 				var that = this
 				uni.chooseLocation({
 					success: function(res) {
+						console.log(res)
 						that.detailed = res.name
 					}
 				})
