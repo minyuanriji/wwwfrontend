@@ -21,7 +21,7 @@
 		<view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 200rpx;left: 0;">
 	<!--#endif -->
 	<!-- #ifdef MP-WEIXIN || APP-PLUS -->
-		 <view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 118;left: 0;">
+		 <view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 118rpx;left: 0;">
 	 <!--#endif -->
 			<view class="pick-time">
 				<view class="pick-time-detail">

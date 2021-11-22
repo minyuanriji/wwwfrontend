@@ -35,7 +35,7 @@
 				<!-- #ifdef H5 || APP-PLUS -->
 				<view class="search_box" :style="{ position: is_fixed == 1 ? 'relative' : 'fixed' }">
 					<!-- 搜索 -->
-					<view class="checksao" style="width: 15%;background: #fff;">
+					<view class="checksao" style="width: 20%;background: #fff;">
 						<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 90rpx;display: block;margin: 5rpx auto 0;"></image>
 					</view>
 					<view class="search" @tap="navTo('/pages/search/search')" style="width: 80%;">
