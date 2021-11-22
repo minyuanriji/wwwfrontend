@@ -3,6 +3,7 @@ import {
 	isWeChat
 } from '@/utils/util.js';
 import {user} from './api.js';
+import $bridge from './bridge.js';
 
 const fetch = {
 	toast: function(tips) {
@@ -69,6 +70,7 @@ const fetch = {
 		}
 	},
 	request: function(requestData) {
+
 		let currPage;
 		let pages = getCurrentPages();
 		// #ifdef MP-WEIXIN || APP-PLUS

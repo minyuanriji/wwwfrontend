@@ -1,6 +1,8 @@
 <script>
+	import $bridge from './common/bridge.js';
 	export default {
 		onLaunch: function() {		
+			
 			//#ifdef H5
 			if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
 				
@@ -8,6 +10,7 @@
 				 this.$unifylocation.locationH5()	
 			}   
 			// #endif
+			
 			// #ifndef H5
 			if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
 				
@@ -21,17 +24,16 @@
 			// 初始化项目就执行自定义分享
 			// this.$wechatSdk.share();
 			this.initMall();
+			
 			// #ifdef H5
 			if (this.$route.query.mall_id) {
 				uni.setStorageSync('mall_id', this.$route.query.mall_id);
 			}
 			// #endif
-				
-			// #ifdef APP-PLUS
-			let that = this;
-			plus.runtime.getProperty(plus.runtime.appid, function(widgetInfo) {
+
+			/* plus.runtime.getProperty(plus.runtime.appid, function(widgetInfo) {
 				//APP更新
-				//console.log('请求更新前提交的版本='+widgetInfo.version)
+				//console.log('请求更新前提交的版本='+widgetInfo);
 				that.$http.request({
 					url: that.$api.app_update,
 					data: {
@@ -72,19 +74,44 @@
 								})
 							}
 						}
-
 					} else {
 
 					}
-				})
-			});
-			// #endif
+				}) 
+			}); */
 		},
 
 		onShow: function(options) {
 			
 			this.beforeOnLoad(options);
 			
+			// #ifdef APP-PLUS
+			let that = this;
+			$bridge.getVersion(null, function(v){
+				let currentVersionCode = typeof v != "undefined" ? parseInt(v.version_code) : 0;
+				if(currentVersionCode <= 0) return;
+				that.$http.request({
+					url: that.$api.app.version_info,
+					data: {platform:v.platform}
+				}).then(res => {
+					if (res.code == 0 && currentVersionCode < parseInt(res.data.version_code)) {
+						uni.showModal({
+							title: '发现新版本',
+							showCancel: false,
+							content: "版本："+res.data.version_name+"\n请点击确定更新",
+							success: function(res2) {
+								if (res2.confirm) {
+									plus.runtime.openURL(res.data.download_link);
+								} else if (res2.cancel) {
+						
+								}
+							}
+						})
+					}
+				});
+			})
+			// #endif
+	
 			// #ifdef MP-WEIXIN
 			if (uni.getUpdateManager) {
 				const updateManager = uni.getUpdateManager();
