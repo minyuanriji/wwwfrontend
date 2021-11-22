@@ -177,6 +177,10 @@
 					{
 						name:'购物券',
 						type:'shopping_voucher'
+					},
+					{
+						name:'收益明细',
+						type:'income'
 					},	
 				],
 				asseText:'',
@@ -215,6 +219,11 @@
 				if(item.type=='shopping_voucher'){
 					uni.navigateTo({
 						url:'../vouchers/vouchers?name='+item.type
+					})
+				}
+				if(item.type=='income'){
+					uni.navigateTo({
+						url:'../../plugins/extensions/income/income?name='+item.type
 					})
 				}
 			},
