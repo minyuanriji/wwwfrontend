@@ -6,7 +6,7 @@
 				<input type="text" value="" placeholder="请填写" v-model="form.username" />
 			</view>
 			<view>
-			<text style="text-align: right;padding-right: 40rpx;box-sizing: border-box;">密码：</text>
+			<text style="padding-right: 40rpx;box-sizing: border-box;">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</text>
 				<input type="password" value="" placeholder="密码" v-model="form.password" />
 			</view>
 			<view>
