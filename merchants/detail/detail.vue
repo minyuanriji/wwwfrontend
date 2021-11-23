@@ -1,6 +1,5 @@
 <template>
-	<view class="shop_detail_container">
-		
+	<view class="shop_detail_container">		
 		<view class="shop_detail_header">
 			<view  style="display:flex;justify-content: space-evenly;">
 				<image :src="detail.logo" mode="scaleToFill" style="width: 150rpx;height: 150rpx;margin-top: 10rpx;"></image>
