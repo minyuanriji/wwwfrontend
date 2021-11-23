@@ -30,15 +30,24 @@
 			</button>
 		</view>
 		<!--#endif -->
-		<block v-for="(item, index) in indexData" :key="index">
+		<block v-for="(item, index) in indexData" :key="index" style="">
 			<view class="header" v-if="item.id == 'search'">
 				<!-- #ifdef H5 || APP-PLUS -->
 				<view class="search_box" :style="{ position: is_fixed == 1 ? 'relative' : 'fixed' }">
 					<!-- 搜索 -->
-					<view class="checksao" style="width: 20%;background: #fff;">
-						<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 90rpx;display: block;margin: 5rpx auto 0;"></image>
-					</view>
-					<view class="search" @tap="navTo('/pages/search/search')" style="width: 80%;">
+					<view class="checksao" style="width: 30%;background: #fff;position: relative;">
+						<view style="width: 80%;color: #000;font-size: 30rpx;font-weight: bold;overflow: hidden;
+						text-overflow:ellipsis;white-space: nowrap;" @click="setCITY">
+							<view v-if="city != ''" style="padding-top: 30rpx;padding-left: 30rpx;box-sizing: border-box;overflow: hidden;
+						text-overflow:ellipsis;white-space: nowrap;">{{city}}</view>
+							<view v-else style="padding-top: 30rpx;padding-left: 30rpx;box-sizing: border-box;overflow: hidden;
+						text-overflow:ellipsis;white-space: nowrap;">加载中...</view>
+						</view>
+						<view class="citiLOGO" style="width: 50rpx;height: 96rpx;position: absolute;top: 0;right: 0;z-index:9999">
+							<image :src="plugins_img_url+'/hone_logo.png'" mode="" style="width: 40rpx;height: 40rpx;display: block;margin-top: 33rpx;"></image>
+						</view>
+					</view>	
+					<view class="search" @tap="navTo('/pages/search/search')" style="width: 70%;margin-bottom: 30rpx;">
 						<search :message="item.data.placeholder" :textAlign="item.data.textPosition" :frameColor="item.data.background"
 						 :innerFrameColor="item.data.color" :textColor="item.data.textColor" :borderRadius="item.data.radius"></search>
 						<!-- :frameColor="scrollTop>0?item.data.background:receiveColor" 用来做渐变 -->
@@ -49,10 +58,20 @@
 				<!-- #ifdef MP-WEIXIN -->
 				<view class="search_box_mp" :style="{ position: is_fixed == 1 ? 'relative' : 'fixed' }">
 					<!-- 搜索 -->
-					<view class="checksao" style="width: 15%;background: #fff;">
-						<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 90rpx;display: block;margin: 5rpx auto 0;"></image>
-					</view>
-					<view class="search" @tap="navTo('/pages/search/search')" style="width: 80%;">
+					<!-- 搜索 -->
+					<view class="checksao" style="width: 30%;background: #fff;position: relative;">
+						<view style="width: 80%;color: #000;font-size: 30rpx;font-weight: bold;overflow: hidden;
+						text-overflow:ellipsis;white-space: nowrap;" @click="setCITY">
+							<view v-if="city != ''" style="padding-top: 30rpx;padding-left: 30rpx;box-sizing: border-box;overflow: hidden;
+						text-overflow:ellipsis;white-space: nowrap;">{{city}}</view>
+							<view v-else style="padding-top: 30rpx;padding-left: 30rpx;box-sizing: border-box;overflow: hidden;
+						text-overflow:ellipsis;white-space: nowrap;">加载中...</view>
+						</view>
+						<view class="citiLOGO" style="width: 50rpx;height: 96rpx;position: absolute;top: 0;right: 0;z-index:9999">
+							<image :src="plugins_img_url+'/hone_logo.png'" mode="" style="width: 40rpx;height: 40rpx;display: block;margin-top: 33rpx;"></image>
+						</view>
+					</view>	
+					<view class="search" @tap="navTo('/pages/search/search')" style="width: 70%;">
 						<search :message="item.data.placeholder" :textAlign="item.data.textPosition" :frameColor="item.data.background"
 						 :innerFrameColor="item.data.color" :textColor="item.data.textColor" :borderRadius="item.data.radius"></search>
 						<!-- :frameColor="scrollTop>0?item.data.background:receiveColor" 用来做渐变 -->
@@ -117,7 +136,7 @@
 		
 		
 		<vouchers :list='goods_ist'></vouchers>
-		
+		<citySelect @back_city="back_city" v-if="cityselec"></citySelect>
 		
 		
 		
@@ -164,7 +183,7 @@
 	import diyMap from '@/components/diy/diy-map.vue';
 	import diyModal from '@/components/diy/diy-modal.vue';
 	import vouchers from '@/components/vouchers.vue';
-	
+	import citySelect from '@/components/linzq-home/linzq-city.vue';
 	import backTop from '@/components/back-top/back-top.vue';
 	//#ifdef H5 
 		var jweixin = require('jweixin-module');
@@ -197,11 +216,13 @@
 			diyMap,
 			diyModal,
 			vouchers,
-			backTop
+			backTop,
+			citySelect
 		},
 		data() {
 			return {
 				img_url: this.$api.img_url,
+				plugins_img_url: this.$api.plugins_img_url,
 				loading: false,
 
 				left: 0,
@@ -357,6 +378,8 @@
 					src: '../../static/back-top/top.png',
 					scrollTop: 0
 				},
+				city: '',
+				cityselec:false
 			};
 		},
 		onShow() {
@@ -383,7 +406,8 @@
 			this.t_page++;
 		},
 		onLoad(options) {
-			this.getList()
+			// this.getList()
+			this.getmyLOcation()
 			this.beforeOnLoad(options);
 			
 			if (options.pid) {
@@ -425,12 +449,45 @@
 			return; */
 		},
 
-
+		
 		//用户点击分享
 		onShareAppMessage(e) {
 			return this.wxShare("补商汇", "/pages/index/index?source=1");
 		},
 		methods: {
+			getmyLOcation() {
+				let that = this				
+				//#ifdef H5
+				that.$unifylocation.locationH5()
+				setTimeout(() => {
+					if(uni.getStorageSync('x-longitude-new'),uni.getStorageSync('x-latitude-new')){
+						uni.setStorageSync('x-longitude',uni.getStorageSync('x-longitude-new'))
+						uni.setStorageSync('x-latitude',uni.getStorageSync('x-latitude-new'))
+					}
+				}, 500)
+				setTimeout(() => {
+					this.getList()
+				}, 1000)
+				// #endif
+				
+				// #ifndef H5
+				that.$unifylocation.locationMp()
+				setTimeout(() => {
+					if(uni.getStorageSync('x-longitude-new'),uni.getStorageSync('x-latitude-new')){
+						uni.setStorageSync('x-longitude',uni.getStorageSync('x-longitude-new'))
+						uni.setStorageSync('x-latitude',uni.getStorageSync('x-latitude-new'))
+					}
+				}, 500)
+				setTimeout(() => {
+					this.getList()
+				}, 1000)
+				// #endif
+			},
+			
+			
+			
+			
+			
 			foucusInfo(){
 				//window.location.href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI3MTIzMjAyOQ==&scene=#wechat_redirect"
 				uni.navigateTo({
@@ -665,6 +722,8 @@
 					showLoading: true
 				}).then((res) => { 
 					if(res.code==0){
+						this.city=res.city_data.city
+						uni.setStorageSync("homeCity",res.city_data.city)
 						if(res.data.list.length==0)return false
 						let list= res.data.list;
 						var arr=this.goods_ist.concat(list)
@@ -674,6 +733,23 @@
 						this.$http.toast(res.msg);
 					}
 				})
+			},
+			setCITY() { //选择城市
+				this.cityselec = true
+			},
+			back_city(e) { //城市选择回显
+				if (e !== 'no') {
+					this.city = e.name;
+					this.cityselec = false;
+				} else {
+					this.cityselec = false;
+					uni.pageScrollTo({
+						scrollTop: 0,
+					});
+					this.page=1
+					this.goods_ist=[]
+					this.getmyLOcation()
+				}
 			},
 		},
 		onPageScroll(e) {
@@ -778,6 +854,7 @@
 			top: 40rpx;
 		/* #endif */
 		width: 100%;
+		height: 120rpx;
 		z-index: 99;
 		display: flex;
 		background: #fff;
