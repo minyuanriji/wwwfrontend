@@ -1,7 +1,7 @@
 <template>
 	<view class="root">
 		<!-- #ifdef H5 -->
-		<view class="foucs_H5" style="width: 100%;height: 96rpx;background:#3e4144;position: fixed;top: 0rpx;left: 0;z-index: 999;" v-if="showFoucs">
+		<!-- <view class="foucs_H5" style="width: 100%;height: 96rpx;background:#3e4144;position: fixed;top: 0rpx;left: 0;z-index: 999;" v-if="showFoucs">
 			<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 96rpx;display: block;float: left;"></image>
 			<view class="foucs_H5_messga" style="float: left;">
 				<text style="display: block;font-size: 25rpx;color: #fff;margin-top: 8rpx;">欢迎访问补商汇</text>
@@ -13,7 +13,7 @@
 				@click='foucusInfo'
 				>关注</button> 
 			</view>
-		</view><strong></strong>
+		</view><strong></strong> -->
 		<!--#endif -->	
 		<!-- #ifdef H5 || APP-PLUS--> 
 		<view class="status_bar"></view> 
@@ -30,24 +30,24 @@
 			</button>
 		</view>
 		<!--#endif -->
-		<block v-for="(item, index) in indexData" :key="index">
+		<block v-for="(item, index) in indexData" :key="index" style="">
 			<view class="header" v-if="item.id == 'search'">
 				<!-- #ifdef H5 || APP-PLUS -->
 				<view class="search_box" :style="{ position: is_fixed == 1 ? 'relative' : 'fixed' }">
 					<!-- 搜索 -->
 					<view class="checksao" style="width: 30%;background: #fff;position: relative;">
-						<view style="width: 90%;color: #000;font-size: 30rpx;font-weight: bold;overflow: hidden;
+						<view style="width: 80%;color: #000;font-size: 30rpx;font-weight: bold;overflow: hidden;
 						text-overflow:ellipsis;white-space: nowrap;" @click="setCITY">
 							<view v-if="city != ''" style="padding-top: 30rpx;padding-left: 30rpx;box-sizing: border-box;overflow: hidden;
 						text-overflow:ellipsis;white-space: nowrap;">{{city}}</view>
 							<view v-else style="padding-top: 30rpx;padding-left: 30rpx;box-sizing: border-box;overflow: hidden;
 						text-overflow:ellipsis;white-space: nowrap;">加载中...</view>
 						</view>
-						<view class="citiLOGO" style="width: 50rpx;height: 96rpx;position: absolute;top: 0;right: 0;z-index:999">
-							<image :src="plugins_img_url+'/hone_logo.png'" mode="" style="width: 40rpx;height: 40rpx;display: block;margin-top: 35rpx;"></image>
+						<view class="citiLOGO" style="width: 50rpx;height: 96rpx;position: absolute;top: 0;right: 0;z-index:9999">
+							<image :src="plugins_img_url+'/hone_logo.png'" mode="" style="width: 40rpx;height: 40rpx;display: block;margin-top: 33rpx;"></image>
 						</view>
 					</view>	
-					<view class="search" @tap="navTo('/pages/search/search')" style="width: 70%;">
+					<view class="search" @tap="navTo('/pages/search/search')" style="width: 70%;margin-bottom: 30rpx;">
 						<search :message="item.data.placeholder" :textAlign="item.data.textPosition" :frameColor="item.data.background"
 						 :innerFrameColor="item.data.color" :textColor="item.data.textColor" :borderRadius="item.data.radius"></search>
 						<!-- :frameColor="scrollTop>0?item.data.background:receiveColor" 用来做渐变 -->
