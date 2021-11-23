@@ -849,12 +849,13 @@
 	.search_box {
 		/* #ifdef H5||MP*/
 			top: 80rpx;
-		/* #endif */
-		/* #ifdef APP-PLUS*/
-			top: 40rpx;
+			height: 120rpx;
 		/* #endif */
 		width: 100%;
-		height: 120rpx;
+		/* #ifdef APP-PLUS */
+			top: 40rpx;
+			height: 120rpx;
+		/* #endif */
 		z-index: 99;
 		display: flex;
 		background: #fff;
