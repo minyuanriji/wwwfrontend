@@ -24,13 +24,14 @@
             "LivePusher" : {},
             "VideoPlayer" : {},
             "OAuth" : {},
-            "Payment" : {},
             "Bluetooth" : {},
-            "Maps" : {},
             "Contacts" : {},
             "Share" : {},
             "Speech" : {},
-            "Push" : {}
+            "Push" : {},
+            "Payment" : {},
+            "Maps" : {},
+            "Geolocation" : {}
         },
         /* 应用发布信息 */
         "distribute" : {
@@ -68,7 +69,12 @@
             /* SDK配置 */
             "sdkConfigs" : {
                 "ad" : {},
-                "maps" : {},
+                "maps" : {
+                    "amap" : {
+                        "appkey_ios" : "",
+                        "appkey_android" : "73bdc635be7a17c52a7f4e2f08de7c92"
+                    }
+                },
                 "speech" : {
                     "ifly" : {}
                 },
@@ -88,7 +94,14 @@
                         "UniversalLinks" : "https://ios.jiuhangyunxuan.com/"
                     }
                 },
-                "push" : {}
+                "push" : {},
+                "geolocation" : {
+                    "amap" : {
+                        "__platform__" : [ "android" ],
+                        "appkey_ios" : "",
+                        "appkey_android" : "73bdc635be7a17c52a7f4e2f08de7c92"
+                    }
+                }
             },
             "splashscreen" : {
                 "androidStyle" : "common",
