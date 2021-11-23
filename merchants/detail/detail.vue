@@ -186,7 +186,8 @@
 				});
 				// #endif
 			},
-			callphone(phone){ //联系电话
+			callphone(phone){ //联系电话				
+			
 				uni.makePhoneCall({
 				 	// 手机号
 				    phoneNumber: phone, 				
@@ -199,6 +200,10 @@
 						console.log('调用失败!')
 					}					
 				 })
+				
+			
+				// plus.device.dial('18354789632', true);
+				
 			},	
 			gethotgoods(page,store_id){ //获取爆品商品
 				this.$http
