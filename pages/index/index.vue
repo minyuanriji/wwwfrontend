@@ -751,6 +751,7 @@
 					this.cityselec = false;
 					uni.pageScrollTo({
 						scrollTop: 0,
+						duration: 100
 					});
 					this.page=1
 					this.goods_ist=[]
