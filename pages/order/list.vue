@@ -47,7 +47,10 @@
 								<span class="name">{{model.mch_info.name?model.mch_info.name:'补商汇官方商城'}}</span>
 								<view class="toright"></view>
 							</view>
-							<view v-if="model.cancel_status == 0" class="tui-order-status" style="color:#FF7104">{{model.status_text}}</view>
+							<view v-if="model.cancel_status == 0" class="tui-order-status" style="color:#FF7104">
+								<text v-if="!model.reimburse">{{model.status_text}}</text>
+								<text else></text>					
+							</view>
 							<view v-else class="tui-order-status" style="color:gray">已取消</view>
 						</view>
 					</tui-list-cell>
@@ -99,7 +102,7 @@
 					<view class="tui-btn-ml" v-if="model.status > 1 && model.status != 5 && model.status != 8">
 						<view class="btn-style btn-gary" :style="{color:textColor,border:'1px solid '+textColor}" @click.stop="toPage(model.id)">查看物流</view>
 					</view>
-					<view class="tui-btn-ml" v-if="model.status == 2">
+					<view class="tui-btn-ml" v-if="model.status == 2&&!model.reimburse">
 						<view class="btn-style" :style="{color:'#FF7104',border:'1px solid '+'#FF7104'}"  @click.stop="confirm(model.id)">确认收货</view>
 					</view>
 					<view class="tui-btn-ml" v-if="model.status == 3">
@@ -363,8 +366,16 @@
 						} = res.data;
 						
 						this.dataList = key != 'refresh' ? this.dataList.concat(list) : list; // key != refresh 则是加载下一页数据
+						for(let i=0;i<this.dataList.length;i++){
+							for(let j=0;j<this.dataList[i].detail.length;j++){
+								if(this.dataList[i].detail[j].is_refund==1){
+									this.dataList[i].reimburse=true
+								}
+							}
+						}
 						this.pages = pagination;
 						this.pullUpOn = true;
+						console.log(this.dataList )
 					}
 				})
 			},
