@@ -21,7 +21,7 @@
 			</view>
 		</view>
 		<!--header-->
-		<view class="items" v-if="dataList && dataList.length">
+		<view class="items">
 			<view class="item" v-for="(item, i) in dataList" :key="i">
 				<view class="item-left">
 					<view class="desc margin-bottom text-12-pt">{{ item.desc }}</view>
@@ -32,7 +32,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="items" v-else><main-nomore text="暂无记录" :visible="true" bgcolor="transparent"></main-nomore></view>
+		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
 		<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
 	</view>
 </template>
@@ -44,6 +44,7 @@ export default {
 			img_url: this.$api.img_url,
 			date: "全部",
 			pullUpOn: true,
+			loadding:false,
 			dataList: [],
 			page:1,
 			type:'in',//in收入，out支出
@@ -76,7 +77,6 @@ export default {
 						type:this.type,
 						created_at:this.created_at,
 					},
-					showLoading: true,
 				})
 				.then(res => {
 					if (res.code === 0) {
@@ -125,8 +125,10 @@ export default {
 	},
 	onReachBottom() {
 		this.pullUpOn = true;
+		this.loadding=true
 		if(this.page==this.page_count){
 			this.pullUpOn = false;
+			this.loadding=false;
 			return false;
 		} 		
 		this.page=this.page+1
