@@ -3,7 +3,7 @@
 		<view class="header">
 			<view class="pick-time">
 				<picker mode="date" :value="date"  @change="bindDateChange" fields='day'>
-				    <view class="uni-input">{{date}}</view>
+				    <view class="uni-input" style="text-align: center;">{{date}}</view>
 				 </picker>
 				 <image :src="img_url+'/upstrong.png'" mode=""></image>
 			</view>
@@ -108,7 +108,7 @@
 		left: 0;
 	}
 	.pick-time{
-		width: 100%;
+		width: 300rpx;
 		height: 80rpx;
 		line-height: 80rpx;
 		padding:0 20rpx;
