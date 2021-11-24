@@ -29,6 +29,10 @@
 				<text v-else style="color: green;">充值成功</text>
 			</view>
 		</view>
+		<!--加载loadding-->
+		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
+		<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
+		<!--加载loadding-->
 	</view>	
 </template>
 
@@ -42,6 +46,8 @@
 				page:1,
 				date:'全部',
 				recharge_time:'',
+				pullUpOn:true,
+				loadding:false,
 			}
 		},
 		onLoad() {
@@ -65,6 +71,7 @@
 						var arr=this.creditStatusList.concat(list)
 						this.creditStatusList =arr
 						this.page_count= res.pagination.page_count;
+						this.pullUpOn=true
 					} else {
 						this.$http.toast(res.msg);
 					}
@@ -81,7 +88,11 @@
 			},	
 		},
 		onReachBottom() {
+			this.pullUpOn=true
+			this.loadding=true
 			if(this.page==this.page_count){
+				this.pullUpOn=false
+				this.loadding=false
 				return false;
 			} 		
 			this.page=this.page+1
