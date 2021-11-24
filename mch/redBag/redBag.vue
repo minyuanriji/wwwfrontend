@@ -62,8 +62,11 @@
 					<view class="time">{{item.created_at}}</view>
 				</view>
 			</view>
+			<!--加载loadding-->
+			<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
+			<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
+			<!--加载loadding-->
 		</view>
-		<view v-if="list.length == 0" class="nothing">没有更多记录~</view>
 		<unipopup ref="popup" type="bottom">
 			<view class="popup-detail">
 				<view class="popup-detail-header">
@@ -184,7 +187,9 @@
 					},	
 				],
 				asseText:'',
-				selectassetIndex:0
+				selectassetIndex:0,
+				pullUpOn:true,
+				loadding:false,
 			};
 		},
 		onLoad(options) {
@@ -245,7 +250,6 @@
 						source_type:this.source_type,
 						// status: '',
 					},
-					showLoading: true,
 				}).then((res) => {
 					if (res.code == 0) {
 						this.detailed_count=res.data.detailed_count
@@ -254,6 +258,7 @@
 						var arr = this.list.concat(list)
 						this.list = arr
 						this.page_count = res.data.pagination.page_count
+						this.pullUpOn=true
 					} else {
 						this.$http.toast(res.msg);
 					}
@@ -288,7 +293,11 @@
 			}
 		},
 		onReachBottom: function(e) {
+			this.pullUpOn=true
+			this.loadding=true
 			if (this.page == this.page_count) {
+				this.pullUpOn=false
+				this.loadding=false
 				return
 			}
 			this.page = this.page + 1
