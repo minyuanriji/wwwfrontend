@@ -29,6 +29,7 @@
 				</view>
 			</view>
 		</view>
+		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
 		<main-nomore :visible="!pullUpOn" bgcolor="#fafafa"></main-nomore>
 		
 	</view>
@@ -45,6 +46,7 @@
 				},
 				page_count:0,//总页数
 				pullUpOn:true,
+				loadding:false,
 				list:[]
 			}
 		},
@@ -60,7 +62,6 @@
 					url: this.$api.oil.getoilOrderlist,
 					method: 'POST',
 					data:this.form,
-					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
 						if(res.data.list.length==0)return false
@@ -81,8 +82,11 @@
 			}
 		},
 		onReachBottom() {
+			this.pullUpOn=true
+			this.loadding=true
 			if(this.form.page==this.page_count){
 				this.pullUpOn = false;
+				this.loadding=false
 				return false;
 			} 		
 			this.form.page=this.form.page+1
