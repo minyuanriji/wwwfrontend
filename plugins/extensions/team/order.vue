@@ -70,7 +70,17 @@
 </template>
 
 <script>
+	import tuiIcon from "@/components/icon/icon";
+	import tuiTag from "@/components/tag/tag";
+	import tuiButton from "@/components/extend/button/button"
+	import tuiListCell from "@/components/list-cell/list-cell"
 	export default {
+		components: {
+			tuiButton,
+			tuiListCell,
+			tuiIcon,
+			tuiTag,
+		},
 		data() {
 			return {
 				img_url: this.$api.img_url,
