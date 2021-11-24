@@ -17,7 +17,10 @@
 			</view>
 		</view>
 		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
-		<main-nomore :visible="!pullUpOn" bgcolor="#fafafa"></main-nomore>
+		<!--加载loadding-->
+		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
+		<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
+		<!--加载loadding-->
 	</view>
 </template>
 
@@ -36,6 +39,7 @@
 				goodsList:[],
 				page_count:'',
 				pullUpOn:true,
+				loadding:false,
 				backTop: {
 					src: '../../../static/back-top/top.png',
 					scrollTop: 0
@@ -62,7 +66,6 @@
 					url: this.$api.taolijin.getHomegoods,
 					method: 'POST',
 					data: this.form,
-					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
 						if(res.data.list.length==0)return false
@@ -81,7 +84,10 @@
 			this.backTop.scrollTop = e.scrollTop;
 		},
 		onReachBottom() {
+			this.loadding = true;
+			this.pullUpOn = true;
 			if(this.form.page==this.page_count){
+				this.loadding = false
 				this.pullUpOn=false
 				return false;
 			} 		

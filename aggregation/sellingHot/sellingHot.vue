@@ -2,6 +2,10 @@
 	<view class="sellingHot_container">
 		<vouchers :list='goods_ist'></vouchers>
 		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
+		<!--加载loadding-->
+		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
+		<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
+		<!--加载loadding-->
 	</view>
 </template>
 
@@ -22,6 +26,8 @@
 					src: '../../static/back-top/top.png',
 					scrollTop: 0
 				},
+				pullUpOn:true,
+				loadding:false,
 			}
 		},
 		onLoad() {
@@ -35,7 +41,6 @@
 					data:{
 						page:this.page
 					},
-					showLoading: true
 				}).then((res) => { 
 					if(res.code==0){
 						if(res.data.list.length==0)return false
@@ -43,6 +48,7 @@
 						var arr=this.goods_ist.concat(list)
 						this.goods_ist =arr
 						this.page_count = res.data.page_count;
+						this.pullUpOn=true
 					}else{
 						this.$http.toast(res.msg);
 					}
@@ -53,7 +59,11 @@
 			this.backTop.scrollTop = e.scrollTop;
 		},
 		onReachBottom() {
+			this.pullUpOn=true
+			this.loadding=true
 			if(this.page==this.page_count){
+				this.pullUpOn=false
+				this.loadding=false
 				return false;
 			} 		
 			this.page=this.page+1

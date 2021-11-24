@@ -1,10 +1,9 @@
 <template>
-	<view class="shop_detail_container">
-		
+	<view class="shop_detail_container">		
 		<view class="shop_detail_header">
-			<view  style="display:flex">
-				<image :src="detail.logo" mode="scaleToFill" style="width: 150rpx;height: 150rpx;"></image>
-				<view class="shop_detail_header_name" style="flex-grow:1;">
+			<view  style="display:flex;justify-content: space-evenly;">
+				<image :src="detail.logo" mode="scaleToFill" style="width: 150rpx;height: 150rpx;margin-top: 10rpx;"></image>
+				<view class="shop_detail_header_name" style="flex-grow:1;width: 50%;">
 					<view style="margin-left:20rpx;display:flex;flex-direction:column;justify-content:center">
 						{{detail.name}}
 						<view class="shop_table_score">
@@ -14,7 +13,7 @@
 						</view>
 					</view>
 				</view>
-				<view @click="jumpToPay" style="text-align:right;padding: 0 20rpx;display:flex; justify-content:flex-end;line-height:150rpx">
+				<view @click="jumpToPay" style="width: 25%;text-align:right;padding: 0 20rpx;display:flex; justify-content:flex-end;line-height:150rpx">
 					<image :src="img_url+'pay_mch.png'" mode="scaleToFill" style="margin-top:57rpx;width: 39rpx;height:39rpx;"></image>
 					<view style="margin-left:10rpx;color:rgb(255, 166, 0);font-size:30rpx;">付款</view>
 				</view>

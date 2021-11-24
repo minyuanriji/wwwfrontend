@@ -278,7 +278,11 @@
 				} else {
 					this.is_shake = true;
 				}
-				
+				if(this.userName.length<2){
+					this.$http.toast('收货人名字最少两位');
+					this.is_shake = false;
+					return
+				}
 				this.$http.request({
 					url: this.$api.user.addressSave,
 					method: 'post',

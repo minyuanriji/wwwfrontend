@@ -147,7 +147,10 @@
 		
 		
 		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
-		
+		<!--加载loadding-->
+		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
+		<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
+		<!--加载loadding-->
 		<!-- 版权 -->
 		<diy-copyright v-if="copyright.status == 1" :value="copyright"></diy-copyright>
 		<view class="ap-link" @click="navToLink()"
@@ -161,7 +164,6 @@
 		<main-tabbar v-if='modelSHOw'></main-tabbar>
 		<!-- 导航栏 -->
 		<!-- <navigator url="../business-card/client/index">跳转名片</navigator> -->
-		<main-loading :visible="loading"></main-loading>
 	</view>
 </template>
 
@@ -385,7 +387,10 @@
 					scrollTop: 0
 				},
 				city: '',
-				cityselec:false
+				cityselec:false,
+				loadding: false,
+				pullUpOn: true,
+				loading: false,
 			};
 		},
 		onShow() {
@@ -725,7 +730,6 @@
 					data:{
 						page:this.page
 					},
-					showLoading: true
 				}).then((res) => { 
 					if(res.code==0){
 						this.city=res.city_data.city
@@ -735,6 +739,7 @@
 						var arr=this.goods_ist.concat(list)
 						this.goods_ist =arr
 						this.page_count = res.data.page_count;
+						this.pullUpOn = true;
 					}else{
 						this.$http.toast(res.msg);
 					}
@@ -751,6 +756,7 @@
 					this.cityselec = false;
 					uni.pageScrollTo({
 						scrollTop: 0,
+						duration: 100
 					});
 					this.page=1
 					this.goods_ist=[]
@@ -779,7 +785,11 @@
 			}
 		},
 		onReachBottom() {
+			this.loadding = true;
+			this.pullUpOn = true;
 			if(this.page==this.page_count){
+				this.loadding = false;
+				this.pullUpOn = false;
 				return false;
 			} 		
 			this.page=this.page+1
