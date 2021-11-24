@@ -55,16 +55,15 @@
 					</view>
 				</view>
 			</view>
+			<!--加载loadding-->
+			<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
+			<main-nomore :visible="!pullUpOn" bgcolor="#fafafa"></main-nomore>
+			<!--加载loadding-->
 		</view>
 		<view class="order-nothing" v-else>
 			<image class="order-nothing-img" :src="img_url+'images/order/order-nothing.png'" mode=""></image>
 			<view class="order-nothing-text">目前没有{{ status ? tabs[status+1].name : ""}}订单哦~</view>
 		</view>
-		<!--加载loadding-->
-		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
-		<main-nomore :visible="!pullUpOn" bgcolor="#fafafa"></main-nomore>
-		<main-loading :visible="loading"></main-loading>
-		<!--加载loadding-->
 		<main-tabbar></main-tabbar>
 	</view>
 </template>
