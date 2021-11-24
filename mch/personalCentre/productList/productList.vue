@@ -1,7 +1,10 @@
 <template>
 	<view class="productList-app">
 		<shopProduct v-for='(item,index) in list' :item='item' :key='index'></shopProduct>
-		<view class="none" v-if="list.length==0" style="text-align: center;color: #999;margin-top: 20px;font-size: 14px;">暂无商品</view>
+		<!--加载loadding-->
+		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
+		<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
+		<!--加载loadding-->
 	</view>
 </template>
 
@@ -20,9 +23,11 @@
 					keyword:'',
 					label:'',
 					page:1,
-					limit:''
+					limit:'',
 				},
 				page_count:'',
+				pullUpOn:true,
+				loadding:false,
 			};
 		},
 		onLoad() {
@@ -48,6 +53,7 @@
 							var arr=this.list.concat(list)
 							this.list =arr
 							this.page_count = res.data.pagination.page_count;
+							this.pullUpOn=true
 						}else{
 							this.$http.toast(res.msg);
 						}
@@ -55,7 +61,11 @@
 			}
 		},
 		onReachBottom() {
+			this.pullUpOn=true
+			this.loadding=true
 			if(this.form.page==this.page_count){
+				this.pullUpOn=false
+				this.loadding=false
 				return false;
 			} 		
 			this.form.page=this.form.page+1
