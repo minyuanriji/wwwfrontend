@@ -200,8 +200,7 @@
 					}					
 				 })
 				
-			
-				// plus.device.dial('18354789632', true);
+				//plus.device.dial(mobile, false);
 				
 			},	
 			gethotgoods(page,store_id){ //获取爆品商品
