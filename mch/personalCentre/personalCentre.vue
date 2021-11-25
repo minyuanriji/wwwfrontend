@@ -1,5 +1,7 @@
 <template>
+	
 	<view v-if="!loading" class="personalCenter" >
+
 		<view class="personalCenter-top">
 			<image :src="store.cover_url" class="personal-logo"></image>
 			<view class="personal_nicken_ID">
@@ -159,8 +161,7 @@
 				</view>
 
 				<view class="goods-qrcode-close" @click="poster(-1)">
-					<view
-						style="width: 50rpx;height: 50rpx;text-align: center;background-color: #ADADAD;color: #FFFFFF;border-radius: 50%;line-height: 50rpx;"
+					<view style="width: 50rpx;height: 50rpx;text-align: center;background-color: #ADADAD;color: #FFFFFF;border-radius: 50%;line-height: 50rpx;"
 						class="iconfont icon-guanbi"></view>
 				</view>
 			</view>
@@ -418,15 +419,17 @@
 </script>
 
 <style lang="scss" scoped>
+	.mana-bottom-btn{border-top:1px solid #eaeaea;padding:20rpx 20rpx;background:white;position:fixed;bottom:0;left:0;width:100%;text-align:center;}
+	.mana-bottom-btn > text{border-radius:60rpx;padding:20rpx 0;width:85%;display:inline-block;background:#F24F34;font-size:30rpx;color:white;}
 	.personalCenter {
 		width: 100%;
 		overflow: hidden;
 		background: url(https://dev.mingyuanriji.cn/web/static/personalCenter_logo.jpg)no-repeat; 
 		background-size: 100%;
-		padding-top: 40rpx;
 	}
 
 	.personalCenter-top {
+		margin-top: 40rpx;
 		width: 100%;
 		overflow: hidden;
 		padding: 20rpx;
