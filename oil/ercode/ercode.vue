@@ -29,31 +29,75 @@
 				<text @click="openLa" style="display:inline-block;border-radius:8rpx;width: 100rpx;color:#ff7104;border:1px solid #ff7104;width:300rpx;padding:15rpx 0rpx;">打开中石化小程序</text>
 			</view>
 		</view>
-		
+		<unipopup ref="popup" type="center">
+			<view class="popup_view">
+				<view class="popup_title">
+					请选择兑换城市(必选)
+				</view>
+				<view class="popup-city">
+					<text   :class="selectINdex==index?'active':''"   v-for="(item,index) in cityList" :key='index' @click="select(index,item.codenum)">
+						{{item.name}}
+					</text>
+				</view>
+				<view class="sure" @click="sure">确定</view>
+			</view>
+		</unipopup>
 	</view>
 </template>
 
 <script>
+	import unipopup from '@/components/uni-popupoil/uni-popup';
 	export default {
+		components:{
+			unipopup,
+		},
 		data() {
 			return {
 				plugins_img_url: this.$api.plugins_img_url,
-				detail:''
+				detail:'',
+				cityList:[
+					{
+						name:'广东',
+						codenum:'1941',
+					},
+					{
+						name:'广西',
+						codenum:'2088',
+					},
+				],
+				selectINdex:null,
+				form:{
+					id:'',
+					use_province:'',//省份：2088（广西），1941（广东）
+				}
 			};
 		},
 		onLoad(options) {
-			if(options.id){
-				this.getcode(options.id)
-			}
+			let that=this
+			that.form.id=options.id
+			setTimeout(()=>{
+				that.$refs.popup.open()
+			})
 		},
 		methods:{
-			getcode(id){//获取二维码
+			select(index,use_province){ //选择城市
+				this.selectINdex=index
+				this.form.use_province=use_province
+			},
+			sure(){ //点击确定
+				if(this.selectINdex==null){
+					this.$http.toast('请选择城市');
+					return
+				}else{
+					this.$refs.popup.close()
+					this.getcode()
+				}
+			},
+			getcode(){//获取二维码
 				this.$http.request({
 					url: this.$api.oil.getoilcode,
 					method: 'POST',
-					data:{
-						id:id
-					},
+					data:this.form,
 					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
@@ -136,4 +180,10 @@
 	.code{width: 100%;height: 100%;position: absolute;top: 0;left: 0;}
 	.codeImg{width: 400rpx;height: 400rpx;margin: 80rpx auto 0;}
 	.btn{background: none;width: 180rpx;font-size: 28rpx;height: 60rpx;line-height: 60rpx;color: #fff;background: rgb(255, 113, 4);margin: 0 auto;text-align: center;border-radius: 15rpx;}
+	.popup_view{width: 500rpx;height: 450rpx;background: #fff;border-radius: 30rpx;}
+	.popup_title{width: 100%;height: 120rpx;text-align: center;line-height: 120rpx;font-size: 32rpx;color: #000;}
+	.popup-city{width: 100%;overflow: hidden;display: flex;justify-content: space-evenly;margin: 40rpx 0 80rpx 0;}
+	.popup-city text{display: block;width: 200rpx;height: 80rpx;text-align: center;line-height: 80rpx;border-radius: 20rpx;color: #000;font-weight: bold;}
+	.active{background: #de3b2d;color: #fff!important;}
+	.sure{width: 90%;height: 80rpx;background: red;text-align: center;line-height: 80rpx;margin: 0 auto;border-radius: 20rpx;color: #fff;}
 </style>
