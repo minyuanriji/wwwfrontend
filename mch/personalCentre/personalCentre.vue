@@ -1,5 +1,5 @@
 <template>
-	<view v-if="!loading" class="personalCenter">
+	<view v-if="!loading" class="personalCenter" >
 		<view class="personalCenter-top">
 			<image :src="store.cover_url" class="personal-logo"></image>
 			<view class="personal_nicken_ID">
@@ -82,13 +82,6 @@
 				</view>
 			</view>
 		</view>		
-		<view class="personalCenter-item" @click="myOrder">
-			<jx-list-cell padding="0" :lineLeft="false" :arrow="true">
-				<view class="jx-cell-header" style="height: 100rpx;">
-					<view class="jx-cell-title" style="font-weight: 700;">我的订单</view>
-				</view>
-			</jx-list-cell>
-		</view>
 		<!-- <view class="jx-content-box">
 			<view class="jx-header-btm">
 				<view class="jx-btm-item">
@@ -110,6 +103,20 @@
 			</jx-list-cell>
 		</view>
 		<!-- #endif -->
+		<view class="personalCenter-item" @click="myOrder">
+			<jx-list-cell padding="0" :lineLeft="false" :arrow="true">
+				<view class="jx-cell-header" style="height: 100rpx;">
+					<view class="jx-cell-title" style="font-weight: 700;">订单管理</view>
+				</view>
+			</jx-list-cell>
+		</view>
+		<view class="personalCenter-item" @click="mchGroup" v-if="mch_group_id > 0">
+			<jx-list-cell padding="0" :lineLeft="false" :arrow="true">
+				<view class="jx-cell-header" style="height: 100rpx;">
+					<view class="jx-cell-title" style="font-weight: 700;">连锁店管理</view>
+				</view>
+			</jx-list-cell>
+		</view>
 		<view class="personalCenter-item" @click="href(2)">
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" >
 				<view class="jx-cell-header" style="height: 100rpx;">
@@ -170,6 +177,7 @@
 		},
 		data() {
 			return {
+				mch_group_id: 0,
 				userMessage: {},
 				showPoster: false,
 				loading: false,
@@ -193,6 +201,7 @@
 				}).then(res => {
 					if(res.code == 0){
 						that.loading = false;
+						that.mch_group_id = res.data.base_info.mch_group_id;
 						that.userMessage = res.data.base_info;
 						that.store=res.data.base_info.store;
 						that.stat=res.data.base_info.stat;
@@ -211,6 +220,11 @@
 			myOrder(){
 				uni.navigateTo({
 					url: './myOrder/myOrder'
+				})
+			},
+			mchGroup(){
+				uni.navigateTo({
+					url: '/mchGroup/groupList/groupList'
 				})
 			},
 			href(page) {

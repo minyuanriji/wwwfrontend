@@ -200,8 +200,6 @@
 				this.params.settle_bank=this.applyInfo.settle_bank
 				// this.params.settle_discount=this.applyInfo.settle_discount
 				
-				
-				
 				this.count_1_set=String(this.applyInfo.settle_discount).split('.')[0]
 				this.count_2_set=String(this.applyInfo.settle_discount).split('.')[1]
 				if(!this.count_1_set){

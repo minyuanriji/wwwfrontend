@@ -1,7 +1,7 @@
 // 正式服务器
-let api_root = 'https://www.mingyuanriji.cn/web/index.php?r=';
-let url = 'https://www.mingyuanriji.cn/web/static/'; //图片路径
-let plugins_img_url = 'https://www.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
+//let api_root = 'https://www.mingyuanriji.cn/web/index.php?r=';
+//let url = 'https://www.mingyuanriji.cn/web/static/'; //图片路径
+//let plugins_img_url = 'https://www.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
 
 
 // 测试服务器
@@ -11,9 +11,9 @@ let plugins_img_url = 'https://www.mingyuanriji.cn/web/plugins/'; //扩展页面
 
 
 // 本地服务器
-//let api_root = 'http://local.mingyuanriji.cn/web/index.php?r=';
-//let url = 'http://local.mingyuanriji.cn/web/static/'; //图片路径
-//let plugins_img_url = 'http://local.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径 
+let api_root = 'http://local.mingyuanriji.cn/web/index.php?r=';
+let url = 'http://local.mingyuanriji.cn/web/static/'; //图片路径
+let plugins_img_url = 'http://local.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径 
 
 
 //wx493ce82aab45e4da
@@ -483,6 +483,8 @@ let api = {
 		Filllicense: api_root +'plugin/mch/api/apply/license',
 		getapplyInfo: api_root +'plugin/mch/api/apply/info',
 		applyreset: api_root +'plugin/mch/api/apply/reset',
+		groupItemList: api_root +'mch/api/group/item-list',
+		groupAddItem: api_root +'mch/api/group/add-item',
 	},
 	morecredit:{ 
 		creditOrder:api_root +'plugin/addcredit/api/phone-bill/prepaid-order-submit',
