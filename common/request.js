@@ -113,7 +113,8 @@ const fetch = {
 			// 'x-city-name':encodeURIComponent(city),
 			'x-longitude':uni.getStorageSync("x-longitude"),
 			'x-latitude':uni.getStorageSync('x-latitude'),
-			'x-sub-mch-id': uni.getStorageSync("x-sub-mch-id") || 0
+			'x-sub-mch-id': uni.getStorageSync("x-sub-mch-id") || 0,
+			'x-man-mch-id': uni.getStorageSync("x-man-mch-id")?uni.getStorageSync("x-man-mch-id"):'',
 		}
 		// #ifdef MP-WEIXIN
 		const accountInfo = wx.getAccountInfoSync();
