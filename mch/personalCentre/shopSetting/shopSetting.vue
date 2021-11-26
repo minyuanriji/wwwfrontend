@@ -12,7 +12,7 @@
 			<view class="shopSetting-title" style="height: 150rpx;line-height: 150rpx;">
 				店铺LOGO：
 			</view>
-			<image :src="this.params.shop_logo" mode="" class="logo"></image>
+			<image :src="form.cover_url" mode="" class="logo"></image>
 			<view class="upload-logo" @tap="uploadImg">
 				
 			</view>
@@ -359,10 +359,7 @@
 					this.userMessage=res.data.base_info.store
 					this.form.store_mch_common_cat_id=res.data.base_info.category.id
 					this.form.name=this.userMessage.name
-					// this.form.cover_url=this.userMessage.cover_url
-					if(!isEmpty(this.userMessage.cover_url)){
-						this.params.shop_logo=this.userMessage.cover_url
-					}
+					this.form.cover_url=this.userMessage.cover_url
 					this.form.city_id=this.userMessage.city_id
 					this.form.province_id=this.userMessage.province_id
 					this.form.district_id=this.userMessage.district_id
@@ -403,7 +400,6 @@
 					uni.hideLoading()
 					if(res.code==0){
 						that.form.cover_url=res.data.thumb_url
-						that.params.shop_logo=res.data.thumb_url
 					}else{
 						that.$http.toast(res.msg);
 					}

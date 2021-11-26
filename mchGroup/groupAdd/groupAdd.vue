@@ -163,25 +163,25 @@
 					latitude: '',
 					longitude: '',
 					provice: '',
-					provice_id: 0,
+					provice_id: '',
 					district: '',
-					district_id: 0,
+					district_id: '',
 					city: '',
-					city_id: 0,
+					city_id: '',
 					mobile: '',
 					captcha: '',
 					license_name: '',
 					license_pic: '',
-					zk: 8.0
+					zk: ''
 				},
 				countDown: 0
 			};
 		},
 		onLoad() {
-
+			this.getCity()
 		},
 		onShow() {
-			this.getCity()
+			
 		},
 		methods: {
 			alert(txt) { //弹窗提示
@@ -220,7 +220,7 @@
 			},
 			chooseAddress() { ////获取地址
 				var that = this;
-				this.chooseLocation(function(res){
+				that.chooseLocation(function(res){
 					that.form.address = res.name;
 					that.form.latitude = res.latitude;
 					that.form.longitude = res.longitude;

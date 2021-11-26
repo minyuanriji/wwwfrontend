@@ -274,14 +274,14 @@
 				if(this.page==this.page_count){
 					return false;
 				} 		
-				this.page=this.form.page+1
+				this.page=this.page+1
 				this.gethotgoods(this.page,this.store_id)
 			}
 			if(this.tableIndex==1){
 				if(this.page==this.page_count){
 					return false;
 				} 		
-				this.page=this.form.page+1
+				this.page=this.page+1
 				this.getgoods(this.page,this.store_id)
 			}
 		},
