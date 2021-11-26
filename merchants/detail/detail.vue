@@ -186,22 +186,18 @@
 				// #endif
 			},
 			callphone(phone){ //联系电话				
-			
 				uni.makePhoneCall({
 				 	// 手机号
 				    phoneNumber: phone, 				
 					// 成功回调
 					success: (res) => {
-						console.log('调用成功!')	
+						
 					},				
 					// 失败回调
 					fail: (res) => {
-						console.log('调用失败!')
+						
 					}					
 				 })
-				
-				//plus.device.dial(mobile, false);
-				
 			},	
 			gethotgoods(page,store_id){ //获取爆品商品
 				this.$http
