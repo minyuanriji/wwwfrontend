@@ -45,8 +45,9 @@
 		},
 		methods:{
 			manaStore(item){
+				uni.setStorageSync('x-man-mch-id',item.mch_id)							
 				uni.navigateTo({
-					url:'/mch/personalCentre/personalCentre?man_mch_id='+item.mch_id
+					url:'/mch/personalCentre/personalCentre'
 				})
 			},
 			getGroupList(){//获取订单列表

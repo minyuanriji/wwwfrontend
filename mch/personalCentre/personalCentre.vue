@@ -6,7 +6,13 @@
 			<image :src="store.cover_url" class="personal-logo"></image>
 			<view class="personal_nicken_ID">
 				<view class="personal_nicken">{{store.name}}</view>
-				<view class="personal_id">ID:{{store.mch_id}}</view>
+				<view style="display: flex;">
+					<view class="personal_id">ID:{{store.mch_id}}</view>
+					<view class="store-change" style="margin-left: 50rpx;background: #fff;color: #000;width: 150rpx;text-align: center;
+					border-radius: 15rpx;font-size: 30rpx;" v-if="change" @click="outchange">
+						退出管理
+					</view>
+				</view>
 			</view>
 			<!-- 分享的店铺  -->
 			<!-- #ifdef MP-WEIXIN || H5 -->
@@ -186,7 +192,8 @@
 				store:'',
 				stat:'',
 				loading: true,
-				link:'https://www.mingyuanriji.cn/web/index.php?r=mch%2Fadmin%2Flogin'
+				link:'https://www.mingyuanriji.cn/web/index.php?r=mch%2Fadmin%2Flogin',
+				change:uni.getStorageSync('x-man-mch-id')?true:false,
 			}
 		},
 		onShow() {
@@ -413,6 +420,11 @@
 					}
 				});
 				// #endif
+			},
+			outchange(){
+				uni.removeStorageSync('x-man-mch-id')
+				this.change=false
+				this.getBaseInfo()
 			},
 		}
 	}
