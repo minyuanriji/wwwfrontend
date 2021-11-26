@@ -12,7 +12,7 @@
 			<view class="shopSetting-title" style="height: 150rpx;line-height: 150rpx;">
 				店铺LOGO：
 			</view>
-			<image :src="this.form.cover_url" mode="" class="logo"></image>
+			<image :src="form.cover_url" mode="" class="logo"></image>
 			<view class="upload-logo" @tap="uploadImg">
 				
 			</view>
