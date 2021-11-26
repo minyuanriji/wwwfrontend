@@ -156,13 +156,11 @@
 			// 	this.town_id = this.town_data[this.index].id;
 			// },
 			chooseAddress(){
-				var that = this
-				uni.chooseLocation({
-					success: function(res) {
-						console.log(res)
-						that.detailed = res.name
-					}
-				})
+				var that = this;
+				this.chooseLocation(function(res){
+					console.log(res)
+					that.detailed = res.name
+				});
 			},
 			switchChange(e) { //切换是否是默认地址
 				if (e.detail.value) {

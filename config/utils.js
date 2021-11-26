@@ -164,3 +164,14 @@ export const beforeOnLoad  = function(options){
 	}
 	// #endif
 }
+
+export const chooseLocation = function(fn){
+	uni.chooseLocation({
+		type: 'gcj02',
+		success: function(res) {
+			if(typeof fn == "function"){
+				fn.call(this, res);
+			}
+		}
+	})
+}

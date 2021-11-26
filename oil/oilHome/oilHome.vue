@@ -109,13 +109,11 @@
 		methods:{
 			chooseAddress(){ 
 				var that = this
-				uni.chooseLocation({
-					success: function(res) {
-						that.addressName = res.name
-						that.form.lat = res.latitude
-						that.form.lng = res.longitude
-					}
-				})
+				this.chooseLocation(function(res){
+					that.addressName = res.name
+					that.form.lat = res.latitude
+					that.form.lng = res.longitude
+				});
 			},
 			selectNum(item){ //点击面额
 			    this.price=item.price

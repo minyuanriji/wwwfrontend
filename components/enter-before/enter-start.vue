@@ -277,14 +277,12 @@
 			},
 			chooseAddress() { ////获取地址
 				var that = this
-				uni.chooseLocation({
-					success: function(res) {
-						that.addresss = res.name
-						that.params.store_address = res.name
-						that.params.store_latitude = res.latitude
-						that.params.store_longitude = res.longitude
-					}
-				})
+				this.chooseLocation(function(res){
+					that.addresss = res.name
+					that.params.store_address = res.name
+					that.params.store_latitude = res.latitude
+					that.params.store_longitude = res.longitude
+				});
 			},
 			getCat: function() { //获取店铺消费类型
 				var that = this

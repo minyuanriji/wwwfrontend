@@ -88,17 +88,15 @@
 				that.list=[]
 				that.form.page=1
 				uni.removeStorageSync('x-longitude')
-				uni.removeStorageSync('x-latitude')
-				uni.chooseLocation({
-					success: function(res) {
-						that.address=res.address
-						that.form.id=that.id
-						that.form.longitude=String(res.longitude)
-						that.form.latitude=String(res.latitude)
-						that.getshopList(that.form)
-						console.log(that.form)
-					}
-				})
+				uni.removeStorageSync('x-latitude');
+				this.chooseLocation(function(res){
+					that.address=res.address
+					that.form.id=that.id
+					that.form.longitude=String(res.longitude)
+					that.form.latitude=String(res.latitude)
+					that.getshopList(that.form)
+					console.log(that.form)
+				});
 			},
 			deleteAdd(){ //删除定位
 				this.address=''				

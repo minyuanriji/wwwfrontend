@@ -310,12 +310,10 @@
 			},
 			chooseAddress() { //选择地址我的定位
 				var that = this
-				// uni.chooseLocation({
-				// 	success: function(res) {
-				// 		console.log(res)
-				// 		that.region=res.name
-				// 	}
-				// })
+				this.chooseLocation(function(res){
+					// 		console.log(res)
+					// 		that.region=res.name
+				});
 				uni.showLoading({
 				    title: '加载中'
 				});

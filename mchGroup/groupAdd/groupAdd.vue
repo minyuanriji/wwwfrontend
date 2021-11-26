@@ -218,14 +218,12 @@
 				})
 			},
 			chooseAddress() { ////获取地址
-				var that = this
-				uni.chooseLocation({
-					success: function(res) {
-						that.form.address = res.name
-						that.form.latitude = res.latitude
-						that.form.longitude = res.longitude
-					}
-				})
+				var that = this;
+				this.chooseLocation(function(){
+					that.form.address = res.name
+					that.form.latitude = res.latitude
+					that.form.longitude = res.longitude
+				});
 			},
 			picker(e){
 				let value = e.detail.value;

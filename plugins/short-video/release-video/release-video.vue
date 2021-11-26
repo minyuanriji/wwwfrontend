@@ -211,14 +211,12 @@
 					return;
 				}
 				if(this.sendData.related_address) return;
-				uni.chooseLocation({
-					success: (res) => {
-						this.sendData.related_lat = res.latitude;
-						this.sendData.related_lon = res.longitude;
-						this.sendData.related_address = res.name;
-						this.sendData.related_detailed_address = res.address;
-					}
-				})
+				this.chooseLocation(function(res){
+					this.sendData.related_lat = res.latitude;
+					this.sendData.related_lon = res.longitude;
+					this.sendData.related_address = res.name;
+					this.sendData.related_detailed_address = res.address;
+				});
 			},
 			releaseVideo(){
 				var lableId_arr=[],send='';

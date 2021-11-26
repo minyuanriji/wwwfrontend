@@ -247,13 +247,11 @@
 				})
 			},
 			chooseAddress() { //打开腾讯地图
-				var that = this
-				uni.chooseLocation({
-					success: function(res) {
-						that.form.longitude=String(res.longitude)
-						that.form.latitude=String(res.latitude)
-					}
-				})
+				var that = this;
+				this.chooseLocation(function(res){
+					that.form.longitude=String(res.longitude)
+					that.form.latitude=String(res.latitude)
+				});
 			},
 			sureBtn(){
 				if(isEmpty(this.form.name)){

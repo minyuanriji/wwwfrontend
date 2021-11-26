@@ -121,7 +121,7 @@
 		<view class="personalCenter-item" @click="mchGroup" v-if="mch_group_id > 0">
 			<jx-list-cell padding="0" :lineLeft="false" :arrow="true">
 				<view class="jx-cell-header" style="height: 100rpx;">
-					<view class="jx-cell-title" style="font-weight: 700;">连锁店管理</view>
+					<view class="jx-cell-title" style="font-weight: 700;">分店管理</view>
 				</view>
 			</jx-list-cell>
 		</view>
