@@ -38,16 +38,17 @@
 						</view>
 					</view>
 					
+					
 					<view class="jojin_item">
 						<view style="width: 35%;">
 							<text style="margin: 0 5rpx;color: red;">*</text>
 							<text style="color: #000;">选择省市区</text>
 						</view>
 						<view style="width: 64%;">
-							<picker  mode="multiSelector" @change="picker"  :value="cityValue" @columnchange="cityColumnPicker" :range="cityMultiArray"
+							<picker  mode="multiSelector" @change="picker"  :value="value" @columnchange="columnPicker" :range="multiArray"
 							style="float: left;">	
 								<view style="width: 450rpx;height: 120rpx;">
-									<view class="index1_content_top_l_name" style="height: 120rpx;line-height: 120rpx;text-align: right;">{{cityText.length<=0 ? '请选择' : cityText}}</view>
+									<view class="index1_content_top_l_name" style="height: 120rpx;line-height: 120rpx;text-align: right;">{{text.length<=0?'请选择':text}}</view>
 								</view>
 							</picker>
 						</view>
@@ -151,10 +152,10 @@
 				isVerifying: false,
 				img_url: this.$api.img_url,
 				plugins_img_url:this.$api.plugins_img_url,
-				cityValue:[0,0,0],
-				cityMultiArray: [], //picker数据
-				citySelectList:[],
-				cityText:'',
+				text:'',
+				value:[0,0,0],
+				multiArray: [], //picker数据
+				selectList:[],
 				form: {
 					name: '',
 					realname: '',
@@ -227,35 +228,35 @@
 			},
 			picker(e){
 				let value = e.detail.value;
-				if (this.citySelectList.length > 0) {
-					this.form.provice = this.citySelectList[value[0]].name; //获取省
-					this.form.district = this.citySelectList[value[0]].children[value[1]].children[value[2]].name; //获取区
-					this.form.city = this.citySelectList[value[0]].children[value[1]].name; //获取区
-					this.form.province_id = this.citySelectList[value[0]].id; //获取省id
-					this.form.city_id = this.citySelectList[value[0]].children[value[1]].id; //获取市id
-					this.form.district_id = this.citySelectList[value[0]].children[value[1]].children[value[2]].id; //获取区id
-					this.cityText = this.form.provice + " " + this.form.city+" "+this.form.district;
+				if (this.selectList.length > 0) {
+					this.form.provice = this.selectList[value[0]].name; //获取省
+					this.form.district = this.selectList[value[0]].children[value[1]].children[value[2]].name; //获取区
+					this.form.city = this.selectList[value[0]].children[value[1]].name; //获取区
+					this.form.provice_id = this.selectList[value[0]].id; //获取省id
+					this.form.city_id = this.selectList[value[0]].children[value[1]].id; //获取市id
+					this.form.district_id = this.selectList[value[0]].children[value[1]].children[value[2]].id; //获取区id
+					this.text = this.provice + " " + this.city+" "+this.district;
 				}
 			},
-			cityColumnPicker(e){
+			columnPicker(e){
 				//第几列 下标从0开始
 				let column = e.detail.column;
 				//第几行 下标从0开始
 				let value = e.detail.value;
 				if (column === 0) {
-					this.cityMultiArray = [
-						this.cityMultiArray[0],
-						this.toArr(this.citySelectList[value].children),
-						this.toArr(this.citySelectList[value].children[0].children)
+					this.multiArray = [
+						this.multiArray[0],
+						this.toArr(this.selectList[value].children),
+						this.toArr(this.selectList[value].children[0].children)
 					];
-					this.cityValue = [value, 0, 0]
+					this.value = [value, 0, 0]
 				} else if (column === 1) {
-					this.cityMultiArray = [
-						this.cityMultiArray[0],
-						this.cityMultiArray[1],
-						this.toArr(this.citySelectList[this.value[0]].children[value].children)
+					this.multiArray = [
+						this.multiArray[0],
+						this.multiArray[1],
+						this.toArr(this.selectList[this.value[0]].children[value].children)
 					];
-					this.cityValue = [this.value[0], value, 0]
+					this.value = [this.value[0], value, 0]
 				}
 			},
 			getCity() { //请求省市区数据
@@ -263,7 +264,8 @@
 					url: this.$api.moreShop.getCity,
 					method: 'post',
 					showLoading:true,
-				}).then((res) => { // 处理数据
+				}).then((res) => {
+					// 处理数据
 					var provinceArr = [];
 					var cityArr = [];
 					var districtArr = [];
@@ -281,7 +283,7 @@
 							districtArr.push(res.data[key])
 						}
 					}
-					this.cityMultiArray = [provinceArr, cityArr,districtArr];
+					this.multiArray = [provinceArr, cityArr,districtArr];
 					cityArr.forEach((item, index) => {
 						districtArr.forEach((items, index) => {
 							if (item.id == items.parent_id) {
@@ -297,11 +299,11 @@
 							}
 						})
 					})
-					this.citySelectList = provinceArr;
-					this.cityMultiArray = [
-						this.toArr(this.citySelectList),
-						this.toArr(this.citySelectList[0].children),
-						this.toArr(this.citySelectList[0].children[0].children)
+					this.selectList = provinceArr;
+					this.multiArray = [
+						this.toArr(this.selectList),
+						this.toArr(this.selectList[0].children),
+						this.toArr(this.selectList[0].children[0].children)
 					];	
 				})
 			},
@@ -312,6 +314,7 @@
 				}
 				return arr;
 			},
+					
 			getCode() { //获取验证码
 				if (!isMobile(this.form['mobile'])) {
 					this.$http.toast('请输入手机号后在获取验证码');
