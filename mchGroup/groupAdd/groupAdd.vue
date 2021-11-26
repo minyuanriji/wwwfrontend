@@ -235,7 +235,7 @@
 					this.form.provice_id = this.selectList[value[0]].id; //获取省id
 					this.form.city_id = this.selectList[value[0]].children[value[1]].id; //获取市id
 					this.form.district_id = this.selectList[value[0]].children[value[1]].children[value[2]].id; //获取区id
-					this.text = this.provice + " " + this.city+" "+this.district;
+					this.text = this.form.provice + " " + this.form.city+" "+this.form.district;
 				}
 			},
 			columnPicker(e){
