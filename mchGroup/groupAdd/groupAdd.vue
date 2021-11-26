@@ -178,10 +178,10 @@
 			};
 		},
 		onLoad() {
-
+			this.getCity()
 		},
 		onShow() {
-			this.getCity()
+			
 		},
 		methods: {
 			alert(txt) { //弹窗提示
