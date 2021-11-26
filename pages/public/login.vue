@@ -13,7 +13,7 @@
 				</view>
 				<view class="common">
 					<view class="iconCss iconfont icon-mima"></view>
-					<input class="com-inp" v-model="dataForm.captcha" placeholder="请输入您的密码" />
+					<input class="com-inp" v-model="dataForm.captcha" placeholder="请输入您的验证码" />
 					<view class="get-code" :style="{color:'#FF7104'}" @tap="getCode" v-if="is_show_code">获取验证码</view>
 					<view class="get-code get-code2" :style="{color:'#FF7104'}" v-else>重新发送({{countdown}})</view>
 				</view>
