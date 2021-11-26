@@ -42,9 +42,9 @@
 							<view class="logo" @tap="toShop(model.mch_id)">
 								<!-- <span :style="`background-image:url(${})`"></span> -->
 								<image class="img" lazy-load="true" 
-								:src="model.mch_info.cover_url?model.mch_info.cover_url:url+'/shoplogo.png'" 
+								:src="model.mch_info.cover_url?model.mch_info.cover_url:model.mall_logo" 
 								mode="aspectFill"></image>
-								<span class="name">{{model.mch_info.name?model.mch_info.name:'补商汇官方商城'}}</span>
+								<span class="name">{{model.mch_info.name?model.mch_info.name:model.mall_name}}</span>
 								<view class="toright"></view>
 							</view>
 							<view v-if="model.cancel_status == 0" class="tui-order-status" style="color:#FF7104">
