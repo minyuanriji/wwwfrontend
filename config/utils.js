@@ -165,6 +165,20 @@ export const beforeOnLoad  = function(options){
 	// #endif
 }
 
+export const getLocation = function(fn){
+	uni.getLocation({
+	    type: 'gcj02',
+	    success: function (res) {
+	        if(typeof fn == "function"){
+	        	fn.call(this, res);
+	        }
+	    },
+		fail: function(){
+			
+		}
+	});
+}
+
 export const chooseLocation = function(fn){
 	uni.chooseLocation({
 		type: 'gcj02',
@@ -172,6 +186,9 @@ export const chooseLocation = function(fn){
 			if(typeof fn == "function"){
 				fn.call(this, res);
 			}
+		},
+		fail: function(){
+			
 		}
 	})
 }

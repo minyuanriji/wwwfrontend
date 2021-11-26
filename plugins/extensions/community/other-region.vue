@@ -114,14 +114,8 @@ export default {
 				return;
 			});
 			// #endif
-			uni.getLocation({
-				type: 'wgs84',
-				success: res => {
-					console.log(res);
-				},
-				fail: err => {
-					console.log(err);
-				}
+			this.getLocation(function(res){
+				console.log(res);
 			});
 		},
 		updated() {

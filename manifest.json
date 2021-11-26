@@ -73,7 +73,7 @@
                 "maps" : {
                     "amap" : {
                         "appkey_ios" : "",
-                        "appkey_android" : "73bdc635be7a17c52a7f4e2f08de7c92"
+                        "appkey_android" : "8ed897dda41100c06b10e9f7b0159a21"
                     }
                 },
                 "speech" : {
@@ -100,7 +100,7 @@
                     "amap" : {
                         "__platform__" : [ "android" ],
                         "appkey_ios" : "",
-                        "appkey_android" : "73bdc635be7a17c52a7f4e2f08de7c92"
+                        "appkey_android" : "8ed897dda41100c06b10e9f7b0159a21"
                     }
                 }
             },

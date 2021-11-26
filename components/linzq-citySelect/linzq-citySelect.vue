@@ -257,14 +257,11 @@
 				that.po_tips = '定位中...'
 				let countdown = setInterval(() => {
 					that.seconds--;
-					uni.getLocation({
-						type: 'wgs84',
-						success: function(res) {
-							// console.log('当前位置的经度：' + res.longitude);
-							// console.log('当前位置的纬度：' + res.latitude);
-							that.longitude = res.longitude
-							that.latitude = res.latitude
-						}
+					that.getLocation(function(res){
+						// console.log('当前位置的经度：' + res.longitude);
+						// console.log('当前位置的纬度：' + res.latitude);
+						that.longitude = res.longitude
+						that.latitude = res.latitude
 					});
 					if (that.seconds <= 0) {
 						that.seconds = 3

@@ -1,6 +1,9 @@
 import {
 	getPlatform
 } from '@/common/request.js';
+
+import { getLocation} from '@/config/utils'
+
 // #ifdef H5
 import wechatSdk from '@/common/wechatJsSdk.js';
 // #endif
@@ -41,19 +44,16 @@ export default {
 	},
 	getLocationData() { //微信或者APP定位
 		var that = this
-		uni.getLocation({
-			type: 'gcj02',
-			success(res) {
-				if (uni.getStorageSync('x-longitude') && uni.getStorageSync('x-latitude')) {
-					uni.setStorageSync('x-longitude-new', res.longitude)
-					uni.setStorageSync('x-latitude-new', res.latitude)
-				} else {
-					uni.setStorageSync('x-longitude', res.longitude)
-					uni.setStorageSync('x-latitude', res.latitude)
-					uni.setStorageSync('flag', true)
-				}
+		getLocation(function(res){
+			if (uni.getStorageSync('x-longitude') && uni.getStorageSync('x-latitude')) {
+				uni.setStorageSync('x-longitude-new', res.longitude)
+				uni.setStorageSync('x-latitude-new', res.latitude)
+			} else {
+				uni.setStorageSync('x-longitude', res.longitude)
+				uni.setStorageSync('x-latitude', res.latitude)
+				uni.setStorageSync('flag', true)
 			}
-		})
+		});
 	},
 	locationH5() {
 		this.getLocationDataH5()

@@ -26,13 +26,14 @@ Vue.prototype.wxShare = wxShare;
 // #endif
 
 
-import { navBack,globalSet,dateFormat,checkHttpUrl,beforeOnLoad,chooseLocation} from '@/config/utils'
+import { navBack,globalSet,dateFormat,checkHttpUrl,beforeOnLoad,chooseLocation,getLocation} from '@/config/utils'
 Vue.prototype.navBack = navBack;
 Vue.prototype.globalSet = globalSet;
 Vue.prototype.dateFormat = dateFormat;
 Vue.prototype.checkHttpUrl = checkHttpUrl;
 Vue.prototype.beforeOnLoad = beforeOnLoad;
 Vue.prototype.chooseLocation = chooseLocation;
+Vue.prototype.getLocation = getLocation;
 
 Vue.prototype.$bridge = bridge;
 Vue.prototype.$http = request;

@@ -124,18 +124,15 @@
 			},
 			getLocationData(){
 				var that=this
-				uni.getLocation({
-					type:'gcj02',
-					success(res) {
-						var longitude=res.longitude
-						var latitude=res.latitude
-						that.form.latitude=String(latitude)
-						that.form.longitude=String(longitude)
-						uni.setStorageSync('x-longitude',res.longitude)
-						uni.setStorageSync('x-latitude',res.latitude)
-						that.getshopList(that.form)
-					}
-				})
+				this.getLocation(function(res){
+					var longitude=res.longitude
+					var latitude=res.latitude
+					that.form.latitude=String(latitude)
+					that.form.longitude=String(longitude)
+					uni.setStorageSync('x-longitude',res.longitude)
+					uni.setStorageSync('x-latitude',res.latitude)
+					that.getshopList(that.form)
+				});
 			},
 			positionLo(addrress,lat,lot){ //点击导航				
 						// uni.openLocation({
