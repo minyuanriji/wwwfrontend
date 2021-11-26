@@ -112,9 +112,9 @@
 							<text style="color: #000;">店铺折扣</text>
 						</view>
 						<view style="width: 64%;display:flex;justify-content: flex-end;">
-							<input type="number" min="0" v-model="form.zk" placeholder="8.0"
+							<input type="number" min="0" v-model="form.zk" placeholder="请输入"
 								style="border-bottom:1px solid #ddd;width:100rpx;line-height: 120rpx;display: block;height: 120rpx;border: none;text-align: center" />
-							 <text style="color:gray;">折</text>
+							 <text style="color:gray;" v-if="form.zk != ''">折</text>
 						</view>
 					</view>
 				</view>
