@@ -1,34 +1,36 @@
 <template>
 	<view class="ercode_container">
-		<image :src="plugins_img_url+'/oilcode.jpg'" mode="widthFix" style="width: 100%;display: block;"></image>
-		<view class="code">
-			<view class="header" style="width: 100%;height: 200rpx;color: #fff;text-align: center;line-height: 200rpx;font-size: 50rpx;">加入补商汇，加油全免费</view>
-			<text style="text-align: center;display: block;width: 100%;color: #000;margin: 80rpx 0 20rpx 0;">兑换码：{{detail.couponCode}}</text>
-			<!-- #ifdef H5 -->
-			<view class="btn" v-clipboard:copy="detail.couponCode" v-clipboard:success="(type) => paste('success')" v-clipboard:error="(type) => paste('error')">复制兑换码</view>
-			 <!--#endif -->
-			<!-- #ifdef MP-WEIXIN -->
-			<view class="btn" @tap="copy(detail.couponCode)">复制兑换码</view>
-			 <!--#endif -->
-			<!-- #ifdef H5 -->
-			<view class="codeImg">
-				<image :src="detail.mpwx_pic" mode="" style="width: 100%;height: 100%;"></image>
+		<template v-if="detail">
+			<image :src="plugins_img_url+'/oilcode.jpg'" mode="widthFix" style="width: 100%;display: block;"></image>
+			<view class="code">
+				<view class="header" style="width: 100%;height: 200rpx;color: #fff;text-align: center;line-height: 200rpx;font-size: 50rpx;">加入补商汇，加油全免费</view>
+				<text style="text-align: center;display: block;width: 100%;color: #000;margin: 80rpx 0 20rpx 0;">兑换码：{{detail.couponCode}}</text>
+				<!-- #ifdef H5 -->
+				<view class="btn" v-clipboard:copy="detail.couponCode" v-clipboard:success="(type) => paste('success')" v-clipboard:error="(type) => paste('error')">复制兑换码</view>
+				 <!--#endif -->
+				<!-- #ifdef MP-WEIXIN -->
+				<view class="btn" @tap="copy(detail.couponCode)">复制兑换码</view>
+				 <!--#endif -->
+				<!-- #ifdef H5 -->
+				<view class="codeImg">
+					<image :src="detail.mpwx_pic" mode="" style="width: 100%;height: 100%;"></image>
+				</view>
+				 <!--#endif -->
+				 <!-- #ifdef MP-WEIXIN -->
+				 <view class="codeImg">
+					<image :src="detail.mpwx_pic" mode="" style="width: 100%;height: 100%;display: blo;" @click="goTowp"></image>
+				 </view>
+				  <!--#endif -->
+			</view> 
+			<view style="padding-top:60rpx;background:white;width:100%;position:absolute;bottom:0rpx;height:300rpx;text-align:center;">
+				<view style="">
+					<text @click="goTowp" style="display:inline-block;border-radius:8rpx;color:#ff7104;border:1px solid #ff7104;width:300rpx;padding:15rpx 0rpx;">打开兑换小程序</text>
+				</view>
+				<view style="margin-top:30rpx;">
+					<text @click="openLa" style="display:inline-block;border-radius:8rpx;width: 100rpx;color:#ff7104;border:1px solid #ff7104;width:300rpx;padding:15rpx 0rpx;">打开中石化小程序</text>
+				</view>
 			</view>
-			 <!--#endif -->
-			 <!-- #ifdef MP-WEIXIN -->
-			 <view class="codeImg">
-			 	<image :src="detail.mpwx_pic" mode="" style="width: 100%;height: 100%;display: blo;" @click="goTowp"></image>
-			 </view>
-			  <!--#endif -->
-		</view> 
-		<view style="padding-top:60rpx;background:white;width:100%;position:absolute;bottom:0rpx;height:300rpx;text-align:center;">
-			<view style="">
-				<text @click="goTowp" style="display:inline-block;border-radius:8rpx;color:#ff7104;border:1px solid #ff7104;width:300rpx;padding:15rpx 0rpx;">打开兑换小程序</text>
-			</view>
-			<view style="margin-top:30rpx;">
-				<text @click="openLa" style="display:inline-block;border-radius:8rpx;width: 100rpx;color:#ff7104;border:1px solid #ff7104;width:300rpx;padding:15rpx 0rpx;">打开中石化小程序</text>
-			</view>
-		</view>
+		</template>
 		<unipopup ref="popup" type="center">
 			<view class="popup_view">
 				<view class="popup_title">
@@ -69,17 +71,36 @@
 				form:{
 					id:'',
 					use_province:'',//省份：2088（广西），1941（广东）
-				}
+				},
+				useDialogVisible: false
 			};
 		},
 		onLoad(options) {
 			let that=this
-			that.form.id=options.id
-			setTimeout(()=>{
-				that.$refs.popup.open()
-			})
+			that.form.id=options.id;
+			that.getOrder();
 		},
 		methods:{
+			getOrder(){
+				let that = this;
+				this.$http.request({
+					url: this.$api.oil.getoilOrderdetail,
+					method: 'POST',
+					data: {id:this.form.id},
+					showLoading: true
+				}).then(res => {
+					if (res.code == 0) {
+						if(res.data.order_status == "finished"){
+							that.detail=res.data;
+						}else{
+							that.useDialogVisible = true;
+							that.$refs.popup.open();
+						}
+					} else {
+						that.$http.toast(res.msg);
+					}
+				});
+			},
 			select(index,use_province){ //选择城市
 				this.selectINdex=index
 				this.form.use_province=use_province
