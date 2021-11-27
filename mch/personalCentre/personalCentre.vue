@@ -193,7 +193,7 @@
 				stat:'',
 				loading: true,
 				link:'https://www.mingyuanriji.cn/web/index.php?r=mch%2Fadmin%2Flogin',
-				change:uni.getStorageSync('x-man-mch-id')?true:false,
+				change:false,
 			}
 		},
 		onShow() {
@@ -208,6 +208,7 @@
 					showLoading: true
 				}).then(res => {
 					if(res.code == 0){
+						this.change=uni.getStorageSync('x-man-mch-id')?true:false
 						that.loading = false;
 						that.mch_group_id = res.data.base_info.mch_group_id;
 						that.userMessage = res.data.base_info;
