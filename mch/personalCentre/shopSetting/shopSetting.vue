@@ -139,9 +139,10 @@
 			setTimeout(() => {
 				this.getCat()
 			}, 500)
+			this.getBaseInfo()
 		},
 		onShow() {
-			this.getBaseInfo()
+		
 		},
 		methods: {
 			toArr(object) {
@@ -251,6 +252,7 @@
 				this.chooseLocation(function(res){
 					that.form.longitude=String(res.longitude)
 					that.form.latitude=String(res.latitude)
+					that.form.address=res.address
 				});
 			},
 			sureBtn(){
