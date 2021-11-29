@@ -177,8 +177,11 @@
 				countDown: 0
 			};
 		},
-		onLoad() {
+		onLoad(options) {
 			this.getCity()
+			uni.setNavigationBarTitle({
+				title:options.title
+			})
 		},
 		onShow() {
 			

@@ -616,7 +616,7 @@
 				{
 					"path": "groupAdd/groupAdd",
 					"style": {
-						"navigationBarTitleText": "添加门店",
+						"navigationBarTitleText": "",
 						"navigationBarBackgroundColor": "#FFFFFF",
 						"navigationBarTextStyle": "black",
 						 "enablePullDownRefresh": false

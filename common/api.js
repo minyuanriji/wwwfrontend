@@ -484,6 +484,7 @@ let api = {
 		getapplyInfo: api_root +'plugin/mch/api/apply/info',
 		applyreset: api_root +'plugin/mch/api/apply/reset',
 		groupItemList: api_root +'mch/api/group/item-list',
+		grouprefuseItemList: api_root +'mch/api/group/refuse-list',
 		groupAddItem: api_root +'mch/api/group/add-item',
 	},
 	morecredit:{ 
