@@ -124,7 +124,7 @@
 		width: 100%;
 		overflow: hidden;
 		margin-bottom: 80rpx;
-		margin-top: 120rpx;
+		margin-top: 110rpx;
 	}
 	.groupList-item{width: 98%;overflow: hidden;display: flex;justify-content: flex-start;margin: 10rpx auto;padding: 20rpx 20rpx;
 	background: #FFFFFF;box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.4);border-radius: 20rpx;}
