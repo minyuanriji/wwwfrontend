@@ -379,6 +379,7 @@
 						}
 					})
 					uni.setStorageSync('imglist',logoList)
+					this.num=logoList.length
 				});
 			},
 			oncancle() {
