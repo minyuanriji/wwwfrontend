@@ -908,6 +908,7 @@
 
 	.bannersBox {
 		position: relative;
+		margin-top: 10rpx;
 	}
 
 	.order {
