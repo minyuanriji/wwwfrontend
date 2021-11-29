@@ -142,7 +142,7 @@
 			this.getBaseInfo()
 		},
 		onShow() {
-		
+			this.num=uni.getStorageSync('imglist').length
 		},
 		methods: {
 			toArr(object) {
@@ -379,7 +379,6 @@
 						}
 					})
 					uni.setStorageSync('imglist',logoList)
-					this.num=logoList.length
 				});
 			},
 			oncancle() {
