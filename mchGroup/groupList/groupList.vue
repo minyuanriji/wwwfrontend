@@ -123,8 +123,8 @@
 	.groupList{
 		width: 100%;
 		overflow: hidden;
-		margin-bottom: 88rpx;
-		margin-top: 100rpx;
+		margin-bottom: 80rpx;
+		margin-top: 120rpx;
 	}
 	.groupList-item{width: 98%;overflow: hidden;display: flex;justify-content: flex-start;margin: 10rpx auto;padding: 20rpx 20rpx;
 	background: #FFFFFF;box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.4);border-radius: 20rpx;}
@@ -143,7 +143,7 @@
 		top: 0rpx;
 	/* #endif */
 	/* #ifdef  H5 */
-		top: 88rpx;
+		top: 83rpx;
 	/* #endif */
 	left: 0;
 	
