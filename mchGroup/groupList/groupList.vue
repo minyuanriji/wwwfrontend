@@ -63,7 +63,7 @@
 			manaStorechange(item){
 				console.log(item)
 				uni.navigateTo({
-					url:'../groupAdd/groupAdd?title='+'修改资料'
+					url:'../groupAdd/groupAdd?title='+'修改资料'+"&mch_apply_id="+item.mch_apply_id
 				})
 			},
 			changeType(index){ //tabble切换

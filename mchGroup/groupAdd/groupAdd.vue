@@ -177,14 +177,14 @@
 				countDown: 0
 			};
 		},
-		onLoad(options) {
+		onLoad(options) { //
 			this.getCity()
 			uni.setNavigationBarTitle({
 				title:options.title
 			})
-		},
-		onShow() {
-			
+			if(options&&options.mch_apply_id){
+				this.getapplyInfo(options.mch_apply_id)
+			}
 		},
 		methods: {
 			alert(txt) { //弹窗提示
@@ -193,8 +193,7 @@
 					icon: 'none'
 				})
 			},
-			doSubmit(){
-				
+			doSubmit(){			
 				if (isEmpty(this.form.name)) return this.alert('请填写门店名称')
 				if (isEmpty(this.form.realname)) return this.alert('请填写负责人姓名')
 				if (isEmpty(this.form.latitude)) return this.alert('请设置门店位置')
@@ -316,8 +315,7 @@
 					arr.push(object[i].name);
 				}
 				return arr;
-			},
-					
+			},				
 			getCode() { //获取验证码
 				if (!isMobile(this.form['mobile'])) {
 					this.$http.toast('请输入手机号后在获取验证码');
@@ -372,6 +370,36 @@
 					}
 				})
 			},
+			getapplyInfo(mch_apply_id){
+				this.$http.request({
+					url: this.$api.merchants.getapplyInfo,
+					method: 'POST',
+					data: {
+						mch_apply_id:mch_apply_id
+					},
+					showLoading: true
+				}).then(res => {
+					if(res.code==0){
+						let detail=res.data
+						this.form.name=detail.store_name
+						this.form.realname=detail.realname
+						this.form.address=detail.store_address
+						this.form.latitude=detail.store_latitude
+						this.form.longitude=detail.store_longitude
+						this.text=detail.province_name+detail.city_name+detail.district_name
+						this.form.provice_id=detail.store_province_id
+						this.form.city_id=detail.store_city_id
+						this.form.district_id=detail.store_district_id
+						this.form.mobile=detail.bind_mobile
+						this.form.license_name=detail.license_name
+						this.form.license_pic=detail.license_pic
+						this.form.zk=detail.settle_discount
+					}else{
+						this.$http.toast(res.msg);
+					}
+				});
+			}
+		
 		}
 	}
 </script>
