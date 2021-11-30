@@ -5,9 +5,9 @@
 
 
 // 测试服务器
-let api_root = 'https://dev.mingyuanriji.cn/web/index.php?r=';
-let url = 'https://dev.mingyuanriji.cn/web/static/'; //图片路径
-let plugins_img_url = 'https://dev.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
+//let api_root = 'https://dev.mingyuanriji.cn/web/index.php?r=';
+//let url = 'https://dev.mingyuanriji.cn/web/static/'; //图片路径
+//let plugins_img_url = 'https://dev.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
 
 
 // 本地服务器

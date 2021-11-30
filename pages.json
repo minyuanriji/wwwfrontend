@@ -869,7 +869,7 @@
 			"pages": [{
 					"path": "taolijin/goods/list/list",
 					"style": {
-						"navigationBarTitleText": "礼金商品区",
+						"navigationBarTitleText": "淘宝",
 						"navigationBarBackgroundColor": "#F7F7F7",
 						"navigationBarTextStyle": "black",
 						"enablePullDownRefresh": false,
@@ -878,7 +878,7 @@
 				}, {
 					"path": "taolijin/goods/detail/detail",
 					"style": {
-						"navigationBarTitleText": "商品详情",
+						"navigationBarTitleText": "淘宝",
 						"navigationBarBackgroundColor": "#F7F7F7",
 						"navigationBarTextStyle": "black",
 						"enablePullDownRefresh": false,
