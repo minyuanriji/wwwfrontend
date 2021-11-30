@@ -255,11 +255,11 @@
 	.goods_sort{width: 100%;z-index: 99;background: #fff;
 	/* #ifdef H5 */
 	height: 300rpx;
-	margin-top: 215rpx;
+	margin-top: 210rpx;
 	/* #endif */
 	/* #ifdef  MP||APP-PLUS  */
 	height: 310rpx;
-	margin-top: 220rpx;
+	margin-top: 215rpx;
 	/* #endif */
 	
 	}
