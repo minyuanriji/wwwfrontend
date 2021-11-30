@@ -885,7 +885,31 @@
 						"onReachBottomDistance": 50
 					}
 
-				}, 
+				},
+				 {
+				     "path" : "taolijin/searchList/searchList",
+				     "style" :                                                                                    
+				 {
+				    "navigationBarTitleText": "搜索",
+				    "navigationBarBackgroundColor": "#F7F7F7",
+				    "navigationBarTextStyle": "black",
+				    "enablePullDownRefresh": false,
+				    "onReachBottomDistance": 50
+				 }
+				 
+				 },
+				 {
+				     "path" : "taolijin/orderList/orderList",
+				     "style" :                                                                                    
+				 {
+				    "navigationBarTitleText": "订单列表",
+				    "navigationBarBackgroundColor": "#F7F7F7",
+				    "navigationBarTextStyle": "black",
+				    "enablePullDownRefresh": false,
+				    "onReachBottomDistance": 50
+				 }
+				 
+				 },
 				{
 					"path": "alibaba/home/home",
 					"style": {

@@ -11,7 +11,7 @@
 				</view>
 				<!-- #endif -->
 				<input type="search" placeholder="请输入商品名"  placeholder-class="tui-input-plholder"
-				 class="tui-input" v-model.trim="key" @confirm='search'/>
+				 class="tui-input" v-model.trim="key" @tap='search'/>
 				<!-- #ifdef APP-PLUS || MP -->
 				<icon type="clear" :size='13' color='#bcbcbc' @tap="cleanKey" v-show="key"></icon>
 				<!-- #endif -->
@@ -19,7 +19,7 @@
 				<view @tap="cleanKey" v-show="key"><tui-icon name="close-fill" :size='16' color='#bcbcbc'></tui-icon></view>
 				<!-- #endif -->
 			</view>
-			<view class="tui-cancle" @tap="search">搜索</view>
+			<view class="tui-cancle" @tap="orderlist">订单</view>
 		</view>
 		<view class="change-list">
 			<liuyuno-tabs :tabData="tabs" :defaultIndex="defaultIndex" @tabClick='tabClick' />
@@ -99,8 +99,14 @@
 				this.key = ''
 			},
 			search(){
-				alert('搜索')
-				console.log(this.key)
+				uni.navigateTo({
+					url:'../../searchList/searchList'
+				})
+			},
+			orderlist(){ //订单列表页面
+				uni.navigateTo({
+					url:'../../orderList/orderList'
+				})
 			},
 			getgoodList() { //获取淘礼金商品				
 				this.$http.request({
@@ -221,11 +227,12 @@
 		overflow: hidden;
 		background: #fff;
 		position: fixed;
+		height: 95rpx;
 		/* #ifdef H5 */
 		top: 200rpx;
 		/* #endif */
 		/* #ifdef MP|| APP-PLUS */
-		top:125rpx;
+		top:120rpx;
 		/* #endif */
 		left: 0;
 		z-index: 999;		
