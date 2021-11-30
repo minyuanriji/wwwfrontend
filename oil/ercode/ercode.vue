@@ -5,13 +5,13 @@
 			<view class="code">
 				<view class="header" style="width: 100%;height: 200rpx;color: #fff;text-align: center;line-height: 200rpx;font-size: 50rpx;">加入补商汇，加油全免费</view>
 				<text style="text-align: center;display: block;width: 100%;color: #000;margin: 80rpx 0 20rpx 0;">兑换码：{{detail.couponCode}}</text>
-				<!-- #ifdef H5 -->
+				<!-- #ifdef H5||APP-PLUS -->
 				<view class="btn" v-clipboard:copy="detail.couponCode" v-clipboard:success="(type) => paste('success')" v-clipboard:error="(type) => paste('error')">复制兑换码</view>
 				 <!--#endif -->
 				<!-- #ifdef MP-WEIXIN -->
 				<view class="btn" @tap="copy(detail.couponCode)">复制兑换码</view>
 				 <!--#endif -->
-				<!-- #ifdef H5 -->
+				<!-- #ifdef H5||APP-PLUS -->
 				<view class="codeImg">
 					<image :src="detail.mpwx_pic" mode="" style="width: 100%;height: 100%;"></image>
 				</view>

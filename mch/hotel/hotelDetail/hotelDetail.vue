@@ -282,7 +282,7 @@
 			},
 			againReservation(){ //再次预定
 				uni.navigateTo({
-					url:'../selectRoom/selectRoom?id='+this.hotelMessage.id
+					url:'../../../hotel/detail/detail?id='+this.hotelMessage.id
 				})
 			},
 			payAgain(order_no){//再次支付

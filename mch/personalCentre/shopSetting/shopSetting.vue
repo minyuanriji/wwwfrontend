@@ -142,7 +142,7 @@
 			this.getBaseInfo()
 		},
 		onShow() {
-		
+			this.num=uni.getStorageSync('imglist').length
 		},
 		methods: {
 			toArr(object) {
