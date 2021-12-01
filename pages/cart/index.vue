@@ -395,15 +395,15 @@
 				})
 			},
 			deleteCart() { //购物车删除
-				this.selectArr.forEach((item) => {
-					item.num = 0;
-				})
 				let that=this
 				uni.showModal({
 				    title: '提示',
 				    content: '确定要删除吗？',
 				    success: function (res) {
 				        if (res.confirm) {
+						   that.selectArr.forEach((item) => {
+						   	item.num = 0;
+						   })	
 						   that.changeData('goods_id', 'attr', 'delete');
 				           that.modify(that.finallyObj);
 				           that.selectArr = [];
