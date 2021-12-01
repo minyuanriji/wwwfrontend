@@ -1,20 +1,16 @@
 // 正式服务器
-//let api_root = 'https://www.mingyuanriji.cn/web/index.php?r=';
-//let url = 'https://www.mingyuanriji.cn/web/static/'; //图片路径
-//let plugins_img_url = 'https://www.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
-
+//let api_host = "https://www.mingyuanriji.cn";
 
 // 测试服务器
-//let api_root = 'https://dev.mingyuanriji.cn/web/index.php?r=';
-//let url = 'https://dev.mingyuanriji.cn/web/static/'; //图片路径
-//let plugins_img_url = 'https://dev.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
-
+let api_host = "https://dev.mingyuanriji.cn";
 
 // 本地服务器
-let api_root = 'http://local.mingyuanriji.cn/web/index.php?r=';
-let url = 'http://local.mingyuanriji.cn/web/static/'; //图片路径
-let plugins_img_url = 'http://local.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径 
+//let api_host = "http://local.mingyuanriji.cn";
 
+
+let api_root 		= api_host + '/web/index.php?r=';
+let url 			= api_host + '/web/static/'; //图片路径
+let plugins_img_url = api_host + '/web/plugins/'; //扩展页面图片路径 
 
 //wx493ce82aab45e4da
 //71b93cac952e55289cc5b3a9b03a345d
@@ -29,6 +25,7 @@ let plugins_img_url = 'http://local.mingyuanriji.cn/web/plugins/'; //扩展页�
 //api_root = '/api?r='
 // #endif
 let api = {
+	host: api_host,
 	img_url: url,
 	plugins_img_url: plugins_img_url,
 	index: api_root + 'default/index',
@@ -74,6 +71,7 @@ let api = {
 	},
 //-------------------------------------------------------------------------------------------淘礼金
 	taolijin:{
+		getAuthInfo:api_root + 'plugin/taolijin/api/auth/get-info', //获取授权信息
 		getgoodsList:api_root + 'plugin/taolijin/api/goods/search', //获取淘礼金商品
 		getgoodsDetail:api_root + 'plugin/taolijin/api/goods/detail', //获取淘礼金商品详情
 		exchange: api_root + 'plugin/taolijin/api/exchange/integral-to-lj', //红包兑换礼金接口

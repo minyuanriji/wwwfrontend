@@ -884,7 +884,24 @@
 						"enablePullDownRefresh": false,
 						"onReachBottomDistance": 50
 					}
-
+				}, {
+					"path": "taolijin/auth/auth",
+					"style": {
+						"navigationBarTitleText": "授权",
+						"navigationBarBackgroundColor": "#F7F7F7",
+						"navigationBarTextStyle": "black",
+						"enablePullDownRefresh": false,
+						"onReachBottomDistance": 50
+					}
+				},{
+					"path": "taolijin/auth/result",
+					"style": {
+						"navigationBarTitleText": "授权",
+						"navigationBarBackgroundColor": "#F7F7F7",
+						"navigationBarTextStyle": "black",
+						"enablePullDownRefresh": false,
+						"onReachBottomDistance": 50
+					}
 				},
 				 {
 				     "path" : "taolijin/searchList/searchList",
