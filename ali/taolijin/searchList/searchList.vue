@@ -33,6 +33,54 @@
 				<image :src="img_url+'unmy-hotel.png'" mode="" style="width: 35rpx;height: 35rpx;display: block;position: absolute;top: 35rpx;right: -20rpx;"></image>
 			</view>
 		</view>
+		<view class="container-goodsList">
+			<view class="goodsList-item" v-for="(item,index) in 3" :key='index' @click="getDetail(item.id)">
+				<view class="goodsList-item-img">
+					<image
+						src="http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20211018/af8287e1940ea564d15c60345c790bea.jpg"
+						mode="widthFix"></image>
+				</view>
+				<view class="goodsList-item-title">
+					牙刷成人软毛10-20支套装
+				</view>
+				<view class="money_num">
+					<view class="money" style="width: 50%;color: rgb(255, 113, 4);">
+						<text style="font-size: 26rpx;">￥</text>
+						<text style="font-size: 28rpx;">0.01</text>
+					</view>
+					<view style="width: 50%;font-size: 24rpx;line-height: 50rpx;text-align: right;">
+						<text>已售1313件</text>
+					</view>
+				</view>
+				<view class="send" style="position: relative;">
+					<view class="send_imag"></view>
+					<text
+						style="font-size: 27rpx;position: absolute;top: 11rpx;left: 80rpx;color: #fff;">300购物券</text>
+				</view>
+			</view>
+			<!-- <view class="no-more" v-if="list.length==0">
+				<image :src="img_url+'/giftOrder_logo.png'" mode=""></image>
+				<text>暂无服务内容</text>
+			</view> -->
+		</view>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		<unipopup ref="popupSortprice" type="top">
 			<view  class="goods_sort">
 				<view @click="sortSecprice(index,item)" :class="sortpriceIndex==index?'sortClass':''" v-for="(item,index) in sortType" :key='index'
@@ -266,4 +314,71 @@
 	.actove{color: rgb(255, 113, 4)}
 	.sortClass{color: #FF7104;font-weight: bold;background: url('https://dev.mingyuanriji.cn/web/static/yellow-right.png')no-repeat;background-size: 5%;
 	background-position: 90% 50% ;}
+	.container-goodsList {
+		width: 95%;
+		overflow: hidden;
+		display: flex;
+		justify-content: space-between;
+		/* #ifdef H5 */
+		margin: 205rpx auto 60rpx;
+		/* #endif */
+		/* #ifdef MP||APP-PLUS */
+		margin: 215rpx auto 60rpx;
+		/* #endif */
+		flex-wrap: wrap;
+	}
+	
+	.goodsList-item {
+		width: 48%;
+		overflow: hidden;
+		border-radius: 15rpx;
+		box-shadow: 0px 0px 10px #eee;
+		background: #FFFFFF;
+		margin-top: 20rpx;
+	}
+	
+	.goodsList-item-img {
+		width: 100%;
+		overflow: hidden;
+	}
+	
+	.goodsList-item-img image {
+		width: 100%;
+	}
+	
+	.goodsList-item-title {
+		width: 100%;
+		padding: 0 10rpx;
+		font-size: 28rpx;
+		color: #000;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 1;
+		overflow: hidden;
+	}
+	
+	.money_num {
+		width: 100%;
+		padding: 0 10rpx;
+		box-sizing: border-box;
+		display: flex;
+		justify-content: space-between;
+	}
+	
+	.send {
+		padding: 0 10rpx;
+		box-sizing: border-box;
+	}
+	
+	.send_imag {
+		min-width: 240rpx;
+		display: inline-block;
+		text-align: center;
+		font-size: 24rpx;
+		height: 80rpx;
+		background: url(../../../mch/img/song.png);
+		background-repeat: no-repeat;
+		background-size: 100% 70%;
+		color: #fff;
+	}
 </style>
