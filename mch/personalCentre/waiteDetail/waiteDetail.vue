@@ -100,7 +100,7 @@
 	.select-type text{width:25% ;display: block;height: 70rpx;text-align: center;line-height: 70rpx;}
 	.active{background: #FF7104;color: #fff;}
 	.watitecount-list{width: 100%;overflow: hidden;}
-	.item{width: 100%;overflow: hidden;display: flex;justify-content: space-between;margin: 30rpx 0;border-bottom: 1rpx solid #C4C4C4;}
+	.item{width: 100%;overflow: hidden;display: flex;justify-content: space-between;margin: 40rpx 0;border-bottom: 1rpx solid #C4C4C4;}
 	.item-left{width: 60%;font-size: 26rpx;margin-bottom: 10rpx;}
 	.item-right{width: 35%;font-size: 28rpx;display: flex;flex-wrap: wrap;margin-bottom: 10rpx;}
 	.item-right text{display: block;width: 100%;text-align: center;}
