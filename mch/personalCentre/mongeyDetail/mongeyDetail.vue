@@ -52,6 +52,7 @@ export default {
 			page_count:'',
 			switchIndex:1,
 			created_at:'',
+			flag:false,
 		};
 	},
 	onLoad() {
@@ -68,6 +69,8 @@ export default {
 			return type == 1 ? `+${data}` : `-${data}`;
 		},
 		getDateList() {	
+			if(this.flag) return
+			this.flag=true
 			this.$http
 				.request({
 					url: this.$api.moreShop.getaccountList,
@@ -80,6 +83,7 @@ export default {
 				})
 				.then(res => {
 					if (res.code === 0) {
+						this.flag=false
 						if(res.data.list.length==0)return false
 						let list= res.data.list;
 						var arr=this.dataList.concat(list)
