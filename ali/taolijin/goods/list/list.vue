@@ -74,6 +74,7 @@
 		data() {
 			return {
 				key: "",
+				defaultIndex: 0,
 				img_url: this.$api.img_url,
 				form: {
 					page: 1,
