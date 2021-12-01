@@ -4,7 +4,7 @@
 		<view class="info_r">
 			<view class="info_r_top">
 				<view class="info_r_top_name">{{params.name}}</view>
-				<view class="info_r_top_right" @tap="toDetail(params.mch_id,params.store_id)">
+				<view class="info_r_top_right" @tap="toDetail(params.mch_id,params.id)">
 					<view>进店看看</view>
 					<view class="info_r_top_right_r"></view>
 				</view>
@@ -31,6 +31,9 @@
 				
 			};
 		}, 
+		created() {
+			console.log(this.params)
+		},
 		methods:{
 			toDetail(id,store_id){
 				let that=this
