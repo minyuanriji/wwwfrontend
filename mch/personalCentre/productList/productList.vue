@@ -1,6 +1,8 @@
 <template>
 	<view class="productList-app">
-		<shopProduct v-for='(item,index) in list' :item='item' :key='index'></shopProduct>
+		<view class="mian">
+			<shopProduct v-for='(item,index) in list' :item='item' :key='index'></shopProduct>
+		</view>
 		<!--加载loadding-->
 		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
 		<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
@@ -77,7 +79,8 @@
 </script>
 
 <style lang="less" scoped>
-	.productList-app{width: 100%;overflow: hidden;display: flex;justify-content: space-between;flex-wrap: wrap;
+	.productList-app{width: 100%;overflow: hidden;
 	padding: 0 30rpx;box-sizing: border-box;}
+	.mian{width: 100%;overflow: hidden;display: flex;justify-content: space-between;flex-wrap: wrap;}
 	.none{width: 100%;}
 </style>
