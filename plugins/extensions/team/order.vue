@@ -27,7 +27,7 @@
 		
 		<com-tabs :tabs="tabs" :isFixed="scrollTop>=0" :currentTab="showTab[status]" :selectedColor="textColor" :sliderBgColor="textColor"
 		 :sliderHeight="4" :sliderWidth="50" bgColor="#F7F7F7" @change="change" bottom="10rpx" style="z-index:999;"></com-tabs>
-		<view :class="{'tui-order-list':scrollTop>=0}" v-if="dataList && dataList.length">
+		<view class="tui-order-list" v-if="dataList && dataList.length">
 			<view class="item" v-for="(item,orderIndex) in data_list" :key="orderIndex">
 				<view class="user-status">
 					<view class="item-uesr-info">
@@ -246,7 +246,7 @@
 	}
 
 	.tui-order-list {
-		margin-top: 220rpx;
+		margin-top: 230rpx;
 		display: flex;
 		flex-direction: column;
 		.item {
