@@ -42,7 +42,7 @@
 									{{form.store_mch_common_cat_id?cat_name:"请选择"}}
 								</picker>
 							</view>
-				<image :src="img_url+'/sanjia.png'" mode="" class="select_logo" style="width: 40rpx;height: 25rpx;margin: 40rpx 16rpx 0 0;"></image>
+				<image :src="img_url+'/sanjia.png'" mode="" class="select_logo" style="width: 40rpx;height: 25rpx;margin: 40rpx 25rpx 0 0;"></image>
 			</view>
 		</view>
 		<view class="shopSetting-item">
