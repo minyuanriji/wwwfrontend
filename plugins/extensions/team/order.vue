@@ -185,16 +185,15 @@
 						keywords:this.key
 					}
 				}).then(res => {
-					this.flag=false
 					this.loading = false;
 					if (res.code === 0) {
+						this.flag=false
 						let {
 							list,
 							pagination
 						} = res.data;
 						
 						this.dataList = key != 'refresh' ? this.dataList.concat(list) : list; // key != refresh 则是加载下一页数据
-						console.log(this.dataList)
 						this.pages = pagination;
 						this.pullUpOn = true;
 					}
