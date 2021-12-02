@@ -119,7 +119,7 @@
 					total_count: 0
 				},
 				key:'',
-				
+				flag:false,
 			}
 		},
 		onLoad(options) {
@@ -157,6 +157,10 @@
 			},
 			// 通过 key 和 status 判断通过何种方式修改数据
 			getDateList(key, status) {
+				if(this.flag){
+					return
+				}
+				this.flag=true
 				this.loading = true;
 				// 如果 key == 'refresh' 重置数据
 				if(key == 'refresh'){
@@ -183,7 +187,7 @@
 						keywords:this.key
 					}
 				}).then(res => {
-					
+					this.flag=false
 					this.loading = false;
 					if (res.code === 0) {
 						let {
