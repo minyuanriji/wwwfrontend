@@ -183,7 +183,7 @@
 	}
 
 	.withdrawal-money-icon {
-		line-height: 50rpx;
+		line-height: 70rpx;
 		color: #000;
 		font-weight: bold;
 		font-size: 40rpx;
