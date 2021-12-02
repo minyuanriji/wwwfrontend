@@ -53,7 +53,7 @@
 					// #endif
 					// #ifdef H5
 					,
-				default: 110
+				default: 100
 				// #endif
 				// #ifdef MP||APP-PLUS
 					,
