@@ -87,7 +87,7 @@
 	.input-btn{height: 100rpx;background: rgb(245, 245, 245);width: 65%;padding-left: 10rpx;}
 	.sure-code{width: 100%;overflow: hidden;}
 	.sure-code button{width: 100%;margin: 100rpx auto;background: #FF7104;color: #fff;}		
-	.payPages_shop{width: 100%;overflow: hidden;display: flex;justify-content: space-between;padding: 40rpx 20rpx 0 20rpx;}
+	.payPages_shop{width: 100%;overflow: hidden;display: flex;justify-content: space-between;padding: 40rpx 20rpx 0 20rpx;box-sizing: border-box;}
 	.payPages_shop_left {max-width: 500rpx;}
 	.payPages_shop_left view{margin: 10rpx 0;color: #000;}
 	.payPages_shop_left view:nth-of-type(2){margin-left: 30rpx;}
