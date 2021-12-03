@@ -176,30 +176,15 @@
 								}
 							}).then(res=>{
 								if(res.code==0){
-									if(that.payData.is_send==1){
-										setTimeout(() => {
-											// #ifdef APP-PLUS
-												uni.navigateTo({
-													url: '/pages/order/beused/beused'
-												})
-											// #endif
-											// #ifdef H5||MP-WEIXIN
-												uni.redirectTo({
-													url: '/pages/order/beused/beused'
-												})
-											// #endif
-										},500)
-									}else{
-										 // #ifdef APP-PLUS
-												uni.navigateTo({
-													url: '/pages/order/alipayWeb?url=' + res.data.codeUrl
-												})
-										// #endif
-										 // #ifdef H5
-										let url=res.data.codeUrl
-										location.href=url
-										// #endif
-									}
+									// #ifdef APP-PLUS
+											uni.navigateTo({
+												url: '/pages/order/alipayWeb?url=' + res.data.codeUrl
+											})
+									// #endif
+									 // #ifdef H5
+									let url=res.data.codeUrl
+									location.href=url
+									// #endif
 								}else{
 									that.$http.toast(res.msg)
 								}
