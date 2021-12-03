@@ -533,7 +533,6 @@
 					.request({
 						url: this.$api.moreShop.getservice,
 						method: 'POST',
-						showLoading: true
 					})
 					.then(res => {
 						if (res.code == 0) {
