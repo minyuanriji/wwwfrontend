@@ -85,6 +85,7 @@
 					});
 					setTimeout(function() {
 						uni.hideToast();
+						that.flag=false
 					}, 2000);
 					return
 				}
