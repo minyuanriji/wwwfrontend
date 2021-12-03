@@ -22,31 +22,28 @@
 			<view class="tui-cancle" @tap="orderlist">订单</view>
 		</view>
 		<view class="change-list">
-			<liuyuno-tabs :tabData="tabs" :defaultIndex="defaultIndex" @tabClick='tabClick' />
+			<liuyuno-tabs :tabData="cats" :defaultIndex="defaultIndex" @tabClick='tabClick' />
 		</view>
 		<view class="container-goodsList">
-			<view class="goodsList-item" v-for="(item,index) in 3" :key='index' @click="getDetail(item.id)">
+			<view class="goodsList-item" v-for="(item,index) in list" :key='index' @click="getDetail(item.id)">
 				<view class="goodsList-item-img">
-					<image
-						src="http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20211018/af8287e1940ea564d15c60345c790bea.jpg"
-						mode="widthFix"></image>
+					<image :src="item.cover_pic" mode="aspectFill"></image>
 				</view>
 				<view class="goodsList-item-title">
-					牙刷成人软毛10-20支套装
+					{{item.name}}
 				</view>
 				<view class="money_num">
 					<view class="money" style="width: 50%;color: rgb(255, 113, 4);">
 						<text style="font-size: 26rpx;">￥</text>
-						<text style="font-size: 28rpx;">0.01</text>
+						<text style="font-size: 28rpx;">{{item.price}}</text>
 					</view>
 					<view style="width: 50%;font-size: 24rpx;line-height: 50rpx;text-align: right;">
-						<text>已售1313件</text>
+						<text>{{item.sales}}</text>
 					</view>
 				</view>
 				<view class="send" style="position: relative;">
 					<view class="send_imag"></view>
-					<text
-						style="font-size: 27rpx;position: absolute;top: 11rpx;left: 80rpx;color: #fff;">300购物券</text>
+					<text style="font-size: 27rpx;position: absolute;top: 11rpx;left: 80rpx;color: #fff;">999购物券</text>
 				</view>
 			</view>
 			<!-- <view class="no-more" v-if="list.length==0">
@@ -78,38 +75,60 @@
 				img_url: this.$api.img_url,
 				form: {
 					page: 1,
+					cat_id: 0
 				},
 				list: [],
 				page_count: '',
-				tabs:[
-					'男装',
-					'女装',
-					'童装',
-					'内衣',
-					'外套',
-					'电器',
-					'五金',
-				]
+				cats:[]
 			}
 		},
 		onLoad() {
-			this.getgoodList()
+			this.getCatList();
 		},
 		methods: {
 			cleanKey: function() { //清空搜索
 				this.key = ''
 			},
+			tabClick(item){
+				this.defaultIndex = item.index;
+				this.form.page = 1;
+				this.list = [];
+				this.getgoodList();
+			},
 			search(){
 				uni.navigateTo({
-					url:'../../searchList/searchList'
-				})
+					url:'/ali/taolijin/searchList/searchList'
+				});
 			},
 			orderlist(){ //订单列表页面
 				uni.navigateTo({
-					url:'../../orderList/orderList'
+					url:'/ali/taolijin/orderList/orderList'
+				});
+			},
+			getCatList(){
+				let that = this;
+				this.$http.request({
+					url: this.$api.taolijin.getCatList,
+					method: 'post',
+					showLoading: true
+				}).then((res) => {
+					if (res.code == 0) {
+						that.cats = res.data.list;
+						that.getgoodList();
+					} else {
+						that.$http.toast(res.msg);
+					}
 				})
 			},
 			getgoodList() { //获取淘礼金商品				
+				let i, cat_id = 0;
+				for(i=0; i < this.cats.length; i++){
+					if(i == this.defaultIndex){
+						cat_id = this.cats[i].id;
+						break;
+					}
+				}
+				this.form['cat_id'] = cat_id;
 				this.$http.request({
 					url: this.$api.taolijin.getgoodsList,
 					method: 'post',

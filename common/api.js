@@ -1,11 +1,11 @@
 // 正式服务器
-let api_host = "https://www.mingyuanriji.cn";
+//let api_host = "https://www.mingyuanriji.cn";
 
 // 测试服务器
 //let api_host = "https://dev.mingyuanriji.cn";
 
 // 本地服务器
-//let api_host = "http://local.mingyuanriji.cn";
+let api_host = "http://local.mingyuanriji.cn";
 
 
 let api_root 		= api_host + '/web/index.php?r=';
@@ -73,6 +73,7 @@ let api = {
 	taolijin:{
 		getAuthInfo:api_root + 'plugin/taolijin/api/auth/get-info', //获取授权信息
 		getgoodsList:api_root + 'plugin/taolijin/api/goods/search', //获取淘礼金商品
+		getCatList:api_root + 'plugin/taolijin/api/goods/cat-list', //获取淘礼金商品分类
 		getgoodsDetail:api_root + 'plugin/taolijin/api/goods/detail', //获取淘礼金商品详情
 		exchange: api_root + 'plugin/taolijin/api/exchange/integral-to-lj', //红包兑换礼金接口
 		getUrl: api_root + 'plugin/taolijin/api/exchange/get-url', //红包兑换礼金接口

@@ -79,6 +79,12 @@
 					}
 				}).then((res) => {
 					if (res.code == 0) {
+						if(res.data.auth_req != 0){
+							uni.navigateTo({
+								url: '/ali/taolijin/auth/auth?ali_id=' + res.data.detail.ali_id
+							})
+							return;
+						}
 						that.detail = res.data.detail;
 						that.click_url = that.detail.extra_data.origin.click_url;
 					} else {
