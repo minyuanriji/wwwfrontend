@@ -88,6 +88,8 @@
 						that.flag=false
 					}, 2000);
 					return
+				}else{
+					that.flag=false
 				}
 				if (that.information.is_pwd_set == 0) {
 					that.$http.toast('未设置支付密码')
