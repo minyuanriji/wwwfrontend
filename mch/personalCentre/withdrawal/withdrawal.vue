@@ -51,6 +51,7 @@
 				information: '',
 				money: '', //金额
 				show: false, //密码输入弹出
+				flag:false
 			};
 		},
 		onShow() {
@@ -60,7 +61,6 @@
 				showLoading: true
 			}).then(res => {
 				if (res.code == 0) {
-					console.log(res)
 					this.information = res.data
 				}
 			})
@@ -74,6 +74,10 @@
 			},
 			deposit() { //确认提现
 				var that = this
+				if(that.flag){
+					return
+				}
+				that.flag=true
 				if (isEmpty(that.money) || that.money <= 0) {
 					uni.showToast({
 						title: '提现金额不能为空或者小于0',
@@ -91,15 +95,14 @@
 							uni.navigateTo({
 								url: '../personalCentreSETPassWorde/personalCentreSETPassWorde'
 							})
+							that.flag=false
 						} else {
 							uni.navigateTo({
 								url: '../personalCentreSETPassWorde/personalCentreSETPassWorde?phone=' +
 									that.information.mobile
 							})
+							that.flag=false
 						}
-						// uni.navigateTo({
-						// 		url:'../personalCentreSETPassWorde/personalCentreSETPassWorde'
-						// })
 					}, 2000)
 				} else {
 					if (isEmpty(that.information.efps_bank.paper_openBank)||isEmpty(that.information.efps_bank.paper_settleAccount)||isEmpty(that.information.efps_bank.paper_settleAccountNo)) {
@@ -108,6 +111,7 @@
 							uni.navigateTo({
 								url: '../countSet/countSet'
 							})
+							that.flag=false
 						}, 1500)
 					} else {
 						that.show = true
