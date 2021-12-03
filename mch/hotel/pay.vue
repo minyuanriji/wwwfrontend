@@ -150,11 +150,11 @@
 								}
 							}).then(res=>{
 								if(res.code==0){
-										uni.navigateTo({
-											url: '/pages/order/alipayWeb?url=' + res.data.codeUrl
-										})
-										//let url=res.data.codeUrl
-										//location.href=url
+										// uni.navigateTo({
+										// 	url: '/pages/order/alipayWeb?url=' + res.data.codeUrl
+										// })
+										let url=res.data.codeUrl
+										location.href=url
 								}else{
 									that.$http.toast(res.msg)
 								}
