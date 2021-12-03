@@ -150,11 +150,15 @@
 								}
 							}).then(res=>{
 								if(res.code==0){
-										// uni.navigateTo({
-										// 	url: '/pages/order/alipayWeb?url=' + res.data.codeUrl
-										// })
+										// #ifdef APP-PLUS
+											uni.navigateTo({
+												url: '/pages/order/alipayWeb?url=' + res.data.codeUrl
+											})
+										// #endif
+										 // #ifdef H5
 										let url=res.data.codeUrl
 										location.href=url
+										// #endif
 								}else{
 									that.$http.toast(res.msg)
 								}
