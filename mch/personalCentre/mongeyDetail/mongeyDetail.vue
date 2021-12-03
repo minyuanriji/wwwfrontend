@@ -32,8 +32,9 @@
 				</view>
 			</view>
 		</view>
-		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
-		<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
+		<view class="items" v-if='dataList.length==0'>
+			<text style="display: block;width: 100%;overflow: hidden;text-align: center;font-size: 24rpx;margin-top: 50rpx;color: #999;">-----&nbsp;&nbsp;&nbsp;没有更多了&nbsp;&nbsp;&nbsp;----</text>
+		</view>
 	</view>
 </template>
 
@@ -43,8 +44,6 @@ export default {
 		return {
 			img_url: this.$api.img_url,
 			date: "全部",
-			pullUpOn: true,
-			loadding:false,
 			dataList: [],
 			page:1,
 			type:'in',//in收入，out支出
@@ -80,6 +79,7 @@ export default {
 						type:this.type,
 						created_at:this.created_at,
 					},
+					showLoading: true
 				})
 				.then(res => {
 					if (res.code === 0) {
@@ -89,7 +89,6 @@ export default {
 						var arr=this.dataList.concat(list)
 						this.dataList =arr
 						this.page_count= res.data.pagination.page_count;
-						this.pullUpOn = true;
 					}
 				});
 		},
@@ -114,7 +113,6 @@ export default {
 			this.created_at=time.split('-')[0]+'年'+time.split('-')[1]+'月'
 			this.page=1
 			this.dataList=[]
-			this.pullUpOn=true
 			this.getDateList()			
 		},
 		reset(){//重置
@@ -122,17 +120,12 @@ export default {
 			this.dataList=[]
 			this.created_at=''
 			this.date='全部'
-			this.pullUpOn=true
 			this.getDateList()	
 		}
 		
 	},
 	onReachBottom() {
-		this.pullUpOn = true;
-		this.loadding=true
 		if(this.page==this.page_count){
-			this.pullUpOn = false;
-			this.loadding=false;
 			return false;
 		} 		
 		this.page=this.page+1

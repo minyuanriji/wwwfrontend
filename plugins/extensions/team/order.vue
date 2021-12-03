@@ -27,7 +27,7 @@
 		
 		<com-tabs :tabs="tabs" :isFixed="scrollTop>=0" :currentTab="showTab[status]" :selectedColor="textColor" :sliderBgColor="textColor"
 		 :sliderHeight="4" :sliderWidth="50" bgColor="#F7F7F7" @change="change" bottom="10rpx" style="z-index:999;"></com-tabs>
-		<view :class="{'tui-order-list':scrollTop>=0}" v-if="dataList && dataList.length">
+		<view class="tui-order-list" v-if="dataList && dataList.length">
 			<view class="item" v-for="(item,orderIndex) in data_list" :key="orderIndex">
 				<view class="user-status">
 					<view class="item-uesr-info">
@@ -55,10 +55,6 @@
 					</view>
 				</view>
 			</view>
-			<!--加载loadding-->
-			<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
-			<main-nomore :visible="!pullUpOn" bgcolor="#fafafa"></main-nomore>
-			<!--加载loadding-->
 		</view>
 		<view class="order-nothing" v-else>
 			<image class="order-nothing-img" :src="img_url+'images/order/order-nothing.png'" mode=""></image>
@@ -107,9 +103,6 @@
 					'2': 3
 				},
 				status: -1,
-				loadding: false,
-				pullUpOn: true,
-				loading: false,
 				scrollTop: 0,
 				dataList: [],
 				pages: {
@@ -119,7 +112,7 @@
 					total_count: 0
 				},
 				key:'',
-				
+				flag:false,
 			}
 		},
 		onLoad(options) {
@@ -157,7 +150,10 @@
 			},
 			// 通过 key 和 status 判断通过何种方式修改数据
 			getDateList(key, status) {
-				this.loading = true;
+				if(this.flag){
+					return
+				}
+				this.flag=true
 				// 如果 key == 'refresh' 重置数据
 				if(key == 'refresh'){
 					this.pages = {
@@ -181,10 +177,10 @@
 						page: current_page,
 						limit: pageSize,
 						keywords:this.key
-					}
+					},
+					showLoading: true
 				}).then(res => {
-					
-					this.loading = false;
+					this.flag=false
 					if (res.code === 0) {
 						let {
 							list,
@@ -192,9 +188,7 @@
 						} = res.data;
 						
 						this.dataList = key != 'refresh' ? this.dataList.concat(list) : list; // key != refresh 则是加载下一页数据
-						console.log(this.dataList)
 						this.pages = pagination;
-						this.pullUpOn = true;
 					}
 				})
 			},
@@ -211,18 +205,12 @@
 			}, 1000);
 		},
 		onReachBottom() {
-			//只是测试效果，逻辑以实际数据为准
-			this.loadding = true
-			this.pullUpOn = true
-
 			let {
 				current_page,
 				page_count
 			} = this.pages;
 			setTimeout(() => {
-				this.loadding = false
 				if (current_page >= page_count){
-					this.pullUpOn = false;
 					return;
 				}
 				this.pages.current_page++;
@@ -258,7 +246,7 @@
 	}
 
 	.tui-order-list {
-		margin-top: 220rpx;
+		margin-top: 230rpx;
 		display: flex;
 		flex-direction: column;
 		.item {
@@ -496,7 +484,7 @@
 
 	// 缺省页
 	.order-nothing {
-		margin-top: 200rpx;
+		margin-top: 300rpx;
 		height: 100%;
 		display: flex;
 		flex-direction: column;

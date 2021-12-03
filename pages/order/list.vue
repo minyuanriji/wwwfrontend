@@ -34,7 +34,7 @@
 		<com-tabs :tabs="tabs" :isFixed="scrollTop>=0" :currentTab="showTab[status]" selectedColor="#FF7104" sliderBgColor="#FF7104"
 		 :sliderHeight="4" :sliderWidth="50" bgColor="#F7F7F7" @change="change" bottom="10rpx" style="z-index:999;"></com-tabs>
 		<!--选项卡逻辑自己实现即可，此处未做处理-->
-		<view :class="{'tui-order-list':scrollTop>=0}" v-if="dataList && dataList.length">
+		<view class="tui-order-list" v-if="dataList && dataList.length">
 			<view class="tui-order-item" v-for="(model,orderIndex) in data_list" :key="orderIndex">
 				<view>
 					<tui-list-cell :hover="false" :lineLeft="false" padding="26rpx 20rpx">
@@ -457,7 +457,7 @@
 	}
 
 	.tui-order-list {
-		margin-top: 200rpx;
+		margin-top: 210rpx;
 	}
 
 	.tui-order-item {
@@ -589,7 +589,7 @@
 
 	// 缺省页
 	.order-nothing {
-		margin-top: 300rpx;
+		margin-top: 310rpx;
 		height: 100%;
 		display: flex;
 		flex-direction: column;

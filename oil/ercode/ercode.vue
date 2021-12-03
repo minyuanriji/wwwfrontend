@@ -150,7 +150,7 @@
 				}
 			},
 			openLa(){
-				// #ifdef H5
+				// #ifdef H5||APP-PLUS
 				this.$http.toast('请使用小程序打开本页面')
 				// #endif
 				//#ifdef MP-WEIXIN
@@ -168,7 +168,7 @@
 				//#endif
 			},
 			goTowp(){ //跳到兑换小程序
-				// #ifdef H5
+				// #ifdef H5||APP-PLUS
 				this.$http.toast('请使用小程序打开本页面')
 				// #endif
 				

@@ -59,9 +59,8 @@
 			</view>
 			
 			<!-- 定时器滚动拼单记录 -->
-			<view style="padding-top:10rpx;height:290rpx;overflow: hidden;">
-				<view :animation="animationData" class="spellgroup-list" v-if="join_groups.length > 0">
-					
+			<view style="padding-top:10rpx;height:290rpx;overflow: hidden;"  v-if="join_groups.length > 0">
+				<view :animation="animationData" class="spellgroup-list">					
 					<view class="spellgroup-item" v-for="(item, index) in join_groups" :key='index'>
 						<image :src="item.avatar_url" mode="" style="border-radius: 50%;"></image>
 						<view class="spellgroup-item-name">
@@ -1081,9 +1080,11 @@
 					}
 				}).then(res=>{
 					if(res.code==0){
-						uni.navigateTo({
-							url: '/pages/order/alipayWeb?url=' + res.data.codeUrl
-						})
+						// uni.navigateTo({
+						// 	url: '/pages/order/alipayWeb?url=' + res.data.codeUrl
+						// })
+						let url=res.data.codeUrl
+						location.href=url
 					}else{
 						that.$http.toast(res.msg)
 					}
