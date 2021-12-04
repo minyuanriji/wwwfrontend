@@ -64,7 +64,10 @@
 					data:this.form,
 				}).then(res => {
 					if (res.code == 0) {
-						if(res.data.list.length==0)return false
+						if(res.data.list.length==0){
+							this.pullUpOn = false;
+							return false
+						}
 						let list= res.data.list;
 						var arr=this.list.concat(list)
 						this.list =arr
