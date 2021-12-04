@@ -150,7 +150,7 @@
 						<text class="text" v-if="shopping_voucher.is_use">-{{shopping_voucher.use_num}}</text>
 					</view>
 				</view>
-				<switch v-model="shopping_voucher.is_use" @change="useShoppingVoucher" color='#FF7104' class="points-switch" />
+				<switch  :checked="shopping_voucher.is_use"  @change="useShoppingVoucher" color='#FF7104' class="points-switch" />
 			</view>
 			<view class="use-points" style="overflow: hidden;line-height: 60rpx;" v-if="got_shopping_voucher_num>0">
 				<image :src="plugins_img_url+'/new_red_bags.png'" mode="aspectFill" style="display: block;float: left;width: 60rpx;height: 60rpx;margin:0 30rpx;"></image>
@@ -275,7 +275,7 @@
 				user_remaining_integral: 0, //剩余抵扣券
 
 				shopping_voucher: {
-					is_use: false,
+					is_use: true,
 					enable: false,
 					total: 0, //用户拥有购物券
 					remaining: 0, //用户剩余购物券
@@ -325,8 +325,8 @@
 				}
 			}) */
 			
-			this.form.use_score=options.use_score
-			this.form.use_integral=options.use_integral
+			this.form.use_score=1
+			this.form.use_integral=1
 			this.form.list=options.list
 
 			if (uni.getStorageSync('mall_config')) {
@@ -624,7 +624,7 @@
 						 	use_num:0 //使用了多少抵扣券
 						 },
 						 */
-						this.shopping_voucher.is_use       = res.data.shopping_voucher.use;
+						// this.shopping_voucher.is_use       = res.data.shopping_voucher.use;
 						this.shopping_voucher.enable       = res.data.shopping_voucher.enable;
 						this.shopping_voucher.total        = res.data.shopping_voucher.total;
 						this.shopping_voucher.remaining    = res.data.shopping_voucher.remaining;
