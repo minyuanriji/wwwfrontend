@@ -99,8 +99,8 @@
 			<view class="shopSetting-title">
 				店铺描述：
 			</view>
-			<view class="shopSetting-int" style="height:200rpx !important;">
-				<textarea placeholder="请填写店铺描述"  :maxlength='80'  v-model="form.description" style="width: 450rpx;float: left;height: 200rpx;font-size: 28rpx;padding: 10rpx;box-sizing: border-box;"/>
+			<view class="shopSetting-text" style="height:200rpx;float: left;">
+				<textarea placeholder="请填写店铺描述"  :maxlength='80'  v-model="form.description" style="width: 450rpx;float: left;height: 200rpx;font-size: 28rpx;padding:30rpx  10rpx;box-sizing: border-box;"/>
 			</view>
 		</view>
 		<view class="sure_btn" @click="sureBtn">
