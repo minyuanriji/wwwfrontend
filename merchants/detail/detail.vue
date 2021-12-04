@@ -3,17 +3,22 @@
 		<view class="shop_detail_header">
 			<view  style="display:flex;justify-content: space-evenly;">
 				<image :src="detail.logo" mode="scaleToFill" style="width: 150rpx;height: 150rpx;margin-top: 10rpx;"></image>
-				<view class="shop_detail_header_name" style="flex-grow:1;width: 50%;">
-					<view style="margin-left:20rpx;display:flex;flex-direction:column;justify-content:center">
-						{{detail.name}}
+				<view class="shop_detail_header_name" style="flex-grow:1;width: 70%;">
+					<view style="margin-left:20rpx;display:flex;flex-direction:column;justify-content:center;flex-wrap: wrap;">
+						<view style=" color: #000;font-weight: bold;;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;width: 335rpx;overflow: hidden;">
+							{{detail.name}}
+						</view>
 						<view class="shop_table_score">
 							<view class="iconfont iconwujiaoxing" v-for="(i,index) in Number(detail.score)"
 								style="color: #FFA600;" :key='index'></view>
 							<view class="point" style="font-size: 28rpx;color: red;margin-left: 10rpx;">{{detail.score}}</view>
 						</view>
+						<view style="font-size: 28rpx;color: #000;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;">
+							店铺介绍：{{detail.description}}
+						</view>
 					</view>
 				</view>
-				<view @click="jumpToPay" style="width: 25%;text-align:right;padding: 0 20rpx;display:flex; justify-content:flex-end;line-height:150rpx">
+				<view @click="jumpToPay" style="position: absolute;top: 20rpx;right: 40rpx;width: 25%;text-align:right;padding: 0 20rpx;display:flex; justify-content:flex-end;line-height:150rpx;">
 					<image :src="img_url+'pay_mch.png'" mode="scaleToFill" style="margin-top:57rpx;width: 39rpx;height:39rpx;"></image>
 					<view style="margin-left:10rpx;color:rgb(255, 166, 0);font-size:30rpx;">付款</view>
 				</view>
@@ -22,24 +27,6 @@
 		</view>
 		
 		<view class="shop_detail_header">
-			<!--
-			<view class="shop_detail_header_name">
-				<image :src="detail.logo" mode="scaleToFill" style="display: block;width: 150rpx;height: 150rpx;float: left;"></image>
-				<text style="display: block;overflow: hidden;padding-left: 20rpx;width: 500rpx; text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;">
-					{{detail.name}}
-				</text>
-			</view>
-			<view class="shop_table_score">
-				<view class="iconfont iconwujiaoxing" v-for="(i,index) in Number(detail.score)"
-					style="color: #FFA600;" :key='index'></view>
-				<view class="point" style="font-size: 28rpx;color: red;margin-left: 10rpx;">{{detail.score}}</view>
-			</view>
-			-->
-			
-			
 			<scroll-view class="s-c-list-x" scroll-x="true" v-if="detail.pic_urls.length > 0" >
 				<image :src="item" mode="aspectFit" class="s-c-l-item" v-for="(item,index) in detail.pic_urls" :key='item' style="border-radius: 30rpx;" @click="pricewImg(index)"></image>
 			</scroll-view>
@@ -292,7 +279,7 @@
 	@import url("../../plugins/font-icon/iconfont1.css");
 	.shop_detail_container{width: 100%;overflow: hidden;}
 	.shop_detail_header{width: 95%;overflow: hidden;background: #fff;margin: 20rpx auto;border-radius: 20rpx;padding: 20rpx;box-sizing: border-box;}
-	.shop_detail_header_name{overflow: hidden;font-size: 35rpx;color: #000;font-weight: bold;}
+	.shop_detail_header_name{overflow: hidden;font-size: 35rpx;}
 	.shop_table_score{width: 100%;overflow: hidden;flex: 1;display: flex;align-items: center;margin:15rpx 0;}
 	.s-c-list-x{white-space: nowrap;width: 100%;height: 230rpx;color:#fff;overflow: hidden;margin: 20rpx 0;}
 	.s-c-list-x .s-c-l-item{display: inline-block; width: 350rpx;height: 230rpx;margin-right: 20rpx;text-align: center; line-height: 230rpx;font-size: 100rpx;border-radius: 20rpx;}
