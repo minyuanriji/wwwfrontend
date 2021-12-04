@@ -10,7 +10,7 @@
 					<com-icons type="search" :size='16' color='#333333'></com-icons>
 				</view>
 				<!-- #endif -->
-				<input type="search" placeholder="请输入商品名" placeholder-class="tui-input-plholder" class="tui-input"
+				<input type="search" placeholder="请输入商品名和订单编号" placeholder-class="tui-input-plholder" class="tui-input"
 					v-model.trim="key" @confirm='search' />
 				<!-- #ifdef APP-PLUS || MP -->
 				<icon type="clear" :size='13' color='#bcbcbc' @tap="cleanKey" v-show="key"></icon>
@@ -140,6 +140,9 @@
 			cleanKey: function() { //清空搜索
 				this.key = ''
 				this.form.keyword = ''
+				this.form.page = 1
+				this.orderList = []
+				this.getorderList()
 			},
 			search() { //搜索
 				this.form.keyword = this.key
