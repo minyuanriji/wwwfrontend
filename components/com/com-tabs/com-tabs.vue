@@ -42,7 +42,7 @@
 			//是否固定
 			isFixed: {
 				type: Boolean,
-				default: false
+				default: true
 			},
 			//px
 			top: {
