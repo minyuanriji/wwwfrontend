@@ -391,6 +391,7 @@
 				loadding: false,
 				pullUpOn: true,
 				loading: false,
+				touch:false
 			};
 		},
 		onShow() {
@@ -735,6 +736,7 @@
 					if(res.code==0){
 						this.city=res.city_data.city
 						uni.setStorageSync("homeCity",res.city_data.city)
+						this.touch=false
 						if(res.data.list.length==0)return false
 						let list= res.data.list;
 						var arr=this.goods_ist.concat(list)
@@ -747,6 +749,10 @@
 				})
 			},
 			setCITY() { //选择城市
+				if(this.touch){
+					return
+				}
+				this.touch=true
 				this.cityselec = true
 			},
 			back_city(e) { //城市选择回显
