@@ -297,8 +297,8 @@
 	.s-c-list-x{white-space: nowrap;width: 100%;height: 230rpx;color:#fff;overflow: hidden;margin: 20rpx 0;}
 	.s-c-list-x .s-c-l-item{display: inline-block; width: 350rpx;height: 230rpx;margin-right: 20rpx;text-align: center; line-height: 230rpx;font-size: 100rpx;border-radius: 20rpx;}
 	.shop_details-hours-detail{width: 100%;overflow: hidden;display: flex;justify-content: space-between;margin: 25rpx 0;padding-right: 10rpx;box-sizing: border-box;}
-	.shop_details-hours{font-size: 28rpx;color: #000;}
-	.shop_details-detail{font-size: 28rpx;display: flex;justify-content: space-evenly;line-height: 44rpx;}
+	.shop_details-hours{font-size: 28rpx;color: #000;padding-top: 5rpx;}
+	.shop_details-detail{font-size: 28rpx;display: flex;justify-content: space-evenly;}
 	.shop_details-detail image{width: 35rpx;height: 35rpx;display: inline-block;margin-top: 5rpx;}
 	.shop_details-address{width: 100%;overflow: hidden;display: flex;justify-content: space-between;margin: 40rpx 0 10rpx 0;}
 	.shop_detail_table{width: 100%;overflow: hidden;display: flex;justify-content: space-evenly;margin: 30rpx 0 15rpx 0;}
