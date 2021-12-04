@@ -988,6 +988,8 @@
 							});
 						} else {
 							this.$http.toast(res.msg);
+							this.paymentPwd=''
+							this.$refs.paymentPassword.clearAll();
 						}
 					});
 				}			
