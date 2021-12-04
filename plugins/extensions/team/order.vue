@@ -10,7 +10,7 @@
 					<com-icons type="search" :size='16' color='#333333'></com-icons>
 				</view>
 				<!-- #endif -->
-				<input type="search" placeholder="请输入名称"  placeholder-class="tui-input-plholder"
+				<input type="search" placeholder="请输入名称和ID搜索"  placeholder-class="tui-input-plholder"
 				 class="tui-input" v-model.trim="key" @confirm='search'/>
 				<!-- #ifdef APP-PLUS || MP -->
 				<icon type="clear" :size='13' color='#bcbcbc' @tap="cleanKey" v-show="key"></icon>
