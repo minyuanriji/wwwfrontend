@@ -94,7 +94,7 @@
 				showMask: false,
 				disdingwei: true,
 				Visit: [], //最近访问
-				position: uni.getStorageSync("homeCity"), 
+				position: uni.getStorageSync("homeCity")?uni.getStorageSync("homeCity"):'附近的', 
 				seconds: 3,
 				po_tips: '重新定位',
 				popupcity:false,
