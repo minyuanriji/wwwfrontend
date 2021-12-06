@@ -3,7 +3,7 @@
 		<view class="shop_detail_header">
 			<view  style="display:flex;justify-content: space-evenly;">
 				<image :src="detail.logo" mode="scaleToFill" style="width: 150rpx;height: 150rpx;margin-top: 10rpx;"></image>
-				<view class="shop_detail_header_name" style="flex-grow:1;width: 70%;">
+				<view class="shop_detail_header_name" style="flex-grow:1;width: 70%;position: relative;">
 					<view style="margin-left:20rpx;display:flex;flex-direction:column;justify-content:center;flex-wrap: wrap;">
 						<view style=" color: #000;font-weight: bold;;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;width: 335rpx;overflow: hidden;">
 							{{detail.name}}
@@ -13,8 +13,14 @@
 								style="color: #FFA600;" :key='index'></view>
 							<view class="point" style="font-size: 28rpx;color: red;margin-left: 10rpx;">{{detail.score}}</view>
 						</view>
-						<view style="font-size: 28rpx;color: #000;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;">
+						<view   :class="unfoldShow?'shopProduct':'shopProductHidden'">
 							店铺介绍：{{detail.description}}
+						</view>
+						<view style="font-size: 24rpx;position: absolute;right: 0;bottom: 0;color: rgb(255, 166, 0);"  v-if="!unfoldShow"     @click="unfold(1)">
+							+展开
+						</view>
+						<view style="font-size: 24rpx;position: absolute;right: 0;bottom: 0;color: rgb(255, 166, 0);"  v-if="unfoldShow"     @click="unfold(2)">
+							+收起
 						</view>
 					</view>
 				</view>
@@ -97,7 +103,8 @@
 				page_count:0,//总页数
 				shopList:[],
 				page:1,
-				store_id:''
+				store_id:'',
+				unfoldShow:false,
 			};
 		},
 		onLoad(options) {
@@ -254,7 +261,17 @@
 				                  urls: photoList,    // 需要预览的图片链接列表，photoList要求必须是数组
 				                  loop:true   // 是否可循环预览
 				              });
+			},
+			unfold(index){
+				if(index==1){
+					this.unfoldShow=true
+				}
+				if(index==2){
+					this.unfoldShow=false
+				}
 			}
+			
+			
 		},
 		onReachBottom() {
 			if(this.tableIndex==0){
@@ -278,7 +295,7 @@
 <style lang="less" scoped>
 	@import url("../../plugins/font-icon/iconfont1.css");
 	.shop_detail_container{width: 100%;overflow: hidden;}
-	.shop_detail_header{width: 95%;overflow: hidden;background: #fff;margin: 20rpx auto;border-radius: 20rpx;padding: 20rpx;box-sizing: border-box;}
+	.shop_detail_header{width: 95%;overflow: hidden;background: #fff;margin: 20rpx auto;border-radius: 20rpx;padding: 10rpx;box-sizing: border-box;}
 	.shop_detail_header_name{overflow: hidden;font-size: 35rpx;}
 	.shop_table_score{width: 100%;overflow: hidden;flex: 1;display: flex;align-items: center;margin:15rpx 0;}
 	.s-c-list-x{white-space: nowrap;width: 100%;height: 230rpx;color:#fff;overflow: hidden;margin: 20rpx 0;}
@@ -301,5 +318,6 @@
 	.shop_detail_goods_item_center{width: 55%;padding:0 15rpx;box-sizing: border-box;}
 	.shop_detail_goods_item_lright{width: 15%;height: 200rpx;line-height: 200rpx;}
 	.shop_detail_goods_item_lright text{display: inline-block;background: rgb(234,51,63);width: 100%;height: 60rpx;line-height: 60rpx;border-radius: 20rpx;font-size: 28rpx;text-align: center;color: #fff;}
-
+	.shopProduct{width: 460rpx;font-size: 28rpx;color: #000;overflow: hidden;}
+	.shopProductHidden{width: 460rpx;font-size: 28rpx;color: #000;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;}
 </style>
