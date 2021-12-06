@@ -26,6 +26,12 @@
 			timer = setInterval(function(){
 				that.getAuth(false);
 			}, 3000);
+			
+			//TODO 测试，记得删掉
+			/* uni.$emit('ali_auth_status', {msg:'授权成功'});
+			uni.navigateBack({
+			    delta: 1
+			}); */
 		},
 		onHide(){
 			timer && clearInterval(timer);
@@ -48,9 +54,10 @@
 							    duration: 2000
 							});
 							timer && clearInterval(timer);
-							/* uni.navigateBack({
+							uni.$emit('ali_auth_status', {msg:'授权成功'});
+							uni.navigateBack({
 							    delta: 1
-							}); */
+							});
 						}
 					} else {
 						that.$http.toast(res.msg);
