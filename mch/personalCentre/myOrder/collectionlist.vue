@@ -107,6 +107,9 @@
 			cleanKey: function() { //清空搜索
 				this.key = ''
 				this.form.keyword = ''
+				this.form.page = 1
+				this.orderList = []
+				this.getorderList()
 			},
 			search() { //搜索
 				this.form.keyword = this.key

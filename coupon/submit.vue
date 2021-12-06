@@ -108,7 +108,7 @@
 					<view class="tui-remark-box tui-padding tui-flex">
 						<view>订单备注</view>
 						<input type="text" class="tui-remark" placeholder="选填: 请先和商家协商一致"
-							placeholder-class="tui-phcolor" v-model="remark"></input>
+							placeholder-class="tui-phcolor" v-model="form.remark"></input>
 					</view>
 				</tui-list-cell>
 				<tui-list-cell :hover="false" :last="true">
@@ -305,7 +305,8 @@
 					"use_score": 0,
 					"use_integral": 0,
 					"use_shopping_voucher": 1,
-					"list": ""
+					"list": "",
+					"remark":'',
 				}
 			}
 		},

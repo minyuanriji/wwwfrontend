@@ -418,6 +418,7 @@
 			}
 		},
 		onLoad(options) {
+			this.beforeOnLoad(options);
 			if(options&&options.pack_id){
 				this.pack_id=options.pack_id
 				this.packageDetail(options.pack_id)

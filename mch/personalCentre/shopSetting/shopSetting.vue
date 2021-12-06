@@ -28,6 +28,20 @@
 		</view>
 		<view class="shopSetting-item">
 			<view class="shopSetting-title">
+				营业时间：
+			</view>
+			<view class="shopSetting-int" style="display: flex;justify-content: space-evenly;">
+				<picker mode="time" :value="form.start_business_time" start="00:00" end="23:59" @change="bindbeginTimeChange">
+				    <view class="uni-input" style="width: 180rpx;line-height: 100rpx;text-align: center;">{{form.start_business_time}}</view>
+				</picker>
+				<view style="width: 100rpx;line-height: 100rpx;text-align: center;font-size: 50rpx;">-</view>
+				<picker mode="time" :value="form.end_business_time" start="00:00" end="23:59" @change="bindendTimeChange">
+				    <view class="uni-input" style="width: 180rpx;line-height: 100rpx;text-align: center;">{{form.end_business_time}}</view>
+				</picker>
+			</view>
+		</view>
+		<view class="shopSetting-item">
+			<view class="shopSetting-title">
 				店铺类别：
 			</view>
 			<view class="shopSetting-num">
@@ -81,6 +95,14 @@
 				<input type="text" value="" placeholder="请填写详细地址" v-model="form.address"/>
 			</view>
 		</view>
+		<view class="shopSetting-item" >
+			<view class="shopSetting-title">
+				店铺描述：
+			</view>
+			<view class="shopSetting-text" style="height:200rpx;float: left;">
+				<textarea placeholder="请填写店铺描述"  :maxlength='80'  v-model="form.description" style="width: 450rpx;float: left;height: 200rpx;font-size: 28rpx;padding:30rpx  10rpx;box-sizing: border-box;"/>
+			</view>
+		</view>
 		<view class="sure_btn" @click="sureBtn">
 			确定
 		</view>
@@ -122,7 +144,10 @@
 					longitude:'',
 					latitude:'',
 					address:'',
-					store_mch_common_cat_id:''
+					store_mch_common_cat_id:'',
+					start_business_time:'08:00',//开始时间
+					end_business_time:'22:00',//结束时间
+					description:'',//店铺描述
 				},
 				text:'',
 				userMessage:'',
@@ -145,6 +170,12 @@
 			this.num=uni.getStorageSync('imglist').length
 		},
 		methods: {
+			bindbeginTimeChange(e){ //时间选择
+				this.form.start_business_time = e.target.value
+			},
+			bindendTimeChange(e){
+				this.form.end_business_time = e.target.value
+			},
 			toArr(object) {
 				let arr = [];
 				for (let i in object) {
@@ -335,6 +366,9 @@
 							forms.longitude=that.form.longitude
 							forms.address=that.form.address
 							forms.text=that.text
+							forms.description=that.form.description
+							forms.start_business_time=that.form.start_business_time
+							forms.end_business_time=that.form.end_business_time
 							uni.setStorageSync('shop-MESSAGE',forms)
 							uni.navigateTo({
 								url:'../personalCentre'
@@ -361,6 +395,8 @@
 					this.userMessage=res.data.base_info.store
 					this.form.store_mch_common_cat_id=res.data.base_info.category.id
 					this.form.name=this.userMessage.name
+					this.form.start_business_time=this.userMessage.business_hours[0]
+					this.form.end_business_time=this.userMessage.business_hours[1]
 					this.form.cover_url=this.userMessage.cover_url
 					this.form.city_id=this.userMessage.city_id
 					this.form.province_id=this.userMessage.province_id
@@ -368,6 +404,7 @@
 					this.form.latitude=this.userMessage.latitude
 					this.form.longitude=this.userMessage.longitude
 					this.form.address=this.userMessage.address;
+					this.form.description=this.userMessage.description
 					let cityList=this.selectList
 					
 					this.text=this.userMessage.province + ' ' + this.userMessage.city + ' ' + this.userMessage.district;

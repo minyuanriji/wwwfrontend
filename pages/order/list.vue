@@ -31,7 +31,7 @@
 		
 		
 
-		<com-tabs :tabs="tabs" :isFixed="scrollTop>=0" :currentTab="showTab[status]" selectedColor="#FF7104" sliderBgColor="#FF7104"
+		<com-tabs :tabs="tabs"  :currentTab="showTab[status]" selectedColor="#FF7104" sliderBgColor="#FF7104"
 		 :sliderHeight="4" :sliderWidth="50" bgColor="#F7F7F7" @change="change" bottom="10rpx" style="z-index:999;"></com-tabs>
 		<!--选项卡逻辑自己实现即可，此处未做处理-->
 		<view class="tui-order-list" v-if="dataList && dataList.length">

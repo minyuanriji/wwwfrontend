@@ -10,7 +10,7 @@
 					<com-icons type="search" :size='16' color='#333333'></com-icons>
 				</view>
 				<!-- #endif -->
-				<input type="search" placeholder="请输入商品名" placeholder-class="tui-input-plholder" class="tui-input"
+				<input type="search" placeholder="请输入商品名和订单编号" placeholder-class="tui-input-plholder" class="tui-input"
 					v-model.trim="key" @confirm='search' />
 				<!-- #ifdef APP-PLUS || MP -->
 				<icon type="clear" :size='13' color='#bcbcbc' @tap="cleanKey" v-show="key"></icon>
@@ -131,6 +131,7 @@
 				page_count: '',
 				popup:false,
 				clerk_log:[],
+				flag:false
 			};
 		},
 		onLoad() {
@@ -140,6 +141,9 @@
 			cleanKey: function() { //清空搜索
 				this.key = ''
 				this.form.keyword = ''
+				this.form.page = 1
+				this.orderList = []
+				this.getorderList()
 			},
 			search() { //搜索
 				this.form.keyword = this.key
@@ -164,6 +168,8 @@
 			},
 			getorderList() {
 				let that = this;
+				if(that.flag)return
+				that.flag=true
 				this.$http.request({ //获取订单列表
 					url: this.$api.moreShop.getlifeOrderH,
 					method: 'POST',
@@ -171,6 +177,7 @@
 					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
+						that.flag=false
 						if (res.data.list.length == 0) return false
 						let list = res.data.list;
 						var arr = this.orderList.concat(list)

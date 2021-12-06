@@ -3,17 +3,28 @@
 		<view class="shop_detail_header">
 			<view  style="display:flex;justify-content: space-evenly;">
 				<image :src="detail.logo" mode="scaleToFill" style="width: 150rpx;height: 150rpx;margin-top: 10rpx;"></image>
-				<view class="shop_detail_header_name" style="flex-grow:1;width: 50%;">
-					<view style="margin-left:20rpx;display:flex;flex-direction:column;justify-content:center">
-						{{detail.name}}
+				<view class="shop_detail_header_name" style="flex-grow:1;width: 70%;position: relative;">
+					<view style="margin-left:20rpx;display:flex;flex-direction:column;justify-content:center;flex-wrap: wrap;">
+						<view style=" color: #000;font-weight: bold;;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;width: 335rpx;overflow: hidden;">
+							{{detail.name}}
+						</view>
 						<view class="shop_table_score">
 							<view class="iconfont iconwujiaoxing" v-for="(i,index) in Number(detail.score)"
 								style="color: #FFA600;" :key='index'></view>
 							<view class="point" style="font-size: 28rpx;color: red;margin-left: 10rpx;">{{detail.score}}</view>
 						</view>
+						<view   :class="unfoldShow?'shopProduct':'shopProductHidden'">
+							店铺介绍：{{detail.description}}
+						</view>
+						<view style="font-size: 24rpx;position: absolute;right: 0;bottom: 0;color: rgb(255, 166, 0);"  v-if="!unfoldShow"     @click="unfold(1)">
+							+展开
+						</view>
+						<view style="font-size: 24rpx;position: absolute;right: 0;bottom: 0;color: rgb(255, 166, 0);"  v-if="unfoldShow"     @click="unfold(2)">
+							+收起
+						</view>
 					</view>
 				</view>
-				<view @click="jumpToPay" style="width: 25%;text-align:right;padding: 0 20rpx;display:flex; justify-content:flex-end;line-height:150rpx">
+				<view @click="jumpToPay" style="position: absolute;top: 20rpx;right: 40rpx;width: 25%;text-align:right;padding: 0 20rpx;display:flex; justify-content:flex-end;line-height:150rpx;">
 					<image :src="img_url+'pay_mch.png'" mode="scaleToFill" style="margin-top:57rpx;width: 39rpx;height:39rpx;"></image>
 					<view style="margin-left:10rpx;color:rgb(255, 166, 0);font-size:30rpx;">付款</view>
 				</view>
@@ -22,24 +33,6 @@
 		</view>
 		
 		<view class="shop_detail_header">
-			<!--
-			<view class="shop_detail_header_name">
-				<image :src="detail.logo" mode="scaleToFill" style="display: block;width: 150rpx;height: 150rpx;float: left;"></image>
-				<text style="display: block;overflow: hidden;padding-left: 20rpx;width: 500rpx; text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;">
-					{{detail.name}}
-				</text>
-			</view>
-			<view class="shop_table_score">
-				<view class="iconfont iconwujiaoxing" v-for="(i,index) in Number(detail.score)"
-					style="color: #FFA600;" :key='index'></view>
-				<view class="point" style="font-size: 28rpx;color: red;margin-left: 10rpx;">{{detail.score}}</view>
-			</view>
-			-->
-			
-			
 			<scroll-view class="s-c-list-x" scroll-x="true" v-if="detail.pic_urls.length > 0" >
 				<image :src="item" mode="aspectFit" class="s-c-l-item" v-for="(item,index) in detail.pic_urls" :key='item' style="border-radius: 30rpx;" @click="pricewImg(index)"></image>
 			</scroll-view>
@@ -110,7 +103,8 @@
 				page_count:0,//总页数
 				shopList:[],
 				page:1,
-				store_id:''
+				store_id:'',
+				unfoldShow:false,
 			};
 		},
 		onLoad(options) {
@@ -267,7 +261,17 @@
 				                  urls: photoList,    // 需要预览的图片链接列表，photoList要求必须是数组
 				                  loop:true   // 是否可循环预览
 				              });
+			},
+			unfold(index){
+				if(index==1){
+					this.unfoldShow=true
+				}
+				if(index==2){
+					this.unfoldShow=false
+				}
 			}
+			
+			
 		},
 		onReachBottom() {
 			if(this.tableIndex==0){
@@ -291,14 +295,14 @@
 <style lang="less" scoped>
 	@import url("../../plugins/font-icon/iconfont1.css");
 	.shop_detail_container{width: 100%;overflow: hidden;}
-	.shop_detail_header{width: 95%;overflow: hidden;background: #fff;margin: 20rpx auto;border-radius: 20rpx;padding: 20rpx;box-sizing: border-box;}
-	.shop_detail_header_name{overflow: hidden;font-size: 35rpx;color: #000;font-weight: bold;}
+	.shop_detail_header{width: 95%;overflow: hidden;background: #fff;margin: 20rpx auto;border-radius: 20rpx;padding: 10rpx;box-sizing: border-box;}
+	.shop_detail_header_name{overflow: hidden;font-size: 35rpx;}
 	.shop_table_score{width: 100%;overflow: hidden;flex: 1;display: flex;align-items: center;margin:15rpx 0;}
 	.s-c-list-x{white-space: nowrap;width: 100%;height: 230rpx;color:#fff;overflow: hidden;margin: 20rpx 0;}
 	.s-c-list-x .s-c-l-item{display: inline-block; width: 350rpx;height: 230rpx;margin-right: 20rpx;text-align: center; line-height: 230rpx;font-size: 100rpx;border-radius: 20rpx;}
 	.shop_details-hours-detail{width: 100%;overflow: hidden;display: flex;justify-content: space-between;margin: 25rpx 0;padding-right: 10rpx;box-sizing: border-box;}
-	.shop_details-hours{font-size: 28rpx;color: #000;}
-	.shop_details-detail{font-size: 28rpx;display: flex;justify-content: space-evenly;line-height: 44rpx;}
+	.shop_details-hours{font-size: 28rpx;color: #000;padding-top: 5rpx;}
+	.shop_details-detail{font-size: 28rpx;display: flex;justify-content: space-evenly;}
 	.shop_details-detail image{width: 35rpx;height: 35rpx;display: inline-block;margin-top: 5rpx;}
 	.shop_details-address{width: 100%;overflow: hidden;display: flex;justify-content: space-between;margin: 40rpx 0 10rpx 0;}
 	.shop_detail_table{width: 100%;overflow: hidden;display: flex;justify-content: space-evenly;margin: 30rpx 0 15rpx 0;}
@@ -314,5 +318,6 @@
 	.shop_detail_goods_item_center{width: 55%;padding:0 15rpx;box-sizing: border-box;}
 	.shop_detail_goods_item_lright{width: 15%;height: 200rpx;line-height: 200rpx;}
 	.shop_detail_goods_item_lright text{display: inline-block;background: rgb(234,51,63);width: 100%;height: 60rpx;line-height: 60rpx;border-radius: 20rpx;font-size: 28rpx;text-align: center;color: #fff;}
-
+	.shopProduct{width: 460rpx;font-size: 28rpx;color: #000;overflow: hidden;}
+	.shopProductHidden{width: 460rpx;font-size: 28rpx;color: #000;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;}
 </style>

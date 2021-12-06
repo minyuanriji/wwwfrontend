@@ -553,6 +553,7 @@
 			}
 		},
 		onLoad(options) {
+			this.beforeOnLoad(options);
 			if(options&&options.pack_id){
 				this.pack_id=options.pack_id
 				this.getpackageListitem(options.pack_id)
@@ -988,6 +989,8 @@
 							});
 						} else {
 							this.$http.toast(res.msg);
+							this.paymentPwd=''
+							this.$refs.paymentPassword.clearAll();
 						}
 					});
 				}			
