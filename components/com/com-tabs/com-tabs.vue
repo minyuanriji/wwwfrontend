@@ -53,7 +53,7 @@
 					// #endif
 					// #ifdef H5
 					,
-				default: 100
+				default: 95
 				// #endif
 				// #ifdef MP||APP-PLUS
 					,
@@ -187,6 +187,7 @@
 		align-items: center;
 		justify-content: space-between;
 		z-index: 9999;
+		background: #fff!important;
 	}
 
 	.jx-tabs-relative {
