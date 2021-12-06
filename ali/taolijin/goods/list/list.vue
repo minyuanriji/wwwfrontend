@@ -193,7 +193,7 @@
 					data: {ali_id: ali_id}
 				}).then((res) => {
 					if (res.code == 0) {
-						
+						that.getgoodList();
 					} else {
 						that.$http.toast(res.msg);
 					}
