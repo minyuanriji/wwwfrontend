@@ -28,7 +28,6 @@
 			</view>
 			<view class="recharge" v-if="show">
 				<button type="default" @click="checkrecharge">立即充值</button>
-				<!-- <button type="default" @click="getPhonelist">获取通讯录</button> -->
 			</view>
 		</view>
 		<view class="notice" v-if="show">
@@ -208,39 +207,6 @@
 			this.creditStatus()
 		},
 		methods: {
-			getPhonelist(){//获取手机通讯录
-				var that = this
-				// 获取通讯录对象
-				  // #ifdef MP-WEIXIN
-						 wx.chooseContact({
-						      success: function (res) {
-						        console.log(res, '成功回调')
-						      },
-						      fail(res) {
-						        console.log(res, '错误回调')
-						      },
-						      complete(res) {
-						        console.log(res, '结束回调')
-						      }
-						   })
-				   // #endif
-				// #ifdef APP-PLUS 
-				plus.contacts.getAddressBook( plus.contacts.ADDRESSBOOK_PHONE, function( addressbook ) {  //获取通讯录
-				    addressbook.find(["displayName","phoneNumbers"],function(contacts){   //查找通讯录的数据
-				        console.log(JSON.stringify(contacts))  
-				        that.list = contacts  
-				    }, function () {   //获取通讯录数据成功
-						
-				    },{multiple:true});  
-				}, function ( e ) {  //获取通讯录数据失败
-				    
-				});
-				  // #endif
-			},
-			
-			
-			
-			
 			_input(){
 				if (isEmpty(this.form.mobile)){
 					this.mobileShow=false
