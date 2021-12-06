@@ -131,6 +131,7 @@
 				page_count: '',
 				popup:false,
 				clerk_log:[],
+				flag:false
 			};
 		},
 		onLoad() {
@@ -167,6 +168,8 @@
 			},
 			getorderList() {
 				let that = this;
+				if(that.flag)return
+				that.flag=true
 				this.$http.request({ //获取订单列表
 					url: this.$api.moreShop.getlifeOrderH,
 					method: 'POST',
@@ -174,6 +177,7 @@
 					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
+						that.flag=false
 						if (res.data.list.length == 0) return false
 						let list = res.data.list;
 						var arr = this.orderList.concat(list)
