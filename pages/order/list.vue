@@ -457,7 +457,7 @@
 	}
 
 	.tui-order-list {
-		margin-top: 210rpx;
+		margin-top: 185rpx;
 	}
 
 	.tui-order-item {

@@ -7,6 +7,10 @@
 				display: block;position: absolute;right: 30rpx;top: 25rpx;" @click.stop="deleteint"
 				 v-if="mobileShow"></image>
 			</view>
+			<!-- #ifdef APP-PLUS || MP -->
+				<image :src="plugins_img_url+'/phonwcontance.png'" mode="" style="display: block;width: 60rpx;height: 60rpx;position: absolute;right: 40rpx;top: 70rpx;"
+				@click="getPhonelist"></image>
+			<!-- #endif -->
 		</view>
 		<view class="moreCreadit_detail">
 			<view class="moreCreadit_detail-num" v-if="show">
@@ -149,12 +153,19 @@
 				</view>
 			</view>
 		</com-bottom-popup>
+		<unipopup ref="popup" type="bottom">
+			<view class="popup_view">
+				<txl @ev="evFunc" :datas="datas" name="employeeName" :index="true"></txl>
+			</view>
+		</unipopup>
 	</view>
 </template>
 
 <script>
 	import jxListCell from '@/components/list-cell/list-cell';
 	import {isEmpty} from '../../common/validate.js';
+	import txl from '@/components/yt-txl/index.vue';
+	import unipopup from '@/components/uni-popup/uni-popup';
 	// #ifdef H5
 	var jweixin = require('jweixin-module');
 	// #endif
@@ -165,10 +176,13 @@
 	// #endif
 	export default {
 		components: {
-			jxListCell
+			jxListCell,
+			txl,
+			unipopup,
 		},
 		data() {
 			return {
+				plugins_img_url: this.$api.plugins_img_url,
 				img_url: this.$api.img_url,
 				selectIndex: 0, //默认选中快充或者慢充金额列表的第一个
 				list: [], //快充或者慢充金额列表
@@ -201,12 +215,69 @@
 				payData:'',//支付信息
 				show:true,//显示影藏
 				mobileShow:false,
+				phoneList:[],//通讯录
+				datas:[				
+					{
+					    "employeeName": "",
+						"phone":''	,
+					},
+				]
 			};
 		},
 		onShow() { 
 			this.creditStatus()
 		},
 		methods: {
+			evFunc(data){
+				this.$refs.popup.close()
+			    console.log(data)
+				this.form.mobile=data.phone
+			},
+			getPhonelist(){//获取手机通讯录
+				var that = this
+				that.phoneList=[]
+				that.datas=[]
+				// 获取通讯录对象
+				  // #ifdef MP-WEIXIN
+						 wx.chooseContact({
+						      success: function (res) {
+								that.form.mobile=res.phoneNumber
+						        console.log(res.phoneNumber, '成功回调')
+						      },
+						      fail(res) {
+						        console.log(res, '错误回调')
+						      },
+						      complete(res) {
+						        console.log(res, '结束回调')
+						      }
+						   })
+				   // #endif
+				// #ifdef APP-PLUS 
+				that.$refs.popup.open()
+				plus.contacts.getAddressBook( plus.contacts.ADDRESSBOOK_PHONE, function( addressbook ) {  //获取通讯录
+				    addressbook.find(["displayName","phoneNumbers"],function(contacts){   //查找通讯录的数据  
+				        that.phoneList = contacts 
+						console.log(contacts)
+						for(let i=0;i<that.phoneList.length;i++){
+							for(let j=0;j<that.phoneList[i].phoneNumbers.length;j++){
+								that.datas.push({
+									employeeName:that.phoneList[i].displayName,
+									phone:that.phoneList[i].phoneNumbers[j].value
+								})
+							}
+						}
+				    }, function () {   //获取通讯录数据成功
+						
+				    },{multiple:true});  
+				}, function ( e ) {  //获取通讯录数据失败
+				    
+				});
+				  // #endif
+			},
+			
+			
+			
+			
 			_input(){
 				if (isEmpty(this.form.mobile)){
 					this.mobileShow=false
@@ -286,6 +357,7 @@
 				})
 			},
 			sumbit() {//生成充值订单
+				if (this.form.mobile.length>11) return this.alert('手机号码错误，请重新输入')
 				this.form.pay_type=2
 				this.$http.request({ 
 					url: this.$api.morecredit.creditOrder,
@@ -323,6 +395,7 @@
 				});
 			},
 			paysubnit(){ //现金支付生成订单
+				if (this.form.mobile.length>11) return this.alert('手机号码错误，请重新输入')
 				this.form.pay_type=1
 				this.$http.request({
 					url: this.$api.morecredit.creditOrder,
@@ -536,9 +609,19 @@
 	.text {
 		color: #fff;
 		font-size: 38rpx;
-		width: 90%;
+		/* #ifdef H5 */
+			width: 95%;
+		/* #endif */
+		/* #ifdef  MP || APP-PLUS */
+		width: 80%;
+		/* #endif */
 		border: 1rpx solid rgb(112,170,214);
-		margin: 40rpx auto 0;
+		/* #ifdef H5 */
+			margin: 40rpx auto 0;
+		/* #endif */
+		/* #ifdef  MP || APP-PLUS */
+		margin: 40rpx 0 0 20rpx;
+		/* #endif */
 		height: 80rpx;
 		line-height: 80rpx;
 		border-radius: 20rpx;
@@ -719,4 +802,9 @@
 	.notice{width: 100%;overflow: hidden;padding: 0 20rpx;box-sizing: border-box;margin: 20rpx 0;}
 	.notice-item{width: 100%;font-size: 26rpx;}
 	.notice-item view{margin: 5rpx 0;}
+	
+	
+	
+	.popup_view{width: 100%;height:1000rpx;background: rgb(248,248,248);border-radius: 15rpx;padding: 30rpx  20rpx;box-sizing: border-box;}
+	
 </style>
