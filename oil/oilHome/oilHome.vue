@@ -54,7 +54,7 @@
 					<view style="line-height: 100rpx;color: #000;">加油卷面额</view>
 					<view style="line-height: 100rpx;color: rgb(255,129,71);">￥{{price}}</view>
 				</view>
-				<view class="use-points">
+				<view class="use-points" v-if="previewDetail.user_integral>0">
 					<view style="color: #000;">使用红包 <view class="xieti" style="font-size: 18rpx;color: #666;">拥有红包：{{previewDetail.user_integral}}
 						<text class="text" v-if="is_checked" style="font-style: oblique;color: #F53939;margin-left: 20rpx;padding-right: 10rpx;">-{{previewDetail.integral_deduction_price}}</text>
 					</view>

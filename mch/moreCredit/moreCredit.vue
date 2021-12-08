@@ -206,7 +206,7 @@
 					plateform_id: "",
 					pay_type:2,//1  现金 2红包
 				},
-				creditStatusList:[],//充值记录
+				creditStatusList:{},//充值记录
 				order_id:'',//订单ID
 				redbag:'',//红包
 				type:[],
@@ -221,7 +221,8 @@
 					    "employeeName": "",
 						"phone":''	,
 					},
-				]
+				],
+				use_red_envelopes:'',
 			};
 		},
 		onShow() { 
@@ -530,9 +531,29 @@
 					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
-						this.creditStatusList=res.data
-						this.moneyList=res.money_list
-						this.form.mobile=res.mobile
+						this.creditStatusList=res.data.list
+						this.moneyList=res.data.money_list
+						this.form.mobile=res.data.mobile
+						this.use_red_envelopes=res.data.use_red_envelopes
+						if(this.use_red_envelopes>0){
+							this.items=[
+								{
+									value: '现金支付',									
+									name: '现金支付'
+								},
+								{
+									value: '红包支付',									
+									name: '红包支付'
+								}
+							]
+						}else{
+							this.items=[
+								{
+									value: '现金支付',									
+									name: '现金支付'
+								}
+							]
+						}
 						if (isEmpty(this.form.mobile)){
 							this.mobileShow=false
 						}else{

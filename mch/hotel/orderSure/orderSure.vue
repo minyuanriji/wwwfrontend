@@ -101,7 +101,7 @@
 					<text style="width:450rpx ;color: #EF4A1A;">红包全额抵扣</text>
 				</view>
 			</view>
-			<view class="use-points flex flex-y-center flex-x-between">
+			<view class="use-points flex flex-y-center flex-x-between" v-if="privewMessage.user_total_integral>0">
 				<view>使用红包 <view class="xieti">拥有红包：{{privewMessage.user_total_integral}} 
 				<text class="text" v-if="is_checked">-{{privewMessage.integral_deduction_price}}</text>
 				</view>

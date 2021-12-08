@@ -125,7 +125,7 @@
 				</tui-list-cell>
 			</view>
 
-			<view class="use-points flex flex-y-center flex-x-between" v-if="score_enable == 1">
+			<view class="use-points flex flex-y-center flex-x-between" v-if="showType.use_score>0">
 				<view>使用积分 <view class="xieti">拥有积分：{{user_score}} <text class="text"
 							v-if="is_checked">-{{total_score_use}}</text>
 					</view>
@@ -134,7 +134,7 @@
 			</view>
 
 
-			<view class="use-points flex flex-y-center flex-x-between" v-if="integral_enable == 1">
+			<view class="use-points flex flex-y-center flex-x-between" v-if="showType.use_red_envelopes>0">
 				<view>使用红包 <view class="xieti">拥有红包：{{user_integral}} <text class="text"
 							v-if="is_integral">-{{total_integral_use}}</text></view>
 				</view>
@@ -142,7 +142,7 @@
 			</view>
 			
 			
-			<view class="use-points flex flex-y-center flex-x-between" v-if="shopping_voucher.enable">
+			<view class="use-points flex flex-y-center flex-x-between" v-if="showType.use_shopping_voucher>0">
 				<view>
 					使用购物券 
 					<view class="xieti">
@@ -306,7 +306,8 @@
 					"list": "",
 					"remark":'',
 				},
-				got_shopping_voucher_num:''
+				got_shopping_voucher_num:'',
+				showType:{}
 			}
 		},
 
@@ -328,7 +329,7 @@
 			this.form.use_score=1
 			this.form.use_integral=1
 			this.form.list=options.list
-
+			this.getShow(options.list)
 			if (uni.getStorageSync('mall_config')) {
 				this.textColor = this.globalSet('textCol');
 				this.couponImg = this.globalSet('couponImg');
@@ -383,6 +384,17 @@
 			}
 		},
 		methods: {
+			getShow(cart_list){
+				this.$http.request({
+					url: this.$api.order.getShow,
+					method: 'post',
+					data: {
+						cart_list: cart_list
+					}
+				}).then(res => {
+					this.showType=res.data
+				}).catch()
+			},			
 			toShop(id) {
 				if (id) {
 					uni.navigateTo({

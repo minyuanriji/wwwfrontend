@@ -67,10 +67,10 @@
 				}).then(res => {
 					if (res.code == 0) {
 						if(res.data.length==0)return false
-						let list= res.data;
+						let list= res.data.list;
 						var arr=this.creditStatusList.concat(list)
 						this.creditStatusList =arr
-						this.page_count= res.pagination.page_count;
+						this.page_count= res.data.pagination.page_count;
 						this.pullUpOn=true
 					} else {
 						this.$http.toast(res.msg);
