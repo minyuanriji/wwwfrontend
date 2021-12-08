@@ -26,7 +26,7 @@
 		
 		
 		<com-tabs :tabs="tabs"  :currentTab="showTab[status]" :selectedColor="textColor" :sliderBgColor="textColor"
-		 :sliderHeight="4" :sliderWidth="50" bgColor="#F7F7F7" @change="change" bottom="10rpx" style="z-index:999;"></com-tabs>
+		 :sliderHeight="4" :sliderWidth="50" bgColor="#F7F7F7" @change="change" bottom="10rpx" style="z-index:9999;"></com-tabs>
 		<view class="tui-order-list" v-if="dataList && dataList.length">
 			<view class="item" v-for="(item,orderIndex) in data_list" :key="orderIndex">
 				<view class="user-status">
@@ -529,7 +529,7 @@
 		top: 0rpx;
 		/* #endif */
 		left: 0;
-		z-index: 9999;
+		z-index: 999;
 	}
 	
 	.tui-search-input {
