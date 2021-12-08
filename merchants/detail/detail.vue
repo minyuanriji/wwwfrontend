@@ -16,7 +16,7 @@
 						<view   :class="unfoldShow?'shopProduct':'shopProductHidden'">
 							店铺介绍：{{detail.description}}
 						</view>
-						<view style="font-size: 24rpx;position: absolute;right: 0;bottom: 0;color: rgb(255, 166, 0);"  v-if="!unfoldShow"     @click="unfold(1)">
+						<view style="font-size: 24rpx;position: absolute;right: 0;bottom: 0;color: rgb(255, 166, 0);"  v-if="!unfoldShow&&detail.description.length>26"     @click="unfold(1)">
 							+展开
 						</view>
 						<view style="font-size: 24rpx;position: absolute;right: 0;bottom: 0;color: rgb(255, 166, 0);"  v-if="unfoldShow"     @click="unfold(2)">
