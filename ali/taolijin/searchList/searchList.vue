@@ -2,97 +2,61 @@
 	<view class="container">
 		<view class="tui-searchbox">
 			<view class="tui-search-input">
+				
 				<!-- #ifdef APP-PLUS || MP -->
 				<icon type="search" :size='13' color='#333'></icon>
 				<!-- #endif -->
+				
 				<!-- #ifdef H5 -->
 				<view>
 					<com-icons type="search" :size='16' color='#333333'></com-icons>
 				</view>
 				<!-- #endif -->
-				<input type="search" placeholder="请输入商品名"  placeholder-class="tui-input-plholder"
-				 class="tui-input" v-model.trim="key" @confirm='search'/>
+				
+				<input type="search" placeholder="请输入商品名"  placeholder-class="tui-input-plholder" class="tui-input" v-model.trim="key" @confirm='search'/>
+				
 				<!-- #ifdef APP-PLUS || MP -->
 				<icon type="clear" :size='13' color='#bcbcbc' @tap="cleanKey" v-show="key"></icon>
 				<!-- #endif -->
+				
 				<!-- #ifdef H5 -->
 				<view @tap="cleanKey" v-show="key"><tui-icon name="close-fill" :size='16' color='#bcbcbc'></tui-icon></view>
 				<!-- #endif -->
+				
 			</view>
 			<view class="tui-cancle" @tap="search">搜索</view>
 		</view>
-		<view class="sort">
-			<view style="position: relative;width: 30%;text-align: center;" 
-			:class="selecSort==0?'actove':''"     @click="sortselect(0)">
-				<text>{{priceSort}}</text>
-				<image :src="img_url+'unmy-hotel.png'" mode="" style="width: 35rpx;height: 35rpx;display: block;position: absolute;top: 35rpx;right: -20rpx;"></image>
-			</view>
-			<view style="position: relative;width: 30%;text-align: center;"
-			:class="selecSort==1?'actove':''"     @click="sortselect(1)">
-				<text>{{salesort}}</text>
-				<image :src="img_url+'unmy-hotel.png'" mode="" style="width: 35rpx;height: 35rpx;display: block;position: absolute;top: 35rpx;right: -20rpx;"></image>
-			</view>
-		</view>
-		<view class="container-goodsList">
-			<view class="goodsList-item" v-for="(item,index) in 3" :key='index' @click="getDetail(item.id)">
-				<view class="goodsList-item-img">
-					<image
-						src="http://yingmlife-1302693724.cos.ap-guangzhou.myqcloud.com/uploads/images/original/20211018/af8287e1940ea564d15c60345c790bea.jpg"
-						mode="widthFix"></image>
+		
+		<template v-if="showList">
+			
+			<view class="sort">
+				<view style="position: relative;width: 30%;text-align: center;" 
+				:class="selecSort==0?'actove':''"     @click="sortselect(0)">
+					<text>{{priceSort}}</text>
+					<image :src="img_url+'unmy-hotel.png'" mode="" style="width: 35rpx;height: 35rpx;display: block;position: absolute;top: 35rpx;right: -20rpx;"></image>
 				</view>
-				<view class="goodsList-item-title">
-					牙刷成人软毛10-20支套装
-				</view>
-				<view class="money_num">
-					<view class="money" style="width: 50%;color: rgb(255, 113, 4);">
-						<text style="font-size: 26rpx;">￥</text>
-						<text style="font-size: 28rpx;">0.01</text>
-					</view>
-					<view style="width: 50%;font-size: 24rpx;line-height: 50rpx;text-align: right;">
-						<text>已售1313件</text>
-					</view>
-				</view>
-				<view class="send" style="position: relative;">
-					<view class="send_imag"></view>
-					<text
-						style="font-size: 27rpx;position: absolute;top: 11rpx;left: 80rpx;color: #fff;">300购物券</text>
+				<view style="position: relative;width: 30%;text-align: center;"
+				:class="selecSort==1?'actove':''"     @click="sortselect(1)">
+					<text>{{salesort}}</text>
+					<image :src="img_url+'unmy-hotel.png'" mode="" style="width: 35rpx;height: 35rpx;display: block;position: absolute;top: 35rpx;right: -20rpx;"></image>
 				</view>
 			</view>
-			<!-- <view class="no-more" v-if="list.length==0">
-				<image :src="img_url+'/giftOrder_logo.png'" mode=""></image>
-				<text>暂无服务内容</text>
-			</view> -->
-		</view>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<unipopup ref="popupSortprice" type="top">
-			<view  class="goods_sort">
-				<view @click="sortSecprice(index,item)" :class="sortpriceIndex==index?'sortClass':''" v-for="(item,index) in sortType" :key='index'
-				style="text-align: center;height: 100rpx;line-height: 100rpx;border-bottom: 0.5px solid #f2f5f9;">{{item}}</view>
-			</view>
-		</unipopup>
-		<unipopup ref="popupSortsale" type="top">
-			<view  class="goods_sort">
-				<view @click="sortSecsale(index,item)" :class="sortsaleIndex==index?'sortClass':''" v-for="(item,index) in sortType" :key='index'
-				style="text-align: center;height: 100rpx;line-height: 100rpx;border-bottom: 0.5px solid #f2f5f9;">{{item}}</view>
-			</view>
-		</unipopup>
+			
+			<unipopup ref="popupSortprice" type="top">
+				<view  class="goods_sort">
+					<view @click="sortSecprice(index,item)" :class="sortpriceIndex==index?'sortClass':''" v-for="(item,index) in sortType" :key='index'
+					style="text-align: center;height: 100rpx;line-height: 100rpx;border-bottom: 0.5px solid #f2f5f9;">{{item}}</view>
+				</view>
+			</unipopup>
+			<unipopup ref="popupSortsale" type="top">
+				<view  class="goods_sort">
+					<view @click="sortSecsale(index,item)" :class="sortsaleIndex==index?'sortClass':''" v-for="(item,index) in sortType" :key='index'
+					style="text-align: center;height: 100rpx;line-height: 100rpx;border-bottom: 0.5px solid #f2f5f9;">{{item}}</view>
+				</view>
+			</unipopup>
+			
+			<AliTljGoodsList></AliTljGoodsList>
+		</template>
 	</view>
 </template>
 
@@ -101,9 +65,11 @@
 	import tuiTag from "@/components/tag/tag";
 	import tuiButton from "@/components/extend/button/button"
 	import tuiListCell from "@/components/list-cell/list-cell"
-	import unipopup from '@/components/uni-popup/uni-popup';
+	import unipopup from '@/components/uni-popup/uni-popup'
+	import AliTljGoodsList from "@/components/ali-tlj-goods-list/ali-tlj-goods-list";
 	export default {
 		components: {
+			AliTljGoodsList,
 			tuiButton,
 			tuiListCell,
 			tuiIcon,
@@ -113,6 +79,7 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
+				showList: false,
 				key: "",
 				sort:[
 					"价格排序",
@@ -124,12 +91,12 @@
 				salesort:'销量排序',
 				sortType:[],
 				sortprice:[
-					"全部",
+					"默认",
 					"价格由低到高",
 					"价格由高到低",
 				],
 				sortsale:[
-					"全部",
+					"默认",
 					"销量由低到高",
 					"销量由高到低",
 				],
@@ -138,14 +105,32 @@
 				sortsaleIndex:'',
 				order:'',
 				orderBy:'',
+				
+				searchParam:{
+					cat: 0,
+					page: 0,
+					kw: ''
+				}
 			};
+		},
+		onLoad() {
+			let that = this;
 		},
 		methods:{
 			cleanKey: function() { //清空搜索
-				this.key = ''
+				this.key = '';
+				this.showList = false;
 			},
 			search(){
-				alert("搜索")
+				if(!this.key || this.key.length <= 0){
+					this.$http.toast("请输入关键词搜索");
+					return;
+				}
+				this.showList = true;
+				let that = this;
+				setTimeout(function(){
+					uni.$emit("ali_search_action:kw", {kw:that.key});
+				}, 500);
 			},
 			sortselect(index){ //排序
 				this.selecSort=index
@@ -204,6 +189,9 @@
 					this.orderBy='desc'
 				}
 			},
+		},
+		onReachBottom() {
+			uni.$emit("ali_search_action:page");
 		}
 	}
 </script>
@@ -314,71 +302,5 @@
 	.actove{color: rgb(255, 113, 4)}
 	.sortClass{color: #FF7104;font-weight: bold;background: url('https://dev.mingyuanriji.cn/web/static/yellow-right.png')no-repeat;background-size: 5%;
 	background-position: 90% 50% ;}
-	.container-goodsList {
-		width: 95%;
-		overflow: hidden;
-		display: flex;
-		justify-content: space-between;
-		/* #ifdef H5 */
-		margin: 215rpx auto 60rpx;
-		/* #endif */
-		/* #ifdef MP||APP-PLUS */
-		margin: 225rpx auto 60rpx;
-		/* #endif */
-		flex-wrap: wrap;
-	}
 	
-	.goodsList-item {
-		width: 48%;
-		overflow: hidden;
-		border-radius: 15rpx;
-		box-shadow: 0px 0px 10px #eee;
-		background: #FFFFFF;
-		margin-top: 20rpx;
-	}
-	
-	.goodsList-item-img {
-		width: 100%;
-		overflow: hidden;
-	}
-	
-	.goodsList-item-img image {
-		width: 100%;
-	}
-	
-	.goodsList-item-title {
-		width: 100%;
-		padding: 0 10rpx;
-		font-size: 28rpx;
-		color: #000;
-		display: -webkit-box;
-		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 1;
-		overflow: hidden;
-	}
-	
-	.money_num {
-		width: 100%;
-		padding: 0 10rpx;
-		box-sizing: border-box;
-		display: flex;
-		justify-content: space-between;
-	}
-	
-	.send {
-		padding: 0 10rpx;
-		box-sizing: border-box;
-	}
-	
-	.send_imag {
-		min-width: 240rpx;
-		display: inline-block;
-		text-align: center;
-		font-size: 24rpx;
-		height: 80rpx;
-		background: url(../../../mch/img/song.png);
-		background-repeat: no-repeat;
-		background-size: 100% 70%;
-		color: #fff;
-	}
 </style>
