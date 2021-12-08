@@ -36,7 +36,10 @@
 							<text v-if="item.policy_add_bed=='1'">可加床</text>
 						</view>
 						<view class="hotel-orderLis-item-detail-time">
-							入离日期;{{item.booking_start_date}}---{{item.end_date}}
+							下单时间：{{item.created_at}}
+						</view>
+						<view class="hotel-orderLis-item-detail-time">
+							入离日期：{{item.booking_start_date}}--{{item.end_date}}
 						</view>
 					</view>
 					<view class="hotel-orderLis-item-detail-price">
@@ -186,7 +189,7 @@
 	.hotel-orderLis-item-detail{margin: 25rpx 0 0 0;width: 100%;overflow: hidden;}
 	.hotel-orderLis-item-detail-image{width: 150rpx;height: 150rpx;margin-top: 20rpx;float: left;}
 	.hotel-orderLis-item-detail-image image{display: block;width: 150rpx;height: 150rpx;}
-	.hotel-orderLis-item-detail-message{width: 53%;margin:0 10rpx;overflow: hidden;display: flex;justify-content: space-evenly;flex-wrap: wrap;float: left;}
+	.hotel-orderLis-item-detail-message{width: 60%;margin:0 10rpx;overflow: hidden;display: flex;justify-content: space-evenly;flex-wrap: wrap;float: left;}
 	.hotel-orderLis-item-detail-message view{width: 100%;margin-bottom: 10rpx;}
 	.hotel-orderLis-item-detail-name{font-size: 28rpx;color: #000;
 	display: -webkit-box;            
@@ -195,7 +198,7 @@
 	overflow: hidden; }
 	.hotel-orderLis-item-detail-selectType{font-size: 25rpx;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden; }
 	.hotel-orderLis-item-detail-time{font-size: 25rpx;}
-	.hotel-orderLis-item-detail-price{overflow: hidden;width: 20%;float: left;}
+	.hotel-orderLis-item-detail-price{overflow: hidden;width: 15%;float: left;}
 	.hotel-orderLis-item-detail-price text{display: block;text-align: right;font-size: 25rpx;color:#FF7B10 ;}
 	.hotel-orderLis-item-count{width: 100%;overflow: hidden;text-align: right;margin: 0rpx 0 10rpx 0;}
 	.hotel-orderLis-item-count text:nth-of-type(1){font-size: 25rpx;}
