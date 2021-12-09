@@ -180,14 +180,6 @@
 			}
 		},
 		{
-			"path": "pages/user/coupon/coupon",
-			"style": {
-				"navigationBarTitleText": "我的优惠券",
-				"navigationBarBackgroundColor": "#F7F7F7",
-				"navigationBarTextStyle": "black"
-			}
-		},
-		{
 			"path": "pages/user/shopping/myCard",
 			"style": {
 				"navigationBarTitleText": "我的红包",
@@ -471,20 +463,7 @@
 				"enablePullDownRefresh": false
 			}
 
-		}, {
-			"path": "pages/link/index",
-			"style": {
-				"navigationBarTitleText": "分享海报",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
-			"path": "pages/link/welfare",
-			"style": {
-				"navigationBarTitleText": "新人福利",
-				"enablePullDownRefresh": false
-			}
-		},
+		}, 
 		{
 			"path": "pages/live/live",
 			"style": {
