@@ -417,14 +417,6 @@
 			}
 		},
 		{
-			"path": "pages/user/recharge/recharge",
-			"style": {
-				"navigationBarTitleText": "充值",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"navigationBarTextStyle": "black"
-			}
-		}, 
-		{
 			"path": "pages/order/logistics/index",
 			"style": {
 				"navigationBarTitleText": "物流详情",
@@ -465,12 +457,6 @@
 
 		}, 
 		{
-			"path": "pages/live/live",
-			"style": {
-				"navigationBarTitleText": "直播",
-				"navigationBarBackgroundColor": "#fff"
-			}
-		}, {
 			"path": "pages/order/verification/verification",
 			"style": {
 				"navigationBarTitleText": "到店消费",
