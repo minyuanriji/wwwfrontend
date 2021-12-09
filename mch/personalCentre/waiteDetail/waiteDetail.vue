@@ -35,6 +35,7 @@
 				page_count:'',
 				pullUpOn:true,
 				loadding:false,
+				flag:false
 			};
 		},
 		onLoad() {
@@ -42,6 +43,8 @@
 		},
 		methods:{
 			select(index){
+				if(this.flag)return
+				this.list=[]
 				this.form={
 					page:1,
 					status:'unconfirmed',//状态：canceled已取消，success已结算，unconfirmed待结算
@@ -52,11 +55,12 @@
 				if(index==0){this.form.status='unconfirmed'}
 				if(index==1){this.form.status='success'}
 				if(index==2){this.form.status='canceled'}
-				this.list=[]
 				this.page_count=''
 				this.getList()
 			},
 			getList(){
+				if(this.flag)return 
+				this.flag=true
 				this.$http
 					.request({
 						url: this.$api.moreShop.getcountList,
@@ -65,6 +69,7 @@
 					})
 					.then(res => {
 						if(res.code==0){
+							this.flag=false
 							if(res.data.list.length==0){
 								this.pullUpOn=false
 								return false
