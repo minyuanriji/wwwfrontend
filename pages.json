@@ -494,26 +494,8 @@
 				}
 			}
 
-		}, {
-			"path": "pages/verification/verification",
-			"style": {
-				"navigationBarTitleText": "附近门店",
-				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "#fff",
-				"enablePullDownRefresh": false
-			}
-
-		}, 
+		},
 		{
-			"path": "pages/verification/canceldetail/canceldetail",
-			"style": {
-				"navigationBarTitleText": "爆品核销",
-				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "#fff",
-				"enablePullDownRefresh": false
-			}
-
-		}, {
 			"path": "pages/user/bindUser/bindUser",
 			"style": {
 				"navigationBarTitleText": "绑定信息",
