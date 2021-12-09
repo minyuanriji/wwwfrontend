@@ -2,7 +2,7 @@
 	<view class="moreCreadit-app">
 		<view class="moreCreadit_header">
 			<view class="text">
-				<input type="number" v-model.trim ="form.mobile" placeholder="请输入电话号码" @input="_input"/>
+				<input type="text" v-model="form.mobile" placeholder="请输入电话号码" @input="_input"/>
 				<image :src="img_url+'delete_error.png'" mode="" style="width: 30rpx;height: 30rpx;
 				display: block;position: absolute;right: 30rpx;top: 25rpx;z-index: 999;" @click.stop="deleteint"
 				 v-if="mobileShow"></image>
@@ -254,7 +254,6 @@
 						   })
 				   // #endif
 				// #ifdef APP-PLUS 
-				that.$refs.popup.open()
 				plus.contacts.getAddressBook( plus.contacts.ADDRESSBOOK_PHONE, function( addressbook ) {  //获取通讯录
 				    addressbook.find(["displayName","phoneNumbers"],function(contacts){   //查找通讯录的数据  
 				        that.phoneList = contacts 
@@ -268,7 +267,7 @@
 							}
 						}
 				    }, function () {   //获取通讯录数据成功
-						
+						that.$refs.popup.open()
 				    },{multiple:true});  
 				}, function ( e ) {  //获取通讯录数据失败
 				    
