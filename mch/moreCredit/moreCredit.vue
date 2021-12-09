@@ -4,7 +4,7 @@
 			<view class="text">
 				<input type="number" v-model.trim ="form.mobile" placeholder="请输入电话号码" @input="_input"/>
 				<image :src="img_url+'delete_error.png'" mode="" style="width: 30rpx;height: 30rpx;
-				display: block;position: absolute;right: 30rpx;top: 25rpx;" @click.stop="deleteint"
+				display: block;position: absolute;right: 30rpx;top: 25rpx;z-index: 999;" @click.stop="deleteint"
 				 v-if="mobileShow"></image>
 			</view>
 			<!-- #ifdef APP-PLUS || MP -->
@@ -206,7 +206,7 @@
 					plateform_id: "",
 					pay_type:2,//1  现金 2红包
 				},
-				creditStatusList:[],//充值记录
+				creditStatusList:{},//充值记录
 				order_id:'',//订单ID
 				redbag:'',//红包
 				type:[],
@@ -221,7 +221,8 @@
 					    "employeeName": "",
 						"phone":''	,
 					},
-				]
+				],
+				use_red_envelopes:'',
 			};
 		},
 		onShow() { 
@@ -530,9 +531,29 @@
 					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
-						this.creditStatusList=res.data
-						this.moneyList=res.money_list
-						this.form.mobile=res.mobile
+						this.creditStatusList=res.data.list
+						this.moneyList=res.data.money_list
+						this.form.mobile=res.data.mobile
+						this.use_red_envelopes=res.data.use_red_envelopes
+						if(this.use_red_envelopes>0){
+							this.items=[
+								{
+									value: '现金支付',									
+									name: '现金支付'
+								},
+								{
+									value: '红包支付',									
+									name: '红包支付'
+								}
+							]
+						}else{
+							this.items=[
+								{
+									value: '现金支付',									
+									name: '现金支付'
+								}
+							]
+						}
 						if (isEmpty(this.form.mobile)){
 							this.mobileShow=false
 						}else{

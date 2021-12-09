@@ -14,13 +14,10 @@
 							<view class="point" style="font-size: 28rpx;color: red;margin-left: 10rpx;">{{detail.score}}</view>
 						</view>
 						<view   :class="unfoldShow?'shopProduct':'shopProductHidden'">
-							店铺介绍：{{detail.description}}
+							店铺介绍：{{description}}
 						</view>
-						<view style="font-size: 24rpx;position: absolute;right: 0;bottom: 0;color: rgb(255, 166, 0);"  v-if="!unfoldShow"     @click="unfold(1)">
+						<view style="font-size: 24rpx;position: absolute;right: 0;bottom: 0;color: rgb(255, 166, 0);"  v-if="!unfoldShow&&description.length>8"     @click="unfold(1)">
 							+展开
-						</view>
-						<view style="font-size: 24rpx;position: absolute;right: 0;bottom: 0;color: rgb(255, 166, 0);"  v-if="unfoldShow"     @click="unfold(2)">
-							+收起
 						</view>
 					</view>
 				</view>
@@ -29,7 +26,9 @@
 					<view style="margin-left:10rpx;color:rgb(255, 166, 0);font-size:30rpx;">付款</view>
 				</view>
 			</view>
-			
+			<view style="font-size: 24rpx;color: rgb(255, 166, 0);width: 100%;text-align: center;height: 50rpx;line-height: 50rpx;"  v-if="unfoldShow"     @click="unfold(2)">
+				+收起
+			</view>
 		</view>
 		
 		<view class="shop_detail_header">
@@ -105,6 +104,7 @@
 				page:1,
 				store_id:'',
 				unfoldShow:false,
+				description:''
 			};
 		},
 		onLoad(options) {
@@ -127,6 +127,11 @@
 					.then(res => {
 						if(res.code==0){
 							this.detail=res.data.detail
+							if(this.detail.description.length>8){
+								this.description=this.detail.description.substr(0,8)+'...'
+							}else{
+								this.description=this.detail.description
+							}
 							uni.setNavigationBarTitle({
 							　　title:this.detail.name
 							});
@@ -265,9 +270,15 @@
 			unfold(index){
 				if(index==1){
 					this.unfoldShow=true
+					this.description=this.detail.description
 				}
 				if(index==2){
 					this.unfoldShow=false
+					if(this.detail.description.length>8){
+						this.description=this.detail.description.substr(0,8)+'...'
+					}else{
+						this.description=this.detail.description
+					}
 				}
 			}
 			

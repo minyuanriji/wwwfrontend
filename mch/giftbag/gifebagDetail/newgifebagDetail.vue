@@ -359,9 +359,11 @@
 	}
 	.goods-qrcode-close {
 		position: absolute;
-		top: 40rpx;
-		/* #ifdef MP-WEIXIN */
-		top: 150rpx;
+		/* #ifdef H5 */
+		top: 100rpx;
+		/* #endif */
+		/* #ifdef MP-WEIXIN ||APP-PLUS */
+		top: 100rpx;
 		/* #endif */
 		right: 40rpx;
 		padding: 15rpx;

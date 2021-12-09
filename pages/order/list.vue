@@ -32,7 +32,7 @@
 		
 
 		<com-tabs :tabs="tabs"  :currentTab="showTab[status]" selectedColor="#FF7104" sliderBgColor="#FF7104"
-		 :sliderHeight="4" :sliderWidth="50" bgColor="#F7F7F7" @change="change" bottom="10rpx" style="z-index:999;"></com-tabs>
+		 :sliderHeight="4" :sliderWidth="50" bgColor="#F7F7F7" @change="change" bottom="10rpx" style="z-index:9999;"></com-tabs>
 		<!--选项卡逻辑自己实现即可，此处未做处理-->
 		<view class="tui-order-list" v-if="dataList && dataList.length">
 			<view class="tui-order-item" v-for="(model,orderIndex) in data_list" :key="orderIndex">
@@ -633,7 +633,7 @@
 		top: 0rpx;
 		/* #endif */
 		left: 0;
-		z-index: 9999;
+		z-index: 999;
 	}
 	
 	.tui-search-input {

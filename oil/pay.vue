@@ -69,7 +69,7 @@
 				token: '',
 				queue_id: '',
 				payData: '',
-				switchIndex: 0,
+				switchIndex: 1,
 				textColor:"#BC0100",
 				bg_url:'',
 				navBg:'',

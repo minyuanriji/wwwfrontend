@@ -1,9 +1,9 @@
 // 正式服务器
 let api_host = "https://www.mingyuanriji.cn";
 
-
 // 测试服务器
 //let api_host = "https://dev.mingyuanriji.cn";
+
 
 // 本地服务器
 //let api_host = "http://local.mingyuanriji.cn";
@@ -304,7 +304,7 @@ let api = {
 		getscore:api_root + 'api/order/get-flag',
 		refundOrider: api_root + 'api/order/del-refund-order',
 		extendedOrider: api_root + 'api/order/order-extended-receiving-time',
-		
+		getShow:api_root + 'api/order/check-order-discount-type',
 		
 	},
 	category:{

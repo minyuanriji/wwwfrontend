@@ -307,7 +307,8 @@
 					"use_shopping_voucher": 1,
 					"list": "",
 					"remark":'',
-				}
+				},
+				showType:{},
 			}
 		},
 
@@ -329,7 +330,7 @@
 			this.form.use_score=options.use_score
 			this.form.use_integral=options.use_integral
 			this.form.list=options.list
-
+			this.getShow(options.list)
 			if (uni.getStorageSync('mall_config')) {
 				this.textColor = this.globalSet('textCol');
 				this.couponImg = this.globalSet('couponImg');
@@ -383,6 +384,17 @@
 			}
 		},
 		methods: {
+			getShow(cart_list){
+				this.$http.request({
+					url: this.$api.order.getShow,
+					method: 'post',
+					data: {
+						cart_list: cart_list
+					}
+				}).then(res => {
+					this.showType=res.data
+				}).catch()
+			},			
 			toShop(id) {
 				if (id) {
 					uni.navigateTo({
