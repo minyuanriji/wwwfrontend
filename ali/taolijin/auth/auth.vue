@@ -14,7 +14,6 @@
 				<view class="con-copy">
 					<text @click="copyUrl">复制链接</text>
 				</view>
-				
 			</view>
 			<view style="width:100%;font-size:28rpx;text-align:center;background:white;padding:30rpx 0;">
 				<view>请复制链接，黏贴到浏览器进行授权</view>
