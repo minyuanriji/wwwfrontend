@@ -21,7 +21,7 @@
 				<jx-tag class="tui-tag-class" type="translucent" shape="circle" size="small">{{bannerIndex+1}}/{{bannerLength}}</jx-tag>
 			</view>
 			<view class="time-money">
-				<view class="time-money-left">
+				<view class="time-money-left" v-if="detail.group_enable">
 					<view style="height: 60rpx;line-height: 60rpx;">
 						<text style="font-weight: bold;">￥</text>
 						<text style="font-size: 48rpx;font-weight: bold;">{{detail.group_price}}</text>
@@ -32,6 +32,12 @@
 						<text style="font-size: 28rpx;color: #fff;text-decoration: line-through;">￥{{detail.price}}</text>
 					</view>
 				</view>
+				<view class="time-money-left" v-else>
+					<view style="display:flex;align-items:center;height:100%;font-size: 48rpx;">
+						<text style="font-weight: bold;">￥</text>
+						<text style="font-weight: bold;">{{detail.price}}</text>
+					</view>
+				</view>
 				<view class="time-money-right">
 					<view style="margin-top: 10rpx;" v-if="!detail.is_finished">距离活动结束</view>
 					<view style="margin-top: 10rpx;" v-if="detail.is_finished">活动已结束</view>
@@ -40,7 +46,7 @@
 			</view>
 			<view class="giftbag-title">
 				<view style="width: 80%;color: #000;font-weight: bold;padding: 0 20rpx;font-size: 31rpx;border-right:1rpx solid rgb(238,238,238);">
-					<text style="display: inline-block;;width: 120rpx;height: 50rpx;line-height: 48rpx;color: rgb(255,71,121);text-align: center;border: 1rpx solid rgb(255,71,121);border-radius: 30rpx;margin-right: 10rpx;">{{detail.group_num}}人团</text>
+					<text v-if="detail.group_enable" style="display: inline-block;;width: 120rpx;height: 50rpx;line-height: 48rpx;color: rgb(255,71,121);text-align: center;border: 1rpx solid rgb(255,71,121);border-radius: 30rpx;margin-right: 10rpx;">{{detail.group_num}}人团</text>
 					{{detail.title}}
 				</view>
 				<view style="width: 20%;font-size: 30rpx;" @click="poster(1)">
@@ -53,7 +59,7 @@
 				有<text style="background: rgb(217,217,217);color: #000;border-radius: 30rpx;display: inline-block;min-width: 90rpx;text-align: center;">{{detail.view_num}}</text>人浏览，
 				<text style="background: rgb(221,82,77);color: #fff;border-radius: 30rpx;display: inline-block;min-width: 90rpx;text-align: center;">{{detail.sold_num}}</text>人参与
 			</view>
-			<view class="warm-prompt">
+			<view class="warm-prompt" v-if="detail.group_enable == 1">
 				<text style="display: block;color: rgb(255,71,83);padding-left: 10rpx;position: absolute;z-index: 1;background: #fff;right: 50rpx;top:-26rpx;height: 50rpx;border: 1rpx solid rgb(255,71,83);border-radius: 10rpx;text-align: center;line-height: 52rpx;">友情提示！</text>
 				拼团发起后，<text style="color: rgb(255,68,0);">{{detail.group_hour_expired}}小时内</text>完成<text  style="color: rgb(255,68,0);">{{detail.group_num}}人</text>组团即拼团成功，否则拼团失败，拼团金额返回用户支付帐户
 			</view>
@@ -79,9 +85,11 @@
 				</view>
 			</view>			
 			<view class="select-check">
-				<text v-for="(item,index) in table" :key='index' :class="selectIndex==index?'active':'actove'" @click="select(index)">
-					{{item}}
-				</text>
+				<template v-for="(item,index) in table">
+					<text v-if="index != 1 || detail.group_enable" :key='index' :class="selectIndex==index?'active':'actove'" @click="select(index)">
+						{{item}}
+					</text>
+				</template>
 			</view>
 			<view class="package-content" v-if="selectIndex==0">
 				<view class="package-content-title">
@@ -246,7 +254,7 @@
 					<image :src="img_url+'/new_ord.png'" mode=""></image>
 					<text>订单</text>
 				</view>
-				<view class="bottom-buy">
+				<view class="bottom-buy" v-if="detail.group_enable">
 					<view style="background: rgb(253,188,2);width: 50%;height: 85rpx;margin-top: 25rpx;border-radius: 50rpx 0 0 50rpx;" @click="singleBuy">
 						<text style="font-size: 30rpx;font-weight: bold;">￥{{detail.price}}</text>
 						<text style="font-size: 28rpx;">单独购买</text>
@@ -254,6 +262,11 @@
 					<view style="background: rgb(255,71,83);width: 50%;height: 85rpx;margin-top: 25rpx;border-radius: 0 50rpx 50rpx 0;" @click="gospellbuy">
 						<text style="font-size: 30rpx;font-weight: bold;">￥{{detail.group_price}}</text>
 						<text style="font-size: 28rpx;">我要开团</text>
+					</view>
+				</view>
+				<view class="bottom-buy" v-else style="display:flex;align-items: center;justify-content: flex-end;">
+					<view style="display:inline-block;background: rgb(255,71,83);width: 80%;height: 85rpx;line-height:85rpx;border-radius: 50rpx;" @click="singleBuy">
+						<text style="font-size: 35rpx;">立即购买</text>
 					</view>
 				</view>
 			</view>

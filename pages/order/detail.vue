@@ -184,7 +184,7 @@
 						</view>
 						<view class="jx-price-flex  jx-size24">
 							<view>购物券</view>
-							<view class="jx-price">- ¥{{detail.shopping_voucher_decode_price}}</view>
+							<view class="jx-price">- ¥{{detail.shopping_voucher_use_num}}</view>
 						</view>
 						<view class="jx-price-flex  jx-size24" v-if="messageShow">
 							<view>运费</view>
