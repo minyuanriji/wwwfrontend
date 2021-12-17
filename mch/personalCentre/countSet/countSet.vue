@@ -109,7 +109,6 @@
 				this.$http.request({  //获取商户基本信息
 					url: this.$api.moreShop.getMchBaseInfo,
 					method: 'POST', 
-					showLoading: true
 				}).then(res => {
 					if(res.code == 0){
 						let baseInfo = res.data.base_info;
