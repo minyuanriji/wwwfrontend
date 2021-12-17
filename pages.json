@@ -604,14 +604,12 @@
 				}
 			    ,{
                     "path" : "ercode/ercode",
-                    "style" :                                                                                    
-                {
-				   "navigationBarTitleText": "兑换码",
-                   "navigationBarBackgroundColor": "#FD6D64",
-                   "navigationBarTextStyle": "white",
-                    "enablePullDownRefresh": false
-                }
-                
+                    "style" : {
+					   "navigationBarTitleText": "兑换码",
+					   "navigationBarBackgroundColor": "#FD6D64",
+					   "navigationBarTextStyle": "white",
+						"enablePullDownRefresh": false
+					}
                 }
             ]
 		},

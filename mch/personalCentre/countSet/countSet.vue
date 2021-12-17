@@ -72,10 +72,10 @@
 				TargetShow:false,
 				userbanktype:'',
 				Targettype:"",
-				banktype: [{ //结算账户类型
+				banktype: [/*{ //结算账户类型
 						name: '对公账户',
 						num: 1
-					},
+					},*/
 					{
 						name: '对私账户',
 						num: 2
@@ -100,26 +100,40 @@
 				}
 			};
 		},
-		onShow(){
-			let baseInfo = uni.getStorageSync("mchMessage");
-			this.form.paper_settleAccountType=baseInfo.settle.paper_settleAccountType
-			for(let i=0;i<this.banktype.length;i++){
-				if(this.banktype[i].num == baseInfo.settle.paper_settleAccountType){
-					this.userbanktype=this.banktype[i].name
-				}
-			}
-			this.form.paper_settleAccountNo=baseInfo.settle.paper_settleAccountNo
-			this.form.paper_settleAccount=baseInfo.settle.paper_settleAccount
-			this.form.paper_openBank=baseInfo.settle.paper_openBank
-			// this.form.withdraw_pwd=
-			this.form.paper_settleTarget=baseInfo.settle.paper_settleTarget
-			for(let j=0;j<this.targetType.length;j++){
-				if(this.targetType[j].num==baseInfo.settle.paper_settleTarget){
-					this.Targettype=this.targetType[j].name
-				}
-			}
+		onLoad(){
+			this.getBaseInfo();
 		},
 		methods:{
+			getBaseInfo(){
+				let that = this;
+				this.$http.request({  //获取商户基本信息
+					url: this.$api.moreShop.getMchBaseInfo,
+					method: 'POST', 
+					showLoading: true
+				}).then(res => {
+					if(res.code == 0){
+						let baseInfo = res.data.base_info;
+						that.form.paper_settleAccountType=baseInfo.settle.paper_settleAccountType
+						for(let i=0;i<that.banktype.length;i++){
+							if(that.banktype[i].num == baseInfo.settle.paper_settleAccountType){
+								that.userbanktype=that.banktype[i].name
+							}
+						}
+						that.form.paper_settleAccountNo=baseInfo.settle.paper_settleAccountNo
+						that.form.paper_settleAccount=baseInfo.settle.paper_settleAccount
+						that.form.paper_openBank=baseInfo.settle.paper_openBank
+						// this.form.withdraw_pwd=
+						that.form.paper_settleTarget=baseInfo.settle.paper_settleTarget
+						for(let j=0;j<that.targetType.length;j++){
+							if(that.targetType[j].num==baseInfo.settle.paper_settleTarget){
+								that.Targettype=that.targetType[j].name
+							}
+						}
+					}else{
+						that.$http.toast(res.msg);
+					}
+				});
+			},
 			hidePopup(index) { //底部弹窗显示隐藏
 				if(index==1){
 					this.bankShow=false
@@ -148,9 +162,9 @@
 				}).then(res => {
 					if (res.code == 0) {
 						this.$http.toast("设置成功");
-						setTimeout(() => {
+						/* setTimeout(() => {
 							this.navBack();
-						},1000 * 2)
+						},1000 * 2) */
 					}else{
 						this.$http.toast(res.msg);
 					}

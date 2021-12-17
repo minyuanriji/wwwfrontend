@@ -2,7 +2,7 @@
 	import $bridge from './common/bridge.js';
 	export default {
 		onLaunch: function() {		
-			
+
 			//#ifdef H5
 			if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
 				
