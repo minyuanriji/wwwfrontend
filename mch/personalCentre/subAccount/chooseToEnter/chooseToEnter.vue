@@ -43,7 +43,7 @@
 			chooseMch(item){
 				uni.setStorageSync("x-sub-mch-id", item.id);
 				uni.navigateTo({
-					url:'/pages/personalCentre/personalCentre'
+					url:'../../personalCentre'
 				})
 			},
 			loadMchs(){
