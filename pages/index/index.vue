@@ -161,8 +161,14 @@
 		<!-- 版权 -->
 		<view style="height: 100rpx;"></view>
 		<!-- 导航栏 -->
+		<!-- #ifdef H5||MP-WEIXIN   -->
 		<main-tabbar v-if='modelSHOw'></main-tabbar>
+		<!--#endif -->	
+		<!-- #ifdef APP-PLUS  -->
+		<main-tabbar></main-tabbar>
+		<!--#endif -->	
 		<!-- 导航栏 -->
+		
 		<!-- <navigator url="../business-card/client/index">跳转名片</navigator> -->
 	</view>
 </template>

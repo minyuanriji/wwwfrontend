@@ -162,9 +162,7 @@
 				}).then(res => {
 					if (res.code == 0) {
 						this.$http.toast("设置成功");
-						/* setTimeout(() => {
-							this.navBack();
-						},1000 * 2) */
+						this.getBaseInfo();
 					}else{
 						this.$http.toast(res.msg);
 					}
@@ -232,21 +230,6 @@
 					return
 				}
 				 this.$refs.verify.show();
-				// this.$http.request({
-				// 	url: this.$api.moreShop.settleMessage,
-				// 	method: 'POST',
-				// 	showLoading: true,
-				// 	data:this.form
-				// }).then(res => {
-				// 	if (res.code == 0) {
-				// 		this.$http.toast("设置成功");
-				// 		setTimeout(() => {
-				// 			this.navBack();
-				// 		},1000 * 2)
-				// 	}else{
-				// 		this.$http.toast(res.msg);
-				// 	}
-				// })
 			}
 		}
 		

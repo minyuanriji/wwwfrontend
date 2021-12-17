@@ -223,6 +223,7 @@
 </script>
 
 <style>
+	@import url("../../plugins/font-icon/iconfont1.css");
 	page {
 		color: #333;
 		background: #fff;
