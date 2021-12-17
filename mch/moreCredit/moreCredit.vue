@@ -2,10 +2,10 @@
 	<view class="moreCreadit-app">
 		<view class="moreCreadit_header">
 			<view class="text">
-				<input type="text" v-model="form.mobile" placeholder="请输入电话号码" @input="_input" />
+				<input type="text" v-model="form.mobile" placeholder="请输入电话号码" @focus="_input" />
 				<image :src="img_url+'delete_error.png'" mode="" style="width: 30rpx;height: 30rpx;
 				display: block;position: absolute;right: 30rpx;top: 25rpx;z-index: 999;" @click.stop="deleteint"
-				 v-if="mobileShow"></image>
+				 v-if="form.mobile.length>0&&mobileShow"></image>
 			</view>
 			<!-- #ifdef APP-PLUS || MP -->
 				<image :src="plugins_img_url+'/phonwcontance.png'" mode="" style="display: block;width: 60rpx;height: 60rpx;position: absolute;right: 40rpx;top: 70rpx;"
@@ -231,7 +231,6 @@
 		methods: {
 			evFunc(data){
 				this.$refs.popup.close()
-			    console.log(data)
 				this.form.mobile=data.phone
 			},
 			getPhonelist(){//获取手机通讯录
@@ -274,24 +273,11 @@
 				});
 				  // #endif
 			},
-			
-			
-			
-			
 			_input(){
-				if (isEmpty(this.form.mobile)){
-					this.mobileShow=false
-				}else{
-					this.mobileShow=true
-				}
+				this.mobileShow=true
 			},
 			deleteint(){//删除输入号码
 				this.form.mobile=''
-				if (isEmpty(this.form.mobile)){
-					this.mobileShow=false
-				}else{
-					this.mobileShow=true
-				}
 			},
 			getSendNum(val){
 				if(this.typeIndex == 0){
