@@ -162,7 +162,9 @@
 				}).then(res => {
 					if (res.code == 0) {
 						this.$http.toast("设置成功");
-						this.getBaseInfo();
+						setTimeout(()=>{
+							this.getBaseInfo();
+						},1000)
 					}else{
 						this.$http.toast(res.msg);
 					}
