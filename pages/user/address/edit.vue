@@ -130,7 +130,6 @@
 					numberSHOw:false,
 					detailedSHOw:false,
 				},
-				flag:false
 			}
 		},
 		onLoad(options) {
@@ -256,7 +255,6 @@
 					];
 
 				})
-				this.flag=true
 			},
 			deleteAddress() { //删除地址
 				var that = this;
@@ -363,7 +361,6 @@
 				})
 			},
 			picker(e) {
-				if(!flag)return
 				let value = e.detail.value;
 				if (this.selectList.length > 0) {
 					this.provice = this.selectList[value[0]].name; //获取省
