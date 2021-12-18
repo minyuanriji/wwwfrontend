@@ -73,6 +73,10 @@
 					</view>
 				</view>
 			</view>
+			<!--加载loadding-->
+			<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
+			<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
+			<!--加载loadding-->
 		</view>
 	</view>
 </template>
@@ -100,7 +104,9 @@
 					sort_by: '',
 					distance: '',
 					page: 1,
-				}
+				},
+				loadding: false,
+				pullUpOn: true,
 			};
 		},
 		onLoad(options) {
@@ -139,7 +145,6 @@
 						url: this.$api.moreShop.getshoplistall,
 						method: 'POST',
 						data: this.datas,
-						showLoading: true
 					})
 					.then(res => {
 						if (res.code == 0) {
@@ -148,6 +153,7 @@
 							var arr = this.shopList.concat(list)
 							this.shopList = arr
 							this.page_count = res.data.pagination.page_count;
+							this.pullUpOn = true;
 						} else {
 							this.$http.toast(res.msg);
 						}
@@ -181,7 +187,11 @@
 			},
 		},
 		onReachBottom() {
+			this.loadding = true;
+			this.pullUpOn = true;
 			if (this.datas.page == this.page_count) {
+				this.loadding = false;
+				this.pullUpOn = false;
 				return false;
 			}
 			this.datas.page = this.datas.page + 1

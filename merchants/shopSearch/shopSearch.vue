@@ -64,6 +64,10 @@
 					</view>
 				</view>
 			</view>
+			<!--加载loadding-->
+			<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
+			<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
+			<!--加载loadding-->
 		</view>
 		<view class="shop_table_list" v-if="show">
 			<view class="logo" style="width: 350rpx;height: 300rpx;margin: 100rpx auto;">
@@ -112,6 +116,8 @@
 				page_count: 0, //总页数
 				shopList: [],
 				show: '',
+				loadding: false,
+				pullUpOn: true,
 			}
 		},
 		onLoad(options) {
@@ -187,7 +193,6 @@
 						url: this.$api.moreShop.getshoplistall,
 						method: 'POST',
 						data: this.form,
-						showLoading: true
 					}).then(res => {
 						this.loading = false;
 						if (res.code == 0) {
@@ -200,6 +205,7 @@
 							var arr = this.shopList.concat(list)
 							this.shopList = arr
 							this.page_count = res.data.pagination.page_count;
+							this.pullUpOn = true;
 						} else {
 							this.$http.toast(res.msg);
 						}
@@ -213,7 +219,11 @@
 
 		},
 		onReachBottom() {
+			this.loadding = true;
+			this.pullUpOn = true;
 			if (this.form.page == this.page_count) {
+				this.loadding = false;
+				this.pullUpOn = false;
 				return false;
 			}
 			this.form.page = this.form.page + 1
