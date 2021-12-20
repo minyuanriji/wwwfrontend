@@ -1564,7 +1564,7 @@
 			"root": "mch",
 			"pages": [
 				{
-					"path": "live/live",
+					"path": "lives/live",
 					"style": {
 						"navigationBarTitleText": "直播",
 						"navigationBarBackgroundColor": "#fff"
