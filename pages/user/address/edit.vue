@@ -207,6 +207,9 @@
 			},
 			
 			getCity() { //请求省市区数据
+				uni.showLoading({
+					title: '加载中'
+				});
 				this.$http.request({
 					url: this.$api.user.addressInfo,
 					method: 'post',
@@ -253,6 +256,9 @@
 						this.toArr(this.selectList[0].children),
 						this.toArr(this.selectList[0].children[0].children)
 					];
+					setTimeout(function () {
+					    uni.hideLoading();
+					}, 1000);
 
 				})
 			},
@@ -337,7 +343,6 @@
 			detailAddress() { //地址详情接口
 				this.$http.request({
 					url: this.$api.user.addressDetail,
-					showLoading: true,
 					data: {
 						id: this.id
 					}
