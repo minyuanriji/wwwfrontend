@@ -258,7 +258,7 @@
 					];
 					setTimeout(function () {
 					    uni.hideLoading();
-					}, 1000);
+					}, 1500);
 
 				})
 			},
