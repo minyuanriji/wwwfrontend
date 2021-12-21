@@ -107,12 +107,6 @@
 				description:''
 			};
 		},
-		onLoad(options) {
-			// this.beforeOnLoad(options);
-			// this.store_id=options.store_id
-			// this.getDetail(options.store_id)
-			// this.gethotgoods(this.page,options.store_id)
-		},
 		onShow() {
 			let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
 			let curRoute = routes[routes.length - 1].route //获取当前页面路由
