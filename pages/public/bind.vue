@@ -67,6 +67,8 @@
 			}
 			if(uni.getStorageSync('pid')){
 				this.dataForm.recommend_id = uni.getStorageSync('pid')
+			}else{
+				this.dataForm.recommend_id = uni.getStorageSync('user_id')
 			}
 			if(uni.getStorageSync('mall_config')){
 				this.textColor = this.globalSet('textCol');
@@ -130,7 +132,7 @@
 							.then(res => {
 								if (res.code == 0) {
 									let userMessage=res.data
-									if(userMessage.parent_id>0){
+									if(userMessage.parent_id>1){									
 										uni.redirectTo({
 											url
 										})
