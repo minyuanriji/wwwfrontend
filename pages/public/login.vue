@@ -170,7 +170,6 @@
 								key
 							} = res.data;
 							access_token = access_token.trim();
-
 							// 判断 access_token 是否存在 并且 判断 系统是否开启了全网通
 							if (!access_token.length && config.all_network_enable == 1) {
 								// 开启了全网通 并且 access_token 跳转到 绑定手机号的页面
