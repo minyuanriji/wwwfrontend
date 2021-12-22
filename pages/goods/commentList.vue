@@ -142,11 +142,6 @@
 				})
 			}, 50)
 		},
-		//用户点击分享
-		onShareAppMessage(e) {
-			return this.wxShare("补商汇名片", "/pages/goods/detail?source=3");
-		},
-		
 		// 这里有计算属性
 		computed: {
 			isReceive() {

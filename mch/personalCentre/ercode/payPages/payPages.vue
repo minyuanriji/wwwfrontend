@@ -34,29 +34,10 @@
 			};
 		},
 	
-		onLoad(options) {		
-
-			// this.beforeOnLoad(options);
-			// // #ifdef MP-WEIXIN
-			// 	uni.setStorageSync('pid',options.pid)	
-			// // #endif 
-			// this.id=options.id
-			// this.$http.request({
-			// 			url: this.$api.moreShop.getshopnewdetail,
-			// 			method: 'POST',
-			// 			data:{mch_id:this.id,store_id:0},
-			// 			showLoading: true
-			// 		}).then(res => {
-			// 			if(res.code==0){
-			// 				this.message=res.data.detail
-			// 			}
-			// })
-		},
-		onShow() {
-			let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
-			let curRoute = routes[routes.length - 1].route //获取当前页面路由
-			let curParam = routes[routes.length - 1].options; //获取路由参数
-			this.id=curParam.id
+		onLoad(options) {
+			this.beforeOnLoad(options);
+			uni.setStorageSync('pid',options.pid)
+			this.id=options.id
 			this.$http.request({
 						url: this.$api.moreShop.getshopnewdetail,
 						method: 'POST',
@@ -67,11 +48,7 @@
 							this.message=res.data.detail
 						}
 			})
-			if(curParam.pid){
-				uni.setStorageSync("pid",curParam.pid)
-			}
-		},
-		
+		},	
 		methods:{
 			sure(){
 				if(this.num.length<=0){

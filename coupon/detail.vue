@@ -542,18 +542,6 @@
 		onShow() {
 			this.getCartList();
 		},
-		//用户点击分享
-		onShareAppMessage(e) {
-			//#ifdef MP-WEIXIN
-			return this.wxShare(this.goodsData.name, `/coupon/detail?source=3&proId=${this.proId}`);
-			return {
-				title: this.goodsData.name, //标题
-				path: '/coupon/detail?source=3&proId=' + this.proId + '&pid=' + uni.getStorageSync("userInfo") ? JSON
-					.parse(uni.getStorageSync("userInfo")).user_id : 0,
-				imageUrl: ""
-			}
-			//#endif
-		},
 		computed: {
 			isReceive() {
 				return function(val) {
