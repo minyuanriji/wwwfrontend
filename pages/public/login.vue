@@ -174,7 +174,7 @@
 							if (!access_token.length && config.all_network_enable == 1) {
 								// 开启了全网通 并且 access_token 跳转到 绑定手机号的页面
 								uni.redirectTo({
-									url: `/pages/public/bind?key=${key}&user_id=` + this.user_id
+									url: `/pages/public/bind?key=${key}&user_id=` + this.user_id								
 								});
 								return;
 							}
