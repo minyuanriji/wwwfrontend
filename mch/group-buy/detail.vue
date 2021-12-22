@@ -264,34 +264,6 @@
 		 * */
 		
 		
-		//用户点击分享
-		onShareAppMessage(e) {
-			// this.$http.request({
-			// 	url:this.$api.plugin.business.add_track,
-			// 	method:'post',
-			// 	data:{
-			// 		track_user_id:this.detail_data.user_id,
-			// 		model_id:this.detail_data.id,
-			// 		track_type: 5
-			// 	}
-			// })
-			try {
-				//获取到用户id
-				let userInfo = uni.getStorageSync('userInfo');
-				let pid = '';
-				if(userInfo){
-					pid = userInfo.user_id;	
-				}
-				return this.wxShare("补商汇名片",`/mch/group-buy/detail?is_share=1&detailId=${this.detailId}&goods_id=${this.goods_id}&pid=${pid}`);
-			} catch (e) {
-			    // error
-			}
-			
-			
-		},
-		
-		
-		
 		methods: {
 			
 			// 0.1 一键复制链接

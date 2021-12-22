@@ -467,12 +467,6 @@
 			});
 			return; */
 		},
-
-		
-		//用户点击分享
-		onShareAppMessage(e) {
-			return this.wxShare("补商汇", "/pages/index/index?source=1");
-		},
 		methods: {
 			getmyLOcation() {
 				let that = this				

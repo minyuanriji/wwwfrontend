@@ -920,21 +920,6 @@ export default {
 	//页面上拉触底
 	onReachBottom() {},
 	//用户点击分享
-	onShareAppMessage(e) {
-		console.log(this.videoList,'videoList');
-		return;
-		this.$http.request({
-			url:this.$api.plugin.video.share_video,
-			method:'post',
-			data:{
-				video_id:this.videoList[this.swiperIndex].id
-			}
-		}).then(res =>{
-			console.log(res)
-		})
-		
-		return this.wxShare("短视频",`/plugins/short-video/index?video_id=${this.videoList[this.swiperIndex].id}&share_user_id=${this.userInfo_storage.user_id}`);
-	}
 };
 </script>
 <style lang="scss" scoped>

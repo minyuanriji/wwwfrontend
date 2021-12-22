@@ -343,10 +343,6 @@ export default {
 		this.getVideo('','init'); //请求视频列表数据
 		// this.getLableList();//请求所有标签
 	},
-	//用户点击分享
-	onShareAppMessage(e) {
-	  return this.wxShare("短视频","/plugins/short-video/index");
-	},
 	//页面显示
 	onShow() {
 		// 隐藏原生的tabbar
@@ -743,19 +739,6 @@ export default {
 	onPullDownRefresh() {},
 	//页面上拉触底
 	onReachBottom() {},
-	//用户点击分享
-	onShareAppMessage(e) {
-		this.$http.request({
-			url:this.$api.plugin.video.share_video,
-			method:'post',
-			data:{
-				video_id:this.videoList[this.swiperIndex].id
-			}
-		}).then(res =>{
-			console.log(res)
-		})
-		return this.wxShare();
-	}
 };
 </script>
 <style lang="scss" scoped>
