@@ -34,9 +34,11 @@
 			};
 		},
 	
-		onLoad(options) {
+		onLoad(options) {		
 			this.beforeOnLoad(options);
-			uni.setStorageSync('pid',options.pid)
+			if(options.pid){
+				uni.setStorageSync("pid",options.pid)
+			}
 			this.id=options.id
 			this.$http.request({
 						url: this.$api.moreShop.getshopnewdetail,
@@ -48,8 +50,23 @@
 							this.message=res.data.detail
 						}
 			})
-		},	
+		},
+		onShow() {
+			this.getCartList()
+		},		
 		methods:{
+			getCartList() { //获取购物车列表
+				this.$http.request({
+					url: this.$api.cart.list,
+					method: 'GET'
+				}).then((res) => { 
+					if(res.code==0){
+					
+					}else{
+						
+					}
+				})
+			},	
 			sure(){
 				if(this.num.length<=0){
 					this.$http.toast("金额不能为空")
