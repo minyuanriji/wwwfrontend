@@ -10,6 +10,7 @@ export default {
 		let url = curPage.$route.fullPath;
 		return url.substring(1,url.length);
 	},
+	
 	//判断是否在微信中  
 	isWechat: function() {
 		var ua = window.navigator.userAgent.toLowerCase();
@@ -46,7 +47,28 @@ export default {
 				if (callback) {
 					callback(sdk);
 				}
-
+				jweixin.ready(function() {
+				   jweixin.hideMenuItems({
+				       menuList: [
+						   "menuItem:share:appMessage",
+						   "menuItem:share:timeline",
+						   "menuItem:share:qq",
+						   "menuItem:share:weiboApp",
+						   "menuItem:favorite",
+						   "menuItem:share:facebook",
+						   "menuItem:share:QZone",
+						   "menuItem:editTag",
+						   "menuItem:delete",
+						   "menuItem:copyUrl",
+						   "menuItem:originPage",
+						   "menuItem:readMode",
+						   "menuItem:openWithQQBrowser",
+						   "menuItem:openWithSafari",
+						   "menuItem:share:email",
+						   "menuItem:share:brand"
+						   ] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮
+				   });
+				});
 			}
 
 		});
