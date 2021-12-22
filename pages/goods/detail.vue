@@ -570,6 +570,14 @@
 		},
 		onShow() {
 			this.getCartList();
+			
+			let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
+			let curRoute = routes[routes.length - 1].route //获取当前页面路由
+			let curParam = routes[routes.length - 1].options; //获取路由参数
+			if(curParam.pid) {
+				uni.setStorageSync("pid", curParam.pid);
+			}
+			
 		},
 		//用户点击分享
 		onShareAppMessage(e) {
@@ -1020,13 +1028,22 @@
 							})
 						}
 						//#ifdef H5
-						let link=window.location.href
-							var obj = {}
-								obj.app_share_title=res.data.goods.name,
-								obj.app_share_pic=res.data.goods.app_share_pic,
-								obj.app_share_desc=''
-							this.$wechatSdk.initShareUrl(obj,link);								
+						this.$wechatSdk.share("pages/goods/detail?proId="+this.proId, {
+							app_share_title: res.data.goods.name,
+							app_share_desc: res.data.product,
+							app_share_pic: res.data.goods.cover_pic,
+						});	
 						//#endif
+						
+			
+						
+						
+						
+						
+						
+						
+						
+						
 						if(this.goodsData.video_url){
 							this.bannerLength = this.goodsData.pic_list.length + 1;
 						}else{

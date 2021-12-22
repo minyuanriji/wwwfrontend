@@ -107,11 +107,16 @@
 				description:''
 			};
 		},
-		onLoad(options) {
-			this.beforeOnLoad(options);
-			this.store_id=options.store_id
-			this.getDetail(options.store_id)
-			this.gethotgoods(this.page,options.store_id)
+		onShow() {
+			let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
+			let curRoute = routes[routes.length - 1].route //获取当前页面路由
+			let curParam = routes[routes.length - 1].options; //获取路由参数
+			this.store_id=curParam.store_id
+			this.getDetail(curParam.store_id)
+			this.gethotgoods(this.page,curParam.store_id)
+			if(curParam.pid){
+				uni.setStorageSync("pid",curParam.pid)
+			}
 		},
 		methods:{
 			getDetail(store_id){ //获取商户详情

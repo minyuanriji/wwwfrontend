@@ -144,7 +144,7 @@
 					uni.navigateTo({
 						url:'/pages/user/bindUser/bindUser?pid=' + options.query.pid
 					});
-				}, 500);
+				}, 1000);
 			}
 			// #endif
 	

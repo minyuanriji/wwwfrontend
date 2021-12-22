@@ -112,7 +112,27 @@ export default {
 					
 					
 					if(this.form == 'login'){
-						uni.navigateBack();
+						// uni.navigateBack();
+						this.$http
+							.request({
+								url: this.$api.user.userInfo,
+								method: 'POST',
+								showLoading: true
+							})
+							.then(res => {
+								if (res.code == 0) {
+									let userMessage=res.data
+									if(userMessage.parent_id>1){
+										uni.navigateBack();
+									}else{
+										uni.navigateTo({
+											url:'./bindParent'
+										})	
+									}		
+								}
+							});	
+						
+						
 					}else{
 						uni.redirectTo({
 							url:'/pages/order/submit'

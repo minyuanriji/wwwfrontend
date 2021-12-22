@@ -1562,7 +1562,15 @@
 			]
 		}, {
 			"root": "mch",
-			"pages": [{
+			"pages": [
+				{
+					"path": "lives/live",
+					"style": {
+						"navigationBarTitleText": "直播",
+						"navigationBarBackgroundColor": "#fff"
+					}
+				},
+				{
 					"path": "personalCentre/personalCentre",
 					"style": {
 						"navigationBarTitleText": "商户中心",
