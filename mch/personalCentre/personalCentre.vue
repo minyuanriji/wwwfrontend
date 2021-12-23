@@ -301,11 +301,16 @@
 					method: 'POST',
 					showLoading: true,
 					data: {
+						// #ifdef H5||APP-PLUS
 						route: 'merchants/detail/detail?store_id='+ that.store.id,
+						// #endif
+						// #ifdef MP-WEIXIN
+						route: 'merchants/detail/detail',
+						store_id:that.store.id
+						// #endif
 					}
 				}).then(res => {
 					if (res.code == 0) {
-						console.log(res)
 						that.poster_url = res.data.pic_url;
 						that.loading = false;
 					}
