@@ -306,7 +306,7 @@
 						// #endif
 						// #ifdef MP-WEIXIN
 						route: 'merchants/detail/detail',
-						store_id:that.store.id
+						sid:that.store.id
 						// #endif
 					}
 				}).then(res => {
