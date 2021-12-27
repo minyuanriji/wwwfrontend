@@ -71,6 +71,7 @@
 								<view class="tui-price-right">
 									<view>￥{{gItem.unit_price}}</view>
 									<view>x{{gItem.num}}</view>
+									<view style="margin-top: 30rpx;" v-if="showType.use_score>0">需积分：{{its.forehead_score}}</view>
 								</view>
 							</view>
 						</tui-list-cell>
