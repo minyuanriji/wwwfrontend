@@ -4,6 +4,10 @@
 		<!-- 背景图，可自定义 -->
 		<view class="cart-bg" :style="{background:'url('+bg_url+')'}"></view>
 		<view class="mainContent">
+			<view v-if="auth_pay" style="color:gray;font-size:26rpx;display:flex;flex-direction: column;align-items: center;background: rgba(255, 255, 255, 1);margin-bottom:30rpx;border-radius:10rpx;padding:20rpx 20rpx;">
+				<text>授权支付</text>
+				<view style="word-break: break-word;word-spacing: normal;">{{auth_token}}</view>
+			</view>
 			<view class="up">
 				<view class="balance">
 					<text>账户余额:</text>
@@ -73,28 +77,67 @@
 				navBg:'',
 				navCol:'',
 				goods_id : '',
+				auth_pay: false,
+				auth_token: '',
+				order_id: ''
 			}
 		},
 		onLoad(options) {
+			
 			if(options.goods_id){
 				this.goods_id = options.goods_id;
 			}
-			this.textColor = this.globalSet('textCol');
-			this.bg_url = this.globalSet('imgUrl');
-			this.navBg = this.globalSet('navBg');
-			this.navCol = this.globalSet('navCol');
+			
+			let that = this, timer = setInterval(function(){
+				if(uni.getStorageSync('mall_config')){
+					that.textColor = that.globalSet('textCol');
+					that.bg_url    = that.globalSet('imgUrl');
+					that.navBg     = that.globalSet('navBg');
+					that.navCol    = that.globalSet('navCol');
+					clearInterval(timer);
+				}
+			}, 500);
 			
 			this.token = options.token;
 			this.queue_id = options.queue_id;
-			let orderId = options.orderId ? options.orderId : '';
-			// 拿到支付信息
-			this.getPayData(orderId);
+			this.order_id = options.orderId ? options.orderId : '';
+			
 			// 加多一个是否为拼团支付的标记
 			if(options.is_index){
 				this.is_index = 1;
 				this.active_id = options.active_id;
 			}
 			
+			/* if(options.auth && this.token){
+				this.auth_pay = true;
+				this.$http.request({
+					url: this.$api.default.check_auth,
+					showLoading: true,
+					data: {
+						user_auth: options.auth,
+						order_token: this.token
+					},
+					method:"POST"
+				}).then((res) => {
+					if (res.code == 0) {
+						uni.setStorageSync("token", options.auth);
+					}else{
+						that.$http.toast(res.msg);
+					}
+					// 拿到支付信息
+					that.getPayData(orderId);
+				})
+				return;
+			} */
+			// 拿到支付信息
+			if(!uni.getStorageSync("auth_pay")){
+				if(this.token){
+					this.getPayData(this.order_id);
+				}
+			}else{
+				this.auth_pay = true;
+				this.auth_token = uni.getStorageSync("auth_token");
+			}
 		},
 		methods: {
 			back() {
@@ -113,6 +156,8 @@
 				}).then((res) => {
 					if (res.code == 0) {
 						this.payData = res.data;
+					}else{
+						this.$http.toast(res.msg)
 					}
 				})
 			},
