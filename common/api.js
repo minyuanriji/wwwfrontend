@@ -36,6 +36,7 @@ let api = {
 	
 	
 	default: {
+		check_auth: api_root+'api/identity/check-auth',
 		login: api_root + 'api/identity/login',
 		mini_login: api_root + 'api/identity/mini-login',
 		wxLogin: api_root + 'api/identity/auth-login',
