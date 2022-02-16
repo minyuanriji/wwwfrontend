@@ -109,9 +109,16 @@
 		},
 		onLoad(options) {
 			this.beforeOnLoad(options);
-			this.store_id=options.store_id
-			this.getDetail(options.store_id)
-			this.gethotgoods(this.page,options.store_id)
+			if(options.store_id){
+				this.store_id=options.store_id
+				this.getDetail(options.store_id)
+				this.gethotgoods(this.page,options.store_id)
+			}
+			if(options.sid){
+				this.store_id=options.sid
+				this.getDetail(options.sid)
+				this.gethotgoods(this.page,options.sid)
+			}
 			if(options.pid){
 				uni.setStorageSync("pid",options.pid)
 			}
