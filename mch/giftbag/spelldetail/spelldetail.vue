@@ -125,15 +125,15 @@
 				<view class="giftbagDetail-service" v-if="detail.allow_currency=='integral'">
 					<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
 						<view class="jx-cell-header" style="height: 80rpx;">
-							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用红包支付</view>
+							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">需使用金豆支付</view>
 						</view>
 						<view class="jx-cell-header" style="margin-left: 350rpx;color: #FF5A0E;height: 80rpx;">
-							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">{{moneyMessage.integral_deduction_price}}红包</view>
+							<view class="jx-cell-title" style="font-size: 28rpx;line-height: 80rpx;margin-left: 20rpx;">{{moneyMessage.integral_deduction_price}}金豆</view>
 						</view>
 					</jx-list-cell>		
 				</view>
 				<view class="popup-bottom"  v-if="detail.allow_currency=='integral'">
-					<text>剩余红包：{{moneyMessage.user_integral}}</text>
+					<text>剩余金豆：{{moneyMessage.user_integral}}</text>
 					<text @click="buy">去支付</text>
 				</view>
 				<view class="giftbagDetail-service" v-if="detail.allow_currency=='money'">
@@ -678,7 +678,7 @@
 				}	
 			},
 			payMoney(group_id,trade_pwd){ //支付
-				if(this.detail.allow_currency=='integral'){ //红包支付
+				if(this.detail.allow_currency=='integral'){ //金豆支付
 					this.$http.request({
 						url: this.$api.package.payMoneybag,
 						method: 'POST',

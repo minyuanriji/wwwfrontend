@@ -82,9 +82,9 @@
 						<text v-if="item.distance_unit=='m'">米</text>
 					</view>
 					<view class="hotel-item-right-notice">
-						<text>红包当钱花</text>
+						<text>金豆当钱花</text>
 						<text>消毒保障</text>
-						<text>现金消费送购物券</text>
+						<text>现金消费送红包</text>
 					</view>
 					<view class="hotel-item-right-money">
 						<text style="font-size: 26rpx;color:#FF7104;">￥</text>

@@ -119,7 +119,7 @@ export const globalSet = function(str,val='重新申请'){
 		return JSON.parse(uni.getStorageSync('mall_config')).global_color.global_text_color;
 	}else if(str == 'imgUrl'){	
 		return JSON.parse(uni.getStorageSync('mall_config')).top_pic_url;
-	}else if(str == 'couponImg'){	//购物券背景图
+	}else if(str == 'couponImg'){	//红包背景图
 		return JSON.parse(uni.getStorageSync('mall_config')).global_color.coupon_pic_url;
 	}else if(str == 'navBg'){	//tabBar背景色
 		return JSON.parse(uni.getStorageSync('mall_config')).navbar.top_background_color;

@@ -147,37 +147,13 @@
 			if(options.referrerInfo){
 				let referrerInfo = options.referrerInfo;
 				if(referrerInfo.extraData && referrerInfo.extraData.auth && referrerInfo.extraData.token){
-					let that = this, jumpToPay = function(){
-						uni.removeStorageSync("auth_pay");
-						uni.removeStorageSync("auth_token");
-						let url = '/pages/order/pay?token=' + referrerInfo.extraData.token;
-						setTimeout(function(){
-							uni.setStorageSync("token", referrerInfo.extraData.auth);
-							uni.redirectTo({
-								url: url
-							});
-						}, 500);
-					};
-					uni.setStorageSync("auth_pay", 1);
-					uni.setStorageSync("auth_token", JSON.stringify(referrerInfo.extraData));
-					if(referrerInfo.extraData.auth != uni.getStorageSync("token")){
-						uni.removeStorageSync("token");
-						this.$http.request({
-							url: this.$api.default.check_auth,
-							showLoading: true,
-							data: {
-								user_auth: referrerInfo.extraData.auth,
-								order_token: referrerInfo.extraData.token
-							},
-							method:"POST"
-						}).then((res) => {
-							if (res.code == 0) {
-								jumpToPay();
-							}
-						})
-					}else{
-						jumpToPay();
-					}
+					uni.removeStorageSync("token");
+					let url = '/pages/order/pay?token=' + referrerInfo.extraData.token;
+					setTimeout(function(){
+						uni.redirectTo({
+							url: url
+						});
+					}, 500);
 				}else{
 					uni.removeStorageSync("auth_pay");
 					uni.removeStorageSync("auth_token");

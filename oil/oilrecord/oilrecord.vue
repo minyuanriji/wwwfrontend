@@ -9,7 +9,7 @@
 			<view class="oilrecord_item" v-for="(item,index) in list" :key='index'>
 				<view style="display: flex;justify-content: space-evenly;flex-wrap: wrap;width: 70%;">
 					<text style="display: block;width: 100%;font-size: 30rpx;">{{item.order_price}}加油券</text>
-					<text style="display: block;width: 100%;font-size: 26rpx;margin: 10rpx 0;color: red;">{{item.pay_price}}现金+{{item.integral_deduction_price}}红包</text>
+					<text style="display: block;width: 100%;font-size: 26rpx;margin: 10rpx 0;color: red;">{{item.pay_price}}现金+{{item.integral_deduction_price}}金豆</text>
 					<text style="display: block;width: 100%;font-size: 26rpx;">{{item.created_at}}</text>
 				</view>
 				<view style="width: 30%;text-align: right;line-height: 140rpx;">

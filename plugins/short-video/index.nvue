@@ -13,7 +13,7 @@
 				</view>
 			</view>
 		</view>
-		<!-- 红包 -->
+		<!-- 金豆 -->
 		<view class="redEnvelope" v-if="is_show_winBox">
 			<view class="left red-item">
 				<view class="red-item-cir red-item-left" :style="{transform:'rotate('+leftRotate+'deg)'}"></view>
@@ -331,8 +331,8 @@ export default {
 			videoList:[], //短视频列表
 			video_page_count:0,//视频列表总页数
 			shop_list:[],//购买记录(轮播图)
-			is_show_win:false, //是否显示浮窗里面的红包
-			is_show_winBox:false, //是否展示红包浮窗
+			is_show_win:false, //是否显示浮窗里面的金豆
+			is_show_winBox:false, //是否展示金豆浮窗
 			is_attention:false,// 关注按钮
 			popupShow: false,// 底部弹窗
 			rewardData:'',// 看完视频得到的奖励
@@ -1448,7 +1448,7 @@ export default {
 		}
 	}
 	
-	// 红包浮窗
+	// 金豆浮窗
 	.redEnvelope{
 		width: 120rpx;
 		height: 120rpx;

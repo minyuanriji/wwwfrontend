@@ -18,7 +18,7 @@
 		<view class="bonusDetail_list">
 			<view class="bonusDetail_item" v-for="(item,index) in list" :key='index'>
 				<view class="bonusDetail_item_left">
-					<text>补商汇红包</text>
+					<text>补商汇金豆</text>
 					<text>{{item.awards_cycle}}奖金池到账</text>
 				</view>
 				<view class="bonusDetail_item_right">

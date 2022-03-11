@@ -55,7 +55,7 @@
 					<view style="line-height: 100rpx;color: rgb(255,129,71);">￥{{price}}</view>
 				</view>
 				<view class="use-points" v-if="previewDetail.user_integral>0">
-					<view style="color: #000;">使用红包 <view class="xieti" style="font-size: 18rpx;color: #666;">拥有红包：{{previewDetail.user_integral}}
+					<view style="color: #000;">使用金豆 <view class="xieti" style="font-size: 18rpx;color: #666;">拥有金豆：{{previewDetail.user_integral}}
 						<text class="text" v-if="is_checked" style="font-style: oblique;color: #F53939;margin-left: 20rpx;padding-right: 10rpx;">-{{previewDetail.integral_deduction_price}}</text>
 					</view>
 					</view>
@@ -92,7 +92,7 @@
 				form:{ //请求的参数
 					mobile:'',//电话
 					product_id:'',//产品ID
-					use_integral:1,//是否使用红包  使用红包：0否，1是
+					use_integral:1,//是否使用金豆  使用金豆：0否，1是
 					lng:'',
 					lat:'',
 				},

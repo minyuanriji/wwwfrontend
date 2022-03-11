@@ -301,8 +301,8 @@ export default {
 			// 进度条
 			leftRotate:-224,
 			rightRotate:-135,
-			is_show_win:false, //是否显示浮窗里面的红包
-			is_show_winBox:false, //是否展示红包浮窗
+			is_show_win:false, //是否显示浮窗里面的金豆
+			is_show_winBox:false, //是否展示金豆浮窗
 			// 关注按钮
 			is_attention:false,
 			// 底部弹窗
@@ -1219,7 +1219,7 @@ export default {
 		}
 	}
 	
-	// 红包浮窗
+	// 金豆浮窗
 	.redEnvelope{
 		width: 120rpx;
 		height: 120rpx;

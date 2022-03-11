@@ -87,7 +87,7 @@
 				</view>
 				<tui-list-cell :hover="false">
 					<view class="tui-padding tui-flex" >
-						<view>需要购物券</view>
+						<view>需要红包</view>
 						<view :style="{color: '#FF7104'}">+&yen;{{list[0].if_shopping_voucher_need_total_num}}</view>
 					</view>
 				</tui-list-cell>
@@ -100,7 +100,7 @@
 				</tui-list-cell>
 				<tui-list-cell :hover="false">
 					<view class="tui-padding tui-flex" >
-						<view>购物券抵扣</view>
+						<view>红包抵扣</view>
 						<view :style="{color: '#FF7104'}">-&yen;{{shopping_voucher.decode_price}}</view>
 					</view>
 				</tui-list-cell>
@@ -131,9 +131,9 @@
 			</view>
 			<view class="use-points flex flex-y-center flex-x-between">
 				<view>
-					使用购物券 
+					使用红包 
 					<view class="xieti">
-						拥有购物券：{{shopping_voucher.total}} 
+						拥有红包：{{shopping_voucher.total}} 
 						<text class="text">-{{shopping_voucher.use_num}}</text>
 					</view>
 				</view>
@@ -147,7 +147,7 @@
 			<scroll-view scroll-y="true" style="max-height: 1000rpx;">
 				<view class="coupon-box">
 					<view class="coupon-title2">
-						红包
+						金豆
 						<view class="coupon-icon iconfont icon-guanbi" @tap="hidePopup"></view>
 					</view>
 					<view style="height: 120rpx"></view>
@@ -207,16 +207,16 @@
 			<view class="popupShare-deyail">
 				<image src="https://www.mingyuanriji.cn/web//uploads/images/original/20210904/b10b715ea147d5b447a52735f42fbfc0.jpg" mode=""
 				style="width: 120rpx;height: 120rpx;display: block;margin: 0 auto 40rpx;"></image>
-				<view style="margin-bottom: 60rpx;text-align: center;color: #9C9C9C;font-size: 30rpx;">购物券不足了~</view>
-				<button type="default" style="width: 60%;margin: 0 auto;line-height: 70rpx;font-size: 30rpx;background: #FF7104;color: #fff;border-radius: 30rpx;" @click="earncoupons">去赚购物券</button>
+				<view style="margin-bottom: 60rpx;text-align: center;color: #9C9C9C;font-size: 30rpx;">红包不足了~</view>
+				<button type="default" style="width: 60%;margin: 0 auto;line-height: 70rpx;font-size: 30rpx;background: #FF7104;color: #fff;border-radius: 30rpx;" @click="earncoupons">去赚红包</button>
 			</view>
 		</unipopup>
 		<unipopup ref="popupShareok" type="center">
 			<view class="popupShare-deyail">
 				<image src="https://www.mingyuanriji.cn/web//uploads/images/original/20210904/b10b715ea147d5b447a52735f42fbfc0.jpg" mode=""
 				style="width: 120rpx;height: 120rpx;display: block;margin: 0 auto 10rpx;"></image>
-				<view style="margin-bottom: 10rpx;text-align: center;font-size: 30rpx;">购物券消耗确认</view>
-				<view style="margin-bottom: 30rpx;text-align: center;color: #9C9C9C;font-size: 26rpx;height: 76rpx;padding: 0 10rpx;">需要扣减{{shopping_voucher.use_num}}购物券,确认兑换此商品吗？</view>
+				<view style="margin-bottom: 10rpx;text-align: center;font-size: 30rpx;">红包消耗确认</view>
+				<view style="margin-bottom: 30rpx;text-align: center;color: #9C9C9C;font-size: 26rpx;height: 76rpx;padding: 0 10rpx;">需要扣减{{shopping_voucher.use_num}}红包,确认兑换此商品吗？</view>
 				<view style="width: 100%;overflow: hidden;display: flex;justify-content: space-between;">
 					<button type="default" style="width: 45%;margin: 0 auto;line-height: 70rpx;font-size: 30rpx;background:  #9C9C9C;color: #fff;border-radius: 30rpx;" @click="canclePoup">残忍放弃</button>
 					<button type="default" style="width: 45%;margin: 0 auto;line-height: 70rpx;font-size: 30rpx;background: #FF7104;color: #fff;border-radius: 30rpx;" @click="convertSure">立即兑换</button>
@@ -284,9 +284,9 @@
 				shopping_voucher: {
 					use: true,
 					enable: false,
-					total: 0, //用户拥有购物券
-					remaining: 0, //用户剩余购物券
-					decode_price: 0, //使用购物券抵扣掉的钱
+					total: 0, //用户拥有红包
+					remaining: 0, //用户剩余红包
+					decode_price: 0, //使用红包抵扣掉的钱
 					use_num:0 //使用了多少抵扣券
 				},
 				
@@ -410,9 +410,9 @@
 						this.shopping_voucher={
 							is_use: true,
 							enable: res.data.shopping_voucher.enable,
-							total:res.data.shopping_voucher.total, //用户拥有购物券
-							remaining: res.data.shopping_voucher.remaining, //用户剩余购物券
-							decode_price: res.data.shopping_voucher.decode_price, //使用购物券抵扣掉的钱
+							total:res.data.shopping_voucher.total, //用户拥有红包
+							remaining: res.data.shopping_voucher.remaining, //用户剩余红包
+							decode_price: res.data.shopping_voucher.decode_price, //使用红包抵扣掉的钱
 							use_num:res.data.shopping_voucher.use_num//使用了多少抵扣券
 						}
 					} else {
@@ -570,7 +570,7 @@
 					this.form.list = curParam.list
 				this.getData(); //重新获取订单详情
 			},
-			// 使用购物券
+			// 使用红包
 			useShoppingVoucher(e) {
 				this.price = 0;
 				this.shopping_voucher.is_use = e.detail.value;
@@ -691,14 +691,14 @@
 						}
 
 
-						//购物券处理
+						//红包处理
 						/**
 						 shopping_voucher: {
 						 	is_use: false,
 						 	enable: true,
-						 	total: 0, //用户拥有购物券
-						 	remaining: 0, //用户剩余购物券
-						 	decode_price: 0, //使用购物券抵扣掉的钱
+						 	total: 0, //用户拥有红包
+						 	remaining: 0, //用户剩余红包
+						 	decode_price: 0, //使用红包抵扣掉的钱
 						 	use_num:0 //使用了多少抵扣券
 						 },
 						 */

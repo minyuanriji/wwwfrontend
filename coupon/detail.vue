@@ -73,7 +73,7 @@
 					</view>
 				</view>
 				<view  style="width: 100%;height: 50rpx;line-height: 50rpx;padding: 0 30rpx;font-size: 30rpx;color: red;">
-					需使用<text style="margin: 0 10rpx;">{{goodsData.shopping_voucher.voucher_price}}</text>购物券
+					需使用<text style="margin: 0 10rpx;">{{goodsData.shopping_voucher.voucher_price}}</text>红包
 				</view>
 				<view class="tui-pro-titbox">
 					<view class="tui-pro-title">
@@ -192,7 +192,7 @@
 			<view class="tui-operation-right tui-right-flex tui-col-7 tui-btnbox-4">
 				<view class="jx-btn" style="height: 80%;background:#FF7104;border-radius: 100rpx;"
 					@click="showPopup(2)">
-					用购物券下单
+					用红包下单
 				</view>
 			</view>
 		</view>

@@ -98,7 +98,7 @@
 			<view class="pay-poup">
 				<image :src="img_url+'/hotel/paySuccess.png'" mode=""></image>
 				<view>恭喜你</view>
-				<view>红包支付成功</view>
+				<view>金豆支付成功</view>
 			</view>
 		</uni-popup>
 	</view>

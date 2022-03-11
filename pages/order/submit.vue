@@ -136,7 +136,7 @@
 
 
 			<view class="use-points flex flex-y-center flex-x-between" v-if="showType.use_red_envelopes>0">
-				<view>使用红包 <view class="xieti">拥有红包：{{user_integral}} <text class="text"
+				<view>使用金豆 <view class="xieti">拥有金豆：{{user_integral}} <text class="text"
 							v-if="is_integral">-{{total_integral_use}}</text></view>
 				</view>
 				<switch :checked="is_integral" @change="useIntegral" color='#FF7104' class="points-switch" />
@@ -145,9 +145,9 @@
 			
 			<view class="use-points flex flex-y-center flex-x-between" v-if="showType.use_shopping_voucher>0">
 				<view>
-					使用购物券 
+					使用红包 
 					<view class="xieti">
-						拥有购物券：{{shopping_voucher.total}} 
+						拥有红包：{{shopping_voucher.total}} 
 						<text class="text" v-if="shopping_voucher.is_use">-{{shopping_voucher.use_num}}</text>
 					</view>
 				</view>
@@ -155,7 +155,7 @@
 			</view>
 			<view class="use-points" style="overflow: hidden;line-height: 60rpx;" v-if="got_shopping_voucher_num>0">
 				<image :src="plugins_img_url+'/new_red_bags.png'" mode="aspectFill" style="display: block;float: left;width: 60rpx;height: 60rpx;margin:0 30rpx;"></image>
-				确认收货完成，即可获得<text style="color: red;margin: 0 3rpx;">{{got_shopping_voucher_num}}</text>购物券
+				确认收货完成，即可获得<text style="color: red;margin: 0 3rpx;">{{got_shopping_voucher_num}}</text>红包
 			</view>
 		</view>
 
@@ -165,7 +165,7 @@
 			<scroll-view scroll-y="true" style="max-height: 1000rpx;">
 				<view class="coupon-box">
 					<view class="coupon-title2">
-						红包
+						金豆
 						<view class="coupon-icon iconfont icon-guanbi" @tap="hidePopup"></view>
 					</view>
 					<view style="height: 120rpx"></view>
@@ -278,9 +278,9 @@
 				shopping_voucher: {
 					is_use: true,
 					enable: false,
-					total: 0, //用户拥有购物券
-					remaining: 0, //用户剩余购物券
-					decode_price: 0, //使用购物券抵扣掉的钱
+					total: 0, //用户拥有红包
+					remaining: 0, //用户剩余红包
+					decode_price: 0, //使用红包抵扣掉的钱
 					use_num:0 //使用了多少抵扣券
 				},
 				
@@ -505,7 +505,7 @@
 					this.form.list = curParam.list
 				this.getData(); //重新获取订单详情
 			},
-			// 使用购物券
+			// 使用红包
 			useShoppingVoucher(e) {
 				this.price = 0;
 				this.shopping_voucher.is_use = e.detail.value;
@@ -626,14 +626,14 @@
 						}
 
 
-						//购物券处理
+						//红包处理
 						/**
 						 shopping_voucher: {
 						 	is_use: false,
 						 	enable: true,
-						 	total: 0, //用户拥有购物券
-						 	remaining: 0, //用户剩余购物券
-						 	decode_price: 0, //使用购物券抵扣掉的钱
+						 	total: 0, //用户拥有红包
+						 	remaining: 0, //用户剩余红包
+						 	decode_price: 0, //使用红包抵扣掉的钱
 						 	use_num:0 //使用了多少抵扣券
 						 },
 						 */

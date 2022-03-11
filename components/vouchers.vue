@@ -22,7 +22,7 @@
 					</view>
 					<view class="send" style="position: relative;">
 						<view class="send_imag"></view>
-						<text style="font-size: 27rpx;position: absolute;top: 11rpx;left: 80rpx;color: #fff;">{{item.got_shopping_voucher_num}}购物券</text>	
+						<text style="font-size: 27rpx;position: absolute;top: 11rpx;left: 80rpx;color: #fff;">{{item.got_shopping_voucher_num}}红包</text>	
 					</view>
 				</view>
 		</view>
@@ -37,8 +37,8 @@
 			return {
 				tupe:[
 					"热门推荐",
-					"全网送红包",
-					"红包兑换"
+					"全网送金豆",
+					"金豆兑换"
 				],
 				secIndex:0,
 			};

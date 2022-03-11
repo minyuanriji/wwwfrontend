@@ -98,11 +98,11 @@
 			<view class="check_in_message_form">
 				<view>
 					<text>促销优惠</text>
-					<text style="width:450rpx ;color: #EF4A1A;">红包全额抵扣</text>
+					<text style="width:450rpx ;color: #EF4A1A;">金豆全额抵扣</text>
 				</view>
 			</view>
 			<view class="use-points flex flex-y-center flex-x-between" v-if="privewMessage.user_total_integral>0">
-				<view>使用红包 <view class="xieti">拥有红包：{{privewMessage.user_total_integral}} 
+				<view>使用金豆 <view class="xieti">拥有金豆：{{privewMessage.user_total_integral}} 
 				<text class="text" v-if="is_checked">-{{privewMessage.integral_deduction_price}}</text>
 				</view>
 				</view>
@@ -129,7 +129,7 @@
 			<view class="pay-poup">
 				<image :src="img_url+'/hotel/paySuccess.png'" mode=""></image>
 				<view>恭喜你</view>
-				<view>红包支付成功</view>
+				<view>金豆支付成功</view>
 			</view>
 		</uni-popup>
 		
@@ -181,7 +181,7 @@
 			}			
 		},
 		methods:{
-			// 使用红包
+			// 使用金豆
 			use(e) {
 				console.log(e.detail.value)
 				this.is_checked=e.detail.value
@@ -315,7 +315,7 @@
 					start_date:this.form.start_date,//起始日期 (0000-00-00)
 					days:this.form.days,//预订天数
 					num:this.form.num,//房间数量
-					use_integral:this.form.use_integral,//是否使用红包
+					use_integral:this.form.use_integral,//是否使用金豆
 					arrive_date:this.form.arrive_date,//到达日期（0000-00-00 00:00）
 					passengers:JSON.stringify(this.form.passengers),//入住人信息
 				}

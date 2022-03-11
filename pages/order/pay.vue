@@ -129,6 +129,8 @@
 				})
 				return;
 			} */
+		},
+		onShow() {
 			// 拿到支付信息
 			if(!uni.getStorageSync("auth_pay")){
 				if(this.token){

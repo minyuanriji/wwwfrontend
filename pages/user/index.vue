@@ -66,11 +66,11 @@
 				</view>
 				<view class="jx-btm-item last" @click="openUrl('redBag')">
 					<view class="jx-btm-num">{{ Number(userInfo.dynamic_integral)+Number(userInfo.static_integral) }}</view>
-					<view class="jx-btm-text">红包</view>
+					<view class="jx-btm-text">金豆</view>
 				</view>
 				<view class="jx-btm-item last" @click="openUrl('shopping_voucher')">
 					<view class="jx-btm-num">{{ Number(userInfo.shopping_voucher)}}</view>
-					<view class="jx-btm-text">购物券</view>
+					<view class="jx-btm-text">红包</view>
 				</view>
 			</view>
 			

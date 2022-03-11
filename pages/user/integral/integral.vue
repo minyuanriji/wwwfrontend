@@ -137,11 +137,11 @@
 						type:'total_score'
 					},
 					{
-						name:'红包',
+						name:'金豆',
 						type:'redBag'
 					},
 					{
-						name:'购物券',
+						name:'红包',
 						type:'shopping_voucher'
 					},
 					{

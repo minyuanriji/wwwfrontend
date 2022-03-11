@@ -193,13 +193,13 @@
 			<!-- <view class="tui-operation-right tui-right-flex tui-col-7 tui-btnbox-4">
 				<view class="jx-btn" style="height: 80%;background:#FF7104;border-radius: 100rpx;"
 					@click="showPopup(2)">
-					用购物券下单
+					用红包下单
 				</view>
 			</view> -->
 			<view class="tui-operation-right tui-right-flex tui-col-7 tui-btnbox-4">
 				<view class="jx-btn" style="height: 80%;background:#FF7104;border-radius: 100rpx;"
 					@click="buyGoods">
-					用购物券下单
+					用红包下单
 				</view>
 			</view>
 		</view>
@@ -669,7 +669,7 @@ white-space: nowrap;;width:30%;margin-top: 10rpx;margin-right: 30rpx;font-size: 
 			showattribute(){ //点击展示属性
 				this.$refs.popupattribute.open()
 			},
-			buyGoods(){//用购物券下单
+			buyGoods(){//用红包下单
 				this.popupShow=true
 			},
 			sureBtn(){//跳转到订单预览

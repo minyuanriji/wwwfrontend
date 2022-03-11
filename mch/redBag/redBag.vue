@@ -54,7 +54,7 @@
 					<view class="price flex flex-x-between">
 						<view v-if="item.type==1">收入：<text :style="{color: '#FF7104'}">{{item.integral}}</text></view>
 						<view v-if="item.type==2">支出：<text :style="{color: '#FF7104'}">{{item.integral}}</text></view>
-						<view>剩余红包： <text :style="{color: '#FF7104'}">{{item.current_integral}}</text> </view>
+						<view>剩余金豆： <text :style="{color: '#FF7104'}">{{item.current_integral}}</text> </view>
 					</view>
 					<view class="explanation">
 						说明：{{item.desc}}
@@ -174,11 +174,11 @@
 						type:'total_score'
 					},
 					{
-						name:'红包',
+						name:'金豆',
 						type:'redBag'
 					},
 					{
-						name:'购物券',
+						name:'红包',
 						type:'shopping_voucher'
 					},
 					{
@@ -194,7 +194,7 @@
 		},
 		onLoad(options) {
 			if(options&&options.name=='redBag'){
-				this.asseText="红包"
+				this.asseText="金豆"
 				this.selectassetIndex=2
 			}
 			if (uni.getStorageSync('mall_config')) {

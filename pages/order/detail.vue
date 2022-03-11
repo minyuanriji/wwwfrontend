@@ -175,15 +175,15 @@
 							<view class="jx-price">- ¥{{detail.score_deduction_price}}</view>
 						</view>
 						<view class="jx-price-flex  jx-size24">
-							<view>红包</view>
+							<view>金豆</view>
 							<view class="jx-price">- ¥{{detail.coupon_discount_price}}</view>
 						</view>
 						<view class="jx-price-flex  jx-size24" v-if="false">
-							<view>红包</view>
+							<view>金豆</view>
 							<view class="jx-price">¥0.00</view>
 						</view>
 						<view class="jx-price-flex  jx-size24">
-							<view>购物券</view>
+							<view>红包</view>
 							<view class="jx-price">- ¥{{detail.shopping_voucher_use_num}}</view>
 						</view>
 						<view class="jx-price-flex  jx-size24" v-if="messageShow">

@@ -25,7 +25,7 @@
 							<text style="color:rgb(255, 113, 4);font-size: 25rpx;">元</text>
 						</view>
 						<view style="font-size: 25rpx;color: #9E9E9E;">
-							送{{getSendNum(item.price)}}购物券
+							送{{getSendNum(item.price)}}红包
 						</view>
 					</view>
 				</view>
@@ -47,13 +47,13 @@
 					2：充值72小时内到账，月初稍慢一些
 				</view>
 				<view v-if="typeIndex==0">
-					3：快充赠送充值金额30%购物券
+					3：快充赠送充值金额30%红包
 				</view>
 				<view v-if="typeIndex==1">
-					3：新用户第一次充值送100%购物券，每个用户第一次送购物券上限100，超过上限部分赠送订单金额50%购物券
+					3：新用户第一次充值送100%红包，每个用户第一次送红包上限100，超过上限部分赠送订单金额50%红包
 				</view>
 				<view>
-					4：红包充值不返购物券
+					4：金豆充值不返红包
 				</view>
 				<view>
 					5：如对本次充值相关内容有疑问,请联系客服
@@ -140,7 +140,7 @@
 						style="height: 80rpx;width: 90%;margin: 0 auto;border-bottom: 1rpx solid #F8FAF9;">
 						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: left;">需支付</view>
 						<view class="jx-cell-title"
-							style="line-height: 80rpx;font-size: 30rpx;float: right;margin-right: 30rpx;color: rgb(255, 113, 4);">{{redbag}}红包</view>
+							style="line-height: 80rpx;font-size: 30rpx;float: right;margin-right: 30rpx;color: rgb(255, 113, 4);">{{redbag}}金豆</view>
 					</view>
 				</jx-list-cell>
 				<view class="sumbit" v-if="current==0">
@@ -193,8 +193,8 @@
 					name: '现金支付'
 					}, 
 					{
-					value: '红包支付',
-					name: '红包支付'
+					value: '金豆支付',
+					name: '金豆支付'
 					},
 				],
 				current: 0, //支付选择
@@ -204,11 +204,11 @@
 					integral_deduction_price:'',
 					product_id:"",
 					plateform_id: "",
-					pay_type:2,//1  现金 2红包
+					pay_type:2,//1  现金 2金豆
 				},
 				creditStatusList:{},//充值记录
 				order_id:'',//订单ID
-				redbag:'',//红包
+				redbag:'',//金豆
 				type:[],
 				typeIndex:0,//tabble的切换样式
 				moneyList:'',//快充和慢充的详情
@@ -527,8 +527,8 @@
 									name: '现金支付'
 								},
 								{
-									value: '红包支付',									
-									name: '红包支付'
+									value: '金豆支付',									
+									name: '金豆支付'
 								}
 							]
 						}else{

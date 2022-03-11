@@ -8,15 +8,15 @@
 				</block>
 				<view class="coupon-item-left">
 					<view class="item-money">¥<text>{{item.integral_num|parseInt}}</text>.00</view>
-					<view class="item-name">红包</view>
+					<view class="item-name">金豆</view>
 				</view>
 				<view class="coupon-item-right">
 					<view class="item-title">{{item.desc}}</view>
 					<view class="item-plan">
-						发放计划：送{{item.period}}{{item.period_unit=='month'?'月':'周'}}，每{{item.period_unit=='month'?'个月':'周'}}送{{item.integral_num}}红包，
+						发放计划：送{{item.period}}{{item.period_unit=='month'?'月':'周'}}，每{{item.period_unit=='month'?'个月':'周'}}送{{item.integral_num}}金豆，
 						<!-- 永久无需渲染有效期 -->
 						<text v-if="item.type!=1">有效期{{item.effective_days}}天</text>
-						已发放：{{item.finish_period}}{{item.period_unit=='month'?'个月':'周'}}   {{alreadyIntegral(item.finish_period,item.integral_num)}}红包 
+						已发放：{{item.finish_period}}{{item.period_unit=='month'?'个月':'周'}}   {{alreadyIntegral(item.finish_period,item.integral_num)}}金豆 
 					</view>
 				</view>
 			</view>
@@ -33,7 +33,7 @@
 			return {
 				list:[],
 				status_list : [],	//发放状态
-				type_list : [],		//购物券类型
+				type_list : [],		//红包类型
 				page:1,
 				is_no_more:false,	//假设有更多数据
 				queryFlag : true,	//默认是可以发起请求
@@ -100,7 +100,7 @@
 					title:'加载中'
 				})
 				this.$http.request({
-					url:this.$api.user.integral_plan,	//购物券发放计划
+					url:this.$api.user.integral_plan,	//红包发放计划
 					method: 'POST',
 					data:{
 						page:this.page,

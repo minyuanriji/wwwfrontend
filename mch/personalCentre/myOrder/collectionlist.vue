@@ -62,7 +62,7 @@
 						<view style="float: right;" v-if='status==1'>
 							<text>实付：</text>
 							<text style="color: red;">{{item.pay_price}}现金</text>	
-							<text style="color: red;" v-if="Number(item.integral_deduction_price)>0">+{{item.integral_deduction_price}}红包</text>
+							<text style="color: red;" v-if="Number(item.integral_deduction_price)>0">+{{item.integral_deduction_price}}金豆</text>
 							<text style="color: red;" v-if="Number(item.score_deduction_price)>0">+{{item.score_deduction_price}}积分</text>
 						</view>
 					</view>

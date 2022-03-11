@@ -49,7 +49,7 @@
 				</view>
 				<view class="hotel-orderLis-item-count">
 					<text>共{{item.booking_num}}间 合计：</text>
-					<text>{{item.pay_price}}现金+{{item.integral_deduction_price}}红包</text>
+					<text>{{item.pay_price}}现金+{{item.integral_deduction_price}}金豆</text>
 				</view>
 				<view class="hotel-orderLis-statusDetail">
 					<text v-if="item.is_payable==1">去支付</text>				

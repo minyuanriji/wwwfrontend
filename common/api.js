@@ -1,12 +1,12 @@
 // 正式服务器
-// let api_host = "https://www.mingyuanriji.cn";
+let api_host = "https://www.mingyuanriji.cn";
 
 // 测试服务器
-let api_host = "https://dev.mingyuanriji.cn";
+//let api_host = "https://dev.mingyuanriji.cn";
 
 
 // 本地服务器
-//let api_host = "http://local.mingyuanriji.cn";
+、、let api_host = "http://local.mingyuanriji.cn";
 
 
 let api_root 		= api_host + '/web/index.php?r=';
@@ -62,11 +62,11 @@ let api = {
 		verification:api_root + 'api/clerkCenter/clerk/get-logs', //核销记录
 		verificationProgress:api_root +'api/clerkCenter/clerk/do-clerk', //核销
 		getOrdercodestatus:api_root +'api/clerkCenter/clerk/detail' ,//核销进度
-	//------------------------------------------------------------------------红包
+	//------------------------------------------------------------------------金豆
 		getredbagList:api_root +'api/integral/integral-list' ,//核销进度
 	},
-	vouchers:{ //购物券
-		getvouchersList:api_root +'plugin/shopping_voucher/api/user/log' ,//购物券记录
+	vouchers:{ //红包
+		getvouchersList:api_root +'plugin/shopping_voucher/api/user/log' ,//红包记录
 	},
 	app:{
 		version_info: api_root + 'plugin/bsh_app/api/version/detail' 
@@ -78,8 +78,8 @@ let api = {
 		getCatList:api_root + 'plugin/taolijin/api/goods/cat-list', //获取淘礼金商品分类
 		bindSpecialId:api_root + 'plugin/taolijin/api/auth/bind-ali-special-id', //获取淘礼金商品分类
 		getgoodsDetail:api_root + 'plugin/taolijin/api/goods/detail', //获取淘礼金商品详情
-		exchange: api_root + 'plugin/taolijin/api/exchange/integral-to-lj', //红包兑换礼金接口
-		getUrl: api_root + 'plugin/taolijin/api/exchange/get-url', //红包兑换礼金接口
+		exchange: api_root + 'plugin/taolijin/api/exchange/integral-to-lj', //金豆兑换礼金接口
+		getUrl: api_root + 'plugin/taolijin/api/exchange/get-url', //金豆兑换礼金接口
 		getClassify: api_root + 'plugin/alibaba/api/distribution/get-category', //获取1688分类列表
 		getHomegoods: api_root + 'plugin/alibaba/api/distribution/search-goods', //获取1688点击分类变换商品
 		getDetail: api_root + 'plugin/alibaba/api/distribution/detail', //获取1688点击分类变换商品
@@ -329,16 +329,16 @@ let api = {
 		
 		
 		
-		// 购物券、积分券接口
-		integral_center: api_root + 'api/integral/center',	//购物券、积分券管理列表
-		//integral_recharge: api_root + 'api/integral/recharge',	//购物券、积分券充值
+		// 红包、积分券接口
+		integral_center: api_root + 'api/integral/center',	//红包、积分券管理列表
+		//integral_recharge: api_root + 'api/integral/recharge',	//红包、积分券充值
 		score_integral_recharge: api_root + 'plugin/integral_card/api/card/recharge',	//积分券充值
-		shopping_integral_recharge: api_root + 'plugin/recharge_card/api/card/recharge',//购物券充值
-		integral_plan: api_root + 'api/integral/plan',	//购物券、积分券发放计划
-		integral_deduct_list: api_root + 'api/integral/deduct-list',	//有效购物券、积分券详情
-		//integral_recharge_record: api_root + 'api/integral/recharge-record',	//购物券充值卡列表
+		shopping_integral_recharge: api_root + 'plugin/recharge_card/api/card/recharge',//红包充值
+		integral_plan: api_root + 'api/integral/plan',	//红包、积分券发放计划
+		integral_deduct_list: api_root + 'api/integral/deduct-list',	//有效红包、积分券详情
+		//integral_recharge_record: api_root + 'api/integral/recharge-record',	//红包充值卡列表
 		score_integral_recharge_record: api_root + 'plugin/integral_card/api/card/recharge-record',		//积分券充值卡列表
-		shopping_integral_recharge_record: api_root + 'plugin/recharge_card/api/card/recharge-record',	//购物券充值卡列表
+		shopping_integral_recharge_record: api_root + 'plugin/recharge_card/api/card/recharge-record',	//红包充值卡列表
 		
 		my_integral_card: api_root + 'plugin/integral_card/api/card/my-integral', // 我的积分卡券
 		my_shopping_card: api_root + 'plugin/recharge_card/api/card/my-recharge', // 我的购物卡券
@@ -481,6 +481,7 @@ let api = {
 		editeroom:api_root +'plugin/hotel/api/user-center/save-order-resident',
 	},
 	merchants:{
+		applyEasy: api_root +'plugin/mch/api/apply/easy',
 		Fillbasic: api_root +'plugin/mch/api/apply/basic',
 		Filllicense: api_root +'plugin/mch/api/apply/license',
 		getapplyInfo: api_root +'plugin/mch/api/apply/info',

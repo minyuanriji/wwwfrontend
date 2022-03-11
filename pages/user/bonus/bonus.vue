@@ -27,7 +27,7 @@
 						</view>
 						<view class="bonus_type_item_num">
 							<text>{{item.money}}</text>
-							<text>现金红包</text>
+							<text>现金金豆</text>
 						</view>
 					</view>
 					<view class="bonus_type_item">
@@ -36,7 +36,7 @@
 						</view>
 						<view class="bonus_type_item_num">
 							<text>{{money_count}}</text>
-							<text>现金红包</text>
+							<text>现金金豆</text>
 						</view>
 					</view>
 			</view>	
@@ -48,7 +48,7 @@
 			<view class="bonus_message_my_list">
 				<view class="bonus_message_my_item" v-for="(item,index) in bonus_log" :key='index'>
 					<view class="bonus_message_my_item-left">
-						<text>补商会红包</text>
+						<text>补商会金豆</text>
 						<text>{{item.awards_cycle}}奖金池到账</text>
 					</view>
 					<view class="bonus_message_my_item-right">

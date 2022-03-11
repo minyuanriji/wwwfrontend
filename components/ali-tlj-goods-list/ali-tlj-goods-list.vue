@@ -49,7 +49,7 @@
 						</view>
 						<view class="send" style="position: relative;">
 							<view class="send_imag"></view>
-							<text style="font-size: 27rpx;position: absolute;top: 11rpx;left: 80rpx;color: #fff;">999购物券</text>
+							<text style="font-size: 27rpx;position: absolute;top: 11rpx;left: 80rpx;color: #fff;">999红包</text>
 						</view>
 					</view>
 				</template>

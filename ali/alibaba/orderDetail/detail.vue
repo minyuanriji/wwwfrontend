@@ -170,16 +170,16 @@
 							<view class="jx-price">- ¥{{alidetail.score_deduction_price}}</view>
 						</view> -->
 					<!-- 	<view class="jx-price-flex  jx-size24">
-							<view>红包</view>
+							<view>金豆</view>
 							<view class="jx-price">- ¥{{alidetail.coupon_discount_price}}</view>
 						</view> -->
 					<!-- 	<view class="jx-price-flex  jx-size24" v-if="false">
-							<view>红包</view>
+							<view>金豆</view>
 							<view class="jx-price">¥0.00</view>
 						</view> -->
 						<!--
 						<view class="jx-price-flex  jx-size24">
-							<view>购物券</view> 
+							<view>红包</view> 
 							<view class="jx-price">- ¥{{alidetail.shopping_voucher_decode_price}}</view>
 						</view>
 						<view class="jx-price-flex  jx-size24">
@@ -187,12 +187,12 @@
 							<view class="jx-price">- ¥{{alidetail.express_original_price}}</view>
 						</view>
 						<view class="jx-price-flex  jx-size24" >
-							<view>购物券抵扣运费</view>
+							<view>红包抵扣运费</view>
 							<view class="jx-price">- ¥{{alidetail.shopping_voucher_express_use_num}}</view>
 						</view>
 						-->
 						<view class="jx-price-flex jx-size32 jx-border-top">
-							<view class="tui-flex-shrink">购物券</view>
+							<view class="tui-flex-shrink">红包</view>
 							<view class="jx-goods-price jx-primary-color" :style="{color:textColor}">
 								<view class="jx-size-24">-¥</view>
 								<view class="jx-price-large">{{alidetail.shopping_voucher_total_use_num}}</view>

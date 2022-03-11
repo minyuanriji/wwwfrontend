@@ -11,7 +11,7 @@
 			<view>
 				<text style="font-size: 28rpx;">预计10分钟内到账 请注意到账信息</text>
 				<!-- <text style="font-size: 28rpx;" v-if="order_status=='processing'">预计10分钟内到账 请注意到账信息</text>
-				<text style="font-size: 28rpx;" v-if="order_status=='fail'">红包已经原路返回</text> -->
+				<text style="font-size: 28rpx;" v-if="order_status=='fail'">金豆已经原路返回</text> -->
 			</view>
 			<view>
 				<button type="default" @click="linkTo">确定</button>

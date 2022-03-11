@@ -33,7 +33,7 @@
 			return {
 				list:[],
 				status_list : [],	//发放状态
-				type_list : [],		//购物券类型
+				type_list : [],		//红包类型
 				page:1,
 				is_no_more:false,	//假设有更多数据
 				queryFlag : true,	//默认是可以发起请求
@@ -100,7 +100,7 @@
 					title:'加载中'
 				})
 				this.$http.request({
-					url:this.$api.user.integral_plan,	//购物券发放计划
+					url:this.$api.user.integral_plan,	//红包发放计划
 					method: 'POST',
 					data:{
 						page:this.page,

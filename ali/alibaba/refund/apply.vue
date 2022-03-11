@@ -42,7 +42,7 @@
 			
 			<view class="refund-info">
 				<view class="price">
-					<view>退购物券:</view>
+					<view>退红包:</view>
 					<view class="red" :style="{'--textColor':textColor}">¥{{ dataForm.refund_shopping_voucher_num }}</view>
 				</view>
 			</view>

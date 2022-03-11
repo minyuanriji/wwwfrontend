@@ -182,7 +182,7 @@
 		{
 			"path": "pages/user/shopping/myCard",
 			"style": {
-				"navigationBarTitleText": "我的红包",
+				"navigationBarTitleText": "我的金豆",
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
@@ -190,7 +190,7 @@
 		{
 			"path": "pages/user/shopping/shopping",
 			"style": {
-				"navigationBarTitleText": "红包",
+				"navigationBarTitleText": "金豆",
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
@@ -198,7 +198,7 @@
 		{
 			"path": "pages/user/shopping/rechargeCard",
 			"style": {
-				"navigationBarTitleText": "红包充值",
+				"navigationBarTitleText": "金豆充值",
 				"navigationBarBackgroundColor": "#FFFFFF",
 				"navigationBarTextStyle": "black"
 			}
@@ -442,6 +442,13 @@
 			}
 		}, {
 			"path": "pages/enter/enter",
+			"style": {
+				"navigationBarTitleText": "商家申请入驻",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black"
+			}
+		},  {
+			"path": "pages/enter/success",
 			"style": {
 				"navigationBarTitleText": "商家申请入驻",
 				"navigationBarBackgroundColor": "#FFFFFF",
@@ -875,7 +882,7 @@
 				{
 					"path": "alibaba/home/home",
 					"style": {
-						"navigationBarTitleText": "购物券区",
+						"navigationBarTitleText": "红包区",
 						"navigationBarBackgroundColor": "#F7F7F7",
 						"navigationBarTextStyle": "black",
 						"enablePullDownRefresh": false,
@@ -944,7 +951,7 @@
                     "path" : "alibaba/orderList/orderList",
                     "style" :                                                                                    
                 {
-                    "navigationBarTitleText": "购物券订单",
+                    "navigationBarTitleText": "红包订单",
                     "navigationBarBackgroundColor": "#F7F7F7",
                     "navigationBarTextStyle": "black",
                     "enablePullDownRefresh": false,
@@ -2190,7 +2197,7 @@
 				}, {
 					"path": "redBag/redBag",
 					"style": {
-						"navigationBarTitleText": "红包",
+						"navigationBarTitleText": "金豆",
 						"navigationBarBackgroundColor": "#FFFFFF",
 						"navigationBarTextStyle": "black"
 					}
@@ -2198,7 +2205,7 @@
 				}, {
 					"path": "vouchers/vouchers",
 					"style": {
-						"navigationBarTitleText": "购物券记录",
+						"navigationBarTitleText": "红包记录",
 						"enablePullDownRefresh": false
 					}
 

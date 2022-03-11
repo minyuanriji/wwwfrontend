@@ -78,11 +78,11 @@
 							</view>
 							<view v-if="showGoodsPrice == '1'" :style="{color:'#FF7104'}">
 							{{priceLabel}}&nbsp;{{item.price}}
-							<text style="font-size: 25rpx;color: red;transform: scale(0.83);display: inline-block;">红包</text>
+							<text style="font-size: 25rpx;color: red;transform: scale(0.83);display: inline-block;">金豆</text>
 							</view>
 							<view v-if="showGoodsLevelPrice == '1'" class="select1_level_price">
 							{{levelPriceLabel}}&nbsp;{{item.level_price}}
-							<text style="font-size: 25rpx;color: red;margin-left: 10rpx;">红包</text>
+							<text style="font-size: 25rpx;color: red;margin-left: 10rpx;">金豆</text>
 							</view>
 						</view>
 						<view v-if="styleShowBUY">
@@ -91,7 +91,7 @@
 							<view v-if="showGoodsLevelPrice == '1'" class="select1_level_price">{{levelPriceLabel}} &yen;{{item.level_price}}</view>
 							<view style="width: 100%;margin: 10rpx 20rpx;">
 								<text style="display: block;width: 220rpx;height: 60rpx;background: rgb(255,40,38);text-align: center;line-height: 60rpx;color: #fff;
-								border-radius: 30rpx;margin:  auto;">购物券兑换</text>
+								border-radius: 30rpx;margin:  auto;">红包兑换</text>
 							</view>
 						</view>				
 						<view v-if="buyBtns == 'pic'&&!styleShowBUY">
@@ -272,14 +272,14 @@
 		},
 		created() {
 			if(this.styleTitle){
-				if(this.styleTitle.indexOf('红包兑换专区')!=-1 ){
+				if(this.styleTitle.indexOf('金豆兑换专区')!=-1 ){
 					this.styleShow=true
 				}else{
 					this.styleShow=false
 				}
 			}
 			if(this.styleTitle){
-				if(this.styleTitle.indexOf('购物券兑换区')!=-1 ){
+				if(this.styleTitle.indexOf('红包兑换区')!=-1 ){
 					this.styleShowBUY=true
 				}else{
 					this.styleShowBUY=false
