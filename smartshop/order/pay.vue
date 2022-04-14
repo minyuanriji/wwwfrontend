@@ -1,9 +1,13 @@
 <template>
 	<view class="cart-root">
-		<com-nav-bar @clickLeft="back" left-icon="back" title="提交订单" :status-bar="true" :background-color="navBg" :border="false" :color="navCol"></com-nav-bar>
+		<com-nav-bar  title="提交订单" :status-bar="true" :background-color="navBg" :border="false" :color="navCol"></com-nav-bar>
 		<!-- 背景图，可自定义 -->
 		<view class="cart-bg" :style="{background:'url('+bg_url+')'}"></view>
 		<view class="mainContent">
+			<view v-if="auth_pay" style="color:gray;font-size:26rpx;display:flex;flex-direction: column;align-items: center;background: rgba(255, 255, 255, 1);margin-bottom:30rpx;border-radius:10rpx;padding:20rpx 20rpx;">
+				<text>授权支付</text>
+				<view style="word-break: break-word;word-spacing: normal;">{{auth_token}}</view>
+			</view>
 			<view class="up">
 				<view class="balance">
 					<text>账户余额:</text>
@@ -16,35 +20,33 @@
 					<view class="numbering">订单编号：{{payData.orderNo}}</view>
 				</view>
 			</view>
-			<view v-if="payData.amount>0">
-				<view class="down" v-if="payData.amount">
-					<view class="down-item" v-for="(item,index) in payData.supportPayTypes" :key="index">
-						<view class="item-left">
-							<image class="item-img" :src="img_url+'images/pay/'+item+'.png'" mode=""></image>
-							<text v-if="item == 'wechat'">微信支付</text>
-							<text v-if="item == 'alipay'">支付宝支付</text>
-							<text v-if="item == 'balance'">余额支付</text>
-						</view>
-						<view class="item-right-box" @tap="switchIcon(index)">
-							<view v-if="index == switchIndex" class="item-icon iconfont icon-dagou1" :style="{color:'#FF7104'}"></view>
-							<view v-else class="item-right"></view>
-						</view>
+			<view class="down" v-if="payData.amount">
+				<view class="down-item" v-for="(item,index) in payData.supportPayTypes" :key="index">
+					<view class="item-left">
+						<image class="item-img" :src="img_url+'images/pay/'+item+'.png'" mode=""></image>
+						<text v-if="item == 'wechat'">微信支付</text>
+						<text v-if="item == 'alipay'">支付宝支付</text>
+						<text v-if="item == 'balance'">余额支付</text>
+					</view>
+					<view class="item-right-box" @tap="switchIcon(index)">
+						<view v-if="switchIndex == index" class="item-icon iconfont icon-dagou1" :style="{color:'#FF7104'}"></view>
+						<view v-else class="item-right"></view>
 					</view>
 				</view>
-				<view class="down" v-else>
-					<view class="down-item">
-						<view class="item-left">
-							<image class="item-img" :src="img_url+'images/pay/'+'balance'+'.png'" mode=""></image>
-							<text>余额支付</text>
-						</view>
-						<view class="item-right-box">
-							<view class="item-icon iconfont icon-dagou1" :style="{color:'#FF7104'}"></view>
-						</view>
-					</view>
-				</view>
-				
-				<view class="confirmPay" @tap="confirmPay" :style="{background:'#FF7104'}">确认支付</view>
 			</view>
+			<view class="down" v-else>
+				<view class="down-item">
+					<view class="item-left">
+						<image class="item-img" :src="img_url+'images/pay/'+'balance'+'.png'" mode=""></image>
+						<text>余额支付</text>
+					</view>
+					<view class="item-right-box">
+						<view class="item-icon iconfont icon-dagou1" :style="{color:'#FF7104'}"></view>
+					</view>
+				</view>
+			</view>
+
+			<view class="confirmPay" @tap="confirmPay" :style="{background:'#FF7104'}">确认支付</view>
 		</view>
 	</view>
 </template>
@@ -75,79 +77,147 @@
 				navBg:'',
 				navCol:'',
 				goods_id : '',
-				order_no:'',
+				auth_pay: false,
+				auth_token: '',
+				order_id: ''
 			}
 		},
 		onLoad(options) {
-			if(options.order_no){
-				this.order_no = options.order_no;
-				this.getPayData(options.order_no);	
+			
+			if(options.goods_id){
+				this.goods_id = options.goods_id;
 			}
-			this.textColor = this.globalSet('textCol');
-			this.bg_url = this.globalSet('imgUrl');
-			this.navBg = this.globalSet('navBg');
-			this.navCol = this.globalSet('navCol');
-			// 拿到支付信息		
+			
+			let that = this, timer = setInterval(function(){
+				if(uni.getStorageSync('mall_config')){
+					that.textColor = that.globalSet('textCol');
+					that.bg_url    = that.globalSet('imgUrl');
+					that.navBg     = that.globalSet('navBg');
+					that.navCol    = that.globalSet('navCol');
+					clearInterval(timer);
+				}
+			}, 500);
+			
+			this.token = options.token;
+			this.queue_id = options.queue_id;
+			this.order_id = options.orderId ? options.orderId : '';
+			
+			// 加多一个是否为拼团支付的标记
+			if(options.is_index){
+				this.is_index = 1;
+				this.active_id = options.active_id;
+			}
+			
+			/* if(options.auth && this.token){
+				this.auth_pay = true;
+				this.$http.request({
+					url: this.$api.default.check_auth,
+					showLoading: true,
+					data: {
+						user_auth: options.auth,
+						order_token: this.token
+					},
+					method:"POST"
+				}).then((res) => {
+					if (res.code == 0) {
+						uni.setStorageSync("token", options.auth);
+					}else{
+						that.$http.toast(res.msg);
+					}
+					// 拿到支付信息
+					that.getPayData(orderId);
+				})
+				return;
+			} */
+		},
+		onShow() {
+			// 拿到支付信息
+			if(!uni.getStorageSync("auth_pay")){
+				if(this.token){
+					this.getPayData(this.order_id);
+				}
+			}else{
+				this.auth_pay = true;
+				this.auth_token = uni.getStorageSync("auth_token");
+			}
 		},
 		methods: {
 			back() {
 				this.navBack();
 			},
-			getPayData(order_no) {
+			// 获取支付信息
+			getPayData(id) {
 				this.$http.request({
-					url: this.$api.hotel.getpaywaite,
+					url: this.$api.order.toPay,
 					showLoading: true,
 					data: {
-						order_no:order_no
+						token: this.token || '',
+						queue_id: this.queue_id || '',
+						id
 					}
 				}).then((res) => {
 					if (res.code == 0) {
 						this.payData = res.data;
-						let that=this
-						if(this.payData .amount==0){
-							that.$http.request({
-								url: that.$api.moreShop.balancepay,
-								showLoading: true,
-								method: 'post',
-								data: {
-									union_id: that.payData.union_id,
-								}
-							}).then(res=>{
-								if(res.code==0){
-									that.$http.toast('支付成功!');
-										setTimeout(() => {
-											// #ifdef APP-PLUS
-												uni.navigateTo({
-													url:'/mch/hotel/orderswaiting/orderswaiting?order_no='+this.order_no
-												})
-											// #endif
-											// #ifdef H5||MP-WEIXIN
-												uni.redirectTo({
-													url:'/mch/hotel/orderswaiting/orderswaiting?order_no='+this.order_no
-												})
-											// #endif
-										},2000)
-									return;
-								}else{
-									that.$http.toast(res.msg)
-								}
-							})
-						}else{
-							let i;
-							for(i=0; i < this.payData.supportPayTypes.length; i++){
-								if(this.payData.supportPayTypes[i] == 'wechat'){
-									this.switchIndex = i;
-									break;
-								}
+						let i;
+						for(i=0; i < this.payData.supportPayTypes.length; i++){
+							if(this.payData.supportPayTypes[i] == 'wechat'){
+								this.switchIndex = i;
+								break;
 							}
 						}
+					}else{
+						this.$http.toast(res.msg)
 					}
 				})
 			},
 			// 请求支付接口
 			confirmPay(){
 				let that = this;
-				if(that.payData.supportPayTypes[that.switchIndex]=='alipay'){
+				if(that.payData.amount==0){
+					that.$http.request({
+						url: that.$api.moreShop.balancepay,
+						showLoading: true,
+						method: 'post',
+						data: {
+							union_id: that.payData.union_id,
+						}
+					}).then(res=>{
+						if(res.code==0){
+							that.$http.toast('支付成功!');
+							if(that.payData.is_send==1){
+								setTimeout(() => {
+									// #ifdef APP-PLUS
+										uni.navigateTo({
+											url: '/pages/order/beused/beused'
+										})
+									// #endif
+									// #ifdef H5||MP-WEIXIN
+										uni.redirectTo({
+											url: '/pages/order/beused/beused'
+										})
+									// #endif
+								},500)
+							}else{
+								setTimeout(() => {
+									// #ifdef APP-PLUS
+										uni.navigateTo({
+											url: '/pages/order/list?status=1'
+										})
+									// #endif
+									// #ifdef H5||MP-WEIXIN
+										uni.redirectTo({
+											url: '/pages/order/list?status=1'
+										})
+									// #endif
+								},500)
+							}
+							return;
+						}else{
+							that.$http.toast(res.msg)
+						}
+					})
+				}else{
+					if(that.payData.supportPayTypes[that.switchIndex]=='alipay'){
 							that.$http.request({
 								url: that.$api.moreShop.alipay,
 								showLoading: true,
@@ -157,21 +227,21 @@
 								}
 							}).then(res=>{
 								if(res.code==0){
-										// #ifdef APP-PLUS
+									// #ifdef APP-PLUS
 											uni.navigateTo({
 												url: '/pages/order/alipayWeb?url=' + res.data.codeUrl
 											})
-										// #endif
-										 // #ifdef H5
-										let url=res.data.codeUrl
-										location.href=url
-										// #endif
+									// #endif
+									 // #ifdef H5
+									let url=res.data.codeUrl
+									location.href=url
+									// #endif
 								}else{
 									that.$http.toast(res.msg)
 								}
 							})
 					}
-				if(that.payData.supportPayTypes[that.switchIndex]=='wechat'){
+					if(that.payData.supportPayTypes[that.switchIndex]=='wechat'){
 						// #ifdef H5
 								that.$http.request({
 									url: that.$api.moreShop.wechatpay,
@@ -184,7 +254,11 @@
 									}
 								}).then(res=>{
 									if(res.code==0){
-											that.$wechatSdk.pay(res.data,'/mch/hotel/orderswaiting/orderswaiting?order_no='+this.order_no);
+										if(that.payData.is_send==1){
+											that.$wechatSdk.pay(res.data,'/pages/order/beused/beused');
+										}else{
+											that.$wechatSdk.pay(res.data,'/pages/order/list?status=1');
+										}
 									}else{
 										that.$http.toast(res.msg);	
 									}
@@ -203,13 +277,27 @@
 								}).then(res=>{
 									if(res.code==0){
 										setPay(res.data, (result) => {
-											let _url = '/mch/hotel/orderswaiting/orderswaiting?order_no='+this.order_no
+											let _url = '/pages/order/list?status=1'
 											if (result.success) {
 												that.$http.toast("支付成功")
 											} else {
 												that.$http.toast("未支付")
-												_url = '/mch/hotel/orderList/orderList'
+												_url = '/pages/order/list?status=0'
 											}
+											if(that.payData.is_send==1){
+												setTimeout(() => {
+													// #ifdef APP-PLUS
+														uni.navigateTo({
+															url: '/pages/order/beused/beused'
+														})
+													// #endif
+													// #ifdef H5||MP-WEIXIN
+														uni.redirectTo({
+															url: '/pages/order/beused/beused'
+														})
+													// #endif
+												},500)
+											}else{
 												setTimeout(() => {
 													// #ifdef APP-PLUS
 														uni.navigateTo({
@@ -221,7 +309,8 @@
 															url: _url
 														})
 													// #endif
-												},1000)														
+												},1000)
+											}																
 										});
 									}else{
 										that.$http.toast(res.msg);	
@@ -229,7 +318,7 @@
 								})
 						// #endif			
 					}
-				if(that.payData.supportPayTypes[that.switchIndex]=='balance'){
+					if(that.payData.supportPayTypes[that.switchIndex]=='balance'){
 						that.$http.request({
 							url: that.$api.moreShop.balancepay,
 							showLoading: true,
@@ -240,24 +329,42 @@
 						}).then(res=>{
 							if(res.code==0){
 								that.$http.toast('支付成功!');
+								if(that.payData.is_send==1){
 									setTimeout(() => {
 										// #ifdef APP-PLUS
 											uni.navigateTo({
-												url:'/mch/hotel/orderswaiting/orderswaiting?order_no='+this.order_no
+												url: '/pages/order/beused/beused'
 											})
 										// #endif
 										// #ifdef H5||MP-WEIXIN
 											uni.redirectTo({
-												url:'/mch/hotel/orderswaiting/orderswaiting?order_no='+this.order_no
+												url: '/pages/order/beused/beused'
 											})
 										// #endif
 									},500)
+								}else{
+									setTimeout(() => {
+										
+										// #ifdef APP-PLUS
+											uni.navigateTo({
+												url: '/pages/order/list?status=1'
+											})
+										// #endif
+										
+										// #ifdef H5||MP-WEIXIN
+											uni.redirectTo({
+												url: '/pages/order/list?status=1'
+											})
+										// #endif
+									},500)
+								}
 								return;
 							}else{
 								that.$http.toast(res.msg)
 							}
 						})
 					}
+				}
 			},						
 			switchIcon(index) {
 				this.switchIndex = index;

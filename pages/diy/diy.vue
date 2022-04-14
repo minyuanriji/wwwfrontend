@@ -42,6 +42,7 @@
 			}
 		},
 		onLoad(options) {
+			this.pageId = options.page_id;
 			if (options.page_id) {
 				this.switchIndex = options.page_id;
 				this.getData(this.switchIndex);

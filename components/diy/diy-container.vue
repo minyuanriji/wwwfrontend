@@ -43,6 +43,8 @@
 		<!-- 广告弹窗 -->
 		<diy-modal v-if="temp.key == 'modal'" :modalData="temp"></diy-modal>
 
+		<!-- 领取积分 -->
+		<diy-take-score v-if="temp.key == 'take-score'" :value="temp"></diy-take-score>
 	</view>
 </template>
 

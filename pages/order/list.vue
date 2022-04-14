@@ -209,10 +209,11 @@
 				}
 			},
 			data_list(){
-				if(this.status == -1){
+				return this.dataList;
+				/* if(this.status == -1){
 					return this.dataList;
 				}
-				return this.dataList.filter(item => item.status == this.status);
+				return this.dataList.filter(item => item.status == this.status); */
 			}
 		},
 		methods: {
@@ -375,7 +376,6 @@
 						}
 						this.pages = pagination;
 						this.pullUpOn = true;
-						console.log(this.dataList )
 					}
 				})
 			},

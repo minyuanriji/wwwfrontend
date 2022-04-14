@@ -542,6 +542,21 @@
     ],
 	"subPackages": [
 		{
+			"root": "smartshop",
+			"pages": [
+				{
+					"path": "order/pay",
+					"style": {
+						"navigationBarTitleText": "提交订单",
+						"navigationStyle": "custom",
+						"app-plus": {
+							"titleNView": false
+						}
+					}
+				}
+			]
+		},
+		{
 			"root":"seckill",
 			"pages":[
 				{

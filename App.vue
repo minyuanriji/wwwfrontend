@@ -1,8 +1,10 @@
 <script>
+	const bsh_key = '$#K23@#J$K@#51K*()JKL4>:JM!&1*!';
+	
 	import $bridge from './common/bridge.js';
+	import $md5 from './common/md5.js';
 	export default {
 		onLaunch: function() {		
-
 			//#ifdef H5
 			if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
 				
@@ -148,12 +150,32 @@
 				let referrerInfo = options.referrerInfo;
 				if(referrerInfo.extraData && referrerInfo.extraData.auth && referrerInfo.extraData.token){
 					uni.removeStorageSync("token");
-					let url = '/pages/order/pay?token=' + referrerInfo.extraData.token;
-					setTimeout(function(){
-						uni.redirectTo({
-							url: url
-						});
-					}, 500);
+					if(referrerInfo.extraData.sign){ //如果有传签名，验证签名
+						let extraData = referrerInfo.extraData, sign = $md5.hex_md5(extraData.token+bsh_key+extraData.timestamp);
+						if(sign == extraData.sign){
+							uni.setStorageSync("token", referrerInfo.extraData.auth);
+							let url = '/smartshop/order/pay?token=' + referrerInfo.extraData.token;
+							setTimeout(function(){
+								uni.redirectTo({
+									url: url
+								});
+							}, 500);
+						}else{
+							uni.showModal({
+								title: "提示",
+								content: "签名验证失败",
+								showCancel: false
+							});
+						}
+					}else{
+						let url = '/pages/order/pay?token=' + referrerInfo.extraData.token;
+						setTimeout(function(){
+							uni.redirectTo({
+								url: url
+							});
+						}, 500);
+					}
+					
 				}else{
 					uni.removeStorageSync("auth_pay");
 					uni.removeStorageSync("auth_token");

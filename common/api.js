@@ -1,12 +1,12 @@
 // 正式服务器
-let api_host = "https://www.mingyuanriji.cn";
+//let api_host = "https://www.mingyuanriji.cn";
 
 // 测试服务器
 //let api_host = "https://dev.mingyuanriji.cn";
 
 
 // 本地服务器
-//let api_host = "http://local.mingyuanriji.cn";
+let api_host = "http://local.mingyuanriji.cn";
 
 
 let api_root 		= api_host + '/web/index.php?r=';
@@ -33,7 +33,6 @@ let api = {
 	index2: api_root + 'api/index/index',
 	get_setting: api_root + 'api/user-setting/get-one',
 	update_setting: api_root + 'api/user-setting/update',
-	
 	
 	default: {
 		check_auth: api_root+'api/identity/check-auth',
@@ -163,6 +162,7 @@ let api = {
 		score: {
 			info: api_root + 'plugin/score/api/score/info',
 			log_list: api_root + 'plugin/score/api/score/log-list',
+			free_score_take: api_root + 'plugin/integral_card/api/free-score/take'
 		},
 		diy:{
 			page:{

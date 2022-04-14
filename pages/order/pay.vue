@@ -133,9 +133,7 @@
 		onShow() {
 			// 拿到支付信息
 			if(!uni.getStorageSync("auth_pay")){
-				if(this.token){
-					this.getPayData(this.order_id);
-				}
+				this.getPayData(this.order_id);
 			}else{
 				this.auth_pay = true;
 				this.auth_token = uni.getStorageSync("auth_token");
@@ -158,6 +156,13 @@
 				}).then((res) => {
 					if (res.code == 0) {
 						this.payData = res.data;
+						let i;
+						for(i=0; i < this.payData.supportPayTypes.length; i++){
+							if(this.payData.supportPayTypes[i] == 'wechat'){
+								this.switchIndex = i;
+								break;
+							}
+						}
 					}else{
 						this.$http.toast(res.msg)
 					}
