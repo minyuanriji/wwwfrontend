@@ -188,9 +188,9 @@
             "disableHostCheck" : true,
             "proxy" : {
                 "/api" : {
-                    //"target" : "https://www.mingyuanriji.cn/h5/web/index.php",
+                    "target" : "https://www.mingyuanriji.cn/h5/web/index.php",
                     //"target" : "https://dev.mingyuanriji.cn/h5/web/index.php",
-                    "target" : "http://local.mingyuanriji.cn/h5/web/index.php",
+                    //"target" : "http://local.mingyuanriji.cn/h5/web/index.php",
                     "changeOrigin" : true,
                     "secure" : false,
                     "pathRewrite" : {

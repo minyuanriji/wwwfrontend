@@ -2,8 +2,7 @@
 	<view class="diy-mch">
 		<view class="mch-list" v-if="!data.showGoods" style="padding-left:29rpx;padding-right:29rpx;display: flex;justify-content: space-between;overflow-x: auto;">
 			<view @click="jumpStore(mch)" class="mch-item" :style="cItemStyle" v-for="(mch,mchIndex) in cMchList">
-				<view class="mch-pic" :style="mch.picUrl?('background-image:url('+mch.picUrl+');'):''"
-					 style="width: 215rpx;height: 215rpx;"></view>
+				<image :src="mch.cover_url" style="width: 215rpx;height: 215rpx;" mode="aspectFill"></image>
 				<view class="mch-name" style="text-align: center;">{{mch.name}}</view>
 			</view>
 		</view>
@@ -69,6 +68,8 @@
 				}
 				if(this.data.showGoods) {
 					style += `padding: 20rpx;`
+				}else{
+					style += `width:33.333%;flex-shrink: 0;`;
 				}
 				return style
 			},
@@ -131,7 +132,8 @@
 					showLoading: false,
 					data: {
 						mch_ids:mchIds
-					}
+					},
+					method: "post"
 				}).then(res => {
 					if(res.code==0){
 						let list = res.data.list;
