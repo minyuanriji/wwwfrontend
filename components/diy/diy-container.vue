@@ -45,6 +45,12 @@
 
 		<!-- 领取积分 -->
 		<diy-take-score v-if="temp.key == 'take-score'" :value="temp"></diy-take-score>
+		
+		<!-- 倒计时 -->
+		<diy-timer v-if="temp.key == 'timer'" :value="temp"></diy-timer>
+		
+		<!-- 好店推荐 -->
+		<diy-mch v-if="temp.key == 'mch'" :value="temp"></diy-mch>
 	</view>
 </template>
 
@@ -88,6 +94,15 @@
 			},
 			diyModal: resolve => {
 				require(['@/components/diy/diy-modal.vue'], resolve)
+			},
+			diyTakeScore: resolve => {
+				require(['@/components/diy/diy-take-score.vue'], resolve)
+			},
+			diyTimer: resolve => {
+				require(['@/components/diy/diy-timer.vue'], resolve)
+			},
+			diyMch: resolve => {
+				require(['@/components/diy/diy-mch.vue'], resolve)
 			},
 		},
 		props: {

@@ -94,6 +94,11 @@ let api = {
 //--------------------------------------------------------------------------------------------		
 	
 	plugin:{
+		//商户
+		mch:{
+			recommand_mch_data: api_root + 'plugin/mch/api/recommand/mch-data'
+		},
+		
 		// 短视频
 		video:{
 			video_list: api_root + 'plugin/short_video/api/video/video-list',
