@@ -2,8 +2,10 @@
 	<view class="diy-mch">
 		<view class="mch-list" v-if="!data.showGoods" style="padding-left:29rpx;padding-right:29rpx;display: flex;justify-content: space-between;overflow-x: auto;">
 			<view @click="jumpStore(mch)" class="mch-item" :style="cItemStyle" v-for="(mch,mchIndex) in cMchList">
-				<image :src="mch.cover_url" style="width: 215rpx;height: 215rpx;" mode="aspectFill"></image>
-				<view class="mch-name" style="text-align: center;">{{mch.name}}</view>
+				<view style="width:100%;display:flex;flex-direction: column;">
+					<image :src="mch.cover_url" style="width: 215rpx;height: 215rpx;" mode="scaleToFill"></image>
+					<view class="mch-name" style="text-align: center;">{{mch.name}}</view >
+				</view>
 			</view>
 		</view>
 		<view class="mch-list" v-else>
@@ -11,7 +13,7 @@
 				<view style="display:flex;justify-content: space-between;">
 					<image :src="mch.cover_url" mode="scaleToFill" style="width: 100rpx;height: 100rpx;margin-right:20rpx;"></image>
 					<view style="flex-grow: 1;">
-						<view class="mch-name" style="font-size: 16rpx">{{mch.name}}</view>
+						<view class="mch-name" style="font-size: 16px">{{mch.name}}</view>
 						<view class='mch-info'>
 							<text>商品数: {{mch.goodsNum}}</text>
 							<text style="margin-left: 10rpx">已售: {{mch.orderNum}}</text>
@@ -148,17 +150,20 @@
 				});
 			},
 			matchMchData(item){
-				let i;
+				let i, newList = [], newItem;
 				for(i=0; i < this.data.list.length; i++){
-					if(this.data.list[i].id == item.mch_id){
-						this.data.list[i]['store_id'] = item.store_id;
-						this.data.list[i]['cover_url'] = item.cover_url;
-						this.data.list[i].goodsNum = item.goods_num;
-						this.data.list[i].orderNum = item.order_num;
-						this.data.list[i].goodsList = item.goods_list;
+					newItem = this.data.list[i];
+					if(newItem.id == item.mch_id){
+						newItem['store_id'] = item.store_id;
+						newItem['cover_url'] = item.cover_url;
+						newItem.goodsNum = item.goods_num;
+						newItem.orderNum = item.order_num;
+						newItem.goodsList = item.goods_list;
+						this.data.list[i] = newItem;
 						break;
 					}
 				}
+				this.$forceUpdate();
 			}
 		}
 	}
