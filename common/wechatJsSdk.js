@@ -59,14 +59,14 @@ export default {
 						   "menuItem:share:QZone",
 						   "menuItem:editTag",
 						   "menuItem:delete",
-						   "menuItem:copyUrl",
+						   //"menuItem:copyUrl",
 						   "menuItem:originPage",
 						   "menuItem:readMode",
 						   "menuItem:openWithQQBrowser",
 						   "menuItem:openWithSafari",
 						   "menuItem:share:email",
 						   "menuItem:share:brand"
-						   ] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮
+					   ] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮
 				   });
 				});
 			}

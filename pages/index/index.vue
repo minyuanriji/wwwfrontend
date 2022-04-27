@@ -101,6 +101,12 @@
 			<notice v-if="item.id == 'notice'" :value="item.data"></notice>
 			<!-- 公告 -->
 
+			<!-- 倒计时 -->
+			<diy-timer v-if="item.id == 'timer'" :value="item.data"></diy-timer>
+			
+			<!-- 好店推荐 -->
+			<diy-mch v-if="item.id == 'mch'" :value="item.data"></diy-mch>
+
 			<view class="content">
 				<placeholder v-if="item.id == 'empty'" :placeholderHeight="placeholderHeight"></placeholder>
 				<!-- 视频组件 -->
@@ -199,6 +205,8 @@
 	import vouchers from '@/components/vouchers.vue';
 	import citySelect from '@/components/linzq-home/linzq-city.vue';
 	import backTop from '@/components/back-top/back-top.vue';
+	import diyTimer from '@/components/diy/diy-timer.vue';
+	import diyMch from '@/components/diy/diy-mch.vue';
 	//#ifdef H5 
 		var jweixin = require('jweixin-module');
 	//#endif
@@ -207,6 +215,8 @@
 	} from '../../common/validate.js';
 	export default {
 		components: {
+			diyTimer,
+			diyMch,
 			search,
 			banners,
 			navIcon,
