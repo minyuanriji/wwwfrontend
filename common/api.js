@@ -172,6 +172,7 @@ let api = {
 		diy:{
 			page:{
 				detail: api_root + 'plugin/diy/api/page/detail',
+				poster: api_root + 'plugin/diy/api/page/poster'
 			}
 		},
 		area:{

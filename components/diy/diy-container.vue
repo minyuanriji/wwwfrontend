@@ -51,6 +51,9 @@
 		
 		<!-- 好店推荐 -->
 		<diy-mch v-if="temp.key == 'mch'" :value="temp"></diy-mch>
+		
+		<!-- 快捷导航 -->
+		<diy-quick-nav :page-id="pageId" v-if="temp.key == 'quick-nav'" :value="temp"></diy-quick-nav>
 	</view>
 </template>
 
@@ -104,6 +107,9 @@
 			diyMch: resolve => {
 				require(['@/components/diy/diy-mch.vue'], resolve)
 			},
+			diyQuickNav: resolve => {
+				require(['@/components/diy/diy-quick-nav.vue'], resolve)
+			},
 		},
 		props: {
 			dataList: {
@@ -117,6 +123,10 @@
 			title:{
 				type: String,
 				default: () => {}
+			},
+			pageId:{
+				type: Number,
+				default: 0
 			}
 		},
 		data() {

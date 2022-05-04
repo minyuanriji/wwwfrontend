@@ -135,10 +135,10 @@ const fetch = {
 					}
 					showLoading && uni.hideLoading();
 					
-					if(typeof res.data['clean_bind_parent'] != "undefined" && 
+					/* if(typeof res.data['clean_bind_parent'] != "undefined" && 
 						res.data.clean_bind_parent == 1){
 						uni.removeStorageSync("pid");
-					}
+					} */
 					
 					if (res.data.code == -1) {
 						// #ifdef H5

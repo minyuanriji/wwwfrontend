@@ -5,7 +5,7 @@
 		<com-nav-bar left-icon="back" :title="diy.name" @clickLeft="back"></com-nav-bar>
 		-->
 		
-		<diy-container :diy-data="item" v-for="(item,i) in diy.template.data" :key="i" :title='title'></diy-container>
+		<diy-container :page-id="pageId" :diy-data="item" v-for="(item,i) in diy.template.data" :key="i" :title='title'></diy-container>
 
 		<!-- <view class="navbars" :style="{background:navbarData.background}">
 			<view class="navbars-box">
@@ -19,6 +19,8 @@
 			</view>
 		</view> -->
 		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
+		
+		
 	</view>
 </template>
 
@@ -30,6 +32,7 @@
 		},
 		data() {
 			return {
+				img_url: this.$api.img_url,
 				diy: {},
 				navbars: '',
 				navbarData: '',
@@ -41,10 +44,14 @@
 				backTop: {
 					src: '../../static/back-top/top.png',
 					scrollTop: 0
-				},
+				}
 			}
 		},
 		onLoad(options) {
+			this.beforeOnLoad(options);
+			if(options.pid){
+				uni.setStorageSync('pid', options.pid);
+			}
 			this.pageId = options.page_id;
 			if (options.page_id) {
 				this.switchIndex = options.page_id;
@@ -54,6 +61,17 @@
 			}
 		},
 		methods: {
+			fabClick(e){
+				let that = this;
+				this.$http.request({
+					url: this.$api.plugin.diy.poster,
+					method: 'POST',
+					data: {page_id: this.pageId},
+					showLoading: true
+				}).then(res => {
+					
+				});
+			},
 			switchNav(index, id) {
 				this.switchIndex = index;
 				uni.redirectTo({

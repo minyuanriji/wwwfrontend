@@ -186,13 +186,13 @@
 			// #endif
 
 			// #ifdef H5
-			if(options.query.pid){
+			/* if(options.query.pid){
 				setTimeout(function(){
 					uni.navigateTo({
 						url:'/pages/user/bindUser/bindUser?pid=' + options.query.pid
 					});
 				}, 1000);
-			}
+			} */
 			// #endif
 	
 		},

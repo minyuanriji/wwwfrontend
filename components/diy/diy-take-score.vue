@@ -20,8 +20,12 @@
 				default:()=>{}
 			},
 		},
+		components: {
+			
+		},
 		data() {
 			return {
+				img_url: this.$api.img_url,
 				window_h: 0,
 				top: 0,
 				data:{}
@@ -119,6 +123,10 @@
 </script>
 
 <style lang="scss" scoped>
+.share-flow{box-shadow: 0 0 35rpx #ddd;border-radius:90rpx;width:90rpx;height:90rpx;position:fixed;right:20rpx;top:0;background:white;}
+.share-flow > view{font-size:28rpx;width:100%;height:90rpx;display:flex;flex-direction: column;justify-content: center;align-items: center;}
+.share-flow image{width:90rpx;height:90rpx;}
+
 .out-box{position:fixed;left:0;top:0;background:RGBA(255, 255, 255, 0.5);width:100%;display:flex;justify-content: center;}
 .diy-take-score{position:relative;display:flex;justify-content: center;width:100%;min-height:100rpx;background:white;padding-top:0rpx;padding-bottom:0rpx;}
 .diy-take-score image{width:90%;}
