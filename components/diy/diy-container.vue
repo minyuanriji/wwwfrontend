@@ -54,6 +54,13 @@
 		
 		<!-- 快捷导航 -->
 		<diy-quick-nav :page-id="pageId" v-if="temp.key == 'quick-nav'" :value="temp"></diy-quick-nav>
+	
+		<!-- 背景 -->
+		<block v-if="temp.key == 'background'">
+			<view style="position:absolute;left:0;top:0;width:100%;height:100%;background:red;z-index:-1">
+				333333333333
+			</view>
+		</block>
 	</view>
 </template>
 

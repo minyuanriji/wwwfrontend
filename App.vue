@@ -5,7 +5,7 @@
 	import $md5 from './common/md5.js';
 	export default {
 		onLaunch: function() {
-
+		
 			//#ifdef H5
 			if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
 				

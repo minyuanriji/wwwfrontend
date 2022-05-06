@@ -7,10 +7,7 @@
 		
 		<block v-if="data.navStyle == 2">
 			<view class="fixed-bottom-bar">
-				<view @click="share" class="menu-item">
-					<image :src="img_url+'logo_wechat.png'"></image>
-					<text>分享</text>
-				</view>
+				<image @click="share" :src="img_url+'share2022.jpg'"></image>
 			</view>
 		</block>
 		
@@ -19,7 +16,7 @@
 				<view class="goods-qrcode2 flex flex-y-center flex-x-center">
 					<view class="codeImg_box">
 						<view class="goods-qrcode-box">
-							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
+							<image :src="poster_url" class="goods-qrcode" mode='scaleToFill'></image>
 						</view>
 					</view>
 					<view class="saveCode-btn">长按图片保存至本地</view>
@@ -142,18 +139,11 @@
 	.fixed-bottom-bar{
 		position:absolute;
 		left:0;
-		bottom:0;
+		bottom:30rpx;
 		width:100%;
-		height:130rpx;
-		display:flex;
-		justify-content: center;
-		align-items: center;
-		background:#F7F7F7;
-		box-shadow: 0px 0px 3px #ddd;
 	}
-	.menu-item{font-size:28rpx;display: flex;flex-direction: column;align-items: center;}
-	.menu-item image{width:65rpx;height:65rpx;}
-	
+	.fixed-bottom-bar image{width:710rpx;height:97rpx;margin-left:20rpx;}
+
 	.goods-qrcode-modal {
 		position: fixed;
 		top: 0;

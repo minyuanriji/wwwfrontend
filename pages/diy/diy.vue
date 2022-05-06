@@ -108,6 +108,7 @@
 </script>
 
 <style lang="scss" scoped>
+	
 	.navbars {
 		position: fixed;
 		bottom: 0;
