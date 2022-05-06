@@ -31,7 +31,8 @@ export default {
 			img_url: this.$api.img_url,
 			dataForm: {
 				username: '',
-				captcha: ''
+				captcha: '',
+				recommend_id: ''
 			},
 			is_weixn: false,
 			textColor:'',
@@ -48,6 +49,9 @@ export default {
 		if(uni.getStorageSync('mall_config')){
 			this.textColor = this.globalSet('textCol');
 			this.logo_img=JSON.parse(uni.getStorageSync('mall_config')).mall_setting.setting.logo;
+		}
+		if(uni.getStorageSync('pid')){
+			this.dataForm.recommend_id = uni.getStorageSync('pid')
 		}
 		uni.removeStorageSync('parent_source');
 	},
@@ -96,6 +100,7 @@ export default {
 				method:'post',
 				showLoading:true,
 				data:{
+					recommend_id: this.dataForm.recommend_id,
 					mobile:this.dataForm.username,
 					captcha:this.dataForm.captcha,
 					key:this.key,

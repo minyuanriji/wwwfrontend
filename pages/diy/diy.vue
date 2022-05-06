@@ -1,5 +1,5 @@
 <template>
-	<view class="app" v-if="diy && diy.id">
+	<view class="app" v-if="diy && diy.id" >
 		
 		<!--
 		<com-nav-bar left-icon="back" :title="diy.name" @clickLeft="back"></com-nav-bar>
@@ -19,8 +19,6 @@
 			</view>
 		</view> -->
 		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
-		
-		
 	</view>
 </template>
 
@@ -52,7 +50,7 @@
 			if(options.pid){
 				uni.setStorageSync('pid', options.pid);
 			}
-			this.pageId = options.page_id;
+			this.pageId = parseInt(options.page_id);
 			if (options.page_id) {
 				this.switchIndex = options.page_id;
 				this.getData(this.switchIndex);

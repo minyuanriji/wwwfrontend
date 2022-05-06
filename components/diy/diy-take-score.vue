@@ -1,14 +1,16 @@
 <template>
 	<div class="out-box" :style="cOutStyle">
-		<view class="diy-take-score" :style="cStyle">
-			<image v-if="data.pic_url" :src="data.pic_url" :style="cImgStyle" mode="scaleToFill"></image>
-			<view class="button-box" :style="cButtonStyle" v-if="data.isButton">
-				<view>
-					<text @click="takeScore"></text>
-					<view class="button-box-mask"></view>
+		<scroll-view scroll-y="true" :style="{height: (window_h-top)+'rpx'}">
+			<view class="diy-take-score" :style="cStyle">
+				<image v-if="data.pic_url" :src="data.pic_url" :style="cImgStyle" mode="scaleToFill"></image>
+				<view class="button-box" :style="cButtonStyle" v-if="data.isButton">
+					<view>
+						<text @click="takeScore"></text>
+						<view class="button-box-mask"></view>
+					</view>
 				</view>
 			</view>
-		</view>
+		</scroll-view>
 	</div>
 </template>
 
@@ -127,7 +129,7 @@
 .share-flow > view{font-size:28rpx;width:100%;height:90rpx;display:flex;flex-direction: column;justify-content: center;align-items: center;}
 .share-flow image{width:90rpx;height:90rpx;}
 
-.out-box{position:fixed;left:0;top:0;background:RGBA(255, 255, 255, 0.5);width:100%;display:flex;justify-content: center;}
+.out-box{position:fixed;left:0;top:0;background:RGBA(255, 255, 255, 0.5);width:100%;display:flex;justify-content: center;overflow-y: auto;}
 .diy-take-score{position:relative;display:flex;justify-content: center;width:100%;min-height:100rpx;background:white;padding-top:0rpx;padding-bottom:0rpx;}
 .diy-take-score image{width:90%;}
 .button-box{position:absolute;left:0;top:0;width:200rpx;height:70rpx;line-height:70rpx;}

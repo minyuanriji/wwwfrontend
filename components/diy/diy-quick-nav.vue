@@ -1,6 +1,18 @@
 <template>
 	<view class="diy-quick-nav">
-		<tui-fab @click="fabClick" :right="10" :btn-list="cButtonList"></tui-fab>
+		
+		<block v-if="data.navStyle == 1">
+			<tui-fab @click="fabClick" :right="10" :btn-list="cButtonList"></tui-fab>
+		</block>
+		
+		<block v-if="data.navStyle == 2">
+			<view class="fixed-bottom-bar">
+				<view @click="share" class="menu-item">
+					<image :src="img_url+'logo_wechat.png'"></image>
+					<text>分享</text>
+				</view>
+			</view>
+		</block>
 		
 		<view class="goods-qrcode-modal" v-if="showPoster">
 			<view class="goods-qrcode-body flex-col">
@@ -42,7 +54,8 @@
 			return {
 				data:{},
 				showPoster: false,
-				poster_url: ''
+				poster_url: '',
+				img_url: this.$api.img_url,
 			}
 		},
 		computed:{
@@ -70,6 +83,7 @@
 		},
 		created() {
 			this.data = JSON.parse(JSON.stringify(this.value));
+			let that = this;
 		},
 		methods: {
 			fabClick(e){
@@ -124,6 +138,22 @@
 </script>
 
 <style lang="scss" scoped>
+	
+	.fixed-bottom-bar{
+		position:absolute;
+		left:0;
+		bottom:0;
+		width:100%;
+		height:130rpx;
+		display:flex;
+		justify-content: center;
+		align-items: center;
+		background:#F7F7F7;
+		box-shadow: 0px 0px 3px #ddd;
+	}
+	.menu-item{font-size:28rpx;display: flex;flex-direction: column;align-items: center;}
+	.menu-item image{width:65rpx;height:65rpx;}
+	
 	.goods-qrcode-modal {
 		position: fixed;
 		top: 0;
