@@ -1,6 +1,6 @@
 <template>
 	<div class="out-box" :style="cOutStyle">
-		<scroll-view scroll-y="true" :style="{height: (window_h-top)+'rpx'}">
+		<scroll-view scroll-y="true" :style="{background: data.background ? data.background : 'none',height: (this.window_h - this.top)+'rpx'}">
 			<view class="diy-take-score" :style="cStyle">
 				<image v-if="data.pic_url" :src="data.pic_url" :style="cImgStyle" mode="scaleToFill"></image>
 				<view class="button-box" :style="cButtonStyle" v-if="data.isButton">
@@ -29,6 +29,7 @@
 			return {
 				img_url: this.$api.img_url,
 				window_h: 0,
+				img_h: 0,
 				top: 0,
 				data:{}
 			}
@@ -68,6 +69,8 @@
 				}else{
 					style.push("width:90%");
 				}
+				
+				this.img_h = this.window_h - this.top;
 				if(this.data.img_height && !isNaN(this.data.img_height) && parseInt(this.data.img_height) > 0){
 					style.push("height:" + this.data.img_height + 'rpx');
 				}

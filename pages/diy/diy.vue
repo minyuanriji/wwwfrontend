@@ -1,9 +1,11 @@
 <template>
 	<view class="app" v-if="diy && diy.id" >
 		
-		<!--
-		<com-nav-bar left-icon="back" :title="diy.name" @clickLeft="back"></com-nav-bar>
-		-->
+		<com-nav-bar left-icon="back" :title="title" @clickLeft="back"></com-nav-bar>
+
+		<!-- #ifdef H5 -->
+		<view :style="{height:0+'rpx',width:'100%'}"></view>
+		<!-- #endif -->
 		
 		<diy-container :page-id="pageId" :diy-data="item" v-for="(item,i) in diy.template.data" :key="i" :title='title'></diy-container>
 
@@ -49,6 +51,13 @@
 			this.beforeOnLoad(options);
 			if(options.pid){
 				uni.setStorageSync('pid', options.pid);
+			}else if(uni.getStorageSync("userInfo")){
+				// #ifdef H5
+				let pid = uni.getStorageSync("userInfo") ? JSON.parse(uni.getStorageSync("userInfo")).user_id : 0;
+				let url = window.location.href + '&pid=' + pid;
+				location.href = url;
+				return;
+				// #endif
 			}
 			this.pageId = parseInt(options.page_id);
 			if (options.page_id) {
@@ -89,10 +98,16 @@
 					this.$set(this, "diy", res.data.navs[0]);
 					this.navbarData = res.data;
 					this.navbars = res.data.navbars;
-					this.title=res.data.title
+					this.title=res.data.title;
 					uni.setNavigationBarTitle({
 					    title: res.data.title
 					});
+					
+					// #ifdef H5
+					//分享处理
+					this.$wechatSdk.initShareUrl({app_share_title: this.title});
+					// #endif
+					
 				}).catch(err => {
 					console.log(err);
 				})

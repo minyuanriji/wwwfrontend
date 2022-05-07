@@ -377,9 +377,16 @@
 			}
 		}, {
 			"path": "pages/diy/diy",
-			"navigationBarTitleText": "",
-			"navigationBarBackgroundColor": "#FFFFFF",
-			"navigationBarTextStyle": "black"
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#FFFFFF",
+				"navigationBarTextStyle": "black",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+			
 		}, {
 			"path": "pages/user/balance/details",
 			"style": {
