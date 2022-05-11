@@ -1,7 +1,7 @@
 <template>
 	<view class="app" v-if="diy && diy.id" >
 		
-		<com-nav-bar left-icon="back" :title="title" @clickLeft="back"></com-nav-bar>
+		<com-nav-bar left-icon="back" :title="title" @clickLeft="back" :fixed="true" :statusBar="true"></com-nav-bar>
 
 		<!-- #ifdef H5 -->
 		<view :style="{height:0+'rpx',width:'100%'}"></view>

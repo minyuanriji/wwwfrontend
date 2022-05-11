@@ -1,52 +1,92 @@
 <template>
 	<view class="vouchers-container">
-		<!-- <view class="vouchers-type">
-			<view v-for="(item,index) in tupe" :key='index' @click="select(index)">
-				<text :class="secIndex==index?'active':''">{{item}}</text>
-			</view>
-		</view> -->
-		<view class="goods">
-				<view v-for="(item,index) in list" :key="index" class="goods_item" @click="linkurl(item.id)">
-					<image :src="item.cover_pic" mode="aspectFill"></image>
-					<view class="item_name">
-						{{item.name}}
+		<view class="goods" v-if="list">
+			<view v-for="(item,index) in list" :key="index" class="goods_item" @click="linkurl(item.id)">
+				<image :src="item.cover_pic" mode="aspectFill"></image>
+				<view class="item_name">
+					{{item.name}}
+				</view>
+				<view class="money_num">
+					<view class="money" style="width: 50%;color: rgb(255, 113, 4);">
+						<text style="font-size: 26rpx;">￥</text>
+						<text style="font-size: 28rpx;">{{item.price}}</text>
 					</view>
-					<view class="money_num">
-						<view class="money" style="width: 50%;color: rgb(255, 113, 4);">
-							<text style="font-size: 26rpx;">￥</text>
-							<text style="font-size: 28rpx;">{{item.price}}</text>
-						</view>
-						<view style="width: 50%;font-size: 24rpx;line-height: 50rpx;text-align: right;">
-							<text>{{item.sales}}</text>
-						</view>
-					</view>
-					<view class="send" style="position: relative;">
-						<view class="send_imag"></view>
-						<text style="font-size: 27rpx;position: absolute;top: 11rpx;left: 80rpx;color: #fff;">{{item.got_shopping_voucher_num}}红包</text>	
+					<view style="width: 50%;font-size: 24rpx;line-height: 50rpx;text-align: right;">
+						<text>{{item.sales}}</text>
 					</view>
 				</view>
+				<view class="send" style="position: relative;">
+					<view class="send_imag"></view>
+					<text style="font-size: 27rpx;position: absolute;top: 11rpx;left: 80rpx;color: #fff;">{{item.got_shopping_voucher_num}}红包</text>	
+				</view>
+			</view>
 		</view>
+		<main-loadmore :visible="loading" :index="3" type="red"></main-loadmore>
+		<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
 	</view>
 </template>
 
 <script>
 	export default {
-		props:['list'],
 		name:"vouchers",
+		props:{
+			page: Number
+		},
 		data() {
 			return {
-				tupe:[
-					"热门推荐",
-					"全网送金豆",
-					"金豆兑换"
-				],
-				secIndex:0,
+				img_url: this.$api.img_url,
+				plugins_img_url: this.$api.plugins_img_url,
+				loading: false,
+				pullUpOn: true,
+				loading: false,
+				page_count:'',
+				list: ''
 			};
 		},
+		watch:{
+			page(val, old){
+				this.getList(val);
+			}
+		},
+		mounted() {
+			this.getList(this.page);
+		},
 		methods:{
+			getList(page) { //首页商品
+				if(page == 1){
+					this.list = [];
+					this.page_count = 0;
+				}
+				if(page == this.page_count){
+					this.pullUpOn = false;
+					return;
+				} 	
+				console.log("page", page)
+				this.loading = true;
+				this.$http.request({
+					url: this.$api.default.getvoucherList,
+					method: 'GET',
+					data:{
+						page: page
+					},
+				}).then((res) => { 
+					this.loading = false;
+					if(res.code == 0){
+						if(res.data.list.length > 0){
+							var arr = this.list ? this.list.concat(res.data.list) : res.data.list;
+							this.list = arr
+							this.page_count = res.data.page_count;
+							this.pullUpOn = true;
+						}
+					}else{
+						this.loading = false;
+						this.$http.toast(res.msg);
+					}
+				})
+			},
 			linkurl(id){
 				uni.navigateTo({
-					url:'../../pages/goods/detail?proId='+id
+					url:'/pages/goods/detail?proId='+id
 				})
 			}
 		},

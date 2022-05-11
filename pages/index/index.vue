@@ -1,5 +1,10 @@
 <template>
 	<view class="root">
+		
+		<!-- #ifdef MP-WEIXIN -->
+		<com-nav-bar title="补商汇" :fixed="true" :statusBar="true"></com-nav-bar>
+		<!-- #endif -->
+		
 		<!-- #ifdef H5 -->
 		<view class="foucs_H5" style="width: 100%;height: 96rpx;background:#3e4144;position: fixed;top: 0rpx;left: 0;z-index: 999;" v-if="showFoucs">
 			<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 96rpx;display: block;float: left;"></image>
@@ -7,17 +12,19 @@
 				<text style="display: block;font-size: 25rpx;color: #fff;margin-top: 8rpx;">欢迎访问补商汇</text>
 				<text style="display: block;font-size: 25rpx;color: #fff">点击关注我们哦~</text>
 			</view>
-			<view class="foucs_check" style="float: right;">
+			<view class="foucs_check" style="height:100%;float: right;display:flex;align-items: center;">
 				<button type="default" style="width: 130rpx;height: 50rpx;text-align: center;font-size: 25rpx;
-				background: rgb(255, 113, 4);margin: 20rpx 10rpx 0 0;color: #fff;line-height: 50rpx;"
-				@click='foucusInfo'
-				>关注</button> 
+				background: rgb(255, 113, 4);color: #fff;line-height: 50rpx;"
+				@click='foucusInfo'>关注</button> 
+				<text @click="foucusInfo = false" style="color:#fff;margin:0 20rpx;font-size:28rpx;border-left:1px solid #aaa;padding-left:20rpx;">关闭</text>
 			</view>
 		</view><strong></strong>
 		<!--#endif -->	
+		
 		<!-- #ifdef H5 || APP-PLUS--> 
 		<view class="status_bar"></view> 
 		 <!--#endif -->
+		 
 		<!-- #ifdef H5 || APP-PLUS -->
 		<view class="customer_service" @click="linkService">
 			<image :src="img_url+'/service_logo.png'" mode=""></image>
@@ -31,62 +38,27 @@
 		</view>
 		<!--#endif -->
 		<block v-for="(item, index) in indexData" :key="index" style="">
-			<view class="header" v-if="item.id == 'search'">
-				<!-- #ifdef H5 || APP-PLUS -->
-				<view class="search_box" :style="{ position: is_fixed == 1 ? 'relative' : 'fixed' }">
+			<view class="header" v-if="item.id == 'search'"> 
+				<view class="search_box" :style="{position: is_fixed == 1 ? 'relative' : 'fixed' }">
+					<!-- <view class="header">
+					<diy-header :backgroundCol='receiveColor'></diy-header>
+				</view> -->
 					<!-- 搜索 -->
-					<view class="checksao" style="width: 35%;background: #fff;position: relative;">
-						<view style="width: 80%;color: #000;font-size: 30rpx;font-weight: bold;overflow: hidden;
-						text-overflow:ellipsis;white-space: nowrap;margin-left: 30rpx;" @click="setCITY">
-							<view v-if="city != ''" style="padding-top: 30rpx;padding-left: 35rpx;box-sizing: border-box;overflow: hidden;
-						text-overflow:ellipsis;white-space: nowrap;">{{city}}</view>
-							<view v-else style="padding-top: 30rpx;padding-left: 35rpx;box-sizing: border-box;overflow: hidden;
-						text-overflow:ellipsis;white-space: nowrap;">加载中...</view>
-						</view>
-						<view class="citiLOGO" style="width: 50rpx;height: 96rpx;position: absolute;top: 0;left: 20rpx;z-index:9999">
-							<image :src="plugins_img_url+'/hone_logo.png'" mode="" style="width: 40rpx;height: 40rpx;display: block;margin-top: 33rpx;"></image>
-						</view>
-						<view class="citiLOGO" style="width: 30rpx;height: 96rpx;position: absolute;top: 10rpx;right:0rpx;z-index:9999">
-							<image :src="plugins_img_url+'/home_up.png'" mode="" style="width: 20rpx;height: 20rpx;display: block;margin-top: 33rpx;"></image>
-						</view>
-					</view>	
-					<view class="search" @tap="navTo('/pages/search/search')" style="width: 75%;margin-bottom: 30rpx;">
-						<search :message="item.data.placeholder" :textAlign="item.data.textPosition" :frameColor="item.data.background"
-						 :innerFrameColor="item.data.color" :textColor="item.data.textColor" :borderRadius="item.data.radius"></search>
+					<view class="search" @tap="navTo('/pages/search/search')" style="width:100%">
+						<search
+							:message="item.data.placeholder"
+							:textAlign="item.data.textPosition"
+							:frameColor="item.data.background"
+							:innerFrameColor="item.data.color"
+							:textColor="item.data.textColor"
+							:borderRadius="item.data.radius"
+						></search>
 						<!-- :frameColor="scrollTop>0?item.data.background:receiveColor" 用来做渐变 -->
 					</view>
 					<!-- 搜索 -->
 				</view>
-				<!--#endif -->
-				<!-- #ifdef MP-WEIXIN -->
-				<view class="search_box_mp" :style="{ position: is_fixed == 1 ? 'relative' : 'fixed' }">
-					<!-- 搜索 -->
-					<!-- 搜索 -->
-					<view class="checksao" style="width: 35%;background: #fff;position: relative;">
-						<view style="width: 80%;color: #000;font-size: 30rpx;font-weight: bold;overflow: hidden;
-						text-overflow:ellipsis;white-space: nowrap;margin-left: 30rpx;" @click="setCITY">
-							<view v-if="city != ''" style="padding-top: 30rpx;padding-left: 35rpx;box-sizing: border-box;overflow: hidden;
-						text-overflow:ellipsis;white-space: nowrap;">{{city}}</view>
-							<view v-else style="padding-top: 30rpx;padding-left: 35rpx;box-sizing: border-box;overflow: hidden;
-						text-overflow:ellipsis;white-space: nowrap;">加载中...</view>
-						</view>
-						<view class="citiLOGO" style="width: 50rpx;height: 96rpx;position: absolute;top: 0;left: 20rpx;z-index:9999">
-							<image :src="plugins_img_url+'/hone_logo.png'" mode="" style="width: 40rpx;height: 40rpx;display: block;margin-top: 33rpx;"></image>
-						</view>
-						<view class="citiLOGO" style="width: 30rpx;height: 96rpx;position: absolute;top: 10rpx;right:0rpx;z-index:9999">
-							<image :src="plugins_img_url+'/home_up.png'" mode="" style="width: 20rpx;height: 20rpx;display: block;margin-top: 33rpx;"></image>
-						</view>
-					</view>	
-					<view class="search" @tap="navTo('/pages/search/search')" style="width: 75%;">
-						<search :message="item.data.placeholder" :textAlign="item.data.textPosition" :frameColor="item.data.background"
-						 :innerFrameColor="item.data.color" :textColor="item.data.textColor" :borderRadius="item.data.radius"></search>
-						<!-- :frameColor="scrollTop>0?item.data.background:receiveColor" 用来做渐变 -->
-					</view>
-					<!-- 搜索 -->
-				</view>
-				<!--#endif -->
 			</view>
-			<placeholder v-if="item.id == 'search' && is_fixed == 0" :placeholderHeight="placeholderHeight4"></placeholder>
+			<placeholder v-if="item.id == 'search' && is_fixed == 0" :placeholderHeight="placeholderHeight4" ></placeholder>
 			<!-- 轮播图 -->
 			<view class="bannersBox" v-if="item.id == 'banner'">
 				<banners :bannerData="item.data"></banners>
@@ -133,29 +105,30 @@
 				<!-- 图片魔方 -->
 
 				<!-- 商品 -->
-				<!-- <view v-if="item.id == 'goods'" style="background: #FFFFFF;border-radius: 10rpx;">
+				<view v-if="item.id == 'goods'" style="background: #FFFFFF;border-radius: 10rpx;">
 					<commodity :listStyle="item.data.listStyle" :showGoodsName="item.data.showGoodsName" :showGoodsOriginalPrice="item.data.showGoodsOriginalPrice"
 					 :showGoodsPrice="item.data.showGoodsPrice" :showGoodsLevelPrice="item.data.showGoodsLevelPrice"
 					 :originalPriceLabel="item.data.originalPriceLabel" :priceLabel="item.data.priceLabel" :levelPriceLabel="item.data.levelPriceLabel"
 					 :showBuyBtn="item.data.showBuyBtn" :subscriptIcon="item.data.goodsTagPicUrl" :showGoodsTag="item.data.showGoodsTag"
 					 :buyBtnStyle="item.data.buyBtnStyle" :buyBtns="item.data.buyBtn" :buyBtnText="item.data.buyBtnText" :displayStyle="item.data.goodsStyle"
 					 :productData="item.data.list" :buyBtnPic="item.data.buyBtnPic" :buttonColor="item.data.buttonColor"></commodity>
-				</view> -->
+				</view>
 				<!-- 商品 -->
 			</view>
 		</block>
 		
+		<!-- 购物券列表 -->
+		<vouchers :page="page"></vouchers>
 		
-		
-		<vouchers :list='goods_ist'></vouchers>
+		<!-- 
 		<citySelect @back_city="back_city" v-if="cityselec"></citySelect>
-		
+		-->
 		
 		
 		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
-		<!--加载loadding-->
-		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
-		<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
+		
+		
+		
 		<!--加载loadding-->
 		<!-- 版权 -->
 		<diy-copyright v-if="copyright.status == 1" :value="copyright"></diy-copyright>
@@ -249,6 +222,7 @@
 				plugins_img_url: this.$api.plugins_img_url,
 				loading: false,
 
+				top: 0,
 				left: 0,
 				right: 30,
 				bottom: 300,
@@ -433,9 +407,9 @@
 		onReachBottom() {
 			//上拉加载
 			this.t_page++;
+			this.page++;
 		},
 		onLoad(options) {
-			// this.getList()
 			this.getmyLOcation()
 			this.beforeOnLoad(options);
 			
@@ -469,13 +443,20 @@
 			//#ifdef H5 || APP-PLUS
 				this.$wechatSdk.initJssdk(function(signData){
 					
-				});
+				}); 
 			//#endif
 			/* 
 			uni.navigateTo({
 				url: '/pages/personalCentre/ercode/payPages/payPages?id=262'
 			});
 			return; */
+			
+			let that = this;
+			uni.getSystemInfo({
+				success(res) {
+					that.top = (res.statusBarHeight/res.screenWidth) * 750;
+				}
+			});
 		},
 		methods: {
 			getmyLOcation() {
@@ -488,9 +469,6 @@
 						uni.setStorageSync('x-latitude',uni.getStorageSync('x-latitude-new'))
 					}
 				}, 500)
-				setTimeout(() => {
-					this.getList()
-				}, 1000)
 				// #endif
 				
 				// #ifndef H5
@@ -501,9 +479,6 @@
 						uni.setStorageSync('x-latitude',uni.getStorageSync('x-latitude-new'))
 					}
 				}, 500)
-				setTimeout(() => {
-					this.getList()
-				}, 1000)
 				// #endif
 			},
 			
@@ -620,19 +595,6 @@
 							}
 							this.indexData = res.data.page_data;
 							uni.stopPullDownRefresh();
-							that.placeholderHeight4 = 80;
-							setTimeout(() => {
-								let statusInfo = uni.createSelectorQuery().select('.status_bar');
-								statusInfo
-									.boundingClientRect(function(data) {
-										//将获取到的元素的高度px转换为rpx
-										if (data.height) {
-											var height = (750 * data.height) / 375;
-											that.placeholderHeight4 = that.placeholderHeight4 + height;
-										}
-									})
-									.exec();
-							}, 500);
 						}
 					});
 			},
@@ -734,28 +696,6 @@
 					this.couponData[val.index].receive = 1;
 				}
 			},
-			getList() { //首页商品
-				this.$http.request({
-					url: this.$api.default.getvoucherList,
-					method: 'GET',
-					data:{
-						page:this.page
-					},
-				}).then((res) => { 
-					if(res.code==0){
-						this.city=res.city_data.city
-						uni.setStorageSync("homeCity",res.city_data.city)
-						if(res.data.list.length==0)return false
-						let list= res.data.list;
-						var arr=this.goods_ist.concat(list)
-						this.goods_ist =arr
-						this.page_count = res.data.page_count;
-						this.pullUpOn = true;
-					}else{
-						this.$http.toast(res.msg);
-					}
-				})
-			},
 			setCITY() { //选择城市
 				this.cityselec = true
 			},
@@ -795,17 +735,7 @@
 				this.styleBool = true;
 			}
 		},
-		onReachBottom() {
-			this.loadding = true;
-			this.pullUpOn = true;
-			if(this.page==this.page_count){
-				this.loadding = false;
-				this.pullUpOn = false;
-				return false;
-			} 		
-			this.page=this.page+1
-			this.getList();
-		},
+
 	}; 
 </script>
 
@@ -858,31 +788,17 @@
 	}
 
 	.status_bar {
-		height: var(--status-bar-height);
+		height: 44px;
 		width: 100%;
 		position: fixed;
 		
-		top: 0px;
+		top: 0;
 		z-index: 99;
 		background-color: #ffffff;
 
 	}	
-	.search_box_mp {
-		top: 0;
-		width: 100%;
-		z-index: 99;
-		display: flex;
-	}
 	.search_box {
-		/* #ifdef H5||MP*/
-			top: 80rpx;
-			height: 120rpx;
-		/* #endif */
 		width: 100%;
-		/* #ifdef APP-PLUS */
-			top: 40rpx;
-			height: 120rpx;
-		/* #endif */
 		z-index: 99;
 		display: flex;
 		background: #fff;

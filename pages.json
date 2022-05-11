@@ -8,7 +8,11 @@
 				"backgroundColorBottom": "#F7F7F7",
 				"navigationBarTitleText": "首页",
 				"enablePullDownRefresh": false,
-				"onReachBottomDistance": 50
+				"onReachBottomDistance": 50,
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false
+				}
 			}
 		}, {
 			"path": "pages/cat/cat",
