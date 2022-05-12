@@ -1,19 +1,5 @@
 <template>
 	<view class="app">
-		<!-- #ifdef H5 -->
-		<view class="foucs_H5" style="width: 100%;height: 96rpx;background:#3e4144;position: fixed;top: 0rpx;left: 0;z-index: 999;" v-if="showFoucs">
-			<image :src="img_url+'/fillShop.png'" mode="" style="width: 100rpx;height: 96rpx;display: block;float: left;"></image>
-			<view class="foucs_H5_messga" style="float: left;">
-				<text style="display: block;font-size: 25rpx;color: #fff;margin-top: 8rpx;">欢迎访问补商汇</text>
-				<text style="display: block;font-size: 25rpx;color: #fff">点击关注我们哦~</text>
-			</view>
-			<view class="foucs_check" style="float: right;">
-				<button type="default" style="width: 130rpx;height: 50rpx;text-align: center;font-size: 25rpx;
-				background: rgb(255, 113, 4);margin: 20rpx 10rpx 0 0;color: #fff;line-height: 50rpx;"
-				@click='foucusInfo'>关注</button>
-			</view>
-		</view>
-		<!--#endif -->
 		<main-tabbar></main-tabbar>
 		<view class="jx-mybg-box">
 			<block v-if="configData.user_center">

@@ -16,7 +16,7 @@
 				<button type="default" style="width: 130rpx;height: 50rpx;text-align: center;font-size: 25rpx;
 				background: rgb(255, 113, 4);color: #fff;line-height: 50rpx;"
 				@click='foucusInfo'>关注</button> 
-				<text @click="foucusInfo = false" style="color:#fff;margin:0 20rpx;font-size:28rpx;border-left:1px solid #aaa;padding-left:20rpx;">关闭</text>
+				<text @click="showFoucs = false" style="color:#fff;margin:0 20rpx;font-size:28rpx;border-left:1px solid #aaa;padding-left:20rpx;">关闭</text>
 			</view>
 		</view><strong></strong>
 		<!--#endif -->	

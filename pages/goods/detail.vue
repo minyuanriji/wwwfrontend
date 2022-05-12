@@ -772,7 +772,6 @@
 			},
 
 			determine() { //点击确定按钮，判断是加入购物车还是立即购买
-				this.popupShow = false;
 				if (this.goodsData.use_attr == 0) {
 					if (this.goodsData.attr_list[0].stock == 0) {
 						this.$http.toast('该商品已没有库存!');
@@ -784,7 +783,24 @@
 						return;
 					}
 				}
-
+				let that = this;
+				if(this.goodsData.order_prompt && this.goodsData.order_prompt == 1){
+					uni.showModal({
+						title: '提示',
+						content: this.goodsData.order_prompt_content,
+						showCancel: false,
+						confirmText: '我已知晓',
+						success: function (res) {
+							that.determine_ex();
+						}
+					});
+				}else{
+					that.determine_ex();
+				}
+				
+			},
+			determine_ex(){
+				this.popupShow = false;
 				if (this.is_index == 1) { //加入购物车
 					//获取选中的多规格名字进行拼接显示
 					var arr = [];
