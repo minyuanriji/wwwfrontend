@@ -70,6 +70,11 @@ let api = {
 	app:{
 		version_info: api_root + 'plugin/bsh_app/api/version/detail' 
 	},
+	smartshop: {
+		notification: {
+			setWechatTpl: api_root + 'plugin/smart_shop/api/notification/set-wechat-template', //设置微信公众号通知
+		}
+	},
 //-------------------------------------------------------------------------------------------淘礼金
 	taolijin:{
 		getAuthInfo:api_root + 'plugin/taolijin/api/auth/get-info', //获取授权信息

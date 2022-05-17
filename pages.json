@@ -564,6 +564,16 @@
 							"titleNView": false
 						}
 					}
+				},
+				{
+					"path": "notification/setWechatTemplate",
+					"style": {
+						"navigationBarTitleText": "设置公众号提醒",
+						"navigationStyle": "custom",
+						"app-plus": {
+							"titleNView": false
+						}
+					}
 				}
 			]
 		},
