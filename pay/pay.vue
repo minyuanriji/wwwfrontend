@@ -4,14 +4,9 @@
 		<!-- 背景图，可自定义 -->
 		<view class="cart-bg" :style="{background:'url('+bg_url+')'}"></view>
 		<view class="mainContent">
-			<view v-if="auth_pay" style="color:gray;font-size:26rpx;display:flex;flex-direction: column;align-items: center;background: rgba(255, 255, 255, 1);margin-bottom:30rpx;border-radius:10rpx;padding:20rpx 20rpx;">
-				<text>授权支付</text>
-				<view style="word-break: break-word;word-spacing: normal;">{{auth_token}}</view>
-			</view>
 			<view class="up">
 				<view class="balance">
 					<text>账户余额:</text>
-
 					<view><text class="price">{{payData.balance}}</text>元</view>
 				</view>
 				<view class="pay-content">
@@ -79,15 +74,31 @@
 				goods_id : '',
 				auth_pay: false,
 				auth_token: '',
-				order_id: ''
+				order_id: '',
+				source_table: '',
+				to_path: ''
 			}
 		},
 		onLoad(options) {
 			
+			if(!options.source_table){
+				uni.showModal({
+					content: "业务参数未定义",
+					showCancel:false,
+					success() {
+						uni.navigateBack({
+							delta: 1
+						})
+					}
+				});
+				return;
+			}
+			
+			this.source_table = options.source_table;
+			
 			if(options.goods_id){
 				this.goods_id = options.goods_id;
 			}
-			
 			let that = this, timer = setInterval(function(){
 				if(uni.getStorageSync('mall_config')){
 					that.textColor = that.globalSet('textCol');
@@ -107,35 +118,11 @@
 				this.is_index = 1;
 				this.active_id = options.active_id;
 			}
-			
-			/* if(options.auth && this.token){
-				this.auth_pay = true;
-				this.$http.request({
-					url: this.$api.default.check_auth,
-					showLoading: true,
-					data: {
-						user_auth: options.auth,
-						order_token: this.token
-					},
-					method:"POST"
-				}).then((res) => {
-					if (res.code == 0) {
-						uni.setStorageSync("token", options.auth);
-					}else{
-						that.$http.toast(res.msg);
-					}
-					// 拿到支付信息
-					that.getPayData(orderId);
-				})
-				return;
-			} */
 		},
 		onShow() {
 			// 拿到支付信息
 			if(!uni.getStorageSync("auth_pay")){
-				if(this.token){
-					this.getPayData(this.order_id);
-				}
+				this.getPayData(this.order_id);
 			}else{
 				this.auth_pay = true;
 				this.auth_token = uni.getStorageSync("auth_token");
@@ -148,9 +135,10 @@
 			// 获取支付信息
 			getPayData(id) {
 				this.$http.request({
-					url: this.$api.order.toPay,
+					url: this.$api.pay.get_pay_data,
 					showLoading: true,
 					data: {
+						source_table: this.source_table,
 						token: this.token || '',
 						queue_id: this.queue_id || '',
 						id
@@ -158,6 +146,7 @@
 				}).then((res) => {
 					if (res.code == 0) {
 						this.payData = res.data;
+						this.to_path = res.data.to_path ? res.data.to_path : '';
 						let i;
 						for(i=0; i < this.payData.supportPayTypes.length; i++){
 							if(this.payData.supportPayTypes[i] == 'wechat'){
@@ -188,12 +177,12 @@
 								setTimeout(() => {
 									// #ifdef APP-PLUS
 										uni.navigateTo({
-											url: '/pages/order/beused/beused'
+											url: that.to_path ? that.to_path : '/pages/order/beused/beused'
 										})
 									// #endif
 									// #ifdef H5||MP-WEIXIN
 										uni.redirectTo({
-											url: '/pages/order/beused/beused'
+											url: that.to_path ? that.to_path : '/pages/order/beused/beused'
 										})
 									// #endif
 								},500)
@@ -201,12 +190,12 @@
 								setTimeout(() => {
 									// #ifdef APP-PLUS
 										uni.navigateTo({
-											url: '/pages/order/list?status=1'
+											url: that.to_path ? that.to_path : '/pages/order/list?status=1'
 										})
 									// #endif
 									// #ifdef H5||MP-WEIXIN
 										uni.redirectTo({
-											url: '/pages/order/list?status=1'
+											url: that.to_path ? that.to_path : '/pages/order/list?status=1'
 										})
 									// #endif
 								},500)
@@ -229,7 +218,7 @@
 								if(res.code==0){
 									// #ifdef APP-PLUS
 											uni.navigateTo({
-												url: '/pages/order/alipayWeb?url=' + res.data.codeUrl
+												url: that.to_path ? that.to_path : '/pages/order/alipayWeb?url=' + res.data.codeUrl
 											})
 									// #endif
 									 // #ifdef H5
@@ -255,9 +244,9 @@
 								}).then(res=>{
 									if(res.code==0){
 										if(that.payData.is_send==1){
-											that.$wechatSdk.pay(res.data,'/pages/order/beused/beused');
+											that.$wechatSdk.pay(res.data, that.to_path ? that.to_path : '/pages/order/beused/beused');
 										}else{
-											that.$wechatSdk.pay(res.data,'/pages/order/list?status=1');
+											that.$wechatSdk.pay(res.data, that.to_path ? that.to_path : '/pages/order/list?status=1');
 										}
 									}else{
 										that.$http.toast(res.msg);	
@@ -277,7 +266,7 @@
 								}).then(res=>{
 									if(res.code==0){
 										setPay(res.data, (result) => {
-											let _url = '/pages/order/list?status=1'
+											let _url = that.to_path ? that.to_path : '/pages/order/list?status=1'
 											if (result.success) {
 												that.$http.toast("支付成功")
 											} else {
@@ -288,12 +277,12 @@
 												setTimeout(() => {
 													// #ifdef APP-PLUS
 														uni.navigateTo({
-															url: '/pages/order/beused/beused'
+															url: that.to_path ? that.to_path : '/pages/order/beused/beused'
 														})
 													// #endif
 													// #ifdef H5||MP-WEIXIN
 														uni.redirectTo({
-															url: '/pages/order/beused/beused'
+															url: that.to_path ? that.to_path : '/pages/order/beused/beused'
 														})
 													// #endif
 												},500)
@@ -333,12 +322,12 @@
 									setTimeout(() => {
 										// #ifdef APP-PLUS
 											uni.navigateTo({
-												url: '/pages/order/beused/beused'
+												url: that.to_path ? that.to_path : '/pages/order/beused/beused'
 											})
 										// #endif
 										// #ifdef H5||MP-WEIXIN
 											uni.redirectTo({
-												url: '/pages/order/beused/beused'
+												url: that.to_path ? that.to_path : '/pages/order/beused/beused'
 											})
 										// #endif
 									},500)
@@ -347,13 +336,13 @@
 										
 										// #ifdef APP-PLUS
 											uni.navigateTo({
-												url: '/pages/order/list?status=1'
+												url: that.to_path ? that.to_path : '/pages/order/list?status=1'
 											})
 										// #endif
 										
 										// #ifdef H5||MP-WEIXIN
 											uni.redirectTo({
-												url: '/pages/order/list?status=1'
+												url: that.to_path ? that.to_path : '/pages/order/list?status=1'
 											})
 										// #endif
 									},500)

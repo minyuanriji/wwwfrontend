@@ -1,12 +1,12 @@
 // 正式服务器
-let api_host = "https://www.mingyuanriji.cn";
+//let api_host = "https://www.mingyuanriji.cn";
 
 // 测试服务器
 //let api_host = "https://dev.mingyuanriji.cn";
 
 
 // 本地服务器
-//let api_host = "http://local.mingyuanriji.cn";
+let api_host = "http://local.mingyuanriji.cn";
 
 
 let api_root 		= api_host + '/web/index.php?r=';
@@ -73,7 +73,13 @@ let api = {
 	smartshop: {
 		notification: {
 			setWechatTpl: api_root + 'plugin/smart_shop/api/notification/set-wechat-template', //设置微信公众号通知
+		},
+		store: {
+			pay_order_detail:  api_root + 'plugin/smart_shop/api/store-pay-order/detail' 
 		}
+	},
+	pay: {
+		get_pay_data: api_root + 'api/pay/get-pay-data',
 	},
 //-------------------------------------------------------------------------------------------淘礼金
 	taolijin:{

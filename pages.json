@@ -551,12 +551,11 @@
 
 		}
     ],
-	"subPackages": [
-		{
-			"root": "smartshop",
-			"pages": [
+	"subPackages": [{
+			"root": "pay",
+			"pages":[
 				{
-					"path": "order/pay",
+					"path": "pay",
 					"style": {
 						"navigationBarTitleText": "提交订单",
 						"navigationStyle": "custom",
@@ -564,7 +563,12 @@
 							"titleNView": false
 						}
 					}
-				},
+				}
+			]
+		},
+		{
+			"root": "smartshop",
+			"pages": [
 				{
 					"path": "notification/setWechatTemplate",
 					"style": {
@@ -573,6 +577,15 @@
 						"app-plus": {
 							"titleNView": false
 						}
+					}
+				},
+				{
+					"path": "store/recharge_result",
+					"style": {
+						"navigationBarTitleText": "支付结果",
+						"navigationBarBackgroundColor": "#FFFFFF",
+						"navigationBarTextStyle": "black",
+						 "enablePullDownRefresh": false
 					}
 				}
 			]
