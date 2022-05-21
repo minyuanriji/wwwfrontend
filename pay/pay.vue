@@ -1,6 +1,11 @@
 <template>
 	<view class="cart-root">
+		
+		<!-- #ifdef MP-WEIXIN -->
 		<com-nav-bar  title="提交订单" :status-bar="true" :background-color="navBg" :border="false" :color="navCol"></com-nav-bar>
+		<!-- #endif -->
+		
+		
 		<!-- 背景图，可自定义 -->
 		<view class="cart-bg" :style="{background:'url('+bg_url+')'}"></view>
 		<view class="mainContent">
@@ -418,7 +423,8 @@
 		z-index: 999;
 		position: relative;
 		width: 690rpx;
-		margin: 118rpx auto 0;
+		padding-top:30rpx;
+		margin: 0rpx auto 0;
 	}
 
 	.up {
