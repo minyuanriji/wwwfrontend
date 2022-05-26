@@ -270,7 +270,7 @@
 							</view>
 						</view>
 						<view class="buy-btn" :style="{'background-color':textColor}" @tap='buyGoods'>
-							立即购买
+							立即下单
 						</view>
 					</scroll-view>
 				</view>
@@ -785,7 +785,7 @@ export default {
 				}
 			})
 		},
-		buyGoods(){ //立即购买
+		buyGoods(){ //立即下单
 			var lengths = this.goods_data.attr_groups.length;
 			
 			this.popupShow = false;

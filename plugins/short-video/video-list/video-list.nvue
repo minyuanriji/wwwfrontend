@@ -238,7 +238,7 @@
 							</view>
 						</view>
 						<view class="buy-btn" :style="{'background-color':textColor}">
-							立即购买
+							立即下单
 						</view>
 					</scroll-view>
 				</view>

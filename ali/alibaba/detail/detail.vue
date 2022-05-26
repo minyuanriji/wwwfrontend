@@ -496,7 +496,7 @@ white-space: nowrap;;width:30%;margin-top: 10rpx;margin-right: 30rpx;font-size: 
 				skuname:'',
 				sku_group_list_children:'',
 				img_url: this.$api.img_url,
-				is_index: 1, //1是加入购物车，2是立即购买
+				is_index: 1, //1是加入购物车，2是立即下单
 				id: 0, //商品id
 				goodRate: '', // 商品好评率
 				commentsData: '', //评论数据
@@ -973,7 +973,7 @@ white-space: nowrap;;width:30%;margin-top: 10rpx;margin-right: 30rpx;font-size: 
 				})
 			},
 
-			determine() { //点击确定按钮，判断是加入购物车还是立即购买
+			determine() { //点击确定按钮，判断是加入购物车还是立即下单
 				this.popupShow = false;
 				if (this.goodsData.use_attr == 0) {
 					if (this.goodsData.attr_list[0].stock == 0) {
@@ -1013,7 +1013,7 @@ white-space: nowrap;;width:30%;margin-top: 10rpx;margin-right: 30rpx;font-size: 
 							this.$http.toast(res.msg);
 						}
 					})
-				} else if (this.is_index == 2) { //立即购买
+				} else if (this.is_index == 2) { //立即下单
 					var goods_attr_id = this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id;
 					var mch_id = 0
 					var is_mch = this.is_mch

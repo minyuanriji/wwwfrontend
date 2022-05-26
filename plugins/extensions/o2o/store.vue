@@ -134,7 +134,7 @@
 					</view>
 				</view>
 
-				<view class="popup-btn"><view class="sure-btn" @click="buy">立即购买</view></view>
+				<view class="popup-btn"><view class="sure-btn" @click="buy">立即下单</view></view>
 			</view>
 		</com-bottom-popup>
 	</view>

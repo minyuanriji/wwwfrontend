@@ -193,7 +193,7 @@
 			</view>
 			<view class="jx-operation-right jx-right-flex jx-col-7 jx-btnbox-4" v-else>
 				<view class="jx-btn radius-left show-popup" style="height: 80%;" @click="showPopup(1)">加入购物车</view>
-				<view class="jx-btn radius-right submit" style="height: 80%;" @click="showPopup(2)">立即购买</view>
+				<view class="jx-btn radius-right submit" style="height: 80%;" @click="showPopup(2)">立即下单</view>
 			</view>
 		</view>
 		<!--底部操作栏-->

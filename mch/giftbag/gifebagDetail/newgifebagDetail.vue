@@ -266,7 +266,7 @@
 				</view>
 				<view class="bottom-buy" v-else style="display:flex;align-items: center;justify-content: flex-end;">
 					<view style="display:inline-block;background: rgb(255,71,83);width: 80%;height: 85rpx;line-height:85rpx;border-radius: 50rpx;" @click="singleBuy">
-						<text style="font-size: 35rpx;">立即购买</text>
+						<text style="font-size: 35rpx;">立即下单</text>
 					</view>
 				</view>
 			</view>

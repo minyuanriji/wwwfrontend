@@ -215,7 +215,7 @@
 				
 				<view class="jx-btn radius-right" style="height: 80%;" :style="{background:'#FF7104','border-radius':is_show_cart?'':'100rpx'}"
 				 @click="showPopup(2)">
-					立即购买
+					立即下单
 				</view>
 			</view>
 			<view class="tui-operation-right tui-right-flex tui-col-7 tui-btnbox-4" v-if="is_seckill!=0">
@@ -418,7 +418,7 @@
 			return {
 				img_url: this.$api.img_url,
 				plugins_img_url: this.$api.plugins_img_url,
-				is_index: 1, //1是加入购物车，2是立即购买
+				is_index: 1, //1是加入购物车，2是立即下单
 				proId: 0, //商品id
 				goodRate: '', // 商品好评率
 				commentsData: '', //评论数据
@@ -771,7 +771,7 @@
 				})
 			},
 
-			determine() { //点击确定按钮，判断是加入购物车还是立即购买
+			determine() { //点击确定按钮，判断是加入购物车还是立即下单
 				if (this.goodsData.use_attr == 0) {
 					if (this.goodsData.attr_list[0].stock == 0) {
 						this.$http.toast('该商品已没有库存!');
@@ -828,7 +828,7 @@
 							this.$http.toast(res.msg);
 						}
 					})
-				} else if (this.is_index == 2) { //立即购买
+				} else if (this.is_index == 2) { //立即下单
 					this.popupShow = false;
 					var goods_attr_id = this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id;
 					var mch_id=0
@@ -860,7 +860,7 @@
 							num: this.value,
 							mch_id: 0,
 							mch_baopin_id:this.mch_baopin_id,
-							buy_now:1,//立即购买传1
+							buy_now:1,//立即下单传1
 						}
 					}).then((res) => {
 						if (res.code == 0) {

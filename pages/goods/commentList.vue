@@ -46,7 +46,7 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
-				is_index: 1, //1是加入购物车，2是立即购买
+				is_index: 1, //1是加入购物车，2是立即下单
 				proId: 0, //商品id
 				goodRate: '', // 商品好评率
 				commentsData: [], //评论数据
