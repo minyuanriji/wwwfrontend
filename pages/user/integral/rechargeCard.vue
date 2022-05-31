@@ -2,9 +2,9 @@
 	<view class="shopping-coupon">
 		<view class="uni-form-item uni-column recharge-card">
 			<view class="title">请输入卡片兑换码</view>
-			<input v-model="serialize_no" class="uni-input" type="text" placeholder="请输入卡号" />
-			<input v-model="use_code" class="uni-input" type="text" placeholder="请输入兑换码" />
-			<view class="exchange-btn" :style="{background:'#FF7104',borderColor:'#FF7104'}" @click="integralRecharge">立即充值</view>
+			<input :disabled="loading" v-model="serialize_no" class="uni-input" type="text" placeholder="请输入卡号" />
+			<input :disabled="loading" v-model="use_code" class="uni-input" type="text" placeholder="请输入兑换码" />
+			<view class="exchange-btn" :style="{background:!loading ? '#FF7104' : '#e5e5e5',borderColor:!loading ? '#FF7104' : '#e5e5e5'}" @click="integralRecharge">立即充值</view>
 		</view>
 	</view>
 </template>
@@ -15,6 +15,7 @@
 	export default {
 		data() {
 			return {
+				loading: false,
 				is_weixn: false,
 				serialize_no : '',	//卡号
 				use_code : '',	//兑换码
@@ -90,19 +91,29 @@
 					serialize_no : this.serialize_no,
 					use_code : this.use_code,
 				};
+				this.loading = true;
 				this.$http.request({
 					url: this.$api.user.score_integral_recharge,
 					method: 'POST',
 					data: postData,
 					showLoading: true
 				}).then(res => {
-					this.$http.toast(res.msg);
 					if(res.code==0){
-						setTimeout(() => {							
+						this.$http.toast("充值成功！");
+						let url;
+						if(res.data.link_url){
+							url = res.data.link_url.new_link_url;
+						}else{
+							url = '/pages/user/integral/integral';
+						}
+						setTimeout(() => {
 							uni.redirectTo({
-							    url:'/pages/user/integral/integral'
+							    url: url
 							});						
 						}, 800);
+					}else{
+						this.$http.toast(res.msg);
+						this.loading = false;
 					}
 				})
 			},
