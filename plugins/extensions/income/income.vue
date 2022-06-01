@@ -3,33 +3,31 @@
 		<!-- #ifdef H5 -->
 		<view class="asset_types" style="width: 100%;height: 120rpx;background: #f4f4f4;position: fixed;top: 80rpx;left: 0;z-index: 999;">
 		<!--#endif -->
+		
 		<!-- #ifdef MP-WEIXIN || APP-PLUS -->
 		<view class="asset_types" style="width: 100%;height: 120rpx;background: #f4f4f4;position: fixed;top: 0rpx;left: 0;z-index: 999;">
 		<!--#endif -->	
-			<view class="asset_types_select" style="width: 220rpx;background: #fff;height: 70rpx;border-radius: 15rpx;line-height: 70rpx;padding-left: 40rpx;margin-top: 25rpx;margin-left: 20rpx;color: #000;box-sizing: border-box;"
-			@click="selectasset" >
-			     {{asseText}}
+		
+			<view class="asset_types_select" style="width: 220rpx;background: #fff;height: 70rpx;border-radius: 15rpx;line-height: 70rpx;padding-left: 40rpx;margin-top: 25rpx;margin-left: 20rpx;color: #000;box-sizing: border-box;" @click="selectasset" >
+				 {{asseText}}
 				<image :src="img_url+'/upstrong.png'" mode="" style="display: block;width: 36rpx;height: 36rpx;position: absolute;top: 45rpx;left: 190rpx;"></image>
 			</view>
 		</view>
 		
-		
-		
-		
-		
-	<!-- #ifdef H5 -->
+		<!-- #ifdef H5 -->
 		<view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 200rpx;left: 0;">
-	<!--#endif -->
-	<!-- #ifdef MP-WEIXIN || APP-PLUS -->
-		 <view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 118rpx;left: 0;">
-	 <!--#endif -->
+		<!--#endif -->
+		
+		<!-- #ifdef MP-WEIXIN || APP-PLUS -->
+		<view class="income-root-header" style="width: 100%;overflow: hidden;position: fixed;top: 118rpx;left: 0;">
+		<!--#endif -->
 			<view class="pick-time">
 				<view class="pick-time-detail">
 					<picker mode="date" :value="date"  @change="bindDateChange" fields='month'>
-					    <view class="uni-input">{{date}}</view>
+						<view class="uni-input">{{date ? date : "日期"}}</view>
 					 </picker>
 					<image :src="img_url+'/upstrong.png'" mode=""></image>
-					<view style="font-size: 25rpx;color: #A0A0A0;">
+					<view style="font-size: 26rpx;color: #A0A0A0;">
 						<text style="margin-right: 20rpx;">收入￥{{detailed_count.income}}</text>
 						<text>支出￥{{detailed_count.expenditure}}</text>
 					</view>
@@ -44,6 +42,7 @@
 				</view>
 			</view>
 		</view>
+		
 		<view style="margin-top: 250rpx;margin-bottom: 30rpx;">
 			<view class="detail-box" v-for="(item,index) in list" :key='index'>
 				<view class="detail-item-box">
@@ -59,15 +58,22 @@
 				</view>
 			</view>
 		</view>
+		
 		<!--加载loadding-->
 		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
-		<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
-		<!--加载loadding-->
+		<main-nomore :visible="!pullUpOn"></main-nomore>
+		
 		<unipopup ref="popup" type="bottom">
 			<view class="popup-detail">
-				<view class="popup-detail-header">
-					请选择收益类型
+				<view class="popup-detail-header" style="border-bottom: 1px solid #eee;">
+					请选择类型
 				</view>
+				
+				<view class="search" style="">
+					<input @confirm="search" confirm-type="search" v-model="keyword" type="text" placeholder="搜索" />
+					<icon @click="search" type="search" size="18" style="padding:0 20rpx;"/>
+				</view>
+				
 				<view class="popup-detail-list">
 					<view :class="selectIndex==index?'active':''" v-for="(item,index) in incomeList" :key='index'  @click="select(index,item.type)">
 						{{item.name}}
@@ -75,6 +81,7 @@
 				</view>
 			</view>
 		</unipopup>
+		
 		<unipopup ref="asset" type="bottom">
 			<view class="popup-detail">
 				<view class="popup-detail-header">
@@ -104,61 +111,29 @@
 				page: 1,
 				page_count:'',
 				textColor: '',
-				date: "全部",
+				date: "",
 				popup:false,
+				keyword: '',
 				incomeList:[
-					{
-						name:'全部',
-						type:''
-					},
-					{
-						name:'商品消费',
-						type:'goods'
-					},
-					{
-						name:'推荐门店',
-						type:'store'
-					},
-					{
-						name:'结账单扫码',
-						type:'checkout'
-					},
-					{
-						name:'酒店消费',
-						type:'hotel_3r_commission'
-					},
-					{
-						name:'推荐酒店',
-						type:'hotel_commission'
-					},
-					{
-						name:'平台充值',
-						type:'admin'
-					},
-					{
-						name:'股东分红',
-						type:'boss'
-					},
-					{
-						name:'提现',
-						type:'cash'
-					},
-					{
-						name:'话费直推',
-						type:'addcredit'
-					},
-					{
-						name:'话费充值',
-						type:'addcredit_3r'
-					},
-					{
-						name:'区域商品分红',
-						type:'region_goods'
-					},
-					{
-						name:'区域门店扫码分红',
-						type:'region_checkout'
-					},
+					{name:'全部', type:''},
+					{name: '管理员操作', type: 'admin'},
+					{name: '提现', type: 'cash'},
+					{name: '门店收益', type: 'checkout'},
+					{name: '推荐门店收益', type: 'store'},
+					{name: '股东分红', type: 'boss'},
+					{name: '推荐酒店收益', type: 'hotel_commission'},
+					{name: '酒店收益', type: 'hotel_3r_commission'},
+					{name: '商品收益', type: 'goods'},
+					{name: '话费直推收益', type: 'addcredit'},
+					{name: '话费收益', type: 'addcredit_3r'},
+					{name: '礼包收益', type: 'giftpacks_commission'},
+					{name: '区域分红商品收益', type: 'region_goods'},
+					{name: '区域分红门店收益', type: 'region_checkout'},
+					{name: '推荐小程序订单收益', type: 'smart_shop_order'},
+					{name: '小程序订单收益', type: 'smart_shop_order_3r'},
+					{name: '推荐小程序订单收益', type: 'smart_shop_cyorder'},
+					{name: '小程序订单收益', type: 'smart_shop_cyorder_3r'},
+					{name: '业绩分配奖励收益', type: 'perform_distribution_award_order'},
 				],
 				selectIndex:0,
 				updated_at:'',//时间
@@ -238,6 +213,7 @@
 			},
 			bindDateChange: function(e) { //点击选择年月
 				let time=e.target.value		
+				this.pullUpOn=true
 			    this.date = time.split('-')[0]+'年'+time.split('-')[1]+'月'
 				this.page=1
 				this.list=[]
@@ -245,24 +221,38 @@
 				this.updated_at=this.date
 				this.getList()
 			},		
+			search(){
+				this.pullUpOn=true
+				this.page=1
+				this.list=[]
+				this.page_count=''
+				this.getList()
+				this.$refs.popup.close()
+			},
 			getList() {
+				this.loadding = true;
 				this.$http.request({
 					url: this.$api.income.list,
 					data: {
 						page: this.page,
 						updated_at:this.updated_at,
 						source_type:this.source_type,
+						keyword: this.keyword
 						// status: '',
 					},
 				}).then((res) => {
+					this.loadding = false;
 					if (res.code == 0) {
 						this.detailed_count=res.data.detailed_count
-						if (res.data.list.length == 0) return false
+						if (res.data.list.length == 0){
+							this.pullUpOn=false
+							return false
+						}
 						let list = res.data.list
 						var arr = this.list.concat(list)
 						this.list = arr
 						this.page_count = res.data.pagination.page_count
-						this.pullUpOn=true
+						
 					} else {
 						this.$http.toast(res.msg);
 					}
@@ -277,7 +267,7 @@
 				this.page=1
 				this.list=[]
 				this.page_count=''
-				if(this.date=='全部'){
+				if(this.date=='日期'){
 					this.updated_at=''
 				}else{
 					this.updated_at=this.date
@@ -288,7 +278,8 @@
 			reset(){
 				this.page=1
 				this.list=[]
-				this.date="全部",
+				this.date="";
+				this.keyword = '';
 				this.page_count=''
 				this.updated_at=''
 				this.source_type=''
@@ -297,11 +288,13 @@
 			}
 		},
 		onReachBottom: function(e) {
-			this.pullUpOn=true
-			this.loadding=true
-			if (this.page == this.page_count) {
+			
+			if(this.loadding){
+				return
+			}
+			
+			if (this.page >= this.page_count) {
 				this.pullUpOn=false
-				this.loadding=false
 				return
 			}
 			this.page = this.page + 1
@@ -311,6 +304,9 @@
 </script>
 
 <style lang="scss" scoped>
+	.search{background:#F9F9F9;display:flex;align-items: center;border-radius:70rpx;height:70rpx;margin:20rpx 20rpx;padding:0 30rpx;border:1px solid #eee;}
+	.search input{flex-grow: 1;font-size:28rpx;}
+	
 	.detail-box {
 		padding: 0 30rpx;
 
@@ -349,9 +345,8 @@
 	.pick-time-detail image{display: block;width: 36rpx;height: 36rpx;position: absolute;top: 7rpx;left: 185rpx;}
 	.popup-detail{width: 100%;background: #fff;min-height: 400rpx;border-radius: 0 0 20rpx 20rpx;padding-bottom: 30rpx;}
 	.popup-detail-header{width: 100%;height: 80rpx;line-height: 80rpx;padding: 0 20rpx;font-size: 30rpx;color: #000;font-weight: bold;}
-	.popup-detail-list{width: 100%;overflow: hidden;margin-bottom: 30rpx;}
-	.popup-detail-list view{min-width: 180rpx;height: 70rpx;line-height: 70rpx;text-align: center;
-	float: left;margin: 20rpx 0rpx 0 50rpx;border-radius: 10rpx;font-size: 26rpx;font-weight: bold;}
+	.popup-detail-list{justify-content: space-around;width: 100%;overflow: hidden;margin-bottom: 30rpx;display: flex;flex-wrap: wrap;}
+	.popup-detail-list > view{width: 220rpx;height: 70rpx;line-height: 70rpx;text-align: center;float: left;margin: 20rpx 0rpx 0px 0rpx;padding:0 10rpx;border-radius: 10rpx;font-size: 26rpx;border:1px solid #eee;word-break: keep-all; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 	.active{background: rgb(222,59,45);color: #fff;}
 	.actove{background: rgb(222,59,45);color: #fff;}
 </style>
