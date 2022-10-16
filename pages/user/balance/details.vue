@@ -1,8 +1,20 @@
 <template>
 	<view class="app">
-		<!--header-->
-		<view class="app-header-box"><com-nav-bar @clickLeft="back" left-icon="back" title="余额明细" :status-bar="true"></com-nav-bar></view>
-		<!--header-->
+		<!-- #ifdef H5 -->
+		<view class="asset_types" style="width: 100%;height: 120rpx;background: #f4f4f4;position: fixed;top: 80rpx;left: 0;z-index: 999;">
+		<!--#endif -->
+		<!-- #ifdef MP-WEIXIN || APP-PLUS -->
+		<view class="asset_types" style="width: 100%;height: 120rpx;background: #f4f4f4;position: fixed;top: 0rpx;left: 0;z-index: 999;">
+		<!--#endif -->	
+			<view class="asset_types_select" style="width: 220rpx;background: #fff;height: 70rpx;border-radius: 15rpx;line-height: 70rpx;padding-left: 50rpx;margin-top: 25rpx;margin-left: 20rpx;color: #000;box-sizing: border-box;"
+			@click="selectasset" >
+			     {{asseText}}
+				<image :src="img_url+'/upstrong.png'" mode="" style="display: block;width: 36rpx;height: 36rpx;position: absolute;top: 45rpx;left: 190rpx;"></image>
+			</view>
+		</view>
+		
+		
+		
 		<view class="items" v-if="dataList && dataList.length">
 			<view class="item" v-for="(item, i) in dataList" :key="i">
 				<view class="item-left">
@@ -23,14 +35,31 @@
 		<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
 		<main-loading :visible="loading"></main-loading>
 		<!--加载loadding-->
+		<unipopup ref="asset" type="bottom">
+			<view class="popup-detail">
+				<view class="popup-detail-header">
+					请选择资产类型
+				</view>
+				<view class="popup-detail-list">
+					<view :class="selectassetIndex==index?'actove':''" v-for="(item,index) in assetList" :key='index'  @click="assetlink(item,index)">
+						{{item.name}}
+					</view>
+				</view>
+			</view>
+		</unipopup>
 	</view>
 </template>
 
 <script>
 const _status = 'refresh';
+import unipopup from '@/components/uni-popup/uni-popup';
 export default {
+	components: {
+		unipopup
+	},
 	data() {
 		return {
+			img_url: this.$api.img_url,
 			loadding: false,
 			pullUpOn: true,
 			loading: false,
@@ -42,17 +71,73 @@ export default {
 				current_page: 1
 			},
 			textColor:'#bc0100',
+			
+			asset:false,
+			assetList:[
+				{
+					name:'余额',
+					type:'balance'
+				},
+				{
+					name:'积分',
+					type:'total_score'
+				},
+				{
+					name:'金豆',
+					type:'redBag'
+				},
+				{
+					name:'红包',
+					type:'shopping_voucher'
+				},
+				{
+					name:'收益明细',
+					type:'income'
+				},
+			],
+			asseText:'',
+			selectassetIndex:0
 		};
 	},
-	onLoad() {
+	onLoad(options) {
+		if(options&&options.name=='balance'){
+			this.asseText="余额"
+			this.selectassetIndex=0
+		}
 		if(uni.getStorageSync('mall_config')){
 			this.textColor = this.globalSet('textCol');
 		}
 		this.getDateList(_status, true);
 	},
 	methods: {
-		back() {
-			this.navBack();
+		selectasset(){
+			this.$refs.asset.open()
+		},
+		assetlink(item,index){
+			this.$refs.asset.close()
+			if(item.type=='balance'){
+				return
+			}
+			if(item.type=='total_score'){								
+				uni.navigateTo({
+					url:'../integral/integral?name='+item.type
+				})
+			}
+			if(item.type=='redBag'){
+				uni.navigateTo({
+					url:'../../../mch/redBag/redBag?name='+item.type
+				})
+			}
+			if(item.type=='shopping_voucher'){
+				uni.navigateTo({
+					url:'../../../mch/vouchers/vouchers?name='+item.type
+				})
+			}
+			if(item.type=='income'){
+				uni.navigateTo({
+					url:'../../../plugins/extensions/income/income?name='+item.type
+				})
+			}
 		},
 		updateStatus(type, data) {
 			return type == 1 ? `+${data}` : `-${data}`;
@@ -124,7 +209,7 @@ export default {
 }
 
 .items {
-	margin: 0 30rpx;
+	margin: 120rpx 30rpx 0 30rpx;
 	display: flex;
 	flex-direction: column;
 
@@ -172,4 +257,10 @@ export default {
 .text-12-pt {
 	font-size: 12pt;
 }
+.popup-detail{width: 100%;background: #fff;min-height: 400rpx;border-radius: 0 0 20rpx 20rpx;padding-bottom: 30rpx;}
+	.popup-detail-header{width: 100%;height: 80rpx;line-height: 80rpx;padding: 0 20rpx;font-size: 30rpx;color: #000;font-weight: bold;}
+	.popup-detail-list{width: 100%;overflow: hidden;margin-bottom: 30rpx;}
+	.popup-detail-list view{min-width: 180rpx;height: 70rpx;line-height: 70rpx;text-align: center;
+	float: left;margin: 20rpx 0rpx 0 40rpx;border-radius: 10rpx;font-size: 26rpx;font-weight: bold;}
+	.actove{background: rgb(222,59,45);color: #fff;}
 </style>

@@ -2,7 +2,7 @@
 	<view class="hotel-detail-app">
 		<view class="hotel-detai-header">
 			<text>{{orderMessage.status_text}}</text>
-			<text>房间将为您整晚保留，请安心入住</text>
+			<text v-if="orderMessage.real_status == 'confirmed'">房间将为您整晚保留，请安心入住</text>
 		</view>
 		<view class="hotel-detai-setAgain">
 			<text v-if="action.is_payable==1" @click="payAgain(orderMessage.order_no)">去支付</text>
@@ -45,10 +45,6 @@
 					<view class="hotel-detail-product-messgae-name">
 						{{hotelMessage.name}} 
 					</view>
-					<!-- <view class="hotel-detail-product-messgae-facilities">
-						<text>儿童乐园</text>
-						<text>娱乐场/棋牌室</text>
-					</view> -->
 					<view class="hotel-phone-address">
 						<text style="margin-bottom: 5rpx;">酒店联系方式 : {{hotelMessage.contact_phone}}</text>
 						<text>地址 :{{hotelMessage.province_name}}{{hotelMessage.city_name}}{{hotelMessage.address}}</text>
@@ -84,14 +80,17 @@
 					</view>
 				</view>
 			</view>
-			<view class="passengers-message" v-for="(item,index) in orderMessage.booking_passengers" :key='index'>
+			<view class="passengers-message" v-for="(item,index) in roomePeople" :key='index'>
 				<view>
 					<text>入住人</text>
-					<text>{{item.name}}</text>
+					<input type="text" value=""  v-model.trim="item.name"  style="width: 300rpx;font-size: 28rpx;color: #000;height: 70rpx;display: inline-block;background: #fafafa;"/>
 				</view>
 				<view>
 					<text>联系手机</text>
-					<text>{{item.mobile}}</text>
+					<input type="text" value=""  v-model.trim="item.mobile"  style="width: 300rpx;font-size: 28rpx;color: #000;height: 70rpx;display: inline-block;background: #fafafa;"/>
+				</view>
+				<view class="tui-address-imgbox" style="position: absolute;top: 60rpx;right: 0rpx;width: 80rpx;" @click="savePeople(item,index)" >
+					<image src="../../img/save.png" mode="" style="display: block;width: 50rpx;height: 50rpx;"></image>
 				</view>
 			</view>
 		</view>
@@ -99,7 +98,7 @@
 			<view class="pay-poup">
 				<image :src="img_url+'/hotel/paySuccess.png'" mode=""></image>
 				<view>恭喜你</view>
-				<view>红包支付成功</view>
+				<view>金豆支付成功</view>
 			</view>
 		</uni-popup>
 	</view>
@@ -124,6 +123,7 @@
 				minute:"00",
 				seconds:'00',
 				timer:'',
+				roomePeople:[],
 			};
 		},
 		onLoad(options) {
@@ -149,6 +149,8 @@
 							this.action=res.data.action
 							this.hotelMessage=res.data.hotel
 							this.orderMessage=res.data.order
+							this.roomePeople=res.data.order.booking_passengers
+							console.log(this.roomePeople)
 							this.roomMessage=res.data.room
 							if(this.action.is_payable==1){
 								let time=this.action.pay_last_second
@@ -207,14 +209,13 @@
 				           			hotel_order_id:id
 				           		},
 				           		showLoading: true
-				           	})
-				           	.then(result => {
+				           	}).then(result => {
 				           		if(result.code==0){
-				           			that.$http.toast('退款成功');
-				           			that.orderMessage.status_text='已退款'
-				           			that.is_refundable=0
+									that.$http.toast("申请退款成功！");
+									that.getOrderDetail(that.hotel_order_id);
+									that.isrefund(that.hotel_order_id);
 				           		}else{
-				           			that.$http.toast(res.msg);
+				           			that.$http.toast(result.msg);
 				           		}
 				           });
 				        } else if (res.cancel) {
@@ -281,28 +282,49 @@
 			},
 			againReservation(){ //再次预定
 				uni.navigateTo({
-					url:'../selectRoom/selectRoom?id='+this.hotelMessage.id
+					url:'../../../hotel/detail/detail?id='+this.hotelMessage.id
 				})
 			},
-			payAgain(order_no){//用红包支付 hotelPay
+			payAgain(order_no){//再次支付
+				uni.navigateTo({
+					url:'../pay?order_no='+res.data.order_no
+				})
+				// this.$http
+				// 	.request({
+				// 		url: this.$api.hotel.hotelPay,
+				// 		method: 'POST',
+				// 		data:{
+				// 			order_no:order_no,
+				// 		},
+				// 		showLoading: true
+				// 	})
+				// 	.then(res => {
+				// 		if(res.code==0){							
+				// 			this.$refs.popup.open()
+				// 			setTimeout(()=>{
+				// 				this.$refs.popup.close()
+				// 				uni.navigateTo({
+				// 					url:'../hotelList/hotelList'
+				// 				})
+				// 			},2000)	
+				// 		}else{
+				// 			this.$http.toast(res.msg);
+				// 		}
+				// });
+			},
+			savePeople(item,index){
 				this.$http
 					.request({
-						url: this.$api.hotel.hotelPay,
+						url: this.$api.hotel.editeroom,
 						method: 'POST',
 						data:{
-							order_no:order_no,
+							hotel_order_id:this.hotel_order_id,
+							booking_passengers:this.roomePeople,
 						},
-						showLoading: true
 					})
 					.then(res => {
-						if(res.code==0){							
-							this.$refs.popup.open()
-							setTimeout(()=>{
-								this.$refs.popup.close()
-								uni.navigateTo({
-									url:'../hotelList/hotelList'
-								})
-							},2000)	
+						if(res.code==0){
+							this.getOrderDetail(this.hotel_order_id)
 						}else{
 							this.$http.toast(res.msg);
 						}
@@ -360,13 +382,16 @@ display: -webkit-box;
 .hotel-room-detail-messahe{font-size: 28rpx;color: #000;width: 80%;margin-bottom: 10rpx;margin-top: 20rpx;}
 .hotel-room-detail-specifications{font-size: 25rpx;margin-bottom: 15rpx;}
 .hotel-room-detail-time{width: 100%;overflow: hidden;display: flex;justify-content: space-between;font-size: 25rpx;}
-.passengers-message{width: 90%;overflow: hidden;margin: 0 auto 20rpx;border: 1rpx solid #E6E6E6;;border-radius: 30rpx;padding: 20rpx;}
-.passengers-message view{width: 100%;height: 70rpx;line-height: 70rpx;}
-.passengers-message view text{display: inline-block;}
+.passengers-message{width: 90%;overflow: hidden;position: relative;margin: 0 auto 20rpx;border: 1rpx solid #E6E6E6;;border-radius: 30rpx;padding: 20rpx;}
+.passengers-message view{width: 100%;height: 70rpx;line-height: 70rpx;margin-bottom: 20rpx;}
+.passengers-message view text{display: inline-block;float: left;}
 .passengers-message view text:nth-of-type(1){font-size: 28rpx;width: 150rpx;}
 .passengers-message view text:nth-of-type(2){font-size: 28rpx;color: #000;}
 .pay-poup{width: 400rpx;height: 400rpx;border-radius: 30rpx;background: #fff;padding: 40rpx 20rpx;}
 .pay-poup image{display: block;width: 120rpx;height: 120rpx;margin: 0rpx auto 35rpx;}
 .pay-poup view{width: 100%;overflow: hidden;font-size: 30rpx;color: #000;text-align: center;margin: 25rpx 0;}
+
+
+
 </style>
 

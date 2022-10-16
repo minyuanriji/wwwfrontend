@@ -1,17 +1,21 @@
 <template>
 	<view class="moreCreadit-app">
 		<view class="moreCreadit_header">
-			<view class="title">
-				充值中心
-			</view>
 			<view class="text">
-				<input type="number" v-model="form.mobile" />
+				<input type="text" v-model="form.mobile" placeholder="请输入电话号码" @focus="_input" />
+				<image :src="img_url+'delete_error.png'" mode="" style="width: 30rpx;height: 30rpx;
+				display: block;position: absolute;right: 30rpx;top: 25rpx;z-index: 999;" @click.stop="deleteint"
+				 v-if="form.mobile.length>0&&mobileShow"></image>
 			</view>
+			<!-- #ifdef APP-PLUS || MP -->
+				<image :src="plugins_img_url+'/phonwcontance.png'" mode="" style="display: block;width: 60rpx;height: 60rpx;position: absolute;right: 40rpx;top: 70rpx;"
+				@click="getPhonelist"></image>
+			<!-- #endif -->
 		</view>
 		<view class="moreCreadit_detail">
-			<view class="moreCreadit_detail-num">
+			<view class="moreCreadit_detail-num" v-if="show">
 				<view class="moreCreadit_detail-num_title">
-					<text>充话费</text>
+					<text v-for="(item,index) in type" :key='index' :class="typeIndex==index?'typeActive':''" @click="typeSelect(index,item)">{{item}}</text>
 				</view>
 				<view class="moreCreadit_detail-num_list">
 					<view :class="selectIndex==index?'active':'moreCreadit_detail-num_list-item'"
@@ -20,20 +24,54 @@
 							<text style="color:rgb(255, 113, 4);font-size: 38rpx;font-weight: bold;">{{item.price}}</text>
 							<text style="color:rgb(255, 113, 4);font-size: 25rpx;">元</text>
 						</view>
-						<view style="font-size: 26rpx;color: #9E9E9E;">
-							红包{{item.redbag_num}}
+						<view style="font-size: 25rpx;color: #9E9E9E;">
+							送{{getSendNum(item.price)}}红包
 						</view>
 					</view>
 				</view>
 			</view>
-			<view class="recharge">
+			<view class="recharge" v-if="show">
 				<button type="default" @click="checkrecharge">立即充值</button>
 			</view>
 		</view>
+		<view class="notice" v-if="show">
+			<text style="display: block;width: 100%;height: 60rpx;line-height: 60rpx;font-size: 28rpx;color: #000;font-weight: bold;">温馨提示</text>
+			<view class="notice-item" >
+				<view>
+					1：充值前请核对充值号码
+				</view>
+				<view v-if="typeIndex==0">
+					2：充值后1-30分钟内到账，月初稍慢一些
+				</view>
+				<view v-if="typeIndex==1">
+					2：充值72小时内到账，月初稍慢一些
+				</view>
+				<view v-if="typeIndex==0">
+					3：快充赠送充值金额30%红包
+				</view>
+				<view v-if="typeIndex==1">
+					3：新用户第一次充值送100%红包，每个用户第一次送红包上限100，超过上限部分赠送订单金额50%红包
+				</view>
+				<view>
+					4：金豆充值不返红包
+				</view>
+				<view>
+					5：如对本次充值相关内容有疑问,请联系客服
+				</view>
+				<view>
+					6：暂不支持携号转网的手机号充值
+				</view>
+			</view>
+		
+		</view>
+		
 		<view class="recharge_list">
-			<jx-list-cell :arrow="false" padding="0" :lineLeft="false" @click="href(4)">
+			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" @click="href">
 				<view class="jx-cell-header" style="height: 80rpx;margin: 10rpx 0;">
-					<view class="jx-cell-title" style="font-weight: 700;line-height: 80rpx;font-size: 28rpx;padding-left: 20rpx;">充值记录</view>
+					<view class="jx-cell-title" style="font-weight: 700;line-height: 80rpx;font-size: 28rpx;padding-left: 20rpx;">当天充值记录</view>
+				</view>
+				<view class="jx-cell-header" style="height: 80rpx;margin: 10rpx 0;">
+					<view class="jx-cell-title" style="font-weight: 700;line-height: 80rpx;font-size: 28rpx;padding-left: 70rpx;margin-left: 350rpx;color: gray;">全部</view>
 				</view>
 			</jx-list-cell>
 			<view class="recharge_list-title">
@@ -46,10 +84,15 @@
 				<text style="color: #000;">{{item.mobile}}</text>
 				<text>{{item.order_price}}</text>
 				<text>{{item.created_at}}</text>
-				<text v-if="item.status=='充值成功'" style="color: green;">{{item.status}}</text>
-				<text  style="color: red;" v-if="item.status!='充值成功'">{{item.status}}</text>
+				<!-- <text v-if="item.pay_status=='paid'&&item.order_status=='success'" style="color: green;">充值成功</text>
+				<text v-if="item.pay_status=='paid'&&item.order_status=='processing'" style="color: red;">充值中...</text>
+				<text v-if="item.pay_status=='paid'&&item.order_status=='fail'" style="color: gray;">充值失败</text> -->
+				<!-- <text v-if="item.pay_status=='refunding'" style="color: red;">退款中...</text>
+				<text v-if="item.pay_status=='refund'" style="color: gray;">已退款</text> -->		
+				<text v-if="item.pay_status=='unpaid'" style="color: gray;">未支付</text>
+				<text v-else style="color: green;">充值成功</text>	
 			</view>
-		</view>
+		</view>	
 		<com-bottom-popup :show="popupShow" @close="hidePopup">
 			<view class="recharge_detail">
 				<view class="recharge_money">
@@ -74,23 +117,7 @@
 						</view>
 					</view>
 				</jx-list-cell>
-				<jx-list-cell :arrow="false" padding="0" :lineLeft="false">
-					<view class="jx-cell-header"
-						style="height: 80rpx;width: 90%;margin: 0 auto;border-bottom: 1rpx solid #F8FAF9;">
-						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: left;">需支付</view>
-						<view class="jx-cell-title"
-							style="line-height: 80rpx;font-size: 30rpx;float: right;margin-right: 30rpx;color: rgb(255, 113, 4);">{{redbag}}红包</view>
-					</view>
-				</jx-list-cell>
-				<jx-list-cell :arrow="true" padding="0" :lineLeft="false">
-					<view class="jx-cell-header"
-						style="height: 80rpx;width: 90%;margin: 0 auto;border-bottom: 1rpx solid #F8FAF9;">
-						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: left;">支付方式</view>
-						<view class="jx-cell-title"
-							style="line-height: 80rpx;font-size: 30rpx;float: right;margin-right: 30rpx;">红包支付</view>
-					</view>
-				</jx-list-cell>
-				<!-- <view class="pay-type">
+				<view class="pay-type">
 					<radio-group @change="radioChange">
 						<view class="lables" v-for="(item, index) in items" :key="item.value">
 							<view style="float: right;height: 60rpx;line-height: 60rpx;">
@@ -99,54 +126,200 @@
 							<view style="float: left;height: 60rpx;line-height: 60rpx;font-size: 30rpx;">{{item.name}}</view>
 						</view>
 					</radio-group>
-				</view> -->
-				<view class="sumbit">
+				</view>
+				<jx-list-cell :arrow="false" padding="0" :lineLeft="false" v-if="current==0">
+					<view class="jx-cell-header"
+						style="height: 80rpx;width: 90%;margin: 0 auto;border-bottom: 1rpx solid #F8FAF9;">
+						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: left;">需支付现金</view>
+						<view class="jx-cell-title"
+							style="line-height: 80rpx;font-size: 30rpx;float: right;margin-right: 30rpx;color: rgb(255, 113, 4);">{{form.order_price}}元</view>
+					</view>
+				</jx-list-cell>
+				<jx-list-cell :arrow="false" padding="0" :lineLeft="false" v-if="current==1">
+					<view class="jx-cell-header"
+						style="height: 80rpx;width: 90%;margin: 0 auto;border-bottom: 1rpx solid #F8FAF9;">
+						<view class="jx-cell-title" style="line-height: 80rpx;font-size: 30rpx;float: left;">需支付</view>
+						<view class="jx-cell-title"
+							style="line-height: 80rpx;font-size: 30rpx;float: right;margin-right: 30rpx;color: rgb(255, 113, 4);">{{redbag}}金豆</view>
+					</view>
+				</jx-list-cell>
+				<view class="sumbit" v-if="current==0">
+					<button type="default" @click="paysubnit">立即支付</button>
+					<image :src="img_url+'/artice_logo.png'" mode="widthFix"></image>
+				</view>
+				<view class="sumbit" v-if="current==1">
 					<button type="default" @click="sumbit">立即支付</button>
 					<image :src="img_url+'/artice_logo.png'" mode="widthFix"></image>
 				</view>
 			</view>
 		</com-bottom-popup>
+		<unipopup ref="popup" type="bottom">
+			<view class="popup_view">
+				<txl @ev="evFunc" :datas="datas" name="employeeName" :index="true"></txl>
+			</view>
+		</unipopup>
 	</view>
 </template>
 
 <script>
 	import jxListCell from '@/components/list-cell/list-cell';
-	import {isEmpty} from '../../common/validate.js'
+	import {isEmpty} from '../../common/validate.js';
+	import txl from '@/components/yt-txl/index.vue';
+	import unipopup from '@/components/uni-popup/uni-popup';
+	// #ifdef H5
+	var jweixin = require('jweixin-module');
+	// #endif
+	// #ifdef MP-WEIXIN || APP-PLUS
+	import {
+		setPay
+	} from '@/config/utils.js'
+	// #endif
 	export default {
 		components: {
-			jxListCell
+			jxListCell,
+			txl,
+			unipopup,
 		},
 		data() {
 			return {
+				plugins_img_url: this.$api.plugins_img_url,
 				img_url: this.$api.img_url,
-				selectIndex: 1,
-				list: [],
+				selectIndex: 0, //默认选中快充或者慢充金额列表的第一个
+				list: [], //快充或者慢充金额列表
 				popupShow: false,
-				items: [{
-					value: '红包支付',
-					name: '红包支付'
-				}, ],
-				current: 0,
+				items: [ //支付方式选择
+					{
+					value: '现金支付',
+					name: '现金支付'
+					}, 
+					{
+					value: '金豆支付',
+					name: '金豆支付'
+					},
+				],
+				current: 0, //支付选择
 				form: {
 					mobile: '',
 					order_price: '',
 					integral_deduction_price:'',
-					plateform_id: 1
+					product_id:"",
+					plateform_id: "",
+					pay_type:2,//1  现金 2金豆
 				},
-				creditStatusList:[],//充值记录
+				creditStatusList:{},//充值记录
 				order_id:'',//订单ID
-				redbag:'',//红包
+				redbag:'',//金豆
+				type:[],
+				typeIndex:0,//tabble的切换样式
+				moneyList:'',//快充和慢充的详情
+				payData:'',//支付信息
+				show:true,//显示影藏
+				mobileShow:false,
+				phoneList:[],//通讯录
+				datas:[				
+					{
+					    "employeeName": "",
+						"phone":''	,
+					},
+				],
+				use_red_envelopes:'',
 			};
 		},
-		onShow() {
+		onShow() { 
 			this.creditStatus()
 		},
 		methods: {
+			evFunc(data){
+				this.$refs.popup.close()
+				this.form.mobile=data.phone
+			},
+			getPhonelist(){//获取手机通讯录
+				var that = this
+				that.phoneList=[]
+				that.datas=[]
+				// 获取通讯录对象
+				  // #ifdef MP-WEIXIN
+						 wx.chooseContact({
+						      success: function (res) {
+								that.form.mobile=res.phoneNumber
+						        console.log(res.phoneNumber, '成功回调')
+						      },
+						      fail(res) {
+						        console.log(res, '错误回调')
+						      },
+						      complete(res) {
+						        console.log(res, '结束回调')
+						      }
+						   })
+				   // #endif
+				// #ifdef APP-PLUS 
+				plus.contacts.getAddressBook( plus.contacts.ADDRESSBOOK_PHONE, function( addressbook ) {  //获取通讯录
+				    addressbook.find(["displayName","phoneNumbers"],function(contacts){   //查找通讯录的数据  
+				        that.phoneList = contacts 
+						console.log(contacts)
+						for(let i=0;i<that.phoneList.length;i++){
+							for(let j=0;j<that.phoneList[i].phoneNumbers.length;j++){
+								that.datas.push({
+									employeeName:that.phoneList[i].displayName,
+									phone:that.phoneList[i].phoneNumbers[j].value
+								})
+							}
+						}
+						that.$refs.popup.open()
+				    }, function () {   //获取通讯录数据成功
+				    },{multiple:true});  
+				}, function ( e ) {  //获取通讯录数据失败
+				    
+				});
+				  // #endif
+			},
+			_input(){
+				this.mobileShow=true
+			},
+			deleteint(){//删除输入号码
+				this.form.mobile=''
+			},
+			getSendNum(val){
+				if(this.typeIndex == 0){
+					val = val * (3/10);
+				}else{
+					val = val <= 100 ? val : 100;
+				}
+				return val.toFixed(0);
+			},
+			typeSelect(index,item){//选择快充还是慢充
+				this.typeIndex=index
+				if(this.moneyList.enable_fast==0){
+					this.typeIndex=1
+				}
+				if(item=='快充'){
+					this.selectIndex=0
+					this.list=this.moneyList.FastCharging
+						this.form.order_price=this.list[0].price
+						this.form.integral_deduction_price=this.list[0].redbag_num
+						this.redbag=this.list[0].redbag_num
+						this.form.product_id=this.list[0].product_id
+						this.form.plateform_id=this.list[0].plateform_id
+				}
+				if(item=='慢充'){
+					this.selectIndex=0
+					this.list=this.moneyList.SlowCharge
+						this.form.order_price=this.list[0].price
+						this.form.integral_deduction_price=this.list[0].redbag_num
+						this.redbag=this.list[0].redbag_num
+						this.form.product_id=this.list[0].product_id
+						this.form.plateform_id=this.list[0].plateform_id
+				}
+				console.log(this.form)
+			},
 			select(item, index) { //选择充值金额
 				this.selectIndex = index
 				this.form.order_price = item.price
+				this.form.product_id=item.product_id
+				this.form.plateform_id=item.plateform_id
 				this.form.integral_deduction_price = item.redbag_num
 				this.redbag=item.redbag_num
+				console.log(this.form)
 			},
 			checkrecharge() { //打开弹窗
 				if (isEmpty(this.form.mobile)) return this.alert('请填写充值的号码')
@@ -170,6 +343,8 @@
 				})
 			},
 			sumbit() {//生成充值订单
+				if (this.form.mobile.length>11) return this.alert('手机号码错误，请重新输入')
+				this.form.pay_type=2
 				this.$http.request({ 
 					url: this.$api.morecredit.creditOrder,
 					method: 'POST',
@@ -205,27 +380,211 @@
 					}
 				});
 			},
+			paysubnit(){ //现金支付生成订单
+				if (this.form.mobile.length>11) return this.alert('手机号码错误，请重新输入')
+				this.form.pay_type=1
+				this.$http.request({
+					url: this.$api.morecredit.creditOrder,
+					method: 'POST',
+					data: this.form,
+					showLoading: true
+				}).then(res => {
+					if (res.code == 0) {
+						this.getpaypreiew(res.data.order_no)
+					} else {
+						this.$http.toast(res.msg);
+					}
+				});
+			},
+			getpaypreiew(order_no){//支付预处理
+				this.$http.request({
+					url: this.$api.morecredit.paypreiew,
+					method: 'POST',
+					data:{
+						order_no:order_no,
+					},
+					showLoading: true
+				}).then(res => {
+					if (res.code == 0) {
+						console.log(res)
+						this.payData = res.data;
+						// #ifdef H5 ||MP
+							this.confirmPay()
+						// #endif
+						// #ifdef APP-PLUS
+						    this.getalipay()
+						// #endif
+					} else {
+						this.$http.toast(res.msg);
+					}
+				});
+			},
+			// 请求支付接口
+			confirmPay(){
+				let that=this
+						// #ifdef H5
+								that.$http.request({
+									url: that.$api.moreShop.wechatpay,
+									showLoading: true,
+									method: 'post',
+									data: {
+										union_id: that.payData.union_id,
+										stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
+										wx_type:'wechat'//公众号：wechat  小程序：mp-wx
+									}
+								}).then(res=>{
+									if(res.code==0){
+											that.$wechatSdk.pay(res.data,'/pages/index/index');
+									}else{
+										that.$http.toast(res.msg);	
+									}
+								})
+						// #endif
+						// #ifdef MP-WEIXIN || APP-PLUS
+								that.$http.request({
+									url: that.$api.moreShop.wechatpay,
+									showLoading: true,
+									method: 'post',
+									data: {
+										union_id: that.payData.union_id,
+										stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
+										wx_type:'mp-wx'//公众号：wechat  小程序：mp-wx
+									}
+								}).then(res=>{
+									if(res.code==0){
+										setPay(res.data, (result) => {
+											let _url = '/pages/index/index'
+											if (result.success) {
+												that.$http.toast("支付成功")
+											} else {
+												that.$http.toast("未支付")
+												_url = '/mch/moreCredit/moreCredit'
+											}
+												setTimeout(() => {
+													// #ifdef APP-PLUS
+														uni.navigateTo({
+															url: _url
+														})
+													// #endif
+													// #ifdef H5||MP-WEIXIN
+														uni.redirectTo({
+															url: _url
+														})
+													// #endif
+												},1000)														
+										});
+									}else{
+										that.$http.toast(res.msg);	
+									}
+								})
+						// #endif			
+			},			
+			getalipay(){
+				let that=this
+				that.$http.request({
+					url: that.$api.moreShop.alipay,
+					showLoading: true,
+					method: 'post',
+					data: {
+						union_id:that.payData.union_id,
+						stands_mall_id:JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id!=null?JSON.parse(uni.getStorageSync('mall_config')).stands_mall_id:5,
+					}
+				}).then(res=>{
+					if(res.code==0){
+						// #ifdef APP-PLUS
+							uni.navigateTo({
+								url: '/pages/order/alipayWeb?url=' + res.data.codeUrl
+							})
+						// #endif
+						 // #ifdef H5
+						let url=res.data.codeUrl
+						location.href=url
+						// #endif
+					}else{
+						that.$http.toast(res.msg)
+					}
+				})
+			},
 			creditStatus(){ //充值记录
 				this.$http.request({
 					url: this.$api.morecredit.creditStatus,
 					method: 'get',
 					data: {
-						plateforms_id:1
+						plateforms_id:1,
+						is_list:1
 					},
 					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
-						this.creditStatusList=res.data
-						this.list=res.money_list
-						if (isEmpty(this.form.order_price)){
-							this.form.order_price=this.list[1].price
-							this.form.integral_deduction_price=this.list[1].redbag_num
-							this.redbag=this.list[1].redbag_num
+						this.creditStatusList=res.data.list
+						this.moneyList=res.data.money_list
+						this.form.mobile=res.data.mobile
+						this.use_red_envelopes=res.data.use_red_envelopes
+						if(this.use_red_envelopes>0){
+							this.items=[
+								{
+									value: '现金支付',									
+									name: '现金支付'
+								},
+								{
+									value: '金豆支付',									
+									name: '金豆支付'
+								}
+							]
+						}else{
+							this.items=[
+								{
+									value: '现金支付',									
+									name: '现金支付'
+								}
+							]
 						}
+						if (isEmpty(this.form.mobile)){
+							this.mobileShow=false
+						}else{
+							this.mobileShow=true
+						}
+						if(this.moneyList.enable_fast==1){
+							this.typeIndex=0
+							if(this.moneyList.enable_slow==1){
+								this.list=this.moneyList.FastCharging
+								this.type=["快充","慢充"]
+								this.show=true
+							}else{
+								this.list=this.moneyList.FastCharging
+								this.type=["快充"]
+								this.show=true
+							}
+						}
+						if(this.moneyList.enable_fast==0){
+							this.typeIndex=1
+							if(this.moneyList.enable_slow==1){							
+								this.list=this.moneyList.SlowCharge
+								this.type=["慢充"]
+								this.show=true
+							}else{
+								this.list=[]
+								this.type=[]
+								this.show=false
+							}
+						}
+						if (isEmpty(this.form.order_price)){
+							this.form.order_price=this.list[0].price
+							this.form.integral_deduction_price=this.list[0].redbag_num
+							this.form.product_id=this.list[0].product_id
+							this.form.plateform_id=this.list[0].plateform_id
+							this.redbag=this.list[0].redbag_num
+						}
+						console.log(this.form)
 					} else {
 						this.$http.toast(res.msg);
 					}
 				});
+			},
+			href(){
+				uni.navigateTo({
+					url:'./rechargeList'
+				})
 			}
 		}
 	}
@@ -240,9 +599,10 @@
 	.moreCreadit_header {
 		width: 100%;
 		height: 420rpx;
-		background: rgb(255, 113, 4);
-		border-radius: 0 0 35rpx 35rpx;
+		// background: rgb(255, 113, 4);
+		// border-radius: 0 0 35rpx 35rpx;
 		padding: 20rpx 20rpx 0 20rpx;
+		box-sizing: border-box;
 	}
 
 	.title {
@@ -255,25 +615,40 @@
 	.text {
 		color: #fff;
 		font-size: 38rpx;
-		width: 95%;
-		border-bottom: 1rpx solid #fff;
-		margin: 10rpx auto 0;
+		/* #ifdef H5 */
+			width: 95%;
+		/* #endif */
+		/* #ifdef  MP || APP-PLUS */
+		width: 80%;
+		/* #endif */
+		border: 1rpx solid rgb(112,170,214);
+		/* #ifdef H5 */
+			margin: 40rpx auto 0;
+		/* #endif */
+		/* #ifdef  MP || APP-PLUS */
+		margin: 40rpx 0 0 20rpx;
+		/* #endif */
 		height: 80rpx;
 		line-height: 80rpx;
+		border-radius: 20rpx;
+		padding-left: 20rpx;
+		box-sizing: border-box;
+		position: relative;
 	}
 
 	.text input {
 		width: 100%;
 		height: 80rpx;
 		line-height: 80rpx;
-		font-size: 38rpx;
-		color: #fff;
+		line-height: 80rpx;
+		font-size: 32rpx;
+		color: #000;
 	}
 
 	.moreCreadit_detail {
 		width: 90%;
 		overflow: hidden;
-		margin: -180rpx auto 0;
+		margin: -220rpx auto 0;
 		border-radius: 20rpx 20rpx 0 0;
 		background: url('https://dev.mingyuanriji.cn/web/static//Morecredit.png')no-repeat;
 		background-size: 100%;
@@ -291,25 +666,28 @@
 		height: 60rpx;
 		line-height: 60rpx;
 		padding: 0 20rpx;
+		display: flex;justify-content: space-evenly;
+		margin-bottom: 5rpx;
 	}
 
 	.moreCreadit_detail-num_title text {
 		display: block;
 		width: 120rpx;
 		height: 60rpx;
-		border-bottom: 1rpx solid rgb(255, 113, 4);
 		text-align: center;
 		color: #272727;
-		font-size: 30rpx;
+		font-size: 35rpx;
 		font-weight: bold;
 	}
-
+	.typeActive{ border-bottom: 4rpx solid rgb(255, 113, 4);}
 	.moreCreadit_detail-num_list {
 		width: 100%;
 		overflow: hidden;
 		display: flex;
-		justify-content: space-evenly;
+		justify-content: space-between;
 		flex-wrap: wrap;
+		padding: 0 20rpx;
+		box-sizing: border-box;
 	}
 
 	.moreCreadit_detail-num_list-item {
@@ -317,7 +695,7 @@
 		text-align: center;
 		height: 160rpx;
 		background: #F7F7FF;
-		margin: 30rpx 0 30rpx 0;
+		margin: 30rpx 5rpx;
 		box-sizing: border-box;
 	}
 
@@ -326,8 +704,8 @@
 		text-align: center;
 		height: 160rpx;
 		background: #F7F7FF;
-		margin: 30rpx 0 30rpx 0;
-		border: 3px dashed rgb(255, 113, 4);
+		margin: 30rpx 5rpx;
+		border: 4rpx dashed rgb(255, 113, 4);
 		box-sizing: border-box;
 	}
 
@@ -338,7 +716,7 @@
 	.recharge {
 		width: 100%;
 		height: 80rpx;
-		margin: 80rpx auto 0;
+		margin: 50rpx auto 0;
 	}
 
 	.recharge button {
@@ -427,4 +805,12 @@
 		width: 25%;
 		text-align: center;
 	}
+	.notice{width: 100%;overflow: hidden;padding: 0 20rpx;box-sizing: border-box;margin: 20rpx 0;}
+	.notice-item{width: 100%;font-size: 26rpx;}
+	.notice-item view{margin: 5rpx 0;}
+	
+	
+	
+	.popup_view{width: 100%;height:1000rpx;background: rgb(248,248,248);border-radius: 15rpx;padding: 30rpx  20rpx;box-sizing: border-box;}
+	
 </style>

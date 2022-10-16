@@ -135,15 +135,29 @@
 							that.$http.toast('支付成功!');
 							if(that.payData.is_send==1){
 								setTimeout(() => {
-									uni.redirectTo({
-										url: '/pages/order/beused/beused'
-									})
+									// #ifdef APP-PLUS
+										uni.navigateTo({
+											url: '/pages/order/beused/beused'
+										})
+									// #endif
+									// #ifdef H5||MP-WEIXIN
+										uni.redirectTo({
+											url: '/pages/order/beused/beused'
+										})
+									// #endif
 								},2000)
 							}else{
 								setTimeout(() => {
-									uni.redirectTo({
-										url: '/pages/order/list?status=1'
-									})
+									// #ifdef APP-PLUS
+										uni.navigateTo({
+											url: '/pages/order/list?status=1'
+										})
+									// #endif
+									// #ifdef H5||MP-WEIXIN
+										uni.redirectTo({
+											url: '/pages/order/list?status=1'
+										})
+									// #endif
 								},2000)
 							}
 							return;
@@ -162,16 +176,15 @@
 								}
 							}).then(res=>{
 								if(res.code==0){
-									if(that.payData.is_send==1){
-										setTimeout(() => {
-											uni.redirectTo({
-												url: '/pages/order/beused/beused'
+									// #ifdef APP-PLUS
+											uni.navigateTo({
+												url: '/pages/order/alipayWeb?url=' + res.data.codeUrl
 											})
-										},500)
-									}else{
-										let url=res.data.codeUrl
-										location.href=url
-									}
+									// #endif
+									 // #ifdef H5
+									let url=res.data.codeUrl
+									location.href=url
+									// #endif
 								}else{
 									that.$http.toast(res.msg)
 								}
@@ -224,15 +237,29 @@
 											
 											if(that.payData.is_send==1){
 												setTimeout(() => {
-													uni.redirectTo({
-														url: '/pages/order/beused/beused'
-													})
+													// #ifdef APP-PLUS
+														uni.navigateTo({
+															url: '/pages/order/beused/beused'
+														})
+													// #endif
+													// #ifdef H5||MP-WEIXIN
+														uni.redirectTo({
+															url: '/pages/order/beused/beused'
+														})
+													// #endif
 												},500)
 											}else{
 												setTimeout(() => {
-													uni.redirectTo({
-														url: _url
-													})
+													// #ifdef APP-PLUS
+														uni.navigateTo({
+															url: _url
+														})
+													// #endif
+													// #ifdef H5||MP-WEIXIN
+														uni.redirectTo({
+															url: _url
+														})
+													// #endif
 												},1000)
 											}																
 										});
@@ -255,15 +282,29 @@
 								that.$http.toast('支付成功!');
 								if(that.payData.is_send==1){
 									setTimeout(() => {
-										uni.redirectTo({
-											url: '/pages/order/beused/beused'
-										})
+										// #ifdef APP-PLUS
+											uni.navigateTo({
+												url: '/pages/order/beused/beused'
+											})
+										// #endif
+										// #ifdef H5||MP-WEIXIN
+											uni.redirectTo({
+												url: '/pages/order/beused/beused'
+											})
+										// #endif
 									},500)
 								}else{
 									setTimeout(() => {
-										uni.redirectTo({
-											url: '/pages/order/list?status=1'
-										})
+										// #ifdef APP-PLUS
+											uni.navigateTo({
+												url: '/pages/order/list?status=1'
+											})
+										// #endif
+										// #ifdef H5||MP-WEIXIN
+											uni.redirectTo({
+												url: '/pages/order/list?status=1'
+											})
+										// #endif
 									},500)
 								}
 								return;

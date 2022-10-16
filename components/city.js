@@ -18,8 +18,8 @@ export default {
     { cityName: '沈阳', pinYin: 'shenyang', py: 'sy', code: 'SHE'},
     { cityName: '武汉', pinYin: 'wuhan', py: 'wh', code: 'WUH'}
   ],
-  cities: [{
-      
+  cities: [
+	  {     
     "cityName": "阿尔山",
     "pinyin": "aershan",
     "py": "aes",
@@ -29,12 +29,14 @@ export default {
     "pinyin": "akesu",
     "py": "aks",
     "code": "AKU"
-}, {
+}, 
+{
     "cityName": "阿勒泰",
     "pinyin": "aletai",
     "py": "alt",
     "code": "AAT"
-}, {
+}, 
+{
     "cityName": "阿里",
     "pinyin": "ali",
     "py": "al",
@@ -84,11 +86,6 @@ export default {
     "pinyin": "beijing",
     "py": "bj",
     "code": "PEK"
-}, {
-    "cityName": "北京南苑",
-    "pinyin": "beijingnanyuan",
-    "py": "bjny",
-    "code": "NAY"
 }, {
     "cityName": "毕节",
     "pinyin": "bijie",
@@ -689,11 +686,6 @@ export default {
     "pinyin": "shanghai",
     "py": "sh",
     "code": "SHA"
-}, {
-    "cityName": "上海浦东",
-    "pinyin": "shanghaipudong",
-    "py": "shpd",
-    "code": "PVG"
 }, {
     "cityName": "上饶",
     "pinyin": "shangrao",

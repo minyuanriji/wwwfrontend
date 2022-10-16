@@ -222,7 +222,7 @@
 				this.rightTabbar = [];
 				// this.cur = index;
 				this.currentTab = index;
-				this.checkCor();
+				// this.checkCor();
 				// this.getRightData(id);
 			},
 			//判断当前滚动超过一屏时，设置tab标题滚动条。

@@ -36,16 +36,18 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
-				style:'',  //申请状态（refused拒绝，passed通过，verifying审核中，applying申请中）
-				message:'',//原因
+				//style:'',  //申请状态（refused拒绝，passed通过，verifying审核中，applying申请中）
+				//message:'',//原因
 			};
 		},
-		created() {
-			setTimeout(()=>{
-				this.style=this.type
-				this.message=this.msg
-			},1000)
-		},
+		computed: {
+		    style: function () {
+				return this.type;
+		    },
+			message: function(){
+				return this.msg;
+			}
+	    },
 		methods:{
 			checkINto(index){
 				if(index==1){
@@ -71,7 +73,7 @@
 				}
 				if(index==3){
 					uni.navigateTo({
-						url:'../../pages/personalCentre/personalCentre'
+						url:'../../mch/personalCentre/personalCentre'
 					})
 				}
 			}

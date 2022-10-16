@@ -67,7 +67,7 @@
 				<view class="select1_proDetails">
 					<view class="select2_proName" v-if="showGoodsName == '1'">{{item.name}}</view>
 					<view class="select1_price flex flex-y-center" :class="displayStyle ==3 || displayStyle ==4?'flex-x-center':'flex-x-between'">
-						<view v-if="!styleShow">
+						<view v-if="!styleShow&&!styleShowBUY">
 							<view v-if="showGoodsOriginalPrice" class="select1_original_price">{{originalPriceLabel}} &yen;{{item.original_price}}</view>
 							<view v-if="showGoodsPrice == '1'" :style="{color:'#FF7104'}">{{priceLabel}} &yen;{{item.price}}</view>
 							<view v-if="showGoodsLevelPrice == '1'" class="select1_level_price">{{levelPriceLabel}} &yen;{{item.level_price}}</view>
@@ -78,18 +78,27 @@
 							</view>
 							<view v-if="showGoodsPrice == '1'" :style="{color:'#FF7104'}">
 							{{priceLabel}}&nbsp;{{item.price}}
-							<text style="font-size: 25rpx;color: red;transform: scale(0.83);display: inline-block;">红包</text>
+							<text style="font-size: 25rpx;color: red;transform: scale(0.83);display: inline-block;">金豆</text>
 							</view>
 							<view v-if="showGoodsLevelPrice == '1'" class="select1_level_price">
 							{{levelPriceLabel}}&nbsp;{{item.level_price}}
-							<text style="font-size: 25rpx;color: red;margin-left: 10rpx;">红包</text>
+							<text style="font-size: 25rpx;color: red;margin-left: 10rpx;">金豆</text>
 							</view>
 						</view>
-						<view v-if="buyBtns == 'pic'">
+						<view v-if="styleShowBUY">
+							<view v-if="showGoodsOriginalPrice" class="select1_original_price">{{originalPriceLabel}} &yen;{{item.original_price}}</view>
+							<view v-if="showGoodsPrice == '1'" :style="{color:'#FF7104'}">{{priceLabel}} &yen;{{item.price}}</view>
+							<view v-if="showGoodsLevelPrice == '1'" class="select1_level_price">{{levelPriceLabel}} &yen;{{item.level_price}}</view>
+							<view style="width: 100%;margin: 10rpx 20rpx;">
+								<text style="display: block;width: 220rpx;height: 60rpx;background: rgb(255,40,38);text-align: center;line-height: 60rpx;color: #fff;
+								border-radius: 30rpx;margin:  auto;">红包兑换</text>
+							</view>
+						</view>				
+						<view v-if="buyBtns == 'pic'&&!styleShowBUY">
 							<image class="select1_buyBtn1" :class="buyBtn()?'':'hide'" :src="buyBtnPic"
 							 mode=""></image>
 						</view>
-						<view v-else>
+						<view v-if="buyBtns != 'pic'">
 							<view v-if="buyBtnStyle == 1" class="select1_buyBtn2" :class="buyBtn()?'':'hide'" :style="{color: '#ffffff',background:buttonColor}">{{buyBtnText}}</view>
 							<view v-if="buyBtnStyle == 2" class="select1_buyBtn3" :class="buyBtn()?'':'hide'" :style="{color: buttonColor,border:`1px solid ${buttonColor}`}">{{buyBtnText}}</view>
 							<view v-if="buyBtnStyle == 3" class="select1_buyBtn5" :class="buyBtn()?'':'hide'" :style="{color: '#ffffff',background:buttonColor}">{{buyBtnText}}</view>
@@ -257,15 +266,23 @@
 		data(){
 			return{
 				textColor:'#bc0100',
-				styleShow:false
+				styleShow:false,
+				styleShowBUY:false,
 			}
 		},
 		created() {
 			if(this.styleTitle){
-				if(this.styleTitle.indexOf('名品专区')!=-1 ){
+				if(this.styleTitle.indexOf('金豆兑换专区')!=-1 ){
 					this.styleShow=true
 				}else{
 					this.styleShow=false
+				}
+			}
+			if(this.styleTitle){
+				if(this.styleTitle.indexOf('红包兑换区')!=-1 ){
+					this.styleShowBUY=true
+				}else{
+					this.styleShowBUY=false
 				}
 			}
 		},

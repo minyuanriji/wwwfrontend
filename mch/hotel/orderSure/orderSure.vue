@@ -37,12 +37,6 @@
 					<view>{{privewMessage.hotel_info.address}}</view>
 				</view>
 			</view>
-			<!-- <view class="order_hotel_notice">
-				<view v-for="item in 5" :key='item'>
-					<text></text>
-					<text>仅接待大陆客人</text>
-				</view>
-			</view> -->
 		</view>
 		<view class="check_in_message">
 			<view class="check_in_message_title">
@@ -86,7 +80,16 @@
 					<input type="text" v-model="item.mobile"  placeholder="请填写联系手机" />
 				</view>	
 			</view>
-		</view>		
+		</view>	
+		<view class="check_in_message" style="margin-bottom: 20rpx;">
+			<view class="check_in_message_form">
+				<view>
+					<text>发票说明：</text>
+					<text style="width:450rpx ;color: #EF4A1A;">如需发票请向酒店前台索取（酒店可提供普票，无法提供专票）</text>
+				</view>
+			</view>
+		
+		</view>	
 		<view class="check_in_message" style="margin-bottom: 200rpx;">
 			<view class="check_in_message_title">
 				<text style="color: #FF5D0D;font-weight: bold;margin-right: 10rpx;">|</text>
@@ -95,17 +98,21 @@
 			<view class="check_in_message_form">
 				<view>
 					<text>促销优惠</text>
-					<text style="width:450rpx ;color: #EF4A1A;">红包全额抵扣</text>
+					<text style="width:450rpx ;color: #EF4A1A;">金豆全额抵扣</text>
 				</view>
+			</view>
+			<view class="use-points flex flex-y-center flex-x-between" v-if="privewMessage.user_total_integral>0">
+				<view>使用金豆 <view class="xieti">拥有金豆：{{privewMessage.user_total_integral}} 
+				<text class="text" v-if="is_checked">-{{privewMessage.integral_deduction_price}}</text>
+				</view>
+				</view>
+				<switch :checked="is_checked" @change="use" color='#FF7104' class="points-switch" />
 			</view>
 		</view>
 		<view class="goPAy">
 			<view class="goPAy_left">
-				<text style="display: block;font-size: 25rpx;color:#FF5D0D">我的红包：{{privewMessage.user_integral}}</text>
-				<text style="font-size: 30rpx;color: #000;font-size: 26rpx;">红包支付</text>
-				<text style="font-size: 25rpx;text-decoration: line-through;margin: 0 5rpx;">￥{{privewMessage.order_price}}</text>
-				<text style="color:#FF5D0D ;font-size: 28rpx;font-weight: bold;">{{privewMessage.integral_price}}红包</text>
-				<text style="display: block;font-size: 25rpx;">已减￥{{privewMessage.order_price}}</text>
+				<text style="display: inline-block;font-size: 32rpx;line-height: 120rpx;margin-left: 10rpx;">需支付金额：</text>
+				<text style="display: inline-block;font-size: 32rpx;">{{privewMessage.order_price}}</text>
 			</view>
 			<view class="goPAy_right">
 				<button type="default" @click="gopay" class="btn-check">去支付</button>
@@ -122,7 +129,7 @@
 			<view class="pay-poup">
 				<image :src="img_url+'/hotel/paySuccess.png'" mode=""></image>
 				<view>恭喜你</view>
-				<view>红包支付成功</view>
+				<view>金豆支付成功</view>
 			</view>
 		</uni-popup>
 		
@@ -152,12 +159,14 @@
 							"mobile":""
 						}
 					],//入住人信息
+					use_integral:1
 				},
 				beginTime:'',
 				privewMessage:'',
 				roomPoup:false,
 				time:'14:00',
 				disabled:true,
+				is_checked:true
 			};
 		},
 		onLoad(options){
@@ -168,10 +177,22 @@
 				this.form.start_date=options.start_date
 				this.form.days=options.days
 				this.form.arrive_date=options.start_date+' '+'14:00'
-				this.getorderprivew(options.unique_id,options.product_code,options.start_date,options.days,this.form.num)
+				this.getorderprivew(options.unique_id,options.product_code,options.start_date,options.days,this.form.num,this.form.use_integral)
 			}			
 		},
 		methods:{
+			// 使用金豆
+			use(e) {
+				console.log(e.detail.value)
+				this.is_checked=e.detail.value
+				if(this.is_checked){
+					this.form.use_integral=1
+					this.getorderprivew(this.form.unique_id,this.form.product_code,this.form.start_date,this.form.days,this.form.num,this.form.use_integral)
+				}else{
+					this.form.use_integral=0
+					this.getorderprivew(this.form.unique_id,this.form.product_code,this.form.start_date,this.form.days,this.form.num,this.form.use_integral)
+				}
+			},
 			bindTimeChange(e){
 				 this.time = e.target.value
 				 this.form.arrive_date=this.form.start_date+' '+e.target.value
@@ -188,7 +209,7 @@
 					return
 				}
 				this.form.num--;
-				this.getorderprivew(this.form.unique_id,this.form.product_code,this.form.start_date,this.form.days,this.form.num)
+				this.getorderprivew(this.form.unique_id,this.form.product_code,this.form.start_date,this.form.days,this.form.num,this.form.use_integral)
 			},
 			add(){//房间增加
 				if(this.form.num==this.privewMessage.booking_item.product_num){
@@ -202,9 +223,9 @@
 					return
 				}
 				this.form.num++;
-				this.getorderprivew(this.form.unique_id,this.form.product_code,this.form.start_date,this.form.days,this.form.num)
+				this.getorderprivew(this.form.unique_id,this.form.product_code,this.form.start_date,this.form.days,this.form.num,this.form.use_integral)
 			},
-			getorderprivew(unique_id,product_code,start_date,days,num){//获取预览订单信息
+			getorderprivew(unique_id,product_code,start_date,days,num,use_integral){//获取预览订单信息
 				this.$http
 					.request({
 						url: this.$api.hotel.getpreviewOrder,
@@ -215,6 +236,7 @@
 							start_date:start_date,
 							days:days,
 							num:num,
+							use_integral:use_integral,
 						},
 						showLoading: true
 					})
@@ -222,7 +244,11 @@
 						if(res.code==0){
 							this.privewMessage=res.data
 							if(this.privewMessage.hotel_order_info.length>0){
-								this.form.passengers=this.privewMessage.hotel_order_info
+								for(let i=0;i<this.form.passengers.length;i++){
+									if(isEmpty(this.form.passengers[i].name)){
+										this.form.passengers=this.privewMessage.hotel_order_info
+									}
+								}
 							}
 							// if(this.privewMessage.user_integral<this.privewMessage.integral_price){
 							// 	this.disabled=false
@@ -249,8 +275,7 @@
 				}
 				this.form.passengers=arr
 			},
-			gopay(){ //去支付  generateOrder
-				// if(!this.disabled)return
+			gopay(){ //生成订单
 				var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
 				for(let i=0;i<this.form.passengers.length;i++){
 					if (isEmpty(this.form.passengers[i].name)) {
@@ -290,6 +315,7 @@
 					start_date:this.form.start_date,//起始日期 (0000-00-00)
 					days:this.form.days,//预订天数
 					num:this.form.num,//房间数量
+					use_integral:this.form.use_integral,//是否使用金豆
 					arrive_date:this.form.arrive_date,//到达日期（0000-00-00 00:00）
 					passengers:JSON.stringify(this.form.passengers),//入住人信息
 				}
@@ -302,41 +328,14 @@
 					})
 					.then(res => {
 						if(res.code==0){
-							this.pay(res.data.order_no)
+							uni.navigateTo({
+								url:'../pay?order_no='+res.data.order_no
+							})
 						}else{
 							this.$http.toast(res.msg);
 						}
 				});
 			},
-			pay(order_no){//用红包支付 hotelPay
-				this.$http
-					.request({
-						url: this.$api.hotel.hotelPay,
-						method: 'POST',
-						data:{
-							order_no:order_no,
-						},
-						showLoading: true
-					})
-					.then(res => {
-						if(res.code==0){							
-							this.$refs.popup.open()
-							setTimeout(()=>{
-								this.$refs.popup.close()
-								uni.navigateTo({
-									url:'../orderswaiting/orderswaiting?order_no='+order_no
-								})
-							},2000)	
-						}else{
-							this.$http.toast(res.msg);
-							setTimeout(()=>{
-								uni.navigateTo({
-									url:'../orderList/orderList'
-								})
-							},2000)	
-						}
-				});
-			}
 		}
 	}
 </script>
@@ -381,4 +380,30 @@
 	.pay-poup{width: 400rpx;height: 400rpx;border-radius: 30rpx;background: #fff;padding: 40rpx 20rpx;}
 	.pay-poup image{display: block;width: 120rpx;height: 120rpx;margin: 0rpx auto 35rpx;}
 	.pay-poup view{width: 100%;overflow: hidden;font-size: 30rpx;color: #000;text-align: center;margin: 25rpx 0;}
+	.use-points {
+		background: #FFFFFF;
+		margin-top: 40rpx;
+		border-radius: 20rpx;
+		padding: 10rpx 30rpx;
+		font-size: 26rpx;
+		color: #000000;
+	}
+	
+	.use-points .xieti {
+		font-size: 18rpx;
+		color: #666;
+		overflow: hidden;
+	}
+	
+	.use-points .xieti .text {
+		font-style: oblique;
+		color: #F53939;
+		margin-left: 20rpx;
+		padding-right: 10rpx;
+	}
+	
+	.points-switch {
+		transform: scale(0.7);
+	}
+	
 </style>

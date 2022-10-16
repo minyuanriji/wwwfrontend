@@ -24,7 +24,7 @@
 			return {
 				list:[],
 				status_list : [],	//发放状态
-				type_list : [],		//购物券类型
+				type_list : [],		//红包类型
 				page:1,
 				is_no_more:false,	//假设有更多数据
 				queryFlag : true,	//默认是可以发起请求
@@ -88,7 +88,7 @@
 					title:'加载中'
 				})
 				this.$http.request({
-					url:this.$api.user.score_integral_recharge_record,	//购物券充值卡列表
+					url:this.$api.user.score_integral_recharge_record,	//红包充值卡列表
 					method: 'POST',
 					data:{
 						page:this.page,

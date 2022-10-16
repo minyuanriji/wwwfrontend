@@ -42,9 +42,9 @@
 				currentStatus:0,
 				currentTab: 0,
 				tabs: [{
-					name: "永久红包"
+					name: "永久金豆"
 				}, {
-					name: "有效红包"
+					name: "有效金豆"
 				}],
 				tabsStatus: [{
 					name: "全部状态"
@@ -55,7 +55,7 @@
 				}, {
 					name: "已过期"
 				}],
-				tab_list:['固定红包','动态购红包'],
+				tab_list:['固定金豆','动态购金豆'],
 				static_integral : 0,	//永久券数值
 				dynamic_integral : 0,	//有效券数值
 				list:[],

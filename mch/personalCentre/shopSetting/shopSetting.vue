@@ -28,6 +28,39 @@
 		</view>
 		<view class="shopSetting-item">
 			<view class="shopSetting-title">
+				营业时间：
+			</view>
+			<view class="shopSetting-int" style="display: flex;justify-content: space-evenly;">
+				<picker mode="time" :value="form.start_business_time" start="00:00" end="23:59" @change="bindbeginTimeChange">
+				    <view class="uni-input" style="width: 180rpx;line-height: 100rpx;text-align: center;">{{form.start_business_time}}</view>
+				</picker>
+				<view style="width: 100rpx;line-height: 100rpx;text-align: center;font-size: 50rpx;">-</view>
+				<picker mode="time" :value="form.end_business_time" start="00:00" end="23:59" @change="bindendTimeChange">
+				    <view class="uni-input" style="width: 180rpx;line-height: 100rpx;text-align: center;">{{form.end_business_time}}</view>
+				</picker>
+			</view>
+		</view>
+		<view class="shopSetting-item">
+			<view class="shopSetting-title">
+				店铺类别：
+			</view>
+			<view class="shopSetting-num">
+				<view style="width: 100%;display: flex;">
+								<picker :range="cats_arr1" :value="catsIndex" @change="changeCart" style="
+					flex: 1;
+					font-size: 15px;
+					height: 101rpx;
+					line-height: 101rpx;
+					text-align: center;
+				">
+									{{form.store_mch_common_cat_id?cat_name:"请选择"}}
+								</picker>
+							</view>
+				<image :src="img_url+'/sanjia.png'" mode="" class="select_logo" style="width: 40rpx;height: 25rpx;margin: 40rpx 25rpx 0 0;"></image>
+			</view>
+		</view>
+		<view class="shopSetting-item">
+			<view class="shopSetting-title">
 				店铺地址：
 			</view>
 			<view class="shopSetting-int">
@@ -60,6 +93,14 @@
 			</view>
 			<view class="shopSetting-int">
 				<input type="text" value="" placeholder="请填写详细地址" v-model="form.address"/>
+			</view>
+		</view>
+		<view class="shopSetting-item" >
+			<view class="shopSetting-title">
+				店铺描述：
+			</view>
+			<view class="shopSetting-text" style="height:200rpx;float: left;">
+				<textarea placeholder="请填写店铺描述"  :maxlength='80'  v-model="form.description" style="width: 450rpx;float: left;height: 200rpx;font-size: 28rpx;padding:30rpx  10rpx;box-sizing: border-box;"/>
 			</view>
 		</view>
 		<view class="sure_btn" @click="sureBtn">
@@ -102,18 +143,39 @@
 					district_id:'',
 					longitude:'',
 					latitude:'',
-					address:''
+					address:'',
+					store_mch_common_cat_id:'',
+					start_business_time:'08:00',//开始时间
+					end_business_time:'22:00',//结束时间
+					description:'',//店铺描述
 				},
 				text:'',
 				userMessage:'',
 				url: "",
+				cats_arr1: [], //分类列表
+				catsIndex: 0,
+				cat_name:'',
+				cats: [], //分类列表
 			};
 		},
 		onLoad() {
 			this.getCity()
+			let that=this
+			setTimeout(() => {
+				this.getCat()
+			}, 500)
 			this.getBaseInfo()
 		},
+		onShow() {
+			this.num=uni.getStorageSync('imglist').length
+		},
 		methods: {
+			bindbeginTimeChange(e){ //时间选择
+				this.form.start_business_time = e.target.value
+			},
+			bindendTimeChange(e){
+				this.form.end_business_time = e.target.value
+			},
 			toArr(object) {
 				let arr = [];
 				for (let i in object) {
@@ -209,7 +271,6 @@
 						})
 					})
 					this.selectList = provinceArr;
-					console.log(provinceArr)
 					this.multiArray = [
 						this.toArr(this.selectList),
 						this.toArr(this.selectList[0].children),
@@ -218,16 +279,14 @@
 				})
 			},
 			chooseAddress() { //打开腾讯地图
-				var that = this
-				uni.chooseLocation({
-					success: function(res) {
-						that.form.longitude=String(res.longitude)
-						that.form.latitude=String(res.latitude)
-					}
-				})
+				var that = this;
+				this.chooseLocation(function(res){
+					that.form.longitude=String(res.longitude)
+					that.form.latitude=String(res.latitude)
+					that.form.address=res.address
+				});
 			},
 			sureBtn(){
-				console.log(this.form)
 				if(isEmpty(this.form.name)){
 					uni.showToast({
 						title: '请填写店铺名称',
@@ -247,6 +306,16 @@
 						uni.hideToast();
 					}, 2000);
 					return
+				}
+				if(isEmpty(this.form.store_mch_common_cat_id)){
+					uni.showToast({
+							title: '请选择店铺类别',
+							icon: 'none'
+					});
+						setTimeout(function() {
+							uni.hideToast();
+						}, 2000);
+						return
 				}	
 				if(isEmpty(this.form.province_id)||isEmpty(this.form.city_id)||isEmpty(this.form.district_id)){
 					uni.showToast({
@@ -297,6 +366,9 @@
 							forms.longitude=that.form.longitude
 							forms.address=that.form.address
 							forms.text=that.text
+							forms.description=that.form.description
+							forms.start_business_time=that.form.start_business_time
+							forms.end_business_time=that.form.end_business_time
 							uni.setStorageSync('shop-MESSAGE',forms)
 							uni.navigateTo({
 								url:'../personalCentre'
@@ -321,19 +393,21 @@
 					showLoading: true
 				}).then(res => {
 					this.userMessage=res.data.base_info.store
+					this.form.store_mch_common_cat_id=res.data.base_info.category.id
 					this.form.name=this.userMessage.name
+					this.form.start_business_time=this.userMessage.business_hours[0]
+					this.form.end_business_time=this.userMessage.business_hours[1]
 					this.form.cover_url=this.userMessage.cover_url
-					this.params.shop_logo=this.userMessage.cover_url
 					this.form.city_id=this.userMessage.city_id
 					this.form.province_id=this.userMessage.province_id
 					this.form.district_id=this.userMessage.district_id
 					this.form.latitude=this.userMessage.latitude
 					this.form.longitude=this.userMessage.longitude
 					this.form.address=this.userMessage.address;
+					this.form.description=this.userMessage.description
 					let cityList=this.selectList
 					
 					this.text=this.userMessage.province + ' ' + this.userMessage.city + ' ' + this.userMessage.district;
-					console.log(this.text)
 					let imgList=JSON.parse(this.userMessage.pic_url)
 					let logoList=[]
 					imgList.forEach((item)=>{
@@ -368,6 +442,41 @@
 					}else{
 						that.$http.toast(res.msg);
 					}
+				})
+			},
+			changeCart(e) { //下拉选择商户分类
+				var index = e.detail.value
+				this.form.store_mch_common_cat_id = this.cats[index]['id']
+				this.cat_name = this.cats[index]['name']
+			},
+			getCat: function() { //获取店铺消费类型
+				var that = this
+				that.$http.request({
+					url: that.$api.moreShop.getcategorylist,
+					data: {},
+					method: 'post',
+				}).
+				then(function(res) {
+					that.cats = res.data.list
+					if (that.form.store_mch_common_cat_id.length > 0) {
+						for (var i = 0; i < that.cats.length; i++) {
+							if (that.form.store_mch_common_cat_id == that.cats[i].id) {
+								that.cat_name = that.cats[i].name
+							}
+						}
+					}
+					var cats = res.data.list
+					var cats_arr1 = []
+					for (var i = 0; i < cats.length; i++) {
+						cats_arr1.push(cats[i]['name'])
+					}
+					that.cats_arr1 = cats_arr1
+					// var data = {
+					// 	"detail": {
+					// 		"value": 0
+					// 	}
+					// }
+					// that.changeCart(data) //默认第一个
 				})
 			},
 		}	

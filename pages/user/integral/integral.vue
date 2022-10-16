@@ -1,5 +1,24 @@
 <template>
 	<view class="shopping-coupon">
+		<!-- #ifdef H5 -->
+		<view class="asset_types" style="width: 100%;height: 120rpx;background: #f4f4f4;position: fixed;top: 80rpx;left: 0;z-index: 999;">
+		<!--#endif -->
+		<!-- #ifdef MP-WEIXIN || APP-PLUS -->
+		<view class="asset_types" style="width: 100%;height: 120rpx;background: #f4f4f4;position: fixed;top: 0rpx;left: 0;z-index: 999;">
+		<!--#endif -->	
+			<view class="asset_types_select" style="width: 220rpx;background: #fff;height: 70rpx;border-radius: 15rpx;line-height: 70rpx;padding-left: 50rpx;margin-top: 25rpx;margin-left: 20rpx;color: #000;box-sizing: border-box;"
+			@click="selectasset" >
+			     {{asseText}}
+				<image :src="img_url+'/upstrong.png'" mode="" style="display: block;width: 36rpx;height: 36rpx;position: absolute;top: 45rpx;left: 190rpx;"></image>
+			</view>
+		</view>
+		
+		
+		
+		
+		
+		
+		
 		<view class="shopping-main">
 			<view class="shopping-coupon-group">
 				<!-- <view class="shopping-coupon-item">
@@ -44,14 +63,14 @@
 					<view v-for="item in list" class="coupon-list-item">
 						<view class="item-time">{{item.created_at|formatDate}}</view>
 						<view class="coupon-list-item-main">
-							<view class="item-left">
+							<view class="item-left" style="width: 50%;">
 								<view class="item-income">收入：¥{{item.money}}</view>
 								<view :class="[currentTab==0?'item-explain':'item-time']">{{item.desc}}</view>
 								<view v-if="currentTab==1" class="item-expire-time">过期时间:{{item.expire_time|formatDate}}</view>
 							</view>
-							<view class="item-right">
+							<view class="item-right" style="width: 40%;">
 								<!-- 详情也要相加 -->
-								<view class="item-money">积分券：¥{{item.before_money*1 + item.money*1}}</view>
+								<view class="item-money" style="text-align: left;">积分券：¥{{item.total_money}}</view>
 								<view v-if="currentTab==1" class="item-button" @click="todetailed(item.id)">查看详情</view>
 							</view>
 						</view>
@@ -62,13 +81,30 @@
 			</view>
 			<view class="exchange-btn" @click="toRechargeCard">积分券充值</view>
 		</view>
+		<unipopup ref="asset" type="bottom">
+			<view class="popup-detail">
+				<view class="popup-detail-header">
+					请选择资产类型
+				</view>
+				<view class="popup-detail-list">
+					<view :class="selectassetIndex==index?'actove':''" v-for="(item,index) in assetList" :key='index'  @click="assetlink(item,index)">
+						{{item.name}}
+					</view>
+				</view>
+			</view>
+		</unipopup>
 	</view>
 </template>
 
 <script>
+	import unipopup from '@/components/uni-popup/uni-popup';
 	export default {
+		components: {
+			unipopup
+		},
 		data() {
 			return {
+				img_url: this.$api.img_url,
 				currentTab: 0,
 				tabs: [{
 					name: "永久积分券"
@@ -90,6 +126,31 @@
 					score: 0,
 					coupon: 0
 				},
+				asset:false,
+				assetList:[
+					{
+						name:'余额',
+						type:'balance'
+					},
+					{
+						name:'积分',
+						type:'total_score'
+					},
+					{
+						name:'金豆',
+						type:'redBag'
+					},
+					{
+						name:'红包',
+						type:'shopping_voucher'
+					},
+					{
+						name:'收益明细',
+						type:'income'
+					},
+				],
+				asseText:'',
+				selectassetIndex:0
 			};
 		},
 		// 加一个卷值的计算属性
@@ -127,7 +188,11 @@
 		  }
 		},
 		
-		onLoad(){
+		onLoad(options){
+			if(options&&options.name=='total_score'){
+				this.asseText="积分"
+				this.selectassetIndex=1
+			}
 			if (uni.getStorageSync('mall_config')) {
 				this.textColor = this.globalSet('textCol');
 			}
@@ -144,6 +209,35 @@
 			}
 		},
 		methods:{
+			selectasset(){
+				this.$refs.asset.open()
+			},
+			assetlink(item,index){
+				this.$refs.asset.close()
+				if(item.type=='balance'){
+					uni.navigateTo({
+						url:'../balance/details?name='+item.type
+					})
+				}
+				if(item.type=='total_score'){
+					return
+				}
+				if(item.type=='redBag'){
+					uni.navigateTo({
+						url:'../../../mch/redBag/redBag?name='+item.type
+					})
+				}
+				if(item.type=='shopping_voucher'){
+					uni.navigateTo({
+						url:'../../../mch/vouchers/vouchers?name='+item.type
+					})
+				}
+				if(item.type=='income'){
+					uni.navigateTo({
+						url:'../../../plugins/extensions/income/income?name='+item.type
+					})
+				}
+			},
 			toMyCard(){
 				uni.navigateTo({
 					url:'/pages/user/integral/myCard'
@@ -253,7 +347,7 @@
 		.shopping-main{
 			box-sizing: border-box;
 			width: 690rpx;
-			margin: 0 30rpx;
+			margin: 120rpx 30rpx 0 30rpx;
 			.shopping-coupon-group{
 				width: 100%;
 				margin-top: 20rpx;
@@ -346,7 +440,7 @@
 							.item-right{
 								display: flex;
 								flex-direction: column;
-								align-items: center;
+								// align-items: center;
 								.item-button{
 									width: 145rpx;
 									height: 40rpx;
@@ -439,4 +533,10 @@
 		letter-spacing: 1px;
 		
 	}
+	.popup-detail{width: 100%;background: #fff;min-height: 400rpx;border-radius: 0 0 20rpx 20rpx;padding-bottom: 30rpx;}
+	.popup-detail-header{width: 100%;height: 80rpx;line-height: 80rpx;padding: 0 20rpx;font-size: 30rpx;color: #000;font-weight: bold;}
+	.popup-detail-list{width: 100%;overflow: hidden;margin-bottom: 30rpx;}
+	.popup-detail-list view{min-width: 180rpx;height: 70rpx;line-height: 70rpx;text-align: center;
+	float: left;margin: 20rpx 0rpx 0 40rpx;border-radius: 10rpx;font-size: 26rpx;font-weight: bold;}
+	.actove{background: rgb(222,59,45);color: #fff;}
 </style>

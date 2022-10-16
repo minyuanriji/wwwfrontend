@@ -395,15 +395,29 @@
 				})
 			},
 			deleteCart() { //购物车删除
-				this.selectArr.forEach((item) => {
-					item.num = 0;
-				})
-				this.changeData('goods_id', 'attr', 'delete');
-				this.modify(this.finallyObj);
-				this.selectArr = [];
+				let that=this
+				uni.showModal({
+				    title: '提示',
+				    content: '确定要删除吗？',
+				    success: function (res) {
+				        if (res.confirm) {
+						   that.selectArr.forEach((item) => {
+						   	item.num = 0;
+						   })	
+						   that.changeData('goods_id', 'attr', 'delete');
+				           that.modify(that.finallyObj);
+				           that.selectArr = [];
+				        } else if (res.cancel) {
+				          
+				        }
+				    }
+				});
 			},
 			getCartList() { //获取购物车列表
 				this.loading = true;
+				if(this.cartList.length==0){
+					this.isEdit=true
+				}
 				this.$http.request({
 					url: this.$api.cart.list,
 					method: 'GET'
@@ -429,7 +443,7 @@
 						this.cartList.forEach((item) => {
 							this.$set(item, 'isSelect', false);
 						})
-
+						
 						this.isAllSelect = false;
 					}
 				})

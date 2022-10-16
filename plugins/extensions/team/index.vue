@@ -127,8 +127,8 @@
 		</view>
 
 		<!--加载loadding-->
-		<!-- <main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore> -->
-		<!-- <main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore> -->
+		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
+		<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
 		<main-loading :visible="loading"></main-loading>
 		<!--加载loadding-->
 	</view>

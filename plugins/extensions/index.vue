@@ -168,9 +168,15 @@
 				this.navBack();
 			},
 			openUrl(url) {
-				uni.navigateTo({
-					url
-				})
+				if(url=='/plugins/extensions/income/income'){
+					uni.navigateTo({
+						url:url+"?name="+'income'
+					})
+				}else{
+					uni.navigateTo({
+						url
+					})
+				}
 			}
 		},
 		onPullDownRefresh() {

@@ -61,6 +61,7 @@
 				</view>
 			</view>
 			<view class="discount-apply">
+				<!--
 				<view class="discount-apply-select">
 					<text class="discount-apply-select-title">是否特殊折扣申请</text>
 					<view>
@@ -75,11 +76,8 @@
 						</radio-group>
 					</view>
 				</view>
+				-->
 				<view class="discount-status" v-if="current==0">
-					<view
-						style="text-align: center;height: 50rpx;line-height: 50rpx;font-size: 28rpx;color: #000;margin: 0 0 20rpx 0;">
-						审核状态
-					</view>
 					<view class="status">
 						<text class="status-lable">审核状态</text>
 						<view class="status-radio">
@@ -96,8 +94,8 @@
 					</view>
 					<view class="special-discount-detail" style="margin-bottom: 20rpx;" v-if="seviceCount">
 						<view>
-							<text>服务费</text>
-							<input type="number" value="" placeholder="请输入折扣" v-model="form.apply_data.settle_discount"
+							<text>店铺折扣</text>
+							<input type="digit"  placeholder="请输入折扣" v-model.trim="form.apply_data.settle_discount"
 								style="margin-left: 45rpx;" :disabled='countdisabled'/>
 							<text>折</text>
 						</view>
@@ -115,7 +113,7 @@
 					<view class="special-discount-detail">
 						<view>
 							<text>特殊折扣申请</text>
-							<input type="number" value="" placeholder="请输入折扣" v-model="form.apply_data.settle_discount" :disabled='countdisabled'/>
+							<input type="digit"  placeholder="请输入折扣" v-model.trim="form.apply_data.settle_discount" :disabled='countdisabled'/>
 							<text>折</text>
 						</view>
 					</view>
@@ -270,7 +268,7 @@
 					if (this.currentTwo == 0) {
 						if (this.form.apply_data.settle_discount < 0) {
 							uni.showToast({
-								title: '服务费需在0-8.5之间',
+								title: '店铺折扣最低不能小于7',
 								icon: 'none'
 							});
 							setTimeout(function() {
@@ -278,9 +276,9 @@
 							}, 2000);
 							return
 						}
-						if (this.form.apply_data.settle_discount > 8.5) {
+						if (this.form.apply_data.settle_discount > 9.7) {
 							uni.showToast({
-								title: '服务费需在0-8.5之间。请去特殊折扣申请',
+								title: '店铺折扣不能大于9.7',
 								icon: 'none'
 							});
 							setTimeout(function() {
@@ -292,15 +290,15 @@
 					this.message = {
 						id: this.id,
 						is_special_discount: this.current, //是否特殊折扣申请 0、否 1、是 
-						special_rate: this.form.apply_data.settle_discount, //0-8.5
+						special_rate: this.form.apply_data.settle_discount, //0-9
 						status: this.currentTwo == 0 ? 'passed' : 'refused', //审核状态 passed、通过 refused、不通过 如果传is_special_discount=0 必传 
 						remark: this.form.detail.remark, //不通过原因
 					}
 				}
 				if (this.current == 1) {
-					if (this.form.apply_data.settle_discount < 0) {
+					if (this.form.apply_data.settle_discount <= 7) {
 						uni.showToast({
-							title: '折扣数需在0-10之间',
+							title: '店铺折扣最低不能小于7',
 							icon: 'none'
 						});
 						setTimeout(function() {
@@ -308,9 +306,9 @@
 						}, 2000);
 						return
 					}
-					if (this.form.apply_data.settle_discount > 10) {
+					if (this.form.apply_data.settle_discount > 9.7) {
 						uni.showToast({
-							title: '折扣数需在0-10之间',
+							title: '店铺折扣不能大于9.7',
 							icon: 'none'
 						});
 						setTimeout(function() {
@@ -568,7 +566,7 @@
 
 	.status-radio {
 		float: left;
-		width: 450rpx;
+		width: 475rpx;
 		height: 80rpx;
 		line-height: 80rpx;
 		font-size: 28rpx;

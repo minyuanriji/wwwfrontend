@@ -35,27 +35,38 @@
 		},
 	
 		onLoad(options) {		
-
 			this.beforeOnLoad(options);
-			// #ifdef MP-WEIXIN
-				uni.setStorageSync('pid',options.pid)	
-			// #endif
+			if(options.pid){
+				uni.setStorageSync("pid",options.pid)
+			}
 			this.id=options.id
 			this.$http.request({
-						url: this.$api.moreShop.getmchstore,
+						url: this.$api.moreShop.getshopnewdetail,
 						method: 'POST',
-						data: {
-							mch_id:this.id,
-						},
+						data:{mch_id:this.id,store_id:0},
 						showLoading: true
 					}).then(res => {
 						if(res.code==0){
-							this.message=res.data.store
+							this.message=res.data.detail
 						}
 			})
 		},
-		
+		onShow() {
+			this.getCartList()
+		},		
 		methods:{
+			getCartList() { //获取购物车列表
+				this.$http.request({
+					url: this.$api.cart.list,
+					method: 'GET'
+				}).then((res) => { 
+					if(res.code==0){
+					
+					}else{
+						
+					}
+				})
+			},	
 			sure(){
 				if(this.num.length<=0){
 					this.$http.toast("金额不能为空")
@@ -89,7 +100,7 @@
 	.input-btn{height: 100rpx;background: rgb(245, 245, 245);width: 65%;padding-left: 10rpx;}
 	.sure-code{width: 100%;overflow: hidden;}
 	.sure-code button{width: 100%;margin: 100rpx auto;background: #FF7104;color: #fff;}		
-	.payPages_shop{width: 100%;overflow: hidden;display: flex;justify-content: space-between;padding: 40rpx 20rpx 0 20rpx;}
+	.payPages_shop{width: 100%;overflow: hidden;display: flex;justify-content: space-between;padding: 40rpx 20rpx 0 20rpx;box-sizing: border-box;}
 	.payPages_shop_left {max-width: 500rpx;}
 	.payPages_shop_left view{margin: 10rpx 0;color: #000;}
 	.payPages_shop_left view:nth-of-type(2){margin-left: 30rpx;}

@@ -227,6 +227,7 @@
 			}
 		},
 		onLoad(options) {
+			
 			let obj = {};
 			setTimeout(() => {
 				uni.getSystemInfo({
@@ -342,7 +343,7 @@
 					}
 				});
 			},
-			pay(group_id,trade_pwd){ //红包拼单支付
+			pay(group_id,trade_pwd){ //金豆拼单支付
 				this.$http.request({
 					url: this.$api.package.payspellMoney,
 					method: 'POST',

@@ -64,7 +64,7 @@
 				showBool: false, // 固定定位状态栏占位
 				opacity: 0,
 				payData: '',
-				switchIndex: 0,
+				switchIndex: 1,
 				textColor: "#BC0100",
 				bg_url: '',
 				navBg: '',
@@ -106,7 +106,7 @@
 						if(res.data.detail.is_pay==1){
 							uni.showModal({
 							    title: '恭喜你！',
-							    content: '已用红包支付成功',
+							    content: '已用金豆支付成功',
 								showCancel:false,
 							    success: function (resSure) {
 							        if (resSure.confirm) {
@@ -135,8 +135,15 @@
 						}
 					}).then(res=>{
 						if(res.code==0){
+							// #ifdef APP-PLUS
+								uni.navigateTo({
+									url: '/pages/order/alipayWeb?url=' + res.data.codeUrl
+								})
+							// #endif
+							 // #ifdef H5
 							let url=res.data.codeUrl
 							location.href=url
+							// #endif
 						}else{
 							that.$http.toast(res.msg)
 						}

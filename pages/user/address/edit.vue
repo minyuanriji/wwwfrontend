@@ -5,14 +5,20 @@
 				<view class="tui-line-cell">
 					<view class="tui-title">收货人</view>
 					<input placeholder-class="tui-phcolor" v-model="userName" class="tui-input" name="name" placeholder="请输入收货人姓名"
-					 maxlength="15" type="text" />
+					 maxlength="15" type="text" @focus="check(1)" style="box-sizing: border-box;padding-left: 10rpx;background: rgb(242, 242, 242);height: 80rpx;"/>
+					 <image :src="img_url+'delete_error.png'" mode="" style="width: 30rpx;height: 30rpx;
+					 display: block;position: absolute;right: 50rpx;top: 50rpx;" @click.stop="deleteint('userName')"
+					 v-if="userName.length>0&&showclear.userNameSHOw"></image>
 				</view>
 			</tui-list-cell>
 			<tui-list-cell :hover="false" padding="0">
 				<view class="tui-line-cell">
 					<view class="tui-title">手机号码</view>
 					<input placeholder-class="tui-phcolor" v-model="phone" class="tui-input" name="mobile" placeholder="请输入收货人手机号码"
-					 maxlength="11" type="number" />
+					 maxlength="11" type="number"   @focus="check(2)" style="box-sizing: border-box;padding-left: 10rpx;background: rgb(242, 242, 242);height: 80rpx;"/>
+					 <image :src="img_url+'delete_error.png'" mode="" style="width: 30rpx;height: 30rpx;
+					 display: block;position: absolute;right: 50rpx;top: 50rpx;" @click.stop="deleteint('phone')"
+					 v-if="phone.length>0&&showclear.numberSHOw"></image>
 				</view>
 			</tui-list-cell>
 
@@ -21,7 +27,7 @@
 					<view class="tui-line-cell">
 						<view class="tui-title"><text class="tui-title-city-text">所在城市</text></view>
 						<input placeholder-class="tui-phcolor" class="tui-input" disabled name="city" placeholder="请选择城市" v-model="text"
-						 maxlength="50" type="text" />
+						 maxlength="50" type="text"  style="box-sizing: border-box;padding-left: 10rpx;background: rgb(242, 242, 242);height: 80rpx;"/>
 					</view>
 				</tui-list-cell>
 			</picker>
@@ -40,9 +46,19 @@
 
 			<tui-list-cell :hover="false" padding="0">
 				<view class="tui-line-cell">
-					<view class="tui-title">收货地址</view>
-					<input placeholder-class="tui-phcolor" v-model="detailed" class="tui-input" name="address" placeholder="请输入详细的收货地址"
-					 maxlength="50" type="text" />
+					<view class="tui-title" style="margin-bottom: 65rpx;">收货地址</view>
+					<textarea placeholder-class="tui-phcolor" v-model="detailed" class="tui-input" name="address" placeholder="请输入详细的收货地址"
+					 type="text" style="height: 120rpx;width: 450rpx;
+					 padding: 5rpx 60rpx 0 5rpx;box-sizing: border-box;background: rgb(242, 242, 242)" 
+					 @focus="check(3)"/>
+					 
+					 <image :src="plugins_img_url+'/arrder_loc.png'" mode="" style="width: 50rpx;height: 50rpx;
+					 display: block;position: absolute;right: 30rpx;top: 60rpx;" @click.stop="chooseAddress"
+					 ></image>
+					 
+					 <image :src="img_url+'delete_error.png'" mode="" style="width: 30rpx;height: 30rpx;
+					 display: block;position: absolute;right: 105rpx;top: 70rpx;" @click.stop="deleteint('detailed')"
+					 v-if="detailed.length>0&&showclear.detailedSHOw"></image>
 				</view>
 			</tui-list-cell>
 			<!-- 默认地址 -->
@@ -78,7 +94,8 @@
 		data() {
 			return {
 				lists: ["公司", "家", "学校", "其他"],
-
+				plugins_img_url: this.$api.plugins_img_url,
+				img_url: this.$api.img_url,
 				userName: '', //用户名
 				phone: '', //电话
 				detailed: '', //详细地址
@@ -107,6 +124,12 @@
 				textColor:'#bc0100',
 				
 				form:'',
+				
+				showclear:{
+					userNameSHOw:false,
+					numberSHOw:false,
+					detailedSHOw:false,
+				},
 			}
 		},
 		onLoad(options) {
@@ -118,10 +141,20 @@
 			this.is_town = this.mall_config.mall_setting.setting.is_town;
 
 			this.id = options.id;
+			this.type=options.type
 			this.form = options.form;
 			this.getCity();
 			if (this.id != 0) {
 				this.detailAddress();
+			}
+			if(options.type==0){
+				uni.setNavigationBarTitle({
+					title:'编辑地址'
+				})
+			}else{
+				uni.setNavigationBarTitle({
+					title:'新增地址'
+				})
 			}
 		},
 		methods: {
@@ -130,6 +163,30 @@
 			// 	this.town_text = this.town_data[this.index].name;
 			// 	this.town_id = this.town_data[this.index].id;
 			// },
+			check(index){
+				if(index==1){
+					this.showclear.userNameSHOw=true
+					this.showclear.numberSHOw=false
+					this.showclear.detailedSHOw=false
+				}
+				if(index==2){
+					this.showclear.userNameSHOw=false
+					this.showclear.numberSHOw=true
+					this.showclear.detailedSHOw=false
+				}
+				if(index==3){
+					this.showclear.userNameSHOw=false
+					this.showclear.numberSHOw=false
+					this.showclear.detailedSHOw=true
+				}
+			},
+			chooseAddress(){
+				var that = this;
+				this.chooseLocation(function(res){
+					console.log(res)
+					that.detailed = res.name
+				});
+			},
 			switchChange(e) { //切换是否是默认地址
 				if (e.detail.value) {
 					this.is_default = 1;
@@ -137,20 +194,22 @@
 					this.is_default = 0;
 				}
 			},
-			// getDistrict() { //获取乡镇数据
-			// 	this.$http.request({
-			// 		url: this.$api.district.town_list,
-			// 		data: {
-			// 			district_id: this.districtId
-			// 		}
-			// 	}).then(res => {
-			// 		if (res.code == 0) {
-			// 			this.town_data = res.list;
-			// 			this.array = res.list.map(val => val.name);
-			// 		}
-			// 	})
-			// },
+			deleteint(item){
+				if(item=='userName'){
+					this.userName=''
+				}
+				if(item=='phone'){ 
+					this.phone=''
+				}
+				if(item=='detailed'){ 
+					this.detailed=''
+				}
+			},
+			
 			getCity() { //请求省市区数据
+				uni.showLoading({
+					title: '加载中'
+				});
 				this.$http.request({
 					url: this.$api.user.addressInfo,
 					method: 'post',
@@ -197,6 +256,9 @@
 						this.toArr(this.selectList[0].children),
 						this.toArr(this.selectList[0].children[0].children)
 					];
+					setTimeout(function () {
+					    uni.hideLoading();
+					}, 1500);
 
 				})
 			},
@@ -215,6 +277,9 @@
 							}).then(res => {
 								if (res.code == 0) {
 									that.$http.toast(res.msg);
+									if(uni.getStorageSync('addressID')==that.id){
+										uni.removeStorageSync('addressID')
+									}
 									setTimeout(() => {
 										uni.navigateBack();
 									}, 1000)
@@ -230,7 +295,11 @@
 				} else {
 					this.is_shake = true;
 				}
-				
+				if(this.userName.length<2){
+					this.$http.toast('收货人名字最少两位');
+					this.is_shake = false;
+					return
+				}
 				this.$http.request({
 					url: this.$api.user.addressSave,
 					method: 'post',
@@ -251,7 +320,11 @@
 					}
 				}).then((res) => {
 					if (res.code == 0) {
-						this.$http.toast('添加成功');
+						if(this.type==0){
+							this.$http.toast('保存成功');
+						}else{
+							this.$http.toast('添加成功');
+						}
 						setTimeout(() => {
 							if(this.form == 'submit'){
 								uni.redirectTo({
@@ -270,7 +343,6 @@
 			detailAddress() { //地址详情接口
 				this.$http.request({
 					url: this.$api.user.addressDetail,
-					showLoading: true,
 					data: {
 						id: this.id
 					}
@@ -355,6 +427,7 @@
 		box-sizing: border-box;
 		display: flex;
 		align-items: center;
+		position: relative;
 	}
 
 	.tui-title {
@@ -370,7 +443,7 @@
 	}
 
 	.tui-input {
-		width: 500rpx;
+		width: 450rpx;
 	}
 
 	.tui-input-city {

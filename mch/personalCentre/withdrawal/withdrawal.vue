@@ -11,7 +11,7 @@
 			<view class="withdrawal-money-input-num">
 				<view class="withdrawal-money-icon">￥</view>
 				<view class="withdrawal-money-num">
-					<input type="number" value="" v-model.trim="money" />
+					<input type="digit" value="" v-model.trim="money" />
 				</view>
 				<view class="withdrawal-money-num-all" @click="checkAll">
 					全部提现
@@ -51,6 +51,7 @@
 				information: '',
 				money: '', //金额
 				show: false, //密码输入弹出
+				flag:false
 			};
 		},
 		onShow() {
@@ -60,7 +61,6 @@
 				showLoading: true
 			}).then(res => {
 				if (res.code == 0) {
-					console.log(res)
 					this.information = res.data
 				}
 			})
@@ -74,6 +74,10 @@
 			},
 			deposit() { //确认提现
 				var that = this
+				if(that.flag){
+					return
+				}
+				that.flag=true
 				if (isEmpty(that.money) || that.money <= 0) {
 					uni.showToast({
 						title: '提现金额不能为空或者小于0',
@@ -81,8 +85,11 @@
 					});
 					setTimeout(function() {
 						uni.hideToast();
+						that.flag=false
 					}, 2000);
 					return
+				}else{
+					that.flag=false
 				}
 				if (that.information.is_pwd_set == 0) {
 					that.$http.toast('未设置支付密码')
@@ -91,15 +98,14 @@
 							uni.navigateTo({
 								url: '../personalCentreSETPassWorde/personalCentreSETPassWorde'
 							})
+							that.flag=false
 						} else {
 							uni.navigateTo({
 								url: '../personalCentreSETPassWorde/personalCentreSETPassWorde?phone=' +
 									that.information.mobile
 							})
+							that.flag=false
 						}
-						// uni.navigateTo({
-						// 		url:'../personalCentreSETPassWorde/personalCentreSETPassWorde'
-						// })
 					}, 2000)
 				} else {
 					if (isEmpty(that.information.efps_bank.paper_openBank)||isEmpty(that.information.efps_bank.paper_settleAccount)||isEmpty(that.information.efps_bank.paper_settleAccountNo)) {
@@ -108,6 +114,7 @@
 							uni.navigateTo({
 								url: '../countSet/countSet'
 							})
+							that.flag=false
 						}, 1500)
 					} else {
 						that.show = true
@@ -183,7 +190,7 @@
 	}
 
 	.withdrawal-money-icon {
-		line-height: 50rpx;
+		line-height: 70rpx;
 		color: #000;
 		font-weight: bold;
 		font-size: 40rpx;

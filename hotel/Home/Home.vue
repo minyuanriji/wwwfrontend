@@ -2,8 +2,8 @@
 	<view class="hotel-home">
 		<view class="swiper">
 			<FatFatMeng-Swiper
-			:swiperStyleClass="{'height':'500rpx','background-color':'rgba(0, 0, 0, .2)'}"
-			:SwiperImglist="list"
+			:swiperStyleClass="{'height':'350rpx','background-color':'rgba(0, 0, 0, .2)'}"
+			:SwiperImglist="banner"
 			>
 			</FatFatMeng-Swiper>
 		</view>
@@ -21,7 +21,7 @@
 					<view style="width: 30%;text-align: left;font-size: 28rpx;color: #000;" @tap="chooseAddress">
 						 <image :src="img_url+'location-my-new.png'" mode="" ></image>     我的位置
 					</view>
-				</view>
+				</view>  
 				<view class="hotel-select-date" @click="timeShow=true">
 					<view style="width: 35%;height: 120rpx;">
 						<view style="text-align: center;line-height: 60rpx;font-size: 30rpx;">入住时间</view>
@@ -43,8 +43,10 @@
 					</view>
 				</view>
 				<view class="hotel-select-name" @click="hotelsearch">
-					{{hotelName}}	
+					{{hotelName}}
 					<image :src="img_url+'arrow-right-seracher.png'" mode=""></image>
+					<image :src="img_url+'delete_error.png'" mode="" style="width: 30rpx;height: 30rpx;float: right;display: block;margin-top: 32rpx;margin-right: 60rpx;" @click.stop="deletesearch"  
+					v-if="form.keyword.length>0"></image>
 				</view>
 				<view class="hotel-query">
 					<button type="default" @click="checkHotel">查询酒店</button>
@@ -52,7 +54,7 @@
 			</view>
 			<view class="hotel-advertising">
 				<view class="hotel-advertising-image">
-					<image src="https://liangcang-material.alicdn.com/prod/upload/3916be5165cb4d4aadae49a5a34400e6.jpg" mode=""></image>
+					<image :src="advert" mode=""></image>
 				</view>
 			</view>
 		</view>
@@ -73,19 +75,9 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
-				list: [{
-				        image: 'https://liangcang-material.alicdn.com/prod/upload/3916be5165cb4d4aadae49a5a34400e6.jpg',
-				    },
-				    {
-				        image: 'https://liangcang-material.alicdn.com/prod/upload/1ab0ce94f41c4e7ca4126d5d1b6717f6.jpg',
-				    },
-				    {
-				        image: 'https://liangcang-material.alicdn.com/prod/upload/7438aaf338ce4a90b30a2806a3fee785.jpg',
-				    }
-				],
 				changeTypeIndex:1,//房间类型选择
 				show:false,//市区选择影藏和显示
-				region:'广州市',//默认给广州
+				region:'定位中...',//默认给广州
 				timeShow:false,//入住时间选择
 				timeStaus:{
 					dayCount:'',
@@ -114,12 +106,22 @@
 					days:"",
 					lng:'',
 					lat:'',
-				},				
+					keyword:'',
+				},
+				citymessage:'',//城市信息
+				banner:[],
+				advert:''
 			};
 		},
 		onLoad() {
 			this.getTime()
-			this.getmyLOcation()
+			this.getmyLOcation() 
+		},
+		onShow() {
+			if(uni.getStorageSync('searchtext')){
+				this.hotelName=uni.getStorageSync('searchtext')
+				this.form.keyword=uni.getStorageSync('searchtext')
+			}
 		},
 		methods:{
 			changeType(index){ //房间类型
@@ -130,15 +132,19 @@
 			setCITY(){ //选择城市
 				this.show=true
 			},
+			deletesearch(){
+				uni.removeStorageSync('searchtext');
+				this.form.keyword='';
+				this.hotelName='酒店名称';
+			},
 			back_city(e) {  //获取城市
 				if (e !== 'no') { 
 					this.region = e.cityName ;
 					this.show=false;
-					console.log(this.region )
+					this.getcityinfo('','',this.region)
 				} 
 				else { 
 					this.show=false;
-					console.log(this.region )
 				 }
 			},
 			getTime(){
@@ -161,6 +167,8 @@
 				this.startDate=this.timeStaus.startStr.dateStr
 				this.endDate=this.timeStaus.endStr.dateStr
 				this.timeShow=false
+				this.form.start_date=this.timeStaus.startStr.dateStr
+				this.form.days=this.timeStaus.dayCount
 				uni.setStorageSync('timeStaus',this.timeStaus)
 			},
 			changeTime(d){ //获取今日时间
@@ -192,20 +200,23 @@
 											'x-longitude-new'))
 										uni.setStorageSync('x-latitude', uni.getStorageSync(
 											'x-latitude-new'))
+										that.getcityinfo(uni.getStorageSync('x-longitude-new'),uni.getStorageSync('x-latitude-new'))
 									} else if (result.cancel) {
 										uni.setStorageSync("flag",false)
 										uni.setStorageSync("locationTime",parseInt(new Date().getTime()/1000))
+										that.getcityinfo(uni.getStorageSync('x-longitude'),uni.getStorageSync('x-latitude'))
 									}
 								}
 							})
 						} else {
-							
+							that.getcityinfo(uni.getStorageSync('x-longitude'),uni.getStorageSync('x-latitude'))
 						}
 				
 					}
 				}, 1000)
 				// #endif
-				// #ifndef H5
+				// #ifdef MP||APP-PLUS
+				// #ifdef MP
 				uni.getSetting({
 				   success(res) {
 				      if(!res.authSetting['scope.userLocation']){
@@ -232,6 +243,7 @@
 					  }
 				   }
 				})
+				// #endif
 				that.$unifylocation.locationMp()
 				setTimeout(() => {
 					if (uni.getStorageSync('x-longitude-new') || uni.getStorageSync('x-latitude-new')) {
@@ -255,72 +267,114 @@
 											'x-longitude-new'))
 										uni.setStorageSync('x-latitude', uni.getStorageSync(
 											'x-latitude-new'))
+										that.getcityinfo(uni.getStorageSync('x-longitude-new'),uni.getStorageSync('x-latitude-new'))
 									} else if (result.cancel) {
 										uni.setStorageSync("flag",false)
 										uni.setStorageSync("locationTime",parseInt(new Date().getTime()/1000))
+										that.getcityinfo(uni.getStorageSync('x-longitude'),uni.getStorageSync('x-latitude'))
 									}
 								}
 							})
 						} else {
+							that.getcityinfo(uni.getStorageSync('x-longitude'),uni.getStorageSync('x-latitude'))
 						}
 				
 					}
 				}, 1000)
 				// #endif
 			},
+			getcityinfo(longitude,latitude,city_name){ //获取当前城市信息
+				this.$http
+					.request({
+						url: this.$api.hotel.getcity,
+						method: 'POST',
+						data:{
+							longitude:longitude,
+							latitude:latitude,
+							city_name:city_name,
+						},
+						showLoading: true
+					})
+					.then(res => {
+						if(res.code==0){
+							this.citymessage=res.data
+							this.banner=this.citymessage.banner
+							this.advert=this.citymessage.advert.image
+							this.region=res.data.city_name
+							this.form.city_id=res.data.city_id
+							uni.setStorageSync("citymessage",this.citymessage.district)
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});	
+			},
 			chooseAddress() { //选择地址我的定位
 				var that = this
-				uni.chooseLocation({
-					success: function(res) {
-						console.log(res)
-						that.region=res.name
-					}
-				})
+				this.chooseLocation(function(res){
+					// 		console.log(res)
+					// 		that.region=res.name
+				});
+				uni.showLoading({
+				    title: '加载中'
+				});
+				
+				setTimeout(function () {
+				    uni.hideLoading();
+				}, 2000);
+				that.getmyLOcation()
 			},
 			hotelsearch(){//点击输入酒店搜索
+				console.log(this.form)
 				uni.navigateTo({
-					url:'../hotelSearch/hotelSearch'
+					url:'../hotelSearch/hotelSearch?form='+JSON.stringify(this.form)+"&region="+this.region
 				})
 			},
 			checkHotel(){ //直接点击搜索酒店
-				// if(isEmpty(this.form.start_date)){
-				// 	uni.showToast({
-				// 		title: '请选择入住时间',
-				// 		icon: 'none'
-				// 	});
-				// 	setTimeout(function() {
-				// 		uni.hideToast();
-				// 	}, 2000);
-				// 	return
-				// }
-				// this.$http
-				// 	.request({
-				// 		url: this.$api.hotel.searchhotel,
-				// 		method: 'POST',
-				// 		data:this.form,
-				// 		showLoading: true
-				// 	})
-				// 	.then(res => {
-				// 		uni.setStorageSync('timeStaus',this.timeStaus)
-				// 		if(res.code==0){
-				// 			if(res.data.history==1){
-				// 				uni.navigateTo({
-				// 					url:'../searchList/searchList?search_id='+res.data.search_id
-				// 				})
-				// 			}else if(res.data.history==0){
-				// 				uni.navigateTo({
-				// 					url:'../searchList/searchList?prepare_id='+res.data.prepare_id
-				// 				})
-				// 			}
-				// 		}else{
-				// 			this.$http.toast(res.msg);
-				// 		}
-				// });	
-			
-			
-				uni.navigateTo({
-					url:'../searchList/searchList'
-				})
+				if(isEmpty(this.form.start_date)){
+					uni.showToast({
+						title: '请选择入住时间',
+						icon: 'none'
+					});
+					setTimeout(function() {
+						uni.hideToast();
+					}, 2000);
+					return
+				}
+				this.$http
+					.request({
+						url: this.$api.hotel.searchhotel,
+						method: 'POST',
+						data:this.form,
+						showLoading: true
+					})
+					.then(res => {
+						uni.setStorageSync('timeStaus',this.timeStaus)
+						if(res.code==0){
+							if(res.data.history==1){
+								if(uni.getStorageSync('searchtext')){
+									uni.navigateTo({
+										url:'../searchList/searchList?search_id='+res.data.search_id+"&region="+this.region+"&city_id="+this.form.city_id+"&searchKey="+uni.getStorageSync('searchtext')
+									})
+								}else{
+									uni.navigateTo({
+										url:'../searchList/searchList?search_id='+res.data.search_id+"&region="+this.region+"&city_id="+this.form.city_id
+									})
+								}
+							}else if(res.data.history==0){
+								if(uni.getStorageSync('searchtext')){
+									uni.navigateTo({
+										url:'../searchList/searchList?prepare_id='+res.data.prepare_id+"&region="+this.region+"&city_id="+this.form.city_id+"&searchKey="+uni.getStorageSync('searchtext')
+									})
+								}else{
+									uni.navigateTo({
+										url:'../searchList/searchList?prepare_id='+res.data.prepare_id+"&region="+this.region+"&city_id="+this.form.city_id
+									})
+								}
+							}
+						}else{
+							this.$http.toast(res.msg);
+						}
+				});	
 			}
 		}
 	}
@@ -329,7 +383,7 @@
 <style lang="less">
 	.hotel-home {width: 100%;overflow: hidden;}
 	.swiper{width: 100%;overflow: hidden;}
-	.hote-message{width: 100%;overflow: hidden;position: absolute;top: 380rpx;left: 0;z-index: 99;}
+	.hote-message{width: 100%;overflow: hidden;position: absolute;top: 300rpx;left: 0;z-index: 99;}
 	.hotel-Fill{width: 90%;overflow: hidden;background: #fff;margin: 0 auto 20rpx;border-radius: 30rpx;box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.4);}
 	.hotel-type{width: 100%;overflow: hidden;display: flex;justify-content: space-between;}
 	.hotel-type view{width: 50%;height: 80rpx;text-align: center;line-height: 80rpx;}

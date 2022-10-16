@@ -238,7 +238,7 @@
 							</view>
 						</view>
 						<view class="buy-btn" :style="{'background-color':textColor}">
-							立即购买
+							立即下单
 						</view>
 					</scroll-view>
 				</view>
@@ -301,8 +301,8 @@ export default {
 			// 进度条
 			leftRotate:-224,
 			rightRotate:-135,
-			is_show_win:false, //是否显示浮窗里面的红包
-			is_show_winBox:false, //是否展示红包浮窗
+			is_show_win:false, //是否显示浮窗里面的金豆
+			is_show_winBox:false, //是否展示金豆浮窗
 			// 关注按钮
 			is_attention:false,
 			// 底部弹窗
@@ -342,10 +342,6 @@ export default {
 		
 		this.getVideo('','init'); //请求视频列表数据
 		// this.getLableList();//请求所有标签
-	},
-	//用户点击分享
-	onShareAppMessage(e) {
-	  return this.wxShare("短视频","/plugins/short-video/index");
 	},
 	//页面显示
 	onShow() {
@@ -743,19 +739,6 @@ export default {
 	onPullDownRefresh() {},
 	//页面上拉触底
 	onReachBottom() {},
-	//用户点击分享
-	onShareAppMessage(e) {
-		this.$http.request({
-			url:this.$api.plugin.video.share_video,
-			method:'post',
-			data:{
-				video_id:this.videoList[this.swiperIndex].id
-			}
-		}).then(res =>{
-			console.log(res)
-		})
-		return this.wxShare();
-	}
 };
 </script>
 <style lang="scss" scoped>
@@ -1236,7 +1219,7 @@ export default {
 		}
 	}
 	
-	// 红包浮窗
+	// 金豆浮窗
 	.redEnvelope{
 		width: 120rpx;
 		height: 120rpx;

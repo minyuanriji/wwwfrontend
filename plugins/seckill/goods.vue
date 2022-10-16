@@ -196,7 +196,7 @@
 					加入购物车
 				</view>
 				<view class="btn submit" style="height: 100%;" @click="submit(1)">
-					立即购买
+					立即下单
 				</view>
 			</view>
 		</view>
@@ -283,7 +283,7 @@
 						<tui-button type="red" shape="circle" size="mini" @click="hidePopup(1)">加入购物车</tui-button>
 					</view>
 					<view class="tui-flex-1">
-						<tui-button type="warning" shape="circle" size="mini" @click="submit">立即购买</tui-button>
+						<tui-button type="warning" shape="circle" size="mini" @click="submit">立即下单</tui-button>
 					</view>
 				</view>
 				<view class="tui-icon tui-icon-close-fill tui-icon-close" style="color: #999;font-size:15pt" @tap="hidePopup"></view>

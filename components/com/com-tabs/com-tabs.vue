@@ -42,7 +42,7 @@
 			//是否固定
 			isFixed: {
 				type: Boolean,
-				default: false
+				default: true
 			},
 			//px
 			top: {
@@ -53,7 +53,11 @@
 					// #endif
 					// #ifdef H5
 					,
-				default: 44
+				default: 95
+				// #endif
+				// #ifdef MP||APP-PLUS
+					,
+				default: 58
 				// #endif
 			},
 			//是否去掉底部线条
@@ -182,7 +186,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		z-index: 9999;
+		z-index: 98;
+		background: #fff!important;
 	}
 
 	.jx-tabs-relative {

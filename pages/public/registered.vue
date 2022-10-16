@@ -189,7 +189,8 @@
 				_self.$http.request({
 					url: _self.$api.default.phoneCode,
 					data: {
-						mobile: _self.dataForm.mobile
+						mobile: _self.dataForm.mobile,
+						type: 'reg'
 					},
 					method: 'POST'
 				}).then((res) => {

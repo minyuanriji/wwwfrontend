@@ -6,9 +6,16 @@
 				<image class="img" :src="img_url+'images/cart/cart-nothing.png'" mode=""></image>
 				<view class="msg">感谢您对商品的评价，祝您生活愉快~</view>
 			</view>
+			<!-- #ifdef H5 || MP -->
 			<view class="btn" @click="toIndex" :style="{'background-color':textColor}">
 				返回上一页
 			</view>
+			<!--#endif -->
+			<!-- #ifdef APP-PLUS -->
+			<view class="btn" @click="toIndex" :style="{'background-color':textColor}">
+				返回订单列表
+			</view>
+			<!--#endif -->
 		</view>
 		<view class="guessLike">
 			猜你喜欢
@@ -57,7 +64,7 @@
 			},
 			toIndex(){
 				let pages = getCurrentPages();
-				// #ifdef MP || APP-PLUS
+				// #ifdef MP 
 				if(pages.length > 0){
 					let currPage = pages[pages.length - 1].$vm;
 					let prevPage = pages[pages.length - 2].$vm; //上一个页面
@@ -67,7 +74,7 @@
 				let currPage = pages[pages.length - 1];
 				let prevPage = pages[pages.length - 2]; //上一个页面
 				// #endif
-				
+				// #ifdef H5||MP
 				if(!!prevPage){	//如果能获取到上一页的路由
 					console.log(currPage.route);
 					console.log(prevPage.route);
@@ -79,7 +86,12 @@
 						url: '/pages/index/index'
 					})
 				}
-				
+				// #endif
+				// #ifdef APP-PLUS
+					uni.redirectTo({
+						url: '../list'
+					})
+				// #endif	
 			},
 			
 		}

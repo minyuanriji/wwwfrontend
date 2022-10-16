@@ -3,6 +3,7 @@ import {
 	isWeChat
 } from '@/utils/util.js';
 import {user} from './api.js';
+import $bridge from './bridge.js';
 
 const fetch = {
 	toast: function(tips) {
@@ -69,6 +70,7 @@ const fetch = {
 		}
 	},
 	request: function(requestData) {
+
 		let currPage;
 		let pages = getCurrentPages();
 		// #ifdef MP-WEIXIN || APP-PLUS
@@ -111,8 +113,14 @@ const fetch = {
 			// 'x-city-name':encodeURIComponent(city),
 			'x-longitude':uni.getStorageSync("x-longitude"),
 			'x-latitude':uni.getStorageSync('x-latitude'),
-			'x-sub-mch-id': uni.getStorageSync("x-sub-mch-id") || 0
+			'x-sub-mch-id': uni.getStorageSync("x-sub-mch-id") || 0,
+			'x-man-mch-id': uni.getStorageSync("x-man-mch-id")?uni.getStorageSync("x-man-mch-id"):'',
 		}
+		// #ifdef MP-WEIXIN
+		const accountInfo = wx.getAccountInfoSync();
+		header['x-mp-appid'] = accountInfo.miniProgram.appId;
+		header['x-mp-version'] = accountInfo.miniProgram.version;
+		// #endif
 		return new Promise((resolve, reject) => {
 			uni.request({
 				url: url,
@@ -125,7 +133,13 @@ const fetch = {
 						fetch.toast("服务错误~")
 						reject(res)
 					}
-					showLoading && uni.hideLoading()
+					showLoading && uni.hideLoading();
+					
+					/* if(typeof res.data['clean_bind_parent'] != "undefined" && 
+						res.data.clean_bind_parent == 1){
+						uni.removeStorageSync("pid");
+					} */
+					
 					if (res.data.code == -1) {
 						// #ifdef H5
 						let preUrl = prevPage.$route.fullPath;
@@ -146,11 +160,11 @@ const fetch = {
 							showCancel:false,
 							success: (res) => {
 								if (res.confirm) {
-	
 									uni.navigateTo({
 										url: '/pages/public/login'
 									});
 								}else{
+									
 									let _currRoute = ''
 									// #ifdef H5
 									_currRoute = currPage.route;
@@ -168,7 +182,7 @@ const fetch = {
 						uni.navigateTo({
 							url: `/pages/public/bind`
 						})
-					} else if( res.data.code == 6 ){						
+					} else if( res.data.code == 6 ){			
 						// #ifdef H5
 						let preUrl = prevPage.$route.fullPath;
 						uni.setStorageSync("_login_pre_url", preUrl);
@@ -189,7 +203,7 @@ const fetch = {
 					resolve(res.data)
 				},
 				fail: (res) => {
-					console.log(url)
+					console.log(res)
 					fetch.toast("网络不给力，请稍后再试~")
 					reject(res)
 				}
@@ -198,7 +212,6 @@ const fetch = {
 	},
 	// 上传头像
 	uploadFile: function(requestData) {
-		console.log(requestData)
 		let {
 			serverUrl,
 			file,
@@ -268,6 +281,7 @@ module.exports = {
 	toast: fetch.toast,
 	isLogin: fetch.isLogin,
 	setToken: fetch.setToken,
+	getToken: fetch.getToken,
 	getUrlParam: fetch.getUrlParam,
 	logout: fetch.logout,
 	setUserInfo: fetch.setUserInfo,

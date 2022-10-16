@@ -11,6 +11,7 @@
 					</view>
 					 
 				</view> -->
+				<!--
 				 <view class="jx-order-status">
 					<view class="icon iconfont icon-daifukuan3" v-if="alidetail.status == 'waitbuyerpay'"></view>
 					<view class="icon iconfont icon-fahuo" v-else-if="alidetail.status == 'waitsellersend'"></view>
@@ -19,22 +20,21 @@
 					<view class="icon iconfont icon-yiwancheng" v-else-if="alidetail.status == 'success'"></view>
 					<view class="text-container">
 						<view class="text">{{alidetail.status_text}}</view>
-						<!--
+						
 						<view class="text" v-if="is_show">{{detail.status_text}}</view>
 						<view v-else>售后申请</view>
 						<view class="msg" v-if="detail.status != 0">{{statusText[detail.status]}}</view>
 						<view class="msg" v-else>{{detail.cancel_at}}后关闭订单</view>
-						-->
+						
 					</view>
-					<!--
 					<view class="btn" v-if="is_show">
 						<view @click.stop="goComment(detail.id)">
 							<tui-button type="white" width="148rpx" height="56rpx" :size="26" shape="circle" :style="{color: textColor+'!important'}"
 							 v-show="btnText[detail.status]">{{btnText[detail.status]}}</tui-button>
 						</view>
 					</view>
-					-->
-				</view>
+					
+				</view>-->
 
 				<view class="jx-order-user jx-radius">
 					<view class="jx-address view">
@@ -49,19 +49,43 @@
 				</view>
 				<view class="jx-order-item">
 					<view class="jx-goods-list jx-radius">
-						<block v-for="(item,index) in alidetail.detail" :key="item.id">
+						<block v-for="(item,index) in alidetail.details" :key="item.id">
 							<view class="jx-goods-item" @click="toGoodsDateil(item.goods_id)">
 								<image :src="item.cover_url" lazy-load="true" class="jx-goods-img"></image>
 								<view class="jx-goods-center">
 									<view class="jx-goods-name">{{item.name}}</view>
-									<view class="jx-goods-attr">{{item.sku_labels[0]}}</view>
+									<view class="jx-goods-attr">{{item.sku_labels}}</view>
+									<view style="margin-top:10rpx;display:flex;justify-content:space-between;">
+										
+										<template v-if="alidetail.is_pay == 1">
+											<template v-if="item.ali_info.status == 'waitbuyerpay'">
+												<view style="color:#bc0100;font-size:25rpx;height:56rpx;line-height:56rpx;">订单异常！请联系客服</view>
+											</template>
+											<view v-else style="height:56rpx;line-height:56rpx;">{{item.ali_info.status_text}}</view>
+											<view  v-if="item.ali_info.status == 'waitbuyerreceive' || item.ali_info.status=='confirm_goods' || item.ali_info.status=='success'" class="express-btn">
+												<view class="btns" @tap="toPage(item.od1688_id)">查看物流</view>
+											</view>
+										</template>
+										<view v-else style="height:56rpx;line-height:56rpx;">{{item.ali_info.status_text}}</view>
+										
+									</view>
 								</view>
 								<view class="jx-price-right">
 									<!--
 									<view class="price">¥{{item.unit_price}}</view>
 									-->
 									<view class="num">x{{item.num}}</view>
-									<view class="btn"  v-if="detail.order_type!='offline_baopin'&&detail.order_type!='offline_normal'">
+									<view class="btn">
+										
+										<tui-button @click="goRefund(item.id, item.ali_info.status)" v-if="alidetail.is_pay==1 && item.is_refund==0 && item.refund_status=='none'" type="black" :plain="true" width="80rpx" height="32rpx" :size="24" shape="circle" style="color: #808080 !important;margin-left: 30rpx;">
+											退款
+										</tui-button>
+										<view @click="goRefund(item.id, item.ali_info.status)" v-if="alidetail.is_pay==1">
+											<view v-if="alidetail.is_pay==1 && item.refund_status=='apply'">退款中</view>
+											<view v-if="alidetail.is_pay==1 && item.refund_status=='refused'">拒绝退款</view>
+											<view v-if="alidetail.is_pay==1 && item.refund_status=='agree'">同意退款</view>
+											<view v-if="alidetail.is_pay==1 && item.is_refund==1">已退款</view>
+										</view>
 										<!-- <view v-if="item.refund_status == 0 && !showRefund(detail.status)" @click.stop="goRefund(item.id)">
 											<tui-button type="black" :plain="true" width="80rpx" height="32rpx" :size="24" shape="circle" style="color: #808080 !important;margin-left: 30rpx;">
 												{{detail.status > 1 ? '退换' : item.goods_info.is_refund ? '退款中' : '退款'}}
@@ -146,16 +170,16 @@
 							<view class="jx-price">- ¥{{alidetail.score_deduction_price}}</view>
 						</view> -->
 					<!-- 	<view class="jx-price-flex  jx-size24">
-							<view>红包</view>
+							<view>金豆</view>
 							<view class="jx-price">- ¥{{alidetail.coupon_discount_price}}</view>
 						</view> -->
 					<!-- 	<view class="jx-price-flex  jx-size24" v-if="false">
-							<view>红包</view>
+							<view>金豆</view>
 							<view class="jx-price">¥0.00</view>
 						</view> -->
 						<!--
 						<view class="jx-price-flex  jx-size24">
-							<view>购物券</view> 
+							<view>红包</view> 
 							<view class="jx-price">- ¥{{alidetail.shopping_voucher_decode_price}}</view>
 						</view>
 						<view class="jx-price-flex  jx-size24">
@@ -163,24 +187,20 @@
 							<view class="jx-price">- ¥{{alidetail.express_original_price}}</view>
 						</view>
 						<view class="jx-price-flex  jx-size24" >
-							<view>购物券抵扣运费</view>
+							<view>红包抵扣运费</view>
 							<view class="jx-price">- ¥{{alidetail.shopping_voucher_express_use_num}}</view>
 						</view>
 						-->
 						<view class="jx-price-flex jx-size32 jx-border-top">
-							<view class="tui-flex-shrink">实付款</view>
+							<view class="tui-flex-shrink">红包</view>
 							<view class="jx-goods-price jx-primary-color" :style="{color:textColor}">
-								<view class="jx-size-24">¥</view>
-								<view class="jx-price-large">{{Number(alidetail.shopping_voucher_use_num)}}</view>
+								<view class="jx-size-24">-¥</view>
+								<view class="jx-price-large">{{alidetail.shopping_voucher_total_use_num}}</view>
 							</view>
 						</view>
 					</view>
 				</view>
-				<view class="jx-tabbar tui-order-btn" v-if="alidetail.status == 'waitbuyerreceive' || alidetail.status=='confirm_goods' || alidetail.status=='success'">
-					<view class="jx-btn-mr">
-						<view class="btns" @tap="toPage(alidetail.id)">查看物流</view>
-					</view>
-				</view>
+				
 				<!-- <block v-if="is_show&&detail.order_type!='offline_baopin'&&detail.order_type!='offline_normal'">
 					<view class="jx-tabbar tui-order-btn" v-if="detail.status != 8">
 						<view class="jx-btn-mr" v-if="detail.status == 5">
@@ -479,9 +499,9 @@
 					url: `./comment/edit?id=${id}`
 				})
 			},
-			goRefund(id) {
+			goRefund(id, ali_st) {
 				uni.navigateTo({
-					url: `./refund/type?id=${id}`
+					url: `../refund/apply?id=${id}&ali_status=${ali_st}`
 				})
 			},
 			confirm(id) {
@@ -827,7 +847,7 @@
 
 		.jx-goods-center {
 			flex: 1;
-			padding: 20rpx;
+			padding: 0px 20rpx;
 			box-sizing: border-box;
 		}
 	}
@@ -848,7 +868,7 @@
 		font-size: 9pt;
 		color: #888888;
 		line-height: 32rpx;
-		padding-top: 36rpx;
+		padding-top: 16rpx;
 		word-break: break-all;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -988,5 +1008,8 @@
 		bottom: 0;
 		margin: auto;
 		
+	}
+	.express-btn .btns{
+		font-size:10pt;
 	}
 </style>

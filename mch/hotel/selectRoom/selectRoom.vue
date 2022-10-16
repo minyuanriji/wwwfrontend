@@ -65,7 +65,7 @@
 								<image :src="img_url+'/hotel/rightColor.png'" mode="" @click.stop="checkHidden(index)" v-if="checkIndex==index" class="rightColor_logo"></image>
 							</view>
 							<view class="shop_detail" style="margin-bottom: 20rpx;">
-								补商汇红包全额抵扣
+								补商汇金豆全额抵扣
 							</view>
 						</view>
 					</view>
@@ -90,7 +90,7 @@
 									<text  style="color: #FB4512;font-size: 30rpx;">￥0起</text>
 								</view>
 								<view style="min-width: 160rpx;font-size: 25rpx;text-align: center;border: 1px solid #FB4512;border-radius: 6rpx;color: #FB4512;">
-									红包全额抵扣
+									金豆全额抵扣
 								</view>
 							</view>
 							<view class="Room_detail-right_right" @click.stop="order(item.unique_id,item.product_code,item.product_num)">
@@ -270,7 +270,7 @@
 								<text style="color: #FB4512;font-size: 30rpx;">￥0起</text>
 							</view>
 							<view style="width: 160rpx;font-size: 25rpx;text-align: center;border: 1px solid #FB4512;border-radius: 6rpx;color: #FB4512;">
-								红包全额抵扣
+								金豆全额抵扣
 							</view>
 						</view>
 						<view class="sure_money_logo" @click="order(itemDetai.unique_id,itemDetai.product_code,itemDetai.product_num)">

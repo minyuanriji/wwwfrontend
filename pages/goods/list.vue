@@ -25,11 +25,24 @@
 					<!-- 切换商品列表样式 -->
 				</view>
 			</view>
+			<view class="sort">
+				<view style="position: relative;width: 30%;text-align: center;" 
+				:class="selecSort==0?'actove':''"     @click="sortselect(0)">
+					<text>{{priceSort}}</text>
+					<image :src="img_url+'unmy-hotel.png'" mode="" style="width: 35rpx;height: 35rpx;display: block;position: absolute;top: 35rpx;right: -20rpx;"></image>
+				</view>
+				<view style="position: relative;width: 30%;text-align: center;"
+				:class="selecSort==1?'actove':''"     @click="sortselect(1)">
+					<text>{{salesort}}</text>
+					<image :src="img_url+'unmy-hotel.png'" mode="" style="width: 35rpx;height: 35rpx;display: block;position: absolute;top: 35rpx;right: -20rpx;"></image>
+				</view>
+			</view>
 		</view>
 		<!--header-->
 
+
 		<!--list-->
-		<view class="tui-product-list" :style="{marginTop:(dropScreenH+20)+'px'}">
+		<view class="tui-product-list" :style="{marginTop:(dropScreenH+70)+'px'}">
 		<!-- <view class="tui-product-list" style="margin-top:70rpx"> -->
 			<view class="tui-product-container" :style="{width: isList ? '100%' : '49.2%'}">
 				<block v-for="(item,index) in productList" :key="index" v-if="(index+1)%2!=0 || isList">
@@ -37,7 +50,7 @@
 					<!--商品列表-->
 					<view class="tui-pro-item" :class="[isList?'tui-flex-list':'']" hover-class="hover" :hover-start-time="150" @tap="detail(item.id)">
 						<image :src="item.cover_pic" class="tui-pro-img" :class="[isList?'tui-proimg-list':'']"
-						 mode="widthFix" />
+						 mode="scaleToFill" />
 						<view class="tui-pro-content">
 							<view class="tui-pro-tit">{{item.name}}</view>
 							<view>
@@ -45,7 +58,7 @@
 									<view class="tui-sale-price" :style="{color:textColor}">￥{{item.price}}</view>
 									<view class="tui-factory-price">￥{{item.original_price}}</view>
 								</view>
-								<view class="tui-pro-pay" v-if="item.is_show_sales == 1">{{item.sales || 0}}人付款</view>
+								<view class="tui-pro-pay" >{{item.sales || 0}}</view>
 							</view>
 						</view>
 					</view>
@@ -58,7 +71,7 @@
 					<!--商品列表-->
 					<view class="tui-pro-item" :class="[isList?'tui-flex-list':'']" hover-class="hover" :hover-start-time="150" @tap="detail(item.id)">
 						<image :src="item.cover_pic" class="tui-pro-img" :class="[isList?'tui-proimg-list':'']"
-						 mode="widthFix" />
+						 mode="scaleToFill" />
 						<view class="tui-pro-content">
 							<view class="tui-pro-tit">{{item.name}}</view>
 							<view>
@@ -66,7 +79,7 @@
 									<view class="tui-sale-price" :style="{color:textColor}">￥{{item.price}}</view>
 									<view class="tui-factory-price">￥{{item.original_price}}</view>
 								</view>
-								<view class="tui-pro-pay" v-if="item.is_show_sales == 1">{{item.sales || 0}}人付款</view>
+								<view class="tui-pro-pay" >{{item.sales || 0}}</view>
 							</view>
 						</view>
 					</view>
@@ -75,13 +88,26 @@
 			</view>
 		</view>
 		<!--list-->
-
+		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
 		<!--加载loadding-->
 		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
 		<main-nomore :visible="pullUpOn" bgcolor="#f7f7f7"></main-nomore>
 		<!--加载loadding-->
 		
 		<main-tabbar></main-tabbar>
+		<unipopup ref="popupSortprice" type="top">
+			<view  class="goods_sort">
+				<view @click="sortSecprice(index,item)" :class="sortpriceIndex==index?'sortClass':''" v-for="(item,index) in sortType" :key='index'
+				style="text-align: center;height: 100rpx;line-height: 100rpx;border-bottom: 0.5px solid #f2f5f9;">{{item}}</view>
+			</view>
+		</unipopup>
+		<unipopup ref="popupSortsale" type="top">
+			<view  class="goods_sort">
+				<view @click="sortSecsale(index,item)" :class="sortsaleIndex==index?'sortClass':''" v-for="(item,index) in sortType" :key='index'
+				style="text-align: center;height: 100rpx;line-height: 100rpx;border-bottom: 0.5px solid #f2f5f9;">{{item}}</view>
+			</view>
+		</unipopup>
+		
 	</view>
 </template>
 
@@ -89,14 +115,19 @@
 	import tuiIcon from "@/components/icon/icon";
 	import tuiDrawer from "@/components/drawer/drawer";
 	import tuiTopDropdown from "@/components/top-dropdown/top-dropdown";
+	import backTop from '@/components/back-top/back-top.vue';
+	import unipopup from '@/components/uni-popup/uni-popup';
 	export default {
 		components: {
 			tuiIcon,
 			tuiDrawer,
-			tuiTopDropdown
+			tuiTopDropdown,
+			backTop,
+			unipopup,
 		},
 		data() {
 			return {
+				img_url: this.$api.img_url,
 				statusBarHeight:0,//状态栏高度
 				searchKey: "", //搜索关键词
 				width: 200, //header宽度
@@ -114,7 +145,35 @@
 				page_count:0,//总页数
 				carryOut:true,//请求完成
 				searchKey:'',//搜索内容的字段
-				textColor:'#bc0100'
+				textColor:'#bc0100',
+				backTop: {
+					src: '../../static/back-top/top.png',
+					scrollTop: 0
+				},
+				sort:[
+					"价格排序",
+					"销量排序"
+				],
+				popupSortprice:false,//排序的弹窗显示
+				popupSortsale:false,//排序的弹窗显示
+				priceSort:'价格排序',
+				salesort:'销量排序',
+				sortType:[],
+				sortprice:[
+					"全部",
+					"价格由低到高",
+					"价格由高到低",
+				],
+				sortsale:[
+					"全部",
+					"销量由低到高",
+					"销量由高到低",
+				],
+				selecSort:null,
+				sortpriceIndex:'',
+				sortsaleIndex:'',
+				order:'',
+				orderBy:'',
 			}
 		},
 		onLoad: function(options) {
@@ -150,6 +209,73 @@
 			})
 		},
 		methods: {
+			sortselect(index){ //排序
+				this.selecSort=index
+				if(index==0){
+					this.$refs.popupSortprice.open();
+					this.$refs.popupSortsale.close();
+					this.sortType=this.sortprice
+					this.sortsaleIndex='',
+					this.salesort='销量排序'
+					this.order='price'
+					this.orderBy=''
+				}
+				if(index==1){
+					this.$refs.popupSortsale.open();
+					this.$refs.popupSortprice.close();
+					this.sortType=this.sortsale
+					this.sortpriceIndex='',
+					this.priceSort='价格排序'
+					this.order='sale'
+					this.orderBy=''
+				}
+			},
+			sortSecprice(index,item){
+				this.sortpriceIndex=index
+				this.$refs.popupSortprice.close();
+				if(item=='全部'){
+					this.priceSort='价格排序'
+				}else{
+					this.priceSort=item
+				}
+				if(index==0){
+					this.orderBy=''
+				}
+				if(index==1){
+					this.orderBy="asc"
+				}
+				if(index==2){
+					this.orderBy='desc'
+				}
+				this.page=1
+				this.productList=[]
+				this.getData()
+				
+				
+				
+			},
+			sortSecsale(index,item){
+				this.sortsaleIndex=index
+				this.$refs.popupSortsale.close();
+				if(item=='全部'){
+					this.salesort='销量排序'
+				}else{
+					this.salesort=item
+				}
+				if(index==0){
+					this.orderBy=''
+				}
+				if(index==1){
+					this.orderBy="asc"
+				}
+				if(index==2){
+					this.orderBy='desc'
+				}
+				this.page=1
+				this.productList=[]
+				this.getData()
+			},
+			
 			getData(){ //获取数据
 				this.loadding = true;
 				this.$http.request({
@@ -160,7 +286,9 @@
 						// cat_id:0,
 						keyword:this.searchKey,
 						page:this.page,
-						limit:6
+						limit:6,
+						order:this.order,
+						orderBy:this.orderBy
 					}
 				}).then((res)=>{
 					if(res.code == 0){
@@ -216,6 +344,9 @@
 				})
 			}
 		},
+		onPageScroll(e) {
+			this.backTop.scrollTop = e.scrollTop;
+		},
 		onReachBottom() {
 			this.page++;
 			if(this.page <= this.page_count){
@@ -228,7 +359,7 @@
 	}
 </script>
 
-<style>
+<style lang="less">
 	page {
 		background: #f7f7f7;
 	}
@@ -358,6 +489,7 @@
 
 	.tui-pro-img {
 		width: 100%;
+		height: 360rpx;
 		display: block;
 	}
 
@@ -379,6 +511,7 @@
 	.tui-pro-tit {
 		color: #2e2e2e;
 		font-size: 9pt;
+		height: 72rpx;
 		word-break: break-all;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -409,6 +542,7 @@
 		padding-top: 10rpx;
 		font-size: 9pt;
 		color: #656565;
+		height: 46rpx;
 	}
 
 	/* 商品列表*/
@@ -429,4 +563,19 @@
 	.switchStyle{
 		margin-right: 20rpx;
 	}
+	.actove{color: rgb(255, 113, 4)}
+	.sort{width: 100%;height: 100rpx;display: flex;justify-content: space-evenly;line-height: 100rpx;}
+	.goods_sort{width: 100%;z-index: 999;background: #fff;
+	/* #ifdef H5 */
+	height: 300rpx;
+	margin-top: 180rpx;
+	/* #endif */
+	/* #ifdef  MP||APP-PLUS  */
+	height: 310rpx;
+	margin-top: 220rpx;
+	/* #endif */
+	
+	}
+	.sortClass{color: #FF7104;font-weight: bold;background: url('https://dev.mingyuanriji.cn/web/static/yellow-right.png')no-repeat;background-size: 5%;
+	background-position: 90% 50% ;}
 </style>

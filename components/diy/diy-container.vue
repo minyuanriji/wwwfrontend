@@ -43,6 +43,24 @@
 		<!-- 广告弹窗 -->
 		<diy-modal v-if="temp.key == 'modal'" :modalData="temp"></diy-modal>
 
+		<!-- 领取积分 -->
+		<diy-take-score v-if="temp.key == 'take-score'" :value="temp"></diy-take-score>
+		
+		<!-- 倒计时 -->
+		<diy-timer v-if="temp.key == 'timer'" :value="temp"></diy-timer>
+		
+		<!-- 好店推荐 -->
+		<diy-mch v-if="temp.key == 'mch'" :value="temp"></diy-mch>
+		
+		<!-- 快捷导航 -->
+		<diy-quick-nav :page-id="pageId" v-if="temp.key == 'quick-nav'" :value="temp"></diy-quick-nav>
+	
+		<!-- 背景 -->
+		<block v-if="temp.key == 'background'">
+			<view style="position:absolute;left:0;top:0;width:100%;height:100%;background:red;z-index:-1">
+				333333333333
+			</view>
+		</block>
 	</view>
 </template>
 
@@ -87,6 +105,18 @@
 			diyModal: resolve => {
 				require(['@/components/diy/diy-modal.vue'], resolve)
 			},
+			diyTakeScore: resolve => {
+				require(['@/components/diy/diy-take-score.vue'], resolve)
+			},
+			diyTimer: resolve => {
+				require(['@/components/diy/diy-timer.vue'], resolve)
+			},
+			diyMch: resolve => {
+				require(['@/components/diy/diy-mch.vue'], resolve)
+			},
+			diyQuickNav: resolve => {
+				require(['@/components/diy/diy-quick-nav.vue'], resolve)
+			},
 		},
 		props: {
 			dataList: {
@@ -100,6 +130,10 @@
 			title:{
 				type: String,
 				default: () => {}
+			},
+			pageId:{
+				type: Number,
+				default: 0
 			}
 		},
 		data() {

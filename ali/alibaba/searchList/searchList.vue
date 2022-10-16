@@ -2,7 +2,7 @@
 	<view class="ali-home-app">
 		<view class="ali-home-app-product">
 			<view class="product-item" v-for="(item,index) in goodsList" :key='index' @click="link(item.id)">
-				<image :src="item.cover_url" mode="widthFix" class="product-item-logo"></image>
+				<image :src="item.cover_url" mode="scaleToFill" class="product-item-logo"></image>
 				<view class="product-item-name">{{item.name}}</view>
 				<view class="product-item-money-buy">
 					<view class="product-item-money">
@@ -11,16 +11,25 @@
 						-->
 						<text style="color:#FF7104;font-size: 28rpx;width: 100%;">兑换价￥{{item.price}}</text>
 						<text
-							style="font-size: 28rpx;width: 100%;margin: 20rpx;background: #FF7104;height: 60rpx;text-align: center;line-height: 60rpx;border-radius: 30rpx;color: #fff;">购物券兑换</text>
+							style="font-size: 28rpx;width: 100%;margin: 20rpx;background: #FF7104;height: 60rpx;text-align: center;line-height: 60rpx;border-radius: 30rpx;color: #fff;">红包兑换</text>
 					</view>
 				</view>
 			</view>
 		</view>
+		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
+		<!--加载loadding-->
+		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
+		<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
+		<!--加载loadding-->
 	</view>
 </template>
 
 <script>
+	import backTop from '@/components/back-top/back-top.vue';
 	export default {
+		components: {
+			backTop
+		},
 		data() {
 			return {
 				form:{
@@ -29,6 +38,12 @@
 				},
 				goodsList:[],
 				page_count:'',
+				pullUpOn:true,
+				loadding:false,
+				backTop: {
+					src: '../../../static/back-top/top.png',
+					scrollTop: 0
+				},
 			};
 		},
 		onLoad(options) {
@@ -51,7 +66,6 @@
 					url: this.$api.taolijin.getHomegoods,
 					method: 'POST',
 					data: this.form,
-					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
 						if(res.data.list.length==0)return false
@@ -59,14 +73,22 @@
 						var arr=this.goodsList.concat(list)
 						this.goodsList =arr
 						this.page_count = res.data.pagination.page_count;
+						this.pullUpOn=true
 					} else {
 						this.$http.toast(res.msg);
 					}
 				});
 			}
 		},
+		onPageScroll(e) {
+			this.backTop.scrollTop = e.scrollTop;
+		},
 		onReachBottom() {
+			this.loadding = true;
+			this.pullUpOn = true;
 			if(this.form.page==this.page_count){
+				this.loadding = false
+				this.pullUpOn=false
 				return false;
 			} 		
 			this.form.page=this.form.page+1
@@ -99,6 +121,8 @@
 	
 	.product-item-logo {
 		width: 100%;
+		height: 320rpx;
+		display: block;
 	}
 	.product-item-name {
 		width: 100%;

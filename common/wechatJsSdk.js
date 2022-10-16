@@ -10,6 +10,7 @@ export default {
 		let url = curPage.$route.fullPath;
 		return url.substring(1,url.length);
 	},
+	
 	//判断是否在微信中  
 	isWechat: function() {
 		var ua = window.navigator.userAgent.toLowerCase();
@@ -32,7 +33,7 @@ export default {
 				url: root_url
 			}
 		}).then((res) => {
-			if (res.code == 0) {
+			if (res.code == 0) {			
 				let sdk = res.data.config;
 				jweixin.config({
 					debug: sdk.debug,
@@ -46,7 +47,28 @@ export default {
 				if (callback) {
 					callback(sdk);
 				}
-
+				jweixin.ready(function() {
+				   jweixin.hideMenuItems({
+				       menuList: [
+						   "menuItem:share:appMessage",
+						   "menuItem:share:timeline",
+						   "menuItem:share:qq",
+						   "menuItem:share:weiboApp",
+						   "menuItem:favorite",
+						   "menuItem:share:facebook",
+						   "menuItem:share:QZone",
+						   "menuItem:editTag",
+						   "menuItem:delete",
+						   //"menuItem:copyUrl",
+						   "menuItem:originPage",
+						   "menuItem:readMode",
+						   "menuItem:openWithQQBrowser",
+						   "menuItem:openWithSafari",
+						   "menuItem:share:email",
+						   "menuItem:share:brand"
+					   ] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮
+				   });
+				});
 			}
 
 		});
@@ -102,7 +124,7 @@ export default {
 	share: function(param, diy) {
 
 		if (!this.isWechat()) {
-			return;
+			//return;
 		}
 		let title = '补商汇全新上线',
 			desc = '优惠多多',
@@ -116,10 +138,14 @@ export default {
 
 		// 获取当前 URL
 		let url = window.location.href.split("#")[0];
+		
 		// 截取 URL ?code 前面 URL
 		url = url.split('?code')[0];
 		// 获取 当前商城id
 		let mall_id = uni.getStorageSync("mall_id");
+		if(mall_id.length <= 0 || isNaN(mall_id)){
+			mall_id = 5;
+		}
 
 		// 获取当前用户
 		let user = uni.getStorageSync("userInfo") ? JSON.parse(uni.getStorageSync("userInfo")) : {};
@@ -139,7 +165,7 @@ export default {
 		// console.log(url,"分享url");
 		//每需要重新初始化
 		this.initJssdk(function(sdk) {
-		
+		console.log(url);
 			jweixin.ready(() => {
 				// 分享到朋友圈
 				// jweixin.updateTimelineShareData({
@@ -260,5 +286,6 @@ export default {
 				});
 			});
 		});
-	},	
+	},
+
 }

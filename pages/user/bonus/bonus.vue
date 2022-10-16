@@ -2,7 +2,7 @@
 	<view class="bonus_app">
 		<view class="bonus_header">
 			<view class="bonus_header_right-che">
-				<!-- #ifdef H5  -->
+				<!-- #ifdef H5 ||APP-PLUS -->
 				<view @click="linkSevice">客服</view>
 					<!--#endif -->
 				<!-- #ifdef MP-WEIXIN -->
@@ -27,7 +27,7 @@
 						</view>
 						<view class="bonus_type_item_num">
 							<text>{{item.money}}</text>
-							<text>现金红包</text>
+							<text>现金金豆</text>
 						</view>
 					</view>
 					<view class="bonus_type_item">
@@ -36,7 +36,7 @@
 						</view>
 						<view class="bonus_type_item_num">
 							<text>{{money_count}}</text>
-							<text>现金红包</text>
+							<text>现金金豆</text>
 						</view>
 					</view>
 			</view>	
@@ -48,7 +48,7 @@
 			<view class="bonus_message_my_list">
 				<view class="bonus_message_my_item" v-for="(item,index) in bonus_log" :key='index'>
 					<view class="bonus_message_my_item-left">
-						<text>补商会红包</text>
+						<text>补商会金豆</text>
 						<text>{{item.awards_cycle}}奖金池到账</text>
 					</view>
 					<view class="bonus_message_my_item-right">
@@ -131,7 +131,13 @@
 					});
 			},
 			linkSevice(){ //跳转H5客服链接
+				//#ifdef H5
 				location.href = this.serviceLink
+				//#endif
+				// #ifdef APP-PLUS
+				plus.runtime.openURL(this.serviceLink);//成功跳转了
+				//#endif
+				
 			},
 			goService(){ //跳转小程序客服链接
 				if(uni.getStorageSync('userInfo')){

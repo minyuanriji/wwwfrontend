@@ -199,22 +199,6 @@
 				this.textColor = this.globalSet('textCol');
 			}
 		},
-		onShareAppMessage(res){
-			if (res.from === 'button') {// 来自页面内分享按钮
-				console.log(res.target);
-			}
-			this.$http.request({
-				url:this.$api.plugin.business.add_track,
-				method:'post',
-				data:{
-					track_user_id:this.detail_data.user_data.user_id,
-					model_id:this.detail_data.user_data.id,
-					track_type: 5
-				}
-			})
-			return this.wxShare(this.share_title,`/plugins/business-card/index?source=7&id=${this.detail_data.user_data.id}`,this.share_img);
-			// return this.wxShare(this.share_title,"/plugins/business-card/my/index?source=7",this.share_img);
-		},
 		methods:{
 			share(){
 				// #ifdef H5

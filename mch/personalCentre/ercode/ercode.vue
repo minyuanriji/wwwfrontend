@@ -1,67 +1,67 @@
 <template>
 	<view :class="show?'ercode':'active'" id="poster">
-		<view class="main">
-			<view class="logo">
-				<image :src="img_url+'/logo_logo.png'" mode="widthFix"></image>
-			</view>
-			<view class="title">
-				推荐使用补商汇
-			</view>
-			<view class="ercodeImg">
-				<view class="ercodeImg-img">
-					<image :src="ercodeLogo.qrcode" mode=""></image>
-				</view>
+		<image :src="plugins_img_url+'/112233.jpg'" mode=""  class="bac" ></image>
+		<view class="main_body">
+			<view class="main">
 				<view class="shop-name">
-					{{message.store.name}}
+					<text style="width: 300rpx;display: block;margin: 0 auto;font-size: 34rpx;color: red;text-align: center;
+					overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{message.store.name}}</text>
 				</view>
+				<view class="qrcode_imag" style="width: 100%;overflow: hidden;"></view>
+				<image :src="ercodeLogo.qrcode" mode="" style="width: 310rpx;height: 310rpx;display: block;margin: 0 auto;"></image>
 			</view>
-			<view class="notice">
-				扫码付多少送多少购物券
-			</view>
-		</view>
-		<view class="type_pay">
-			<view>
-				<image :src="img_url+'/logo_wechat.png'" mode=""></image>
-				<text>微信</text>
-			</view>
-			<view>
-				<image :src="img_url+'/logo_ali.png'" mode=""></image>
-				<text>支付宝</text>
-			</view>
-			<view>
-				<image :src="img_url+'/logo_card.png'" mode=""></image>
-				<text>信用卡</text>
-			</view>
-		</view>
-		<view class="btn" @click="capture" v-if="show">
-			点击生成图片
-		</view>		
-		<view class="goods-qrcode-modal" v-if="showPoster">
-			<view class="goods-qrcode-body flex-col">
-				<!-- 整一个图片包括二维码都是后台给的图片 -->
-				<view class="goods-qrcode2 flex flex-y-center flex-x-center">
-					<view class="codeImg_box">
-						<!-- #ifdef H5 -->
-						<view class="goods-qrcode-box">
-							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
+			<!-- #ifdef H5 -->
+			<view class="btn" @click="capture" v-if="show">
+				点击生成图片
+			</view>	
+			<!-- #endif -->
+			<!-- #ifdef H5 -->
+			<view class="btn" @click="download" v-if="show" style="background: none;border: 1rpx solid #FF7104;color: #000;
+			width: 450rpx;height: 70rpx;border-radius: 40rpx;text-align: center;line-height: 70rpx;margin: 50rpx auto 120rpx;">
+				点击下载二维码
+			</view>	
+			<!-- #endif -->
+			<!-- #ifdef MP ||APP-PLUS -->
+			<view class="btn" @click="download" v-if="show" style="background: none;border: 1rpx solid #FF7104;color: #000;
+			width: 450rpx;height: 70rpx;border-radius: 40rpx;text-align: center;line-height: 70rpx;margin: 220rpx auto 120rpx;">
+				点击下载二维码
+			</view>	
+			<!-- #endif -->
+			<view class="goods-qrcode-modal" v-if="showPoster">
+				<view class="goods-qrcode-body flex-col">
+					<!-- 整一个图片包括二维码都是后台给的图片 -->
+					<view class="goods-qrcode2 flex flex-y-center flex-x-center">
+						<view class="codeImg_box">
+							<!-- #ifdef H5 -->
+							<view class="goods-qrcode-box">
+								<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
+							</view>
+							<!-- #endif -->
+							
+							<!-- #ifdef MP-WEIXIN -->
+							<view  class="goods-qrcode-box" @longpress="saveImage(poster_url)">
+								<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
+							</view>
+							<!-- #endif -->
 						</view>
-						<!-- #endif -->
-						
-						<!-- #ifdef MP-WEIXIN -->
-						<view class="goods-qrcode-box" @longpress="saveImage(poster_url)">
-							<image :src="poster_url" class="goods-qrcode" mode='aspectFit'></image>
-						</view>
-						<!-- #endif -->
+						<view class="saveCode-btn">长按图片保存至本地</view>
 					</view>
-					<view class="saveCode-btn">长按图片保存至本地</view>
-				</view>
-				
-				<view class="goods-qrcode-close" @click="closePost">
-					<view style="width: 50rpx;height: 50rpx;text-align: center;background-color: #ADADAD;color: #FFFFFF;border-radius: 50%;line-height: 50rpx;"
-					 class="iconfont icon-guanbi"></view>
+					
+					<view class="goods-qrcode-close" @click="closePost">
+						<view style="width: 50rpx;height: 50rpx;text-align: center;background-color: #ADADAD;color: #FFFFFF;border-radius: 50%;line-height: 50rpx;"
+						 class="iconfont icon-guanbi"></view>
+					</view>
 				</view>
 			</view>
-		</view>
+			<view class="cover" v-if="coverShow">
+				<view>
+					<image :src="cover_url" mode="widthFix"></image>
+					<text style="display: block;width: 100%;font-size: 30rpx;text-align: center;margin-top: 50rpx;">长按图片保存至本地</text>
+					<text style="display: block;width: 40%;font-size: 30rpx;line-height: 60rpx;text-align: center;margin: 50rpx auto 0;border-radius: 20rpx;
+					border: 1rpx solid #FF7104;" @click="cancle">取消</text>
+				</view>
+			</view>
+		</view>	
 	</view>
 </template>
 
@@ -77,7 +77,10 @@
 				showPoster: false,
 				poster_url:"",
 				img_url: this.$api.img_url,
-				show:true
+				plugins_img_url: this.$api.plugins_img_url,
+				show:true,
+				coverShow:false,
+				cover_url:''
 			}
 		},
 		onLoad() {
@@ -109,23 +112,6 @@
 			//#ifdef H5
 			capture() {
 				this.show=false
-				// // let dom = document.querySelector('#poster'); // 获取dom元素
-				// let scale=3
-				// 	html2canvas(dom, {
-				// 		width: dom.clientWidth, //dom 原始宽度
-				// 		height: dom.clientHeight,
-				// 		scrollY: 0,// html2canvas默认绘制视图内的页面，需要把scrollY，scrollX设置为0
-				// 		scrollX: 0,
-				// 		useCORS: true,//支持跨域，但好像没什么用
-				// 		scale:scale,
-				// 		dpi:300
-				// 	}).then((canvas) => {
-				// 		//成功后调用返回canvas.toDataURL返回图片的base64，H5不支持下载base64，PC浏览器测试没问题，可以正常下载。
-				// 		this.poster_url = canvas.toDataURL('image/png', 1);
-				// 		if(this.poster_url.length>0){
-				// 			this.showPoster=true
-				// 		}
-				// 	});
 				setTimeout(()=>{
 					window.pageYoffset = 0;
 					document.documentElement.scrollTop = 0;
@@ -133,10 +119,10 @@
 					html2canvas(
 					    document.getElementById('poster'), 
 					    { 
-							// width: document.getElementById('poster').clientWidth,
 							height: document.getElementById('poster').clientHeight+90,
-							scale: 1,
-							useCORS: true,
+							scale: 3,
+							dpi: window.devicePixelRatio * 3,
+							useCORS: true
 						 }
 					).then( canvas => {
 								this.poster_url = canvas.toDataURL('image/png', 1);
@@ -224,6 +210,59 @@
 			closePost(){
 				this.showPoster = false;
 				this.show=true
+			},
+			download(){ //下载图片
+				// #ifdef H5
+				var route = '/h5/#/mch/personalCentre/ercode/payPages/payPages';
+				// #endif
+				
+				// #ifdef MP-WEIXIN || APP-PLUS
+				var route = 'mch/personalCentre/ercode/payPages/payPages';
+				// #endif
+				this.$http.request({
+					url: this.$api.moreShop.downloadCode,
+					method: 'POST',
+					data: {
+						route: route
+					},
+					showLoading: true
+				}).then(res => {
+					if (res.code == 0) {
+						let that=this
+						// #ifdef H5
+							that.cover_url=res.data.pic_url
+							if(that.cover_url.length>0){
+								that.coverShow=true
+							}
+						// #endif
+						// #ifdef MP-WEIXIN
+						uni.downloadFile({
+							    url:res.data.pic_url,
+							    success: (res) => {
+							        if (res.statusCode === 200) {
+										that.saveImage(res.tempFilePath)
+									}
+								}
+						});
+							// #endif
+						// #ifdef APP-PLUS
+						uni.downloadFile({
+							    url:res.data.pic_url,
+							    success: (res) => {
+							        if (res.statusCode === 200) {
+										that.saveImg(res.tempFilePath); 
+									}
+								}
+						});
+							// #endif	
+						
+					}else{
+						that.$http.toast(res.msg);
+					}
+				})
+			},
+			cancle(){
+				this.coverShow=false
 			}
 		}
 	}
@@ -237,42 +276,23 @@
 	}
 	.active{
 		width: 100%;
-		height: 80%;
+		height: 90%;
 		position: relative;
 	}
-	.main{width: 100%;height:850rpx ;background:#FF6B09 ;padding-top: 30rpx;}
-	.logo{width: 100%;overflow: hidden;}
-	.logo image{width: 164rpx;height: 64rpx;margin: 0 auto;display: block;}
-	.title{width: 100%;overflow: hidden;font-size: 50rpx;color: #fff;text-align: center;font-weight: bold;margin: 25rpx 0 30rpx 0;}
-	.ercodeImg{width: 60%;margin: 0 auto;background: #fff;height: 500rpx;border-radius: 30rpx;}
-	.ercodeImg-img{width: 350rpx;height: 350rpx;margin: 0 auto;padding-top: 40rpx;}
-	.ercodeImg-img image{width: 350rpx;height: 350rpx;}
-	/* #ifdef H5 */
-.shop-name{margin-top: 60rpx;width: 100%;overflow: hidden;text-align: center;color: #FF6B09 ;font-weight: bold;font-size: 36rpx;overflow: hidden;
+	.bac{width: 100%;height: 1240rpx;display: block;}
+	.main_body{width: 100%;overflow: hidden;position: absolute;top: 595rpx;z-index: 999;left: 0;}
+	.main{width: 100%;height:500rpx;}
+	/* #ifdef H5 ||APP-PLUS*/
+.shop-name{width: 100%;overflow: hidden;text-align: center;color: #000 ;font-weight: bold;font-size: 36rpx;overflow: hidden;
 text-overflow:ellipsis;
-white-space: nowrap;}
+white-space: nowrap;margin-bottom: 48rpx;}
 	/* #endif */
-	/* #ifdef  MP  */
-	.shop-name{margin-top: 30rpx;width: 100%;overflow: hidden;text-align: center;color: #FF6B09 ;font-weight: bold;font-size: 36rpx;overflow: hidden;
+	/* #ifdef  MP */
+	.shop-name{width: 100%;overflow: hidden;text-align: center;color: #000 ;font-weight: bold;font-size: 36rpx;overflow: hidden;
 	text-overflow:ellipsis;
-	white-space: nowrap;}
+	white-space: nowrap;margin-bottom: 48rpx;}
 	/* #endif */
 	.notice{width: 100%;overflow: hidden;text-align: center;color: #fff;font-weight: bold;font-size: 36rpx;margin: 40rpx 0 0 0;}
-	.type_pay{width: 100%;height: 184rpx;display: flex;justify-content: space-evenly;}
-	.type_pay view{width: 30%;margin: 50rpx 0 0 0;}
-	.type_pay image{display: block;width: 60rpx;height: 60rpx;margin: 0 auto;}
-	.type_pay text{display: block;width: 100%;text-align: center;font-size: 30rpx;color: #000;}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	.btn {
 		width: 450rpx;
 		background: #FF7104;
@@ -281,7 +301,7 @@ white-space: nowrap;}
 		text-align: center;
 		color: #fff;
 		line-height: 70rpx;
-		margin: 50rpx auto 80rpx;
+		margin: 200rpx auto 0rpx;
 	}
 	.goods-qrcode-modal {
 		position: fixed;
@@ -328,18 +348,45 @@ white-space: nowrap;}
 	.goods-qrcode {
 		width: 100%;
 		height: 100%;
-		background: #fffffff;
-		background-size: 100%;
+		background: #ffffff;
+		background-size: cover;
 	}
 	
 	.goods-qrcode-close {
 		position: absolute;
 		top: 40rpx;
-		/* #ifdef MP-WEIXIN */
+		/* #ifdef MP-WEIXIN ||APP-PLUS */
 		top: 150rpx;
 		/* #endif */
 		right: 40rpx;
 		padding: 15rpx;
 	}
+	
+	
+	
+	
+	
+	
+	
+	.cover{
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 999;
+		background: #fff;
+	}
+	.cover view{
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 600rpx;
+		margin: auto;
+		width: 500rpx;
+	}
+	.cover image{width: 320rpx;display: block;height: 350rpx;margin: 0 auto;}
 </style>
 

@@ -3,35 +3,43 @@
 		<view class="ali-home-app-header">
 			<liuyuno-tabs :tabData="tabs" :defaultIndex="defaultIndex" @tabClick='tabClick' />
 		</view>
-		<view class="ali-home-app-header-catory-two">
+		<!-- <seckill></seckill> -->
+		<view class="ali-home-app-header-catory-two" v-if="typeList.length>0">		
 			<view v-for="(item,index) in typeList" :key='index' v-if="index<10" @click="checkCatory(item)">
 				<image :src="item.cover_url" mode=""></image>
 				<text>{{item.name}}</text>
 			</view>
 		</view>
-		<view class="ali-home-app-product">
+		<view :class="typeList.length>0?'ali-home-app-product':'ali-home-app-products'">
 			<view class="product-item" v-for="(item,index) in goodsList" :key='index' @click="link(item.id)">
-				<image :src="item.cover_url" mode="widthFix" class="product-item-logo"></image>
+				<image :src="item.cover_url" mode="scaleToFill" class="product-item-logo"></image>
 				<view class="product-item-name">{{item.name}}</view>
 				<view class="product-item-money-buy">
 					<view class="product-item-money">
-						<!--
-						<text style="font-size: 28rpx;width: 100%;color:#c0c0c0;">原价￥{{item.origin_price}}</text>
-						-->
+						
 						<text style="color:#FF7104;font-size: 28rpx;width: 100%;">兑换价￥{{item.price}}</text>
 						<text
-							style="font-size: 28rpx;width: 100%;margin: 20rpx;background: #FF7104;height: 60rpx;text-align: center;line-height: 60rpx;border-radius: 30rpx;color: #fff;">购物券兑换</text>
+							style="font-size: 28rpx;width: 100%;margin: 20rpx;background: #FF7104;height: 60rpx;text-align: center;line-height: 60rpx;border-radius: 30rpx;color: #fff;">红包兑换</text>
 					</view>
 				</view>
 			</view>
 		</view>
+		<backTop :src="backTop.src"  :scrollTop="backTop.scrollTop"></backTop>
+		<!--加载loadding-->
+		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
+		<main-nomore :visible="!pullUpOn" bgcolor="#FFFFFF"></main-nomore>
+		<!--加载loadding-->
 	</view>
 </template>
 <script>
 	import liuyunoTabs from "@/components/liuyuno-tabs/liuyuno-tabs.vue";
+	import backTop from '@/components/back-top/back-top.vue';
+	import seckill from '@/components/seckill.vue';
 	export default {
 		components: {
 			liuyunoTabs,
+			backTop,
+			seckill
 		},
 		data() {
 			return {
@@ -41,9 +49,16 @@
 				form:{
 					page:1,
 					ali_cat_id:'', 
+					recommend:'',
 				},
 				goodsList:[],
 				page_count:'',
+				pullUpOn:true,
+				loadding: false,
+				backTop: {
+					src: '../../../static/back-top/top.png',
+					scrollTop: 0
+				},
 			};
 		},
 		onLoad() {
@@ -51,6 +66,7 @@
 		},
 		methods: {
 			tabClick(e) { //点击切换table
+				console.log(e)
 				for (let i = 0; i < this.tabs.length; i++) {
 					if (e.index == i) {
 						this.typeList = this.tabs[i].children
@@ -58,6 +74,11 @@
 				}
 				this.form.ali_cat_id=e.item.ali_cat_id
 				this.form.page=1
+				if(e.item.name=='每日推荐'){
+					this.form.recommend=1
+				}else{
+					this.form.recommend=0
+				}
 				this.goodsList=[]
 				this.getHomegoods()
 			},
@@ -75,7 +96,15 @@
 				}).then(res => {
 					if (res.code == 0) {
 						this.tabs = res.data
+						this.tabs.unshift({
+							name:"每日推荐",
+							ali_cat_id:'',
+							children:[],
+							cover_url:'',
+						})
+						console.log(this.tabs)
 						this.form.ali_cat_id=this.tabs[0].ali_cat_id
+						this.form.recommend=1
 						this.getHomegoods()
 						this.typeList = this.tabs[0].children
 					} else {
@@ -88,7 +117,6 @@
 					url: this.$api.taolijin.getHomegoods,
 					method: 'POST',
 					data: this.form,
-					showLoading: true
 				}).then(res => {
 					if (res.code == 0) {
 						if(res.data.list.length==0)return false
@@ -96,6 +124,7 @@
 						var arr=this.goodsList.concat(list)
 						this.goodsList =arr
 						this.page_count = res.data.pagination.page_count;
+						this.pullUpOn = true;
 					} else {
 						this.$http.toast(res.msg);
 					}
@@ -107,8 +136,15 @@
 				})
 			}
 		},
+		onPageScroll(e) {
+			this.backTop.scrollTop = e.scrollTop;
+		},
 		onReachBottom() {
+			this.loadding = true;
+			this.pullUpOn = true;
 			if(this.form.page==this.page_count){
+				this.pullUpOn = false;
+				this.loadding=false
 				return false;
 			} 		
 			this.form.page=this.form.page+1
@@ -122,24 +158,24 @@
 		width: 100%;
 		overflow: hidden;
 	}
-	/* #ifdef H5 */
+	/* #ifdef H5*/
 		.ali-home-app-header {
 			width: 100%;
 			overflow: hidden;
 			background: #fff;
 			position: fixed;
-			top: 88rpx;
+			top: 78rpx;
 			left: 0;
 			z-index: 999;
 		}
 	/* #endif */
-	/* #ifdef MP */
+	/* #ifdef MP|| APP-PLUS */
 		.ali-home-app-header {
 			width: 100%;
 			overflow: hidden;
 			background: #fff;
 			position: fixed;
-			top: 0rpx;
+			top: 0rpx;  
 			left: 0;
 			z-index: 999;
 		}
@@ -156,14 +192,19 @@
 		border-radius: 30rpx;
 	}
 	/* #endif */
-	/* #ifdef MP */
+	/* #ifdef MP || APP-PLUS*/
 	.ali-home-app-header-catory-two{
 		width: 96%;
 		background: #fff;
 		margin: 108rpx auto 20rpx;
 		overflow: hidden;
 		display: flex;
+		/* #ifdef H5 || MP */
 		justify-content: space-evenly;
+		/* #endif */
+		/* #ifdef APP-PLUS */
+		justify-content: space-between;
+		/* #endif */
 		flex-wrap: wrap;
 		border-radius: 30rpx;
 	}
@@ -172,7 +213,6 @@
 		width: 17%;
 		overflow: hidden;
 		margin: 10rpx 0 20rpx 0;
-		border-radius: ;
 	}
 	.ali-home-app-header-catory-two view image{
 		width: 100%;
@@ -191,7 +231,20 @@
 	.ali-home-app-product {
 		width: 95%;
 		overflow: hidden;
-		margin: 30rpx auto 80rpx;
+		margin: 50rpx auto 80rpx;
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+	.ali-home-app-products{
+		width: 95%;
+		overflow: hidden;
+		/* #ifdef H5||MP*/
+		margin: 100rpx auto 80rpx;
+		/* #endif */
+		/* #ifdef APP-PLUS*/
+			margin: 100rpx auto 80rpx;
+		/* #endif */
 		display: flex;
 		justify-content: space-between;
 		flex-wrap: wrap;
@@ -207,6 +260,8 @@
 
 	.product-item-logo {
 		width: 100%;
+		height: 320rpx;
+		display: block;
 	}
 
 	.product-item-name {

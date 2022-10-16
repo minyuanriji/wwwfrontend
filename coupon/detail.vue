@@ -73,7 +73,7 @@
 					</view>
 				</view>
 				<view  style="width: 100%;height: 50rpx;line-height: 50rpx;padding: 0 30rpx;font-size: 30rpx;color: red;">
-					需使用<text style="margin: 0 10rpx;">{{goodsData.shopping_voucher.voucher_price}}</text>购物券
+					需使用<text style="margin: 0 10rpx;">{{goodsData.shopping_voucher.voucher_price}}</text>红包
 				</view>
 				<view class="tui-pro-titbox">
 					<view class="tui-pro-title">
@@ -192,7 +192,7 @@
 			<view class="tui-operation-right tui-right-flex tui-col-7 tui-btnbox-4">
 				<view class="jx-btn" style="height: 80%;background:#FF7104;border-radius: 100rpx;"
 					@click="showPopup(2)">
-					用购物券下单
+					用红包下单
 				</view>
 			</view>
 		</view>
@@ -398,7 +398,7 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
-				is_index: 1, //1是加入购物车，2是立即购买
+				is_index: 1, //1是加入购物车，2是立即下单
 				proId: 0, //商品id
 				goodRate: '', // 商品好评率
 				commentsData: '', //评论数据
@@ -541,18 +541,6 @@
 		},
 		onShow() {
 			this.getCartList();
-		},
-		//用户点击分享
-		onShareAppMessage(e) {
-			//#ifdef MP-WEIXIN
-			return this.wxShare(this.goodsData.name, `/coupon/detail?source=3&proId=${this.proId}`);
-			return {
-				title: this.goodsData.name, //标题
-				path: '/coupon/detail?source=3&proId=' + this.proId + '&pid=' + uni.getStorageSync("userInfo") ? JSON
-					.parse(uni.getStorageSync("userInfo")).user_id : 0,
-				imageUrl: ""
-			}
-			//#endif
 		},
 		computed: {
 			isReceive() {
@@ -732,7 +720,7 @@
 				})
 			},
 
-			determine() { //点击确定按钮，判断是加入购物车还是立即购买
+			determine() { //点击确定按钮，判断是加入购物车还是立即下单
 				this.popupShow = false;
 				if (this.goodsData.use_attr == 0) {
 					if (this.goodsData.attr_list[0].stock == 0) {
@@ -762,7 +750,8 @@
 							attr: this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id,
 							num: this.value,
 							mch_id: 0,
-							mch_baopin_id: this.mch_baopin_id
+							mch_baopin_id: this.mch_baopin_id,
+							buy_now:0,//加入购物车传0
 						}
 					}).then((res) => {
 						if (res.code == 0) {
@@ -772,7 +761,7 @@
 							this.$http.toast(res.msg);
 						}
 					})
-				} else if (this.is_index == 2) { //立即购买
+				} else if (this.is_index == 2) { //立即下单
 					var goods_attr_id = this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id;
 					var mch_id = 0
 					var is_mch = this.is_mch
@@ -802,7 +791,8 @@
 							attr: this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id,
 							num: this.value,
 							mch_id: 0,
-							mch_baopin_id: this.mch_baopin_id
+							mch_baopin_id: this.mch_baopin_id,
+							buy_now:1,//立即下单传1
 						}
 					}).then((res) => {
 						if (res.code == 0) {
@@ -824,7 +814,7 @@
 					
 							// #endif
 					
-							// #ifdef MP-WEIXIN
+							// #ifdef MP-WEIXIN || APP-PLUS
 							url = url + '?nav_id=' + this.wx_nav_id.proId + '&mch_id=' + mch_id +
 								"&user_address_id=0" + "&use_score=0" + "&use_integral=0" + "&list=" + String(res
 									.data.cart_id)
@@ -899,6 +889,7 @@
 					this.loading = false;
 					if (res.code == 0) {
 						this.goodsData = res.data.goods;
+						this.foucsID=this.goodsData.collect.collect_id
 						this.is_buy_power = res.data.is_buy_power
 						//#ifdef H5
 						let link = window.location.href
@@ -1031,8 +1022,7 @@
 						url: this.$api.collect.deletes,
 						method: 'post',
 						data: {
-							type: 'goods',
-							id: this.goodsData.collect.collect_id
+							id:this.foucsID
 						}
 					}).then((res) => {
 						if (res.code == 0) {
@@ -1054,7 +1044,7 @@
 					}).then(res => {
 						if (res.code == 0) {
 							this.collected = !this.collected;
-							this.getGoodsDetail();
+							this.foucsID=res.data.id
 							this.loading = false;
 							this.$http.toast(res.msg);
 						} else {
@@ -1246,6 +1236,13 @@
 		height: 32px;
 		display: flex;
 		align-items: center;
+		/* #ifdef MP*/
+		margin-top: 60rpx;
+		/* #endif */
+		/* #ifdef APP-PLUS */
+		margin-top: 110rpx;
+		/* #endif */
+		margin-bottom: 30rpx;
 	}
 
 	.tui-top-dropdown {

@@ -3,7 +3,7 @@
 		
 		<view class="flex list" v-if="listNums == 3">
 			<view v-for="(item,index) in list" :key='index' class="tui-col-4 listBox">
-				<view class="listBox_nav flex flex-col flex-y-center flex-x-center" @tap="navTo(item.url,item.name)">
+				<view class="listBox_nav flex flex-col flex-y-center flex-x-center" @tap="navTo(item.url,item.name,item.params)">
 					<image class="listImg" :src="item.icon" mode=""></image>
 					<view class="navName" :style="{color: textColor}">{{item.name}}</view>
 				</view>
@@ -11,7 +11,7 @@
 		</view>
 		<view class="flex list" v-if="listNums == 4">
 			<view v-for="(item,index) in list" :key='index' class="tui-col-3 listBox">
-				<view class="listBox_nav flex flex-col flex-y-center flex-x-center" @tap="navTo(item.url,item.name)">
+				<view class="listBox_nav flex flex-col flex-y-center flex-x-center" @tap="navTo(item.url,item.name,item.params)">
 					<image class="listImg" :src="item.icon" mode=""></image>
 					<view class="navName" :style="{color: textColor}">{{item.name}}</view>
 				</view>
@@ -19,7 +19,7 @@
 		</view>
 		<view class="flex list" v-if="listNums == 5">
 			<view v-for="(item,index) in list" :key='index' class="listBox listBox5">
-				<view class="listBox_nav flex flex-col flex-y-center flex-x-center" @tap="navTo(item.url,item.name)">
+				<view class="listBox_nav flex flex-col flex-y-center flex-x-center" @tap="navTo(item.url,item.name,item.params)">
 					<image class="listImg" :src="item.icon" mode=""></image>
 					<view class="navName" :style="{color: textColor}">{{item.name}}</view>
 				</view>
@@ -58,7 +58,7 @@
 			},
 		},
 		methods:{
-			navTo(url,title){
+			navTo(url,title,params){
 				if(title == '直播专区'){
 					console.log(url);
 					uni.navigateTo({
@@ -85,6 +85,28 @@
 								this.$http.toast('打电话回调成功！')
 							}
 						});
+					}else if(url.split('=')[0] == 'app?app_id'){
+						let appId=params[0].value
+						let path=params[1].value
+						//#ifdef MP-WEIXIN
+							 wx.navigateToMiniProgram({
+								appId: appId,
+								path: path,
+								// extraData: {  //参数
+								//     mall: '1'
+								// },
+								envVersion: 'release',// 打开正式版
+								success(res) {
+									   // 打开成功
+								},
+								fail: function (err) {
+									console.log(err);
+							    }
+							})
+						//#endif
+						//#ifdef H5
+							this.$http.toast('请前往小程序访问');
+						//#endif
 					}else{
 						uni.navigateTo({
 							url

@@ -406,19 +406,6 @@
 				this.getData('');
 			}
 		},
-		//用户点击分享
-		onShareAppMessage(e) {
-			this.$http.request({
-				url:this.$api.plugin.business.add_track,
-				method:'post',
-				data:{
-					track_user_id:this.detail_data.user_id,
-					model_id:this.detail_data.id,
-					track_type: 5
-				}
-			})
-			return this.wxShare(this.share_title,`/plugins/business-card/index?source=7&id=${this.detail_data.id}`,this.share_img);
-		},
 		methods:{
 			previewImage(url) { //图片预览
 				uni.previewImage({

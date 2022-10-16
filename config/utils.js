@@ -119,7 +119,7 @@ export const globalSet = function(str,val='重新申请'){
 		return JSON.parse(uni.getStorageSync('mall_config')).global_color.global_text_color;
 	}else if(str == 'imgUrl'){	
 		return JSON.parse(uni.getStorageSync('mall_config')).top_pic_url;
-	}else if(str == 'couponImg'){	//购物券背景图
+	}else if(str == 'couponImg'){	//红包背景图
 		return JSON.parse(uni.getStorageSync('mall_config')).global_color.coupon_pic_url;
 	}else if(str == 'navBg'){	//tabBar背景色
 		return JSON.parse(uni.getStorageSync('mall_config')).navbar.top_background_color;
@@ -151,4 +151,44 @@ export const dateFormat  = function(time){
 }
 function add0(val){
 	return val<10?'0'+val:val;
+}
+
+export const beforeOnLoad  = function(options){
+	// #ifdef MP-WEIXIN
+	if(typeof options['scene'] != "undefined"){
+		var scene = decodeURIComponent(options.scene), i, arr;
+		for (i = 0; i < scene.split('&').length; i++){
+			arr = scene.split('&')[i].split('=');
+			options[arr[0]] = arr[1];
+		}
+	}
+	// #endif
+}
+
+export const getLocation = function(fn){
+	uni.getLocation({
+	    type: 'gcj02',
+	    success: function (res) {
+	        if(typeof fn == "function"){
+	        	fn.call(this, res);
+	        }
+	    },
+		fail: function(){
+			
+		}
+	});
+}
+
+export const chooseLocation = function(fn){
+	uni.chooseLocation({
+		type: 'gcj02',
+		success: function(res) {
+			if(typeof fn == "function"){
+				fn.call(this, res);
+			}
+		},
+		fail: function(){
+			
+		}
+	})
 }

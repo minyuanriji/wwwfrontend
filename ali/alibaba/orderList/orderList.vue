@@ -1,5 +1,26 @@
 <template>
 	<view class="container">
+		<view class="tui-searchbox">
+			<view class="tui-search-input">
+				<!-- #ifdef APP-PLUS || MP -->
+				<icon type="search" :size='13' color='#333'></icon>
+				<!-- #endif -->
+				<!-- #ifdef H5 -->
+				<view>
+					<com-icons type="search" :size='16' color='#333333'></com-icons>
+				</view>
+				<!-- #endif -->
+				<input type="search" placeholder="请输入商品名"  placeholder-class="tui-input-plholder"
+				 class="tui-input" v-model.trim="key" @confirm='search'/>
+				<!-- #ifdef APP-PLUS || MP -->
+				<icon type="clear" :size='13' color='#bcbcbc' @tap="cleanKey" v-show="key"></icon>
+				<!-- #endif -->
+				<!-- #ifdef H5 -->
+				<view @tap="cleanKey" v-show="key"><tui-icon name="close-fill" :size='16' color='#bcbcbc'></tui-icon></view>
+				<!-- #endif -->
+			</view>
+			<view class="tui-cancle" @tap="search">搜索</view>
+		</view>
 	<!-- 	<view class="table-list">
 			<text :class="selectINdex==index?'actives':''" v-for="(item,index) in tabs" :key='index' @click="selectINdexCheck(index)">
 				{{item.name}}
@@ -10,45 +31,45 @@
 		<!--选项卡逻辑自己实现即可，此处未做处理-->
 		<view :class="{'tui-order-list':scrollTop>=0}" v-if="orderList && orderList.length">
 			<view class="tui-order-item" v-for="(item,index) in orderList" :key="index">
-				<view>
+				<view @click="detail(item.id)">
 					<tui-list-cell :hover="false" :lineLeft="false" padding="26rpx 20rpx">
 						<view class="tui-goods-title">
-							<view class="logo" @tap="toShop(model.mch_id)">
-								<image class="img" lazy-load="true" 
-								:src="url+'/shoplogo.png'" 
-								mode="aspectFill"></image>
-								<span class="name">{{'补商汇官方商城'}}</span>
+							<view class="logo">
+								<image class="img" lazy-load="true"  :src="url+'/shoplogo.png'"  mode="aspectFill"></image>
+								<span class="name">补商汇官方商城</span>
 								<view class="toright"></view>
 							</view>
 						</view>
 					</tui-list-cell>
-					<block>
-						<tui-list-cell padding="0"  @click="detail(item.id)">
-							<view class="tui-goods-item">
-								<image :src="item.cover_url" lazy-load="true" class="tui-goods-img"></image>
-								<view class="tui-goods-center">
-									<view class="tui-goods-name">{{item.name}}</view>
-									<view class="tui-goods-attr">{{item.sku_labels[0]}}</view>
+					<view v-for="(detail, index2) in item.details">
+						<block>
+							<tui-list-cell padding="0">
+								<view class="tui-goods-item">
+									<image :src="detail.cover_url" lazy-load="true" class="tui-goods-img"></image>
+									<view class="tui-goods-center">
+										<view class="tui-goods-name">{{detail.name}}</view>
+										<view class="tui-goods-attr">{{detail.sku_labels}}</view>
+									</view>
+									<view class="tui-price-right">
+										<!--
+										<view>¥{{item.unit_price}}</view>
+										--> 
+										<view>x{{detail.num}}</view>
+									<!-- 	<view style="margin-top:30rpx;" v-if="item.refund_status == 10">售后待处理</view>
+										<view style="margin-top:30rpx;" v-else-if="item.refund_status == 11">退款已同意</view>
+										<view style="margin-top:30rpx;" v-else-if="item.refund_status == 12">退款退货中</view>
+										<view style="margin-top:30rpx;" v-else-if="item.refund_status == 20">已退款</view>
+										<view style="margin-top:30rpx;" v-else-if="item.refund_status == 21">退款已拒绝</view> -->
+									</view>
 								</view>
-								<view class="tui-price-right">
-									<!--
-									<view>¥{{item.unit_price}}</view>
-									--> 
-									<view>x{{item.num}}</view>
-								<!-- 	<view style="margin-top:30rpx;" v-if="item.refund_status == 10">售后待处理</view>
-									<view style="margin-top:30rpx;" v-else-if="item.refund_status == 11">退款已同意</view>
-									<view style="margin-top:30rpx;" v-else-if="item.refund_status == 12">退款退货中</view>
-									<view style="margin-top:30rpx;" v-else-if="item.refund_status == 20">已退款</view>
-									<view style="margin-top:30rpx;" v-else-if="item.refund_status == 21">退款已拒绝</view> -->
-								</view>
-							</view>
-						</tui-list-cell>
-					</block>
+							</tui-list-cell>
+						</block>
+					</view>
 					<tui-list-cell :hover="false" :last="true">
 						<view class="tui-goods-price">
 							<view>合计：</view>
 							<view class="tui-size-24">¥</view>
-							<view class="tui-price-large">{{Number(item.shopping_voucher_num)}}</view>
+							<view class="tui-price-large">{{item.shopping_voucher_total_use_num}}</view>
 						</view>
 					</tui-list-cell>
 				</view>
@@ -92,15 +113,20 @@
 </template>
 
 <script>
+	import tuiIcon from "@/components/icon/icon";
+	import tuiTag from "@/components/tag/tag";
 	import tuiButton from "@/components/extend/button/button"
 	import tuiListCell from "@/components/list-cell/list-cell"
 	export default {
 		components: {
 			tuiButton,
 			tuiListCell,
+			tuiIcon,
+			tuiTag
 		},
 		data() {
 			return {
+				key: "",
 				img_url: this.$api.img_url,
 				url:this.$api.img_url,
 				textColor:'#bc0100',
@@ -154,6 +180,7 @@
 					page:1,
 					limit:5,
 					status:'', 
+					keywords:''
 				},
 			}
 		},
@@ -187,6 +214,16 @@
 			}
 		},
 		methods: {
+			cleanKey: function() { //清空搜索
+				this.key = ''
+				this.form.keywords = ''
+			},
+			search(){
+				this.form.keywords=this.key
+				this.form.page=1
+				this.orderList=[];
+				this.getOrderList()
+			},
 			selectINdexCheck(index){ //点击切换
 				this.selectINdex=index
 				this.form={
@@ -207,6 +244,7 @@
 						console.log(res)
 						if(res.data.list.length==0)return false
 						let list= res.data.list;
+						console.log(list);
 						var arr=this.orderList.concat(list)
 						this.orderList =arr
 						this.page_count = res.data.pagination.page_count;
@@ -215,25 +253,6 @@
 					}
 				});
 			},
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			toShop(id){
 				if(id){
 					uni.navigateTo({
@@ -462,7 +481,7 @@
 	}
 
 	.tui-order-list {
-		margin-top: 30rpx;
+		margin-top: 120rpx;
 		margin-bottom: 80rpx;
 	}
 
@@ -510,20 +529,20 @@
 	}
 
 	.tui-goods-img {
-		width: 180rpx;
-		height: 180rpx;
+		width: 120rpx;
+		height: 120rpx;
 		display: block;
 		flex-shrink: 0;
 	}
 
 	.tui-goods-center {
 		flex: 1;
-		padding: 20rpx;
+		padding: 0 20rpx 0rpx 20rpx;
 		box-sizing: border-box;
 	}
 
 	.tui-goods-name {
-		max-width: 310rpx;
+		max-width: 380rpx;
 		word-break: break-all;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -623,5 +642,85 @@
 	.btn-gary{
 		color: #8F8D8E !important;
 		border: 1px solid #8F8D8E !important;
+	}
+	
+	.tui-searchbox {
+		width: 100%;
+		padding: 30rpx;
+		background: #fff;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		position: fixed;
+		/* #ifdef H5 */
+		top: 80rpx;
+		/* #endif */
+		/* #ifdef  MP  */
+		top: 0rpx;
+		/* #endif */
+		left: 0;
+		z-index: 9999;
+	}
+	
+	.tui-search-input {
+		width: 90%;
+		height: 66rpx;
+		border-radius: 35rpx;
+		padding: 0 30rpx;
+		box-sizing: border-box;
+		background: #f2f2f2;
+		display: flex;
+		align-items: center;
+		flex-wrap: nowrap;
+	}
+	
+	.tui-input {
+		flex: 1;
+		color: #333;
+		padding: 0 16rpx;
+		font-size: 11pt;
+	}
+	
+	.tui-input-plholder {
+		font-size: 11pt;
+		color: #b2b2b2;
+	}
+	
+	.tui-cancle {
+		color: #888;
+		font-size: 11pt;
+		padding-left: 30rpx;
+		flex-shrink: 0;
+	}
+	
+	.tui-history-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 30rpx 0;
+	}
+	
+	.tui-icon-delete {
+		padding: 10rpx;
+	}
+	
+	.tui-search-title {
+		font-size: 11pt;
+		font-weight: bold;
+	}
+	
+	.tui-hot-header {
+		padding: 30rpx 0;
+	}
+	
+	.tui-tag-class {
+		display: inline-block;
+		margin-bottom: 20rpx;
+		margin-right: 20rpx;
+		font-size: 9pt !important;
+	}
+	.tui-history-content{
+		display: flex;
+		flex-wrap: wrap;
 	}
 </style>

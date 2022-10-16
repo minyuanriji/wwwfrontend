@@ -1,19 +1,46 @@
 <template>
-	<view v-if="!loading" class="personalCenter">
+	
+	<view v-if="!loading" class="personalCenter" >
+
 		<view class="personalCenter-top">
 			<image :src="store.cover_url" class="personal-logo"></image>
 			<view class="personal_nicken_ID">
 				<view class="personal_nicken">{{store.name}}</view>
-				<view class="personal_id">ID:{{store.mch_id}}</view>
+				<view style="display: flex;">
+					<view class="personal_id">ID:{{store.mch_id}}</view>
+					<view class="store-change" style="margin-left: 50rpx;background: #fff;color: #000;width: 150rpx;text-align: center;
+					border-radius: 15rpx;font-size: 30rpx;" v-if="change" @click="outchange">
+						退出管理
+					</view>
+				</view>
 			</view>
 			<!-- 分享的店铺  -->
+			<!-- #ifdef MP-WEIXIN || H5 -->
 			<view class="share-shop">
 				<view class="tui-collection tui-size" @click.stop="poster()">
 					<view class="tui-icon-collection iconfont icon-qrcode"></view>
 					<view class="tui-scale">分享</view>
 				</view>
 			</view>
+			<!-- #endif -->
 			<!-- 分享店铺  -->
+		</view>
+		<view class="jx-content-box" style="margin-top: 20rpx;">
+			<view class="jx-header-btm">
+				<view class="jx-btm-item">
+					商户后台地址
+				</view>
+				<view class="linkcopy" style="font-size: 24rpx;width: 30%;overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap">
+					{{link}}
+				</view>
+				<view class="jx-btm-item last">
+					<text
+						style="background:  #FF7104;width: 130rpx;font-size: 30rpx;border-radius: 10rpx;text-align: center;color: #fff;"
+						@click="copyText(link)">点击复制</text>
+				</view>
+			</view>
 		</view>
 		<view class="jx-content-box" style="margin-top: 20rpx;">
 			<view class="jx-header-btm">
@@ -63,14 +90,7 @@
 				</view>
 			</view>
 		</view>		
-		<view class="personalCenter-item">
-			<jx-list-cell  padding="0" :lineLeft="false">
-				<view class="jx-cell-header">
-					<view class="jx-cell-title" style="font-weight: 700;">我的订单</view>
-				</view>
-			</jx-list-cell>
-		</view>
-		<view class="jx-content-box">
+		<!-- <view class="jx-content-box">
 			<view class="jx-header-btm">
 				<view class="jx-btm-item">
 					<view class="jx-btm-num">0笔</view>
@@ -81,7 +101,7 @@
 					<view class="jx-btm-text">历史订单</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<!-- #ifdef MP-WEIXIN || H5 -->
 		<view class="personalCenter-item" @click="href(1)">
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false">
@@ -91,6 +111,20 @@
 			</jx-list-cell>
 		</view>
 		<!-- #endif -->
+		<view class="personalCenter-item" @click="myOrder">
+			<jx-list-cell padding="0" :lineLeft="false" :arrow="true">
+				<view class="jx-cell-header" style="height: 100rpx;">
+					<view class="jx-cell-title" style="font-weight: 700;">订单管理</view>
+				</view>
+			</jx-list-cell>
+		</view>
+		<view class="personalCenter-item" @click="mchGroup" v-if="mch_group_id > 0">
+			<jx-list-cell padding="0" :lineLeft="false" :arrow="true">
+				<view class="jx-cell-header" style="height: 100rpx;">
+					<view class="jx-cell-title" style="font-weight: 700;">分店管理</view>
+				</view>
+			</jx-list-cell>
+		</view>
 		<view class="personalCenter-item" @click="href(2)">
 			<jx-list-cell :arrow="true" padding="0" :lineLeft="false" >
 				<view class="jx-cell-header" style="height: 100rpx;">
@@ -133,8 +167,7 @@
 				</view>
 
 				<view class="goods-qrcode-close" @click="poster(-1)">
-					<view
-						style="width: 50rpx;height: 50rpx;text-align: center;background-color: #ADADAD;color: #FFFFFF;border-radius: 50%;line-height: 50rpx;"
+					<view style="width: 50rpx;height: 50rpx;text-align: center;background-color: #ADADAD;color: #FFFFFF;border-radius: 50%;line-height: 50rpx;"
 						class="iconfont icon-guanbi"></view>
 				</view>
 			</view>
@@ -151,13 +184,16 @@
 		},
 		data() {
 			return {
+				mch_group_id: 0,
 				userMessage: {},
 				showPoster: false,
 				loading: false,
 				poster_url: "",
 				store:'',
 				stat:'',
-				loading: true
+				loading: true,
+				link:'https://www.mingyuanriji.cn/web/index.php?r=mch%2Fadmin%2Flogin',
+				change:false,
 			}
 		},
 		onShow() {
@@ -172,7 +208,9 @@
 					showLoading: true
 				}).then(res => {
 					if(res.code == 0){
+						this.change=uni.getStorageSync('x-man-mch-id')?true:false
 						that.loading = false;
+						that.mch_group_id = res.data.base_info.mch_group_id;
 						that.userMessage = res.data.base_info;
 						that.store=res.data.base_info.store;
 						that.stat=res.data.base_info.stat;
@@ -188,15 +226,26 @@
 					}
 				});
 			},
+			myOrder(){
+				uni.navigateTo({
+					url: './myOrder/myOrder'
+				})
+			},
+			mchGroup(){
+				uni.navigateTo({
+					url: '/mchGroup/groupList/groupList'
+				})
+			},
 			href(page) {
 				if (page == 1) {
 					let mch_id = this.userMessage.store.mch_id
+					let that=this
 					uni.setStorage({
 						key: 'mch_id',
 						data: mch_id,
 						success() {
 							uni.navigateTo({
-								url: "/pages/shop/home/home?mch_id=" + mch_id
+								url: "/merchants/detail/detail?store_id=" + that.store.id
 							})
 						}
 					})
@@ -229,7 +278,7 @@
 					})
 				}
 				if (page == 7) {
-					let mch_id = this.userMessage.store.mch_id
+					let mch_id = this.userMessage.store.id
 					uni.navigateTo({
 						url: './productList/productList?mch_id=' + mch_id
 					})
@@ -252,11 +301,16 @@
 					method: 'POST',
 					showLoading: true,
 					data: {
-						route: 'pages/shop/home/home',
+						// #ifdef H5||APP-PLUS
+						route: 'merchants/detail/detail?store_id='+ that.store.id,
+						// #endif
+						// #ifdef MP-WEIXIN
+						route: 'merchants/detail/detail',
+						sid:that.store.id
+						// #endif
 					}
 				}).then(res => {
 					if (res.code == 0) {
-						console.log(res)
 						that.poster_url = res.data.pic_url;
 						that.loading = false;
 					}
@@ -348,20 +402,52 @@
 					}
 				});
 			},
+			copyText(text) {
+				let _self = this;
+				// #ifdef H5
+				return new Promise((resolve, reject) => {
+					let copy = document.createElement("input"); // 创建一个input框获取需要复制的文本内容
+					copy.value = text;
+					let appDiv = document.getElementsByClassName('personalCenter')[0];
+					appDiv.appendChild(copy);
+					copy.select();
+					document.execCommand("Copy");
+					_self.$http.toast("复制成功")
+					copy.remove()
+					resolve(true);
+				})
+				// #endif
+			
+				// #ifndef H5
+				uni.setClipboardData({
+					data: text,
+					success: function() {
+						_self.$http.toast("复制成功")
+					}
+				});
+				// #endif
+			},
+			outchange(){
+				uni.removeStorageSync('x-man-mch-id')
+				this.change=false
+				this.getBaseInfo()
+			},
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+	.mana-bottom-btn{border-top:1px solid #eaeaea;padding:20rpx 20rpx;background:white;position:fixed;bottom:0;left:0;width:100%;text-align:center;}
+	.mana-bottom-btn > text{border-radius:60rpx;padding:20rpx 0;width:85%;display:inline-block;background:#F24F34;font-size:30rpx;color:white;}
 	.personalCenter {
 		width: 100%;
 		overflow: hidden;
 		background: url(https://dev.mingyuanriji.cn/web/static/personalCenter_logo.jpg)no-repeat; 
-		background-size: cover;
-		padding-top: 40rpx;
+		background-size: 100%;
 	}
 
 	.personalCenter-top {
+		margin-top: 40rpx;
 		width: 100%;
 		overflow: hidden;
 		padding: 20rpx;

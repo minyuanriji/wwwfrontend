@@ -11,8 +11,11 @@
 			<view>
 				订单号：{{order_detail.order_sn}}
 			</view>
-			<view>
-				红包支付：{{order_detail.integral_deduction_price}}
+			<view v-if="giftpacks.allow_currency=='integral'" style="color: red;">
+				已支付：{{order_detail.integral_deduction_price}}
+			</view>
+			<view v-if="giftpacks.allow_currency=='money'" style="color: red;">
+				已支付：{{order_detail.pay_price}}
 			</view>
 			<view>
 				日期 : {{order_detail.created_at}}
@@ -62,9 +65,11 @@
 				severList:[],
 				page:1,
 				page_count:'',
+				order_id:""
 			};
 		},
 		onLoad(options) {
+			this.order_id=options.order_id
 			if(options&&options.order_id){
 				this.orderDetail(options.order_id)
 				this.severcieList(options.order_id)
@@ -78,7 +83,21 @@
 					})
 			},
 			location(lat,lnt,address){//导航
+				// #ifdef H5
 				window.location.href='https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:'+lat+','+lnt+';addr:'+address+'&referer=myapp&key=O3DBZ-IFH3W-KKIRN-RZPNQ-AOSH3-EGB5N'
+				// #endif
+			
+				// #ifdef MP-WEIXIN || APP-PLUS
+				uni.openLocation({
+				 	latitude:Number(lat),
+				 	longitude:Number(lnt),
+				 	name:address,
+				 	address:address,
+				 	success: function () {
+						
+				 	}
+				 });
+				 // #endif
 			},
 			orderDetail(order_id){  //获取礼包订单详情
 				this.$http
@@ -113,7 +132,6 @@
 					})
 					.then(res => {
 						if(res.code==0){
-							console.log(res)
 							if(res.data.list.length==0)return false
 							let list= res.data.list;
 							var arr=that.severList.concat(list)
@@ -130,7 +148,7 @@
 				return false;
 			} 		
 			this.page=this.page+1
-			this.severcieList();
+			this.severcieList(this.order_id);
 		},
 	}
 </script>

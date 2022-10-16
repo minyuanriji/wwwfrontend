@@ -546,10 +546,6 @@
 				})
 			}, 50)
 		},
-		//用户点击分享
-		onShareAppMessage(e) {
-		  return this.wxShare("补商汇名片","/pages/goods/detail?source=3");
-		},
 		computed: {
 			isReceive() {
 				return function(val) {
@@ -615,7 +611,7 @@
 				})
 			},
 
-			//点击确定按钮，判断是拼团购买还是立即购买
+			//点击确定按钮，判断是拼团购买还是立即下单
 			determine() {
 				this.popupShow = false;
 				if (this.goodsData.use_attr == 0) {
@@ -651,7 +647,7 @@
 						url: '/mch/group-buy/submit?goods_id='+this.proId+'&is_index=1&active_id='+this.active_id	//这个是拼团购买流
 					})
 					
-				} else if (this.is_index == 2) { // is_index == 2立即购买
+				} else if (this.is_index == 2) { // is_index == 2立即下单
 					this.popupShow = false;
 					var goods_attr_id = this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id;
 					// 设置订单数据缓存

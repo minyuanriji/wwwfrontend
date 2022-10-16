@@ -4,6 +4,10 @@
 		<!-- 背景图，可自定义 -->
 		<view class="cart-bg" :style="{background:'url('+bg_url+')'}"></view>
 		<view class="mainContent">
+			<view v-if="auth_pay" style="color:gray;font-size:26rpx;display:flex;flex-direction: column;align-items: center;background: rgba(255, 255, 255, 1);margin-bottom:30rpx;border-radius:10rpx;padding:20rpx 20rpx;">
+				<text>授权支付</text>
+				<view style="word-break: break-word;word-spacing: normal;">{{auth_token}}</view>
+			</view>
 			<view class="up">
 				<view class="balance">
 					<text>账户余额:</text>
@@ -25,7 +29,7 @@
 						<text v-if="item == 'balance'">余额支付</text>
 					</view>
 					<view class="item-right-box" @tap="switchIcon(index)">
-						<view v-if="index == switchIndex" class="item-icon iconfont icon-dagou1" :style="{color:'#FF7104'}"></view>
+						<view v-if="switchIndex == index" class="item-icon iconfont icon-dagou1" :style="{color:'#FF7104'}"></view>
 						<view v-else class="item-right"></view>
 					</view>
 				</view>
@@ -67,34 +71,73 @@
 				token: '',
 				queue_id: '',
 				payData: '',
-				switchIndex: 0,
+				switchIndex: 1,
 				textColor:"#BC0100",
 				bg_url:'',
 				navBg:'',
 				navCol:'',
 				goods_id : '',
+				auth_pay: false,
+				auth_token: '',
+				order_id: ''
 			}
 		},
 		onLoad(options) {
+			
 			if(options.goods_id){
 				this.goods_id = options.goods_id;
 			}
-			this.textColor = this.globalSet('textCol');
-			this.bg_url = this.globalSet('imgUrl');
-			this.navBg = this.globalSet('navBg');
-			this.navCol = this.globalSet('navCol');
+			
+			let that = this, timer = setInterval(function(){
+				if(uni.getStorageSync('mall_config')){
+					that.textColor = that.globalSet('textCol');
+					that.bg_url    = that.globalSet('imgUrl');
+					that.navBg     = that.globalSet('navBg');
+					that.navCol    = that.globalSet('navCol');
+					clearInterval(timer);
+				}
+			}, 500);
 			
 			this.token = options.token;
 			this.queue_id = options.queue_id;
-			let orderId = options.orderId ? options.orderId : '';
-			// 拿到支付信息
-			this.getPayData(orderId);
+			this.order_id = options.orderId ? options.orderId : '';
+			
 			// 加多一个是否为拼团支付的标记
 			if(options.is_index){
 				this.is_index = 1;
 				this.active_id = options.active_id;
 			}
 			
+			/* if(options.auth && this.token){
+				this.auth_pay = true;
+				this.$http.request({
+					url: this.$api.default.check_auth,
+					showLoading: true,
+					data: {
+						user_auth: options.auth,
+						order_token: this.token
+					},
+					method:"POST"
+				}).then((res) => {
+					if (res.code == 0) {
+						uni.setStorageSync("token", options.auth);
+					}else{
+						that.$http.toast(res.msg);
+					}
+					// 拿到支付信息
+					that.getPayData(orderId);
+				})
+				return;
+			} */
+		},
+		onShow() {
+			// 拿到支付信息
+			if(!uni.getStorageSync("auth_pay")){
+				this.getPayData(this.order_id);
+			}else{
+				this.auth_pay = true;
+				this.auth_token = uni.getStorageSync("auth_token");
+			}
 		},
 		methods: {
 			back() {
@@ -113,6 +156,15 @@
 				}).then((res) => {
 					if (res.code == 0) {
 						this.payData = res.data;
+						let i;
+						for(i=0; i < this.payData.supportPayTypes.length; i++){
+							if(this.payData.supportPayTypes[i] == 'wechat'){
+								this.switchIndex = i;
+								break;
+							}
+						}
+					}else{
+						this.$http.toast(res.msg)
 					}
 				})
 			},
@@ -132,15 +184,29 @@
 							that.$http.toast('支付成功!');
 							if(that.payData.is_send==1){
 								setTimeout(() => {
-									uni.redirectTo({
-										url: '/pages/order/beused/beused'
-									})
+									// #ifdef APP-PLUS
+										uni.navigateTo({
+											url: '/pages/order/beused/beused'
+										})
+									// #endif
+									// #ifdef H5||MP-WEIXIN
+										uni.redirectTo({
+											url: '/pages/order/beused/beused'
+										})
+									// #endif
 								},500)
 							}else{
 								setTimeout(() => {
-									uni.redirectTo({
-										url: '/pages/order/list?status=1'
-									})
+									// #ifdef APP-PLUS
+										uni.navigateTo({
+											url: '/pages/order/list?status=1'
+										})
+									// #endif
+									// #ifdef H5||MP-WEIXIN
+										uni.redirectTo({
+											url: '/pages/order/list?status=1'
+										})
+									// #endif
 								},500)
 							}
 							return;
@@ -159,16 +225,15 @@
 								}
 							}).then(res=>{
 								if(res.code==0){
-									if(that.payData.is_send==1){
-										setTimeout(() => {
-											uni.redirectTo({
-												url: '/pages/order/beused/beused'
+									// #ifdef APP-PLUS
+											uni.navigateTo({
+												url: '/pages/order/alipayWeb?url=' + res.data.codeUrl
 											})
-										},500)
-									}else{
-										let url=res.data.codeUrl
-										location.href=url
-									}
+									// #endif
+									 // #ifdef H5
+									let url=res.data.codeUrl
+									location.href=url
+									// #endif
 								}else{
 									that.$http.toast(res.msg)
 								}
@@ -217,19 +282,31 @@
 												that.$http.toast("未支付")
 												_url = '/pages/order/list?status=0'
 											}
-											
-											
 											if(that.payData.is_send==1){
 												setTimeout(() => {
-													uni.redirectTo({
-														url: '/pages/order/beused/beused'
-													})
+													// #ifdef APP-PLUS
+														uni.navigateTo({
+															url: '/pages/order/beused/beused'
+														})
+													// #endif
+													// #ifdef H5||MP-WEIXIN
+														uni.redirectTo({
+															url: '/pages/order/beused/beused'
+														})
+													// #endif
 												},500)
 											}else{
 												setTimeout(() => {
-													uni.redirectTo({
-														url: _url
-													})
+													// #ifdef APP-PLUS
+														uni.navigateTo({
+															url: _url
+														})
+													// #endif
+													// #ifdef H5||MP-WEIXIN
+														uni.redirectTo({
+															url: _url
+														})
+													// #endif
 												},1000)
 											}																
 										});
@@ -252,15 +329,31 @@
 								that.$http.toast('支付成功!');
 								if(that.payData.is_send==1){
 									setTimeout(() => {
-										uni.redirectTo({
-											url: '/pages/order/beused/beused'
-										})
+										// #ifdef APP-PLUS
+											uni.navigateTo({
+												url: '/pages/order/beused/beused'
+											})
+										// #endif
+										// #ifdef H5||MP-WEIXIN
+											uni.redirectTo({
+												url: '/pages/order/beused/beused'
+											})
+										// #endif
 									},500)
 								}else{
 									setTimeout(() => {
-										uni.redirectTo({
-											url: '/pages/order/list?status=1'
-										})
+										
+										// #ifdef APP-PLUS
+											uni.navigateTo({
+												url: '/pages/order/list?status=1'
+											})
+										// #endif
+										
+										// #ifdef H5||MP-WEIXIN
+											uni.redirectTo({
+												url: '/pages/order/list?status=1'
+											})
+										// #endif
 									},500)
 								}
 								return;

@@ -1,21 +1,42 @@
 <script>
+	const bsh_key = '$#K23@#J$K@#51K*()JKL4>:JM!&1*!';
+	
+	import $bridge from './common/bridge.js';
+	import $md5 from './common/md5.js';
 	export default {
 		onLaunch: function() {
+
+			//#ifdef H5
+			if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
+				
+			}else{
+				 this.$unifylocation.locationH5()	
+			}   
+			// #endif
+			
+			// #ifndef H5
+			if(uni.getStorageSync('x-longitude')&&uni.getStorageSync('x-latitude')){
+				
+			}else{
+				this.$unifylocation.locationMp()
+			}
+			// #endif  
+
+
 			//console.log('App Launch');
 			// 初始化项目就执行自定义分享
 			// this.$wechatSdk.share();
 			this.initMall();
+			
 			// #ifdef H5
 			if (this.$route.query.mall_id) {
 				uni.setStorageSync('mall_id', this.$route.query.mall_id);
 			}
 			// #endif
-				
-			// #ifdef APP-PLUS
-			let that = this;
-			plus.runtime.getProperty(plus.runtime.appid, function(widgetInfo) {
+
+			/* plus.runtime.getProperty(plus.runtime.appid, function(widgetInfo) {
 				//APP更新
-				//console.log('请求更新前提交的版本='+widgetInfo.version)
+				//console.log('请求更新前提交的版本='+widgetInfo);
 				that.$http.request({
 					url: that.$api.app_update,
 					data: {
@@ -56,30 +77,44 @@
 								})
 							}
 						}
-
 					} else {
 
 					}
-				})
-			});
-			// #endif
+				}) 
+			}); */
 		},
 
 		onShow: function(options) {
-			// //#ifdef H5
-			// 	var jweixin = require('jweixin-module');
-			// 	this.$wechatSdk.initJssdk(function(signData){});
-			// 	let use=uni.getStorageSync('userInfo')
-			// 	let url=window.location.href+"&pid="+JSON.parse(use).user_id
-			// 	let shareInfo={
-			// 		title:'分享',
-			// 		desc: '自定义分享',
-			// 		imgUrl: 'https://www.mingyuanriji.cn/web/static//header-logo.png',
-			// 		link:url,
-			// 	}
-			// 	console.log(shareInfo)
-			// 	jweixin.updateAppMessageShareData(shareInfo)				
-			// //#endif
+			
+			this.beforeOnLoad(options);
+			
+			// #ifdef APP-PLUS
+			let that = this;
+			$bridge.getVersion(null, function(v){
+				let currentVersionCode = typeof v != "undefined" ? parseInt(v.version_code) : 0;
+				if(currentVersionCode <= 0) return;
+				that.$http.request({
+					url: that.$api.app.version_info,
+					data: {platform:v.platform}
+				}).then(res => {
+					if (res.code == 0 && currentVersionCode < parseInt(res.data.version_code)) {
+						uni.showModal({
+							title: '发现新版本',
+							showCancel: false,
+							content: "版本："+res.data.version_name+"\n请点击确定更新",
+							success: function(res2) {
+								if (res2.confirm) {
+									plus.runtime.openURL(res.data.download_link);
+								} else if (res2.cancel) {
+						
+								}
+							}
+						})
+					}
+				});
+			})
+			// #endif
+	
 			// #ifdef MP-WEIXIN
 			if (uni.getUpdateManager) {
 				const updateManager = uni.getUpdateManager();
@@ -104,56 +139,65 @@
 					});
 				});
 			}
-			// #endif
 			
-			// #ifdef H5
-			let location=window.location.href
-			let currentOne=''
-			let currentTwo=''
-			let currentLink=''
-			if(location.indexOf('pid=')!=-1){
-				 currentOne=location.split('&pid=')[0]				 				 
-				 currentLink=location.split('&pid=')[1].split("&")				 
-				 let arr=[]
-				 for(let i= 0;i<currentLink.length;i++){
-				 	if(i>0){
-				 		arr.push(currentLink[i])
-				 	}
-				 }
-				 if(arr.length>0){
-					  currentTwo= arr.join("&")
-					  let page=currentOne+"&"+currentTwo
-					  uni.setStorageSync('page',page)
-				 }else{
-					   uni.setStorageSync('page',currentOne)
-				 }
+			//其它小程序跳转过来
+			/* options['referrerInfo'] = {
+				extraData: {
+					auth: 'xeKLyyB5gsw99J2qCCSvGbmfUSjNQZlC',
+					token: 'G4MNbAFPqDKHZuwmBqBALTgwgctmJTkI'
+				}
+			}; */
+			if(options.referrerInfo){
+				let referrerInfo = options.referrerInfo;
+				if(referrerInfo.extraData && referrerInfo.extraData.auth && referrerInfo.extraData.token){
+					uni.removeStorageSync("token");
+					if(referrerInfo.extraData.sign){ //如果有传签名，验证签名
+						let extraData = referrerInfo.extraData, sign = $md5.hex_md5(extraData.token+bsh_key+extraData.timestamp);
+						if(sign == extraData.sign){
+							uni.setStorageSync("token", referrerInfo.extraData.auth);
+							let url = '/smartshop/order/pay?token=' + referrerInfo.extraData.token;
+							setTimeout(function(){
+								uni.redirectTo({
+									url: url
+								});
+							}, 500);
+						}else{
+							uni.showModal({
+								title: "提示",
+								content: "签名验证失败",
+								showCancel: false
+							});
+						}
+					}else{
+						let url = '/pages/order/pay?token=' + referrerInfo.extraData.token;
+						setTimeout(function(){
+							uni.redirectTo({
+								url: url
+							});
+						}, 500);
+					}
+					
+				}else{
+					uni.removeStorageSync("auth_pay");
+					uni.removeStorageSync("auth_token");
+				}
 			}
-			if(options.query.pid){
-				uni.setStorageSync('pid',options.query.pid)	
+			
+			// #endif
+
+			// #ifdef H5
+			/* if(options.query.pid){
 				setTimeout(function(){
 					uni.navigateTo({
-						url:'/pages/user/bindUser/bindUser'
-					})
-				},500)						 				
-			}	
-			
-			/* let wx_platform = this.$http.getPlatform()
-			let wx_userInfo = uni.getStorageSync('userInfo');
-			let wx_currUrl = window.location.href;
-			let wx_token = uni.getStorageSync('token');
-			if(wx_platform == 'wechat'){
-				if(!wx_token){11
-					if(wx_currUrl.indexOf('rechargeCard') == -1 && wx_currUrl.indexOf('pages/public') == -1){
-						uni.navigateTo({
-							url:'/pages/public/login'
-						})
-					}
-				}
+						url:'/pages/user/bindUser/bindUser?pid=' + options.query.pid
+					});
+				}, 1000);
 			} */
 			// #endif
+	
 		},
 		onHide: function() {
-			
+		
 		},
 		methods: {
 			initMall() {
@@ -174,7 +218,7 @@
 					}
 				});
 
-			}
+			},
 		}
 	};
 </script>

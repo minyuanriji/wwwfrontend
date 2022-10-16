@@ -50,7 +50,7 @@
 			*/
 			H5Bottom: {
 				type: [Boolean, String],
-				default: true
+				default: false
 			},
 		},
 		computed: {
@@ -61,6 +61,9 @@
 				return String(this.H5Top) === 'false' ? false : true;
 			},
 			_H5Bottom() {
+				if(typeof this.H5Bottom == "boolean"){
+					return this.H5Bottom;
+				}
 				return String(this.H5Bottom) === 'false' ? false : true;
 			}
 		},
@@ -107,8 +110,6 @@
 			opacity: 1;
 		}
 	}
-	
-	/* #ifdef H5 */
 		.ss-modal-body.ss-modal-H5Top{
 			top: 0;
 			z-index: 999;
@@ -117,11 +118,16 @@
 			bottom: 0;
 			z-index: 999;
 		}
-	/* #endif */
+
 	
 	.ss-modal-body .uni-mask{
 		z-index: 1;
 		background:rgba(0,0,0,.5);
+		/* #ifdef MP-WEIXIN || APP-PLUS */
+		width:100%;
+		height:100%;
+		/* #endif */
+		
 	}
 	.ss-modal{
 		position: fixed;

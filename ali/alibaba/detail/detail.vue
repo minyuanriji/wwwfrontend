@@ -37,10 +37,10 @@
 					<video id='swiperVideo' :enable-progress-gesture='false' :src="goodsData.video_url" loop autoplay
 						muted controls style="width: 750rpx;" :style="{height:scrollH+'px'}"></video>
 				</swiper-item>
-				<block v-for="(item,b_index) in goodsData.images" :key="b_index">
+				<block v-if="goodsData" v-for="(item,b_index) in goodsData.images" :key="b_index">
 					<swiper-item :data-index="b_index+1">
 						<image :src="item" mode="aspectFill" class="tui-slide-image"
-							:style="{height:scrollH+'px'}" />
+							:style="{height:scrollH+'px'}"  @click="enlarge(b_index)"/>
 					</swiper-item>
 				</block>
 			</swiper>
@@ -117,7 +117,7 @@
 				<view class="tui-list-cell" @tap="showattribute">
 					<view class="tui-bold tui-cell-title">属性</view>
 					<view class="selected-box" style="display: flex;justify-content: space-evenly;overflow: hidden;width: 500rpx;height: 40rpx;box-sizing: border-box;">
-						<block v-for="(item,index) in goodsData.attributes" :key='index' >
+						<block v-for="(item,index) in goodsData.attributes"  >
 							<text style="margin: 0 10rpx">{{item.attributeName}}:</text>
 							<text v-for="(iten,index) in item.values">{{iten}}</text>
 						</block>
@@ -193,13 +193,13 @@
 			<!-- <view class="tui-operation-right tui-right-flex tui-col-7 tui-btnbox-4">
 				<view class="jx-btn" style="height: 80%;background:#FF7104;border-radius: 100rpx;"
 					@click="showPopup(2)">
-					用购物券下单
+					用红包下单
 				</view>
 			</view> -->
 			<view class="tui-operation-right tui-right-flex tui-col-7 tui-btnbox-4">
 				<view class="jx-btn" style="height: 80%;background:#FF7104;border-radius: 100rpx;"
 					@click="buyGoods">
-					用购物券下单
+					用红包下单
 				</view>
 			</view>
 		</view>
@@ -212,7 +212,7 @@
 					功能直达
 				</view>
 				<view class="tui-menu-itembox">
-					<block v-for="(item,index) in topMenu" :key="index">
+					<block v-for="(item,index) in topMenu" >
 						<view class="tui-menu-item" hover-class="tui-opcity" :hover-stay-time="150"
 							@tap="common(index)">
 							<view class="tui-badge-box">
@@ -383,12 +383,12 @@
 						产品属性
 					</view>
 					<view class="popupattribute-list">
-						<view class="popupattribute-item" v-for="(item,index) in goodsData.attributes" :key='index' >
+						<view class="popupattribute-item" v-for="(item,index) in goodsData.attributes" >
 							<view style="width: 30%;min-height: 90rpx;padding: 20rpx;box-sizing: border-box;">
 								{{item.attributeName}}:
 							</view>
 							<view style="width: 70%;padding: 20rpx;box-sizing: border-box;">
-								<text v-for="(iten,index) in item.values" :key='index' >{{iten}}</text>
+								<text v-for="(iten,index) in item.values"  >{{iten}}</text>
 							</view>
 						</view>
 					</view>
@@ -398,8 +398,7 @@
 		<com-bottom-popup :show="popupShow" @close="hidePopup">
 			<view class="tui-popup-box" style="border-radius: 20rpx;">
 				<view class="tui-product-box tui-padding">
-					<image :src="goodsData.images[0]" class="tui-popup-img">
-					</image>
+					<image v-if="goodsData && goodsData.images && goodsData.images[0]" :src="goodsData.images[0]" class="tui-popup-img"></image>
 					<view class="tui-popup-price">
 						<view class="tui-amount tui-bold" :style="{color:'#FF7104'}">¥{{skuprice}}</view>
 						<view class="tui-number">已选:{{skuname}}</view>
@@ -417,7 +416,7 @@
 				</view>
 				</scroll-view> -->
 				<scroll-view scroll-x  style="height: 60rpx!important;width: 100%;white-space:nowrap;">
-					<view v-for="(item,index) in goodsData.sku_group_list" :key='index' style="display: inline-block;overflow: hidden;text-overflow:ellipsis;
+					<view v-for="(item,index) in goodsData.sku_group_list" style="display: inline-block;overflow: hidden;text-overflow:ellipsis;
 white-space: nowrap;;width:30%;margin-top: 10rpx;margin-right: 30rpx;font-size: 26rpx;line-height: 60rpx;text-align: center;" :class="setINdex==index?'skuActive':''" @click="selectINdex(index,item)">
 						{{item.value_name}}
 					</view>
@@ -497,7 +496,7 @@ white-space: nowrap;;width:30%;margin-top: 10rpx;margin-right: 30rpx;font-size: 
 				skuname:'',
 				sku_group_list_children:'',
 				img_url: this.$api.img_url,
-				is_index: 1, //1是加入购物车，2是立即购买
+				is_index: 1, //1是加入购物车，2是立即下单
 				id: 0, //商品id
 				goodRate: '', // 商品好评率
 				commentsData: '', //评论数据
@@ -614,15 +613,14 @@ white-space: nowrap;;width:30%;margin-top: 10rpx;margin-right: 30rpx;font-size: 
 			my.hideAddToDesktopMenu();
 			// #endif
 
+			let that = this;
 			setTimeout(() => {
 				uni.getSystemInfo({
 					success: (res) => {
-						this.width = obj.left || res.windowWidth;
-						this.height = obj.top ? (obj.top + obj.height + 8) : (res.statusBarHeight +
-						44);
-						this.top = obj.top ? (obj.top + (obj.height - 32) / 2) : (res.statusBarHeight +
-							6);
-						this.scrollH = res.windowWidth
+						that.width = typeof obj['left'] != "undefined" ? obj.left : res.windowWidth;
+						that.height = typeof obj['top'] != "undefined" ? (obj.top + obj.height + 8) : (res.statusBarHeight + 44);
+						that.top = typeof obj['top'] != "undefined" ? (obj.top + (obj.height - 32) / 2) : (res.statusBarHeight + 6);
+						that.scrollH = res.windowWidth
 					}
 				})
 			}, 50)
@@ -645,18 +643,6 @@ white-space: nowrap;;width:30%;margin-top: 10rpx;margin-right: 30rpx;font-size: 
 		},
 		onShow() {
 			this.getCartList();
-		},
-		//用户点击分享
-		onShareAppMessage(e) {
-			//#ifdef MP-WEIXIN
-			return this.wxShare(this.goodsData.name, `/coupon/detail?source=3&id=${this.id}`);
-			return {
-				title: this.goodsData.name, //标题
-				path: '/coupon/detail?source=3&id=' + this.id + '&pid=' + uni.getStorageSync("userInfo") ? JSON
-					.parse(uni.getStorageSync("userInfo")).user_id : 0,
-				imageUrl: ""
-			}
-			//#endif
 		},
 		computed: {
 			isReceive() {
@@ -683,7 +669,7 @@ white-space: nowrap;;width:30%;margin-top: 10rpx;margin-right: 30rpx;font-size: 
 			showattribute(){ //点击展示属性
 				this.$refs.popupattribute.open()
 			},
-			buyGoods(){//用购物券下单
+			buyGoods(){//用红包下单
 				this.popupShow=true
 			},
 			sureBtn(){//跳转到订单预览
@@ -947,7 +933,8 @@ white-space: nowrap;;width:30%;margin-top: 10rpx;margin-right: 30rpx;font-size: 
 					}
 				}).then((res) => {
 					this.loading = false;
-					if (res.code == 0) {
+					
+					if (res.data.code == 0) {
 						this.productData = res.data.list;
 					}
 				})
@@ -986,7 +973,7 @@ white-space: nowrap;;width:30%;margin-top: 10rpx;margin-right: 30rpx;font-size: 
 				})
 			},
 
-			determine() { //点击确定按钮，判断是加入购物车还是立即购买
+			determine() { //点击确定按钮，判断是加入购物车还是立即下单
 				this.popupShow = false;
 				if (this.goodsData.use_attr == 0) {
 					if (this.goodsData.attr_list[0].stock == 0) {
@@ -1026,7 +1013,7 @@ white-space: nowrap;;width:30%;margin-top: 10rpx;margin-right: 30rpx;font-size: 
 							this.$http.toast(res.msg);
 						}
 					})
-				} else if (this.is_index == 2) { //立即购买
+				} else if (this.is_index == 2) { //立即下单
 					var goods_attr_id = this.goodsData.attr_groups ? this.selectData.id : this.goodsData.attr_list[0].id;
 					var mch_id = 0
 					var is_mch = this.is_mch
@@ -1311,6 +1298,16 @@ white-space: nowrap;;width:30%;margin-top: 10rpx;margin-right: 30rpx;font-size: 
 			},
 			coupon() {
 				this.popupShow2 = true;
+			},
+			enlarge(index){ //点击主图放大
+				let photoList = this.goodsData.images.map(item => {
+					return item;
+				});
+				uni.previewImage({
+					current: index,     // 当前显示图片的链接/索引值
+					urls: photoList,    // 需要预览的图片链接列表，photoList要求必须是数组
+					loop:true   // 是否可循环预览
+				});
 			}
 		},
 		onPageScroll(e) {
@@ -1412,6 +1409,13 @@ white-space: nowrap;;width:30%;margin-top: 10rpx;margin-right: 30rpx;font-size: 
 		height: 32px;
 		display: flex;
 		align-items: center;
+		/* #ifdef MP*/
+		margin-top: 70rpx;
+		/* #endif */
+		/* #ifdef APP-PLUS */
+		margin-top: 100rpx;
+		/* #endif */
+		margin-bottom: 20rpx;
 	}
 
 	.tui-top-dropdown {

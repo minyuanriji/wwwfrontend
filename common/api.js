@@ -1,27 +1,23 @@
 // 正式服务器
-// let api_root = 'https://www.mingyuanriji.cn/web/index.php?r=';
-// let url = 'https://www.mingyuanriji.cn/web/static/'; //图片路径
-// let plugins_img_url = 'https://www.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
+let api_host = "https://www.mingyuanriji.cn";
 
 // 测试服务器
-let api_root = 'https://dev.mingyuanriji.cn/web/index.php?r=';
-let url = 'https://dev.mingyuanriji.cn/web/static/'; //图片路径
-let plugins_img_url = 'https://dev.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径
+//let api_host = "https://dev.mingyuanriji.cn";
 
 
 // 本地服务器
-/* let api_root = 'http://local.mingyuanriji.cn/web/index.php?r=';
- let url = 'http://local.mingyuanriji.cn/web/static/'; //图片路径
- let plugins_img_url = 'http://local.mingyuanriji.cn/web/plugins/'; //扩展页面图片路径 */
+//let api_host = "http://local.mingyuanriji.cn";
 
+
+let api_root 		= api_host + '/web/index.php?r=';
+let url 			= api_host + '/web/static/'; //图片路径
+let plugins_img_url = api_host + '/web/plugins/'; //扩展页面图片路径 
 
 //wx493ce82aab45e4da
 //71b93cac952e55289cc5b3a9b03a345d
 // let api_root = 'http://8.129.63.124/web/index.php?r=';
 // let url = 'http://8.129.63.124/web/static/'; //图片路径
 // let plugins_img_url = 'http://8.129.63.124/web/plugins/'; //扩展页面图片路径
-
-
 
 //
 
@@ -30,13 +26,16 @@ let plugins_img_url = 'https://dev.mingyuanriji.cn/web/plugins/'; //扩展页面
 //api_root = '/api?r='
 // #endif
 let api = {
+	host: api_host,
 	img_url: url,
 	plugins_img_url: plugins_img_url,
 	index: api_root + 'default/index',
 	index2: api_root + 'api/index/index',
 	get_setting: api_root + 'api/user-setting/get-one',
 	update_setting: api_root + 'api/user-setting/update',
+	
 	default: {
+		check_auth: api_root+'api/identity/check-auth',
 		login: api_root + 'api/identity/login',
 		mini_login: api_root + 'api/identity/mini-login',
 		wxLogin: api_root + 'api/identity/auth-login',
@@ -51,13 +50,69 @@ let api = {
 		parentMember:api_root + 'api/identity/parent-member',
 		bindParent:api_root + 'api/identity/bind-parent',
 		subscribe:api_root + 'api/identity/subscribe-status',
+		getwxaddress:api_root + 'api/user/wx-user-address-save',
+		
+		
+		getvoucherList:api_root + 'plugin/shopping_voucher/api/from-goods/list',
+		
+		
 		
 	//---------------------------------------------------------------统一核销	
 		verification:api_root + 'api/clerkCenter/clerk/get-logs', //核销记录
 		verificationProgress:api_root +'api/clerkCenter/clerk/do-clerk', //核销
-		getOrdercodestatus:api_root +'api/clerkCenter/clerk/detail' //核销进度
+		getOrdercodestatus:api_root +'api/clerkCenter/clerk/detail' ,//核销进度
+	//------------------------------------------------------------------------金豆
+		getredbagList:api_root +'api/integral/integral-list' ,//核销进度
 	},
+	vouchers:{ //红包
+		getvouchersList:api_root +'plugin/shopping_voucher/api/user/log' ,//红包记录
+	},
+	app:{
+		version_info: api_root + 'plugin/bsh_app/api/version/detail' 
+	},
+	smartshop: {
+		notification: {
+			setWechatTpl: api_root + 'plugin/smart_shop/api/notification/set-wechat-template', //设置微信公众号通知
+		},
+		store: {
+			pay_order_detail:  api_root + 'plugin/smart_shop/api/store-pay-order/detail' 
+		}
+	},
+	pay: {
+		get_pay_data: api_root + 'api/pay/get-pay-data',
+	},
+	income_log: {
+		incomeData: api_root + 'plugin/income_log/api/index/income-data',
+	},
+//-------------------------------------------------------------------------------------------淘礼金
+	taolijin:{
+		getAuthInfo:api_root + 'plugin/taolijin/api/auth/get-info', //获取授权信息
+		getgoodsList:api_root + 'plugin/taolijin/api/goods/search', //获取淘礼金商品
+		getCatList:api_root + 'plugin/taolijin/api/goods/cat-list', //获取淘礼金商品分类
+		bindSpecialId:api_root + 'plugin/taolijin/api/auth/bind-ali-special-id', //获取淘礼金商品分类
+		getgoodsDetail:api_root + 'plugin/taolijin/api/goods/detail', //获取淘礼金商品详情
+		exchange: api_root + 'plugin/taolijin/api/exchange/integral-to-lj', //金豆兑换礼金接口
+		getUrl: api_root + 'plugin/taolijin/api/exchange/get-url', //金豆兑换礼金接口
+		getClassify: api_root + 'plugin/alibaba/api/distribution/get-category', //获取1688分类列表
+		getHomegoods: api_root + 'plugin/alibaba/api/distribution/search-goods', //获取1688点击分类变换商品
+		getDetail: api_root + 'plugin/alibaba/api/distribution/detail', //获取1688点击分类变换商品
+		getpreview: api_root + 'plugin/alibaba/api/distribution-order/preview', //获取1688预览订单
+		createorder: api_root + 'plugin/alibaba/api/distribution-order/do-submit', //1688生成订单
+		getPayData:api_root + 'api/payCenter/payment-order-prepare/alibaba-distribution-order',//预支付获取支付信息接口
+		getOrderlist:api_root + 'plugin/alibaba/api/distribution-order/order-list',//订单列表
+		getOrderdetail:api_root + 'plugin/alibaba/api/distribution-order/order-details',//订单详情
+		getexpress:api_root + 'plugin/alibaba/api/distribution-order/logistics',//物流详情
+		refundData: api_root + 'plugin/alibaba/api/distribution-order-refund/to-refund-submit', //获取退款详情
+		refundApply: api_root + 'plugin/alibaba/api/distribution-order-refund/apply' //提交退款申请
+	},
+//--------------------------------------------------------------------------------------------		
+	
 	plugin:{
+		//商户
+		mch:{
+			recommand_mch_data: api_root + 'plugin/mch/api/recommand/mch-data'
+		},
+		
 		// 短视频
 		video:{
 			video_list: api_root + 'plugin/short_video/api/video/video-list',
@@ -126,10 +181,12 @@ let api = {
 		score: {
 			info: api_root + 'plugin/score/api/score/info',
 			log_list: api_root + 'plugin/score/api/score/log-list',
+			free_score_take: api_root + 'plugin/integral_card/api/free-score/take'
 		},
 		diy:{
 			page:{
 				detail: api_root + 'plugin/diy/api/page/detail',
+				poster: api_root + 'plugin/diy/api/page/poster'
 			}
 		},
 		area:{
@@ -200,6 +257,7 @@ let api = {
 			info: api_root + 'api/income/info',
 			poster: api_root + 'api/user/poster',
 			LinkPoster: api_root + 'api/user/link-poster',
+			LinkPosterNew: api_root + 'api/user/link-poster-new',
 			GetIntegral:api_root + 'api/user/get-integral',
 			distribution: {
 				list: api_root + 'api/income/list'
@@ -266,6 +324,9 @@ let api = {
 		express_price:api_root + 'api/order/get-express-price',
 		getscore:api_root + 'api/order/get-flag',
 		refundOrider: api_root + 'api/order/del-refund-order',
+		extendedOrider: api_root + 'api/order/order-extended-receiving-time',
+		getShow:api_root + 'api/order/check-order-discount-type',
+		
 	},
 	category:{
 		leftlist: api_root+'api/cat/list',
@@ -288,16 +349,16 @@ let api = {
 		
 		
 		
-		// 购物券、积分券接口
-		integral_center: api_root + 'api/integral/center',	//购物券、积分券管理列表
-		//integral_recharge: api_root + 'api/integral/recharge',	//购物券、积分券充值
+		// 红包、积分券接口
+		integral_center: api_root + 'api/integral/center',	//红包、积分券管理列表
+		//integral_recharge: api_root + 'api/integral/recharge',	//红包、积分券充值
 		score_integral_recharge: api_root + 'plugin/integral_card/api/card/recharge',	//积分券充值
-		shopping_integral_recharge: api_root + 'plugin/recharge_card/api/card/recharge',//购物券充值
-		integral_plan: api_root + 'api/integral/plan',	//购物券、积分券发放计划
-		integral_deduct_list: api_root + 'api/integral/deduct-list',	//有效购物券、积分券详情
-		//integral_recharge_record: api_root + 'api/integral/recharge-record',	//购物券充值卡列表
+		shopping_integral_recharge: api_root + 'plugin/recharge_card/api/card/recharge',//红包充值
+		integral_plan: api_root + 'api/integral/plan',	//红包、积分券发放计划
+		integral_deduct_list: api_root + 'api/integral/deduct-list',	//有效红包、积分券详情
+		//integral_recharge_record: api_root + 'api/integral/recharge-record',	//红包充值卡列表
 		score_integral_recharge_record: api_root + 'plugin/integral_card/api/card/recharge-record',		//积分券充值卡列表
-		shopping_integral_recharge_record: api_root + 'plugin/recharge_card/api/card/recharge-record',	//购物券充值卡列表
+		shopping_integral_recharge_record: api_root + 'plugin/recharge_card/api/card/recharge-record',	//红包充值卡列表
 		
 		my_integral_card: api_root + 'plugin/integral_card/api/card/my-integral', // 我的积分卡券
 		my_shopping_card: api_root + 'plugin/recharge_card/api/card/my-recharge', // 我的购物卡券
@@ -396,6 +457,26 @@ let api = {
 		saveMessage:api_root+"api/shop-examine/details",
 		withdrawal_detail:api_root+"mch/api/withdrawal-details/mch-all-list",
 		getcountList:api_root+"plugin/mch/api/price-log/list",
+		
+		
+		
+		
+		
+		
+		 getcategorylist:api_root+"plugin/mch/api/category/list",
+		 getlocationcity:api_root+"plugin/mch/api/mch-region/get-city-lower",
+		 getshoplistall:api_root+"plugin/mch/api/store/list",
+		 getshopnewdetail:api_root+"plugin/mch/api/store/detail",
+		 gethotListnew:api_root+"plugin/mch/api/goods/recommand-list",
+		 getgoodsnew:api_root+"plugin/mch/api/goods/list",
+		 downloadCode:api_root+"mch/api/checkout-order/synthetic-qr-code ",
+		 
+		 
+		 getHcodedetail:api_root+"api/clerkCenter/clerk/sweep-jump",
+		 
+		 
+		 getlifeOrderH:api_root+"mch/api/order/giftpacks",
+		 getcollectionlist:api_root+"mch/api/order/bill",
 	},
 	hotel:{
 		getrecommended: api_root +'plugin/hotel/api/hotel/simple-list',
@@ -411,22 +492,36 @@ let api = {
 		applyrefund:api_root +'plugin/hotel/api/user-center/order-refund-apply',
 		hotelPay:api_root +'plugin/hotel/api/order/integral-direct-pay',
 		getorderStatus:api_root +'plugin/hotel/api/order/query-status',
+		getpaywaite:api_root +'plugin/hotel/api/order/pay-prepare',
+		
+		
+		getcity:api_root +'plugin/hotel/api/hotel/hotel-info',
+		getcitylist:api_root +'plugin/hotel/api/hotel/city-list',
+		getimgList:api_root +'plugin/hotel/api/hotel/hotel-diagram',
+		editeroom:api_root +'plugin/hotel/api/user-center/save-order-resident',
 	},
 	merchants:{
+		applyEasy: api_root +'plugin/mch/api/apply/easy',
 		Fillbasic: api_root +'plugin/mch/api/apply/basic',
 		Filllicense: api_root +'plugin/mch/api/apply/license',
 		getapplyInfo: api_root +'plugin/mch/api/apply/info',
 		applyreset: api_root +'plugin/mch/api/apply/reset',
+		groupItemList: api_root +'mch/api/group/item-list',
+		grouprefuseItemList: api_root +'mch/api/group/refuse-list',
+		groupAddItem: api_root +'mch/api/group/add-item',
 	},
 	morecredit:{ 
 		creditOrder:api_root +'plugin/addcredit/api/phone-bill/prepaid-order-submit',
 		creditpay:api_root +'plugin/addcredit/api/phone-bill/prepaid-refill',
 		creditStatus:api_root +'plugin/addcredit/api/phone-bill/recharge-record',
 		creditOrderStatus:api_root +'plugin/addcredit/api/phone-bill/query-order-status',
+		paypreiew:api_root +'plugin/addcredit/api/phone-bill/pay-prepare',
 	},
 	package:{
 		getpackageList:api_root +'plugin/giftpacks/api/giftpacks/list',
 		packageListitem:api_root +'plugin/giftpacks/api/giftpacks/item-list',
+		getPackageDetailShare:api_root +'plugin/giftpacks/api/giftpacks/detail-share',
+		getPackageGroupDetailShare:api_root +'plugin/giftpacks/api/giftpacks/group-detail-share',
 		getgroupList:api_root +'plugin/giftpacks/api/giftpacks/group-list',
 		packageDetail:api_root +'plugin/giftpacks/api/giftpacks/detail',
 		previewOrder:api_root +'plugin/giftpacks/api/order/preview',
@@ -441,6 +536,29 @@ let api = {
 		getserviceList:api_root +'plugin/giftpacks/api/order/pack-item-list',
 		generateQRcode:api_root +'plugin/giftpacks/api/order/clerk-qr-code',
 		getitemdetail:api_root +'plugin/giftpacks/api/order/item-detail',
+		paybalance:api_root +'api/payCenter/balance-pay/giftpacks',
+		paywechatcreated:api_root +'api/payCenter/payment-order-prepare/giftpacks',
+		paywechat:api_root +'api/payCenter/efps-wechat-pay/giftpacks',
+		
+		
+		payMoneybag:api_root +'api/payCenter/integral-pay/giftpacks-group',
+		paybalancebag:api_root +'api/payCenter/balance-pay/giftpacks-group',
+		paywechatcreatedbag:api_root +'api/payCenter/payment-order-prepare/giftpacks-group',
+		paywechatbag:api_root +'api/payCenter/efps-wechat-pay/giftpacks-group',
+		
+	},
+	oil:{
+		getoilproduct:api_root +'plugin/oil/api/product/list',
+		getoilpreview:api_root +'plugin/oil/api/order/submit-preview',
+		submite:api_root +'plugin/oil/api/order/do-submit',
+		getpayInfo:api_root +'plugin/oil/api/order/pay-prepare',
+		getpayInfo:api_root +'plugin/oil/api/order/pay-prepare',
+		getoilOrderlist:api_root +'plugin/oil/api/order/list',
+		getoilOrderdetail:api_root +'plugin/oil/api/order/detail',
+		getoilcode:api_root +'plugin/oil/api/order/use',
+	},
+	seckill:{
+		getseckillList:api_root +'plugin/seckill/api/seckill-list',
 	}
 };
 module.exports = api; 

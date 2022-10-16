@@ -5,7 +5,6 @@
 				入住需知
 			</view>
 			<view class="should-know-prduc">
-				<text>入住时间：入住时间12：00以后,离店时间12：00以前</text>
 				<text>不能接待外宾,不能携带宠物</text>
 			</view>
 		</view>
@@ -27,13 +26,15 @@
 				酒店介绍
 			</view>
 			<view class="introduce">
-				付金额日哦那份儿歌内容跟给你发让他开个呢热更能让他留给你类容他还能给你了她哥那很难来让她和你聊让她弄好了他还能胃泰颗粒汉诺威偷拍了还脑壳痛留给你客人了国内外耳瘘管呢了那个老问题快过年了未通过你问他开路虎net卡络磺钠问题库了南湖 刚买了台汉诺威腾笼换鸟 
+				{{hotelProduct.descript}}
 			</view>
 		</view>
 		<view class="phone">
 			<text style="font-weight: bold;color: #000;">联系电话</text>
-			<text style="font-size: 28rpx;">18888888888/40000003665</text>
-			<image :src="img_url+'hotel-my-phone-new.png'" mode=""></image>
+			<text style="font-size: 28rpx;" v-if="hotelProduct.contact_phone.length>0">{{hotelProduct.contact_phone}}</text>
+			<text style="font-size: 28rpx;" v-if="hotelProduct.contact_mobile.length>0">{{hotelProduct.contact_mobile}}</text>
+			<image :src="img_url+'hotel-my-phone-new.png'" mode="" v-if="hotelProduct.contact_phone.length>0"  @click="callphone(hotelProduct.contact_phone)"></image>
+				<image :src="img_url+'hotel-my-phone-new.png'" mode="" v-if="hotelProduct.contact_mobile.length>0"  @click="callphone(hotelProduct.contact_mobile)"></image>
 		</view>
 	</view>
 </template>
@@ -43,7 +44,24 @@
 		data() {
 			return {
 				img_url: this.$api.img_url,
+				hotelProduct:uni.getStorageSync('hotelProduct')
 			};
+		},
+		methods:{
+			callphone(phone){ //联系电话
+				uni.makePhoneCall({
+				 	// 手机号
+				    phoneNumber: phone, 				
+					// 成功回调
+					success: (res) => {
+						console.log('调用成功!')	
+					},				
+					// 失败回调
+					fail: (res) => {
+						console.log('调用失败!')
+					}					
+				 })
+			},	
 		}
 	}
 </script>

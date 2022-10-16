@@ -1,8 +1,33 @@
 <template>
 	<view class="container">
-		<com-tabs :tabs="tabs" :isFixed="scrollTop>=0" :currentTab="showTab[status]" :selectedColor="textColor" :sliderBgColor="textColor"
-		 :sliderHeight="4" :sliderWidth="50" bgColor="#F7F7F7" @change="change" bottom="10rpx" style="z-index:999;"></com-tabs>
-		<view :class="{'tui-order-list':scrollTop>=0}" v-if="dataList && dataList.length">
+		<view class="tui-searchbox">
+			<view class="tui-search-input">
+				<!-- #ifdef APP-PLUS || MP -->
+				<icon type="search" :size='13' color='#333'></icon>
+				<!-- #endif -->
+				<!-- #ifdef H5 -->
+				<view>
+					<com-icons type="search" :size='16' color='#333333'></com-icons>
+				</view>
+				<!-- #endif -->
+				<input type="search" placeholder="请输入名称和ID搜索"  placeholder-class="tui-input-plholder"
+				 class="tui-input" v-model.trim="key" @confirm='search'/>
+				<!-- #ifdef APP-PLUS || MP -->
+				<icon type="clear" :size='13' color='#bcbcbc' @tap="cleanKey" v-show="key"></icon>
+				<!-- #endif -->
+				<!-- #ifdef H5 -->
+				<view @tap="cleanKey" v-show="key"><tui-icon name="close-fill" :size='16' color='#bcbcbc'></tui-icon></view>
+				<!-- #endif -->
+			</view>
+			<view class="tui-cancle" @tap="search">搜索</view>
+		</view>
+		
+		
+		
+		
+		<com-tabs :tabs="tabs"  :currentTab="showTab[status]" :selectedColor="textColor" :sliderBgColor="textColor"
+		 :sliderHeight="4" :sliderWidth="50" bgColor="#F7F7F7" @change="change" bottom="10rpx" style="z-index:9999;"></com-tabs>
+		<view class="tui-order-list" v-if="dataList && dataList.length">
 			<view class="item" v-for="(item,orderIndex) in data_list" :key="orderIndex">
 				<view class="user-status">
 					<view class="item-uesr-info">
@@ -35,17 +60,22 @@
 			<image class="order-nothing-img" :src="img_url+'images/order/order-nothing.png'" mode=""></image>
 			<view class="order-nothing-text">目前没有{{ status ? tabs[status+1].name : ""}}订单哦~</view>
 		</view>
-		<!--加载loadding-->
-		<main-loadmore :visible="loadding" :index="3" type="red"></main-loadmore>
-		<main-nomore :visible="!pullUpOn" bgcolor="#fafafa"></main-nomore>
-		<main-loading :visible="loading"></main-loading>
-		<!--加载loadding-->
 		<main-tabbar></main-tabbar>
 	</view>
 </template>
 
 <script>
+	import tuiIcon from "@/components/icon/icon";
+	import tuiTag from "@/components/tag/tag";
+	import tuiButton from "@/components/extend/button/button"
+	import tuiListCell from "@/components/list-cell/list-cell"
 	export default {
+		components: {
+			tuiButton,
+			tuiListCell,
+			tuiIcon,
+			tuiTag,
+		},
 		data() {
 			return {
 				img_url: this.$api.img_url,
@@ -73,9 +103,6 @@
 					'2': 3
 				},
 				status: -1,
-				loadding: false,
-				pullUpOn: true,
-				loading: false,
 				scrollTop: 0,
 				dataList: [],
 				pages: {
@@ -84,6 +111,8 @@
 					page_count: 1,
 					total_count: 0
 				},
+				key:'',
+				flag:false,
 			}
 		},
 		onLoad(options) {
@@ -113,9 +142,19 @@
 			}
 		},
 		methods: {
+			cleanKey: function() { //清空搜索
+				this.key = ''
+				this.getDateList('refresh', this.status)
+			},
+			search(){
+				this.getDateList('refresh', this.status)
+			},
 			// 通过 key 和 status 判断通过何种方式修改数据
 			getDateList(key, status) {
-				this.loading = true;
+				if(this.flag){
+					return
+				}
+				this.flag=true
 				// 如果 key == 'refresh' 重置数据
 				if(key == 'refresh'){
 					this.pages = {
@@ -137,11 +176,12 @@
 					data: {
 						status,
 						page: current_page,
-						limit: pageSize
-					}
+						limit: pageSize,
+						keywords:this.key
+					},
+					showLoading: true
 				}).then(res => {
-					
-					this.loading = false;
+					this.flag=false
 					if (res.code === 0) {
 						let {
 							list,
@@ -149,9 +189,7 @@
 						} = res.data;
 						
 						this.dataList = key != 'refresh' ? this.dataList.concat(list) : list; // key != refresh 则是加载下一页数据
-						console.log(this.dataList)
 						this.pages = pagination;
-						this.pullUpOn = true;
 					}
 				})
 			},
@@ -168,18 +206,12 @@
 			}, 1000);
 		},
 		onReachBottom() {
-			//只是测试效果，逻辑以实际数据为准
-			this.loadding = true
-			this.pullUpOn = true
-
 			let {
 				current_page,
 				page_count
 			} = this.pages;
 			setTimeout(() => {
-				this.loadding = false
 				if (current_page >= page_count){
-					this.pullUpOn = false;
 					return;
 				}
 				this.pages.current_page++;
@@ -215,7 +247,7 @@
 	}
 
 	.tui-order-list {
-		margin-top: 80rpx;
+		margin-top: 230rpx;
 		display: flex;
 		flex-direction: column;
 		.item {
@@ -453,7 +485,7 @@
 
 	// 缺省页
 	.order-nothing {
-		margin-top: 200rpx;
+		margin-top: 300rpx;
 		height: 100%;
 		display: flex;
 		flex-direction: column;
@@ -481,5 +513,84 @@
 	.btn-gary{
 		color: #8F8D8E !important;
 		border: 1px solid #8F8D8E !important;
+	}
+	.tui-searchbox {
+		width: 100%;
+		padding: 30rpx;
+		background: #fff;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		position: fixed;
+		/* #ifdef H5 */
+		top: 80rpx;
+		/* #endif */
+		/* #ifdef  MP  */
+		top: 0rpx;
+		/* #endif */
+		left: 0;
+		z-index: 999;
+	}
+	
+	.tui-search-input {
+		width: 90%;
+		height: 66rpx;
+		border-radius: 35rpx;
+		padding: 0 30rpx;
+		box-sizing: border-box;
+		background: #f2f2f2;
+		display: flex;
+		align-items: center;
+		flex-wrap: nowrap;
+	}
+	
+	.tui-input {
+		flex: 1;
+		color: #333;
+		padding: 0 16rpx;
+		font-size: 11pt;
+	}
+	
+	.tui-input-plholder {
+		font-size: 11pt;
+		color: #b2b2b2;
+	}
+	
+	.tui-cancle {
+		color: #888;
+		font-size: 11pt;
+		padding-left: 30rpx;
+		flex-shrink: 0;
+	}
+	
+	.tui-history-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 30rpx 0;
+	}
+	
+	.tui-icon-delete {
+		padding: 10rpx;
+	}
+	
+	.tui-search-title {
+		font-size: 11pt;
+		font-weight: bold;
+	}
+	
+	.tui-hot-header {
+		padding: 30rpx 0;
+	}
+	
+	.tui-tag-class {
+		display: inline-block;
+		margin-bottom: 20rpx;
+		margin-right: 20rpx;
+		font-size: 9pt !important;
+	}
+	.tui-history-content{
+		display: flex;
+		flex-wrap: wrap;
 	}
 </style>

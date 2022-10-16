@@ -13,7 +13,7 @@
 				</view>
 				<view class="common">
 					<view class="iconCss iconfont icon-mima"></view>
-					<input class="com-inp" v-model="dataForm.captcha" placeholder="请输入您的密码" />
+					<input class="com-inp" v-model="dataForm.captcha" placeholder="请输入您的验证码" />
 					<view class="get-code" :style="{color:'#FF7104'}" @tap="getCode" v-if="is_show_code">获取验证码</view>
 					<view class="get-code get-code2" :style="{color:'#FF7104'}" v-else>重新发送({{countdown}})</view>
 				</view>
@@ -170,12 +170,11 @@
 								key
 							} = res.data;
 							access_token = access_token.trim();
-
 							// 判断 access_token 是否存在 并且 判断 系统是否开启了全网通
 							if (!access_token.length && config.all_network_enable == 1) {
 								// 开启了全网通 并且 access_token 跳转到 绑定手机号的页面
 								uni.redirectTo({
-									url: `/pages/public/bind?key=${key}&user_id=` + this.user_id
+									url: `/pages/public/bind?key=${key}&user_id=` + this.user_id								
 								});
 								return;
 							}
