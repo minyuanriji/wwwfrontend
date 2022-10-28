@@ -74,7 +74,7 @@
 						
 						//#ifdef MP-WEIXIN
 							uni.navigateTo({
-								url:'/pages/webview/webview?url=' + url.split('=')[1]
+								url:'/webview/webview?url=' + url.split('=')[1]
 							})
 						//#endif
 						

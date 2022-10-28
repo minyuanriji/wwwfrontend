@@ -451,28 +451,6 @@
 					"titleNView": false
 				}
 			}
-		}, {
-			"path": "pages/enter/enter",
-			"style": {
-				"navigationBarTitleText": "商家申请入驻",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"navigationBarTextStyle": "black"
-			}
-		},  {
-			"path": "pages/enter/success",
-			"style": {
-				"navigationBarTitleText": "商家申请入驻",
-				"navigationBarBackgroundColor": "#FFFFFF",
-				"navigationBarTextStyle": "black"
-			}
-		}, 
-		{
-			"path": "pages/webview/webview",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
 		}, 
 		{
 			"path": "pages/order/verification/verification",
@@ -552,6 +530,17 @@
 		}
     ],
 	"subPackages": [{
+			"root": "webview",
+			"pages":[
+				{
+					"path": "webview",
+					"style": {
+						"navigationBarTitleText": "",
+						"enablePullDownRefresh": false
+					}
+				}
+			]
+		},{
 			"root": "plugins",
 			"pages":[
 				{
@@ -1632,6 +1621,22 @@
 		}, {
 			"root": "mch",
 			"pages": [
+				{
+					"path": "enter/enter",
+					"style": {
+						"navigationBarTitleText": "商家申请入驻",
+						"navigationBarBackgroundColor": "#FFFFFF",
+						"navigationBarTextStyle": "black"
+					}
+				},
+				{
+					"path": "enter/success",
+					"style": {
+						"navigationBarTitleText": "商家申请入驻",
+						"navigationBarBackgroundColor": "#FFFFFF",
+						"navigationBarTextStyle": "black"
+					}
+				},
 				{
 					"path": "lives/live",
 					"style": {

@@ -65,7 +65,7 @@
 						then(function(res){
 							if(res.code==0){
 								uni.redirectTo({
-									url:'../../pages/enter/enter'
+									url:'/mch/enter/enter'
 								})
 								
 							}

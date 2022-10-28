@@ -69,7 +69,7 @@
 							<view class="icon iconfont icon-tuandui2" :style="{color:'#FF7104'}"></view>
 							<view class="info">
 								<view class="title">{{'团队佣金'}}</view>
-								<view class="desc">{{data.agent.level_name || '合伙人'}}</view>
+								<view class="desc">{{data.agent.level_name || '区域服务商'}}</view>
 								<view class="money" :style="{color:'#FF7104'}">
 									<span class="dot">¥</span>
 									{{'0.00'}}

@@ -386,7 +386,7 @@
 		onShow() {
 			this.getData('show');
 			let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
-			let curRoute = routes[routes.length - 1].route //获取当前页面路由   //   pages/webview/webview
+			let curRoute = routes[routes.length - 1].route //获取当前页面路由   //   webview/webview
 			let curParam = routes[routes.length - 1].options; //获取路由参数     //   {"userId":"1000007"}
 			if (typeof curParam['pid'] != "undefined" && curParam.pid) {
 				uni.setStorageSync('pid', curParam.pid);
